@@ -37,7 +37,7 @@ export const approach: Record<Lang, ApproachContent> = {
         {
           title: 'Kararı size bırakırız, gerekçeyi yazılı veririz',
           body:
-            'Geçiş yöntemi, bulut modeli, kapsam sınırı gibi kararlar sizin kararınızdır. Bizim işimiz seçenekleri maliyet, süre ve riskiyle yan yana koymak ve tercihimizi gerekçesiyle söylemektir. Kararın arkasında kalan gerekçe, iki yıl sonra "bunu neden böyle yapmıştık?" sorusuna cevap verir.',
+            'Geçiş yöntemi, bulut modeli, kapsam sınırı gibi kararlar sizin kararınızdır. Bizim işimiz seçenekleri maliyet, süre ve riskiyle yan yana koymak ve tercihimizi gerekçesiyle söylemektir. Yazılı bıraktığımız gerekçe, iki yıl sonra "bunu neden böyle yapmıştık?" sorusuna cevap verir.',
         },
         {
           title: 'Kötü haberi erken söyleriz',
@@ -87,7 +87,7 @@ export const approach: Record<Lang, ApproachContent> = {
           when:
             'Kendi ekibiniz ya da başka bir danışman projeyi yürütüyor, belirli bir konuda derinlik gerekiyor. Tasarım gözden geçirmesi, ikinci görüş ya da tek bir iş kaleminin sahipliği.',
           shape:
-            'Sınırlı ve net tanımlı kapsam, üzerinde anlaşılmış çıktı. Gereksiz yere uzatılmaz.',
+            'Kapsam sınırlı ve net tanımlıdır, çıktı üzerinde baştan anlaşılır. Çalışma gereksiz yere uzatılmaz.',
           duration: 'Birkaç gün – birkaç hafta',
         },
       ],
@@ -108,7 +108,7 @@ export const approach: Record<Lang, ApproachContent> = {
     notDoing: {
       h2: 'Üstlenmediğimiz işler',
       lead:
-        'Neyi yapmadığımızı söylemek, ne yaptığımızı söylemek kadar önemlidir. Aşağıdaki işleri almıyoruz — uygun olduğumuzu düşünmediğimiz için.',
+        'Neyi yapmadığımızı söylemek, ne yaptığımızı söylemek kadar önemlidir. Bu işlerde doğru taraf olmadığımızı düşündüğümüz için aşağıdaki işleri almıyoruz.',
       items: [
         'Uzmanlık alanımız dışındaki SAP modüllerinin ana sorumluluğu (lojistik, üretim planlama, İK gibi)',
         'Yalnızca kaynak sağlama: proje yönetimi ya da mimari sorumluluk üstlenmeden danışman temini',

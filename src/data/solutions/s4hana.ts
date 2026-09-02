@@ -14,7 +14,7 @@ export const s4hana: LocalizedSolution = {
       'ECC’den S/4HANA’ya geçişte brownfield, greenfield ve selective data transition karşılaştırması, hazırlık analizi, veri migrasyonu ve uçtan uca dönüşüm yönetimi.',
 
     summary:
-      'S/4HANA projelerinin çoğu teknik nedenlerle değil, yanlış geçiş yöntemiyle başladıkları için zorlanır. Yöntem kararı, projenin süresini, maliyetini ve taşıyacağınız teknik borcu baştan belirler — bu yüzden işe oradan başlarız.',
+      'S/4HANA projelerinin çoğu teknik nedenlerle değil, yanlış geçiş yöntemiyle başladığı için zorlanır. Yöntem kararı, projenin süresini, maliyetini ve taşıyacağınız teknik borcu baştan belirler — bu yüzden işe oradan başlarız.',
 
     whoFor: [
       'ECC üzerinde çalışan ve bakım takvimi nedeniyle geçiş planı yapması gereken şirketler',
@@ -24,11 +24,11 @@ export const s4hana: LocalizedSolution = {
     ],
 
     challenges: [
-      'Brownfield mi greenfield mi sorusuna, sorulan her danışmandan farklı ve gerekçesiz bir cevap geliyor.',
+      'Brownfield mi greenfield mi sorusuna her danışman farklı ve gerekçesiz bir cevap veriyor.',
       'Mevcut sistemdeki özelleştirmelerin ne kadarının kullanıldığı bilinmiyor; hepsini taşımak da atmak da riskli görünüyor.',
       'Ana veri kalitesi belirsiz; migrasyonda çıkacak sorunların boyutu tahmin edilemiyor.',
       'Proje süresi ve iş biriminin ayıracağı efor gerçekçi biçimde tahmin edilemediği için bütçe onayı alınamıyor.',
-      'Geçişin iş tarafına ne kazandıracağı, teknik bir zorunluluk anlatısının ötesine geçmiyor.',
+      'Geçişin iş tarafına ne kazandıracağı anlatılamıyor; konu teknik bir zorunluluk anlatısının ötesine geçmiyor.',
     ],
 
     whatWeDo: [
@@ -36,7 +36,7 @@ export const s4hana: LocalizedSolution = {
         heading: 'Hazırlık analizi ve yöntem kararı',
         body: [
           'Mevcut sistemi teknik ve işlevsel olarak tararız: özelleştirme envanteri ve gerçek kullanım oranları, uyumsuzluk kontrolleri (simplification item), ana veri kalitesi, arayüz envanteri ve veri hacmi. Bu tarama, geçiş yöntemi tartışmasını görüş meselesi olmaktan çıkarır.',
-          'Üç yöntemin — sistem dönüşümü (brownfield), yeni kurulum (greenfield) ve seçici veri geçişi (selective data transition) — sizin özel durumunuzdaki maliyetini, süresini ve riskini karşılaştırmalı olarak koyarız. Kararı biz vermeyiz; kararı verecek kişinin elinde savunabileceği bir gerekçe olmasını sağlarız.',
+          'Üç yöntemin — sistem dönüşümü (brownfield), yeni kurulum (greenfield) ve seçici veri geçişi (selective data transition) — sizin özel durumunuzdaki maliyetini, süresini ve riskini yan yana koyarız. Kararı biz vermeyiz; kararı verecek kişinin elinde savunabileceği bir gerekçe olmasını sağlarız.',
           'Çoğu şirkette doğru cevap saf brownfield ya da saf greenfield değildir. Tarihsel veriyi taşırken süreçleri yenilemek isteyen gruplarda seçici geçiş, ilk bakışta karmaşık görünse de toplamda daha kısa ve daha ucuz çıkabilir.',
         ],
       },

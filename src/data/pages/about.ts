@@ -30,7 +30,7 @@ export const about: Record<Lang, AboutContent> = {
         'SAP ECC, S/4HANA on-premise, Private Cloud ve Public Cloud uçtan uca finans modülleri üzerine çalışan bağımsız bir danışmanlık şirketi. Odak alanımız, yapay zeka destekli çalışma biçimimiz ve uzman kadro yapımız.',
     },
     hero: {
-      h1: 'Uçtan uca finans modüllerinde ve yapay zeka destekli süreçlerde uzmanlaşmayı seçtik',
+      h1: 'Finans modüllerinde ve yapay zeka destekli süreçlerde uçtan uca uzmanlaşmayı seçtik',
       lead:
         'CPeak Consultancy; SAP ECC, S/4HANA on-premise, Private Cloud ve Public Cloud ortamlarında uçtan uca finans modülleri üzerine çalışan bağımsız bir danışmanlık şirketidir. Odak alanımız, uzman kadromuzla yürüttüğümüz yapay zeka destekli çalışma biçimimizdir. Uzmanlık alanımız dışındaki lojistik modüllerde ise yurt içi ve yurt dışı iş ortaklarımızla birlikte çalışarak projenize uçtan uca destek vermeyi taahhüt ederiz.',
     },
@@ -38,8 +38,8 @@ export const about: Record<Lang, AboutContent> = {
       h2: 'Neden bu odak',
       body: [
         'SAP danışmanlığında yaygın model geniş kapsam sunmak, sonra her alan için farklı bir uzman bulmaktır. Bu model satış aşamasında rahattır ama projede sorumluluğun dağılmasına yol açar: kritik bir finans kararı, o konuda en az deneyimi olan kişiye kalabilir.',
-        'Biz bunun tersini seçtik. Finans modülleri ve bulut mimarisi dışına çıkmıyoruz. Bir işi alıyorsak, o işin en zor kısmını dışarıya devretmiyoruz demektir. Uzmanlık alanımız dışındaki modüllerin ana sorumluluğunu ise almıyoruz — bunu yaklaşımımız sayfasında açıkça yazdık.',
-        'Bu odak, ölçek anlamına gelmiyor. Aynı anda çok sayıda proje yürütmek yerine, aldığımız işlerde kıdemli kadronun fiilen çalışmasını mümkün kılacak sayıda çalışıyoruz.',
+        'Biz bunun tersini seçtik. Finans modülleri ve bulut mimarisi dışına çıkmıyoruz. Bir işi almamız, o işin en zor kısmını dışarıya devretmeyeceğimiz anlamına gelir. Uzmanlık alanımız dışındaki modüllerin ana sorumluluğunu ise almıyoruz — bunu yaklaşımımız sayfasında açıkça yazdık.',
+        'Bu odak, ölçek anlamına gelmiyor. Aynı anda çok sayıda proje yürütmek yerine, kıdemli kadronun fiilen çalışmasını mümkün kılacak sayıda iş alıyoruz.',
       ],
     },
     focus: {
@@ -59,7 +59,7 @@ export const about: Record<Lang, AboutContent> = {
         {
           title: 'Yapay zeka ve RPA destekli süreç otomasyonu',
           body:
-            'SAP’nin yerleşik yapay zeka yetenekleriyle mutabakat, anomali tespiti ve tahmine dayalı muhasebe alanlarında otomasyon; ölçüme dayalı ve fazlı biçimde.',
+            'SAP’nin yerleşik yapay zeka yetenekleriyle mutabakat, anomali tespiti ve tahmine dayalı muhasebe alanlarında otomasyon sağlıyoruz; bunu ölçüme dayalı ve fazlı biçimde yapıyoruz.',
         },
       ],
     },

@@ -30,11 +30,12 @@ export const contact: Record<Lang, ContactContent> = {
     },
     aside: {
       directTitle: 'Doğrudan iletişim',
-      directBody: 'Form yerine doğrudan yazmayı tercih ederseniz: kerem.yigit@cpeakconsultancy.com',
+      directBody:
+        'Form yerine doğrudan yazmayı tercih ederseniz bu adrese yazabilirsiniz: kerem.yigit@cpeakconsultancy.com',
       hoursTitle: 'Çalışma saatleri',
       responseTitle: 'Yanıt süresi',
       responseBody:
-        'Mesajınıza bir iş günü içinde dönüyoruz. Bu bir hedef değil, tuttuğumuz bir taahhüt.',
+        'Mesajınıza bir iş günü içinde dönüyoruz. Bu bir hedef değil, tuttuğumuz bir taahhüttür.',
       addressTitle: 'Adres',
       mapNote:
         'Bostancı Mahallesi, Şemsettin Günaltay Caddesi No: 31/8 · 34744 Kadıköy / İstanbul',

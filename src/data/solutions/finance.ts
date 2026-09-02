@@ -54,7 +54,7 @@ export const finance: LocalizedSolution = {
         heading: 'Maliyet ve kârlılık muhasebesi',
         body: [
           'Maliyet merkezi hiyerarşisini, iç sipariş kullanımını ve dağıtım/tahsis döngülerini organizasyonun bugünkü haline göre yeniden kurarız. Kârlılık analizinde (CO-PA) hangi karakteristiklerin gerçekten karar desteklediğini, hangilerinin yalnızca veri hacmi yarattığını ayırırız; çoğu kurulumda ikinci grup daha kalabalıktır.',
-          'Ürün maliyetlendirmesi çalışan üretim şirketlerinde standart maliyet, sapma analizi ve stok değerleme akışını uçtan uca ele alırız; sapmaların hangi aşamada ve neden oluştuğunun izlenebilir olması, çoğu şirkette maliyet doğruluğundan daha kıymetlidir.',
+          'Ürün maliyetlendirmesi kullanan üretim şirketlerinde standart maliyet, sapma analizi ve stok değerleme akışını uçtan uca ele alırız; sapmaların hangi aşamada ve neden oluştuğunun izlenebilir olması, çoğu şirkette maliyet doğruluğundan daha kıymetlidir.',
         ],
       },
       {

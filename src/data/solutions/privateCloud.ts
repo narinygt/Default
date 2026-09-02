@@ -26,7 +26,7 @@ export const privateCloud: LocalizedSolution = {
     challenges: [
       'RISE kapsamının nerede bitip kendi sorumluluğunuzun nerede başladığı sözleşmeden net okunmuyor.',
       'Altyapı sağlayıcısı, uygulama danışmanı ve iç ekip arasındaki sorumluluk boşlukları proje ortasında ortaya çıkıyor.',
-      'Mevcut özelleştirme ve entegrasyonların bulut ortamında nasıl çalışacağı test edilmeden varsayılıyor.',
+      'Mevcut özelleştirme ve entegrasyonların bulut ortamında çalışacağı, test edilmeden varsayılıyor.',
       'Performans ve kapasite planlaması lisans boyutlandırmasıyla karıştırılıyor.',
       'Felaket kurtarma ve iş sürekliliği taahhütleri, iş biriminin beklentisiyle örtüşmüyor.',
     ],

@@ -55,7 +55,7 @@ export const solutionsOverview: Record<Lang, OverviewContent> = {
     compare: {
       h2: 'Beş çözüm alanı karşılaştırması',
       lead:
-        'Aynı şirket birden fazla başlıkta olabilir. Bu tablo, hangi çalışmayla başlanmasının daha mantıklı olduğunu göstermek için hazırlanmıştır.',
+        'Aynı şirket birden fazla başlıkta olabilir. Bu tablo, hangi çalışmayla başlamanın daha doğru olduğunu göstermek için hazırlanmıştır.',
       caption: 'Çözüm alanlarının kapsam, süre ve ana kazanım karşılaştırması',
       headers: {
         solution: 'Çözüm',
@@ -166,9 +166,9 @@ export const solutionsOverview: Record<Lang, OverviewContent> = {
     },
 
     howToChoose: {
-      h2: 'Nereden başlamalı',
+      h2: 'Nereden başlamalı?',
       body: [
-        'Hangi çözüm başlığında olduğunuzdan emin değilseniz, cevap genellikle mevcut durumunuza bakılarak bulunur. ECC üzerindeyseniz ve bakım takvimi gündeminizdeyse, başlangıç noktası S/4HANA hazırlık analizidir. Halihazırda S/4HANA’daysanız ve sorun raporlama tutarlılığı ya da kapanış süresiyse, finans modülü çalışması daha doğrudur.',
+        'Hangi çözüm başlığında olduğunuzdan emin değilseniz, cevabı genellikle mevcut durumunuz belirler. ECC üzerindeyseniz ve bakım takvimi gündeminizdeyse, başlangıç noktası S/4HANA hazırlık analizidir. Halihazırda S/4HANA’daysanız ve sorun raporlama tutarlılığı ya da kapanış süresiyse, finans modülü çalışması daha doğrudur.',
         'Henüz SAP kullanmıyor ve kurulum planlıyorsanız, ilk soru bulut modeli seçimidir; bu karar diğer her şeyin çerçevesini belirler. Ekibinizin zamanı tekrar eden manuel işlere gidiyorsa, süreç otomasyonu değerlendirmesi tek başına ve kısa sürede sonuç veren bir başlangıçtır.',
         'Emin olamadığınız durumda en düşük maliyetli adım bir değerlendirme fazıdır. İki ila altı haftalık bu çalışma, hangi işin önce yapılması gerektiğini veriyle ortaya koyar ve devam kararını buna dayandırmanızı sağlar.',
       ],

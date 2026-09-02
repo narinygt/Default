@@ -47,7 +47,7 @@ export const ai: LocalizedSolution = {
         heading: 'SAP’nin yerleşik yetenekleri',
         body: [
           'SAP’nin finans alanındaki yapay zeka yetenekleri, ayrı bir ürün almak yerine sistemin içinden çalışır. Akıllı mutabakat, banka ve cari hesap kalemlerini geçmiş eşleşme davranışından öğrenerek otomatik eşler ve yalnızca kararsız kaldığı kalemleri insana bırakır. Anomali tespiti, alışılmadık kayıtları kapanıştan önce işaretler. Tahmine dayalı muhasebe, henüz kesinleşmemiş işlemlerin etkisini dönem içinde görünür kılar. Joule ise doğal dille sorgulama ve gezinme katmanı sunar.',
-          'Bunların hepsini açmak bir strateji değildir. Her yetenek belirli bir veri hacmi ve belirli bir süreç düzeni gerektirir; koşulu sağlanmadan açılan yetenek gürültü üretir ve ekibin güvenini kaybeder. Hangi yeteneğin sizde çalışacak koşula sahip olduğunu değerlendirir, sırayla devreye alırız.',
+          'Bunların hepsini açmak bir strateji değildir. Her yetenek belirli bir veri hacmi ve belirli bir süreç düzeni gerektirir; koşulu sağlanmadan açılan yetenek gürültü üretir ve ekibin güvenini yitirmesine yol açar. Hangi yeteneğin sizde çalışacak koşula sahip olduğunu değerlendirir, sırayla devreye alırız.',
         ],
       },
       {
@@ -83,7 +83,7 @@ export const ai: LocalizedSolution = {
     ],
 
     aiRole:
-      'Bu hizmetin konusu zaten yapay zeka. Burada eklenmesi gereken nokta şu: aynı disiplini kendi çalışma şeklimizde de uygularız. Analiz, dokümantasyon ve test üretiminde yapay zekadan yararlanırız, ancak müşteri verisi üzerinde çalışan her adım önceden mutabık kalınan sınırlar içinde yürür ve her çıktı kıdemli danışman denetiminden geçer.',
+      'Bu hizmetin konusu zaten yapay zeka. Burada eklenmesi gereken nokta şu: aynı disiplini kendi çalışma şeklimizde de uygularız. Analiz, dokümantasyon ve test üretiminde yapay zekadan yararlanırız, ancak müşteri verisi üzerinde çalışan her adım, önceden mutabık kalınan sınırlar içinde yürütülür ve her çıktı kıdemli danışman denetiminden geçer.',
 
     duration:
       'Ölçüm ve uygunluk değerlendirmesi 2–3 hafta. İlk fazın devreye alınması tipik olarak 6–12 hafta.',

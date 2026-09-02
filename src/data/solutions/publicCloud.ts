@@ -8,7 +8,7 @@ export const publicCloud: LocalizedSolution = {
     cardDesc:
       'Standarda uyum karşılığında hız ve düşük toplam maliyet sunan Public Cloud modelinde, sürecinizin standarda ne kadar sığdığını önce netleştiririz.',
 
-    title: 'SAP Public Cloud: standardın sınırlarını önceden bilerek',
+    title: 'SAP Public Cloud: standardın sınırlarını önceden bilmek',
     metaTitle: 'SAP Public Cloud (Cloud ERP Public Edition) Danışmanlığı | CPeak',
     metaDescription:
       'SAP Cloud ERP Public Edition için uygunluk değerlendirmesi, fit-to-standard analizi, finans süreç kurulumu ve çeyreklik güncelleme döngüsüne hazırlık.',
@@ -35,7 +35,7 @@ export const publicCloud: LocalizedSolution = {
       {
         heading: 'Uygunluk değerlendirmesi: doğru soru, doğru zamanda',
         body: [
-          'Public Cloud kararının verilmesi gereken an, sözleşme imzalanmadan öncedir. Süreçlerinizi standart kapsamla madde madde karşılaştırır, standart dışına düşen her noktayı üç gruba ayırırız: standartla değiştirilebilecek olanlar, izin verilen genişletme yöntemleriyle karşılanabilecek olanlar ve modele hiç sığmayanlar.',
+          'Public Cloud kararı, sözleşme imzalanmadan önce verilmelidir. Süreçlerinizi standart kapsamla madde madde karşılaştırır, standart dışına düşen her noktayı üç gruba ayırırız: standartla değiştirilebilecek olanlar, izin verilen genişletme yöntemleriyle karşılanabilecek olanlar ve modele hiç sığmayanlar.',
           'Üçüncü grup boş değilse bu bir başarısızlık değil, bilgidir. Kimi şirket için doğru cevap Private Cloud’dur; kimi şirket için ise o birkaç süreci standarda uydurmak, uğruna ödenecek bedelden ucuzdur. Bu kararı bizim yerimize sizin verebilmeniz için karşılaştırmayı yazılı ve gerekçeli bırakırız.',
         ],
       },

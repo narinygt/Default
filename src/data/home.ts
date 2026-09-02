@@ -95,9 +95,9 @@ export const home: Record<Lang, HomeContent> = {
     hero: {
       // Başlıklarda nokta ve virgül kullanılmıyor. Virgül iki öbeği
       // ayırdığı için düz silinemezdi; bağlaçla yeniden kuruldu.
-      h1: 'SAP finansında 10+ yıl ve bulutta yeni bir mimari',
+      h1: 'SAP Finansallarda 10+ yıl deneyim ve SAP Bulut Mimarisi',
       lead:
-        'Finans modüllerinde derinlik ve bulut modelleri arasında tarafsız değerlendirme — kararınızı savunabileceğiniz gerekçelerle veriyoruz.',
+        'Finansal modüllerde uzmanlık ve bulut modellerinde tarafsız değerlendirme sağlıyoruz.',
       primaryCta: 'Bize yazın',
       secondaryCta: 'Çözümleri inceleyin',
       figureAlt:
@@ -117,7 +117,7 @@ export const home: Record<Lang, HomeContent> = {
 
     solutions: {
       eyebrow: 'Çözümler',
-      h2: 'Beş alanda, tek bir finans bakış açısıyla',
+      h2: 'Beş çözüm alanı, tek bir finans bakış açısı',
       lead:
         'Her çalışma, finans ekibinin günlük işine ne olacağı sorusundan başlar. Teknik karar da, mimari karar da bu sorunun cevabına bağlıdır.',
       allLink: 'Çözümleri karşılaştırın',
@@ -127,12 +127,12 @@ export const home: Record<Lang, HomeContent> = {
       eyebrow: 'Neden CPeak',
       h2: 'Farkı, projede kimin çalıştığı belirler',
       lead:
-        'SAP danışmanlığında sonucu belirleyen şey metodoloji değil, projede fiilen kimin oturduğudur.',
+        'SAP danışmanlığında sonucu belirleyen şey metodoloji değil, projede fiilen kimin çalıştığıdır.',
       items: [
         {
           title: 'Finans modülünde gerçek derinlik',
           body:
-            'FI ve CO, yanında getirilen bir yetkinlik değil ana uzmanlık alanımız. Hesap planı tasarımı, maliyet muhasebesi ve kapanış süreci gibi geri dönüşü pahalı kararlarda, konuyu daha önce defalarca yaşamış birinin görüşünü alırsınız.',
+            'FI ve CO bizim için yan yetkinlik değil, ana uzmanlık alanımızdır. Hesap planı tasarımı, maliyet muhasebesi ve kapanış süreci gibi geri dönüşü pahalı kararlarda, konuyu daha önce defalarca yaşamış birinin görüşünü alırsınız.',
         },
         {
           title: 'Bulut modelinde tarafsızlık',
@@ -154,7 +154,7 @@ export const home: Record<Lang, HomeContent> = {
 
     aiSection: {
       eyebrow: 'Yapay zeka yaklaşımımız',
-      h2: 'İki tarafta da: sizin süreçlerinizde ve bizim çalışma şeklimizde',
+      h2: 'Yapay zekayı iki tarafta da kullanıyoruz: sizin süreçlerinizde ve kendi çalışma şeklimizde',
       lead:
         'Yapay zekayı ayrı bir hizmet başlığı olarak değil, hem müşteriye sunduğumuz sistemin hem de kendi çalışma yöntemimizin bir parçası olarak ele alıyoruz.',
       forClients: {
@@ -180,12 +180,12 @@ export const home: Record<Lang, HomeContent> = {
         ],
       },
       stance:
-        'Duruşumuz: müşteri verisi üzerinde çalışan her adım önceden mutabık kalınan sınırlar içinde yürür ve finansal kayıt üreten hiçbir karar insan denetiminden geçmeden kesinleşmez.',
+        'Duruşumuz: müşteri verisi üzerinde çalışan her adım, önceden mutabık kalınan sınırlar içinde yürütülür ve finansal kayıt üreten hiçbir karar insan denetiminden geçmeden kesinleşmez.',
     },
 
     process: {
       eyebrow: 'Çalışma yaklaşımı',
-      h2: 'Dört adım, her birinin sonunda elle tutulur bir çıktı',
+      h2: 'Dört adım; her adımın sonunda elle tutulur bir çıktı',
       lead:
         'Her adımın sonunda ne teslim edileceği baştan bellidir. Bir adım tamamlanmadan bir sonrakine geçilmez.',
       steps: [
@@ -226,7 +226,7 @@ export const home: Record<Lang, HomeContent> = {
 
     scenarios: {
       eyebrow: 'Tipik proje senaryoları',
-      h2: 'Çalışmanın pratikte neye benzediği',
+      h2: 'Çalışma pratikte nasıl ilerliyor?',
       lead:
         'Aşağıdaki üç örnek, sık karşılaştığımız durumları ve izlediğimiz yaklaşımı gösterir.',
       disclaimer:

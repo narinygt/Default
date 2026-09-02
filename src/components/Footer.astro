@@ -1,5 +1,5 @@
 ---
-import { site, addressLines } from '@/config/site';
+import { site, addressLines, mapsUrl } from '@/config/site';
 import { t } from '@/i18n/ui';
 import { path, SOLUTIONS, type Lang } from '@/i18n/routes';
 import { solutionMeta } from '@/data/solutions';
@@ -25,6 +25,8 @@ const legalLinks = [
 ];
 
 const lines = addressLines();
+/** Adres tamamlanmadıysa `null` döner; o durumda harita bağlantısı basılmaz. */
+const mapHref = mapsUrl();
 const registryEntries = [
   { label: lang === 'tr' ? 'Unvan' : 'Legal name', value: site.legal.companyLegalName },
   { label: lang === 'tr' ? 'Sicil No' : 'Registry no', value: site.legal.tradeRegistryNo },
@@ -78,12 +80,30 @@ const registryEntries = [
         <address class="footer-address">
           <p class="addr-lines">
             {
-              lines.map((line) =>
-                line.pending ? (
-                  <span class="todo addr-line">{line.text}</span>
-                ) : (
-                  <span class="addr-line">{line.text}</span>
-                ),
+              mapHref ? (
+                /* Adrese tıklayan ziyaretçi doğrudan haritadaki konuma gider. */
+                <a
+                  class="addr-link"
+                  href={mapHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={ui.common.openInMapsAria}
+                >
+                  {lines.map((line) => (
+                    <span class="addr-line">{line.text}</span>
+                  ))}
+                  <span class="mono addr-map-cta" aria-hidden="true">
+                    {ui.common.openInMaps} →
+                  </span>
+                </a>
+              ) : (
+                lines.map((line) =>
+                  line.pending ? (
+                    <span class="todo addr-line">{line.text}</span>
+                  ) : (
+                    <span class="addr-line">{line.text}</span>
+                  ),
+                )
               )
             }
           </p>
@@ -235,6 +255,29 @@ const registryEntries = [
   }
   .addr-line {
     display: block;
+  }
+  /* Adres bağlantısı satırların tamamını sarar; alt çizgi yalnızca
+     hover'da gelir ki adres blok hâlinde okunabilir kalsın. */
+  .footer-address :global(a.addr-link) {
+    display: grid;
+    gap: 0.22rem;
+  }
+  .footer-address :global(a.addr-link:hover) {
+    text-decoration: none;
+  }
+  .footer-address :global(a.addr-link:hover) .addr-line {
+    text-decoration: underline;
+    text-underline-offset: 0.22em;
+  }
+  .addr-map-cta {
+    margin-top: 0.3rem;
+    font-size: 0.74rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.8);
+  }
+  .footer-address :global(a.addr-link:hover) .addr-map-cta {
+    color: rgba(255, 255, 255, 0.9);
   }
 
   .footer-hours {

@@ -6,7 +6,7 @@
  * çok daha kötüdür. `clean()` bu alanları sessizce eler; bilgi
  * girildiği anda schema kendiliğinden zenginleşir.
  */
-import { SITE_URL, site, officeHours, isTodo } from '@/config/site';
+import { SITE_URL, site, officeHours, isTodo, mapsUrl } from '@/config/site';
 import { path, type Lang, type RouteRef } from '@/i18n/routes';
 
 /** TODO placeholder ise undefined döndürür — schema'ya yazılmaz. */
@@ -48,6 +48,8 @@ export function organizationSchema(lang: Lang) {
     telephone: clean(site.contact.phone),
     // Yalnızca ülke dışında bir alan doldurulmuşsa adres yazılır.
     address: Object.keys(address).length > 2 ? address : undefined,
+    // Sayfadaki adres bağlantısının aynısı — adres eksikse `null` gelir, yazılmaz.
+    hasMap: mapsUrl() ?? undefined,
     sameAs: sameAs.length ? sameAs : undefined,
     areaServed: [
       { '@type': 'Country', name: 'Türkiye' },

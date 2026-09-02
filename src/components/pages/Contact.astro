@@ -5,7 +5,7 @@ import Field from '@/components/Field.astro';
 import { type Lang } from '@/i18n/routes';
 import { t } from '@/i18n/ui';
 import { contact } from '@/data/pages/contact';
-import { site, addressLines } from '@/config/site';
+import { site, addressLines, mapsUrl } from '@/config/site';
 
 interface Props {
   lang: Lang;
@@ -16,8 +16,11 @@ const ui = t(lang);
 const c = contact[lang];
 
 const lines = addressLines();
-/** Adres tamamlanmadan harita alanı gösterilmez. */
-const addressReady = lines.every((l) => !l.pending);
+/**
+ * Adres tamamlanmadan harita bağlantısı gösterilmez: `mapsUrl()`
+ * placeholder bir adres için `null` döner.
+ */
+const mapHref = mapsUrl();
 ---
 
 <section class="ct">
@@ -81,25 +84,37 @@ const addressReady = lines.every((l) => !l.pending);
           <h2 class="mono ct-block-title">{c.aside.addressTitle}</h2>
           <address class="ct-address">
             {
-              lines.map((line) =>
-                line.pending ? (
-                  <span class="todo">{line.text}</span>
-                ) : (
-                  <span class="ct-addr-line">{line.text}</span>
-                ),
+              mapHref ? (
+                /* Adresin tamamı tek bir bağlantı: tıklayan ziyaretçi
+                   doğrudan haritada konuma gider. Mobilde yüklü Maps
+                   uygulaması, masaüstünde yeni sekme açılır. */
+                <a
+                  class="ct-address-link"
+                  href={mapHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={ui.common.openInMapsAria}
+                >
+                  {lines.map((line) => (
+                    <span class="ct-addr-line">{line.text}</span>
+                  ))}
+                  <span class="mono ct-map-cta" aria-hidden="true">
+                    {ui.common.openInMaps} <span class="ct-map-arrow">→</span>
+                  </span>
+                </a>
+              ) : (
+                lines.map((line) =>
+                  line.pending ? (
+                    <span class="todo">{line.text}</span>
+                  ) : (
+                    <span class="ct-addr-line">{line.text}</span>
+                  ),
+                )
               )
             }
           </address>
 
-          {
-            addressReady ? (
-              <div class="ct-map-slot">
-                {/* Adres netleştiğinde buraya gömülü harita gelir. */}
-              </div>
-            ) : (
-              <p class="ct-map-note">{c.aside.mapNote}</p>
-            )
-          }
+          {!mapHref && <p class="ct-map-note">{c.aside.mapNote}</p>}
         </div>
 
         <!-- Sonrasında ne oluyor -->
@@ -226,19 +241,53 @@ const addressReady = lines.every((l) => !l.pending);
     display: block;
   }
 
+  /* Adres bağlantısı. Kapsamsız `a { color: var(--teal) }` kuralı
+     adresi bağlantı mavisine çevirmesin diye renk burada gövde metnine
+     sabitlenir; tıklanabilirliği alt satırdaki "Haritada aç" ibaresi ve
+     hover'daki alt çizgi taşır. Aynı desen Footer.astro'da da kullanılır. */
+  .ct-address :global(a.ct-address-link) {
+    display: grid;
+    gap: 0.2rem;
+    color: var(--text);
+    text-decoration: none;
+    border-radius: var(--radius);
+  }
+  .ct-address :global(a.ct-address-link:hover) .ct-addr-line {
+    text-decoration: underline;
+    text-underline-offset: 0.22em;
+  }
+
+  .ct-map-cta {
+    margin-top: 0.35rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--teal);
+  }
+  .ct-map-arrow {
+    transition: transform var(--dur-fast) var(--ease);
+  }
+  .ct-address :global(a.ct-address-link:hover) .ct-map-arrow {
+    transform: translateX(0.2rem);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ct-map-arrow {
+      transition: none;
+    }
+    .ct-address :global(a.ct-address-link:hover) .ct-map-arrow {
+      transform: none;
+    }
+  }
+
   .ct-map-note {
     margin-top: var(--space-xs);
     padding-top: var(--space-xs);
     border-top: 1px dashed var(--border);
     font-size: 0.85rem;
     color: var(--text-muted);
-  }
-  .ct-map-slot {
-    margin-top: var(--space-xs);
-    aspect-ratio: 16 / 10;
-    background: var(--paper);
-    border: 1px solid var(--border-soft);
-    border-radius: var(--radius);
   }
 
   .ct-steps {

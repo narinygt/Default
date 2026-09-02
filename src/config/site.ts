@@ -136,6 +136,37 @@ export function addressLines(): { text: string; pending: boolean }[] {
   return [line(a.street), line(a.postalCode, a.district), line(a.city)];
 }
 
+/**
+ * Adresin tek satırlık hâli — harita servisine verilen sorgu metni.
+ *
+ * Adresin HERHANGİ bir parçası hâlâ placeholder ise `null` döner:
+ * yarım bir adresle harita açmak ziyaretçiyi yanlış noktaya götürür,
+ * bağlantıyı hiç göstermemek daha doğrudur.
+ */
+export function addressQuery(): string | null {
+  const a = site.contact.address;
+  const parts = [a.street, a.postalCode, a.district, a.city];
+  if (parts.some(isTodo)) return null;
+
+  return `${a.street}, ${a.postalCode} ${a.district}, ${a.city}`;
+}
+
+/**
+ * Adresin harita bağlantısı.
+ *
+ * Google Maps'in resmi "search" uç noktası kullanılır: platformdan
+ * bağımsızdır — mobilde yüklü Maps uygulamasını, masaüstünde tarayıcıyı
+ * açar. API anahtarı gerektirmez, sayfaya üçüncü taraf script yüklemez.
+ *
+ * Adres tamamlanmadıysa `null` döner; çağıran taraf bağlantıyı basmaz.
+ */
+export function mapsUrl(): string | null {
+  const query = addressQuery();
+  if (query === null) return null;
+
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+}
+
 /** Haftalık çalışma saatleri — hem sayfada hem schema.org verisinde kullanılır. */
 export const officeHours = {
   days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'] as const,

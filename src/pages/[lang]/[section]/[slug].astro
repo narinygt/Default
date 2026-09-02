@@ -9,7 +9,6 @@ import Breadcrumbs from '@/components/Breadcrumbs.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import SolutionCard from '@/components/SolutionCard.astro';
 import Ledger from '@/components/Ledger.astro';
-import CloseCycle from '@/components/CloseCycle.astro';
 import {
   LANGS,
   PAGES,
@@ -37,11 +36,6 @@ const { solution } = Astro.props as { solution: SolutionKey };
 
 const ui = t(lang);
 const c = solutionMeta[solution][lang];
-
-/** Görsel yalnızca konusuyla birebir eşleşen sayfada gösterilir.
-    Kapanış görselinin yeri finans modülleri sayfasıdır; diğer
-    sayfalara boşluk doldurmak için görsel konmaz. */
-const hasVisual = solution === 'finance';
 
 /** Bu sayfa dışındaki çözümler — sayfa sonunda çapraz link olarak. */
 const others = SOLUTION_KEYS.filter((k) => k !== solution);
@@ -83,11 +77,6 @@ const schema = [
         current={c.navTitle}
       />
 
-      {/* Yapay zeka sayfasında hero metninin yanına görsel gelir; diğer
-          çözüm sayfalarında konuyla eşleşen bir görsel bulunmadığı için
-          yalnızca metin kalır — boşluk doldurmak adına ilgisiz görsel
-          konmaz. */}
-      <div class:list={['sol-hero-grid', hasVisual && 'has-visual']}>
       <div class="sol-hero-copy reveal">
         <span class="sol-icon" aria-hidden="true">
           <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -100,24 +89,6 @@ const schema = [
         <div class="btn-row">
           <a href={path({ page: 'contact' }, lang)} class="btn btn-primary">{ui.cta.primary}</a>
         </div>
-      </div>
-
-      {
-        hasVisual && (
-          <CloseCycle
-            tone="light"
-            class="sol-hero-visual reveal"
-            labels={{
-              period: lang === 'tr' ? 'DÖNEM' : 'PERIOD',
-              window: lang === 'tr' ? 'KAPANIŞ' : 'CLOSE',
-              steps:
-                lang === 'tr'
-                  ? ['KİLİT', 'MUTABAKAT', 'TAHAKKUK', 'RAPOR']
-                  : ['LOCK', 'RECONCILE', 'ACCRUE', 'REPORT'],
-            }}
-          />
-        )
-      }
       </div>
     </div>
   </section>
@@ -268,26 +239,6 @@ const schema = [
   .sol-hero-copy {
     max-width: 46rem;
     margin-top: var(--space-md);
-  }
-  .sol-hero-visual {
-    display: none;
-  }
-  /* Görsel yalnızca yan yana yerleşimin sığdığı genişliklerde görünür:
-     dar ekranda metnin altına düşen dekoratif bir görsel, mobil
-     kullanıcıya bedelini hak etmeyen bir indirme olurdu. */
-  @media (min-width: 56rem) {
-    .sol-hero-grid.has-visual {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 0.38fr);
-      gap: var(--space-md);
-      align-items: center;
-    }
-    .sol-hero-visual {
-      display: block;
-      width: 100%;
-      max-width: 21rem;
-      margin-inline: auto;
-    }
   }
   .sol-icon {
     display: block;

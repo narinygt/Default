@@ -445,6 +445,22 @@ section {
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
 }
 
+/* BEŞ KART, ÜÇ SÜTUN — `auto-fit` ile son satırda bir hücre boş kalıyor
+   ve ızgara yarım kalmış görünüyordu. Altı sütunluk bir ızgarada ilk üç
+   kart ikişer, son iki kart üçer sütun kaplayınca satır tam dolar.
+   Yalnızca üç sütunun sığdığı genişliklerde devreye girer. */
+@media (min-width: 60rem) {
+  .solutions-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+  .solutions-grid > * {
+    grid-column: span 2;
+  }
+  .solutions-grid > :nth-last-child(-n + 2) {
+    grid-column: span 3;
+  }
+}
+
 /* ---------- 6. Butonlar ----------------------------------------- */
 
 .btn {

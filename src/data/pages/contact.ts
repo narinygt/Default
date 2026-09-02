@@ -62,7 +62,8 @@ export const contact: Record<Lang, ContactContent> = {
     },
     aside: {
       directTitle: 'Direct contact',
-      directBody: 'If you would rather write directly than use the form:',
+      directBody:
+        'If you would rather write directly than use the form, this is the address: kerem.yigit@cpeakconsultancy.com',
       hoursTitle: 'Office hours',
       responseTitle: 'Response time',
       responseBody:

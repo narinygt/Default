@@ -123,7 +123,7 @@ export const privateCloud: LocalizedSolution = {
       'For organisations moving to cloud without giving up their own process logic: architecture, migration and provider coordination.',
 
     title: 'SAP Private Cloud: hand over the infrastructure, keep the flexibility',
-    metaTitle: 'SAP Private Cloud & RISE with SAP Consulting | CPeak Consultancy',
+    metaTitle: 'SAP Private Cloud & RISE with SAP Consulting | CPeak',
     metaDescription:
       'Architecture design, responsibility boundary definition, migration management and finance transformation for RISE with SAP and Cloud ERP Private Edition.',
 

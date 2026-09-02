@@ -13,7 +13,7 @@ export const finance: LocalizedSolution = {
       'Genel muhasebe, borç/alacak, sabit kıymet ve maliyet muhasebesini tek bir tutarlı süreç mimarisinde kurar ya da yeniden düzenleriz.',
 
     title: 'SAP finans modülleri: FI ve CO derinliği',
-    metaTitle: 'SAP Finans Modülleri Danışmanlığı (FI & CO) | CPeak Consultancy',
+    metaTitle: 'SAP Finans Modülleri Danışmanlığı (FI & CO) | CPeak',
     metaDescription:
       'SAP FI ve CO modüllerinde süreç tasarımı, hesap planı yapılandırması, maliyet muhasebesi ve ay sonu kapanış iyileştirmesi. 10+ yıllık saha deneyimi.',
 

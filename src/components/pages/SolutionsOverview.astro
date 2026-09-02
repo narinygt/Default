@@ -33,9 +33,14 @@ const c = solutionsOverview[lang];
 </section>
 
 <!-- ============ ÇÖZÜM KARTLARI ============ -->
-<section class="section-sm">
+<section class="section-sm" aria-labelledby="ov-cards-title">
   <div class="container">
-    <div class="grid grid-3">
+    {/* Kartların başlığı h3; araya h2 girmediği için başlık sırası
+        h1'den h3'e atlıyordu. Görünür bir başlık tasarımı bozardı,
+        bu yüzden yalnızca ekran okuyucuya ve belge yapısına giden
+        bir h2 eklendi. */}
+    <h2 id="ov-cards-title" class="sr-only">{ui.nav.solutions}</h2>
+    <div class="grid grid-3 solutions-grid">
       {SOLUTION_KEYS.map((key, i) => <SolutionCard lang={lang} solution={key} delay={i} />)}
     </div>
   </div>

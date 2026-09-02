@@ -26,7 +26,7 @@ export const todoLabel = (value: string): string =>
  * kimsenin gerçek alan adına çakışmaz. Canonical URL, hreflang ve
  * sitemap.xml bu değerden üretilir — DEPLOY ÖNCESİ MUTLAKA DEĞİŞTİRİN.
  */
-export const SITE_URL = 'https://cpeak.example';
+export const SITE_URL = 'https://www.cpeakconsultancy.com';
 
 export const site = {
   name: 'CPeak Consultancy',
@@ -95,7 +95,7 @@ export const site = {
    * bir kaynak gerekir.
    */
   hero: {
-    visual: 'image' as 'ledger' | 'image' | 'duotone' | 'background',
+    visual: 'ledger' as 'ledger' | 'image' | 'duotone' | 'background',
   },
 
   /** Google Analytics 4 ölçüm kimliği. Boş bırakılırsa GA hiç yüklenmez. */

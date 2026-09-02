@@ -29,7 +29,7 @@ const { lang } = Astro.props;
 const ui = t(lang);
 ---
 
-<section class="refs on-dark" aria-labelledby="refs-title">
+<section class="refs" aria-labelledby="refs-title">
   <div class="container">
     <p class="eyebrow" id="refs-title">{ui.common.references}</p>
 
@@ -69,8 +69,15 @@ const ui = t(lang);
 </section>
 
 <style>
+  /* ZEMİN KASITLI OLARAK AÇIK. Şerit eskiden koyu teal üzerindeydi;
+     listedeki logoların yarısı (Mercedes-Benz, PwC, Wavin, Fusion,
+     Boehringer) koyu renkli olduğu için zeminde eriyor, GSK ve Imerys
+     gibi açık renkliler öne fırlıyordu — şerit dengesiz görünüyordu.
+     Logolara filtre uygulamak markaların kendi renklerini bozar; bu
+     yüzden zemin, logoların tasarlandığı açık tona alındı. */
   .refs {
-    background: var(--surface-dark);
+    background: var(--surface);
+    border-block: 1px solid var(--border-soft);
     padding-block: clamp(1.9rem, 1.4rem + 1.7vw, 2.75rem);
   }
 

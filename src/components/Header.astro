@@ -532,15 +532,17 @@ const mainLinks = [
   .mobile-list a:hover {
     color: var(--teal);
   }
-  /* Listeyi özetleyen bağlantı. Boyutu kasıtlı olarak maddelerden bir
-     tık küçük (1.05rem / 1.22rem) — aynı hiyerarşide değil — ama display
-     fontu, ağırlığı ve oku sitenin geri kalanıyla aynı. Alt çizgisi YOK:
-     eskiden liste maddesiydi ve kendi çizgisi hemen altındaki <hr> ile
-     üst üste binip çift hat oluşturuyordu. Dikey iç boşluk dokunma
-     hedefini 44px'in üzerinde tutar. */
+  /* Listeyi özetleyen bağlantı. Ölçüsü menüdeki diğer satırlarla
+     AYNI: daha önce bir tık küçüktü (1.05rem / 1.22rem) ve alt alta
+     dizilen satırların arasında yarım basamaklık bir kırılma yaratıp
+     orantısız duruyordu. Ayrı bir bağlantı olduğu, listenin üyesi
+     olmadığı teal renginden ve okundan zaten anlaşılıyor. Alt çizgisi
+     YOK: hemen altındaki <hr> ile üst üste binip çift hat oluşturuyordu.
+     Dikey iç boşluk dokunma hedefini 44px'in üzerinde tutar. */
   .mobile-overview {
-    font-size: 1.05rem;
-    padding: 0.9rem 0;
+    font-size: 1.22rem;
+    letter-spacing: -0.02em;
+    padding: 0.82rem 0;
   }
   .mobile-rule {
     border: 0;

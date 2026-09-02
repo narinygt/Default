@@ -1,6 +1,7 @@
 ---
 import Base from '@/layouts/Base.astro';
 import Ledger from '@/components/Ledger.astro';
+import Reconcile from '@/components/Reconcile.astro';
 import References from '@/components/References.astro';
 import SolutionCard from '@/components/SolutionCard.astro';
 import CtaBand from '@/components/CtaBand.astro';
@@ -153,17 +154,14 @@ const imageDims =
           <h2>{c.aiSection.h2}</h2>
           <p class="lead">{c.aiSection.lead}</p>
         </div>
-        <img
+        <Reconcile
+          tone="dark"
           class="ai-visual reveal"
-          src="/media/quantum-cutout.webp"
-          width="800"
-          height="942"
-          alt={lang === 'tr'
-            ? 'İleri hesaplama donanımını betimleyen temsili görsel'
-            : 'Illustrative image depicting advanced computing hardware'}
-          loading="lazy"
-          decoding="async"
-          data-delay="1"
+          labels={{
+            left: lang === 'tr' ? 'BANKA EKSTRESİ' : 'BANK STATEMENT',
+            right: lang === 'tr' ? 'AÇIK KALEMLER' : 'OPEN ITEMS',
+            flagged: lang === 'tr' ? 'İNCELE' : 'REVIEW',
+          }}
         />
       </div>
 
@@ -628,12 +626,8 @@ const imageDims =
     .ai-visual {
       display: block;
       width: 100%;
-      max-width: 19rem;
-      height: auto;
+      max-width: 23rem;
       margin-inline: auto;
-      /* Kesimin kenarları teal zeminde sertleşmesin diye çok hafif
-         bir gölge; parlama/glow değil. */
-      filter: drop-shadow(0 18px 34px rgba(0, 0, 0, 0.28));
     }
   }
 </style>

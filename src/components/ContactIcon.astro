@@ -1,0 +1,72 @@
+---
+/**
+ * İLETİŞİM İKONLARI — e-posta, telefon, adres, LinkedIn
+ * =================================================================
+ * Çizim dili çözüm sayfalarındaki ikonlarla aynıdır (24×24 kutu, ince
+ * kontur, dolgu yok, yuvarlatılmış uçlar) — siteye ikinci bir ikon
+ * ailesi girmesin diye. Renk `currentColor`'dan gelir; koyu ve açık
+ * zeminde ayrı bir kural gerekmez.
+ *
+ * DEKORATİFTİR: yanındaki metin (etiket ya da değerin kendisi) bilgiyi
+ * zaten taşıdığı için `aria-hidden`. Ekran okuyucu ikonu iki kez
+ * okumaz.
+ */
+interface Props {
+  name: 'mail' | 'phone' | 'pin' | 'linkedin';
+  size?: number;
+  class?: string;
+}
+
+const { name, size = 17, class: className = '' } = Astro.props;
+---
+
+<svg
+  class:list={['cicon', className]}
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.5"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+>
+  {
+    name === 'mail' && (
+      <>
+        <path d="M3.5 6h17v12h-17z" />
+        <path d="m3.5 7.4 8.5 5.6 8.5-5.6" />
+      </>
+    )
+  }
+  {
+    name === 'phone' && (
+      <path d="M6.2 3.5h3.1l1.4 3.9-2 1.4a12.2 12.2 0 0 0 6.5 6.5l1.4-2 3.9 1.4v3.1a2 2 0 0 1-2.2 2A15.6 15.6 0 0 1 4.2 5.7a2 2 0 0 1 2-2.2Z" />
+    )
+  }
+  {
+    name === 'pin' && (
+      <>
+        <path d="M12 21c4.2-4.4 6.3-7.7 6.3-10.1a6.3 6.3 0 1 0-12.6 0C5.7 13.3 7.8 16.6 12 21Z" />
+        <circle cx="12" cy="10.6" r="2.3" />
+      </>
+    )
+  }
+  {
+    name === 'linkedin' && (
+      <>
+        <path d="M6.4 9.6v9.2M6.4 5.4v.1" />
+        <path d="M11.4 18.8V9.6M11.4 13.4a3.4 3.4 0 0 1 6.8 0v5.4" />
+      </>
+    )
+  }
+</svg>
+
+<style>
+  .cicon {
+    flex: none;
+    display: block;
+  }
+</style>

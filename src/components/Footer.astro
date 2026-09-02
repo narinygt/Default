@@ -4,6 +4,7 @@ import { t } from '@/i18n/ui';
 import { path, SOLUTIONS, type Lang } from '@/i18n/routes';
 import { solutionMeta } from '@/data/solutions';
 import Field from './Field.astro';
+import ContactIcon from './ContactIcon.astro';
 
 interface Props {
   lang: Lang;
@@ -79,6 +80,7 @@ const registryEntries = [
         <h2 class="mono footer-heading">{ui.footer.contact}</h2>
         <address class="footer-address">
           <p class="addr-lines">
+            <ContactIcon name="pin" class="footer-icon" />
             {
               mapHref ? (
                 /* Adrese tıklayan ziyaretçi doğrudan haritadaki konuma gider. */
@@ -104,17 +106,20 @@ const registryEntries = [
               )
             }
           </p>
-          <p>
+          <p class="footer-line">
+            <ContactIcon name="mail" class="footer-icon" />
             <Field lang={lang} value={site.contact.email} href={(v) => `mailto:${v}`} />
           </p>
-          <p>
+          <p class="footer-line">
+            <ContactIcon name="phone" class="footer-icon" />
             <Field
               lang={lang}
               value={site.contact.phone}
               href={(v) => `tel:${v.replace(/[^\d+]/g, '')}`}
             />
           </p>
-          <p>
+          <p class="footer-line">
+            <ContactIcon name="linkedin" class="footer-icon" />
             <Field lang={lang} value={site.contact.linkedin} href={(v) => v} />
           </p>
         </address>
@@ -240,15 +245,40 @@ const registryEntries = [
   .footer-address :global(a) {
     color: rgba(255, 255, 255, 0.88);
     text-decoration: none;
+    /* `anywhere`, `break-word`ün aksine elemanın MIN-CONTENT ölçüsünü de
+       küçültür. Buna ihtiyaç var: ikon sütunu eklendikten sonra uzun
+       LinkedIn adresi footer ızgarasını genişletiyor ve 1024 px'te
+       sayfanın tamamını 75 px yatay kaydırıyordu. */
+    overflow-wrap: anywhere;
   }
   .footer-address :global(a:hover) {
     color: #fff;
     text-decoration: underline;
     text-underline-offset: 0.22em;
   }
-  .addr-lines {
+  /* İkon sütunu tüm satırlarda aynı: adres, e-posta, telefon ve
+     LinkedIn aynı hizada başlar. */
+  .addr-lines,
+  .footer-line {
     display: grid;
-    gap: 0.22rem;
+    /* `minmax(0, 1fr)`: uzun LinkedIn adresi ikinci sütunu zorlayınca
+       `auto` sütun eziliyor, o satırdaki ikon küçülüp hizadan
+       çıkıyordu. */
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: 0.55rem;
+    align-items: start;
+  }
+  .addr-lines {
+    row-gap: 0.22rem;
+  }
+  .addr-lines > :global(*:not(.footer-icon)) {
+    grid-column: 2;
+  }
+  /* `:global()` şart: ikon ayrı bir bileşenin kök elemanı, bu dosyanın
+     kapsam etiketini taşımıyor. */
+  .footer-address :global(.footer-icon) {
+    color: rgba(255, 255, 255, 0.5);
+    transform: translateY(0.2em);
   }
   .addr-line {
     display: block;

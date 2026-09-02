@@ -2,6 +2,7 @@
 import Breadcrumbs from '@/components/Breadcrumbs.astro';
 import ContactForm from '@/components/ContactForm.astro';
 import Field from '@/components/Field.astro';
+import ContactIcon from '@/components/ContactIcon.astro';
 import { type Lang } from '@/i18n/routes';
 import { t } from '@/i18n/ui';
 import { contact } from '@/data/pages/contact';
@@ -49,10 +50,12 @@ const mapHref = mapsUrl();
           <p class="ct-block-note">{c.aside.directBody}</p>
           <ul class="ct-contacts">
             <li>
+              <ContactIcon name="mail" class="ct-icon" />
               <span class="mono ct-key">{lang === 'tr' ? 'E-posta' : 'Email'}</span>
               <Field lang={lang} value={site.contact.email} href={(v) => `mailto:${v}`} />
             </li>
             <li>
+              <ContactIcon name="phone" class="ct-icon" />
               <span class="mono ct-key">{lang === 'tr' ? 'Telefon' : 'Phone'}</span>
               <Field
                 lang={lang}
@@ -61,6 +64,7 @@ const mapHref = mapsUrl();
               />
             </li>
             <li>
+              <ContactIcon name="linkedin" class="ct-icon" />
               <span class="mono ct-key">LinkedIn</span>
               <Field lang={lang} value={site.contact.linkedin} href={(v) => v} />
             </li>
@@ -81,7 +85,10 @@ const mapHref = mapsUrl();
 
         <!-- Adres -->
         <div class="ct-block">
-          <h2 class="mono ct-block-title">{c.aside.addressTitle}</h2>
+          <h2 class="mono ct-block-title ct-title-icon">
+            <ContactIcon name="pin" size={15} />
+            {c.aside.addressTitle}
+          </h2>
           <address class="ct-address">
             {
               mapHref ? (
@@ -196,6 +203,35 @@ const mapHref = mapsUrl();
     padding: 0;
     display: grid;
     gap: var(--space-xs);
+  }
+  /* İkon + etiket + değer: ikon ilk sütunda sabit, değer alt satıra
+     iner ve etiketin altına DEĞİL, ikonun sağına hizalanır. */
+  .ct-contacts li {
+    display: grid;
+    /* `minmax(0, 1fr)`: uzun bir değer (LinkedIn adresi gibi) ikinci
+       sütunu zorlayınca `auto` sütun eziliyor ve ikon küçülüyordu. */
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: 0.55rem;
+    align-items: baseline;
+  }
+  /* `:global()` şart: ikon, ayrı bir bileşenin kök elemanı olduğu için
+     bu dosyanın kapsam etiketini taşımaz — kapsamlı seçici ona ulaşmaz
+     ve renk kuralı sessizce düşerdi. */
+  .ct-contacts :global(.ct-icon),
+  .ct-title-icon :global(.cicon) {
+    color: var(--teal);
+    transform: translateY(0.15em);
+  }
+  .ct-title-icon :global(.cicon) {
+    transform: none;
+  }
+  .ct-contacts li > :global(*:nth-child(3)) {
+    grid-column: 2;
+  }
+  .ct-title-icon {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
   }
   .ct-contacts li {
     display: grid;

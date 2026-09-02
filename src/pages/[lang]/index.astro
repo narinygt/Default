@@ -144,10 +144,27 @@ const imageDims =
     <Ledger variant="texture" tone="dark" />
 
     <div class="container ai-inner">
-      <div class="section-head reveal">
-        <p class="eyebrow">{c.aiSection.eyebrow}</p>
-        <h2>{c.aiSection.h2}</h2>
-        <p class="lead">{c.aiSection.lead}</p>
+      {/* Bölüm başlığı ile görsel yan yana. Görsel saydam kesim
+          olduğu için teal zemine kutusuz oturur; bakır tonları
+          paletteki amber vurgusuyla aynı ailede. */}
+      <div class="ai-head">
+        <div class="section-head reveal">
+          <p class="eyebrow">{c.aiSection.eyebrow}</p>
+          <h2>{c.aiSection.h2}</h2>
+          <p class="lead">{c.aiSection.lead}</p>
+        </div>
+        <img
+          class="ai-visual reveal"
+          src="/media/quantum-cutout.webp"
+          width="800"
+          height="942"
+          alt={lang === 'tr'
+            ? 'İleri hesaplama donanımını betimleyen temsili görsel'
+            : 'Illustrative image depicting advanced computing hardware'}
+          loading="lazy"
+          decoding="async"
+          data-delay="1"
+        />
       </div>
 
       <div class="grid grid-2 ai-grid">
@@ -586,5 +603,37 @@ const imageDims =
     font-size: 0.95rem;
     line-height: 1.55;
     color: var(--text);
+  }
+  /* --- Yapay zeka bölümü görseli --- */
+  .ai-head {
+    display: grid;
+    gap: var(--space-sm);
+    align-items: center;
+    margin-bottom: var(--space-md);
+  }
+  .ai-head .section-head {
+    margin-bottom: 0;
+  }
+  .ai-visual {
+    display: none;
+  }
+  /* Görsel yalnızca yan yana yerleşimin mümkün olduğu genişliklerde
+     görünür: dar ekranda metnin altına düşen 151 KB'lık dekoratif bir
+     görsel, mobil kullanıcıya bedelini hak etmeyen bir yük olurdu. */
+  @media (min-width: 56rem) {
+    .ai-head {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 0.42fr);
+      gap: var(--space-md);
+    }
+    .ai-visual {
+      display: block;
+      width: 100%;
+      max-width: 19rem;
+      height: auto;
+      margin-inline: auto;
+      /* Kesimin kenarları teal zeminde sertleşmesin diye çok hafif
+         bir gölge; parlama/glow değil. */
+      filter: drop-shadow(0 18px 34px rgba(0, 0, 0, 0.28));
+    }
   }
 </style>

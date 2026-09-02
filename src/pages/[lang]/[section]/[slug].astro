@@ -77,6 +77,11 @@ const schema = [
         current={c.navTitle}
       />
 
+      {/* Yapay zeka sayfasında hero metninin yanına görsel gelir; diğer
+          çözüm sayfalarında konuyla eşleşen bir görsel bulunmadığı için
+          yalnızca metin kalır — boşluk doldurmak adına ilgisiz görsel
+          konmaz. */}
+      <div class:list={['sol-hero-grid', solution === 'ai' && 'has-visual']}>
       <div class="sol-hero-copy reveal">
         <span class="sol-icon" aria-hidden="true">
           <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -89,6 +94,26 @@ const schema = [
         <div class="btn-row">
           <a href={path({ page: 'contact' }, lang)} class="btn btn-primary">{ui.cta.primary}</a>
         </div>
+      </div>
+
+      {
+        solution === 'ai' && (
+          <img
+            class="sol-hero-visual reveal"
+            src="/media/quantum-duotone.webp"
+            width="800"
+            height="942"
+            alt={
+              lang === 'tr'
+                ? 'İleri hesaplama donanımını betimleyen temsili görsel'
+                : 'Illustrative image depicting advanced computing hardware'
+            }
+            loading="lazy"
+            decoding="async"
+            data-delay="1"
+          />
+        )
+      }
       </div>
     </div>
   </section>
@@ -239,6 +264,27 @@ const schema = [
   .sol-hero-copy {
     max-width: 46rem;
     margin-top: var(--space-md);
+  }
+  .sol-hero-visual {
+    display: none;
+  }
+  /* Görsel yalnızca yan yana yerleşimin sığdığı genişliklerde görünür:
+     dar ekranda metnin altına düşen dekoratif bir görsel, mobil
+     kullanıcıya bedelini hak etmeyen bir indirme olurdu. */
+  @media (min-width: 56rem) {
+    .sol-hero-grid.has-visual {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 0.38fr);
+      gap: var(--space-md);
+      align-items: center;
+    }
+    .sol-hero-visual {
+      display: block;
+      width: 100%;
+      max-width: 17rem;
+      height: auto;
+      margin-inline: auto;
+    }
   }
   .sol-icon {
     display: block;

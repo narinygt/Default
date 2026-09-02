@@ -98,9 +98,6 @@ const mapHref = mapsUrl();
                   {lines.map((line) => (
                     <span class="ct-addr-line">{line.text}</span>
                   ))}
-                  <span class="mono ct-map-cta" aria-hidden="true">
-                    {ui.common.openInMaps} <span class="ct-map-arrow">→</span>
-                  </span>
                 </a>
               ) : (
                 lines.map((line) =>
@@ -243,8 +240,8 @@ const mapHref = mapsUrl();
 
   /* Adres bağlantısı. Kapsamsız `a { color: var(--teal) }` kuralı
      adresi bağlantı mavisine çevirmesin diye renk burada gövde metnine
-     sabitlenir; tıklanabilirliği alt satırdaki "Haritada aç" ibaresi ve
-     hover'daki alt çizgi taşır. Aynı desen Footer.astro'da da kullanılır. */
+     sabitlenir; tıklanabilir olduğunu hover'daki alt çizgi gösterir.
+     Aynı desen Footer.astro'da da kullanılır. */
   .ct-address :global(a.ct-address-link) {
     display: grid;
     gap: 0.2rem;
@@ -255,31 +252,6 @@ const mapHref = mapsUrl();
   .ct-address :global(a.ct-address-link:hover) .ct-addr-line {
     text-decoration: underline;
     text-underline-offset: 0.22em;
-  }
-
-  .ct-map-cta {
-    margin-top: 0.35rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-    font-size: 0.78rem;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: var(--teal);
-  }
-  .ct-map-arrow {
-    transition: transform var(--dur-fast) var(--ease);
-  }
-  .ct-address :global(a.ct-address-link:hover) .ct-map-arrow {
-    transform: translateX(0.2rem);
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .ct-map-arrow {
-      transition: none;
-    }
-    .ct-address :global(a.ct-address-link:hover) .ct-map-arrow {
-      transform: none;
-    }
   }
 
   .ct-map-note {

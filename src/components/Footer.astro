@@ -92,9 +92,6 @@ const registryEntries = [
                   {lines.map((line) => (
                     <span class="addr-line">{line.text}</span>
                   ))}
-                  <span class="mono addr-map-cta" aria-hidden="true">
-                    {ui.common.openInMaps} →
-                  </span>
                 </a>
               ) : (
                 lines.map((line) =>
@@ -268,16 +265,6 @@ const registryEntries = [
   .footer-address :global(a.addr-link:hover) .addr-line {
     text-decoration: underline;
     text-underline-offset: 0.22em;
-  }
-  .addr-map-cta {
-    margin-top: 0.3rem;
-    font-size: 0.74rem;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.8);
-  }
-  .footer-address :global(a.addr-link:hover) .addr-map-cta {
-    color: rgba(255, 255, 255, 0.9);
   }
 
   .footer-hours {

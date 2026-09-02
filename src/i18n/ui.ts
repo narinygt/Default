@@ -71,7 +71,6 @@ export const ui = {
       aiRole: 'Yapay zekanın rolü',
       otherSolutions: 'Diğer çözümler',
       references: 'Referanslar',
-      openInMaps: 'Haritada aç',
       openInMapsAria: 'Adresi Google Haritalar’da aç (yeni sekmede)',
     },
     form: {
@@ -207,7 +206,6 @@ export const ui = {
       aiRole: 'Where AI fits in',
       otherSolutions: 'Other solutions',
       references: 'References',
-      openInMaps: 'Open in maps',
       openInMapsAria: 'Open the address in Google Maps (new tab)',
     },
     form: {

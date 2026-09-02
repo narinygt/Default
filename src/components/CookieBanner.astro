@@ -35,7 +35,7 @@ const gaId = site.analytics.ga4MeasurementId;
     <div class="cookie-body">
       <h2 id="cookie-title" class="cookie-title">{ui.cookies.title}</h2>
       <p class="cookie-text">
-        {ui.cookies.body}
+        {gaId ? ui.cookies.body : ui.cookies.bodyNecessaryOnly}
         <a href={path({ page: 'cookies' }, lang)}>{ui.cookies.policyLink}</a>
       </p>
 
@@ -49,18 +49,28 @@ const gaId = site.analytics.ga4MeasurementId;
           <p class="cookie-cat-desc">{ui.cookies.necessaryDesc}</p>
         </div>
 
-        <div class="cookie-cat">
-          <div class="cookie-cat-head">
-            {/* Sarmalayan <label> geçerlidir, ancak for/id ile açık
-                bağlama denetim araçlarında ve eski ekran okuyucularda
-                daha güvenilir sonuç verir. */}
-            <label class="cookie-switch" for="cookie-analytics">
-              <input type="checkbox" id="cookie-analytics" data-cookie-analytics />
-              <span class="cookie-cat-name">{ui.cookies.analytics}</span>
-            </label>
-          </div>
-          <p class="cookie-cat-desc">{ui.cookies.analyticsDesc}</p>
-        </div>
+        {
+          /* Analitik kategorisi YALNIZCA gerçek bir ölçüm kimliği
+             tanımlıysa gösterilir. GA kurulu değilken ziyaretçiye var
+             olmayan bir izleme için seçim yaptırmak yanıltıcıdır; site
+             o hâliyle yalnızca zorunlu kaydı (onay tercihi) tutar.
+             site.ts'e ölçüm kimliği yazıldığı anda kategori kendiliğinden
+             geri gelir. */
+          gaId && (
+            <div class="cookie-cat">
+              <div class="cookie-cat-head">
+                {/* Sarmalayan <label> geçerlidir, ancak for/id ile açık
+                    bağlama denetim araçlarında ve eski ekran okuyucularda
+                    daha güvenilir sonuç verir. */}
+                <label class="cookie-switch" for="cookie-analytics">
+                  <input type="checkbox" id="cookie-analytics" data-cookie-analytics />
+                  <span class="cookie-cat-name">{ui.cookies.analytics}</span>
+                </label>
+              </div>
+              <p class="cookie-cat-desc">{ui.cookies.analyticsDesc}</p>
+            </div>
+          )
+        }
       </div>
     </div>
 

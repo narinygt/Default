@@ -21,7 +21,7 @@ export const ui = {
       menu: 'Menü',
       openMenu: 'Menüyü aç',
       closeMenu: 'Menüyü kapat',
-      solutionsOverview: 'Tüm çözümlere genel bakış',
+      solutionsOverview: 'Tüm Çözümlere Genel Bakış',
     },
     cta: {
       primary: 'Bize yazın',
@@ -132,6 +132,10 @@ export const ui = {
       title: 'Çerez tercihleriniz',
       body:
         'Sitenin çalışması için zorunlu çerezleri kullanıyoruz. Ziyaret istatistiklerini ölçen analitik çerezler ise yalnızca siz onay verirseniz çalışır.',
+      /* Ölçüm kimliği tanımlı DEĞİLKEN gösterilen sürüm: sitede analitik
+         çerez olmadığı için ondan söz eden cümle yanıltıcı olurdu. */
+      bodyNecessaryOnly:
+        'Sitenin çalışması için yalnızca zorunlu çerezleri kullanıyoruz. Şu an sitede ziyaretinizi ölçen ya da izleyen bir çerez yok.',
       accept: 'Tümünü kabul et',
       reject: 'Tümünü reddet',
       save: 'Seçimimi kaydet',
@@ -156,7 +160,7 @@ export const ui = {
       menu: 'Menu',
       openMenu: 'Open menu',
       closeMenu: 'Close menu',
-      solutionsOverview: 'Solutions overview',
+      solutionsOverview: 'Solutions Overview',
     },
     cta: {
       primary: 'Get in touch',
@@ -267,6 +271,8 @@ export const ui = {
       title: 'Cookie preferences',
       body:
         'We use strictly necessary cookies to make the site work. Analytics cookies, which measure which pages get read, run only if you allow them.',
+      bodyNecessaryOnly:
+        'We use only the cookies required for the site to work. There is currently no cookie on this site that measures or tracks your visit.',
       accept: 'Accept all',
       reject: 'Reject all',
       save: 'Save my choice',

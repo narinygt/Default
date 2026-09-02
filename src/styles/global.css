@@ -819,8 +819,13 @@ thead th {
   font-weight: 550;
   letter-spacing: -0.01em;
   border-bottom: 0;
-  position: sticky;
-  top: 0;
+  /* Burada `position: sticky` DURUYORDU ama hiçbir işe yaramıyordu:
+     `.table-scroll` yatay kaydırma için `overflow-x: auto` taşıyor,
+     bu da `overflow-y`yi otomatik olarak `auto`ya çeviriyor. Yapışkan
+     başlık o kutuya göre konumlandığı ve kutu dikeyde hiç kaymadığı
+     için başlık asla yapışmıyor, tabloyla birlikte yukarı kayıyordu.
+     Ölü kural kaldırıldı; satır başlığı (ilk sütun) zaten her satırda
+     hangi ölçütte olduğunuzu gösteriyor. */
 }
 tbody th {
   font-family: var(--font-display);

@@ -27,7 +27,7 @@ export const about: Record<Lang, AboutContent> = {
     meta: {
       title: 'Hakkımızda | CPeak Danışmanlık',
       description:
-        'SAP ECC, S/4HANA on-premise, Private Cloud ve Public Cloud uçtan uca finans modülleri üzerine çalışan bağımsız bir danışmanlık şirketi. Odak alanımız, yapay zeka destekli çalışma biçimimiz ve uzman kadro yapımız.',
+        'SAP finans modülleri, S/4HANA ve bulut mimarisi üzerine çalışan bağımsız danışmanlık şirketi. Odak alanımız, kıdemli kadromuz ve çalışma biçimimiz.',
     },
     hero: {
       h1: 'Finans modüllerinde ve yapay zeka destekli süreçlerde uçtan uca uzmanlaşmayı seçtik',

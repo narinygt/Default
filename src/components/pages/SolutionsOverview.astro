@@ -49,7 +49,7 @@ const c = solutionsOverview[lang];
       <p class="lead">{c.compare.lead}</p>
     </div>
 
-    <div class="table-scroll reveal">
+    <div class="table-scroll reveal compare-table">
       <table>
         <caption>{c.compare.caption}</caption>
         <thead>
@@ -69,9 +69,11 @@ const c = solutionsOverview[lang];
                   <th scope="row">
                     <a href={path({ solution: key }, lang)}>{s.navTitle}</a>
                   </th>
-                  <td>{s.comparison.forWhom}</td>
-                  <td class="cell-mono">{s.comparison.duration}</td>
-                  <td>{s.comparison.mainGain}</td>
+                  <td data-label={c.compare.headers.forWhom}>{s.comparison.forWhom}</td>
+                  <td class="cell-mono" data-label={c.compare.headers.duration}>
+                    {s.comparison.duration}
+                  </td>
+                  <td data-label={c.compare.headers.mainGain}>{s.comparison.mainGain}</td>
                 </tr>
               );
             })
@@ -111,8 +113,8 @@ const c = solutionsOverview[lang];
             c.cloud.rows.map((row) => (
               <tr>
                 <th scope="row">{row.criterion}</th>
-                <td>{row.publicCloud}</td>
-                <td>{row.privateCloud}</td>
+                <td data-label={c.cloud.headers.publicCloud}>{row.publicCloud}</td>
+                <td data-label={c.cloud.headers.privateCloud}>{row.privateCloud}</td>
               </tr>
             ))
           }
@@ -204,11 +206,20 @@ const c = solutionsOverview[lang];
     color: var(--text-muted);
   }
 
+  /* Otomatik tablo düzeni sütun genişliğini metin uzunluğuna göre
+     dağıtıyor; iki karşılaştırma sütunu 50 px'e varan farkla bitip
+     tablo dengesiz görünüyordu. Sabit düzende ölçü içerikten değil
+     buradan gelir: ilk sütun 12rem, kalan genişlik ikiye eşit bölünür. */
   .cloud-table table {
     min-width: 52rem;
+    table-layout: fixed;
   }
   .cloud-table thead th:first-child {
     width: 12rem;
+  }
+  .cloud-table td,
+  .cloud-table tbody th {
+    overflow-wrap: break-word;
   }
   .cloud-table td {
     font-size: 0.94rem;
@@ -244,8 +255,15 @@ const c = solutionsOverview[lang];
     font-size: 0.97rem;
     color: var(--text-muted);
   }
+  .guidance-col {
+    display: flex;
+    flex-direction: column;
+  }
+  /* Listelerin madde sayısı eşit değil; bağlantı `auto` üst boşlukla
+     aşağı itilince iki sütun aynı hizada bitiyor. */
   .guidance-link {
-    margin-top: var(--space-sm);
+    margin-top: auto;
+    padding-top: var(--space-sm);
     font-size: 0.92rem;
   }
   .guidance-note {
@@ -260,5 +278,71 @@ const c = solutionsOverview[lang];
   .start-body p {
     color: var(--text-muted);
     line-height: 1.68;
+  }
+
+  /* ---------- Dar ekran: tablo yerine satır blokları ----------
+     Tablet ve telefonda üç/dört sütun yan yana sığmıyordu; kutu yatay
+     kayıyor ama kaydığına dair bir işaret vermediği için son sütun
+     kesilmiş gibi görünüyordu. Bu genişliklerin altında her satır
+     kendi bloğuna açılır: ölçüt başlık olur, sütun başlıkları da
+     hücrelerin üstüne etiket olarak (data-label) geçer. */
+  @media (max-width: 56rem) {
+    .table-scroll {
+      overflow-x: visible;
+    }
+    .table-scroll table {
+      min-width: 0;
+      table-layout: auto;
+    }
+    .table-scroll table,
+    .table-scroll tbody,
+    .table-scroll tr,
+    .table-scroll tbody th,
+    .table-scroll td {
+      display: block;
+      width: auto;
+    }
+    /* Tablo bloğa döndüğü için `table-caption` genişliğini kaybediyor
+       ve başlık tek kelimelik satırlara düşüyordu. */
+    .table-scroll caption {
+      display: block;
+    }
+    /* Başlık satırı hücre etiketlerine taşındığı için gizlenir. */
+    .table-scroll thead {
+      display: none;
+    }
+    .table-scroll tr {
+      padding: var(--space-sm) 1.1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .table-scroll tr:last-child {
+      border-bottom: 0;
+    }
+    .table-scroll tbody th {
+      padding: 0 0 0.55rem;
+      border: 0;
+      font-size: 1.05rem;
+    }
+    .table-scroll td {
+      padding: 0;
+      border: 0;
+    }
+    .table-scroll td + td {
+      margin-top: 0.75rem;
+    }
+    .table-scroll td::before {
+      content: attr(data-label);
+      display: block;
+      margin-bottom: 0.15rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--teal);
+    }
+    /* Yığılmış görünümde süre tek satıra sığmak zorunda değil. */
+    .cell-mono {
+      white-space: normal;
+    }
   }
 </style>

@@ -1,0 +1,646 @@
+---
+/**
+ * İLETİŞİM FORMU
+ * =================================================================
+ * Sitenin tek dönüşüm hedefi. Alan sayısı prompt'ta belirlenen
+ * nihai settir — yeni alan EKLEMEYİN, her ek alan dönüşümü düşürür.
+ *
+ * GÖNDERİM ALTYAPISI (2. faz):
+ * `site.form.endpoint` boş olduğu sürece form GERÇEKTEN göndermez.
+ * Bu durumda sahte bir "teşekkürler" göstermez — bu, gerçek
+ * talepleri sessizce kaybettirir. Bunun yerine ziyaretçiye durumu
+ * söyleyip doğrudan e-posta adresini verir.
+ *
+ * Endpoint tanımlandığı anda form JSON POST etmeye başlar ve
+ * başarı/hata durumları devreye girer. Başka değişiklik gerekmez.
+ *
+ * Sunucu tarafında yapılması gerekenler (endpoint yazılırken):
+ *   • honeypot alanı ("website") doluysa isteği sessizce yut
+ *   • IP başına oran sınırlaması (rate limiting)
+ *   • alan doğrulamalarını sunucuda TEKRARLA — istemci doğrulaması
+ *     yalnızca kullanıcı deneyimi içindir, güvenlik değildir
+ *   • bildirimi site.form.recipient adresine gönder
+ *   • başvurana, gönderdiği dilde otomatik onay e-postası yolla
+ */
+import { site, isTodo, todoLabel } from '@/config/site';
+import { t } from '@/i18n/ui';
+import { path, type Lang } from '@/i18n/routes';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const ui = t(lang);
+const f = ui.form;
+
+const topicOptions = [
+  { value: 'finance', label: f.topicOptions.finance },
+  { value: 's4hana', label: f.topicOptions.s4hana },
+  { value: 'publicCloud', label: f.topicOptions.publicCloud },
+  { value: 'privateCloud', label: f.topicOptions.privateCloud },
+  { value: 'ai', label: f.topicOptions.ai },
+  { value: 'other', label: f.topicOptions.other },
+];
+
+const statusOptions = [
+  { value: 'ecc', label: f.statusOptions.ecc },
+  { value: 's4', label: f.statusOptions.s4 },
+  { value: 'none', label: f.statusOptions.none },
+  { value: 'evaluating', label: f.statusOptions.evaluating },
+];
+
+/** Hata mesajları istemci tarafına tek bir JSON olarak taşınır. */
+const errorMessages = JSON.stringify(f.errors);
+
+const emailAddress = isTodo(site.contact.email) ? '' : todoLabel(site.contact.email);
+---
+
+<div class="form-wrap">
+  <form
+    class="cform"
+    id="contact-form"
+    novalidate
+    data-errors={errorMessages}
+    data-endpoint={site.form.endpoint}
+    data-lang={lang}
+    data-email={emailAddress}
+    data-submit-label={f.submit}
+    data-submitting-label={f.submitting}
+  >
+    <p class="form-intro">{f.intro}</p>
+
+    <!-- Ad soyad -->
+    <div class="field">
+      <label for="cf-name">
+        {f.name} <span class="req mono">{f.required}</span>
+      </label>
+      <input
+        type="text"
+        id="cf-name"
+        name="name"
+        autocomplete="name"
+        required
+        aria-describedby="err-name"
+      />
+      <p class="err" id="err-name" role="alert"></p>
+    </div>
+
+    <!-- E-posta -->
+    <div class="field">
+      <label for="cf-email">
+        {f.email} <span class="req mono">{f.required}</span>
+      </label>
+      <input
+        type="email"
+        id="cf-email"
+        name="email"
+        autocomplete="email"
+        inputmode="email"
+        required
+        aria-describedby="err-email"
+      />
+      <p class="err" id="err-email" role="alert"></p>
+    </div>
+
+    <!-- Telefon + Şirket -->
+    <div class="field-row">
+      <div class="field">
+        <label for="cf-phone">
+          {f.phone} <span class="opt mono">{f.phoneOptional}</span>
+        </label>
+        <input
+          type="tel"
+          id="cf-phone"
+          name="phone"
+          autocomplete="tel"
+          aria-describedby="err-phone"
+        />
+        <p class="err" id="err-phone" role="alert"></p>
+      </div>
+
+      <div class="field">
+        <label for="cf-company">
+          {f.company} <span class="req mono">{f.required}</span>
+        </label>
+        <input
+          type="text"
+          id="cf-company"
+          name="company"
+          autocomplete="organization"
+          required
+          aria-describedby="err-company"
+        />
+        <p class="err" id="err-company" role="alert"></p>
+      </div>
+    </div>
+
+    <!-- Görev -->
+    <div class="field">
+      <label for="cf-role">{f.role}</label>
+      <input type="text" id="cf-role" name="role" autocomplete="organization-title" />
+    </div>
+
+    <!-- Konu -->
+    <div class="field">
+      <label for="cf-topic">
+        {f.topic} <span class="req mono">{f.required}</span>
+      </label>
+      <select id="cf-topic" name="topic" required aria-describedby="err-topic">
+        <option value="">{f.choose}</option>
+        {topicOptions.map((o) => <option value={o.value}>{o.label}</option>)}
+      </select>
+      <p class="err" id="err-topic" role="alert"></p>
+    </div>
+
+    <!-- Mevcut SAP durumu -->
+    <div class="field">
+      <label for="cf-status">{f.sapStatus}</label>
+      <select id="cf-status" name="sapStatus">
+        <option value="">{f.choose}</option>
+        {statusOptions.map((o) => <option value={o.value}>{o.label}</option>)}
+      </select>
+    </div>
+
+    <!-- Mesaj -->
+    <div class="field">
+      <label for="cf-message">
+        {f.message} <span class="req mono">{f.required}</span>
+      </label>
+      <textarea
+        id="cf-message"
+        name="message"
+        rows="5"
+        required
+        placeholder={f.messagePlaceholder}
+        aria-describedby="err-message"></textarea>
+      <p class="err" id="err-message" role="alert"></p>
+    </div>
+
+    <!-- Honeypot: gerçek kullanıcı görmez, bot doldurur. -->
+    <div class="hp" aria-hidden="true">
+      <label for="cf-website">Website</label>
+      <input type="text" id="cf-website" name="website" tabindex="-1" autocomplete="off" />
+    </div>
+
+    <!-- Onaylar -->
+    <div class="field consents">
+      <div class="consent">
+        <input type="checkbox" id="cf-kvkk" name="kvkk" required aria-describedby="err-kvkk" />
+        <label for="cf-kvkk">
+          {f.kvkkLabel}
+          {/* Bağlantı ile devam eden metin arasında satır sonu bırakılmaz:
+              İngilizcede kalan parça yalnızca "." olduğu için araya boşluk
+              girip "privacy notice ." gibi görünüyordu. */}
+          <a href={path({ page: 'privacy' }, lang)} target="_blank" rel="noopener">{
+            f.kvkkLinkText
+          }</a>{f.kvkkLabelEnd}
+          <span class="req mono">{f.required}</span>
+        </label>
+      </div>
+      <p class="err" id="err-kvkk" role="alert"></p>
+
+      <div class="consent">
+        <input type="checkbox" id="cf-marketing" name="marketing" />
+        <label for="cf-marketing">{f.marketingLabel}</label>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary submit" data-submit>
+      <span data-submit-label>{f.submit}</span>
+      <span class="spinner" data-spinner hidden aria-hidden="true"></span>
+    </button>
+
+    <!-- Gönderim sonucu — aynı sayfada, form sıfırlanmadan. -->
+    <div class="form-status" data-status role="status" aria-live="polite" hidden></div>
+  </form>
+</div>
+
+<style>
+  .form-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.25rem, 0.8rem + 2vw, 2rem);
+  }
+
+  .form-intro {
+    color: var(--text-muted);
+    font-size: 0.98rem;
+    line-height: 1.6;
+    margin-bottom: var(--space-sm);
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid var(--border-soft);
+  }
+
+  .cform {
+    display: grid;
+    gap: var(--space-sm);
+  }
+
+  .field {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .field-row {
+    display: grid;
+    gap: var(--space-sm);
+  }
+  @media (min-width: 34rem) {
+    .field-row {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  label {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 550;
+    letter-spacing: -0.01em;
+    color: var(--navy);
+  }
+
+  /* Monospace katmanı: form yardım metinleri. */
+  .req,
+  .opt {
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    font-weight: 400;
+  }
+  .req {
+    color: var(--teal);
+  }
+
+  input[type='text'],
+  input[type='email'],
+  input[type='tel'],
+  select,
+  textarea {
+    width: 100%;
+    padding: 0.72rem 0.85rem;
+    min-height: 46px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--ink);
+    transition:
+      border-color var(--dur-fast) var(--ease),
+      background var(--dur-fast) var(--ease);
+  }
+  textarea {
+    resize: vertical;
+    min-height: 7rem;
+    line-height: 1.55;
+  }
+  input:hover,
+  select:hover,
+  textarea:hover {
+    border-color: var(--teal);
+  }
+  input:focus,
+  select:focus,
+  textarea:focus {
+    background: var(--surface);
+    border-color: var(--teal);
+  }
+  ::placeholder {
+    color: #8a99a5;
+  }
+
+  /* Hatalı alan: yalnızca renkle değil, kenarlık kalınlığı ve
+     metinle de işaretlenir — renk körlüğünde de okunur. */
+  [aria-invalid='true'] {
+    border-color: #a8321f;
+    border-width: 1.5px;
+    background: rgba(168, 50, 31, 0.04);
+  }
+
+  .err {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    line-height: 1.45;
+    letter-spacing: 0.01em;
+    color: #a8321f; /* --paper üzerinde 5.9:1 */
+    margin: 0;
+    display: none;
+  }
+  .err.is-shown {
+    display: block;
+  }
+
+  /* Honeypot: ekran dışına alınır, ekran okuyucudan da gizlenir. */
+  .hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  /* --- Onay kutuları --- */
+  .consents {
+    gap: var(--space-xs);
+    padding-top: var(--space-2xs);
+  }
+  .consent {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.65rem;
+    align-items: start;
+  }
+  .consent input {
+    /* WCAG 2.2 AA (2.5.8): en az 24px dokunma hedefi. */
+    width: 24px;
+    height: 24px;
+    margin-top: 0.15rem;
+    accent-color: var(--teal);
+    cursor: pointer;
+  }
+  .consent label {
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--text-muted);
+    cursor: pointer;
+  }
+  .consent a {
+    color: var(--teal);
+  }
+
+  /* --- Gönder --- */
+  .submit {
+    width: 100%;
+    margin-top: var(--space-2xs);
+  }
+  .submit[disabled] {
+    opacity: 0.72;
+    cursor: not-allowed;
+  }
+
+  .spinner {
+    width: 15px;
+    height: 15px;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+  }
+  .spinner[hidden] {
+    display: none;
+  }
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .spinner {
+      animation-duration: 2s;
+    }
+  }
+
+  /* --- Sonuç --- */
+  .form-status {
+    padding: var(--space-sm);
+    border-radius: var(--radius);
+    font-size: 0.97rem;
+    line-height: 1.6;
+  }
+  .form-status[hidden] {
+    display: none;
+  }
+  .form-status :global(strong) {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    margin-bottom: 0.25rem;
+  }
+  .form-status.is-success {
+    background: rgba(17, 103, 106, 0.08);
+    border: 1px solid var(--teal);
+    color: var(--ink);
+  }
+  .form-status.is-success :global(strong) {
+    color: var(--teal);
+  }
+  .form-status.is-error,
+  .form-status.is-pending {
+    background: rgba(232, 179, 58, 0.12);
+    border: 1px solid #b4772a;
+    color: #6b4711;
+  }
+  .form-status.is-error :global(strong),
+  .form-status.is-pending :global(strong) {
+    color: #7a4f12;
+  }
+  .form-status :global(a) {
+    color: inherit;
+    font-weight: 600;
+  }
+</style>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+
+  if (form) {
+    const messages = JSON.parse(form.dataset.errors ?? '{}') as Record<string, string>;
+    const endpoint = form.dataset.endpoint ?? '';
+    const lang = form.dataset.lang ?? 'tr';
+    const contactEmail = form.dataset.email ?? '';
+    const statusBox = form.querySelector<HTMLElement>('[data-status]');
+    const submitBtn = form.querySelector<HTMLButtonElement>('[data-submit]');
+    const submitLabel = form.querySelector<HTMLElement>('[data-submit-label]');
+    const spinner = form.querySelector<HTMLElement>('[data-spinner]');
+
+    /** Formun açılış zamanı — insan bir formu bir saniyede dolduramaz. */
+    const openedAt = Date.now();
+
+    const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i;
+    const PHONE_RE = /^[+\d][\d\s()./-]{6,}$/;
+
+    type Rule = (el: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement) => string | null;
+
+    /** Alan adı → doğrulama kuralı. */
+    const rules: Record<string, Rule> = {
+      name: (el) => (el.value.trim().length < 2 ? messages.nameRequired : null),
+      email: (el) => {
+        const v = el.value.trim();
+        if (!v) return messages.emailRequired;
+        return EMAIL_RE.test(v) ? null : messages.emailInvalid;
+      },
+      phone: (el) => {
+        const v = el.value.trim();
+        if (!v) return null; // opsiyonel
+        return PHONE_RE.test(v) ? null : messages.phoneInvalid;
+      },
+      company: (el) => (el.value.trim().length < 2 ? messages.companyRequired : null),
+      topic: (el) => (el.value ? null : messages.topicRequired),
+      message: (el) => {
+        const v = el.value.trim();
+        if (!v) return messages.messageRequired;
+        return v.length < 20 ? messages.messageTooShort : null;
+      },
+      kvkk: (el) => ((el as HTMLInputElement).checked ? null : messages.kvkkRequired),
+    };
+
+    const fieldEl = (name: string) =>
+      form.elements.namedItem(name) as
+        | HTMLInputElement
+        | HTMLSelectElement
+        | HTMLTextAreaElement
+        | null;
+
+    const errEl = (name: string) => document.getElementById(`err-${name}`);
+
+    /** Tek bir alanı doğrular, hatayı yazar/siler. Geçerliyse true. */
+    const validate = (name: string): boolean => {
+      const el = fieldEl(name);
+      const rule = rules[name];
+      if (!el || !rule) return true;
+
+      const error = rule(el);
+      const box = errEl(name);
+
+      if (error) {
+        el.setAttribute('aria-invalid', 'true');
+        if (box) {
+          box.textContent = error;
+          box.classList.add('is-shown');
+        }
+        return false;
+      }
+
+      el.removeAttribute('aria-invalid');
+      if (box) {
+        box.textContent = '';
+        box.classList.remove('is-shown');
+      }
+      return true;
+    };
+
+    // Anlık doğrulama: alandan çıkınca kontrol et. Yazarken bağırmaz —
+    // sadece hata zaten gösteriliyorsa düzeltmeyi anında yansıtır.
+    for (const name of Object.keys(rules)) {
+      const el = fieldEl(name);
+      if (!el) continue;
+
+      const eventName = el instanceof HTMLSelectElement || el.type === 'checkbox' ? 'change' : 'blur';
+      el.addEventListener(eventName, () => validate(name));
+      el.addEventListener('input', () => {
+        if (el.getAttribute('aria-invalid') === 'true') validate(name);
+      });
+    }
+
+    const setStatus = (kind: 'success' | 'error' | 'pending', html: string) => {
+      if (!statusBox) return;
+      statusBox.className = `form-status is-${kind}`;
+      statusBox.innerHTML = html;
+      statusBox.hidden = false;
+    };
+
+    const setBusy = (busy: boolean) => {
+      if (!submitBtn) return;
+      submitBtn.disabled = busy; // çift gönderimi engeller
+      if (spinner) spinner.hidden = !busy;
+      if (submitLabel) {
+        submitLabel.textContent = busy
+          ? (form.dataset.submittingLabel ?? submitLabel.textContent)
+          : (form.dataset.submitLabel ?? submitLabel.textContent);
+      }
+    };
+
+    const texts = {
+      tr: {
+        successTitle: 'Mesajınız ulaştı.',
+        successBody: 'Bir iş günü içinde dönüş yapıyoruz.',
+        errorTitle: 'Mesaj gönderilemedi.',
+        errorBody:
+          'Bağlantı kaynaklı geçici bir sorun olabilir. Tekrar deneyin ya da doğrudan e-posta gönderin.',
+        pendingTitle: 'Form gönderimi henüz bağlanmadı.',
+        pendingBody:
+          'Bu site yayına hazırlanıyor ve form altyapısı henüz devrede değil. Mesajınızın kaybolmaması için lütfen doğrudan e-posta gönderin.',
+        pendingNoEmail:
+          'Bu site yayına hazırlanıyor ve form altyapısı henüz devrede değil. İletişim bilgileri tamamlandığında bu form çalışmaya başlayacaktır.',
+      },
+      en: {
+        successTitle: 'Your message has reached us.',
+        successBody: 'We respond within one business day.',
+        errorTitle: 'The message could not be sent.',
+        errorBody:
+          'This may be a temporary connection problem. Please try again, or email us directly.',
+        pendingTitle: 'Form delivery is not connected yet.',
+        pendingBody:
+          'This site is still being prepared and the form backend is not live. So your message is not lost, please email us directly.',
+        pendingNoEmail:
+          'This site is still being prepared and the form backend is not live. The form will start working once the contact details are completed.',
+      },
+    } as const;
+
+    const tx = texts[lang === 'en' ? 'en' : 'tr'];
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Tüm alanları doğrula, ilk hatalı alana odaklan.
+      const names = Object.keys(rules);
+      const results = names.map((n) => validate(n));
+      const firstBad = names[results.indexOf(false)];
+
+      if (firstBad) {
+        fieldEl(firstBad)?.focus();
+        return;
+      }
+
+      // Bot kontrolleri: honeypot dolu ya da form saniyesinde gönderilmiş.
+      const honeypot = (fieldEl('website') as HTMLInputElement | null)?.value;
+      const tooFast = Date.now() - openedAt < 3000;
+      if (honeypot || tooFast) {
+        // Bota başarı göstermek, yeniden denemesini engeller.
+        setStatus('success', `<strong>${tx.successTitle}</strong>${tx.successBody}`);
+        return;
+      }
+
+      // Gönderim altyapısı henüz yoksa: SAHTE BAŞARI GÖSTERME.
+      if (!endpoint) {
+        const mail = contactEmail
+          ? `${tx.pendingBody} <a href="mailto:${contactEmail}">${contactEmail}</a>`
+          : tx.pendingNoEmail;
+        setStatus('pending', `<strong>${tx.pendingTitle}</strong>${mail}`);
+        return;
+      }
+
+      setBusy(true);
+      try {
+        const payload = Object.fromEntries(new FormData(form).entries());
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ...payload, lang }),
+        });
+
+        if (!res.ok) throw new Error(String(res.status));
+
+        setStatus('success', `<strong>${tx.successTitle}</strong>${tx.successBody}`);
+        // Form SIFIRLANMAZ: ziyaretçi ne yazdığını görmeye devam eder.
+        submitBtn?.setAttribute('hidden', '');
+
+        // GA4 dönüşüm olayı — yalnızca analitik onayı verildiyse tanımlıdır.
+        window.gtag?.('event', 'contact_form_submit', {
+          form_language: lang,
+          topic: String(payload.topic ?? ''),
+        });
+      } catch {
+        const mail = contactEmail
+          ? ` <a href="mailto:${contactEmail}">${contactEmail}</a>`
+          : '';
+        setStatus('error', `<strong>${tx.errorTitle}</strong>${tx.errorBody}${mail}`);
+        setBusy(false);
+      }
+    });
+  }
+</script>

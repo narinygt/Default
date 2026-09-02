@@ -1,0 +1,216 @@
+---
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import Ledger from '@/components/Ledger.astro';
+import Field from '@/components/Field.astro';
+import { path, type Lang } from '@/i18n/routes';
+import { t } from '@/i18n/ui';
+import { about } from '@/data/pages/about';
+import { isTodo } from '@/config/site';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const ui = t(lang);
+const c = about[lang];
+
+/**
+ * Kurumsal bilgiler bloğu, alanların EN AZ BİRİ gerçekten
+ * doldurulmuşsa gösterilir. Hepsi placeholder ise bölüm hiç
+ * basılmaz — ziyaretçiye boş bir "doldurulacak" listesi göstermeyiz.
+ */
+const hasRealFacts = c.optionalFacts.some((f) => !isTodo(f.value));
+---
+
+<section class="ab-hero">
+  <Ledger variant="texture" tone="light" class="ab-texture" />
+  <div class="container ab-hero-inner">
+    <Breadcrumbs
+      lang={lang}
+      trail={[{ name: lang === 'tr' ? 'Ana sayfa' : 'Home', ref: { page: 'home' } }]}
+      current={ui.nav.about}
+    />
+    <div class="ab-hero-copy reveal">
+      <h1>{c.hero.h1}</h1>
+      <p class="lead">{c.hero.lead}</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEDEN BU ODAK ============ -->
+<section class="section-sm ab-story">
+  <div class="container">
+    <div class="grid grid-2 ab-story-grid">
+      <h2 class="reveal">{c.story.h2}</h2>
+      <div class="stack reveal" data-delay="1">
+        {c.story.body.map((p) => <p class="ab-para">{p}</p>)}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NE ÜZERİNDE ÇALIŞIYORUZ ============ -->
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2>{c.focus.h2}</h2>
+      <p class="lead">{c.focus.lead}</p>
+    </div>
+
+    <div class="grid grid-3 ab-focus">
+      {
+        c.focus.items.map((item, i) => (
+          <div class="ab-focus-item reveal" data-delay={String(Math.min(i, 3))}>
+            <hr class="rule-teal" />
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <p class="ab-focus-link reveal">
+      <a href={path({ page: 'solutions' }, lang)} class="link-arrow">
+        {lang === 'tr' ? 'Çözümlerin ayrıntısı' : 'See the solutions in detail'}
+      </a>
+    </p>
+  </div>
+</section>
+
+<!-- ============ KADRO ============ -->
+<section class="section ab-people on-dark">
+  <Ledger variant="texture" tone="dark" />
+  <div class="container container-narrow ab-people-inner">
+    <div class="section-head reveal">
+      <p class="eyebrow">{lang === 'tr' ? 'Kadro' : 'Our people'}</p>
+      <h2>{c.people.h2}</h2>
+    </div>
+    <div class="stack reveal">
+      {c.people.body.map((p) => <p class="ab-people-para">{p}</p>)}
+    </div>
+
+    {
+      /* Kişi adı, fotoğrafı ve özgeçmişi bilinçli olarak yoktur:
+         prompt'ta verilmediği için uydurulmamıştır. Gerçek kadro
+         bilgisi eklenecekse burası doğru yerdir. */
+    }
+  </div>
+</section>
+
+<!-- ============ KURUMSAL BİLGİLER (yalnızca doldurulduysa) ============ -->
+{
+  hasRealFacts && (
+    <section class="section-sm">
+      <div class="container container-narrow">
+        <h2 class="ab-facts-title reveal">
+          {lang === 'tr' ? 'Kurumsal bilgiler' : 'Company details'}
+        </h2>
+        <dl class="ab-facts reveal">
+          {c.optionalFacts.map((f) => (
+            <div class="ab-fact">
+              <dt class="mono">{f.label}</dt>
+              <dd>
+                <Field lang={lang} value={f.value} />
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .ab-hero {
+    position: relative;
+    overflow: hidden;
+    padding-block: var(--space-sm) clamp(2rem, 1.2rem + 3vw, 3.5rem);
+  }
+  .ab-texture {
+    left: 55%;
+  }
+  .ab-hero-inner {
+    position: relative;
+    z-index: 1;
+  }
+  .ab-hero-copy {
+    max-width: 46rem;
+    margin-top: var(--space-md);
+  }
+  .ab-hero-copy .lead {
+    margin-top: var(--space-sm);
+  }
+
+  .ab-story {
+    background: var(--surface);
+    border-block: 1px solid var(--border-soft);
+  }
+  .ab-story-grid {
+    gap: var(--space-md);
+    align-items: start;
+  }
+  @media (min-width: 52rem) {
+    .ab-story-grid {
+      grid-template-columns: 1fr 1.6fr;
+      gap: var(--space-lg);
+    }
+  }
+  .ab-para {
+    color: var(--text-muted);
+    line-height: 1.68;
+  }
+
+  .ab-focus {
+    gap: var(--space-md);
+  }
+  .ab-focus-item h3 {
+    margin-block: var(--space-xs) var(--space-2xs);
+    font-size: 1.08rem;
+  }
+  .ab-focus-item p {
+    color: var(--text-muted);
+    font-size: 0.98rem;
+    line-height: 1.62;
+  }
+  .ab-focus-link {
+    margin-top: var(--space-md);
+  }
+
+  .ab-people {
+    overflow: hidden;
+  }
+  .ab-people-inner {
+    position: relative;
+    z-index: 1;
+  }
+  .ab-people-para {
+    color: var(--text-on-dark-muted);
+    line-height: 1.68;
+  }
+
+  .ab-facts-title {
+    font-size: 1.15rem;
+    margin-bottom: var(--space-sm);
+  }
+  .ab-facts {
+    display: grid;
+    gap: var(--space-sm);
+    margin: 0;
+  }
+  @media (min-width: 40rem) {
+    .ab-facts {
+      grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+    }
+  }
+  .ab-fact dt {
+    color: var(--text-muted);
+    font-size: 0.68rem;
+    margin-bottom: 0.25rem;
+  }
+  .ab-fact dd {
+    margin: 0;
+    color: var(--navy);
+    font-size: 1rem;
+  }
+</style>

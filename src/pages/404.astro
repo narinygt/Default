@@ -1,0 +1,146 @@
+---
+/**
+ * 404 — iki dilde.
+ * Ziyaretçinin hangi dilde olduğunu bilemeyiz (adres bulunamadı),
+ * bu yüzden her iki dilde de kısa bir mesaj gösterilir ve ana
+ * bölümlere doğrudan bağlantı verilir. Dil seçimi zorlanmaz.
+ */
+import '@/styles/global.css';
+import { SITE_URL, site } from '@/config/site';
+
+const links = [
+  { href: '/tr', label: 'Ana sayfa', lang: 'tr' },
+  { href: '/tr/cozumler', label: 'Çözümler', lang: 'tr' },
+  { href: '/tr/iletisim', label: 'İletişim', lang: 'tr' },
+  { href: '/en', label: 'Home', lang: 'en' },
+  { href: '/en/solutions', label: 'Solutions', lang: 'en' },
+  { href: '/en/contact', label: 'Contact', lang: 'en' },
+];
+---
+
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sayfa bulunamadı / Page not found — CPeak Consultancy</title>
+    <meta name="robots" content="noindex, follow" />
+    <link rel="icon" href="/brand/favicon.svg" type="image/svg+xml" />
+    <link rel="canonical" href={`${SITE_URL}/404`} />
+  </head>
+
+  <body class="nf-body">
+    <main class="nf">
+      <div class="container container-narrow nf-inner">
+        <a href="/tr" class="nf-brand">
+          <img
+            src={site.logo.src}
+            width={site.logo.width}
+            height={site.logo.height}
+            alt={site.name}
+          />
+        </a>
+
+        <p class="mono nf-code">404</p>
+
+        <div class="nf-msg" lang="tr">
+          <h1>Aradığınız sayfa bulunamadı</h1>
+          <p>Adres değişmiş ya da bağlantı eskimiş olabilir.</p>
+        </div>
+
+        <div class="nf-msg nf-msg-en" lang="en">
+          <p class="nf-en-title">We could not find that page</p>
+          <p>The address may have changed, or the link may be out of date.</p>
+        </div>
+
+        <nav class="nf-links" aria-label="Site">
+          <ul>
+            {
+              links.map((l) => (
+                <li>
+                  <a href={l.href} lang={l.lang}>
+                    {l.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </div>
+    </main>
+  </body>
+</html>
+
+<style>
+  .nf-body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    background: var(--paper);
+  }
+
+  .nf-inner {
+    padding-block: var(--space-xl);
+    text-align: left;
+  }
+
+  .nf-brand img {
+    height: 50px;
+    width: auto;
+    margin-bottom: var(--space-lg);
+  }
+
+  .nf-code {
+    color: var(--teal);
+    font-size: 0.85rem;
+    letter-spacing: 0.18em;
+    margin-bottom: var(--space-xs);
+  }
+
+  .nf-msg h1 {
+    font-size: clamp(1.7rem, 1.3rem + 1.8vw, 2.4rem);
+    margin-bottom: var(--space-xs);
+  }
+  .nf-msg p {
+    color: var(--text-muted);
+  }
+
+  .nf-msg-en {
+    margin-top: var(--space-md);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--border);
+  }
+  .nf-en-title {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 550;
+    letter-spacing: -0.02em;
+    color: var(--navy) !important;
+    margin-bottom: 0.3rem;
+  }
+
+  .nf-links {
+    margin-top: var(--space-lg);
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--border);
+  }
+  .nf-links ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    list-style: none;
+    padding: 0;
+  }
+  .nf-links a {
+    font-family: var(--font-display);
+    font-weight: 550;
+    font-size: 0.98rem;
+    color: var(--teal);
+    text-decoration: none;
+  }
+  .nf-links a:hover {
+    color: var(--navy);
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+  }
+</style>

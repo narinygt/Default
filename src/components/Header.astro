@@ -1,0 +1,667 @@
+---
+import { site } from '@/config/site';
+import { t } from '@/i18n/ui';
+import { path, alternates, SOLUTIONS, type Lang, type RouteRef } from '@/i18n/routes';
+import { solutionMeta } from '@/data/solutions';
+
+interface Props {
+  lang: Lang;
+  /** Bulunulan sayfa — dil değiştirici karşılığını buradan bulur. */
+  ref: RouteRef;
+  /**
+   * Sayfanın en üstündeki bölüm KOYU zeminli mi?
+   * Header sayfanın tepesinde saydamdır; altındaki zemin koyuysa
+   * lacivert logo ve menü okunmaz hale gelir. Bu bayrak, header'ı
+   * scroll edilmeden de açık renk yazıya geçirir.
+   */
+  darkTop?: boolean;
+}
+
+const { lang, ref, darkTop = false } = Astro.props;
+const ui = t(lang);
+const alt = alternates(ref);
+
+/** Aktif bağlantıyı işaretlemek için. */
+const here = Astro.url.pathname.replace(/\/$/, '');
+const isActive = (href: string) => here === href.replace(/\/$/, '');
+const inSolutions = here.includes(`/${lang}/${lang === 'tr' ? 'cozumler' : 'solutions'}`);
+
+const mainLinks = [
+  { href: path({ page: 'approach' }, lang), label: ui.nav.approach },
+  { href: path({ page: 'about' }, lang), label: ui.nav.about },
+  { href: path({ page: 'contact' }, lang), label: ui.nav.contact },
+];
+---
+
+<header class="site-header" id="site-header" data-header data-on-dark={darkTop ? "" : undefined}>
+  <div class="header-inner container">
+    <!-- Logo -->
+    <a class="brand" href={path({ page: 'home' }, lang)} aria-label={ui.a11y.homeLink}>
+      <img
+        class="brand-img brand-light"
+        src={site.logo.src}
+        width={site.logo.width}
+        height={site.logo.height}
+        alt={site.name}
+      />
+      <img
+        class="brand-img brand-dark"
+        src={site.logo.srcOnDark}
+        width={site.logo.width}
+        height={site.logo.height}
+        alt=""
+        aria-hidden="true"
+      />
+    </a>
+
+    <!-- Masaüstü menü -->
+    <nav class="nav-desktop" aria-label={ui.a11y.mainNav}>
+      <ul class="nav-list">
+        <li class="has-dropdown" data-dropdown>
+          <button
+            type="button"
+            class="nav-link nav-trigger"
+            aria-expanded="false"
+            aria-controls="solutions-menu"
+            aria-current={inSolutions ? 'true' : undefined}
+          >
+            {ui.nav.solutions}
+            <svg class="chevron" width="10" height="6" viewBox="0 0 10 6" aria-hidden="true">
+              <path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </button>
+
+          <div class="dropdown" id="solutions-menu">
+            <ul class="dropdown-list">
+              {
+                SOLUTIONS.map((s) => {
+                  const meta = solutionMeta[s.key][lang];
+                  return (
+                    <li>
+                      <a href={path({ solution: s.key }, lang)} class="dropdown-item">
+                        <span class="dropdown-title">{meta.navTitle}</span>
+                        <span class="dropdown-desc">{meta.navDesc}</span>
+                      </a>
+                    </li>
+                  );
+                })
+              }
+            </ul>
+            <a href={path({ page: 'solutions' }, lang)} class="dropdown-all link-arrow">
+              {ui.nav.solutionsOverview}
+            </a>
+          </div>
+        </li>
+
+        {
+          mainLinks.map((l) => (
+            <li>
+              <a href={l.href} class="nav-link" aria-current={isActive(l.href) ? 'page' : undefined}>
+                {l.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <!-- Sağ blok: dil + CTA -->
+    <div class="header-actions">
+      <div class="lang-switch" role="group" aria-label={ui.lang.label}>
+        <a
+          href={alt.tr}
+          hreflang="tr"
+          lang="tr"
+          class:list={['lang-opt', { 'is-current': lang === 'tr' }]}
+          aria-current={lang === 'tr' ? 'true' : undefined}>TR</a
+        >
+        <span class="lang-sep" aria-hidden="true">/</span>
+        <a
+          href={alt.en}
+          hreflang="en"
+          lang="en"
+          class:list={['lang-opt', { 'is-current': lang === 'en' }]}
+          aria-current={lang === 'en' ? 'true' : undefined}>EN</a
+        >
+        <span class="sr-only">{ui.lang.switchTo}</span>
+      </div>
+
+      <a href={path({ page: 'contact' }, lang)} class="btn btn-primary header-cta">
+        {ui.cta.primary}
+      </a>
+
+      <button
+        type="button"
+        class="menu-toggle"
+        data-menu-toggle
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <span class="menu-bars" aria-hidden="true"><span></span><span></span></span>
+        <span class="sr-only" data-menu-label>{ui.nav.openMenu}</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobil tam ekran menü -->
+  <div
+    class="mobile-menu"
+    id="mobile-menu"
+    data-mobile-menu
+    data-close-label={ui.nav.closeMenu}
+    hidden
+  >
+    <nav class="mobile-nav" aria-label={ui.a11y.mainNav}>
+      <p class="mono mobile-group-label">{ui.nav.solutions}</p>
+      <ul class="mobile-list">
+        {
+          SOLUTIONS.map((s) => (
+            <li>
+              <a href={path({ solution: s.key }, lang)}>{solutionMeta[s.key][lang].navTitle}</a>
+            </li>
+          ))
+        }
+      </ul>
+
+      {/* "Tümüne bak" bağlantısı listenin ÜYESİ değil, listeyi özetleyen
+          ayrı bir bağlantıdır — bu yüzden <ul> dışında durur ve sitenin
+          her yerinde kullanılan .link-arrow desenine (oklu, teal, display
+          fontu) bağlanır. Masaüstü açılır menüsü de aynı deseni kullanır. */}
+      <a href={path({ page: 'solutions' }, lang)} class="mobile-overview link-arrow">
+        {ui.nav.solutionsOverview}
+      </a>
+
+      <hr class="mobile-rule" />
+
+      <ul class="mobile-list">
+        {mainLinks.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+      </ul>
+    </nav>
+
+    <!-- CTA menünün en altında sabit.
+         Dil değiştirici buraya TEKRAR konmaz: menü açıkken header
+         görünmeye devam ettiği için üstteki TR/EN zaten erişilebilir
+         ve iki kopya gereksiz kalabalık yaratır. -->
+    <div class="mobile-foot">
+      <a href={path({ page: 'contact' }, lang)} class="btn btn-primary mobile-cta">
+        {ui.cta.primary}
+      </a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: transparent;
+    transition:
+      background var(--dur) var(--ease),
+      backdrop-filter var(--dur) var(--ease),
+      border-color var(--dur) var(--ease);
+    border-bottom: 1px solid transparent;
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    height: var(--header-h);
+    transition: height var(--dur) var(--ease);
+  }
+
+  /* Sayfanın tepesi koyu zeminliyse header de aynı rengi alır.
+     Saydam bırakılırsa altında sayfa zemini (açık) görünür ve beyaz
+     logo/menü okunmaz hale gelir. Renk hero ile birebir aynı olduğu
+     için bant görünmez, geçiş kesintisiz olur. */
+  .site-header[data-on-dark]:not([data-scrolled]) {
+    background: var(--surface-darkest);
+  }
+
+  /* Scroll'da: küçülür ve yarı saydam koyu zemin alır. */
+  .site-header[data-scrolled] {
+    background: rgba(0, 63, 130, 0.86);
+    backdrop-filter: blur(10px) saturate(140%);
+    -webkit-backdrop-filter: blur(10px) saturate(140%);
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+  }
+  .site-header[data-scrolled] .header-inner {
+    height: var(--header-h-scrolled);
+  }
+
+  /* --- Logo --- */
+  .brand {
+    display: flex;
+    align-items: center;
+    flex: none;
+    margin-right: auto;
+  }
+  /* Logo iki satırlı bir lockup (marka + "Peak" / "Consultancy").
+     Yatay lockup ölçüsünde (34px) alt satır okunmayacak kadar
+     küçülüyordu; bu forma göre daha yüksek tutulur. */
+  .brand-img {
+    height: 46px;
+    width: auto;
+    transition: height var(--dur) var(--ease);
+  }
+  .site-header[data-scrolled] .brand-img {
+    height: 38px;
+  }
+  .brand-dark {
+    display: none;
+  }
+  .site-header[data-scrolled] .brand-light,
+  .site-header[data-on-dark] .brand-light {
+    display: none;
+  }
+  .site-header[data-scrolled] .brand-dark,
+  .site-header[data-on-dark] .brand-dark {
+    display: block;
+  }
+
+  /* --- Masaüstü menü --- */
+  .nav-desktop {
+    display: none;
+  }
+  .nav-list {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.55rem 0.8rem;
+    border: 0;
+    background: none;
+    border-radius: var(--radius);
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--navy);
+    text-decoration: none;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color var(--dur-fast) var(--ease);
+  }
+  .nav-link:hover {
+    color: var(--teal);
+  }
+  .nav-link[aria-current] {
+    color: var(--teal);
+  }
+  .site-header[data-scrolled] .nav-link,
+  .site-header[data-on-dark] .nav-link {
+    color: rgba(255, 255, 255, 0.88);
+  }
+  .site-header[data-scrolled] .nav-link:hover,
+  .site-header[data-scrolled] .nav-link[aria-current],
+  .site-header[data-on-dark] .nav-link:hover,
+  .site-header[data-on-dark] .nav-link[aria-current] {
+    color: #fff;
+  }
+
+  .chevron {
+    transition: transform var(--dur-fast) var(--ease);
+    opacity: 0.7;
+  }
+  [aria-expanded='true'] .chevron {
+    transform: rotate(180deg);
+  }
+
+  /* --- Dropdown --- */
+  .has-dropdown {
+    position: relative;
+  }
+  .dropdown {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 50%;
+    translate: -50% 0;
+    width: min(30rem, calc(100vw - 3rem));
+    padding: 0.6rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+    transition:
+      opacity var(--dur-fast) var(--ease),
+      transform var(--dur-fast) var(--ease),
+      visibility var(--dur-fast);
+  }
+  .has-dropdown[data-open] .dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+  .dropdown-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 1px;
+  }
+  .dropdown-item {
+    display: block;
+    padding: 0.7rem 0.85rem;
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: background var(--dur-fast) var(--ease);
+  }
+  .dropdown-item:hover {
+    background: var(--paper);
+  }
+  .dropdown-title {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 550;
+    font-size: 0.98rem;
+    color: var(--navy);
+    letter-spacing: -0.01em;
+  }
+  .dropdown-desc {
+    display: block;
+    font-size: 0.86rem;
+    line-height: 1.45;
+    color: var(--text-muted);
+    margin-top: 0.12rem;
+  }
+  .dropdown-all {
+    display: inline-flex;
+    margin: 0.5rem 0 0.25rem 0.85rem;
+    font-size: 0.9rem;
+  }
+
+  /* --- Sağ blok --- */
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    flex: none;
+  }
+
+  .lang-switch {
+    display: flex;
+    align-items: center;
+    gap: 0.28rem;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+  }
+  .lang-opt {
+    padding: 0.3rem 0.15rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color var(--dur-fast) var(--ease);
+  }
+  .lang-opt:hover {
+    color: var(--teal);
+  }
+  .lang-opt.is-current {
+    color: var(--navy);
+    text-decoration: underline;
+    text-underline-offset: 0.35em;
+    text-decoration-thickness: 1.5px;
+  }
+  .lang-sep {
+    color: var(--separator);
+  }
+  .site-header[data-scrolled] .lang-opt,
+  .site-header[data-on-dark] .lang-opt {
+    color: rgba(255, 255, 255, 0.6);
+  }
+  .site-header[data-scrolled] .lang-opt.is-current,
+  .site-header[data-on-dark] .lang-opt.is-current {
+    color: #fff;
+  }
+  .site-header[data-scrolled] .lang-opt:hover,
+  .site-header[data-on-dark] .lang-opt:hover {
+    color: #fff;
+  }
+  .site-header[data-scrolled] .lang-sep,
+  .site-header[data-on-dark] .lang-sep {
+    color: rgba(255, 255, 255, 0.3);
+  }
+
+  .header-cta {
+    display: none;
+    padding: 0.6rem 1.15rem;
+    min-height: 42px;
+    font-size: 0.95rem;
+  }
+  .site-header[data-scrolled] .header-cta,
+  .site-header[data-on-dark] .header-cta {
+    background: #fff;
+    color: var(--navy);
+    border-color: #fff;
+  }
+  .site-header[data-scrolled] .header-cta:hover,
+  .site-header[data-on-dark] .header-cta:hover {
+    background: var(--amber);
+    border-color: var(--amber);
+    color: var(--ink);
+  }
+
+  /* --- Mobil menü düğmesi --- */
+  .menu-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: none;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    cursor: pointer;
+    color: var(--navy);
+  }
+  .site-header[data-scrolled] .menu-toggle,
+  .site-header[data-on-dark] .menu-toggle {
+    border-color: rgba(255, 255, 255, 0.28);
+    color: #fff;
+  }
+  .menu-bars {
+    display: grid;
+    gap: 5px;
+    width: 18px;
+  }
+  .menu-bars span {
+    display: block;
+    height: 1.5px;
+    background: currentColor;
+    transition: transform var(--dur-fast) var(--ease);
+  }
+  [aria-expanded='true'] .menu-bars span:first-child {
+    transform: translateY(3.25px) rotate(45deg);
+  }
+  [aria-expanded='true'] .menu-bars span:last-child {
+    transform: translateY(-3.25px) rotate(-45deg);
+  }
+
+  /* --- Mobil tam ekran menü --- */
+  .mobile-menu {
+    position: fixed;
+    inset: var(--header-h) 0 0 0;
+    display: flex;
+    flex-direction: column;
+    background: var(--paper);
+    border-top: 1px solid var(--border-soft);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .mobile-menu[hidden] {
+    display: none;
+  }
+  .mobile-nav {
+    flex: 1;
+    padding: var(--space-md) clamp(1.15rem, 0.6rem + 2.4vw, 2.5rem);
+  }
+  .mobile-group-label {
+    color: var(--teal);
+    margin-bottom: 0.6rem;
+  }
+  .mobile-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+  }
+  .mobile-list a {
+    display: block;
+    padding: 0.82rem 0;
+    font-family: var(--font-display);
+    font-size: 1.22rem;
+    font-weight: 550;
+    letter-spacing: -0.02em;
+    color: var(--navy);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .mobile-list a:hover {
+    color: var(--teal);
+  }
+  /* Listeyi özetleyen bağlantı. Boyutu kasıtlı olarak maddelerden bir
+     tık küçük (1.05rem / 1.22rem) — aynı hiyerarşide değil — ama display
+     fontu, ağırlığı ve oku sitenin geri kalanıyla aynı. Alt çizgisi YOK:
+     eskiden liste maddesiydi ve kendi çizgisi hemen altındaki <hr> ile
+     üst üste binip çift hat oluşturuyordu. Dikey iç boşluk dokunma
+     hedefini 44px'in üzerinde tutar. */
+  .mobile-overview {
+    font-size: 1.05rem;
+    padding: 0.9rem 0;
+  }
+  .mobile-rule {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin: var(--space-xs) 0 var(--space-sm);
+  }
+
+  /* CTA menünün en altında sabit durur. */
+  .mobile-foot {
+    position: sticky;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-xs) clamp(1.15rem, 0.6rem + 2.4vw, 2.5rem);
+    padding-bottom: max(var(--space-xs), env(safe-area-inset-bottom));
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+  }
+  .mobile-cta {
+    flex: 1;
+  }
+
+  /* --- Kırılım: masaüstü menüye geçiş --- */
+  @media (min-width: 62rem) {
+    .nav-desktop {
+      display: block;
+      margin-inline: auto;
+    }
+    .brand {
+      margin-right: 0;
+    }
+    .header-cta {
+      display: inline-flex;
+    }
+    .menu-toggle,
+    .mobile-menu {
+      display: none !important;
+    }
+  }
+</style>
+
+<script>
+  // --- Scroll durumu: header küçülür ve koyulaşır ---
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  if (header) {
+    const setScrolled = () => {
+      if (window.scrollY > 24) header.setAttribute('data-scrolled', '');
+      else header.removeAttribute('data-scrolled');
+    };
+    setScrolled();
+    window.addEventListener('scroll', setScrolled, { passive: true });
+  }
+
+  // --- Çözümler dropdown'ı: tıklama + klavye, imleçle açılma ---
+  const dropdown = document.querySelector<HTMLElement>('[data-dropdown]');
+  const trigger = dropdown?.querySelector<HTMLButtonElement>('.nav-trigger');
+
+  const openDropdown = (open: boolean) => {
+    if (!dropdown || !trigger) return;
+    dropdown.toggleAttribute('data-open', open);
+    trigger.setAttribute('aria-expanded', String(open));
+  };
+
+  if (dropdown && trigger) {
+    trigger.addEventListener('click', () => {
+      openDropdown(!dropdown.hasAttribute('data-open'));
+    });
+
+    // İmleçle kullanımda gecikmesiz açılır/kapanır.
+    dropdown.addEventListener('mouseenter', () => openDropdown(true));
+    dropdown.addEventListener('mouseleave', () => openDropdown(false));
+
+    // Odak menüden tamamen çıkınca kapanır — klavye kullanıcısı kilitlenmez.
+    dropdown.addEventListener('focusout', (e) => {
+      if (!dropdown.contains(e.relatedTarget as Node)) openDropdown(false);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && dropdown.hasAttribute('data-open')) {
+        openDropdown(false);
+        trigger.focus();
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!dropdown.contains(e.target as Node)) openDropdown(false);
+    });
+  }
+
+  // --- Mobil tam ekran menü ---
+  const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const menu = document.querySelector<HTMLElement>('[data-mobile-menu]');
+  const label = document.querySelector<HTMLElement>('[data-menu-label]');
+  const labels = {
+    open: label?.textContent ?? 'Open menu',
+    close: menu?.getAttribute('data-close-label') ?? '',
+  };
+
+  if (toggle && menu) {
+    const setMenu = (open: boolean) => {
+      menu.hidden = !open;
+      toggle.setAttribute('aria-expanded', String(open));
+      // Menü açıkken arka planın kaymasını engeller.
+      document.body.style.overflow = open ? 'hidden' : '';
+      if (label && labels.close) label.textContent = open ? labels.close : labels.open;
+    };
+
+    toggle.addEventListener('click', () => setMenu(menu.hidden));
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !menu.hidden) {
+        setMenu(false);
+        toggle.focus();
+      }
+    });
+
+    // Masaüstü genişliğine geçildiğinde açık menü kapanır, scroll kilidi kalkar.
+    const mq = window.matchMedia('(min-width: 62rem)');
+    mq.addEventListener('change', (e) => {
+      if (e.matches && !menu.hidden) setMenu(false);
+    });
+  }
+</script>

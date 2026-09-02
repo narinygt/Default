@@ -1,0 +1,590 @@
+---
+import Base from '@/layouts/Base.astro';
+import Ledger from '@/components/Ledger.astro';
+import References from '@/components/References.astro';
+import SolutionCard from '@/components/SolutionCard.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { LANGS, SOLUTION_KEYS, path, type Lang } from '@/i18n/routes';
+import { site } from '@/config/site';
+import { t } from '@/i18n/ui';
+import { home } from '@/data/home';
+
+export function getStaticPaths() {
+  return LANGS.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const ui = t(lang);
+const c = home[lang];
+
+/** Hero görsel seçeneği — src/config/site.ts içinden. */
+const heroVisual = site.hero.visual;
+const isLedger = heroVisual === 'ledger';
+const isBackground = heroVisual === 'background';
+/** 'duotone' eski kuantum kaynağında kalır; 'image' ve 'background' yeni
+ * fotoğrafı (hero-team.webp) kullanır — ikisinin doğal boyutu farklı
+ * olduğu için width/height de görsele göre ayrılır (CLS'i önlemek için). */
+const imageSrc =
+  heroVisual === 'duotone' ? '/media/quantum-duotone.webp' : '/media/hero-team.webp';
+const imageDims =
+  heroVisual === 'duotone' ? { w: 800, h: 942 } : { w: 1200, h: 800 };
+---
+
+<Base
+  lang={lang}
+  ref={{ page: 'home' }}
+  title={c.meta.title}
+  description={c.meta.description}
+  darkTop={isBackground}
+  preloadImage={isLedger ? undefined : imageSrc}
+>
+  <!-- ============ 1. HERO ============
+       Görsel seçeneği src/config/site.ts → hero.visual ile değişir:
+       'ledger' | 'image' | 'duotone' | 'background'                  -->
+  <section class:list={['hero', `hero-${heroVisual}`]} data-hero>
+    {
+      /* Tam zeminli seçenek: görsel sağa yaslanır, metnin arkasında
+         maskeyle söner. Doğal boyutunun üstüne büyütülmez. */
+      isBackground && (
+        <div class="hero-bg" aria-hidden="true">
+          <img src={imageSrc} width={imageDims.w} height={imageDims.h} alt="" fetchpriority="high" />
+        </div>
+      )
+    }
+
+    {!isBackground && <Ledger variant="texture" tone="light" class="hero-texture" />}
+
+    <div class="container hero-inner">
+      <div class="hero-copy reveal">
+        <h1>{c.hero.h1}</h1>
+        <p class="lead hero-lead">{c.hero.lead}</p>
+        <div class="btn-row">
+          <a href={path({ page: 'contact' }, lang)} class="btn btn-primary">{c.hero.primaryCta}</a>
+          <a href={path({ page: 'solutions' }, lang)} class="btn btn-secondary">
+            {c.hero.secondaryCta}
+          </a>
+        </div>
+      </div>
+
+      {
+        !isBackground && (
+          <figure class="hero-figure reveal" data-delay="1">
+            {isLedger ? (
+              <>
+                <Ledger variant="hero" />
+                <figcaption class="sr-only">{c.hero.figureAlt}</figcaption>
+              </>
+            ) : (
+              <div class:list={['hero-panel', heroVisual === 'image' && 'hero-panel--photo']}>
+                <img
+                  src={imageSrc}
+                  width={imageDims.w}
+                  height={imageDims.h}
+                  alt={c.hero.imageAlt}
+                  fetchpriority="high"
+                />
+              </div>
+            )}
+          </figure>
+        )
+      }
+    </div>
+  </section>
+
+  <!-- ============ 2. REFERANSLAR ŞERİDİ ============
+       Hero'nun hemen altındaki koyu zeminli logo şeridi.
+       Liste ve ölçü mantığı: src/data/references.ts             -->
+  <References lang={lang} />
+
+  <!-- ============ 3. ÇÖZÜMLER IZGARASI ============ -->
+  <section class="section" id="solutions">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">{c.solutions.eyebrow}</p>
+        <h2>{c.solutions.h2}</h2>
+        <p class="lead">{c.solutions.lead}</p>
+      </div>
+
+      <div class="grid grid-3 solutions-grid">
+        {SOLUTION_KEYS.map((key, i) => <SolutionCard lang={lang} solution={key} delay={i} />)}
+      </div>
+
+      <p class="solutions-all reveal">
+        <a href={path({ page: 'solutions' }, lang)} class="link-arrow">{c.solutions.allLink}</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ 4. NEDEN CPEAK ============ -->
+  <section class="section why-section">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">{c.why.eyebrow}</p>
+        <h2>{c.why.h2}</h2>
+        <p class="lead">{c.why.lead}</p>
+      </div>
+
+      <div class="grid grid-4 why-grid">
+        {
+          c.why.items.map((item, i) => (
+            <div class="why-item reveal" data-delay={String(Math.min(i, 3))}>
+              <hr class="rule-teal" />
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5. YAPAY ZEKÂ YAKLAŞIMIMIZ ============
+       Ayrı, koyu lacivert zeminli bölüm. -->
+  <section class="section ai-section on-dark">
+    <Ledger variant="texture" tone="dark" />
+
+    <div class="container ai-inner">
+      <div class="section-head reveal">
+        <p class="eyebrow">{c.aiSection.eyebrow}</p>
+        <h2>{c.aiSection.h2}</h2>
+        <p class="lead">{c.aiSection.lead}</p>
+      </div>
+
+      <div class="grid grid-2 ai-grid">
+        <div class="ai-col reveal">
+          <h3>{c.aiSection.forClients.title}</h3>
+          <p>{c.aiSection.forClients.body}</p>
+          <ul class="dashlist">
+            {c.aiSection.forClients.items.map((i) => <li>{i}</li>)}
+          </ul>
+        </div>
+
+        <div class="ai-col reveal" data-delay="1">
+          <h3>{c.aiSection.ourPractice.title}</h3>
+          <p>{c.aiSection.ourPractice.body}</p>
+          <ul class="dashlist">
+            {c.aiSection.ourPractice.items.map((i) => <li>{i}</li>)}
+          </ul>
+        </div>
+      </div>
+
+      <p class="ai-stance reveal">{c.aiSection.stance}</p>
+    </div>
+  </section>
+
+  <!-- ============ 6. ÇALIŞMA YAKLAŞIMI ============
+       Monospace numaralandırma burada anlamlı: gerçekten sıralı
+       bir süreci gösteriyor. -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">{c.process.eyebrow}</p>
+        <h2>{c.process.h2}</h2>
+        <p class="lead">{c.process.lead}</p>
+      </div>
+
+      <ol class="process-list">
+        {
+          c.process.steps.map((step, i) => (
+            <li class="process-step reveal" data-delay={String(Math.min(i, 3))}>
+              <span class="process-no mono">{step.no}</span>
+              <h3 class="process-title">{step.title}</h3>
+              <p class="process-what">{step.what}</p>
+              <dl class="process-meta">
+                <div>
+                  <dt class="mono">{ui.common.deliverables}</dt>
+                  <dd>{step.deliverable}</dd>
+                </div>
+                <div>
+                  <dt class="mono">{ui.common.typicalDuration}</dt>
+                  <dd>{step.duration}</dd>
+                </div>
+              </dl>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ 7. TİPİK PROJE SENARYOLARI ============
+       Gerçek müşteri vakası DEĞİL — her kart açıkça işaretli. -->
+  <section class="section scenarios-section">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">{c.scenarios.eyebrow}</p>
+        <h2>{c.scenarios.h2}</h2>
+        <p class="lead">{c.scenarios.lead}</p>
+      </div>
+
+      <p class="scenario-disclaimer reveal">{c.scenarios.disclaimer}</p>
+
+      <div class="grid grid-3 scenario-grid">
+        {
+          c.scenarios.items.map((s, i) => (
+            <article class="card scenario-card reveal" data-delay={String(Math.min(i, 3))}>
+              <p class="scenario-tag mono">{c.scenarios.tag}</p>
+              <h3 class="scenario-sector">{s.sector}</h3>
+              <p class="scenario-scale mono">{s.scale}</p>
+
+              <dl class="scenario-body">
+                <dt>{lang === 'tr' ? 'Tipik problem' : 'The problem'}</dt>
+                <dd>{s.problem}</dd>
+                <dt>{lang === 'tr' ? 'İzlenen yaklaşım' : 'Our approach'}</dt>
+                <dd>{s.approach}</dd>
+                <dt>{lang === 'tr' ? 'Beklenen kazanım' : 'Expected outcome'}</dt>
+                <dd>{s.outcome}</dd>
+              </dl>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 8. KAPANIŞ CTA ============ -->
+  <CtaBand lang={lang} text={c.closing.text} cta={c.closing.cta} />
+</Base>
+
+<style>
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(2.5rem, 1rem + 6vw, 5.5rem) clamp(3rem, 1.5rem + 6vw, 6rem);
+  }
+  .hero-texture {
+    /* Doku yalnızca sağ tarafa doğru açılır, metnin altında kalmaz. */
+    left: 40%;
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: var(--space-lg);
+    align-items: center;
+  }
+
+  .hero-lead {
+    margin-top: var(--space-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .hero-figure {
+    margin: 0;
+  }
+
+  @media (min-width: 60rem) {
+    .hero-inner {
+      grid-template-columns: 1.15fr 1fr;
+      gap: var(--space-xl);
+    }
+  }
+
+  /* ---------- Hero seçeneği: görsel panel (image / duotone) ----------
+     Kesim görselin siyah zemini kaldırıldığı için nesne lacivert
+     panelin üzerinde serbest durur; kutu içinde fotoğraf gibi değil,
+     markanın zemini üzerinde bir nesne gibi okunur. */
+  .hero-panel {
+    position: relative;
+    display: grid;
+    place-items: center;
+    aspect-ratio: 480 / 420;
+    padding: clamp(0.75rem, 0.4rem + 1.5vw, 1.75rem);
+    background: var(--navy);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  /* Panelin içinde çok soluk defter çizgileri: görsel değişse de
+     markanın imza dokusu tamamen kaybolmaz. */
+  .hero-panel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.07) 0 1px,
+      transparent 1px 34px
+    );
+    pointer-events: none;
+  }
+  .hero-panel img {
+    position: relative;
+    max-height: 100%;
+    width: auto;
+    object-fit: contain;
+  }
+
+  /* ---------- Hero seçeneği: gerçek fotoğraf (image, opak dikdörtgen) ----
+     hero-team.webp saydam kesim değil, dolu bir fotoğraf — lacivert/teal
+     panel zemini ve iç boşluk (padding) fotoğrafın etrafında renkli bir
+     çerçeve gibi görünüyordu. Fotoğrafta bu istenmiyor: zemin şeffaf,
+     boşluk sıfır, görsel kendi en/boy oranıyla (3/2) çerçeveyi eksiksiz
+     doldurur — arkasında hiçbir renk kalmaz. */
+  .hero-panel--photo {
+    aspect-ratio: 3 / 2;
+    padding: 0;
+    background: transparent;
+  }
+  .hero-panel--photo::before {
+    display: none;
+  }
+  .hero-panel--photo img {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    object-fit: cover;
+  }
+
+  /* ---------- Hero seçeneği: tam zeminli görsel (background) ----------
+     Görsel doğal boyutunun üzerine BÜYÜTÜLMEZ (kaynak 800px geniş);
+     sağa yaslanır ve sola doğru maskeyle söner, böylece metnin
+     arkasında kontrastı bozacak detay kalmaz. */
+  .hero-background {
+    background: var(--surface-darkest);
+    color: #fff;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0 0 0 auto;
+    width: min(52%, 800px);
+    z-index: 0;
+    pointer-events: none;
+  }
+  .hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center right;
+    /* Sola doğru sönüm — metin alanına taşmaz. */
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 38%);
+    mask-image: linear-gradient(to right, transparent 0%, #000 38%);
+  }
+  .hero-background h1 {
+    color: #fff;
+  }
+  .hero-background .hero-lead {
+    color: var(--text-on-dark-muted);
+  }
+  /* Koyu hero'da butonlar ters çevrilir. */
+  .hero-background .btn-primary {
+    background: #fff;
+    color: var(--navy);
+    border-color: #fff;
+  }
+  .hero-background .btn-primary:hover {
+    background: var(--amber);
+    color: var(--ink);
+    border-color: var(--amber);
+  }
+  .hero-background .btn-secondary {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.35);
+    background: transparent;
+  }
+  .hero-background .btn-secondary:hover {
+    border-color: #fff;
+    color: #fff;
+  }
+  /* Mobilde görsel metnin arkasına düşer; iyice geri çekilir. */
+  @media (max-width: 60rem) {
+    .hero-bg {
+      width: 100%;
+      opacity: 0.28;
+    }
+    .hero-bg img {
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 55%);
+      mask-image: linear-gradient(to bottom, transparent 0%, #000 55%);
+    }
+  }
+
+  /* ---------- Çözümler ---------- */
+  .solutions-grid {
+    align-items: stretch;
+  }
+  .solutions-all {
+    margin-top: var(--space-md);
+  }
+
+  /* ---------- Neden CPeak ---------- */
+  .why-section {
+    background: var(--surface);
+    border-block: 1px solid var(--border-soft);
+  }
+  .why-grid {
+    gap: var(--space-md);
+  }
+  .why-item h3 {
+    margin-block: var(--space-xs) var(--space-2xs);
+    font-size: 1.1rem;
+  }
+  .why-item p {
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  /* ---------- Yapay zeka bölümü ---------- */
+  .ai-section {
+    overflow: hidden;
+  }
+  .ai-inner {
+    position: relative;
+    z-index: 1;
+  }
+  .ai-grid {
+    gap: var(--space-md);
+  }
+  .ai-col h3 {
+    font-size: 1.2rem;
+    margin-bottom: var(--space-2xs);
+  }
+  .ai-col p {
+    margin-bottom: var(--space-sm);
+    font-size: 1rem;
+  }
+  .ai-col .dashlist li {
+    color: rgba(255, 255, 255, 0.88);
+    font-size: 0.97rem;
+  }
+
+  .ai-stance {
+    margin-top: var(--space-lg);
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--border-on-dark);
+    font-size: 0.98rem;
+    color: rgba(255, 255, 255, 0.78);
+    max-width: 78ch;
+  }
+
+  /* ---------- Süreç ---------- */
+  .process-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--space-md);
+    counter-reset: none;
+  }
+  @media (min-width: 52rem) {
+    .process-list {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-lg) var(--space-md);
+    }
+  }
+  @media (min-width: 76rem) {
+    .process-list {
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-md);
+    }
+  }
+
+  .process-step {
+    padding-top: var(--space-sm);
+    border-top: 2px solid var(--teal);
+  }
+  .process-no {
+    display: block;
+    color: var(--teal);
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    margin-bottom: var(--space-2xs);
+  }
+  .process-title {
+    font-size: 1.12rem;
+    margin-bottom: var(--space-2xs);
+  }
+  .process-what {
+    font-size: 0.97rem;
+    line-height: 1.58;
+    color: var(--text-muted);
+    margin-bottom: var(--space-sm);
+  }
+
+  .process-meta {
+    display: grid;
+    gap: var(--space-xs);
+    margin: 0;
+  }
+  .process-meta dt {
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    margin-bottom: 0.15rem;
+  }
+  .process-meta dd {
+    margin: 0;
+    font-size: 0.94rem;
+    line-height: 1.5;
+    color: var(--navy);
+  }
+
+  /* ---------- Senaryolar ---------- */
+  .scenarios-section {
+    background: var(--surface);
+    border-top: 1px solid var(--border-soft);
+  }
+
+  .scenario-disclaimer {
+    max-width: 72ch;
+    margin-bottom: var(--space-md);
+    padding: var(--space-xs) var(--space-sm);
+    border-left: 2px solid var(--amber);
+    background: rgba(232, 179, 58, 0.08);
+    font-size: 0.94rem;
+    line-height: 1.55;
+    color: var(--text-muted);
+  }
+
+  .scenario-card {
+    background: var(--paper);
+    border-color: var(--border);
+  }
+  .scenario-tag {
+    display: inline-block;
+    align-self: flex-start;
+    padding: 0.25rem 0.55rem;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    background: var(--surface);
+    color: var(--text-muted);
+    font-size: 0.66rem;
+    margin-bottom: var(--space-2xs);
+  }
+  .scenario-sector {
+    font-size: 1.12rem;
+  }
+  .scenario-scale {
+    color: var(--teal);
+    text-transform: none;
+    letter-spacing: 0.02em;
+    font-size: 0.82rem;
+    margin-bottom: var(--space-xs);
+  }
+
+  .scenario-body {
+    margin: 0;
+    display: grid;
+    gap: 0.15rem;
+  }
+  .scenario-body dt {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: var(--space-xs);
+  }
+  .scenario-body dt:first-child {
+    margin-top: 0;
+  }
+  .scenario-body dd {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: var(--text);
+  }
+</style>

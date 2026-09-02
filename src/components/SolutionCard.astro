@@ -1,0 +1,60 @@
+---
+/**
+ * Çözüm kartı — ana sayfa ızgarasında ve çapraz linklerde.
+ * Hover'da kartın üst kenarında teal çizgi belirir (.card-linked).
+ */
+import { t } from '@/i18n/ui';
+import { path, type Lang, type SolutionKey } from '@/i18n/routes';
+import { solutionMeta, solutionIcon } from '@/data/solutions';
+
+interface Props {
+  lang: Lang;
+  solution: SolutionKey;
+  /** 0–3 arası kısa kademe gecikmesi. */
+  delay?: number;
+}
+
+const { lang, solution, delay = 0 } = Astro.props;
+const ui = t(lang);
+const meta = solutionMeta[solution][lang];
+const href = path({ solution }, lang);
+---
+
+<article class="card card-linked reveal" data-delay={String(Math.min(delay, 3))}>
+  <span class="card-icon" aria-hidden="true">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+      <path d={solutionIcon[solution]}></path>
+    </svg>
+  </span>
+
+  <h3 class="card-title">
+    <a href={href} class="card-link">{meta.navTitle}</a>
+  </h3>
+
+  <p>{meta.cardDesc}</p>
+
+  <span class="link-arrow card-more">{ui.cta.details}</span>
+</article>
+
+<style>
+  .card {
+    min-height: 100%;
+  }
+
+  .card-title {
+    font-size: 1.15rem;
+  }
+  .card-title a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .card p {
+    flex: 1;
+  }
+
+  .card-more {
+    margin-top: var(--space-xs);
+  }
+</style>

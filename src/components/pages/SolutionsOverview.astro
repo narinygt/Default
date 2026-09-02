@@ -1,0 +1,264 @@
+---
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import SolutionCard from '@/components/SolutionCard.astro';
+import Ledger from '@/components/Ledger.astro';
+import { SOLUTION_KEYS, path, type Lang } from '@/i18n/routes';
+import { t } from '@/i18n/ui';
+import { solutionMeta } from '@/data/solutions';
+import { solutionsOverview } from '@/data/pages/solutionsOverview';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const ui = t(lang);
+const c = solutionsOverview[lang];
+---
+
+<!-- ============ HERO ============ -->
+<section class="ov-hero">
+  <Ledger variant="texture" tone="light" class="ov-texture" />
+  <div class="container ov-hero-inner">
+    <Breadcrumbs
+      lang={lang}
+      trail={[{ name: lang === 'tr' ? 'Ana sayfa' : 'Home', ref: { page: 'home' } }]}
+      current={ui.nav.solutions}
+    />
+    <div class="ov-hero-copy reveal">
+      <h1>{c.hero.h1}</h1>
+      <p class="lead">{c.hero.lead}</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ÇÖZÜM KARTLARI ============ -->
+<section class="section-sm">
+  <div class="container">
+    <div class="grid grid-3">
+      {SOLUTION_KEYS.map((key, i) => <SolutionCard lang={lang} solution={key} delay={i} />)}
+    </div>
+  </div>
+</section>
+
+<!-- ============ KARŞILAŞTIRMA TABLOSU ============ -->
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2>{c.compare.h2}</h2>
+      <p class="lead">{c.compare.lead}</p>
+    </div>
+
+    <div class="table-scroll reveal">
+      <table>
+        <caption>{c.compare.caption}</caption>
+        <thead>
+          <tr>
+            <th scope="col">{c.compare.headers.solution}</th>
+            <th scope="col">{c.compare.headers.forWhom}</th>
+            <th scope="col">{c.compare.headers.duration}</th>
+            <th scope="col">{c.compare.headers.mainGain}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            SOLUTION_KEYS.map((key) => {
+              const s = solutionMeta[key][lang];
+              return (
+                <tr>
+                  <th scope="row">
+                    <a href={path({ solution: key }, lang)}>{s.navTitle}</a>
+                  </th>
+                  <td>{s.comparison.forWhom}</td>
+                  <td class="cell-mono">{s.comparison.duration}</td>
+                  <td>{s.comparison.mainGain}</td>
+                </tr>
+              );
+            })
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PUBLIC vs PRIVATE CLOUD ============ -->
+<section class="section cloud-section">
+  <div class="container">
+    <div class="section-head reveal">
+      {/* lang="en": SAP ürün adları Türkçe büyük harf kuralıyla bozulmasın. */}
+      <p class="eyebrow" lang="en">Public Cloud / Private Cloud</p>
+      <h2>{c.cloud.h2}</h2>
+      <p class="lead">{c.cloud.lead}</p>
+    </div>
+
+    <div class="cloud-intro reveal">
+      {c.cloud.intro.map((p) => <p>{p}</p>)}
+    </div>
+
+    <div class="table-scroll reveal cloud-table">
+      <table>
+        <caption>{c.cloud.caption}</caption>
+        <thead>
+          <tr>
+            <th scope="col">{c.cloud.headers.criterion}</th>
+            <th scope="col">{c.cloud.headers.publicCloud}</th>
+            <th scope="col">{c.cloud.headers.privateCloud}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            c.cloud.rows.map((row) => (
+              <tr>
+                <th scope="row">{row.criterion}</th>
+                <td>{row.publicCloud}</td>
+                <td>{row.privateCloud}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Karar rehberi -->
+    <div class="guidance reveal">
+      <h3>{c.cloud.guidance.h3}</h3>
+      <div class="grid grid-2 guidance-grid">
+        <div class="guidance-col">
+          <h4>{c.cloud.guidance.publicTitle}</h4>
+          <ul class="checklist">
+            {c.cloud.guidance.publicItems.map((i) => <li>{i}</li>)}
+          </ul>
+          <a href={path({ solution: 'publicCloud' }, lang)} class="link-arrow guidance-link">
+            {solutionMeta.publicCloud[lang].navTitle}
+          </a>
+        </div>
+
+        <div class="guidance-col">
+          <h4>{c.cloud.guidance.privateTitle}</h4>
+          <ul class="checklist">
+            {c.cloud.guidance.privateItems.map((i) => <li>{i}</li>)}
+          </ul>
+          <a href={path({ solution: 'privateCloud' }, lang)} class="link-arrow guidance-link">
+            {solutionMeta.privateCloud[lang].navTitle}
+          </a>
+        </div>
+      </div>
+      <p class="guidance-note">{c.cloud.guidance.note}</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEREDEN BAŞLAMALI ============ -->
+<section class="section">
+  <div class="container container-narrow">
+    <div class="section-head reveal">
+      <h2>{c.howToChoose.h2}</h2>
+    </div>
+    <div class="stack reveal start-body">
+      {c.howToChoose.body.map((p) => <p>{p}</p>)}
+    </div>
+  </div>
+</section>
+
+<style>
+  .ov-hero {
+    position: relative;
+    overflow: hidden;
+    padding-block: var(--space-sm) clamp(2rem, 1.2rem + 3vw, 3.5rem);
+  }
+  .ov-texture {
+    left: 55%;
+  }
+  .ov-hero-inner {
+    position: relative;
+    z-index: 1;
+  }
+  .ov-hero-copy {
+    max-width: 48rem;
+    margin-top: var(--space-md);
+  }
+  .ov-hero-copy .lead {
+    margin-top: var(--space-sm);
+  }
+
+  .cell-mono {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    white-space: nowrap;
+    color: var(--text-muted);
+  }
+
+  /* ---------- Bulut karşılaştırması ---------- */
+  .cloud-section {
+    background: var(--surface);
+    border-block: 1px solid var(--border-soft);
+  }
+  .cloud-intro {
+    display: grid;
+    gap: var(--space-sm);
+    max-width: 66ch;
+    margin-bottom: var(--space-md);
+  }
+  .cloud-intro p {
+    color: var(--text-muted);
+  }
+
+  .cloud-table table {
+    min-width: 52rem;
+  }
+  .cloud-table thead th:first-child {
+    width: 12rem;
+  }
+  .cloud-table td {
+    font-size: 0.94rem;
+    line-height: 1.55;
+    color: var(--text-muted);
+  }
+  .cloud-table tbody th {
+    color: var(--navy);
+    width: 12rem;
+  }
+
+  /* ---------- Karar rehberi ---------- */
+  .guidance {
+    margin-top: var(--space-lg);
+    padding: var(--space-md);
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+  .guidance h3 {
+    font-size: 1.25rem;
+    margin-bottom: var(--space-sm);
+  }
+  .guidance-grid {
+    gap: var(--space-md);
+  }
+  .guidance-col h4 {
+    color: var(--teal);
+    margin-bottom: var(--space-xs);
+    font-size: 1rem;
+  }
+  .guidance-col .checklist li {
+    font-size: 0.97rem;
+    color: var(--text-muted);
+  }
+  .guidance-link {
+    margin-top: var(--space-sm);
+    font-size: 0.92rem;
+  }
+  .guidance-note {
+    margin-top: var(--space-md);
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--border);
+    font-size: 0.94rem;
+    color: var(--text-muted);
+    max-width: 74ch;
+  }
+
+  .start-body p {
+    color: var(--text-muted);
+    line-height: 1.68;
+  }
+</style>

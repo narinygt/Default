@@ -1,0 +1,378 @@
+---
+/**
+ * ÇÖZÜM DETAY SAYFASI — 5 çözüm × 2 dil = 10 sayfa, tek iskelet.
+ * Slug'lar route tablosundan gelir; içerik src/data/solutions/ içinden.
+ */
+import Base from '@/layouts/Base.astro';
+import Accordion from '@/components/Accordion.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import SolutionCard from '@/components/SolutionCard.astro';
+import Ledger from '@/components/Ledger.astro';
+import {
+  LANGS,
+  PAGES,
+  SOLUTIONS,
+  SOLUTION_KEYS,
+  path,
+  type Lang,
+  type SolutionKey,
+} from '@/i18n/routes';
+import { t } from '@/i18n/ui';
+import { solutionMeta, solutionIcon } from '@/data/solutions';
+import { breadcrumbSchema, faqSchema, serviceSchema } from '@/lib/schema';
+
+export function getStaticPaths() {
+  return LANGS.flatMap((lang) =>
+    SOLUTIONS.map((s) => ({
+      params: { lang, section: PAGES.solutions[lang], slug: s.slug[lang] },
+      props: { solution: s.key },
+    })),
+  );
+}
+
+const lang = Astro.params.lang as Lang;
+const { solution } = Astro.props as { solution: SolutionKey };
+
+const ui = t(lang);
+const c = solutionMeta[solution][lang];
+
+/** Bu sayfa dışındaki çözümler — sayfa sonunda çapraz link olarak. */
+const others = SOLUTION_KEYS.filter((k) => k !== solution);
+
+const schema = [
+  serviceSchema({
+    lang,
+    name: c.title,
+    description: c.metaDescription,
+    ref: { solution },
+    serviceType: c.serviceType,
+  }),
+  faqSchema(c.faqs),
+  breadcrumbSchema(lang, [
+    { name: lang === 'tr' ? 'Ana sayfa' : 'Home', ref: { page: 'home' } },
+    { name: ui.nav.solutions, ref: { page: 'solutions' } },
+  ]),
+];
+---
+
+<Base
+  lang={lang}
+  ref={{ solution }}
+  title={c.metaTitle}
+  description={c.metaDescription}
+  schema={schema}
+>
+  <!-- ============ HERO ============ -->
+  <section class="sol-hero">
+    <Ledger variant="texture" tone="light" class="sol-hero-texture" />
+
+    <div class="container sol-hero-inner">
+      <Breadcrumbs
+        lang={lang}
+        trail={[
+          { name: lang === 'tr' ? 'Ana sayfa' : 'Home', ref: { page: 'home' } },
+          { name: ui.nav.solutions, ref: { page: 'solutions' } },
+        ]}
+        current={c.navTitle}
+      />
+
+      <div class="sol-hero-copy reveal">
+        <span class="sol-icon" aria-hidden="true">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+            <path d={solutionIcon[solution]}></path>
+          </svg>
+        </span>
+        <h1>{c.title}</h1>
+        <p class="lead">{c.summary}</p>
+        <div class="btn-row">
+          <a href={path({ page: 'contact' }, lang)} class="btn btn-primary">{ui.cta.primary}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ KİMİN İÇİN + ZORLUKLAR ============ -->
+  <section class="section-sm sol-two">
+    <div class="container">
+      <div class="grid grid-2 sol-two-grid">
+        <div class="reveal">
+          <p class="eyebrow">{ui.common.whoFor}</p>
+          <ul class="dashlist">
+            {c.whoFor.map((i) => <li>{i}</li>)}
+          </ul>
+        </div>
+
+        <div class="reveal" data-delay="1">
+          <p class="eyebrow">{ui.common.challenges}</p>
+          <ul class="dashlist">
+            {c.challenges.map((i) => <li>{i}</li>)}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ NE YAPIYORUZ (ana gövde) ============ -->
+  <section class="section sol-body-section">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">{ui.common.whatWeDo}</p>
+        <h2>{c.navTitle}</h2>
+      </div>
+
+      <div class="sol-body">
+        {
+          c.whatWeDo.map((block, i) => (
+            <div class="sol-block reveal" data-delay={String(Math.min(i, 3))}>
+              <h3 class="sol-block-title">
+                <span class="mono sol-block-no">{String(i + 1).padStart(2, '0')}</span>
+                {block.heading}
+              </h3>
+              <div class="sol-block-body">
+                {block.body.map((p) => (
+                  <p>{p}</p>
+                ))}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SAYFA İÇİ İNCE CTA BANDI ============ -->
+  <aside class="mid-cta">
+    <div class="container mid-cta-inner reveal">
+      <p class="mid-cta-text">
+        {
+          lang === 'tr'
+            ? 'Bu başlıkta bir sorunuz varsa, kısa bir görüşmeyle netleştirelim.'
+            : 'If you have a question in this area, a short call usually settles it.'
+        }
+      </p>
+      <a href={path({ page: 'contact' }, lang)} class="link-arrow">{ui.cta.primary}</a>
+    </div>
+  </aside>
+
+  <!-- ============ TESLİM EDİLENLER + AI + SÜRE ============ -->
+  <section class="section sol-deliver on-dark">
+    <Ledger variant="texture" tone="dark" />
+
+    <div class="container sol-deliver-inner">
+      <div class="grid grid-2 sol-deliver-grid">
+        <div class="reveal">
+          <p class="eyebrow">{ui.common.deliverables}</p>
+          <ul class="checklist">
+            {c.deliverables.map((d) => <li>{d}</li>)}
+          </ul>
+        </div>
+
+        <div class="sol-side reveal" data-delay="1">
+          <div class="sol-side-block">
+            <p class="eyebrow">{ui.common.aiRole}</p>
+            <p class="sol-side-text">{c.aiRole}</p>
+          </div>
+
+          <dl class="sol-facts">
+            <div>
+              <dt class="mono">{ui.common.typicalDuration}</dt>
+              <dd>{c.duration}</dd>
+            </div>
+            <div>
+              <dt class="mono">{ui.common.teamStructure}</dt>
+              <dd>{c.team}</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SSS ============ -->
+  <section class="section">
+    <div class="container container-narrow">
+      <div class="section-head reveal">
+        <p class="eyebrow">{ui.common.faq}</p>
+        <h2>{lang === 'tr' ? 'Sık sorulan sorular' : 'Frequently asked questions'}</h2>
+      </div>
+      <div class="reveal">
+        <Accordion items={c.faqs} />
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DİĞER ÇÖZÜMLER ============ -->
+  <section class="section-sm sol-others">
+    <div class="container">
+      <h2 class="others-title reveal">{ui.common.otherSolutions}</h2>
+      <div class="grid grid-4">
+        {others.map((key, i) => <SolutionCard lang={lang} solution={key} delay={i} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ KAPANIŞ CTA ============ -->
+  <CtaBand
+    lang={lang}
+    text={lang === 'tr'
+      ? 'Projenizi anlatın, bir iş günü içinde dönüş yapalım.'
+      : 'Tell us about your project and we will come back within one business day.'}
+  />
+</Base>
+
+<style>
+  /* ---------- Hero ---------- */
+  .sol-hero {
+    position: relative;
+    overflow: hidden;
+    padding-block: var(--space-sm) clamp(2.5rem, 1.5rem + 4vw, 4.5rem);
+  }
+  .sol-hero-texture {
+    left: 55%;
+  }
+  .sol-hero-inner {
+    position: relative;
+    z-index: 1;
+  }
+  .sol-hero-copy {
+    max-width: 46rem;
+    margin-top: var(--space-md);
+  }
+  .sol-icon {
+    display: block;
+    color: var(--teal);
+    margin-bottom: var(--space-sm);
+  }
+  .sol-hero-copy .lead {
+    margin-block: var(--space-sm) var(--space-md);
+  }
+
+  /* ---------- Kimin için / zorluklar ---------- */
+  .sol-two {
+    background: var(--surface);
+    border-block: 1px solid var(--border-soft);
+  }
+  .sol-two-grid {
+    gap: var(--space-md);
+  }
+  .sol-two-grid .dashlist li {
+    color: var(--text-muted);
+    font-size: 1rem;
+  }
+
+  /* ---------- Ana gövde ---------- */
+  .sol-body {
+    display: grid;
+    gap: var(--space-lg);
+    max-width: 52rem;
+  }
+
+  .sol-block-title {
+    display: flex;
+    align-items: baseline;
+    gap: 0.85rem;
+    font-size: 1.3rem;
+    margin-bottom: var(--space-sm);
+  }
+  .sol-block-no {
+    flex: none;
+    color: var(--teal);
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+  }
+  .sol-block-body {
+    display: grid;
+    gap: var(--space-sm);
+    /* Numara sütununun altına hizalanır. */
+    padding-left: 2.6rem;
+  }
+  .sol-block-body p {
+    color: var(--text-muted);
+    line-height: 1.68;
+  }
+  @media (max-width: 36rem) {
+    .sol-block-body {
+      padding-left: 0;
+    }
+  }
+
+  /* ---------- Sayfa içi ince CTA ---------- */
+  .mid-cta {
+    background: var(--surface);
+    border-block: 1px solid var(--border);
+  }
+  .mid-cta-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-xs);
+    padding-block: var(--space-sm);
+  }
+  .mid-cta-text {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--navy);
+    margin: 0;
+  }
+
+  /* ---------- Teslim edilenler ---------- */
+  .sol-deliver {
+    overflow: hidden;
+  }
+  .sol-deliver-inner {
+    position: relative;
+    z-index: 1;
+  }
+  .sol-deliver-grid {
+    gap: var(--space-lg);
+  }
+  .sol-deliver .checklist li {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+  }
+
+  .sol-side {
+    display: grid;
+    gap: var(--space-md);
+    align-content: start;
+  }
+  .sol-side-text {
+    font-size: 1rem;
+    line-height: 1.62;
+    color: var(--text-on-dark-muted);
+  }
+
+  .sol-facts {
+    display: grid;
+    gap: var(--space-sm);
+    margin: 0;
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--border-on-dark);
+  }
+  .sol-facts dt {
+    color: var(--amber-on-dark);
+    font-size: 0.68rem;
+    letter-spacing: 0.09em;
+    margin-bottom: 0.25rem;
+  }
+  .sol-facts dd {
+    margin: 0;
+    font-size: 0.97rem;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  /* ---------- Diğer çözümler ---------- */
+  .sol-others {
+    background: var(--surface);
+    border-top: 1px solid var(--border-soft);
+  }
+  .others-title {
+    font-size: 1.15rem;
+    margin-bottom: var(--space-sm);
+  }
+</style>

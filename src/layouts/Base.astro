@@ -1,0 +1,199 @@
+---
+/**
+ * Tüm sayfaların ortak kabuğu: <head>, SEO, hreflang, yapısal veri,
+ * header, footer ve çerez banner'ı.
+ *
+ * hreflang burada TEK bir yerden, route tablosundan üretilir; sayfa
+ * yazarının doğru etiketi elle koymayı hatırlaması gerekmez.
+ */
+import { SITE_URL, site } from '@/config/site';
+import { alternates, HTML_LANG, path, type Lang, type RouteRef } from '@/i18n/routes';
+import { t } from '@/i18n/ui';
+import { abs, buildGraph, organizationSchema, webSiteSchema } from '@/lib/schema';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import CookieBanner from '@/components/CookieBanner.astro';
+import '@/styles/global.css';
+
+interface Props {
+  lang: Lang;
+  /** Sayfanın route tablosundaki karşılığı — canonical ve hreflang bundan üretilir. */
+  ref: RouteRef;
+  title: string;
+  description: string;
+  /** Bu sayfaya özgü ek schema.org düğümleri (Service, FAQPage, Breadcrumb). */
+  schema?: unknown[];
+  /** Open Graph görseli — verilmezse dile göre varsayılan kullanılır. */
+  ogImage?: string;
+  /**
+   * Sayfanın en üstteki bölümü koyu zeminliyse true.
+   * Header sayfa tepesinde saydam olduğu için, altındaki zemin koyuysa
+   * menü ve logo okunmaz kalır; bu bayrak header'ı açık renge çevirir.
+   */
+  darkTop?: boolean;
+  /** LCP adayı bir görsel varsa yolu — erkenden indirilmesi için. */
+  preloadImage?: string;
+}
+
+const {
+  lang,
+  ref,
+  title,
+  description,
+  schema = [],
+  ogImage,
+  darkTop = false,
+  preloadImage,
+} = Astro.props;
+
+const ui = t(lang);
+const alt = alternates(ref);
+const canonical = abs(path(ref, lang));
+// PNG: sosyal platformların önizleme botları SVG kabul etmez.
+// Görseller `node scripts/make-brand-assets.mjs` ile üretilir.
+const ogImageUrl = abs(ogImage ?? `/og/cpeak-og-${lang}.png`);
+
+const graph = buildGraph(organizationSchema(lang), webSiteSchema(lang), ...schema);
+---
+
+<!doctype html>
+<html lang={HTML_LANG[lang]} class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Dil sürümleri. x-default, dil seçimini yapan kök adrese işaret eder. -->
+    <link rel="alternate" hreflang="tr" href={abs(alt.tr)} />
+    <link rel="alternate" hreflang="en" href={abs(alt.en)} />
+    <link rel="alternate" hreflang="x-default" href={`${SITE_URL}/`} />
+
+    <!-- Kritik font: ilk boyamada görünen gövde ve başlık yüzü. -->
+    <link
+      rel="preload"
+      href="/fonts/schibsted-grotesk-latin-wght-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/inter-latin-wght-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    {/* Hero görseli LCP adayıysa fontlarla birlikte erkenden istenir. */}
+    {preloadImage && <link rel="preload" as="image" href={preloadImage} />}
+
+    <link rel="icon" href="/brand/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png" />
+    <meta name="theme-color" content="#003f82" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:locale" content={lang === 'tr' ? 'tr_TR' : 'en_US'} />
+    <meta property="og:locale:alternate" content={lang === 'tr' ? 'en_US' : 'tr_TR'} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+
+    <!-- Yapısal veri -->
+    <script type="application/ld+json" set:html={graph} is:inline />
+
+    <!-- JS varsa fade-up devreye girsin; yoksa içerik zaten görünür kalır. -->
+    <script is:inline>
+      document.documentElement.classList.remove('no-js');
+    </script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">{ui.a11y.skipToContent}</a>
+
+    <Header lang={lang} ref={ref} darkTop={darkTop} />
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <Footer lang={lang} />
+    <CookieBanner lang={lang} />
+
+    <script>
+      // Scroll ile tetiklenen kısa fade-up. Tek hareket kalıbı budur.
+      // `.ledger` de aynı gözlemciyi kullanır: defter çizgileri görünür
+      // alana girdiğinde ağ grafiğine çözülür.
+      const items = document.querySelectorAll<HTMLElement>('.reveal, .ledger');
+
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Hareket kapalıysa ya da IntersectionObserver yoksa hiçbir şey
+      // gizlenmez; öğeler zaten görünür durumda kalır.
+      if (!reduced && 'IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (!entry.isIntersecting) continue;
+              entry.target.classList.add('is-visible');
+              // Tek seferlik: geri kaydırınca yeniden oynamaz.
+              observer.unobserve(entry.target);
+            }
+          },
+          { rootMargin: '0px 0px -8% 0px', threshold: 0.01 },
+        );
+
+        items.forEach((el) => {
+          // Gizleme ancak gözlemci hazır olduğunda uygulanır.
+          el.classList.add('will-reveal');
+          observer.observe(el);
+        });
+
+        // Güvenlik ağı: gözlemci herhangi bir nedenle tetiklenmezse,
+        // EKRANDA OLMASI GEREKEN öğeler 1.5 saniye sonra zorla açılır.
+        // Aşağıda kalan öğelere dokunulmaz — onlar sırası gelince
+        // normal şekilde animasyonla açılır.
+        window.setTimeout(() => {
+          items.forEach((el) => {
+            if (el.classList.contains('is-visible')) return;
+            const box = el.getBoundingClientRect();
+            const onScreen = box.top < window.innerHeight && box.bottom > 0;
+            if (onScreen) {
+              el.classList.add('is-visible');
+              observer.unobserve(el);
+            }
+          });
+        }, 1500);
+      }
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  html,
+  body {
+    min-height: 100%;
+  }
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+  main {
+    flex: 1;
+  }
+</style>

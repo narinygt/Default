@@ -1,0 +1,42 @@
+---
+/**
+ * Kurumsal bir bilgi alanını ekrana basar.
+ * Değer hâlâ `TODO:` ile başlıyorsa, kesikli çerçeve ve "doldurulacak"
+ * etiketiyle GÖRÜNÜR biçimde işaretlenir. Amaç, sitenin yanlışlıkla
+ * uydurma ya da yarım bilgiyle yayına çıkmasını imkansız kılmaktır.
+ *
+ * Gerçek değer site.ts'e yazıldığı anda bu biçimlendirme kendiliğinden
+ * kalkar ve alan normal metin olarak görünür.
+ */
+import { isTodo, todoLabel } from '@/config/site';
+import { t } from '@/i18n/ui';
+import type { Lang } from '@/i18n/routes';
+
+interface Props {
+  value: string;
+  lang: Lang;
+  /** Doldurulmuşsa bağlantıya dönüştürülür (mailto:, tel:, https:). */
+  href?: (value: string) => string;
+  class?: string;
+}
+
+const { value, lang, href, class: className = '' } = Astro.props;
+const pending = isTodo(value);
+const text = todoLabel(value);
+const ui = t(lang);
+---
+
+{
+  pending ? (
+    <span class:list={['todo', className]} title={`${ui.common.todoNote} — src/config/site.ts`}>
+      {text}
+      <span class="sr-only"> ({ui.common.todoNote})</span>
+    </span>
+  ) : href ? (
+    <a href={href(text)} class={className}>
+      {text}
+    </a>
+  ) : (
+    <span class={className}>{text}</span>
+  )
+}

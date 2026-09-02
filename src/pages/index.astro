@@ -1,0 +1,86 @@
+---
+/**
+ * KÖK YÖNLENDİRME — `/`
+ * =================================================================
+ * Ziyaretçiyi tarayıcı diline göre /tr veya /en adresine gönderir.
+ * Varsayılan Türkçedir: dil tespiti başarısız olursa ya da JavaScript
+ * kapalıysa /tr açılır.
+ *
+ * Bu sayfa arama motorlarınca dizine eklenmez; hreflang x-default
+ * etiketi buraya işaret ettiği için erişilebilir kalması gerekir.
+ */
+import { SITE_URL } from '@/config/site';
+---
+
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CPeak Consultancy</title>
+    <meta name="robots" content="noindex, follow" />
+    <link rel="icon" href="/brand/favicon.svg" type="image/svg+xml" />
+
+    <link rel="alternate" hreflang="tr" href={`${SITE_URL}/tr`} />
+    <link rel="alternate" hreflang="en" href={`${SITE_URL}/en`} />
+    <link rel="alternate" hreflang="x-default" href={`${SITE_URL}/`} />
+
+    <!-- JavaScript kapalıysa: kısa gecikmeyle varsayılan dile git. -->
+    <noscript><meta http-equiv="refresh" content="0; url=/tr" /></noscript>
+
+    <script is:inline>
+      (function () {
+        var target = '/tr';
+        try {
+          var langs = navigator.languages || [navigator.language];
+          for (var i = 0; i < langs.length; i++) {
+            var code = String(langs[i] || '').toLowerCase();
+            // Türkçe açıkça isteniyorsa Türkçe; onun dışında ilk eşleşen
+            // dil İngilizceyse İngilizce. Diğer tüm durumlarda varsayılan.
+            if (code.indexOf('tr') === 0) {
+              target = '/tr';
+              break;
+            }
+            if (code.indexOf('en') === 0) {
+              target = '/en';
+              break;
+            }
+          }
+        } catch (e) {
+          /* tespit başarısız: varsayılan dilde kal */
+        }
+        location.replace(target);
+      })();
+    </script>
+
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: #f7f8f7;
+        color: #0e1620;
+        font-family: 'Segoe UI', system-ui, sans-serif;
+      }
+      .choose {
+        text-align: center;
+        display: grid;
+        gap: 1rem;
+      }
+      .choose a {
+        color: #11676a;
+        font-size: 1.05rem;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Yönlendirme çalışmazsa elle seçim; hiçbir ziyaretçi boş sayfada kalmaz. -->
+    <div class="choose">
+      <p>CPeak Consultancy</p>
+      <p>
+        <a href="/tr">Türkçe</a> · <a href="/en">English</a>
+      </p>
+    </div>
+  </body>
+</html>

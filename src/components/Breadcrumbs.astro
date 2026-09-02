@@ -1,0 +1,84 @@
+---
+import { t } from '@/i18n/ui';
+import { path, type Lang, type RouteRef } from '@/i18n/routes';
+
+interface Props {
+  lang: Lang;
+  trail: readonly { name: string; ref: RouteRef }[];
+  /** Son öğe bulunulan sayfadır; bağlantı verilmez. */
+  current: string;
+  tone?: 'light' | 'dark';
+}
+
+const { lang, trail, current, tone = 'light' } = Astro.props;
+const ui = t(lang);
+---
+
+<nav class:list={['crumbs', `crumbs-${tone}`]} aria-label={ui.a11y.breadcrumb}>
+  <ol>
+    {
+      trail.map((item) => (
+        <li>
+          <a href={path(item.ref, lang)}>{item.name}</a>
+          <span class="sep" aria-hidden="true">
+            /
+          </span>
+        </li>
+      ))
+    }
+    <li aria-current="page">{current}</li>
+  </ol>
+</nav>
+
+<style>
+  .crumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    letter-spacing: 0.03em;
+    /* BÜYÜK HARFE ÇEVİRMEYİN. Kırıntılarda "SAP Public Cloud" gibi
+       İngilizce ürün adları geçiyor; sayfa lang="tr" olduğu için
+       tarayıcı Türkçe büyük harf kuralını uygular ve "PUBLİC CLOUD"
+       çıkar. Normal yazım hem doğru hem daha okunur. */
+    text-transform: none;
+  }
+  .crumbs li {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .crumbs a {
+    color: var(--text-muted);
+    text-decoration: none;
+  }
+  .crumbs a:hover {
+    color: var(--teal);
+    text-decoration: underline;
+    text-underline-offset: 0.3em;
+  }
+  .crumbs [aria-current='page'] {
+    color: var(--navy);
+  }
+  .sep {
+    color: var(--separator);
+  }
+
+  .crumbs-dark a {
+    color: rgba(255, 255, 255, 0.6);
+  }
+  .crumbs-dark a:hover {
+    color: #fff;
+  }
+  .crumbs-dark [aria-current='page'] {
+    color: #fff;
+  }
+  .crumbs-dark .sep {
+    color: rgba(255, 255, 255, 0.3);
+  }
+</style>

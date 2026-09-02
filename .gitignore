@@ -1,0 +1,22 @@
+# Derleme çıktısı
+dist/
+.astro/
+
+# Bağımlılıklar
+node_modules/
+
+# Geçici paylaşım için indirilen cloudflared ikilisi
+.tools/
+
+# Ekran görüntüleri (npm run shots)
+.shots/
+
+# Ortam değişkenleri — form altyapısı kurulunca burada tutulur
+.env
+.env.*
+!.env.example
+
+# İşletim sistemi / editör
+.DS_Store
+Thumbs.db
+*.log

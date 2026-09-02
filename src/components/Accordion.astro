@@ -1,0 +1,101 @@
+---
+/**
+ * SSS akordeonu.
+ * Yerel <details>/<summary> kullanır: klavye erişimi, ekran okuyucu
+ * desteği ve JavaScript kapalıyken çalışma kendiliğinden gelir.
+ * Ayrıca arama motoru içeriği açılmadan da okur — SEO için önemli.
+ */
+interface Props {
+  items: readonly { q: string; a: string }[];
+  /** İlk soru açık başlasın mı? */
+  openFirst?: boolean;
+}
+
+const { items, openFirst = false } = Astro.props;
+---
+
+<div class="accordion">
+  {
+    items.map((item, i) => (
+      <details class="acc-item" open={openFirst && i === 0}>
+        <summary class="acc-q">
+          <span>{item.q}</span>
+          <span class="acc-icon" aria-hidden="true" />
+        </summary>
+        <div class="acc-a">
+          <p>{item.a}</p>
+        </div>
+      </details>
+    ))
+  }
+</div>
+
+<style>
+  .accordion {
+    border-top: 1px solid var(--border);
+  }
+
+  .acc-item {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .acc-q {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    padding: 1.15rem 0;
+    cursor: pointer;
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 550;
+    letter-spacing: -0.015em;
+    line-height: 1.35;
+    color: var(--navy);
+    list-style: none;
+    transition: color var(--dur-fast) var(--ease);
+  }
+  .acc-q::-webkit-details-marker {
+    display: none;
+  }
+  .acc-q:hover {
+    color: var(--teal);
+  }
+
+  /* Artı / eksi göstergesi — ikon dosyası gerektirmez. */
+  .acc-icon {
+    position: relative;
+    flex: none;
+    width: 14px;
+    height: 14px;
+    margin-top: 0.32em;
+  }
+  .acc-icon::before,
+  .acc-icon::after {
+    content: '';
+    position: absolute;
+    background: var(--teal);
+    transition: transform var(--dur) var(--ease);
+  }
+  .acc-icon::before {
+    inset: 6px 0 auto 0;
+    height: 1.5px;
+  }
+  .acc-icon::after {
+    inset: 0 auto 0 6px;
+    width: 1.5px;
+  }
+  [open] .acc-icon::after {
+    transform: scaleY(0);
+  }
+
+  .acc-a {
+    padding-bottom: 1.25rem;
+    max-width: 72ch;
+  }
+  .acc-a p {
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1.62;
+  }
+</style>

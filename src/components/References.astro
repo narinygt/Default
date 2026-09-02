@@ -1,0 +1,190 @@
+---
+/**
+ * REFERANSLAR ŞERİDİ
+ * =================================================================
+ * Ana sayfada hero'nun hemen altında, koyu zeminli tek satırlık
+ * logo şeridi. Bölüm başlığı sitenin diğer bölümleriyle aynı
+ * `.eyebrow` bileşenini kullanır — ayrı bir tipografi kurulmaz.
+ *
+ * Liste `src/data/references.ts` içindedir; ölçü mantığı da orada
+ * açıklanmıştır. Logo eklenmez/çıkarılmaz.
+ *
+ * KESİNTİSİZ DÖNGÜ:
+ * Liste iki kez basılır ve şerit `-50%` kaydırılır. Bunun tam olarak
+ * tutması için öğeler arasındaki boşluk `gap` ile DEĞİL, her öğenin
+ * kendi yatay iç boşluğuyla verilir. `gap` kullanılırsa iki yarı
+ * arasında fazladan bir boşluk kalır, `-50%` yarım boşluk kayar ve
+ * döngü başa dönerken gözle görülür bir sıçrama olur.
+ * İkinci kopya `aria-hidden` — ekran okuyucu markaları iki kez okumaz.
+ */
+import { references } from '@/data/references';
+import { t } from '@/i18n/ui';
+import type { Lang } from '@/i18n/routes';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const ui = t(lang);
+---
+
+<section class="refs on-dark" aria-labelledby="refs-title">
+  <div class="container">
+    <p class="eyebrow" id="refs-title">{ui.common.references}</p>
+
+    <div class="refs-marquee">
+      <ul class="refs-track">
+        {
+          references.map((logo) => (
+            <li class="refs-item" style={`--logo-w:${logo.w}`}>
+              <img
+                src={logo.src}
+                width={logo.iw}
+                height={logo.ih}
+                alt={logo.alt}
+                loading="lazy"
+                decoding="async"
+              />
+            </li>
+          ))
+        }
+        {
+          references.map((logo) => (
+            <li class="refs-item" style={`--logo-w:${logo.w}`} aria-hidden="true">
+              <img
+                src={logo.src}
+                width={logo.iw}
+                height={logo.ih}
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .refs {
+    background: var(--surface-dark);
+    padding-block: clamp(1.9rem, 1.4rem + 1.7vw, 2.75rem);
+  }
+
+  .refs .eyebrow {
+    margin: 0 0 clamp(1.1rem, 0.9rem + 0.6vw, 1.6rem);
+  }
+
+  /* Şerit kenarlarda sert kesilmez; zemine doğru yumuşar. Böylece
+     logolar ekran kenarında aniden belirip kaybolmaz. */
+  .refs-marquee {
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 min(7%, 3.5rem),
+      #000 calc(100% - min(7%, 3.5rem)),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 min(7%, 3.5rem),
+      #000 calc(100% - min(7%, 3.5rem)),
+      transparent 100%
+    );
+  }
+
+  .refs-track {
+    /* --k: dar ekranlarda tüm logoları topluca küçülten tek katsayı.
+       --gap: iki logo arasındaki TOPLAM boşluk (her öğe yarısını taşır). */
+    --k: 1;
+    --gap: 3.25rem;
+    --cap-h: 44px;
+
+    display: flex;
+    align-items: center;
+    width: max-content;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    gap: 0; /* boşluk öğelerin iç boşluğunda — bkz. yukarıdaki not */
+    animation: refs-scroll 52s linear infinite;
+  }
+
+  /* Okumak isteyen ziyaretçi için: üzerine gelince durur. */
+  .refs-marquee:hover .refs-track,
+  .refs-marquee:focus-within .refs-track {
+    animation-play-state: paused;
+  }
+
+  .refs-item {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-inline: calc(var(--gap) / 2);
+    height: calc(var(--cap-h) * var(--k));
+  }
+
+  /* Kutu ölçüsü AÇIKÇA verilir (auto DEĞİL): `width/height: auto` ile
+     doğal boyutu kutudan küçük olan dosyalar (ör. fusion-consulting
+     66×29) kutuyu doldurmayıp minicik kalıyordu. Açık ölçü + `contain`
+     ile logo, oranı korunarak kutuya sığacak kadar BÜYÜTÜLÜR de.
+
+     Hiçbir filtre YOK: eski sürümdeki iki beyaz drop-shadow logoların
+     çevresinde hale yaratıyor ve kenarlarını bulanıklaştırıyordu.
+     Markanın kendi görünümü neyse o kalır. */
+  .refs-item img {
+    display: block;
+    width: calc(var(--logo-w) * var(--k) * 1px);
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+  }
+
+  @media (max-width: 900px) {
+    .refs-track {
+      --k: 0.86;
+      --gap: 2.6rem;
+    }
+  }
+  @media (max-width: 560px) {
+    .refs-track {
+      --k: 0.76;
+      --gap: 2.1rem;
+      animation-duration: 40s;
+    }
+  }
+
+  @keyframes refs-scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* Hareket tercihi kapalıysa: kayma durur, logolar sarmalanır ve
+     ikinci kopya gizlenir (aynı marka iki kez görünmesin). */
+  @media (prefers-reduced-motion: reduce) {
+    .refs-marquee {
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+    .refs-track {
+      animation: none;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+      row-gap: 1.1rem;
+    }
+    .refs-track [aria-hidden='true'] {
+      display: none;
+    }
+  }
+</style>

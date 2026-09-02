@@ -1,0 +1,174 @@
+---
+/** KVKK aydınlatma metni ve çerez politikası — ortak iskelet. */
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import { type Lang } from '@/i18n/routes';
+import type { LegalContent } from '@/data/pages/legal';
+
+interface Props {
+  lang: Lang;
+  content: LegalContent;
+  crumb: string;
+  /** Metnin son güncellenme tarihi (ISO). */
+  updatedAt: string;
+}
+
+const { lang, content: c, crumb, updatedAt } = Astro.props;
+
+const formatted = new Intl.DateTimeFormat(lang === 'tr' ? 'tr-TR' : 'en-GB', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+}).format(new Date(updatedAt));
+---
+
+<article class="legal">
+  <div class="container container-narrow">
+    <Breadcrumbs
+      lang={lang}
+      trail={[{ name: lang === 'tr' ? 'Ana sayfa' : 'Home', ref: { page: 'home' } }]}
+      current={crumb}
+    />
+
+    <header class="legal-head">
+      <h1>{c.hero.h1}</h1>
+      <p class="lead">{c.hero.lead}</p>
+      <p class="legal-date mono">
+        {c.lastUpdated}: <time datetime={updatedAt}>{formatted}</time>
+      </p>
+    </header>
+
+    {
+      /* Hukuk onayı bekleyen metinler için uyarı. `reviewNotice`
+         boşaltıldığında bu kutu kendiliğinden kaybolur. */
+      c.reviewNotice && (
+        <aside class="legal-review" role="note">
+          <p class="mono legal-review-label">
+            {lang === 'tr' ? 'Hukuki gözden geçirme bekliyor' : 'Awaiting legal review'}
+          </p>
+          <p>{c.reviewNotice}</p>
+        </aside>
+      )
+    }
+
+    <div class="legal-body">
+      {
+        c.sections.map((s) => (
+          <section class="legal-section">
+            <h2>{s.h2}</h2>
+
+            {s.body?.map((p) => <p>{p}</p>)}
+
+            {s.items && (
+              <ul class="dashlist legal-list">
+                {s.items.map((i) => (
+                  <li>{i}</li>
+                ))}
+              </ul>
+            )}
+
+            {s.pairs && (
+              <dl class="legal-pairs">
+                {s.pairs.map((p) => (
+                  <div class="legal-pair">
+                    <dt>{p.term}</dt>
+                    <dd>{p.def}</dd>
+                  </div>
+                ))}
+              </dl>
+            )}
+          </section>
+        ))
+      }
+    </div>
+  </div>
+</article>
+
+<style>
+  .legal {
+    padding-block: var(--space-sm) var(--section-y);
+  }
+
+  .legal-head {
+    margin-block: var(--space-md) var(--space-lg);
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid var(--border);
+  }
+  .legal-head .lead {
+    margin-top: var(--space-sm);
+  }
+  .legal-date {
+    margin-top: var(--space-sm);
+    color: var(--text-muted);
+    text-transform: none;
+    letter-spacing: 0.03em;
+  }
+
+  .legal-review {
+    margin-bottom: var(--space-lg);
+    padding: var(--space-sm);
+    border: 1px dashed #b4772a;
+    border-radius: var(--radius);
+    background: rgba(232, 179, 58, 0.1);
+  }
+  .legal-review-label {
+    color: #7a4f12;
+    margin-bottom: 0.4rem;
+  }
+  .legal-review p:last-child {
+    font-size: 0.94rem;
+    line-height: 1.6;
+    color: #6b4711;
+    margin: 0;
+  }
+
+  .legal-body {
+    display: grid;
+    gap: var(--space-lg);
+  }
+
+  .legal-section h2 {
+    font-size: 1.3rem;
+    margin-bottom: var(--space-sm);
+  }
+  .legal-section p {
+    color: var(--text-muted);
+    line-height: 1.68;
+    margin-bottom: var(--space-sm);
+  }
+  .legal-section p:last-child {
+    margin-bottom: 0;
+  }
+
+  .legal-list {
+    margin-top: var(--space-sm);
+  }
+  .legal-list li {
+    color: var(--text-muted);
+    font-size: 1rem;
+  }
+
+  .legal-pairs {
+    display: grid;
+    gap: var(--space-sm);
+    margin: var(--space-sm) 0 0;
+  }
+  .legal-pair {
+    padding: var(--space-sm);
+    background: var(--surface);
+    border: 1px solid var(--border-soft);
+    border-left: 2px solid var(--teal);
+    border-radius: var(--radius);
+  }
+  .legal-pair dt {
+    font-family: var(--font-display);
+    font-weight: 550;
+    color: var(--navy);
+    margin-bottom: 0.3rem;
+  }
+  .legal-pair dd {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.97rem;
+    line-height: 1.6;
+  }
+</style>

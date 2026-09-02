@@ -1,0 +1,261 @@
+---
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import ContactForm from '@/components/ContactForm.astro';
+import Field from '@/components/Field.astro';
+import { type Lang } from '@/i18n/routes';
+import { t } from '@/i18n/ui';
+import { contact } from '@/data/pages/contact';
+import { site, addressLines } from '@/config/site';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const ui = t(lang);
+const c = contact[lang];
+
+const lines = addressLines();
+/** Adres tamamlanmadan harita alanı gösterilmez. */
+const addressReady = lines.every((l) => !l.pending);
+---
+
+<section class="ct">
+  <div class="container">
+    <Breadcrumbs
+      lang={lang}
+      trail={[{ name: lang === 'tr' ? 'Ana sayfa' : 'Home', ref: { page: 'home' } }]}
+      current={ui.nav.contact}
+    />
+
+    <div class="ct-head">
+      <h1>{c.hero.h1}</h1>
+      <p class="lead">{c.hero.lead}</p>
+    </div>
+
+    <!-- Form fold üstünde: ziyaretçi kaydırmadan formu görür. -->
+    <div class="ct-grid">
+      <div class="ct-form">
+        <ContactForm lang={lang} />
+      </div>
+
+      <aside class="ct-aside">
+        <!-- Doğrudan iletişim -->
+        <div class="ct-block">
+          <h2 class="mono ct-block-title">{c.aside.directTitle}</h2>
+          <p class="ct-block-note">{c.aside.directBody}</p>
+          <ul class="ct-contacts">
+            <li>
+              <span class="mono ct-key">{lang === 'tr' ? 'E-posta' : 'Email'}</span>
+              <Field lang={lang} value={site.contact.email} href={(v) => `mailto:${v}`} />
+            </li>
+            <li>
+              <span class="mono ct-key">{lang === 'tr' ? 'Telefon' : 'Phone'}</span>
+              <Field
+                lang={lang}
+                value={site.contact.phone}
+                href={(v) => `tel:${v.replace(/[^\d+]/g, '')}`}
+              />
+            </li>
+            <li>
+              <span class="mono ct-key">LinkedIn</span>
+              <Field lang={lang} value={site.contact.linkedin} href={(v) => v} />
+            </li>
+          </ul>
+        </div>
+
+        <!-- Yanıt süresi -->
+        <div class="ct-block ct-block-accent">
+          <h2 class="mono ct-block-title">{c.aside.responseTitle}</h2>
+          <p class="ct-response">{c.aside.responseBody}</p>
+        </div>
+
+        <!-- Çalışma saatleri -->
+        <div class="ct-block">
+          <h2 class="mono ct-block-title">{c.aside.hoursTitle}</h2>
+          <p class="ct-hours">{ui.footer.hoursValue}</p>
+        </div>
+
+        <!-- Adres -->
+        <div class="ct-block">
+          <h2 class="mono ct-block-title">{c.aside.addressTitle}</h2>
+          <address class="ct-address">
+            {
+              lines.map((line) =>
+                line.pending ? (
+                  <span class="todo">{line.text}</span>
+                ) : (
+                  <span class="ct-addr-line">{line.text}</span>
+                ),
+              )
+            }
+          </address>
+
+          {
+            addressReady ? (
+              <div class="ct-map-slot">
+                {/* Adres netleştiğinde buraya gömülü harita gelir. */}
+              </div>
+            ) : (
+              <p class="ct-map-note">{c.aside.mapNote}</p>
+            )
+          }
+        </div>
+
+        <!-- Sonrasında ne oluyor -->
+        <div class="ct-block">
+          <h2 class="mono ct-block-title">{c.aside.whatHappensTitle}</h2>
+          <ol class="ct-steps">
+            {c.aside.whatHappens.map((s) => <li>{s}</li>)}
+          </ol>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ct {
+    padding-block: var(--space-sm) var(--section-y);
+  }
+
+  /* Başlık bloğu bilinçli olarak KÜÇÜK tutulmuştur.
+     Bu sayfanın işi form doldurtmaktır; ana sayfa ölçeğinde bir H1
+     formu ekranın altına iter. Brief'in "form fold üstünde görünsün"
+     gereksinimi buradaki ölçüyle sağlanır. */
+  .ct-head {
+    max-width: 46rem;
+    margin-block: var(--space-sm) var(--space-md);
+  }
+  .ct-head h1 {
+    font-size: clamp(1.9rem, 1.5rem + 1.5vw, 2.6rem);
+  }
+  .ct-head .lead {
+    margin-top: 0.6rem;
+    font-size: 1.05rem;
+  }
+
+  .ct-grid {
+    display: grid;
+    gap: var(--space-md);
+    align-items: start;
+  }
+  @media (min-width: 62rem) {
+    .ct-grid {
+      grid-template-columns: 1.35fr 1fr;
+      gap: var(--space-lg);
+    }
+    /* Yan sütun uzun formda birlikte kayar. */
+    .ct-aside {
+      position: sticky;
+      top: calc(var(--header-h) + 1.5rem);
+    }
+  }
+
+  .ct-aside {
+    display: grid;
+    gap: var(--space-sm);
+  }
+
+  .ct-block {
+    padding: var(--space-sm);
+    background: var(--surface);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
+  }
+  .ct-block-accent {
+    border-left: 2px solid var(--teal);
+  }
+
+  .ct-block-title {
+    color: var(--text-muted);
+    font-size: var(--step-mono);
+    margin-bottom: var(--space-xs);
+    font-weight: 500;
+  }
+  .ct-block-note {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    margin-bottom: var(--space-xs);
+  }
+
+  .ct-contacts {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--space-xs);
+  }
+  .ct-contacts li {
+    display: grid;
+    gap: 0.15rem;
+    font-size: 0.98rem;
+    word-break: break-word;
+  }
+  .ct-key {
+    color: var(--text-muted);
+    font-size: 0.68rem;
+    /* "LinkedIn" Türkçe büyük harf kuralında "LİNKEDİN" olur. */
+    text-transform: none;
+    letter-spacing: 0.03em;
+  }
+  .ct-contacts :global(a) {
+    color: var(--teal);
+    text-decoration: none;
+  }
+  .ct-contacts :global(a:hover) {
+    text-decoration: underline;
+    text-underline-offset: 0.22em;
+  }
+
+  .ct-response,
+  .ct-hours {
+    font-size: 0.97rem;
+    line-height: 1.55;
+    color: var(--text);
+    margin: 0;
+  }
+
+  .ct-address {
+    font-style: normal;
+    display: grid;
+    gap: 0.2rem;
+    font-size: 0.97rem;
+    color: var(--text);
+  }
+  .ct-addr-line {
+    display: block;
+  }
+
+  .ct-map-note {
+    margin-top: var(--space-xs);
+    padding-top: var(--space-xs);
+    border-top: 1px dashed var(--border);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+  .ct-map-slot {
+    margin-top: var(--space-xs);
+    aspect-ratio: 16 / 10;
+    background: var(--paper);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
+  }
+
+  .ct-steps {
+    margin: 0;
+    padding-left: 1.1rem;
+    display: grid;
+    gap: 0.55rem;
+  }
+  .ct-steps li {
+    font-size: 0.93rem;
+    line-height: 1.55;
+    color: var(--text-muted);
+    padding-left: 0.25rem;
+  }
+  .ct-steps li::marker {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--teal);
+  }
+</style>

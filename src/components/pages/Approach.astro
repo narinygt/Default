@@ -1,0 +1,331 @@
+---
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import Ledger from '@/components/Ledger.astro';
+import { type Lang } from '@/i18n/routes';
+import { t } from '@/i18n/ui';
+import { approach } from '@/data/pages/approach';
+import { home } from '@/data/home';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const ui = t(lang);
+const c = approach[lang];
+/** Dört adımlı süreç ana sayfayla aynı kaynaktan okunur — tek doğruluk kaynağı. */
+const process = home[lang].process;
+---
+
+<section class="ap-hero">
+  <Ledger variant="texture" tone="light" class="ap-texture" />
+  <div class="container ap-hero-inner">
+    <Breadcrumbs
+      lang={lang}
+      trail={[{ name: lang === 'tr' ? 'Ana sayfa' : 'Home', ref: { page: 'home' } }]}
+      current={ui.nav.approach}
+    />
+    <div class="ap-hero-copy reveal">
+      <h1>{c.hero.h1}</h1>
+      <p class="lead">{c.hero.lead}</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DÖRT ADIM ============ -->
+<section class="section-sm ap-process">
+  <div class="container">
+    <ol class="ap-steps">
+      {
+        process.steps.map((step, i) => (
+          <li class="ap-step reveal" data-delay={String(Math.min(i, 3))}>
+            <span class="ap-no mono">{step.no}</span>
+            <div class="ap-step-body">
+              <h2 class="ap-step-title">{step.title}</h2>
+              <p class="ap-step-what">{step.what}</p>
+              <dl class="ap-step-meta">
+                <div>
+                  <dt class="mono">{ui.common.deliverables}</dt>
+                  <dd>{step.deliverable}</dd>
+                </div>
+                <div>
+                  <dt class="mono">{ui.common.typicalDuration}</dt>
+                  <dd>{step.duration}</dd>
+                </div>
+              </dl>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<!-- ============ İLKELER ============ -->
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">{lang === 'tr' ? 'İlkeler' : 'Principles'}</p>
+      <h2>{c.principles.h2}</h2>
+    </div>
+
+    <div class="grid grid-3 ap-principles">
+      {
+        c.principles.items.map((item, i) => (
+          <div class="ap-principle reveal" data-delay={String(Math.min(i % 3, 3))}>
+            <hr class="rule-teal" />
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ============ ÇALIŞMA MODELLERİ ============ -->
+<section class="section ap-models-section on-dark">
+  <Ledger variant="texture" tone="dark" />
+  <div class="container ap-models-inner">
+    <div class="section-head reveal">
+      <p class="eyebrow">{lang === 'tr' ? 'Çalışma modelleri' : 'Engagement models'}</p>
+      <h2>{c.engagement.h2}</h2>
+      <p class="lead">{c.engagement.lead}</p>
+    </div>
+
+    <div class="grid grid-3 ap-models">
+      {
+        c.engagement.models.map((m, i) => (
+          <article class="ap-model reveal" data-delay={String(Math.min(i, 3))}>
+            <h3>{m.name}</h3>
+            <dl>
+              <dt class="mono">{lang === 'tr' ? 'Ne zaman' : 'When it fits'}</dt>
+              <dd>{m.when}</dd>
+              <dt class="mono">{lang === 'tr' ? 'Nasıl işler' : 'How it runs'}</dt>
+              <dd>{m.shape}</dd>
+              <dt class="mono">{ui.common.typicalDuration}</dt>
+              <dd class="ap-model-duration">{m.duration}</dd>
+            </dl>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ============ RAPORLAMA ============ -->
+<section class="section">
+  <div class="container">
+    <div class="grid grid-2 ap-report-grid">
+      <div class="reveal">
+        <h2>{c.reporting.h2}</h2>
+        {c.reporting.body.map((p) => <p class="ap-report-body">{p}</p>)}
+      </div>
+      <div class="reveal" data-delay="1">
+        <ul class="checklist">
+          {c.reporting.items.map((i) => <li>{i}</li>)}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ÜSTLENMEDİĞİMİZ İŞLER ============ -->
+<section class="section-sm ap-not">
+  <div class="container container-narrow">
+    <div class="section-head reveal">
+      <h2>{c.notDoing.h2}</h2>
+      <p class="lead">{c.notDoing.lead}</p>
+    </div>
+    <ul class="notlist reveal">
+      {c.notDoing.items.map((i) => <li>{i}</li>)}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .ap-hero {
+    position: relative;
+    overflow: hidden;
+    padding-block: var(--space-sm) clamp(2rem, 1.2rem + 3vw, 3.5rem);
+  }
+  .ap-texture {
+    left: 55%;
+  }
+  .ap-hero-inner {
+    position: relative;
+    z-index: 1;
+  }
+  .ap-hero-copy {
+    max-width: 46rem;
+    margin-top: var(--space-md);
+  }
+  .ap-hero-copy .lead {
+    margin-top: var(--space-sm);
+  }
+
+  /* ---------- Adımlar ---------- */
+  .ap-process {
+    background: var(--surface);
+    border-block: 1px solid var(--border-soft);
+  }
+  .ap-steps {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--space-md);
+  }
+  .ap-step {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-sm);
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--border);
+  }
+  .ap-no {
+    color: var(--teal);
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    padding-top: 0.25rem;
+  }
+  .ap-step-title {
+    font-size: 1.2rem;
+    margin-bottom: var(--space-2xs);
+  }
+  .ap-step-what {
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1.62;
+    margin-bottom: var(--space-sm);
+  }
+  .ap-step-meta {
+    display: grid;
+    gap: var(--space-xs);
+    margin: 0;
+  }
+  @media (min-width: 44rem) {
+    .ap-step-meta {
+      grid-template-columns: 2fr 1fr;
+      gap: var(--space-md);
+    }
+  }
+  .ap-step-meta dt {
+    color: var(--text-muted);
+    font-size: 0.68rem;
+    letter-spacing: 0.09em;
+    margin-bottom: 0.2rem;
+  }
+  .ap-step-meta dd {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--navy);
+    line-height: 1.5;
+  }
+
+  /* ---------- İlkeler ---------- */
+  .ap-principles {
+    gap: var(--space-md);
+  }
+  .ap-principle h3 {
+    margin-block: var(--space-xs) var(--space-2xs);
+    font-size: 1.08rem;
+  }
+  .ap-principle p {
+    color: var(--text-muted);
+    font-size: 0.98rem;
+    line-height: 1.62;
+  }
+
+  /* ---------- Modeller ---------- */
+  .ap-models-section {
+    overflow: hidden;
+  }
+  .ap-models-inner {
+    position: relative;
+    z-index: 1;
+  }
+  .ap-models {
+    gap: var(--space-md);
+  }
+  .ap-model {
+    padding-top: var(--space-sm);
+    border-top: 2px solid var(--amber);
+  }
+  .ap-model h3 {
+    font-size: 1.15rem;
+    margin-bottom: var(--space-xs);
+  }
+  .ap-model dl {
+    margin: 0;
+    display: grid;
+    gap: 0.15rem;
+  }
+  .ap-model dt {
+    color: var(--text-on-dark-label);
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    margin-top: var(--space-xs);
+  }
+  .ap-model dt:first-child {
+    margin-top: 0;
+  }
+  .ap-model dd {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.88);
+  }
+  .ap-model-duration {
+    font-family: var(--font-mono);
+    font-size: 0.85rem !important;
+    color: var(--amber-on-dark) !important;
+  }
+
+  /* ---------- Raporlama ---------- */
+  .ap-report-grid {
+    gap: var(--space-md);
+    align-items: start;
+  }
+  .ap-report-body {
+    margin-top: var(--space-sm);
+    color: var(--text-muted);
+  }
+
+  /* ---------- Üstlenmediklerimiz ---------- */
+  .ap-not {
+    background: var(--surface);
+    border-top: 1px solid var(--border-soft);
+  }
+  .notlist {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+  }
+  .notlist li {
+    position: relative;
+    padding-left: 1.85rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+  /* Onay işareti değil, çarpı — reddedilen iş anlamına gelir. */
+  .notlist li::before,
+  .notlist li::after {
+    content: '';
+    position: absolute;
+    left: 0.15rem;
+    top: 0.72em;
+    width: 0.8rem;
+    height: 1.5px;
+    background: var(--line);
+  }
+  .notlist li::before {
+    transform: rotate(45deg);
+  }
+  .notlist li::after {
+    transform: rotate(-45deg);
+  }
+</style>

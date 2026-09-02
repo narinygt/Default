@@ -1,0 +1,329 @@
+---
+import { site, addressLines } from '@/config/site';
+import { t } from '@/i18n/ui';
+import { path, SOLUTIONS, type Lang } from '@/i18n/routes';
+import { solutionMeta } from '@/data/solutions';
+import Field from './Field.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const ui = t(lang);
+const year = new Date().getFullYear();
+
+const companyLinks = [
+  { href: path({ page: 'approach' }, lang), label: ui.nav.approach },
+  { href: path({ page: 'about' }, lang), label: ui.nav.about },
+  { href: path({ page: 'contact' }, lang), label: ui.nav.contact },
+];
+
+const legalLinks = [
+  { href: path({ page: 'privacy' }, lang), label: lang === 'tr' ? 'KVKK Aydınlatma Metni' : 'Privacy notice' },
+  { href: path({ page: 'cookies' }, lang), label: lang === 'tr' ? 'Gizlilik Politikası' : 'Cookie policy' },
+];
+
+const lines = addressLines();
+const registryEntries = [
+  { label: lang === 'tr' ? 'Unvan' : 'Legal name', value: site.legal.companyLegalName },
+  { label: lang === 'tr' ? 'Sicil No' : 'Registry no', value: site.legal.tradeRegistryNo },
+  { label: lang === 'tr' ? 'Vergi Dairesi' : 'Tax office', value: site.legal.taxOffice },
+  { label: lang === 'tr' ? 'Vergi No' : 'Tax no', value: site.legal.taxNo },
+  { label: 'MERSİS', value: site.legal.mersisNo },
+];
+---
+
+<footer class="site-footer on-dark">
+  <div class="container">
+    <div class="footer-grid">
+      <!-- 1. Marka -->
+      <div class="footer-brand">
+        <img
+          src={site.logo.srcOnDark}
+          width={site.logo.width}
+          height={site.logo.height}
+          alt={site.name}
+          class="footer-logo"
+          loading="lazy"
+        />
+        <p class="footer-tagline">{ui.footer.tagline}</p>
+      </div>
+
+      <!-- 2. Çözümler -->
+      <nav class="footer-col" aria-label={ui.footer.solutions}>
+        <h2 class="mono footer-heading">{ui.footer.solutions}</h2>
+        <ul>
+          {
+            SOLUTIONS.map((s) => (
+              <li>
+                <a href={path({ solution: s.key }, lang)}>{solutionMeta[s.key][lang].navTitle}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <!-- 3. Kurumsal -->
+      <nav class="footer-col" aria-label={ui.footer.company}>
+        <h2 class="mono footer-heading">{ui.footer.company}</h2>
+        <ul>
+          {companyLinks.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+        </ul>
+      </nav>
+
+      <!-- 4. İletişim -->
+      <div class="footer-col">
+        <h2 class="mono footer-heading">{ui.footer.contact}</h2>
+        <address class="footer-address">
+          <p class="addr-lines">
+            {
+              lines.map((line) =>
+                line.pending ? (
+                  <span class="todo addr-line">{line.text}</span>
+                ) : (
+                  <span class="addr-line">{line.text}</span>
+                ),
+              )
+            }
+          </p>
+          <p>
+            <Field lang={lang} value={site.contact.email} href={(v) => `mailto:${v}`} />
+          </p>
+          <p>
+            <Field
+              lang={lang}
+              value={site.contact.phone}
+              href={(v) => `tel:${v.replace(/[^\d+]/g, '')}`}
+            />
+          </p>
+          <p>
+            <Field lang={lang} value={site.contact.linkedin} href={(v) => v} />
+          </p>
+        </address>
+        <p class="footer-hours">
+          <span class="mono footer-hours-label">{ui.footer.hours}</span>
+          <span>{ui.footer.hoursValue}</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- Alt bant -->
+    <div class="footer-bottom">
+      <div class="footer-legal-row">
+        <p class="footer-copy">© {year} {site.name}. {ui.footer.rights}</p>
+        <ul class="footer-legal-links">
+          {legalLinks.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+        </ul>
+      </div>
+
+      <!-- Ticaret sicil bilgileri -->
+      <details class="footer-registry">
+        <summary class="mono">{ui.footer.registryTitle}</summary>
+        <dl class="registry-list">
+          {
+            registryEntries.map((e) => (
+              <div class="registry-item">
+                <dt class="mono">{e.label}</dt>
+                <dd>
+                  <Field lang={lang} value={e.value} />
+                </dd>
+              </div>
+            ))
+          }
+        </dl>
+      </details>
+
+      <!-- SAP marka bildirimi -->
+      <p class="footer-trademark">{ui.footer.trademark}</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--navy);
+    color: var(--text-on-dark);
+    padding-block: var(--space-xl) var(--space-md);
+    margin-top: auto;
+  }
+
+  .footer-grid {
+    display: grid;
+    gap: var(--space-md);
+    grid-template-columns: 1fr;
+    padding-bottom: var(--space-lg);
+  }
+
+  @media (min-width: 40rem) {
+    .footer-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 64rem) {
+    .footer-grid {
+      grid-template-columns: 1.6fr 1fr 1fr 1.3fr;
+      gap: var(--space-lg);
+    }
+  }
+
+  /* Footer'da logo biraz daha büyük durabilir — alan var. */
+  .footer-logo {
+    height: 54px;
+    width: auto;
+    margin-bottom: var(--space-xs);
+  }
+  .footer-tagline {
+    color: var(--text-on-dark-muted);
+    font-size: 0.98rem;
+    line-height: 1.6;
+    max-width: 32ch;
+  }
+
+  .footer-heading {
+    color: var(--text-on-dark-label);
+    font-size: var(--step-mono);
+    margin-bottom: var(--space-xs);
+    font-weight: 500;
+  }
+
+  .footer-col ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.55rem;
+  }
+  .footer-col a {
+    color: rgba(255, 255, 255, 0.88);
+    text-decoration: none;
+    font-size: 0.98rem;
+    transition: color var(--dur-fast) var(--ease);
+  }
+  .footer-col a:hover {
+    color: #fff;
+    text-decoration: underline;
+    text-underline-offset: 0.22em;
+  }
+
+  .footer-address {
+    font-style: normal;
+    display: grid;
+    gap: 0.5rem;
+    font-size: 0.98rem;
+  }
+  .footer-address p {
+    color: rgba(255, 255, 255, 0.88);
+    margin: 0;
+  }
+  /* E-posta, telefon ve LinkedIn bağlantılarını <Field> bileşeni üretir.
+     Astro stilleri bileşene kapsamlı olduğu için kapsamsız `a` seçicisi
+     o bağlantılara ULAŞMAZ; kural eşleşmeyince genel `a { color: var(--teal) }`
+     devreye giriyor ve teal footer zemininde yazı görünmez oluyordu (1:1).
+     `:global()` kapsam sınırını aşar. Aynı desen Contact.astro'da da kullanılır. */
+  .footer-address :global(a) {
+    color: rgba(255, 255, 255, 0.88);
+    text-decoration: none;
+  }
+  .footer-address :global(a:hover) {
+    color: #fff;
+    text-decoration: underline;
+    text-underline-offset: 0.22em;
+  }
+  .addr-lines {
+    display: grid;
+    gap: 0.22rem;
+  }
+  .addr-line {
+    display: block;
+  }
+
+  .footer-hours {
+    margin-top: var(--space-sm);
+    display: grid;
+    gap: 0.2rem;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.88);
+  }
+  .footer-hours-label {
+    color: var(--text-on-dark-label);
+  }
+
+  /* --- Alt bant --- */
+  .footer-bottom {
+    border-top: 1px solid var(--border-on-dark);
+    padding-top: var(--space-sm);
+    display: grid;
+    gap: var(--space-sm);
+  }
+
+  .footer-legal-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-xs);
+  }
+  .footer-copy {
+    font-size: 0.9rem;
+    color: var(--text-on-dark-muted);
+    margin: 0;
+  }
+  .footer-legal-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    list-style: none;
+    padding: 0;
+  }
+  .footer-legal-links a {
+    font-size: 0.9rem;
+    color: var(--text-on-dark-muted);
+    text-decoration: none;
+  }
+  .footer-legal-links a:hover {
+    color: #fff;
+    text-decoration: underline;
+    text-underline-offset: 0.22em;
+  }
+
+  /* --- Ticaret sicil --- */
+  .footer-registry summary {
+    cursor: pointer;
+    color: var(--text-on-dark-label);
+    font-size: var(--step-mono);
+    padding: 0.35rem 0;
+    width: fit-content;
+  }
+  .footer-registry summary:hover {
+    color: #fff;
+  }
+  .registry-list {
+    display: grid;
+    gap: 0.6rem;
+    margin-top: var(--space-xs);
+    padding-left: 0;
+  }
+  @media (min-width: 48rem) {
+    .registry-list {
+      grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    }
+  }
+  .registry-item dt {
+    color: var(--text-on-dark-label);
+    font-size: 0.7rem;
+    margin-bottom: 0.15rem;
+  }
+  .registry-item dd {
+    margin: 0;
+    font-size: 0.92rem;
+    color: rgba(255, 255, 255, 0.88);
+  }
+
+  .footer-trademark {
+    font-size: 0.82rem;
+    line-height: 1.55;
+    color: var(--text-on-dark-label);
+    max-width: 80ch;
+    margin: 0;
+  }
+</style>

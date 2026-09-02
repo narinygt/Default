@@ -1,0 +1,310 @@
+---
+/**
+ * Çerez onayı.
+ * =================================================================
+ * "Reddet" seçeneği "Kabul et" ile AYNI görünürlükte ve aynı
+ * ağırlıktadır — biri renkli buton, diğeri soluk bir bağlantı
+ * değildir. Kategori bazlı onay verilebilir.
+ *
+ * Analitik yalnızca açık onaydan sonra yüklenir; onay verilmezse
+ * hiçbir ölçüm etiketi sayfaya girmez.
+ */
+import { t } from '@/i18n/ui';
+import { path, type Lang } from '@/i18n/routes';
+import { site } from '@/config/site';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const ui = t(lang);
+const gaId = site.analytics.ga4MeasurementId;
+---
+
+<div
+  class="cookie-banner"
+  data-cookie-banner
+  data-ga-id={gaId}
+  role="dialog"
+  aria-modal="false"
+  aria-labelledby="cookie-title"
+  hidden
+>
+  <div class="cookie-inner">
+    <div class="cookie-body">
+      <h2 id="cookie-title" class="cookie-title">{ui.cookies.title}</h2>
+      <p class="cookie-text">
+        {ui.cookies.body}
+        <a href={path({ page: 'cookies' }, lang)}>{ui.cookies.policyLink}</a>
+      </p>
+
+      <!-- Kategori seçimi -->
+      <div class="cookie-cats" data-cookie-cats hidden>
+        <div class="cookie-cat">
+          <div class="cookie-cat-head">
+            <span class="cookie-cat-name">{ui.cookies.necessary}</span>
+            <span class="mono cookie-always">{ui.cookies.alwaysOn}</span>
+          </div>
+          <p class="cookie-cat-desc">{ui.cookies.necessaryDesc}</p>
+        </div>
+
+        <div class="cookie-cat">
+          <div class="cookie-cat-head">
+            {/* Sarmalayan <label> geçerlidir, ancak for/id ile açık
+                bağlama denetim araçlarında ve eski ekran okuyucularda
+                daha güvenilir sonuç verir. */}
+            <label class="cookie-switch" for="cookie-analytics">
+              <input type="checkbox" id="cookie-analytics" data-cookie-analytics />
+              <span class="cookie-cat-name">{ui.cookies.analytics}</span>
+            </label>
+          </div>
+          <p class="cookie-cat-desc">{ui.cookies.analyticsDesc}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reddet ve kabul et: aynı ızgara hücresinde, birebir aynı genişlikte,
+         aynı stille. Biri renkli buton diğeri soluk bağlantı DEĞİLDİR. -->
+    <div class="cookie-actions">
+      <div class="cookie-choices">
+        <button type="button" class="btn btn-cookie" data-cookie-reject>{ui.cookies.reject}</button>
+        <button type="button" class="btn btn-cookie" data-cookie-accept>{ui.cookies.accept}</button>
+        <button type="button" class="btn btn-cookie cookie-save" data-cookie-save hidden>
+          {ui.cookies.save}
+        </button>
+      </div>
+      <button type="button" class="cookie-settings" data-cookie-settings>
+        {ui.cookies.settings}
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .cookie-banner {
+    position: fixed;
+    inset: auto 0 0 0;
+    z-index: 150;
+    background: var(--surface-darkest);
+    color: #fff;
+    border-top: 2px solid var(--teal);
+    box-shadow: 0 -12px 32px -18px rgba(0, 0, 0, 0.6);
+    padding: var(--space-sm) 0;
+    padding-bottom: max(var(--space-sm), env(safe-area-inset-bottom));
+  }
+  .cookie-banner[hidden] {
+    display: none;
+  }
+
+  .cookie-inner {
+    width: 100%;
+    max-width: var(--container);
+    margin-inline: auto;
+    padding-inline: clamp(1.15rem, 0.6rem + 2.4vw, 2.5rem);
+    display: grid;
+    gap: var(--space-sm);
+    align-items: start;
+  }
+  @media (min-width: 56rem) {
+    .cookie-inner {
+      grid-template-columns: 1fr auto;
+      gap: var(--space-md);
+    }
+  }
+
+  .cookie-title {
+    font-size: 1.05rem;
+    color: #fff;
+    margin-bottom: 0.35rem;
+  }
+  .cookie-text {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.82);
+    max-width: 70ch;
+    margin: 0;
+  }
+  .cookie-text a {
+    color: #fff;
+    text-underline-offset: 0.2em;
+  }
+
+  /* --- Kategoriler --- */
+  .cookie-cats {
+    display: grid;
+    gap: var(--space-xs);
+    margin-top: var(--space-sm);
+    padding-top: var(--space-xs);
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+  }
+  .cookie-cats[hidden] {
+    display: none;
+  }
+  .cookie-cat-head {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+  .cookie-cat-name {
+    font-family: var(--font-display);
+    font-weight: 550;
+    font-size: 0.97rem;
+    color: #fff;
+  }
+  .cookie-always {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.68rem;
+  }
+  .cookie-cat-desc {
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.68);
+    margin: 0.2rem 0 0;
+    max-width: 62ch;
+  }
+  .cookie-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    cursor: pointer;
+  }
+  .cookie-switch input {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--teal);
+    cursor: pointer;
+  }
+
+  /* --- Butonlar: kabul ve reddet aynı ağırlıkta --- */
+  .cookie-actions {
+    display: grid;
+    gap: var(--space-xs);
+    justify-items: stretch;
+  }
+
+  /* Izgara, iki seçeneğe BİREBİR aynı genişliği verir. Metin uzunluğu
+     farklı olsa bile hiçbiri diğerinden daha belirgin görünmez. */
+  .cookie-choices {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(9.5rem, 1fr));
+    gap: var(--space-xs);
+  }
+  /* "Seçimimi kaydet" ayarlar açıldığında alt satıra tam genişlikte
+     eklenir; reddet ve kabul et seçenekleri yerinde kalır. */
+  .cookie-save {
+    grid-column: 1 / -1;
+  }
+
+  .btn-cookie {
+    background: #fff;
+    color: var(--ink);
+    border-color: #fff;
+    padding: 0.7rem 1.2rem;
+    min-height: 46px;
+    font-size: 0.95rem;
+    width: 100%;
+  }
+  .btn-cookie:hover {
+    background: var(--amber);
+    border-color: var(--amber);
+    color: var(--ink);
+  }
+  .btn-cookie[hidden] {
+    display: none;
+  }
+
+  .cookie-settings {
+    background: none;
+    border: 0;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: var(--font-mono);
+    font-size: var(--step-mono);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: underline;
+    text-underline-offset: 0.3em;
+    cursor: pointer;
+    padding: 0.6rem 0.3rem;
+  }
+  .cookie-settings:hover {
+    color: #fff;
+  }
+</style>
+
+<script>
+  const STORAGE_KEY = 'cpeak-consent';
+  const banner = document.querySelector<HTMLElement>('[data-cookie-banner]');
+
+  if (banner) {
+    const cats = banner.querySelector<HTMLElement>('[data-cookie-cats]');
+    const analyticsBox = banner.querySelector<HTMLInputElement>('[data-cookie-analytics]');
+    const saveBtn = banner.querySelector<HTMLElement>('[data-cookie-save]');
+    const settingsBtn = banner.querySelector<HTMLElement>('[data-cookie-settings]');
+    const gaId = banner.dataset.gaId;
+
+    type Consent = { analytics: boolean; at: string };
+
+    const read = (): Consent | null => {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? (JSON.parse(raw) as Consent) : null;
+      } catch {
+        return null;
+      }
+    };
+
+    /** GA4 yalnızca burada, yalnızca onay varsa yüklenir. */
+    const loadAnalytics = () => {
+      if (!gaId || document.getElementById('ga-src')) return;
+      const s = document.createElement('script');
+      s.id = 'ga-src';
+      s.async = true;
+      s.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
+      document.head.appendChild(s);
+
+      // gtag kuyruğu — form dönüşüm olayı bu fonksiyonu kullanır.
+      window.dataLayer = window.dataLayer || [];
+      function gtag(...args: unknown[]) {
+        window.dataLayer.push(args);
+      }
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', gaId, { anonymize_ip: true });
+    };
+
+    const save = (analytics: boolean) => {
+      try {
+        localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify({ analytics, at: new Date().toISOString() } satisfies Consent),
+        );
+      } catch {
+        /* localStorage kapalıysa sessizce geç — banner her ziyarette görünür. */
+      }
+      banner.hidden = true;
+      if (analytics) loadAnalytics();
+    };
+
+    // Kayıtlı tercih varsa banner hiç gösterilmez.
+    const existing = read();
+    if (existing) {
+      if (existing.analytics) loadAnalytics();
+    } else {
+      banner.hidden = false;
+    }
+
+    banner.querySelector('[data-cookie-accept]')?.addEventListener('click', () => save(true));
+    banner.querySelector('[data-cookie-reject]')?.addEventListener('click', () => save(false));
+
+    settingsBtn?.addEventListener('click', () => {
+      if (!cats) return;
+      cats.hidden = false;
+      settingsBtn.hidden = true;
+      if (saveBtn) saveBtn.hidden = false;
+    });
+
+    saveBtn?.addEventListener('click', () => save(Boolean(analyticsBox?.checked)));
+  }
+</script>

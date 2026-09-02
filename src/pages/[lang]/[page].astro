@@ -1,0 +1,117 @@
+---
+/**
+ * ÜST DÜZEY SAYFA ROUTER'I
+ * =================================================================
+ * Slug'lar dile göre değiştiği için (cozumler / solutions,
+ * hakkimizda / about ...) Astro'da bunların hepsi tek bir dinamik
+ * route altında toplanır. `getStaticPaths` route tablosundan üretir,
+ * dolayısıyla bir dilde var olup diğerinde olmayan sayfa oluşamaz.
+ */
+import Base from '@/layouts/Base.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import SolutionsOverview from '@/components/pages/SolutionsOverview.astro';
+import Approach from '@/components/pages/Approach.astro';
+import About from '@/components/pages/About.astro';
+import Contact from '@/components/pages/Contact.astro';
+import Legal from '@/components/pages/Legal.astro';
+
+import { LANGS, PAGES, type Lang, type PageKey } from '@/i18n/routes';
+import { t } from '@/i18n/ui';
+import { solutionsOverview } from '@/data/pages/solutionsOverview';
+import { approach } from '@/data/pages/approach';
+import { about } from '@/data/pages/about';
+import { contact } from '@/data/pages/contact';
+import { privacy, cookies } from '@/data/pages/legal';
+import { breadcrumbSchema } from '@/lib/schema';
+
+/** Hukuki metinlerin son güncellenme tarihi — metni değiştirdiğinizde güncelleyin. */
+const LEGAL_UPDATED = '2026-08-10';
+
+export function getStaticPaths() {
+  const keys = (Object.keys(PAGES) as PageKey[]).filter((k) => k !== 'home');
+  return LANGS.flatMap((lang) =>
+    keys.map((key) => ({
+      params: { lang, page: PAGES[key][lang] },
+      props: { pageKey: key },
+    })),
+  );
+}
+
+const lang = Astro.params.lang as Lang;
+const { pageKey } = Astro.props as { pageKey: Exclude<PageKey, 'home'> };
+
+const ui = t(lang);
+const homeCrumb = { name: lang === 'tr' ? 'Ana sayfa' : 'Home', ref: { page: 'home' } as const };
+
+/** Her sayfanın meta verisi ve kapanış CTA metni. */
+const config = {
+  solutions: {
+    meta: solutionsOverview[lang].meta,
+    crumb: ui.nav.solutions,
+    closing: solutionsOverview[lang].closing,
+  },
+  approach: {
+    meta: approach[lang].meta,
+    crumb: ui.nav.approach,
+    closing: approach[lang].closing,
+  },
+  about: {
+    meta: about[lang].meta,
+    crumb: ui.nav.about,
+    closing: about[lang].closing,
+  },
+  contact: {
+    meta: contact[lang].meta,
+    crumb: ui.nav.contact,
+    closing: null, // İletişim sayfasında ikinci bir CTA gereksizdir.
+  },
+  privacy: {
+    meta: privacy[lang].meta,
+    crumb: privacy[lang].hero.h1,
+    closing: null,
+  },
+  cookies: {
+    meta: cookies[lang].meta,
+    crumb: cookies[lang].hero.h1,
+    closing: null,
+  },
+}[pageKey];
+
+/** Sayfaya özgü yapısal veri. FAQPage yalnızca çözüm detaylarındadır. */
+const schema = [breadcrumbSchema(lang, [homeCrumb])];
+---
+
+<Base
+  lang={lang}
+  ref={{ page: pageKey }}
+  title={config.meta.title}
+  description={config.meta.description}
+  schema={schema}
+>
+  {pageKey === 'solutions' && <SolutionsOverview lang={lang} />}
+  {pageKey === 'approach' && <Approach lang={lang} />}
+  {pageKey === 'about' && <About lang={lang} />}
+  {pageKey === 'contact' && <Contact lang={lang} />}
+  {
+    pageKey === 'privacy' && (
+      <Legal
+        lang={lang}
+        content={privacy[lang]}
+        crumb={config.crumb}
+        updatedAt={LEGAL_UPDATED}
+      />
+    )
+  }
+  {
+    pageKey === 'cookies' && (
+      <Legal
+        lang={lang}
+        content={cookies[lang]}
+        crumb={config.crumb}
+        updatedAt={LEGAL_UPDATED}
+      />
+    )
+  }
+
+  {config.closing && <CtaBand lang={lang} text={config.closing} />}
+</Base>

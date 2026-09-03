@@ -454,13 +454,18 @@ const imageDims =
     object-position: 0% center;
     transform-origin: 0% 50%;
     transform: scale(2.4);
-    filter: blur(30px) saturate(1.1) brightness(0.8);
+    filter: blur(40px) saturate(1.1) brightness(0.78);
   }
-  /* Net kare yalnızca sağda. Geçiş uzun tutulur ki iki katmanın birleşim
-     yeri belli olmasın. */
+  /* Net kare yalnızca METNİN BİTTİĞİ YERDEN SONRA başlar.
+     Ölçüm: başlık, alt metin ve butonlar masaüstünde ekranın %48'inde
+     bitiyor. Net katman daha erken görünmeye başladığında yazılar
+     ekrandaki grafiklerin ve rakamların üstüne düşüyor, okumak
+     yoruyordu. Sınır %52'ye alındı: metin tamamen sakin, buğulu alanın
+     üzerinde kalıyor; net oda metnin sağında başlıyor. Geçiş uzun
+     tutulur ki iki katmanın birleşim yeri belli olmasın. */
   .hero-bg-sharp {
-    -webkit-mask-image: linear-gradient(to right, transparent 8%, #000 58%);
-    mask-image: linear-gradient(to right, transparent 8%, #000 58%);
+    -webkit-mask-image: linear-gradient(to right, transparent 52%, #000 80%);
+    mask-image: linear-gradient(to right, transparent 52%, #000 80%);
   }
   /* Üst ve alt kenarda çok hafif koyulaşma: header ile şeridin
      sınırları belirsizleşmesin. Fotoğrafı bastıracak yoğunlukta
@@ -574,11 +579,24 @@ const imageDims =
     /* Perde masaüstündekinden HAFİF: burada metnin arkasını tümüyle
        kapatmak gerekmiyor, üstte görsel açıkta kalsın diye yukarıdan
        aşağıya koyulaşır. */
-    /* Dar ekranda metin tek sütun ve fotoğrafın ÜSTÜNDE; net kare de
-       buğulu katmana daha erken karışır. */
+    /* Dar ekranda "sola uzatma" diye bir şey yok — kare zaten dar.
+       Buğulu zemin sol kenardaki camı büyütünce üst yarı neredeyse
+       boş bir karanlığa dönüyordu. Mobilde bu katman ODANIN KENDİSİNİ
+       kaynak alır: hafif büyütülmüş, buğulu ama tanınabilir bir
+       fotoğraf zemini. */
+    .hero-bg-soft {
+      object-position: 62% center;
+      transform-origin: 50% 50%;
+      transform: scale(1.18);
+      filter: blur(34px) saturate(1.05) brightness(0.84);
+    }
+    /* Metin neredeyse tam genişlikte (ölçüm: %81'de bitiyor), yani net
+       alan sağa itilerek kurtarılamaz. Çözüm net kareyi ALT banda
+       almak: yazıların altında, masanın ve robotların olduğu şerit net
+       kalır, metnin arkası buğulu ve sakin olur. */
     .hero-bg-sharp {
-      -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 45%);
-      mask-image: linear-gradient(to right, transparent 0%, #000 45%);
+      -webkit-mask-image: linear-gradient(to bottom, transparent 58%, #000 86%);
+      mask-image: linear-gradient(to bottom, transparent 58%, #000 86%);
     }
     .hero-scrim {
       background: linear-gradient(

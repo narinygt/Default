@@ -30,7 +30,7 @@ interface Props {
    * Header sayfa tepesinde saydam olduğu için, altındaki zemin koyuysa
    * menü ve logo okunmaz kalır; bu bayrak header'ı açık renge çevirir.
    */
-  darkTop?: boolean;
+  solidTop?: boolean;
   /** LCP adayı bir görsel varsa yolu — erkenden indirilmesi için. */
   preloadImage?: string;
 }
@@ -42,7 +42,7 @@ const {
   description,
   schema = [],
   ogImage,
-  darkTop = false,
+  solidTop = false,
   preloadImage,
 } = Astro.props;
 
@@ -126,7 +126,7 @@ const graph = buildGraph(organizationSchema(lang), webSiteSchema(lang), ...schem
   <body>
     <a class="skip-link" href="#main">{ui.a11y.skipToContent}</a>
 
-    <Header lang={lang} ref={ref} darkTop={darkTop} />
+    <Header lang={lang} ref={ref} solidTop={solidTop} />
 
     <main id="main">
       <slot />

@@ -11,13 +11,14 @@ interface Props {
   /**
    * Sayfanın en üstündeki bölüm KOYU zeminli mi?
    * Header sayfanın tepesinde saydamdır; altındaki zemin koyuysa
-   * lacivert logo ve menü okunmaz hale gelir. Bu bayrak, header'ı
-   * scroll edilmeden de açık renk yazıya geçirir.
+   * yazılar okunmaz hale gelir. Bu bayrak header'a KENDİ opak beyaz
+   * zeminini verir — böylece tepede beyaz şerit, aşağı kaydırılınca
+   * markanın laciverdi görünür.
    */
-  darkTop?: boolean;
+  solidTop?: boolean;
 }
 
-const { lang, ref, darkTop = false } = Astro.props;
+const { lang, ref, solidTop = false } = Astro.props;
 const ui = t(lang);
 const alt = alternates(ref);
 
@@ -33,7 +34,7 @@ const mainLinks = [
 ];
 ---
 
-<header class="site-header" id="site-header" data-header data-on-dark={darkTop ? "" : undefined}>
+<header class="site-header" id="site-header" data-header data-solid-top={solidTop ? "" : undefined}>
   <div class="header-inner container">
     <!-- Logo -->
     <a class="brand" href={path({ page: 'home' }, lang)} aria-label={ui.a11y.homeLink}>
@@ -236,8 +237,13 @@ const mainLinks = [
      Saydam bırakılırsa altında sayfa zemini (açık) görünür ve beyaz
      logo/menü okunmaz hale gelir. Renk hero ile birebir aynı olduğu
      için bant görünmez, geçiş kesintisiz olur. */
-  .site-header[data-on-dark]:not([data-scrolled]) {
-    background: var(--surface-darkest);
+  /* Altındaki bölüm koyuysa header tepede KENDİ beyaz zeminini çizer.
+     (Eskiden burası laciverde boyanıyordu; istenen beyaz şerit.)
+     Yazı ve logo renkleri varsayılan açık-zemin haliyle kalır, bu
+     yüzden ayrıca bir kural gerekmez. */
+  .site-header[data-solid-top]:not([data-scrolled]) {
+    background: var(--surface);
+    border-bottom-color: var(--border-soft);
   }
 
   /* Scroll'da: küçülür ve markanın laciverdini alır.
@@ -281,12 +287,10 @@ const mainLinks = [
   .brand-dark {
     display: none;
   }
-  .site-header[data-scrolled] .brand-light,
-  .site-header[data-on-dark] .brand-light {
+  .site-header[data-scrolled] .brand-light {
     display: none;
   }
-  .site-header[data-scrolled] .brand-dark,
-  .site-header[data-on-dark] .brand-dark {
+  .site-header[data-scrolled] .brand-dark {
     display: block;
   }
 
@@ -327,14 +331,11 @@ const mainLinks = [
   .nav-link[aria-current] {
     color: var(--teal);
   }
-  .site-header[data-scrolled] .nav-link,
-  .site-header[data-on-dark] .nav-link {
+  .site-header[data-scrolled] .nav-link {
     color: rgba(255, 255, 255, 0.88);
   }
   .site-header[data-scrolled] .nav-link:hover,
-  .site-header[data-scrolled] .nav-link[aria-current],
-  .site-header[data-on-dark] .nav-link:hover,
-  .site-header[data-on-dark] .nav-link[aria-current] {
+  .site-header[data-scrolled] .nav-link[aria-current]:hover[aria-current] {
     color: #fff;
   }
 
@@ -447,24 +448,20 @@ const mainLinks = [
   .lang-sep {
     color: var(--separator);
   }
-  .site-header[data-scrolled] .lang-opt,
-  .site-header[data-on-dark] .lang-opt {
+  .site-header[data-scrolled] .lang-opt {
     color: rgba(255, 255, 255, 0.6);
   }
-  .site-header[data-scrolled] .lang-opt.is-current,
-  .site-header[data-on-dark] .lang-opt.is-current {
+  .site-header[data-scrolled] .lang-opt.is-current.is-current {
     color: #fff;
   }
-  .site-header[data-scrolled] .lang-opt:hover,
-  .site-header[data-on-dark] .lang-opt:hover {
+  .site-header[data-scrolled] .lang-opt:hover:hover {
     color: #fff;
   }
   /* Koyu zeminde ayraç 0.3 saydamlıkla 2.26:1 kalıyordu — denetimin
      eşiğinin altında. Bu eskiden de böyleydi ama yalnızca kaydırılmış
      header'da oluştuğu ve denetim sayfa tepesine baktığı için
      görünmüyordu; ana sayfa hero'su koyulaşınca ortaya çıktı. */
-  .site-header[data-scrolled] .lang-sep,
-  .site-header[data-on-dark] .lang-sep {
+  .site-header[data-scrolled] .lang-sep {
     color: rgba(255, 255, 255, 0.62);
   }
 
@@ -474,14 +471,12 @@ const mainLinks = [
     min-height: 42px;
     font-size: 0.95rem;
   }
-  .site-header[data-scrolled] .header-cta,
-  .site-header[data-on-dark] .header-cta {
+  .site-header[data-scrolled] .header-cta {
     background: #fff;
     color: var(--navy);
     border-color: #fff;
   }
-  .site-header[data-scrolled] .header-cta:hover,
-  .site-header[data-on-dark] .header-cta:hover {
+  .site-header[data-scrolled] .header-cta:hover:hover {
     background: var(--amber);
     border-color: var(--amber);
     color: var(--ink);
@@ -520,8 +515,7 @@ const mainLinks = [
     position: absolute;
     inset: -6px -4px;
   }
-  .site-header[data-scrolled] .menu-toggle,
-  .site-header[data-on-dark] .menu-toggle {
+  .site-header[data-scrolled] .menu-toggle {
     border-color: rgba(255, 255, 255, 0.28);
     color: #fff;
   }
@@ -623,42 +617,6 @@ const mainLinks = [
   }
   .mobile-cta {
     flex: 1;
-  }
-
-  /* --- Mobilde sayfa tepesi: BEYAZ şerit ---
-     Ana sayfanın hero'su koyu olduğu için header tepede de koyu
-     duruyordu (data-on-dark). Mobilde bu istenmiyor: sayfa ilk
-     açıldığında şerit beyaz olur, aşağı kaydırılınca maviye döner —
-     yani `data-scrolled` durumuna DOKUNULMAZ, yalnızca tepedeki
-     görünüm değişir. Masaüstünde eski davranış aynen kalır.
-
-     Koyu görünümü kuran her kural burada tek tek geri alınır; tek bir
-     zemin değişikliği yetmez, çünkü logo sürümü ve yazı renkleri de
-     aynı bayrağa bağlı. */
-  @media (max-width: 61.999rem) {
-    .site-header[data-on-dark]:not([data-scrolled]) {
-      background: var(--surface);
-      border-bottom-color: var(--border-soft);
-    }
-    .site-header[data-on-dark]:not([data-scrolled]) .brand-light {
-      display: block;
-    }
-    .site-header[data-on-dark]:not([data-scrolled]) .brand-dark {
-      display: none;
-    }
-    .site-header[data-on-dark]:not([data-scrolled]) .lang-opt {
-      color: var(--text-muted);
-    }
-    .site-header[data-on-dark]:not([data-scrolled]) .lang-opt.is-current {
-      color: var(--navy);
-    }
-    .site-header[data-on-dark]:not([data-scrolled]) .lang-sep {
-      color: var(--separator);
-    }
-    .site-header[data-on-dark]:not([data-scrolled]) .menu-toggle {
-      border-color: var(--line);
-      color: var(--navy);
-    }
   }
 
   /* --- Kırılım: masaüstü menüye geçiş --- */

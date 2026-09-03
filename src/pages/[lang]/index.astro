@@ -36,7 +36,7 @@ const imageDims =
   ref={{ page: 'home' }}
   title={c.meta.title}
   description={c.meta.description}
-  darkTop={isBackground}
+  solidTop={isBackground}
   preloadImage={isLedger ? undefined : imageSrc}
 >
   <!-- ============ 1. HERO ============
@@ -459,16 +459,18 @@ const imageDims =
        fotoğrafı bozuyordu (40px'te tamamen kayboluyordu, 14px'te bile
        fazlaydı). Okunabilirliği buğu DEĞİL, aşağıdaki perde sağlar —
        bu yüzden burada düşük tutulabiliyor. */
-    filter: blur(5px) saturate(1.06) brightness(0.92);
+    filter: blur(3px) saturate(1.04) brightness(0.94);
   }
-  /* Net kare metnin sağında başlar ama fotoğrafın ÇOĞU nettir.
-     Ölçüm: metin masaüstünde ekranın %48'inde bitiyor. Sınır %38'de
-     açılmaya başlar, %66'da tam nettir — yani yazıların hemen yanından
-     itibaren oda keskinleşir. Daha geç başlatıldığında (%52 → %80)
-     ekranın yarısı buğuda kalıyor ve fotoğraf yok gibi duruyordu. */
+  /* YAZI OLMAYAN KISIM TAM FOTOĞRAF.
+     Ölçüm: metin masaüstünde ekranın %48'inde bitiyor. Net katman
+     %44'te açılmaya başlar ve %60'ta TAM nettir — yani yazıların
+     bittiği yerden hemen sonra fotoğraf hiçbir müdahale olmadan,
+     olduğu gibi görünür. Yazının bulunduğu sol bölge ise yalnızca çok
+     hafif yumuşatılır; odanın bir parçası gibi durması, ayrı bir
+     "buğu katmanı" gibi okunmaması için. */
   .hero-bg-sharp {
-    -webkit-mask-image: linear-gradient(to right, transparent 38%, #000 66%);
-    mask-image: linear-gradient(to right, transparent 38%, #000 66%);
+    -webkit-mask-image: linear-gradient(to right, transparent 44%, #000 60%);
+    mask-image: linear-gradient(to right, transparent 44%, #000 60%);
   }
   /* Üst ve alt kenarda çok hafif koyulaşma: header ile şeridin
      sınırları belirsizleşmesin. Fotoğrafı bastıracak yoğunlukta
@@ -495,10 +497,10 @@ const imageDims =
     inset: 0;
     background: linear-gradient(
       to right,
-      rgba(4, 24, 25, 0.8) 0%,
-      rgba(4, 24, 25, 0.7) 34%,
-      rgba(4, 24, 25, 0.24) 58%,
-      rgba(4, 24, 25, 0) 74%
+      rgba(4, 24, 25, 0.78) 0%,
+      rgba(4, 24, 25, 0.66) 32%,
+      rgba(4, 24, 25, 0.16) 52%,
+      rgba(4, 24, 25, 0) 62%
     );
   }
   .hero-background h1 {

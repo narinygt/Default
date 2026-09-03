@@ -316,6 +316,7 @@ const headerBefore = await page.evaluate(() => {
     height: Math.round(h.querySelector('.header-inner').getBoundingClientRect().height),
     bg: getComputedStyle(h).backgroundColor,
     lightLogo: getComputedStyle(h.querySelector('.brand-light')).display,
+    darkLogo: getComputedStyle(h.querySelector('.brand-dark')).display,
   };
 });
 await page.mouse.wheel(0, 600);
@@ -345,12 +346,16 @@ check(
   // Her iki durumda da markanın laciverdi, OPAK: kaydırılmış header
   // eskiden yarı saydamdı ve görünen renk altındaki sayfaya göre
   // değişiyordu (#014480 / #245995). Artık her yerde #003f82.
-  headerBefore.bg === 'rgb(0, 63, 130)' && headerAfter.bg === 'rgb(0, 63, 130)',
+  // Tepede BEYAZ, kaydırılınca markanın laciverdi — ikisi de opak.
+  headerBefore.bg === 'rgb(255, 255, 255)' && headerAfter.bg === 'rgb(0, 63, 130)',
   headerAfter.bg,
 );
 check(
-  'Koyu zeminde logo açık sürüme geçiyor',
-  headerAfter.lightLogo === 'none' && headerAfter.darkLogo === 'block',
+  'Tepede koyu logo, kaydırılınca açık logo',
+  headerBefore.lightLogo === 'block' &&
+    headerBefore.darkLogo === 'none' &&
+    headerAfter.lightLogo === 'none' &&
+    headerAfter.darkLogo === 'block',
 );
 
 /* ---------- 11. JS hatası yok ---------- */

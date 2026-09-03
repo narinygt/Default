@@ -115,7 +115,15 @@ export const site = {
    */
   form: {
     endpoint: '', // örn. '/api/contact' veya harici bir servis URL'i
-    recipient: 'dummy@dummy.com',
+    /**
+     * Formun arka ucu kurulduğunda bildirimin gideceği adres.
+     * Şu an KOD TARAFINDAN KULLANILMIYOR: endpoint boş olduğu için form
+     * yedek yönteme düşüyor ve ziyaretçinin e-posta uygulamasını
+     * `contact.email` adresine açıyor. Buradaki değer, arka ucu kuracak
+     * kişi için duruyor — bu yüzden gerçek adres yazılıdır; daha önce
+     * `dummy@dummy.com` yazıyordu ve gerçek sanılıp kopyalanabilirdi.
+     */
+    recipient: 'info@cpeakconsultancy.com',
   },
 } as const;
 

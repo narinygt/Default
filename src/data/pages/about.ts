@@ -87,7 +87,7 @@ export const about: Record<Lang, AboutContent> = {
         'An independent consultancy working on SAP ECC, S/4HANA on-premise, Private Cloud and Public Cloud. Our focus is a senior team and an AI-supported way of working.',
     },
     hero: {
-      h1: 'We chose to specialise in end-to-end finance modules and AI-supported finance processes',
+      h1: 'We chose to specialise end-to-end in finance modules and AI-supported finance processes',
       lead:
         'CPeak Consultancy is an independent consultancy specialising in end-to-end finance modules across SAP ECC, S/4HANA on-premise, Private Cloud and Public Cloud. Our focus is a senior team and an AI-supported way of working. Where a programme extends into logistics modules outside our specialism, we work alongside our partners in Türkiye and abroad so that the finance scope stays covered end to end.',
     },

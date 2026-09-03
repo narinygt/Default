@@ -141,7 +141,7 @@ export const privateCloud: LocalizedSolution = {
     challenges: [
       'Where the RISE scope ends and your own responsibility begins cannot be read clearly from the contract.',
       'Gaps between the hosting provider, the implementation partner and the internal team surface mid-project.',
-      'How existing customisations and interfaces will behave in the hosted environment is assumed rather than tested.',
+      'It is assumed, rather than tested, that existing customisations and interfaces will work in the hosted environment.',
       'Capacity planning gets conflated with licence sizing.',
       'Disaster recovery commitments do not match what the business assumes it has.',
     ],

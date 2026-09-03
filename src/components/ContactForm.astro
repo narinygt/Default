@@ -566,6 +566,13 @@ const emailAddress = isTodo(site.contact.email) ? '' : todoLabel(site.contact.em
           'Bu site yayına hazırlanıyor ve form altyapısı henüz devrede değil. Mesajınızın kaybolmaması için lütfen doğrudan e-posta gönderin.',
         pendingNoEmail:
           'Bu site yayına hazırlanıyor ve form altyapısı henüz devrede değil. İletişim bilgileri tamamlandığında bu form çalışmaya başlayacaktır.',
+        mailtoTitle: 'E-posta uygulamanız açılıyor.',
+        mailtoBody:
+          'Yazdıklarınızı doldurulmuş bir taslağa aktardık; göndermek için tek yapmanız gereken "Gönder" demek. Uygulama açılmazsa mesajınızı doğrudan bu adrese yollayabilirsiniz:',
+        mailSubject: 'Web sitesi iletişim formu',
+        consentGiven: 'Onaylandı',
+        consentLabel: 'KVKK aydınlatma metni',
+        marketingLabel: 'Ticari ileti izni',
       },
       en: {
         successTitle: 'Your message has reached us.',
@@ -578,6 +585,13 @@ const emailAddress = isTodo(site.contact.email) ? '' : todoLabel(site.contact.em
           'This site is still being prepared and the form backend is not live. So your message is not lost, please email us directly.',
         pendingNoEmail:
           'This site is still being prepared and the form backend is not live. The form will start working once the contact details are completed.',
+        mailtoTitle: 'Your email app is opening.',
+        mailtoBody:
+          'We have moved what you wrote into a prepared draft; all that is left is to press send. If the app does not open, you can send your message straight to this address:',
+        mailSubject: 'Website contact form',
+        consentGiven: 'Confirmed',
+        consentLabel: 'Privacy notice',
+        marketingLabel: 'Marketing consent',
       },
     } as const;
 
@@ -605,12 +619,58 @@ const emailAddress = isTodo(site.contact.email) ? '' : todoLabel(site.contact.em
         return;
       }
 
-      // Gönderim altyapısı henüz yoksa: SAHTE BAŞARI GÖSTERME.
+      // Sunucu tarafı uç nokta TANIMLI DEĞİLSE mesaj yine de gider:
+      // ziyaretçinin kendi e-posta uygulaması, form alanları doldurulmuş
+      // hâlde açılır. Sahte başarı GÖSTERİLMEZ — ne olduğu açıkça yazılır
+      // ve adres, uygulama açılmazsa diye ekranda kalır.
       if (!endpoint) {
-        const mail = contactEmail
-          ? `${tx.pendingBody} <a href="mailto:${contactEmail}">${contactEmail}</a>`
-          : tx.pendingNoEmail;
-        setStatus('pending', `<strong>${tx.pendingTitle}</strong>${mail}`);
+        if (!contactEmail) {
+          setStatus('pending', `<strong>${tx.pendingTitle}</strong>${tx.pendingNoEmail}`);
+          return;
+        }
+
+        /** Alan başlığı ziyaretçinin ekranda GÖRDÜĞÜ etiketten okunur;
+            böylece iki dilde ayrı bir sözlük tutmak gerekmez. */
+        const etiketiOku = (el: Element | null): string => {
+          const id = (el as HTMLElement | null)?.id;
+          const lab = id ? form.querySelector(`label[for="${id}"]`) : null;
+          if (!lab) return '';
+          const kopya = lab.cloneNode(true) as HTMLElement;
+          // "zorunlu" / "isteğe bağlı" rozetleri ve gizli metinler e-posta
+          // gövdesine girmez; etiketin yalnızca adı kalır.
+          kopya.querySelectorAll('.req, .opt, .sr-only').forEach((n) => n.remove());
+          return kopya.textContent?.replace(/\s+/g, ' ').trim().replace(/[:\s]+$/, '') ?? '';
+        };
+
+        const satirlar: string[] = [];
+        for (const [ad, ham] of new FormData(form).entries()) {
+          if (ad === 'website') continue; // bal küpü
+          const deger = String(ham).trim();
+          if (!deger) continue;
+          const el = form.elements.namedItem(ad) as HTMLElement | null;
+          let gosterim = deger;
+          if (el instanceof HTMLSelectElement) gosterim = el.options[el.selectedIndex]?.text ?? deger;
+          if (el instanceof HTMLInputElement && el.type === 'checkbox') {
+            // Onay kutularının etiketi tam bir cümle; e-posta gövdesinde
+            // satır başlığı olarak kısa karşılığı kullanılır.
+            satirlar.push(`${ad === 'kvkk' ? tx.consentLabel : tx.marketingLabel}: ${tx.consentGiven}`);
+            continue;
+          }
+          satirlar.push(`${etiketiOku(el) || ad}: ${gosterim}`);
+        }
+
+        const kimden = String(new FormData(form).get('company') || new FormData(form).get('name') || '').trim();
+        const konu = kimden ? `${tx.mailSubject} — ${kimden}` : tx.mailSubject;
+        // Uzun gövdeler bazı e-posta istemcilerinde kırpılır; güvenli sınırda kesilir.
+        let govde = satirlar.join('\n');
+        if (govde.length > 1500) govde = `${govde.slice(0, 1500)}…`;
+
+        const mailto = `mailto:${contactEmail}?subject=${encodeURIComponent(konu)}&body=${encodeURIComponent(govde)}`;
+        setStatus(
+          'pending',
+          `<strong>${tx.mailtoTitle}</strong>${tx.mailtoBody} <a href="${mailto}">${contactEmail}</a>`,
+        );
+        window.location.href = mailto;
         return;
       }
 

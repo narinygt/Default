@@ -97,7 +97,7 @@ export const home: Record<Lang, HomeContent> = {
       // ayırdığı için düz silinemezdi; bağlaçla yeniden kuruldu.
       h1: 'SAP Finansallarda 10+ Yıl Deneyim ve SAP Bulut Mimarisi',
       lead:
-        'Finansal modüllerde uzmanlık ve bulut modellerinde tarafsız değerlendirme sağlıyoruz.',
+        'Finansal modüllerde uzmanlık ve bulut modellerinde tarafsız değerlendirme sağlıyoruz; kararınızı savunabileceğiniz gerekçelerle.',
       primaryCta: 'Bize yazın',
       secondaryCta: 'Çözümleri inceleyin',
       figureAlt:
@@ -281,7 +281,7 @@ export const home: Record<Lang, HomeContent> = {
 
     hero: {
       // Aynı kural: nokta iki cümleyi ayırdığı için bağlaçla birleştirildi.
-      h1: '10+ years in SAP finance and a new architecture in the cloud',
+      h1: '10+ years of SAP finance experience and SAP cloud architecture',
       lead:
         'Depth in the finance modules and a genuinely neutral read on the cloud models — so the decision you take is one you can defend to your board.',
       primaryCta: 'Get in touch',
@@ -313,7 +313,7 @@ export const home: Record<Lang, HomeContent> = {
       eyebrow: 'Why CPeak',
       h2: 'The difference is who actually does the work',
       lead:
-        'In SAP consulting the outcome is decided less by methodology than by who is genuinely sitting on the project.',
+        'In SAP consulting the outcome is decided less by methodology than by who actually works on the project.',
       items: [
         {
           title: 'Real depth in the finance modules',
@@ -340,7 +340,7 @@ export const home: Record<Lang, HomeContent> = {
 
     aiSection: {
       eyebrow: 'Our approach to AI',
-      h2: 'On both sides: in your processes and in how we work',
+      h2: 'We use AI on both sides: in your processes and in how we work',
       lead:
         'We treat AI not as a separate service line but as part of both the system we deliver and the method we use to deliver it.',
       forClients: {

@@ -29,7 +29,7 @@ const { lang } = Astro.props;
 const ui = t(lang);
 ---
 
-<section class="refs on-dark" aria-labelledby="refs-title">
+<section class="refs" aria-labelledby="refs-title">
   <div class="container">
     <p class="eyebrow" id="refs-title">{ui.common.references}</p>
 
@@ -69,9 +69,19 @@ const ui = t(lang);
 </section>
 
 <style>
+  /* Şerit AÇIK zeminli.
+     Eskiden koyu teal bir bloktu; hero'dan hemen sonra gelen sert bir
+     renk bandı oluşturuyordu ve mobilde ekranı tek başına dolduran bir
+     şerit gibi görünüyordu. Açık zemin hem geçişi yumuşatıyor hem de
+     logoların çoğu (Mercedes-Benz, pwc, Boehringer, wavin) kendi koyu
+     renkleriyle çizildiği için okunurluğu artırıyor.
+     Marka renkleri korunuyor: bölüm etiketi teal, üst kenarda ince bir
+     marka çizgisi var. */
   .refs {
-    background: var(--surface-dark);
-    padding-block: clamp(1.9rem, 1.4rem + 1.7vw, 2.75rem);
+    background: var(--surface);
+    border-top: 1px solid var(--border-soft);
+    border-bottom: 1px solid var(--border-soft);
+    padding-block: clamp(2rem, 1.5rem + 1.8vw, 3rem);
   }
 
   .refs .eyebrow {

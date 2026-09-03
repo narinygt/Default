@@ -337,14 +337,22 @@ check(
   !headerBefore.scrolled && headerAfter.scrolled && headerAfter.height < headerBefore.height,
   `${headerBefore.height}px -> ${headerAfter.height}px`,
 );
+/* Bildirilen sorun: sayfa kaydırılırken ekranın tepesinde sert bir
+   MAVİ ŞERİT beliriyordu. Header artık açık bir yüzeye oturuyor.
+   Test iki şeyi birden koruyor: zeminin açık olduğunu ve markanın
+   laciverdinin büyük bir bant olarak geri gelmediğini. */
 check(
-  'Scroll edilince header yarı saydam koyu zemin alıyor',
-  headerBefore.bg === 'rgba(0, 0, 0, 0)' && headerAfter.bg.startsWith('rgba(0, 63, 130'),
+  'Scroll edilince header açık yüzeye oturuyor, mavi şerit oluşmuyor',
+  headerBefore.bg === 'rgba(0, 0, 0, 0)' &&
+    headerAfter.bg.startsWith('rgba(255, 255, 255') &&
+    !/rgba?\(\s*0,\s*63,\s*130/.test(headerAfter.bg),
   headerAfter.bg,
 );
+/* Hero açık zeminli olduğu için logo her iki durumda da koyu
+   sürümde kalır — kaydırılmış header de açık. */
 check(
-  'Koyu zeminde logo açık sürüme geçiyor',
-  headerAfter.lightLogo === 'none' && headerAfter.darkLogo === 'block',
+  'Açık header üzerinde logo koyu sürümde kalıyor',
+  headerAfter.lightLogo === 'block' && headerAfter.darkLogo === 'none',
 );
 
 /* ---------- 11. JS hatası yok ---------- */

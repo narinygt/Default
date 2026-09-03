@@ -246,14 +246,20 @@ const mainLinks = [
     background: var(--surface-darkest);
   }
 
-  /* Scroll'da: küçülür ve yarı saydam koyu zemin alır. */
+  /* Scroll'da: küçülür ve AÇIK bir yüzeye oturur.
+     Eskiden burası opak laciverde yakın bir bloktu; sayfa
+     kaydırılırken ekranın tepesinde sert bir mavi şerit olarak
+     beliriyordu — özellikle mobilde rahatsız ediciydi. Marka renkleri
+     korunuyor (logo ve CTA butonu lacivert/teal kalıyor) ama artık
+     büyük bir renk bandı olarak değil. Zemin hafif saydam ve bulanık:
+     altından geçen içerik seziliyor, kenar sert bir çizgi olmuyor. */
   .site-header[data-scrolled]::before {
-    background: rgba(0, 63, 130, 0.86);
-    backdrop-filter: blur(10px) saturate(140%);
-    -webkit-backdrop-filter: blur(10px) saturate(140%);
+    background: rgba(255, 255, 255, 0.86);
+    backdrop-filter: blur(12px) saturate(120%);
+    -webkit-backdrop-filter: blur(12px) saturate(120%);
   }
   .site-header[data-scrolled] {
-    border-bottom-color: rgba(255, 255, 255, 0.1);
+    border-bottom-color: var(--border-soft);
   }
   .site-header[data-scrolled] .header-inner {
     height: var(--header-h-scrolled);
@@ -280,11 +286,11 @@ const mainLinks = [
   .brand-dark {
     display: none;
   }
-  .site-header[data-scrolled] .brand-light,
+  /* Logo yalnızca KOYU zeminli sayfa tepesinde açık sürüme geçer.
+     Kaydırılmış header artık açık olduğu için orada koyu logo kalır. */
   .site-header[data-on-dark] .brand-light {
     display: none;
   }
-  .site-header[data-scrolled] .brand-dark,
   .site-header[data-on-dark] .brand-dark {
     display: block;
   }
@@ -326,12 +332,9 @@ const mainLinks = [
   .nav-link[aria-current] {
     color: var(--teal);
   }
-  .site-header[data-scrolled] .nav-link,
   .site-header[data-on-dark] .nav-link {
     color: rgba(255, 255, 255, 0.88);
   }
-  .site-header[data-scrolled] .nav-link:hover,
-  .site-header[data-scrolled] .nav-link[aria-current],
   .site-header[data-on-dark] .nav-link:hover,
   .site-header[data-on-dark] .nav-link[aria-current] {
     color: #fff;
@@ -446,21 +449,15 @@ const mainLinks = [
   .lang-sep {
     color: var(--separator);
   }
-  .site-header[data-scrolled] .lang-opt,
   .site-header[data-on-dark] .lang-opt {
     color: rgba(255, 255, 255, 0.6);
   }
-  .site-header[data-scrolled] .lang-opt.is-current,
-  .site-header[data-on-dark] .lang-opt.is-current {
-    color: #fff;
-  }
-  .site-header[data-scrolled] .lang-opt:hover,
+  .site-header[data-on-dark] .lang-opt.is-current,
   .site-header[data-on-dark] .lang-opt:hover {
     color: #fff;
   }
-  .site-header[data-scrolled] .lang-sep,
   .site-header[data-on-dark] .lang-sep {
-    color: rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.55);
   }
 
   .header-cta {
@@ -469,13 +466,11 @@ const mainLinks = [
     min-height: 42px;
     font-size: 0.95rem;
   }
-  .site-header[data-scrolled] .header-cta,
   .site-header[data-on-dark] .header-cta {
     background: #fff;
     color: var(--navy);
     border-color: #fff;
   }
-  .site-header[data-scrolled] .header-cta:hover,
   .site-header[data-on-dark] .header-cta:hover {
     background: var(--amber);
     border-color: var(--amber);
@@ -515,7 +510,6 @@ const mainLinks = [
     position: absolute;
     inset: -6px -4px;
   }
-  .site-header[data-scrolled] .menu-toggle,
   .site-header[data-on-dark] .menu-toggle {
     border-color: rgba(255, 255, 255, 0.28);
     color: #fff;

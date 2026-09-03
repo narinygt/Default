@@ -314,7 +314,7 @@ const headerBefore = await page.evaluate(() => {
   return {
     scrolled: h.hasAttribute('data-scrolled'),
     height: Math.round(h.querySelector('.header-inner').getBoundingClientRect().height),
-    bg: getComputedStyle(h, '::before').backgroundColor,
+    bg: getComputedStyle(h).backgroundColor,
     lightLogo: getComputedStyle(h.querySelector('.brand-light')).display,
   };
 });
@@ -327,7 +327,7 @@ const headerAfter = await page.evaluate(() => {
     height: Math.round(h.querySelector('.header-inner').getBoundingClientRect().height),
     // Zemin ve bulanıklık ::before katmanında durur: doğrudan header'a
     // uygulanınca içindeki fixed menüyü kırıyordu (bkz. 7c).
-    bg: getComputedStyle(h, '::before').backgroundColor,
+    bg: getComputedStyle(h).backgroundColor,
     lightLogo: getComputedStyle(h.querySelector('.brand-light')).display,
     darkLogo: getComputedStyle(h.querySelector('.brand-dark')).display,
   };
@@ -339,7 +339,10 @@ check(
 );
 check(
   'Scroll edilince header yarı saydam koyu zemin alıyor',
-  headerBefore.bg === 'rgba(0, 0, 0, 0)' && headerAfter.bg.startsWith('rgba(0, 63, 130'),
+  // Ana sayfanın hero'su tam ekran koyu görsel olduğu için header
+  // TEPEDE DE koyudur (opak --surface-darkest); scroll'da yarı saydam
+  // sürüme geçer. Eskiden tepede saydamdı — hero açık zeminliydi.
+  headerBefore.bg === 'rgb(0, 63, 130)' && headerAfter.bg.startsWith('rgba(0, 63, 130'),
   headerAfter.bg,
 );
 check(

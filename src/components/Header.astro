@@ -200,8 +200,11 @@ const mainLinks = [
        altında kalırsa banner menünün alt kısmını ve CTA'sını kapatıyor.
        "İçeriğe atla" bağlantısı (200) yine en üstte kalır. */
     z-index: 160;
+    background: transparent;
     border-bottom: 1px solid transparent;
-    transition: border-color var(--dur) var(--ease);
+    transition:
+      background var(--dur) var(--ease),
+      border-color var(--dur) var(--ease);
   }
 
   /* Header'ın ZEMİNİ ve bulanıklığı, header'ın kendisinde değil ayrı bir
@@ -220,14 +223,21 @@ const mainLinks = [
      Bulanıklık bu katmana taşınınca .site-header içeren blok olmaktan
      çıkar; menü yeniden viewport'a hizalanır. Görünüm birebir aynı
      kalır. */
+  /* Bu katman YALNIZCA bulanıklığı taşır; zemin rengi header'ın
+     kendisinde kalır. Ayrım önemli:
+       · `backdrop-filter` içeren blok kurar → fixed menüyü kırardı,
+         bu yüzden burada.
+       · `background-color` içeren blok KURMAZ → header'da kalabilir,
+         böylece hem denetim betikleri hem tarayıcı araçları header'ın
+         gerçek zeminini görmeye devam eder. Renk de bu katmana
+         taşınsaydı, header'ın hesaplanmış zemini "saydam" görünür ve
+         üzerindeki beyaz yazı açık zeminde sanılırdı. */
   .site-header::before {
     content: '';
     position: absolute;
     inset: 0;
     z-index: -1;
-    transition:
-      background var(--dur) var(--ease),
-      backdrop-filter var(--dur) var(--ease);
+    transition: backdrop-filter var(--dur) var(--ease);
   }
 
   .header-inner {
@@ -242,18 +252,18 @@ const mainLinks = [
      Saydam bırakılırsa altında sayfa zemini (açık) görünür ve beyaz
      logo/menü okunmaz hale gelir. Renk hero ile birebir aynı olduğu
      için bant görünmez, geçiş kesintisiz olur. */
-  .site-header[data-on-dark]:not([data-scrolled])::before {
+  .site-header[data-on-dark]:not([data-scrolled]) {
     background: var(--surface-darkest);
   }
 
   /* Scroll'da: küçülür ve yarı saydam koyu zemin alır. */
-  .site-header[data-scrolled]::before {
+  .site-header[data-scrolled] {
     background: rgba(0, 63, 130, 0.86);
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+  }
+  .site-header[data-scrolled]::before {
     backdrop-filter: blur(10px) saturate(140%);
     -webkit-backdrop-filter: blur(10px) saturate(140%);
-  }
-  .site-header[data-scrolled] {
-    border-bottom-color: rgba(255, 255, 255, 0.1);
   }
   .site-header[data-scrolled] .header-inner {
     height: var(--header-h-scrolled);
@@ -458,9 +468,13 @@ const mainLinks = [
   .site-header[data-on-dark] .lang-opt:hover {
     color: #fff;
   }
+  /* Koyu zeminde ayraç 0.3 saydamlıkla 2.26:1 kalıyordu — denetimin
+     eşiğinin altında. Bu eskiden de böyleydi ama yalnızca kaydırılmış
+     header'da oluştuğu ve denetim sayfa tepesine baktığı için
+     görünmüyordu; ana sayfa hero'su koyulaşınca ortaya çıktı. */
   .site-header[data-scrolled] .lang-sep,
   .site-header[data-on-dark] .lang-sep {
-    color: rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.62);
   }
 
   .header-cta {

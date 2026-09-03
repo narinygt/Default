@@ -44,11 +44,12 @@ const imageDims =
        'ledger' | 'image' | 'duotone' | 'background'                  -->
   <section class:list={['hero', `hero-${heroVisual}`]} data-hero>
     {
-      /* Tam zeminli seçenek: görsel sağa yaslanır, metnin arkasında
-         maskeyle söner. Doğal boyutunun üstüne büyütülmez. */
+      /* Tam ekran seçeneği: görsel hero'nun TAMAMINI kaplar, metin
+         onun üzerinde durur. Okunabilirliği `.hero-scrim` sağlar. */
       isBackground && (
         <div class="hero-bg" aria-hidden="true">
           <img src={imageSrc} width={imageDims.w} height={imageDims.h} alt="" fetchpriority="high" />
+          <div class="hero-scrim" />
         </div>
       )
     }
@@ -348,29 +349,72 @@ const imageDims =
     object-fit: cover;
   }
 
-  /* ---------- Hero seçeneği: tam zeminli görsel (background) ----------
-     Görsel doğal boyutunun üzerine BÜYÜTÜLMEZ (kaynak 800px geniş);
-     sağa yaslanır ve sola doğru maskeyle söner, böylece metnin
-     arkasında kontrastı bozacak detay kalmaz. */
+  /* ---------- Hero seçeneği: TAM EKRAN görsel (background) ----------
+     Görsel hero'nun tamamını kaplar ve metin onun üzerinde durur.
+
+     Okunabilirlik iki katmanla sağlanır:
+       .hero-bg::after  Tüm alana ince bir karartma — üstteki header ve
+                        alttaki kenar her koşulda okunur kalır.
+       .hero-scrim      Metnin arkası: koyulaşır VE hafifçe buğulanır.
+                        Sağa doğru maskeyle biter, böylece görselin
+                        kendisi (asıl gösterilmek istenen şey) net
+                        durur. Karartma tek başına da yeterdi; buğu,
+                        metnin arkasındaki detayın gözü yormaması için.
+
+     ÖLÇÜ SINIRI: kaynak 1200×800. Tam ekran kullanımda geniş
+     masaüstlerinde büyütülüyor; buğulanan sol tarafta bu görünmez ama
+     sağdaki net alanda çok büyük ekranlarda yumuşama olabilir. Daha
+     yüksek çözünürlüklü bir kaynak gelirse tek yapılacak dosyayı
+     değiştirmek. */
   .hero-background {
     background: var(--surface-darkest);
     color: #fff;
+    /* "Tüm ekranı kaplasın": hero, ekran yüksekliğinin çoğunu tutar.
+       Tam 100vh DEĞİL — altındaki bölümün bir kısmı görünsün ki sayfanın
+       devamı olduğu belli olsun. */
+    min-height: min(88vh, 46rem);
+    display: flex;
+    align-items: center;
   }
   .hero-bg {
     position: absolute;
-    inset: 0 0 0 auto;
-    width: min(52%, 800px);
+    inset: 0;
     z-index: 0;
+    overflow: hidden;
     pointer-events: none;
   }
   .hero-bg img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
-    object-position: center right;
-    /* Sola doğru sönüm — metin alanına taşmaz. */
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 38%);
-    mask-image: linear-gradient(to right, transparent 0%, #000 38%);
+    object-fit: cover;
+    /* Sağa kaydırılır: robot sağda kalır, sol taraf metne ayrılır. */
+    object-position: 68% center;
+  }
+  .hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 26, 54, 0.55) 0%,
+      rgba(0, 26, 54, 0.16) 34%,
+      rgba(0, 26, 54, 0.5) 100%
+    );
+  }
+  .hero-scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to right,
+      rgba(0, 30, 62, 0.9) 0%,
+      rgba(0, 30, 62, 0.74) 42%,
+      rgba(0, 30, 62, 0) 78%
+    );
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    /* Buğu da karartmayla birlikte sağa doğru biter. */
+    -webkit-mask-image: linear-gradient(to right, #000 0%, #000 42%, transparent 78%);
+    mask-image: linear-gradient(to right, #000 0%, #000 42%, transparent 78%);
   }
   .hero-background h1 {
     color: #fff;
@@ -398,15 +442,33 @@ const imageDims =
     border-color: #fff;
     color: #fff;
   }
-  /* Mobilde görsel metnin arkasına düşer; iyice geri çekilir. */
+  /* Mobilde metin tek sütun ve görselin ÜSTÜNDE durur; bu yüzden perde
+     soldan sağa değil YUKARIDAN AŞAĞIYA çalışır ve maske kalkar —
+     yoksa yazının arkası açıkta kalırdı. */
   @media (max-width: 60rem) {
-    .hero-bg {
-      width: 100%;
-      opacity: 0.28;
+    .hero-background {
+      min-height: min(82vh, 40rem);
     }
+    /* Dar ekranda 3:2 kaynaktan dikey bir dilim kırpılıyor; robotlar
+       görselin SAĞINDA olduğu için kırpma oraya kaydırılır, yoksa
+       ekranda yalnızca arka plandaki ekranlar kalıyor. */
     .hero-bg img {
-      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 55%);
-      mask-image: linear-gradient(to bottom, transparent 0%, #000 55%);
+      object-position: 82% center;
+    }
+    /* Perde masaüstündekinden HAFİF: burada metnin arkasını tümüyle
+       kapatmak gerekmiyor, üstte görsel açıkta kalsın diye yukarıdan
+       aşağıya koyulaşır. */
+    .hero-scrim {
+      background: linear-gradient(
+        to bottom,
+        rgba(0, 30, 62, 0.3) 0%,
+        rgba(0, 30, 62, 0.58) 38%,
+        rgba(0, 30, 62, 0.72) 100%
+      );
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+      -webkit-mask-image: none;
+      mask-image: none;
     }
   }
 

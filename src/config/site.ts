@@ -98,7 +98,7 @@ export const site = {
    * bir kaynak gerekir.
    */
   hero: {
-    visual: 'image' as 'ledger' | 'image' | 'duotone' | 'background',
+    visual: 'background' as 'ledger' | 'image' | 'duotone' | 'background',
   },
 
   /** Google Analytics 4 ölçüm kimliği. Boş bırakılırsa GA hiç yüklenmez. */

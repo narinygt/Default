@@ -223,22 +223,6 @@ const mainLinks = [
      Bulanıklık bu katmana taşınınca .site-header içeren blok olmaktan
      çıkar; menü yeniden viewport'a hizalanır. Görünüm birebir aynı
      kalır. */
-  /* Bu katman YALNIZCA bulanıklığı taşır; zemin rengi header'ın
-     kendisinde kalır. Ayrım önemli:
-       · `backdrop-filter` içeren blok kurar → fixed menüyü kırardı,
-         bu yüzden burada.
-       · `background-color` içeren blok KURMAZ → header'da kalabilir,
-         böylece hem denetim betikleri hem tarayıcı araçları header'ın
-         gerçek zeminini görmeye devam eder. Renk de bu katmana
-         taşınsaydı, header'ın hesaplanmış zemini "saydam" görünür ve
-         üzerindeki beyaz yazı açık zeminde sanılırdı. */
-  .site-header::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    transition: backdrop-filter var(--dur) var(--ease);
-  }
 
   .header-inner {
     display: flex;
@@ -256,14 +240,21 @@ const mainLinks = [
     background: var(--surface-darkest);
   }
 
-  /* Scroll'da: küçülür ve yarı saydam koyu zemin alır. */
+  /* Scroll'da: küçülür ve markanın laciverdini alır.
+     Zemin OPAK. Önceden %86 saydam + arka plan bulanıklığı vardı;
+     görünen renk altındaki içeriğe göre değişiyordu ve markanın
+     laciverdi olmaktan çıkıyordu. Ölçüm: ana sayfada #014480, açık
+     zeminli iç sayfalarda #245995 — hedef #003f82. Saydamlık
+     kaldırıldı, renk artık her sayfada birebir aynı.
+
+     Bulanıklık da gitti: opak zeminin arkasından hiçbir şey
+     görünmediği için işlevi kalmamıştı. Onu taşıyan ::before katmanı
+     bu yüzden tamamen kaldırıldı — `backdrop-filter` içeren blok
+     kurduğu ve mobil menüyü bir kez kırdığı için, geri gelmemesi
+     ayrıca iyi. */
   .site-header[data-scrolled] {
-    background: rgba(0, 63, 130, 0.86);
+    background: var(--surface-darkest);
     border-bottom-color: rgba(255, 255, 255, 0.1);
-  }
-  .site-header[data-scrolled]::before {
-    backdrop-filter: blur(10px) saturate(140%);
-    -webkit-backdrop-filter: blur(10px) saturate(140%);
   }
   .site-header[data-scrolled] .header-inner {
     height: var(--header-h-scrolled);

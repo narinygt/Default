@@ -338,11 +338,14 @@ check(
   `${headerBefore.height}px -> ${headerAfter.height}px`,
 );
 check(
-  'Scroll edilince header yarı saydam koyu zemin alıyor',
+  'Scroll edilince header markanın laciverdini alıyor',
   // Ana sayfanın hero'su tam ekran koyu görsel olduğu için header
   // TEPEDE DE koyudur (opak --surface-darkest); scroll'da yarı saydam
   // sürüme geçer. Eskiden tepede saydamdı — hero açık zeminliydi.
-  headerBefore.bg === 'rgb(0, 63, 130)' && headerAfter.bg.startsWith('rgba(0, 63, 130'),
+  // Her iki durumda da markanın laciverdi, OPAK: kaydırılmış header
+  // eskiden yarı saydamdı ve görünen renk altındaki sayfaya göre
+  // değişiyordu (#014480 / #245995). Artık her yerde #003f82.
+  headerBefore.bg === 'rgb(0, 63, 130)' && headerAfter.bg === 'rgb(0, 63, 130)',
   headerAfter.bg,
 );
 check(

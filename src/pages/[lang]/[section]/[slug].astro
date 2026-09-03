@@ -40,6 +40,26 @@ const c = solutionMeta[solution][lang];
 /** Bu sayfa dışındaki çözümler — sayfa sonunda çapraz link olarak. */
 const others = SOLUTION_KEYS.filter((k) => k !== solution);
 
+/**
+ * Bölüm görselleri — yalnızca konusuyla birebir eşleşen sayfalarda.
+ * Diğer çözüm sayfalarına boşluk doldurmak için görsel konmaz.
+ *
+ * Görsellerin başlıkları görselin İÇİNE gömülü ve Türkçe olduğu için
+ * yalnızca Türkçe sayfalarda gösterilirler; İngilizce sürümleri
+ * hazırlandığında `lang` koşulu kaldırılabilir.
+ */
+const sayfaGorselleri: Partial<Record<SolutionKey, { src: string; alt: string }>> = {
+  finance: {
+    src: '/media/finans-mimari.webp',
+    alt: 'Dağınık finans yapısından tek mimariye: veri, süreç, kontrol ve raporlama katmanlarının aynı yapıda birleştiğini gösteren şema.',
+  },
+  ai: {
+    src: '/media/yapay-zeka-akisi.webp',
+    alt: 'Yapay zekanın karar sürecindeki rolü: işlemleri tarar, anomaliyi işaretler, danışman inceler ve süreç insan onayıyla sonuçlanır.',
+  },
+};
+const sayfaGorseli = lang === 'tr' ? sayfaGorselleri[solution] : undefined;
+
 const schema = [
   serviceSchema({
     lang,
@@ -121,6 +141,20 @@ const schema = [
         <p class="eyebrow">{ui.common.whatWeDo}</p>
         <h2>{c.navTitle}</h2>
       </div>
+
+      {
+        sayfaGorseli && (
+          <img
+            class="section-figure reveal"
+            src={sayfaGorseli.src}
+            width="1536"
+            height="1024"
+            alt={sayfaGorseli.alt}
+            loading="lazy"
+            decoding="async"
+          />
+        )
+      }
 
       <div class="sol-body">
         {

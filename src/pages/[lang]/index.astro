@@ -183,6 +183,20 @@ const imageDims =
         <p class="lead">{c.process.lead}</p>
       </div>
 
+      {
+        lang === 'tr' && (
+          <img
+            class="section-figure reveal"
+            src="/media/surec-adimlari.webp"
+            width="1536"
+            height="1024"
+            alt="Dört aşamalı çalışma akışı: değerlendirme aşamasında teşhis raporu, mimari aşamasında hedef mimari ve yol haritası, uygulama aşamasında çalışan sistem ve test kayıtları, hypercare aşamasında kapanış ve iyileştirme raporu teslim edilir."
+            loading="lazy"
+            decoding="async"
+          />
+        )
+      }
+
       <ol class="process-list">
         {
           c.process.steps.map((step, i) => (

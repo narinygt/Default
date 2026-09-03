@@ -99,6 +99,20 @@ const c = solutionsOverview[lang];
       <p class="lead">{c.cloud.lead}</p>
     </div>
 
+    {
+      lang === 'tr' && (
+        <img
+          class="section-figure reveal"
+          src="/media/bulut-modelleri.webp"
+          width="1536"
+          height="1024"
+          alt="Public Cloud ve Private Cloud modellerinin karşılaştırması: Public Cloud standart süreçler ve hızlı devreye alma, Private Cloud esnek mimari ve daha fazla kontrol sunar. Karar; özelleştirme ihtiyacı, hız ve toplam maliyete göre verilir."
+          loading="lazy"
+          decoding="async"
+        />
+      )
+    }
+
     <div class="cloud-intro reveal">
       {c.cloud.intro.map((p) => <p>{p}</p>)}
     </div>

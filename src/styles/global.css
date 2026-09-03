@@ -561,6 +561,30 @@ section {
   transform: translateX(3px);
 }
 
+/* ---------- 6b. Bölüm görselleri --------------------------------
+   Dört bölüm görseli de AYNI kutuda durur: aynı en-boy oranı (3:2),
+   aynı azami genişlik, aynı çerçeve. Ölçü tek yerden verildiği için
+   sayfadan sayfaya kayma olmaz.
+
+   Görsellerin başlıkları görselin İÇİNE gömülü ve Türkçe; bu yüzden
+   yalnızca Türkçe sayfalarda gösterilirler (bkz. kullanım yerlerindeki
+   `lang === 'tr'` koşulu). İngilizce sürümleri hazırlandığında koşul
+   kaldırılabilir. */
+.section-figure {
+  display: block;
+  width: 100%;
+  max-width: 56rem;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  margin: 0 0 var(--space-md);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.on-dark .section-figure {
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
 /* ---------- 7. Kartlar ------------------------------------------ */
 
 .card {

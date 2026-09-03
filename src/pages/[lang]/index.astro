@@ -454,18 +454,21 @@ const imageDims =
     object-position: 0% center;
     transform-origin: 0% 50%;
     transform: scale(2.4);
-    filter: blur(40px) saturate(1.1) brightness(0.78);
+    /* Buğu ÖLÇÜLÜ: 40px'te fotoğraf metnin arkasında tamamen kayboluyor
+       ve "görsel yok" gibi duruyordu. 14px'te oda hâlâ tanınır — cam,
+       gökdelen silüeti, mobilya okunuyor — ama harflerle yarışacak
+       keskin detay kalmıyor. Okunabilirliği buğu değil, aşağıdaki
+       perde sağlar; ölçüyle ayarlandı. */
+    filter: blur(14px) saturate(1.08) brightness(0.9);
   }
-  /* Net kare yalnızca METNİN BİTTİĞİ YERDEN SONRA başlar.
-     Ölçüm: başlık, alt metin ve butonlar masaüstünde ekranın %48'inde
-     bitiyor. Net katman daha erken görünmeye başladığında yazılar
-     ekrandaki grafiklerin ve rakamların üstüne düşüyor, okumak
-     yoruyordu. Sınır %52'ye alındı: metin tamamen sakin, buğulu alanın
-     üzerinde kalıyor; net oda metnin sağında başlıyor. Geçiş uzun
-     tutulur ki iki katmanın birleşim yeri belli olmasın. */
+  /* Net kare metnin sağında başlar ama fotoğrafın ÇOĞU nettir.
+     Ölçüm: metin masaüstünde ekranın %48'inde bitiyor. Sınır %38'de
+     açılmaya başlar, %66'da tam nettir — yani yazıların hemen yanından
+     itibaren oda keskinleşir. Daha geç başlatıldığında (%52 → %80)
+     ekranın yarısı buğuda kalıyor ve fotoğraf yok gibi duruyordu. */
   .hero-bg-sharp {
-    -webkit-mask-image: linear-gradient(to right, transparent 52%, #000 80%);
-    mask-image: linear-gradient(to right, transparent 52%, #000 80%);
+    -webkit-mask-image: linear-gradient(to right, transparent 38%, #000 66%);
+    mask-image: linear-gradient(to right, transparent 38%, #000 66%);
   }
   /* Üst ve alt kenarda çok hafif koyulaşma: header ile şeridin
      sınırları belirsizleşmesin. Fotoğrafı bastıracak yoğunlukta
@@ -482,16 +485,20 @@ const imageDims =
       rgba(5, 31, 32, 0.34) 100%
     );
   }
-  /* Metnin okunması için gereken EN AZ koyulaşma. Buğulu katman zaten
-     kontrastı düşürdüğü için buradaki değerler eskisinin çok altında. */
+  /* Okunabilirliği sağlayan katman BURASI — buğu değil. Böylece buğu
+     hafif tutulup fotoğraf görünür kalabiliyor. Yalnızca metnin
+     bulunduğu sol bölgeyi koyulaştırır ve sağa doğru tamamen biter;
+     odanın net yarısına hiç dokunmaz. Değerler ölçümle belirlendi:
+     harf piksellerinin altındaki en kötü kontrast eşiğin üstünde. */
   .hero-scrim {
     position: absolute;
     inset: 0;
     background: linear-gradient(
       to right,
-      rgba(6, 36, 37, 0.5) 0%,
-      rgba(6, 36, 37, 0.3) 40%,
-      rgba(6, 36, 37, 0) 66%
+      rgba(4, 24, 25, 0.72) 0%,
+      rgba(4, 24, 25, 0.6) 34%,
+      rgba(4, 24, 25, 0.18) 58%,
+      rgba(4, 24, 25, 0) 74%
     );
   }
   .hero-background h1 {
@@ -588,22 +595,22 @@ const imageDims =
       object-position: 62% center;
       transform-origin: 50% 50%;
       transform: scale(1.18);
-      filter: blur(34px) saturate(1.05) brightness(0.84);
+      filter: blur(12px) saturate(1.05) brightness(0.92);
     }
     /* Metin neredeyse tam genişlikte (ölçüm: %81'de bitiyor), yani net
        alan sağa itilerek kurtarılamaz. Çözüm net kareyi ALT banda
        almak: yazıların altında, masanın ve robotların olduğu şerit net
        kalır, metnin arkası buğulu ve sakin olur. */
     .hero-bg-sharp {
-      -webkit-mask-image: linear-gradient(to bottom, transparent 58%, #000 86%);
-      mask-image: linear-gradient(to bottom, transparent 58%, #000 86%);
+      -webkit-mask-image: linear-gradient(to bottom, transparent 30%, #000 62%);
+      mask-image: linear-gradient(to bottom, transparent 30%, #000 62%);
     }
     .hero-scrim {
       background: linear-gradient(
         to bottom,
-        rgba(6, 36, 37, 0.24) 0%,
-        rgba(6, 36, 37, 0.42) 45%,
-        rgba(6, 36, 37, 0.5) 100%
+        rgba(4, 24, 25, 0.46) 0%,
+        rgba(4, 24, 25, 0.58) 42%,
+        rgba(4, 24, 25, 0.4) 100%
       );
     }
   }

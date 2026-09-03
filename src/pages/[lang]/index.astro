@@ -454,12 +454,12 @@ const imageDims =
     object-position: 0% center;
     transform-origin: 0% 50%;
     transform: scale(2.4);
-    /* Buğu ÖLÇÜLÜ: 40px'te fotoğraf metnin arkasında tamamen kayboluyor
-       ve "görsel yok" gibi duruyordu. 14px'te oda hâlâ tanınır — cam,
-       gökdelen silüeti, mobilya okunuyor — ama harflerle yarışacak
-       keskin detay kalmıyor. Okunabilirliği buğu değil, aşağıdaki
-       perde sağlar; ölçüyle ayarlandı. */
-    filter: blur(14px) saturate(1.08) brightness(0.9);
+    /* Buğu MİNİMUM: yalnızca ekrandaki minik rakamlar gibi ince detayı
+       yumuşatacak kadar. Daha yükseği "buğu efekti" gibi görünüp
+       fotoğrafı bozuyordu (40px'te tamamen kayboluyordu, 14px'te bile
+       fazlaydı). Okunabilirliği buğu DEĞİL, aşağıdaki perde sağlar —
+       bu yüzden burada düşük tutulabiliyor. */
+    filter: blur(5px) saturate(1.06) brightness(0.92);
   }
   /* Net kare metnin sağında başlar ama fotoğrafın ÇOĞU nettir.
      Ölçüm: metin masaüstünde ekranın %48'inde bitiyor. Sınır %38'de
@@ -495,9 +495,9 @@ const imageDims =
     inset: 0;
     background: linear-gradient(
       to right,
-      rgba(4, 24, 25, 0.72) 0%,
-      rgba(4, 24, 25, 0.6) 34%,
-      rgba(4, 24, 25, 0.18) 58%,
+      rgba(4, 24, 25, 0.8) 0%,
+      rgba(4, 24, 25, 0.7) 34%,
+      rgba(4, 24, 25, 0.24) 58%,
       rgba(4, 24, 25, 0) 74%
     );
   }
@@ -595,7 +595,7 @@ const imageDims =
       object-position: 62% center;
       transform-origin: 50% 50%;
       transform: scale(1.18);
-      filter: blur(12px) saturate(1.05) brightness(0.92);
+      filter: blur(4px) saturate(1.05) brightness(0.94);
     }
     /* Metin neredeyse tam genişlikte (ölçüm: %81'de bitiyor), yani net
        alan sağa itilerek kurtarılamaz. Çözüm net kareyi ALT banda
@@ -608,9 +608,9 @@ const imageDims =
     .hero-scrim {
       background: linear-gradient(
         to bottom,
-        rgba(4, 24, 25, 0.46) 0%,
-        rgba(4, 24, 25, 0.58) 42%,
-        rgba(4, 24, 25, 0.4) 100%
+        rgba(4, 24, 25, 0.54) 0%,
+        rgba(4, 24, 25, 0.66) 42%,
+        rgba(4, 24, 25, 0.46) 100%
       );
     }
   }

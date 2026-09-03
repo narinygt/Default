@@ -634,6 +634,42 @@ const mainLinks = [
     flex: 1;
   }
 
+  /* --- Mobilde sayfa tepesi: BEYAZ şerit ---
+     Ana sayfanın hero'su koyu olduğu için header tepede de koyu
+     duruyordu (data-on-dark). Mobilde bu istenmiyor: sayfa ilk
+     açıldığında şerit beyaz olur, aşağı kaydırılınca maviye döner —
+     yani `data-scrolled` durumuna DOKUNULMAZ, yalnızca tepedeki
+     görünüm değişir. Masaüstünde eski davranış aynen kalır.
+
+     Koyu görünümü kuran her kural burada tek tek geri alınır; tek bir
+     zemin değişikliği yetmez, çünkü logo sürümü ve yazı renkleri de
+     aynı bayrağa bağlı. */
+  @media (max-width: 61.999rem) {
+    .site-header[data-on-dark]:not([data-scrolled]) {
+      background: var(--surface);
+      border-bottom-color: var(--border-soft);
+    }
+    .site-header[data-on-dark]:not([data-scrolled]) .brand-light {
+      display: block;
+    }
+    .site-header[data-on-dark]:not([data-scrolled]) .brand-dark {
+      display: none;
+    }
+    .site-header[data-on-dark]:not([data-scrolled]) .lang-opt {
+      color: var(--text-muted);
+    }
+    .site-header[data-on-dark]:not([data-scrolled]) .lang-opt.is-current {
+      color: var(--navy);
+    }
+    .site-header[data-on-dark]:not([data-scrolled]) .lang-sep {
+      color: var(--separator);
+    }
+    .site-header[data-on-dark]:not([data-scrolled]) .menu-toggle {
+      border-color: var(--line);
+      color: var(--navy);
+    }
+  }
+
   /* --- Kırılım: masaüstü menüye geçiş --- */
   @media (min-width: 62rem) {
     .nav-desktop {

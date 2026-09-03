@@ -51,7 +51,7 @@ export const privacy: Record<Lang, LegalContent> = {
       {
         h2: 'Veri sorumlusu',
         body: [
-          'Kişisel verileriniz, veri sorumlusu sıfatıyla aşağıda kimlik bilgileri yer alan şirket tarafından işlenmektedir. Şirket unvanı, adres, ticaret sicil ve iletişim bilgileri sayfanın alt bölümünde yer almaktadır.',
+          'Kişisel verileriniz, veri sorumlusu sıfatıyla CPeak Consultancy tarafından işlenmektedir. Adres ve iletişim bilgileri sayfanın alt bölümünde yer almaktadır.',
         ],
       },
       {
@@ -146,7 +146,7 @@ export const privacy: Record<Lang, LegalContent> = {
       {
         h2: 'Data controller',
         body: [
-          'Your personal data is processed by the company identified at the bottom of this page, acting as data controller. Full legal name, registered address and company registration details appear there.',
+          'Your personal data is processed by CPeak Consultancy, acting as data controller. Our address and contact details appear at the bottom of this page.',
         ],
       },
       {

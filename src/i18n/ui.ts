@@ -52,7 +52,6 @@ export const ui = {
       hoursValue: 'Pazartesi–Cuma, 09:00–18:00 (TSİ)',
       trademark:
         'SAP, S/4HANA ve RISE with SAP, SAP SE’nin Almanya ve diğer ülkelerdeki tescilli ticari markalarıdır. CPeak Consultancy bağımsız bir danışmanlık şirketidir ve SAP SE ile bağlantılı değildir.',
-      registryTitle: 'Ticaret sicil bilgileri',
     },
     common: {
       todoNote: 'doldurulacak',
@@ -191,7 +190,6 @@ export const ui = {
       hoursValue: 'Monday–Friday, 09:00–18:00 (GMT+3)',
       trademark:
         'SAP, S/4HANA and RISE with SAP are registered trademarks of SAP SE in Germany and other countries. CPeak Consultancy is an independent consultancy and is not affiliated with SAP SE.',
-      registryTitle: 'Company registration',
     },
     common: {
       todoNote: 'to be provided',

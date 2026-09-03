@@ -40,7 +40,6 @@ export function organizationSchema(lang: Lang) {
     '@type': ['Organization', 'ProfessionalService'],
     '@id': `${SITE_URL}/#organization`,
     name: site.name,
-    legalName: clean(site.legal.companyLegalName),
     url: abs(path({ page: 'home' }, lang)),
     logo: abs(site.logo.src),
     description: description[lang],

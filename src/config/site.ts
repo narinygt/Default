@@ -73,14 +73,6 @@ export const site = {
     /** Ziyaretçiye verilen yanıt süresi taahhüdü — metinlerde de geçer. */
     responseTimeHours: 1, // bir iş günü
   },
-  /** Ticaret sicil / vergi bilgileri — footer'da yasal olarak gerekir. */
-  legal: {
-    companyLegalName: `${TODO} CPeak Danışmanlık A.Ş. / Ltd. Şti. (tam unvan)`,
-    tradeRegistryNo: `${TODO} Ticaret Sicil No`,
-    taxOffice: `${TODO} Vergi Dairesi`,
-    taxNo: `${TODO} Vergi No`,
-    mersisNo: `${TODO} MERSİS No`,
-  },
   /**
    * ANA SAYFA HERO GÖRSELİ — dört seçenek arasında geçiş yapar.
    * Tek yapmanız gereken aşağıdaki değeri değiştirmek.

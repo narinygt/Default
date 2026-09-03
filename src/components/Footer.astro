@@ -28,13 +28,6 @@ const legalLinks = [
 const lines = addressLines();
 /** Adres tamamlanmadıysa `null` döner; o durumda harita bağlantısı basılmaz. */
 const mapHref = mapsUrl();
-const registryEntries = [
-  { label: lang === 'tr' ? 'Unvan' : 'Legal name', value: site.legal.companyLegalName },
-  { label: lang === 'tr' ? 'Sicil No' : 'Registry no', value: site.legal.tradeRegistryNo },
-  { label: lang === 'tr' ? 'Vergi Dairesi' : 'Tax office', value: site.legal.taxOffice },
-  { label: lang === 'tr' ? 'Vergi No' : 'Tax no', value: site.legal.taxNo },
-  { label: 'MERSİS', value: site.legal.mersisNo },
-];
 ---
 
 <footer class="site-footer on-dark">
@@ -138,23 +131,6 @@ const registryEntries = [
           {legalLinks.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
         </ul>
       </div>
-
-      <!-- Ticaret sicil bilgileri -->
-      <details class="footer-registry">
-        <summary class="mono">{ui.footer.registryTitle}</summary>
-        <dl class="registry-list">
-          {
-            registryEntries.map((e) => (
-              <div class="registry-item">
-                <dt class="mono">{e.label}</dt>
-                <dd>
-                  <Field lang={lang} value={e.value} />
-                </dd>
-              </div>
-            ))
-          }
-        </dl>
-      </details>
 
       <!-- SAP marka bildirimi -->
       <p class="footer-trademark">{ui.footer.trademark}</p>
@@ -344,39 +320,6 @@ const registryEntries = [
     color: #fff;
     text-decoration: underline;
     text-underline-offset: 0.22em;
-  }
-
-  /* --- Ticaret sicil --- */
-  .footer-registry summary {
-    cursor: pointer;
-    color: var(--text-on-dark-label);
-    font-size: var(--step-mono);
-    padding: 0.35rem 0;
-    width: fit-content;
-  }
-  .footer-registry summary:hover {
-    color: #fff;
-  }
-  .registry-list {
-    display: grid;
-    gap: 0.6rem;
-    margin-top: var(--space-xs);
-    padding-left: 0;
-  }
-  @media (min-width: 48rem) {
-    .registry-list {
-      grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-    }
-  }
-  .registry-item dt {
-    color: var(--text-on-dark-label);
-    font-size: 0.7rem;
-    margin-bottom: 0.15rem;
-  }
-  .registry-item dd {
-    margin: 0;
-    font-size: 0.92rem;
-    color: rgba(255, 255, 255, 0.88);
   }
 
   .footer-trademark {

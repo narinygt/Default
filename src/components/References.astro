@@ -71,11 +71,20 @@ const ui = t(lang);
 <style>
   .refs {
     background: var(--surface-dark);
-    padding-block: clamp(1.9rem, 1.4rem + 1.7vw, 2.75rem);
+    /* Şerit dar tutulur: tek satırlık bir logo bandı, kendi başına bir
+       bölüm değil. Sitenin diğer bölümlerinden belirgin olarak daha
+       az dikey boşluk alır. */
+    padding-block: clamp(1.25rem, 0.95rem + 1.1vw, 1.8rem);
   }
 
   .refs .eyebrow {
-    margin: 0 0 clamp(1.1rem, 0.9rem + 0.6vw, 1.6rem);
+    margin: 0 0 clamp(0.75rem, 0.6rem + 0.45vw, 1.05rem);
+  }
+  /* Etiketin solundaki kısa çizgi bu şeritte YOK. Sitenin diğer
+     bölümlerinde duruyor; burada bant zaten dar ve tek satırlık
+     olduğu için çizgi gereksiz bir işaret olarak kalıyordu. */
+  .refs .eyebrow::before {
+    display: none;
   }
 
   /* Şerit kenarlarda sert kesilmez; zemine doğru yumuşar. Böylece

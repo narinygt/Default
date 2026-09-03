@@ -498,6 +498,15 @@ const imageDims =
        burada yeniden kurulur. */
     .hero-background .btn-row {
       margin-top: var(--space-md);
+      gap: 0.5rem;
+    }
+    /* Butonlar mobilde daha derli toplu. Küçülen şey KUTU: dikey ve
+       yatay iç boşluk azalır, yazı ölçüsü aynı kalır — metin net ve
+       okunur kalsın diye. Yükseklik 46px'te tutulur; denetimin dokunma
+       hedefi eşiği 44px, altına inilmez. */
+    .hero-background .btn-row .btn {
+      padding: 0.5rem 1rem;
+      min-height: 46px;
     }
     /* Dar ekranda 3:2 kaynaktan dikey bir dilim kırpılıyor; robotlar
        görselin SAĞINDA olduğu için kırpma oraya kaydırılır, yoksa

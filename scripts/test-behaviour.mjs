@@ -137,6 +137,80 @@ const hiddenEsc = await m.evaluate(() => document.querySelector('[data-mobile-me
 check('Escape ile menü kapanıyor', hiddenEsc === true);
 await m.close();
 
+/* ---------- 7b. Menü düğmesi aşağı kaydırılmışken de TEK dokunuşta açılır ----------
+   Kullanıcının bildirdiği hata buydu: sayfa kaydırıldıktan sonra düğme
+   bazen tepki vermiyordu. Header o sırada 76 px'ten 60 px'e küçülüp
+   düğmeyi yukarı kaydırdığı için, dokunuşun düğmenin kaydırmadan ÖNCEKİ
+   konumuna gelmesi de ayrıca sınanır. */
+const mt = await browser.newPage({
+  viewport: { width: 390, height: 800 },
+  hasTouch: true,
+  isMobile: true,
+});
+await mt.goto(`${base}/tr`, { waitUntil: 'networkidle' });
+const kutuTepede = await mt.evaluate(() => {
+  const b = document.querySelector('[data-menu-toggle]').getBoundingClientRect();
+  return { cx: b.x + b.width / 2, cy: b.y + b.height / 2 };
+});
+
+let dokunusBasarili = 0;
+for (const y of [400, 1500, 3000]) {
+  await mt.evaluate((v) => {
+    document.documentElement.style.scrollBehavior = 'auto';
+    window.scrollTo(0, v);
+  }, y);
+  await mt.waitForTimeout(400);
+  // Parmak, kaydırmadan önceki konuma basıyor.
+  await mt.touchscreen.tap(kutuTepede.cx, kutuTepede.cy);
+  await mt.waitForTimeout(200);
+  const acik = await mt.evaluate(() => !document.querySelector('[data-mobile-menu]').hidden);
+  if (acik) dokunusBasarili += 1;
+  if (acik) {
+    await mt.keyboard.press('Escape');
+    await mt.waitForTimeout(200);
+  }
+}
+check(
+  'Aşağı kaydırılmışken düğme tek dokunuşta açıyor',
+  dokunusBasarili === 3,
+  `${dokunusBasarili}/3 konumda açıldı`,
+);
+
+/* Küçülmüş header ile menünün üst kenarı çakışmalı; arada sayfa içeriğinin
+   göründüğü bir şerit kalmamalı. */
+await mt.touchscreen.tap(kutuTepede.cx, kutuTepede.cy);
+await mt.waitForTimeout(300);
+const hiza = await mt.evaluate(() => ({
+  menuTop: document.querySelector('[data-mobile-menu]').getBoundingClientRect().top,
+  headerBottom: document.querySelector('.header-inner').getBoundingClientRect().bottom,
+}));
+check(
+  'Menü, küçülmüş header ile boşluksuz hizalanıyor',
+  Math.abs(hiza.menuTop - hiza.headerBottom) < 1,
+  `menü ${hiza.menuTop}px / header altı ${hiza.headerBottom}px`,
+);
+
+/* Kaydırma eşiği çevresindeki küçük hareketler header'ı açıp kapatmamalı
+   (histerezis). Aksi halde düğme parmağın altında sürekli yer değiştirir. */
+await mt.evaluate(() => window.scrollTo(0, 0));
+await mt.waitForTimeout(400);
+const degisim = await mt.evaluate(async () => {
+  const h = document.querySelector('[data-header]');
+  let sayac = 0;
+  let onceki = h.hasAttribute('data-scrolled');
+  for (const y of [10, 26, 18, 30, 20, 28, 16, 25, 22, 27]) {
+    window.scrollTo(0, y);
+    await new Promise((r) => requestAnimationFrame(r));
+    await new Promise((r) => setTimeout(r, 60));
+    const simdi = h.hasAttribute('data-scrolled');
+    if (simdi !== onceki) sayac += 1;
+    onceki = simdi;
+  }
+  return sayac;
+});
+check('Eşik çevresinde header durumu titremiyor', degisim === 0, `${degisim} durum değişimi`);
+await mt.close();
+
 /* ---------- 8. Çerez banner'ı: reddet analitiği yüklemiyor ---------- */
 const c = await browser.newPage({ viewport: { width: 1280, height: 800 } });
 await c.goto(`${base}/tr`, { waitUntil: 'networkidle' });
@@ -198,7 +272,7 @@ check(
 );
 check(
   'Scroll edilince header yarı saydam koyu zemin alıyor',
-  headerBefore.bg === 'rgba(0, 0, 0, 0)' && headerAfter.bg.startsWith('rgba(14, 22, 32'),
+  headerBefore.bg === 'rgba(0, 0, 0, 0)' && headerAfter.bg.startsWith('rgba(0, 63, 130'),
   headerAfter.bg,
 );
 check(

@@ -477,14 +477,15 @@ const mainLinks = [
     -webkit-tap-highlight-color: transparent;
     position: relative;
   }
-  /* Görünür ölçü 44×44 kalır; dokunma hedefi görünmez biçimde 52×52'ye
-     çıkar. Header kaydırırken 76 px'ten 60 px'e küçüldüğü için düğme o
-     sırada parmağın altından birkaç piksel kayabiliyordu; bu pay onu
-     yakalar. */
+  /* Görünür ölçü 44×44 kalır; dokunma hedefi görünmez biçimde büyür.
+     Ölçü tesadüfi değil: header kaydırılınca 76 px'ten 60 px'e iner ve
+     düğme bu sırada tam 8 px yukarı kayar. Parmak, kaydırmadan önceki
+     konuma basmışsa 6 px'lik dikey pay onu hâlâ yakalar. Yataydaki 4 px
+     kenar boşluğunun içinde kalır, komşu bir öğeyi örtmez. */
   .menu-toggle::after {
     content: '';
     position: absolute;
-    inset: -4px;
+    inset: -6px -4px;
   }
   .site-header[data-scrolled] .menu-toggle,
   .site-header[data-on-dark] .menu-toggle {
@@ -519,6 +520,12 @@ const mainLinks = [
     border-top: 1px solid var(--border-soft);
     overflow-y: auto;
     overscroll-behavior: contain;
+  }
+  /* Menü header'ın hemen ALTINDAN başlar. Header kaydırılınca küçüldüğü
+     için bu ölçü de küçülür; sabit bırakılsaydı ikisinin arasında 16
+     px'lik bir şeritten sayfa içeriği görünürdü. */
+  .site-header[data-scrolled] .mobile-menu {
+    top: var(--header-h-scrolled);
   }
   .mobile-menu[hidden] {
     display: none;
@@ -608,12 +615,39 @@ const mainLinks = [
   // --- Scroll durumu: header küçülür ve koyulaşır ---
   const header = document.querySelector<HTMLElement>('[data-header]');
   if (header) {
-    const setScrolled = () => {
-      if (window.scrollY > 24) header.setAttribute('data-scrolled', '');
-      else header.removeAttribute('data-scrolled');
+    /* Tek bir eşik yerine iki eşik (histerezis). Tek eşikte, sayfa o
+       değerin hemen çevresindeyken küçük bir hareket bile durumu açıp
+       kapatıyordu: iOS'ta adres çubuğu gizlenip görünürken scroll değeri
+       kendiliğinden birkaç piksel oynadığı için header sürekli 76 ↔ 60
+       px arasında gidip geliyor, yani düğme parmağın altında duruyordu.
+       Açılma 32 px'te, kapanma 8 px'te olunca bu salınım imkânsız hale
+       gelir. */
+    let scrolled = false;
+    const sync = () => {
+      const asagida = scrolled ? window.scrollY > 8 : window.scrollY > 32;
+      // Durum değişmediyse DOM'a HİÇ dokunulmaz. Eskiden her scroll
+      // olayında setAttribute çağrılıyordu; header `backdrop-filter`
+      // taşıdığı için bu, kaydırmanın her karesinde gereksiz bir stil
+      // hesabı doğuruyor ve ana iş parçacığını meşgul ediyordu.
+      if (asagida === scrolled) return;
+      scrolled = asagida;
+      header.toggleAttribute('data-scrolled', asagida);
     };
-    setScrolled();
-    window.addEventListener('scroll', setScrolled, { passive: true });
+
+    let beklemede = false;
+    sync();
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (beklemede) return;
+        beklemede = true;
+        requestAnimationFrame(() => {
+          beklemede = false;
+          sync();
+        });
+      },
+      { passive: true }
+    );
   }
 
   // --- Çözümler dropdown'ı: tıklama + klavye, imleçle açılma ---
@@ -670,17 +704,57 @@ const mainLinks = [
       if (label && labels.close) label.textContent = open ? labels.close : labels.open;
     };
 
-    /* Titrek bir dokunuş ya da hızlı çift dokunuş menüyü açıp hemen
-       kapatıyor, kullanıcıya "açılmadı" gibi görünüyordu. Art arda gelen
-       ikinci tetikleme 260 ms boyunca yok sayılır; bilinçli kapatma için
-       bu süre yeterince kısa. */
-    let sonDegisim = 0;
-    toggle.addEventListener('click', () => {
+    /* Düğme hem `pointerup` hem `click` ile çalışır.
+       ------------------------------------------------------------------
+       Neden ikisi birden: mobil tarayıcılar, sayfa kaydırma hareketinin
+       hızıyla süzülürken (momentum) gelen dokunuşu "kaydırmayı durdur"
+       diye yorumlar ve o dokunuş için `click` ÜRETMEZ. Kullanıcı düğmeye
+       bastığını görür ama hiçbir şey olmaz — şikâyetin "özellikle aşağı
+       kaydırınca" olmasının sebebi budur. `pointerup` bu durumda da
+       gelir, dolayısıyla menü ilk dokunuşta açılır.
+       `click` yine de duruyor: klavye (Enter/Boşluk) ve fare yalnızca
+       onu tetikler.
+
+       Aynı dokunuşun iki kez sayılmaması için: bir tetikleme, kendinden
+       sonraki 120 ms içindeki ikinciyi yutar. `pointerup`tan sonra gelen
+       türev `click` bu aralığın çok içinde kalır; bilinçli ikinci dokunuş
+       (menüyü kapatmak için) ise her zaman daha geç gelir. Bu süre
+       önceden 260 ms idi ve kullanıcının kapatma dokunuşunu da
+       yutabiliyordu. */
+    let sonTetik = 0;
+    const cevir = () => {
       const simdi = Date.now();
-      if (simdi - sonDegisim < 260) return;
-      sonDegisim = simdi;
+      if (simdi - sonTetik < 120) return;
+      sonTetik = simdi;
       setMenu(menu.hidden);
+    };
+
+    /* Parmak düğmenin üstünde başlayıp sayfayı kaydırdıysa bu bir
+       dokunuş değildir; kaldırıldığında menü açılmamalı. Başlangıç
+       noktasından sapma ve sayfanın kayıp kaymadığı bunun için ölçülür. */
+    let bx = 0;
+    let by = 0;
+    let bScroll = 0;
+    let dokunusGecerli = false;
+
+    toggle.addEventListener('pointerdown', (e) => {
+      if (e.pointerType === 'mouse') return;
+      bx = e.clientX;
+      by = e.clientY;
+      bScroll = window.scrollY;
+      dokunusGecerli = true;
     });
+    toggle.addEventListener('pointercancel', () => {
+      dokunusGecerli = false;
+    });
+    toggle.addEventListener('pointerup', (e) => {
+      if (e.pointerType === 'mouse' || !dokunusGecerli) return;
+      dokunusGecerli = false;
+      if (Math.abs(e.clientX - bx) > 10 || Math.abs(e.clientY - by) > 10) return;
+      if (Math.abs(window.scrollY - bScroll) > 4) return;
+      cevir();
+    });
+    toggle.addEventListener('click', cevir);
 
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && !menu.hidden) {

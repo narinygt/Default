@@ -48,7 +48,26 @@ const imageDims =
          onun üzerinde durur. Okunabilirliği `.hero-scrim` sağlar. */
       isBackground && (
         <div class="hero-bg" aria-hidden="true">
-          <img src={imageSrc} width={imageDims.w} height={imageDims.h} alt="" fetchpriority="high" />
+          {/* Alt katman: aynı fotoğrafın büyütülüp buğulanmış hali —
+              toplantı odasının sola doğru uzamış, odak dışı devamı. */}
+          <img
+            class="hero-bg-soft"
+            src={imageSrc}
+            width={imageDims.w}
+            height={imageDims.h}
+            alt=""
+            fetchpriority="high"
+          />
+          {/* Üst katman: net fotoğraf, sağda. Sola doğru maskeyle
+              biter ve alttaki buğulu devamına karışır. */}
+          <img
+            class="hero-bg-sharp"
+            src={imageSrc}
+            width={imageDims.w}
+            height={imageDims.h}
+            alt=""
+            fetchpriority="high"
+          />
           <div class="hero-scrim" />
         </div>
       )
@@ -399,39 +418,65 @@ const imageDims =
     overflow: hidden;
     pointer-events: none;
   }
+  /* İKİ KATMAN — fotoğraf koyu bir perdeyle bastırılmaz.
+     ------------------------------------------------------------------
+     Önceki kurulumda metnin arkası kalın bir karartmayla kapatılıyor ve
+     fotoğraf o tarafta tamamen ölüyordu. Şimdi metnin arkasındaki şey de
+     fotoğrafın KENDİSİ: aynı kare büyütülüp buğulanarak sola doğru
+     uzatılıyor, yani toplantı odası odak dışına çıkarak devam ediyor.
+     Net kare sağda kalır ve maskeyle bu buğulu devamına karışır. */
   .hero-bg img {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* Sağa kaydırılır: robot sağda kalır, sol taraf metne ayrılır. */
+    /* Sağa kaydırılır: robotlar sağda kalır, sol taraf metne ayrılır. */
     object-position: 68% center;
   }
+  /* Buğulu devam. Büyütülür (blur kenarlarda saydamlık bırakmasın) ve
+     hafifçe sola kaydırılır — aynı karenin kopyası gibi değil, odanın
+     devamı gibi okunsun. */
+  .hero-bg-soft {
+    transform: scale(1.35) translateX(-7%);
+    /* brightness: fotoğrafı bastırmak için DEĞİL, odak dışı bir alanın
+       doğal olarak daha sönük durması için. Metnin okunabilirliği bu
+       değere bağlı değil — ölçüm, harf piksellerinin altındaki en kötü
+       noktada bile eşiğin üstünde kaldığını gösteriyor. */
+    filter: blur(26px) saturate(1.05) brightness(0.78);
+  }
+  /* Net kare yalnızca sağda. Geçiş uzun tutulur ki iki katmanın birleşim
+     yeri belli olmasın. */
+  .hero-bg-sharp {
+    -webkit-mask-image: linear-gradient(to right, transparent 8%, #000 58%);
+    mask-image: linear-gradient(to right, transparent 8%, #000 58%);
+  }
+  /* Üst ve alt kenarda çok hafif koyulaşma: header ile şeridin
+     sınırları belirsizleşmesin. Fotoğrafı bastıracak yoğunlukta
+     DEĞİL. */
   .hero-bg::after {
     content: '';
     position: absolute;
     inset: 0;
     background: linear-gradient(
       to bottom,
-      rgba(5, 31, 32, 0.4) 0%,
-      rgba(5, 31, 32, 0.08) 32%,
-      rgba(5, 31, 32, 0.34) 72%,
-      rgba(5, 31, 32, 0.58) 100%
+      rgba(5, 31, 32, 0.34) 0%,
+      rgba(5, 31, 32, 0) 26%,
+      rgba(5, 31, 32, 0) 74%,
+      rgba(5, 31, 32, 0.34) 100%
     );
   }
+  /* Metnin okunması için gereken EN AZ koyulaşma. Buğulu katman zaten
+     kontrastı düşürdüğü için buradaki değerler eskisinin çok altında. */
   .hero-scrim {
     position: absolute;
     inset: 0;
     background: linear-gradient(
       to right,
-      rgba(6, 36, 37, 0.74) 0%,
-      rgba(6, 36, 37, 0.5) 38%,
-      rgba(6, 36, 37, 0) 72%
+      rgba(6, 36, 37, 0.5) 0%,
+      rgba(6, 36, 37, 0.3) 40%,
+      rgba(6, 36, 37, 0) 66%
     );
-    backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(3px);
-    /* Buğu da karartmayla birlikte sağa doğru biter. */
-    -webkit-mask-image: linear-gradient(to right, #000 0%, #000 38%, transparent 72%);
-    mask-image: linear-gradient(to right, #000 0%, #000 38%, transparent 72%);
   }
   .hero-background h1 {
     color: #fff;
@@ -518,17 +563,19 @@ const imageDims =
     /* Perde masaüstündekinden HAFİF: burada metnin arkasını tümüyle
        kapatmak gerekmiyor, üstte görsel açıkta kalsın diye yukarıdan
        aşağıya koyulaşır. */
+    /* Dar ekranda metin tek sütun ve fotoğrafın ÜSTÜNDE; net kare de
+       buğulu katmana daha erken karışır. */
+    .hero-bg-sharp {
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 45%);
+      mask-image: linear-gradient(to right, transparent 0%, #000 45%);
+    }
     .hero-scrim {
       background: linear-gradient(
         to bottom,
         rgba(6, 36, 37, 0.24) 0%,
-        rgba(6, 36, 37, 0.5) 38%,
-        rgba(6, 36, 37, 0.66) 100%
+        rgba(6, 36, 37, 0.42) 45%,
+        rgba(6, 36, 37, 0.5) 100%
       );
-      backdrop-filter: blur(2px);
-      -webkit-backdrop-filter: blur(2px);
-      -webkit-mask-image: none;
-      mask-image: none;
     }
   }
 

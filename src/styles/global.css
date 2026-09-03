@@ -134,21 +134,11 @@
   --surface: #ffffff;
   --surface-sunken: var(--paper);
   --surface-dark: var(--navy);
-  /* En koyu blok zemini (çerez banner'ı, koyu header, tam ekran hero).
+  /* En koyu blok zemini (çerez banner'ı, koyu header, tam zeminli hero).
      Kasıtlı olarak --ink'ten AYRI: --ink metin rengi olarak kalmaya
      devam eder, bu token yalnızca görsel olarak "siyah" algılanan
-     büyük zeminler içindir.
-
-     Header ve çerez banner'ı LACİVERT kalır — istenen bu. */
+     büyük zeminler için lacivert (#003f82) taşır. */
   --surface-darkest: #003f82;
-
-  /* Tam ekran hero'nun zemini ve perdeleri AYRI bir token'da: burası
-     yeşil, header ve çerez banner'ı lacivert. Değer rastgele seçilmedi,
-     laciverdin iki ölçüsünü de korur:
-       beyazla kontrast   10.00:1  (lacivertte 10.33:1)
-       --navy'den ayrımı   1.51:1  (lacivertte 1.56:1)
-     Yani derinlik algısı ve teal şeritten ayrışması aynı. */
-  --surface-hero: #0c4a4c;
   --surface-teal: var(--teal);
 
   /* Metin */

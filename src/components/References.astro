@@ -71,23 +71,11 @@ const ui = t(lang);
 <style>
   .refs {
     background: var(--surface-dark);
-    /* Şerit dar tutulur: tek satırlık bir logo bandı, kendi başına bir
-       bölüm değil. Sitenin diğer bölümlerinden belirgin olarak daha
-       az dikey boşluk alır. */
-    padding-block: clamp(1.25rem, 0.95rem + 1.1vw, 1.8rem);
+    padding-block: clamp(1.9rem, 1.4rem + 1.7vw, 2.75rem);
   }
 
   .refs .eyebrow {
-    margin: 0 0 clamp(0.75rem, 0.6rem + 0.45vw, 1.05rem);
-    /* Beyaz — koyu yeşil şerit üzerinde 6.62:1, amber tonundan (4.96:1)
-       da yüksek. */
-    color: #fff;
-  }
-  /* Etiketin solundaki kısa çizgi bu şeritte YOK. Sitenin diğer
-     bölümlerinde duruyor; burada bant zaten dar ve tek satırlık
-     olduğu için çizgi gereksiz bir işaret olarak kalıyordu. */
-  .refs .eyebrow::before {
-    display: none;
+    margin: 0 0 clamp(1.1rem, 0.9rem + 0.6vw, 1.6rem);
   }
 
   /* Şerit kenarlarda sert kesilmez; zemine doğru yumuşar. Böylece

@@ -36,7 +36,7 @@ const imageDims =
   ref={{ page: 'home' }}
   title={c.meta.title}
   description={c.meta.description}
-  solidTop={isBackground}
+  darkTop={isBackground}
   preloadImage={isLedger ? undefined : imageSrc}
 >
   <!-- ============ 1. HERO ============
@@ -44,31 +44,11 @@ const imageDims =
        'ledger' | 'image' | 'duotone' | 'background'                  -->
   <section class:list={['hero', `hero-${heroVisual}`]} data-hero>
     {
-      /* Tam ekran seçeneği: görsel hero'nun TAMAMINI kaplar, metin
-         onun üzerinde durur. Okunabilirliği `.hero-scrim` sağlar. */
+      /* Tam zeminli seçenek: görsel sağa yaslanır, metnin arkasında
+         maskeyle söner. Doğal boyutunun üstüne büyütülmez. */
       isBackground && (
         <div class="hero-bg" aria-hidden="true">
-          {/* Alt katman: aynı fotoğrafın büyütülüp buğulanmış hali —
-              toplantı odasının sola doğru uzamış, odak dışı devamı. */}
-          <img
-            class="hero-bg-soft"
-            src={imageSrc}
-            width={imageDims.w}
-            height={imageDims.h}
-            alt=""
-            fetchpriority="high"
-          />
-          {/* Üst katman: net fotoğraf, sağda. Sola doğru maskeyle
-              biter ve alttaki buğulu devamına karışır. */}
-          <img
-            class="hero-bg-sharp"
-            src={imageSrc}
-            width={imageDims.w}
-            height={imageDims.h}
-            alt=""
-            fetchpriority="high"
-          />
-          <div class="hero-scrim" />
+          <img src={imageSrc} width={imageDims.w} height={imageDims.h} alt="" fetchpriority="high" />
         </div>
       )
     }
@@ -113,11 +93,7 @@ const imageDims =
   </section>
 
   <!-- ============ 2. REFERANSLAR ŞERİDİ ============
-       Hero'nun ALTINDA, kendi yeşil zeminli bandı olarak. Bir ara
-       hero'nun içine, görselin üzerine alınmıştı; şerit halinde daha
-       iyi durduğu için geri getirildi. Logolar kendi renklerinde
-       olduğu için düz ve tek renk bir zemin, fotoğrafın üzerinden
-       çok daha okunur.
+       Hero'nun hemen altındaki koyu zeminli logo şeridi.
        Liste ve ölçü mantığı: src/data/references.ts             -->
   <References lang={lang} />
 
@@ -372,125 +348,29 @@ const imageDims =
     object-fit: cover;
   }
 
-  /* ---------- Hero seçeneği: TAM EKRAN görsel (background) ----------
-     Görsel hero'nun tamamını kaplar ve metin onun üzerinde durur.
-
-     Okunabilirlik iki katmanla sağlanır:
-       .hero-bg::after  Tüm alana ince bir karartma — üstteki header ve
-                        alttaki kenar her koşulda okunur kalır.
-       .hero-scrim      Metnin arkası: koyulaşır VE hafifçe buğulanır.
-                        Sağa doğru maskeyle biter, böylece görselin
-                        kendisi (asıl gösterilmek istenen şey) net
-                        durur. Karartma tek başına da yeterdi; buğu,
-                        metnin arkasındaki detayın gözü yormaması için.
-
-     ÖLÇÜ SINIRI: kaynak 1200×800. Tam ekran kullanımda geniş
-     masaüstlerinde büyütülüyor; buğulanan sol tarafta bu görünmez ama
-     sağdaki net alanda çok büyük ekranlarda yumuşama olabilir. Daha
-     yüksek çözünürlüklü bir kaynak gelirse tek yapılacak dosyayı
-     değiştirmek. */
+  /* ---------- Hero seçeneği: tam zeminli görsel (background) ----------
+     Görsel doğal boyutunun üzerine BÜYÜTÜLMEZ (kaynak 800px geniş);
+     sağa yaslanır ve sola doğru maskeyle söner, böylece metnin
+     arkasında kontrastı bozacak detay kalmaz. */
   .hero-background {
-    /* Hero YEŞİL; header ve çerez banner'ı lacivert kalır (ayrı token). */
-    background: var(--surface-hero);
+    background: var(--surface-darkest);
     color: #fff;
-    /* Hero + header birlikte TAM BİR EKRAN tutar; logo şeridi de bu
-       ekranın içinde, en altta kalır. `dvh` mobil için: `vh` tarayıcı
-       adres çubuğunu hesaba katmaz ve şerit ekranın altından taşardı. */
-    /* -1px: header'ın alt kenarlığı da yer kaplar; hesaba katılmazsa
-       sayfa tam 1 piksel kayıyor. */
-    min-height: calc(100vh - var(--header-h) - 1px);
-    min-height: calc(100dvh - var(--header-h) - 1px);
-    display: flex;
-    flex-direction: column;
-    padding-block: 0;
-  }
-  /* Metin bloğu kalan alanı doldurur ve içinde dikey ortalanır;
-     logo şeridi altta sabit kalır. */
-  .hero-background .hero-inner {
-    flex: 1 1 auto;
-    align-content: center;
-    padding-block: clamp(2rem, 1rem + 4vw, 4rem);
   }
   .hero-bg {
     position: absolute;
-    inset: 0;
+    inset: 0 0 0 auto;
+    width: min(52%, 800px);
     z-index: 0;
-    overflow: hidden;
     pointer-events: none;
   }
-  /* İKİ KATMAN — fotoğraf koyu bir perdeyle bastırılmaz.
-     ------------------------------------------------------------------
-     Önceki kurulumda metnin arkası kalın bir karartmayla kapatılıyor ve
-     fotoğraf o tarafta tamamen ölüyordu. Şimdi metnin arkasındaki şey de
-     fotoğrafın KENDİSİ: aynı kare büyütülüp buğulanarak sola doğru
-     uzatılıyor, yani toplantı odası odak dışına çıkarak devam ediyor.
-     Net kare sağda kalır ve maskeyle bu buğulu devamına karışır. */
   .hero-bg img {
-    position: absolute;
-    inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    /* Sağa kaydırılır: robotlar sağda kalır, sol taraf metne ayrılır. */
-    object-position: 68% center;
-  }
-  /* Sol taraf: DUVAR.
-     Kaynak, fotoğrafın kendi tavan/panel bandı (üst orta bölge) —
-     ince bir ışık şeridi taşıyan düz, koyu ahşap yüzey. Büyütülüp
-     yumuşatıldığında odanın duvarının sola doğru devam ettiği izlenimi
-     verir. Odanın bir yerinden alınmış bulanık bir SAHNE değil, düz
-     bir YÜZEY olması önemli: sahne olduğunda "buğulanmış fotoğraf"
-     gibi görünüyordu, yüzey olunca mimarinin parçası gibi duruyor.
-
-     `transform-origin: 50% 0%` üst bandı yerinde tutar; varsayılan
-     merkezden ölçekleme o bandı görüntü dışına itiyor. */
-  .hero-bg-soft {
-    object-position: 46% 3%;
-    transform-origin: 50% 0%;
-    transform: scale(3.2);
-    filter: blur(16px) saturate(1.02) brightness(0.82);
-  }
-  /* YAZI OLMAYAN KISIM TAM FOTOĞRAF.
-     Ölçüm: metin masaüstünde ekranın %48'inde bitiyor. Net katman
-     %44'te açılmaya başlar ve %60'ta TAM nettir — yani yazıların
-     bittiği yerden hemen sonra fotoğraf hiçbir müdahale olmadan,
-     olduğu gibi görünür. Yazının bulunduğu sol bölge ise yalnızca çok
-     hafif yumuşatılır; odanın bir parçası gibi durması, ayrı bir
-     "buğu katmanı" gibi okunmaması için. */
-  .hero-bg-sharp {
-    -webkit-mask-image: linear-gradient(to right, transparent 44%, #000 60%);
-    mask-image: linear-gradient(to right, transparent 44%, #000 60%);
-  }
-  /* Üst ve alt kenarda çok hafif koyulaşma: header ile şeridin
-     sınırları belirsizleşmesin. Fotoğrafı bastıracak yoğunlukta
-     DEĞİL. */
-  .hero-bg::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      to bottom,
-      rgba(5, 31, 32, 0.34) 0%,
-      rgba(5, 31, 32, 0) 26%,
-      rgba(5, 31, 32, 0) 74%,
-      rgba(5, 31, 32, 0.34) 100%
-    );
-  }
-  /* Okunabilirliği sağlayan katman BURASI — buğu değil. Böylece buğu
-     hafif tutulup fotoğraf görünür kalabiliyor. Yalnızca metnin
-     bulunduğu sol bölgeyi koyulaştırır ve sağa doğru tamamen biter;
-     odanın net yarısına hiç dokunmaz. Değerler ölçümle belirlendi:
-     harf piksellerinin altındaki en kötü kontrast eşiğin üstünde. */
-  .hero-scrim {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      to right,
-      rgba(4, 24, 25, 0.78) 0%,
-      rgba(4, 24, 25, 0.66) 32%,
-      rgba(4, 24, 25, 0.16) 52%,
-      rgba(4, 24, 25, 0) 62%
-    );
+    object-fit: contain;
+    object-position: center right;
+    /* Sola doğru sönüm — metin alanına taşmaz. */
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 38%);
+    mask-image: linear-gradient(to right, transparent 0%, #000 38%);
   }
   .hero-background h1 {
     color: #fff;
@@ -498,14 +378,7 @@ const imageDims =
   .hero-background .hero-lead {
     color: var(--text-on-dark-muted);
   }
-  /* Hero butonları: İKİSİ DE OPAK ve renkli — ikincisi eskiden saydam
-     bir çerçeveydi ve fotoğrafın üzerinde zayıf kalıyordu. Ölçüleri de
-     bir tık küçültüldü. */
-  .hero-background .btn-row .btn {
-    padding: 0.7rem 1.3rem;
-    min-height: 46px;
-    font-size: 0.95rem;
-  }
+  /* Koyu hero'da butonlar ters çevrilir. */
   .hero-background .btn-primary {
     background: #fff;
     color: var(--navy);
@@ -517,105 +390,23 @@ const imageDims =
     border-color: var(--amber);
   }
   .hero-background .btn-secondary {
-    background: var(--surface-darkest);
     color: #fff;
-    border-color: var(--surface-darkest);
+    border-color: rgba(255, 255, 255, 0.35);
+    background: transparent;
   }
   .hero-background .btn-secondary:hover {
-    background: var(--navy);
-    border-color: var(--navy);
+    border-color: #fff;
     color: #fff;
   }
-  /* Mobilde metin tek sütun ve görselin ÜSTÜNDE durur; bu yüzden perde
-     soldan sağa değil YUKARIDAN AŞAĞIYA çalışır ve maske kalkar —
-     yoksa yazının arkası açıkta kalırdı. */
+  /* Mobilde görsel metnin arkasına düşer; iyice geri çekilir. */
   @media (max-width: 60rem) {
-
-    /* Mobilde hero TAM EKRAN DEĞİL — kasıtlı.
-       `object-fit: cover` kutuyu doldurmak zorunda olduğu için, kutu ne
-       kadar uzunsa görsel o kadar yakından kırpılıyor. Tam ekran
-       yükseklikte 3:2'lik kaynağın genişliğinin ancak %34'ü görünüyor
-       ve görsel "çok yakın" duruyordu. Yükseklik kısalınca kırpma
-       azalır: bu ölçüde genişliğin ~%42'si görünür. İçeriğin doğal
-       yüksekliği 496px olduğu için metin de sıkışmaz. */
-    /* Mobilde ölçü hero'nun TAMAMINA değil, görselli/metinli alana
-       verilir: o alan ekranın yarısını kaplar, logo şeridi hemen
-       altında kalır — örnek sitedeki oran bu. Hero'nun kendi
-       min-height'ı kalkar, toplam yükseklik içerikten gelir. */
-    .hero-background {
-      min-height: 0;
+    .hero-bg {
+      width: 100%;
+      opacity: 0.28;
     }
-    /* Görselli/metinli alan ekranın yarısına yakın kalsın diye dikey
-       boşluklar kısılır. Ölçü mavi ŞERİDİ de kapsar: header 77px yer
-       tuttuğu için, bu alanın ekranda %50'de bitmesi metnin 345px'e
-       sığmasını gerektirir — mevcut metin (4 satır alt başlık) buna
-       sığmıyor. Kısılabilecek her şey kısıldı. */
-    .hero-background .hero-inner {
-      min-height: 42dvh;
-      padding-block: 0.9rem;
-    }
-    /* Alt metin mobilde GÖRÜNMEZ — dar ekranda yalnızca başlık ve
-       butonlar kalsın istendi. Masaüstünde ikisi de durur. Metin
-       sayfadan silinmedi, yalnızca bu genişlikte gizlenir. */
-    .hero-background .hero-lead {
-      display: none;
-    }
-    /* Başlıkla butonlar arasındaki boşluğu normalde alt metnin alt payı
-       veriyordu; o gizlenince buton satırı başlığa yapışıyor. Boşluk
-       burada yeniden kurulur. */
-    .hero-background .btn-row {
-      margin-top: var(--space-md);
-      gap: 0.5rem;
-    }
-    /* Butonlar mobilde daha derli toplu. Küçülen şey KUTU: dikey ve
-       yatay iç boşluk azalır, yazı ölçüsü aynı kalır — metin net ve
-       okunur kalsın diye. Yükseklik 46px'te tutulur; denetimin dokunma
-       hedefi eşiği 44px, altına inilmez. */
-    .hero-background .btn-row .btn {
-      padding: 0.5rem 1rem;
-    }
-    /* Dar ekranda 3:2 kaynaktan dikey bir dilim kırpılıyor; robotlar
-       görselin SAĞINDA olduğu için kırpma oraya kaydırılır, yoksa
-       ekranda yalnızca arka plandaki ekranlar kalıyor. Kırpma azalınca
-       bu kaydırma da azaltıldı. */
     .hero-bg img {
-      object-position: 74% center;
-    }
-    /* Perde masaüstündekinden HAFİF: burada metnin arkasını tümüyle
-       kapatmak gerekmiyor, üstte görsel açıkta kalsın diye yukarıdan
-       aşağıya koyulaşır. */
-    /* Dar ekranda "sola uzatma" diye bir şey yok — kare zaten dar.
-       Buğulu zemin sol kenardaki camı büyütünce üst yarı neredeyse
-       boş bir karanlığa dönüyordu. Mobilde bu katman ODANIN KENDİSİNİ
-       kaynak alır: hafif büyütülmüş, buğulu ama tanınabilir bir
-       fotoğraf zemini. */
-    /* Mobilde de üst alan DUVAR: aynı panel bandı, yazılar onun
-       üzerinde durur. Masaüstündekiyle aynı kaynak, dar ekrana göre
-       daha az büyütülmüş. */
-    .hero-bg-soft {
-      object-position: 50% 3%;
-      transform-origin: 50% 0%;
-      transform: scale(2.6);
-      filter: blur(14px) saturate(1.02) brightness(0.84);
-    }
-    /* Metin neredeyse tam genişlikte (ölçüm: %81'de bitiyor), yani net
-       alan sağa itilerek kurtarılamaz. Çözüm net kareyi ALT banda
-       almak: yazıların altında, masanın ve robotların olduğu şerit net
-       kalır, metnin arkası buğulu ve sakin olur. */
-    /* Duvarlı üst alan BÜYÜDÜ: net fotoğraf artık %56'dan sonra
-       açılıyor (eskiden %30). Yazıların tamamı duvarın üzerinde
-       kalıyor, orijinal fotoğraf alt bantta görünüyor. */
-    .hero-bg-sharp {
-      -webkit-mask-image: linear-gradient(to bottom, transparent 56%, #000 82%);
-      mask-image: linear-gradient(to bottom, transparent 56%, #000 82%);
-    }
-    .hero-scrim {
-      background: linear-gradient(
-        to bottom,
-        rgba(4, 24, 25, 0.54) 0%,
-        rgba(4, 24, 25, 0.66) 42%,
-        rgba(4, 24, 25, 0.46) 100%
-      );
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 55%);
+      mask-image: linear-gradient(to bottom, transparent 0%, #000 55%);
     }
   }
 

@@ -17,7 +17,7 @@
  * KOYU ZEMİN SÜRÜMÜ HAKKINDA — okumadan geçmeyin
  * ─────────────────────────────────────────────────────────────────
  * Logo iki marka rengi kullanıyor: #003F82 (lacivert) ve #11676A (teal).
- * Header, çerez banner'ı ve bu varlıkların zemini de #003F82. Sonuç:
+ * Footer ve scroll'lu header zemini de #003F82. Sonuç:
  *
  *   • "Consultancy" kelimesi zeminle AYNI renk → tamamen görünmez
  *   • "C Peak" teal → lacivert üzerinde 1.56:1, okunmuyor
@@ -39,9 +39,7 @@ import { fileURLToPath } from 'node:url';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const p = (rel) => resolve(root, rel);
 
-/* Koyu ZEMİN rengi (favicon karesi, OG kartı) — sitedeki
-   --surface-darkest ve header ile aynı lacivert. */
-const DARK_SURFACE = '#003f82';
+const NAVY = '#003f82';
 const TEAL = '#11676A';
 const AMBER = '#e8b33a';
 const FONT = "'Segoe UI', 'Helvetica Neue', Arial, sans-serif";
@@ -113,7 +111,7 @@ const markPng = await sharp(Buffer.from(markWhite))
 
 const iconBg = Buffer.from(
   `<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180">
-     <rect width="180" height="180" rx="38" fill="${DARK_SURFACE}"/>
+     <rect width="180" height="180" rx="38" fill="${NAVY}"/>
    </svg>`,
 );
 
@@ -174,7 +172,7 @@ function ogSvg({ title, kicker, locale }) {
   const startY = 320 - ((lines.length - 1) * lineHeight) / 2;
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
-  <rect width="${W}" height="${H}" fill="${DARK_SURFACE}"/>
+  <rect width="${W}" height="${H}" fill="${NAVY}"/>
   ${ledgerLines(W, H)}
   ${network(800, 350)}
   <line x1="80" y1="150" x2="140" y2="150" stroke="${TEAL}" stroke-width="3"/>

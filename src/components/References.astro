@@ -23,19 +23,13 @@ import type { Lang } from '@/i18n/routes';
 
 interface Props {
   lang: Lang;
-  /**
-   * Şerit KENDİ zeminini çizmesin — hero'nun görselinin üzerinde
-   * dururken kullanılır. Kendi koyu zeminini korusaydı tam ekran
-   * görselin altını opak bir bantla kesecekti.
-   */
-  bare?: boolean;
 }
 
-const { lang, bare = false } = Astro.props;
+const { lang } = Astro.props;
 const ui = t(lang);
 ---
 
-<section class:list={['refs', 'on-dark', { 'refs-bare': bare }]} aria-labelledby="refs-title">
+<section class="refs on-dark" aria-labelledby="refs-title">
   <div class="container">
     <p class="eyebrow" id="refs-title">{ui.common.references}</p>
 
@@ -78,13 +72,6 @@ const ui = t(lang);
   .refs {
     background: var(--surface-dark);
     padding-block: clamp(1.9rem, 1.4rem + 1.7vw, 2.75rem);
-  }
-
-  /* Hero'nun içinde: zemin yok, üst boşluk daha az — şerit görselin
-     bir parçası gibi durur, ayrı bir bant gibi değil. */
-  .refs-bare {
-    background: transparent;
-    padding-block: 0 clamp(1.4rem, 1rem + 1.4vw, 2.1rem);
   }
 
   .refs .eyebrow {

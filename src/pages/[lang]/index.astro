@@ -91,23 +91,16 @@ const imageDims =
         )
       }
     </div>
-
-    {
-      /* Tam ekran hero'da logo şeridi hero'nun İÇİNDE, görselin
-         üzerinde ve en altında durur: hero + logolar tek bir ekran
-         dolusu blok olur. Diğer hero seçeneklerinde şerit eskisi gibi
-         hero'nun altında ayrı bir bant olarak kalır. */
-      isBackground && (
-        <div class="hero-refs">
-          <References lang={lang} bare />
-        </div>
-      )
-    }
   </section>
 
   <!-- ============ 2. REFERANSLAR ŞERİDİ ============
+       Hero'nun ALTINDA, kendi yeşil zeminli bandı olarak. Bir ara
+       hero'nun içine, görselin üzerine alınmıştı; şerit halinde daha
+       iyi durduğu için geri getirildi. Logolar kendi renklerinde
+       olduğu için düz ve tek renk bir zemin, fotoğrafın üzerinden
+       çok daha okunur.
        Liste ve ölçü mantığı: src/data/references.ts             -->
-  {!isBackground && <References lang={lang} />}
+  <References lang={lang} />
 
   <!-- ============ 3. ÇÖZÜMLER IZGARASI ============ -->
   <section class="section" id="solutions">
@@ -399,45 +392,6 @@ const imageDims =
     align-content: center;
     padding-block: clamp(2rem, 1rem + 4vw, 4rem);
   }
-  .hero-refs {
-    position: relative;
-    z-index: 1;
-    flex: none;
-  }
-  /* Logoların arkası koyulaşır. Gerekli, çünkü referans logoları KENDİ
-     renklerinde duruyor (marka görünümlerine dokunulmuyor) ve koyu
-     renkli olanlar — Mercedes-Benz, Boehringer, wavin — fotoğrafın
-     üzerinde okunmuyordu. Beyaza çevirmek markaların görünümünü
-     bozardı; bunun yerine zemin koyulaştırıldı.
-
-     Renk, şeridin ESKİ zemini olan --surface-dark (#11676a) ile aynı ve
-     logoların bulunduğu yerde neredeyse opak. Bu ikisi birlikte önemli:
-     daha koyu bir zemin denendiğinde koyu renkli logolar (Mercedes-Benz,
-     fusion) eskisinden DAHA az okunur oluyordu — logoların kendi
-     renklerine dokunulmadığı için zeminin aynı açıklıkta olması gerekir.
-
-     Sert bir kenar oluşmasın diye koyuluk yukarı doğru uzun bir yolda
-     saydama iner; görselden şeride geçiş yumuşak kalır. */
-  .hero-refs::before {
-    content: '';
-    position: absolute;
-    inset: -6rem 0 0 0;
-    z-index: -1;
-    pointer-events: none;
-    background: linear-gradient(
-      to bottom,
-      rgba(17, 103, 106, 0) 0%,
-      rgba(17, 103, 106, 0.4) 28%,
-      rgba(17, 103, 106, 0.85) 55%,
-      rgba(17, 103, 106, 0.97) 72%,
-      rgba(17, 103, 106, 1) 100%
-    );
-  }
-  /* Şerit dikeyde biraz nefes alsın — görselin hemen dibinde
-     durmasın, ekranın altına da yapışmasın. */
-  .hero-background :global(.refs-bare) {
-    padding-block: 0 clamp(1.6rem, 1.1rem + 1.8vw, 2.6rem);
-  }
   .hero-bg {
     position: absolute;
     inset: 0;
@@ -530,25 +484,18 @@ const imageDims =
        sığmasını gerektirir — mevcut metin (4 satır alt başlık) buna
        sığmıyor. Kısılabilecek her şey kısıldı. */
     .hero-background .hero-inner {
-      min-height: 44dvh;
-      padding-block: 1.25rem;
+      min-height: 40dvh;
+      padding-block: 0.9rem;
     }
     .hero-background .hero-lead {
-      margin-top: 0.85rem;
-      margin-bottom: 1.35rem;
+      margin-top: 0.7rem;
+      margin-bottom: 1.05rem;
     }
-    /* Şeridin arkasındaki koyulaştırma da daralır: masaüstündeki 6rem'lik
-       geçiş, kısalan mobil hero'nun beşte birini kaplayıp fotoğrafı
-       yiyordu. */
-    .hero-refs::before {
-      inset: -3rem 0 0 0;
-    }
-    /* Logo şeridi de sıkışır. */
-    .hero-background :global(.refs-bare) {
-      padding-block: 0 clamp(1rem, 0.8rem + 1vw, 1.5rem);
-    }
-    .hero-background :global(.refs-bare .eyebrow) {
-      margin-bottom: 0.7rem;
+    /* Başlık mobilde bir tık küçülür — üç satırlık kırılımı değişmez,
+       yalnızca satır yüksekliği düşer. Görselli alanı kısaltmak için
+       kalan tek yer burasıydı. */
+    .hero-background h1 {
+      font-size: clamp(1.75rem, 1.25rem + 2.6vw, 2.05rem);
     }
     /* Dar ekranda 3:2 kaynaktan dikey bir dilim kırpılıyor; robotlar
        görselin SAĞINDA olduğu için kırpma oraya kaydırılır, yoksa

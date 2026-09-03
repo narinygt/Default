@@ -83,7 +83,8 @@ export const publicCloud: LocalizedSolution = {
 
     duration:
       'Uygunluk değerlendirmesi 2–3 hafta. Tek ülkeli standart finans kurulumu tipik olarak 3–5 ay; çok ülkeli yayılımlarda ülke başına ek süre.',
-    team: 'Bir kıdemli finans danışmanı ve bir çözüm mimarı; entegrasyon ve veri migrasyonu uzmanları faz bazlı.',
+    team:
+      'Projede bir kıdemli finans danışmanı ve bir çözüm mimarı çalışır; entegrasyon ve veri migrasyonu uzmanları fazlara göre devreye girer.',
 
     faqs: [
       {

@@ -83,7 +83,8 @@ export const privateCloud: LocalizedSolution = {
 
     duration:
       'Mimari ve hazırlık çalışması 5–8 hafta. Geçişin tamamı kapsama göre 7–14 ay.',
-    team: 'Çözüm mimarı ve kıdemli FI/CO danışmanı sürekli; entegrasyon, teknik ve veri migrasyonu uzmanları faz bazlı. Sağlayıcı koordinasyonu mimarın sorumluluğundadır.',
+    team:
+      'Çözüm mimarı ve kıdemli FI/CO danışmanı proje boyunca çalışır; entegrasyon, teknik ve veri migrasyonu uzmanları fazlara göre devreye girer. Sağlayıcı koordinasyonu mimarın sorumluluğundadır.',
 
     faqs: [
       {

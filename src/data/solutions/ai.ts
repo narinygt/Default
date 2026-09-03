@@ -87,7 +87,8 @@ export const ai: LocalizedSolution = {
 
     duration:
       'Ölçüm ve uygunluk değerlendirmesi 2–3 hafta. İlk fazın devreye alınması tipik olarak 6–12 hafta.',
-    team: 'Bir kıdemli finans danışmanı ve süreç otomasyonu uzmanı; entegrasyon ihtiyacına göre teknik destek.',
+    team:
+      'Projede bir kıdemli finans danışmanı ve bir süreç otomasyonu uzmanı çalışır; entegrasyon ihtiyacına göre teknik destek eklenir.',
 
     faqs: [
       {

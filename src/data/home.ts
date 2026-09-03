@@ -95,7 +95,7 @@ export const home: Record<Lang, HomeContent> = {
     hero: {
       // Başlıklarda nokta ve virgül kullanılmıyor. Virgül iki öbeği
       // ayırdığı için düz silinemezdi; bağlaçla yeniden kuruldu.
-      h1: 'SAP Finansallarda 10+ yıl deneyim ve SAP Bulut Mimarisi',
+      h1: 'SAP Finansallarda 10+ Yıl Deneyim ve SAP Bulut Mimarisi',
       lead:
         'Finansal modüllerde uzmanlık ve bulut modellerinde tarafsız değerlendirme sağlıyoruz.',
       primaryCta: 'Bize yazın',

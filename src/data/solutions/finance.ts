@@ -86,7 +86,8 @@ export const finance: LocalizedSolution = {
       'Teşhis aşamasında hesap hareketlerini ve belge akışlarını analiz ederken, elle günlerce süren desen çıkarma işini yapay zeka destekli analizle saatlere indiriyoruz. Test senaryolarının ilk taslağını ve yapılandırma dokümantasyonunu da bu şekilde üretiyoruz. Üretilen her çıktı, teslim edilmeden önce kıdemli bir danışman tarafından kontrol edilir.',
 
     duration: 'Teşhis 3–4 hafta; kapsamlı yeniden yapılandırma tipik olarak 4–7 ay.',
-    team: 'Bir kıdemli FI/CO danışmanı sürekli, bir çözüm mimarı kısmi zamanlı; ihtiyaç halinde veri migrasyonu ve raporlama uzmanı.',
+    team:
+      'Projede bir kıdemli FI/CO danışmanı sürekli, bir çözüm mimarı kısmi zamanlı çalışır; ihtiyaç duyulduğunda veri migrasyonu ve raporlama uzmanları devreye girer.',
 
     faqs: [
       {

@@ -84,7 +84,8 @@ export const s4hana: LocalizedSolution = {
 
     duration:
       'Hazırlık analizi 4–6 hafta. Dönüşümün kendisi kapsam ve yönteme göre 6–14 ay; tek şirket kodlu sade kurulumlarda daha kısa.',
-    team: 'Çözüm mimarı ve kıdemli FI/CO danışmanı sürekli; veri migrasyonu, teknik geliştirme ve test uzmanları faz bazlı.',
+    team:
+      'Çözüm mimarı ve kıdemli FI/CO danışmanı proje boyunca çalışır; veri migrasyonu, teknik geliştirme ve test uzmanları fazlara göre devreye girer.',
 
     faqs: [
       {

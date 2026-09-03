@@ -21,7 +21,7 @@ yayına çıkmak mümkün olmasın diye böyle tasarlandı.
 
 | # | Yapılacak | Dosya |
 |---|-----------|-------|
-| 1 | **Alan adını yaz.** `SITE_URL` şu an `https://cpeak.example` (tescil edilemeyen test uzantısı). Canonical, hreflang, sitemap ve robots.txt bu değerden üretilir. | `src/config/site.ts` |
+| 1 | ~~**Alan adını yaz.**~~ `SITE_URL` artık `https://www.cpeakconsultancy.com`. Canonical, hreflang, Open Graph, JSON-LD, sitemap ve robots.txt bu değerden üretilir. | `src/config/site.ts` |
 | 2 | **Koyu zemin logosunu tasarımcıya doğrulat.** Logo yerleşti (1717×591). Ancak logonun lacivert kısmı (`#003F82`) footer zeminiyle **aynı renk** olduğu için orijinal dosya koyu zeminde okunmuyordu: "Consultancy" tamamen kayboluyor, teal kısım 1.56:1'de kalıyordu. `npm run assets` bundan **beyaz tek renkli** bir sürüm türetiyor — yeni renk uydurmadan, logoyu yeniden çizmeden. Tasarımcınızın onaylaması ya da kendi koyu zemin sürümünü vermesi iyi olur; dosyanın üzerine yazmanız yeterli, script elle konmuş dosyaya dokunmaz. | `public/brand/cpeak-logo-on-dark.svg` |
 | 3 | **İletişim bilgilerini gir:** e-posta, telefon, LinkedIn, açık adres. | `src/config/site.ts` |
 | 4 | **Ticaret sicil bilgilerini gir:** tam unvan, sicil no, vergi dairesi/no, MERSİS. | `src/config/site.ts` |

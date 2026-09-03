@@ -30,8 +30,7 @@ export const contact: Record<Lang, ContactContent> = {
     },
     aside: {
       directTitle: 'Doğrudan iletişim',
-      directBody:
-        'Form yerine doğrudan yazmayı tercih ederseniz bu adrese yazabilirsiniz: kerem.yigit@cpeakconsultancy.com',
+      directBody: 'Form yerine doğrudan yazmayı tercih ederseniz aşağıdaki adreslerden ulaşabilirsiniz.',
       hoursTitle: 'Çalışma saatleri',
       responseTitle: 'Yanıt süresi',
       responseBody:
@@ -62,8 +61,7 @@ export const contact: Record<Lang, ContactContent> = {
     },
     aside: {
       directTitle: 'Direct contact',
-      directBody:
-        'If you would rather write directly than use the form, this is the address: kerem.yigit@cpeakconsultancy.com',
+      directBody: 'If you would rather write directly than use the form, use one of the addresses below.',
       hoursTitle: 'Office hours',
       responseTitle: 'Response time',
       responseBody:

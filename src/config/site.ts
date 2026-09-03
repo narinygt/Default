@@ -49,7 +49,18 @@ export const site = {
     height: 591,
   },
   contact: {
+    /** Kurumsal, genel adres. Footer, schema.org ve form yanıtları bunu kullanır. */
     email: 'info@cpeakconsultancy.com',
+    /**
+     * DOĞRUDAN İLETİŞİM — kişiye giden adres.
+     * Genel adresle karıştırılmaması için ayrı tutulur ve sayfada
+     * kişinin adıyla etiketlenir; daha önce cümlenin içine gömülüydü
+     * ve ziyaretçi hangi adrese yazacağını çıkaramıyordu.
+     */
+    direct: {
+      name: 'Kerem Yiğit',
+      email: 'kerem.yigit@cpeakconsultancy.com',
+    },
     phone: '+90 (507) 032 81 70',
     linkedin: 'https://tr.linkedin.com/company/cpeak-consultancy',
     address: {

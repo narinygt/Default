@@ -51,7 +51,12 @@ const mapHref = mapsUrl();
           <ul class="ct-contacts">
             <li>
               <ContactIcon name="mail" class="ct-icon" />
-              <span class="mono ct-key">{lang === 'tr' ? 'E-posta' : 'Email'}</span>
+              <span class="mono ct-key">{site.contact.direct.name}</span>
+              <Field lang={lang} value={site.contact.direct.email} href={(v) => `mailto:${v}`} />
+            </li>
+            <li>
+              <ContactIcon name="mail" class="ct-icon" />
+              <span class="mono ct-key">{lang === 'tr' ? 'Genel e-posta' : 'General email'}</span>
               <Field lang={lang} value={site.contact.email} href={(v) => `mailto:${v}`} />
             </li>
             <li>

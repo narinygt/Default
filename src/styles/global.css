@@ -134,11 +134,19 @@
   --surface: #ffffff;
   --surface-sunken: var(--paper);
   --surface-dark: var(--navy);
-  /* En koyu blok zemini (çerez banner'ı, koyu header, tam zeminli hero).
+  /* En koyu blok zemini (çerez banner'ı, koyu header, tam ekran hero).
      Kasıtlı olarak --ink'ten AYRI: --ink metin rengi olarak kalmaya
      devam eder, bu token yalnızca görsel olarak "siyah" algılanan
-     büyük zeminler için lacivert (#003f82) taşır. */
-  --surface-darkest: #003f82;
+     büyük zeminler içindir.
+
+     Önceden lacivert (#003f82) idi; markanın yeşiline geçirildi.
+     Değer rastgele seçilmedi, eski laciverdin iki ölçüsünü de korur:
+       beyazla kontrast   10.00:1  (lacivertte 10.33:1)
+       --navy'den ayrımı   1.51:1  (lacivertte 1.56:1)
+     Yani derinlik algısı ve hemen altındaki teal şeritten ayrışması
+     aynı kalır, yalnızca rengi değişir. Logo'nun kendi laciverdine
+     (#003F82) DOKUNULMADI; o, markanın kendi rengidir. */
+  --surface-darkest: #0c4a4c;
   --surface-teal: var(--teal);
 
   /* Metin */

@@ -17,10 +17,11 @@
  * KOYU ZEMİN SÜRÜMÜ HAKKINDA — okumadan geçmeyin
  * ─────────────────────────────────────────────────────────────────
  * Logo iki marka rengi kullanıyor: #003F82 (lacivert) ve #11676A (teal).
- * Footer ve scroll'lu header zemini de #003F82. Sonuç:
+ * Koyu zeminler ise artık #0C4A4C (koyu yeşil) — sitenin laciverdi
+ * yeşille değiştirildi, logo'nun kendi renkleri KORUNDU. Sonuç:
  *
- *   • "Consultancy" kelimesi zeminle AYNI renk → tamamen görünmez
- *   • "C Peak" teal → lacivert üzerinde 1.56:1, okunmuyor
+ *   • "Consultancy" lacivert → koyu yeşil üzerinde okunmuyor
+ *   • "C Peak" teal → koyu yeşil üzerinde 1.51:1, okunmuyor
  *
  * Bu yüzden koyu zemin için tek renkli BEYAZ sürüm türetiliyor.
  * Yeni bir marka rengi uydurulmuyor; logo yeniden çizilmiyor; yalnızca
@@ -39,7 +40,9 @@ import { fileURLToPath } from 'node:url';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const p = (rel) => resolve(root, rel);
 
-const NAVY = '#003f82';
+/* Koyu ZEMİN rengi (favicon karesi, OG kartı) — sitedeki
+   --surface-darkest ile aynı. Logo'nun kendi laciverdi değildir. */
+const DARK_SURFACE = '#0c4a4c';
 const TEAL = '#11676A';
 const AMBER = '#e8b33a';
 const FONT = "'Segoe UI', 'Helvetica Neue', Arial, sans-serif";
@@ -111,7 +114,7 @@ const markPng = await sharp(Buffer.from(markWhite))
 
 const iconBg = Buffer.from(
   `<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180">
-     <rect width="180" height="180" rx="38" fill="${NAVY}"/>
+     <rect width="180" height="180" rx="38" fill="${DARK_SURFACE}"/>
    </svg>`,
 );
 
@@ -172,7 +175,7 @@ function ogSvg({ title, kicker, locale }) {
   const startY = 320 - ((lines.length - 1) * lineHeight) / 2;
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
-  <rect width="${W}" height="${H}" fill="${NAVY}"/>
+  <rect width="${W}" height="${H}" fill="${DARK_SURFACE}"/>
   ${ledgerLines(W, H)}
   ${network(800, 350)}
   <line x1="80" y1="150" x2="140" y2="150" stroke="${TEAL}" stroke-width="3"/>

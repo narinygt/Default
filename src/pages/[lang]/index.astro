@@ -378,7 +378,8 @@ const imageDims =
      yüksek çözünürlüklü bir kaynak gelirse tek yapılacak dosyayı
      değiştirmek. */
   .hero-background {
-    background: var(--surface-darkest);
+    /* Hero YEŞİL; header ve çerez banner'ı lacivert kalır (ayrı token). */
+    background: var(--surface-hero);
     color: #fff;
     /* Hero + header birlikte TAM BİR EKRAN tutar; logo şeridi de bu
        ekranın içinde, en altta kalır. `dvh` mobil için: `vh` tarayıcı
@@ -409,22 +410,33 @@ const imageDims =
      üzerinde okunmuyordu. Beyaza çevirmek markaların görünümünü
      bozardı; bunun yerine zemin koyulaştırıldı.
 
-     Sert bir bant değil: yukarı doğru tamamen saydama iner, böylece
-     görselden şeride geçiş görünmez. Alttaki yoğunluk, şeridin eski
-     zemini (--surface-dark) ile aynı okunurluğu verecek düzeyde. */
+     Renk, şeridin ESKİ zemini olan --surface-dark (#11676a) ile aynı ve
+     logoların bulunduğu yerde neredeyse opak. Bu ikisi birlikte önemli:
+     daha koyu bir zemin denendiğinde koyu renkli logolar (Mercedes-Benz,
+     fusion) eskisinden DAHA az okunur oluyordu — logoların kendi
+     renklerine dokunulmadığı için zeminin aynı açıklıkta olması gerekir.
+
+     Sert bir kenar oluşmasın diye koyuluk yukarı doğru uzun bir yolda
+     saydama iner; görselden şeride geçiş yumuşak kalır. */
   .hero-refs::before {
     content: '';
     position: absolute;
-    inset: -3.5rem 0 0 0;
+    inset: -6rem 0 0 0;
     z-index: -1;
     pointer-events: none;
     background: linear-gradient(
       to bottom,
-      rgba(5, 31, 32, 0) 0%,
-      rgba(5, 31, 32, 0.55) 42%,
-      rgba(5, 31, 32, 0.86) 78%,
-      rgba(5, 31, 32, 0.92) 100%
+      rgba(17, 103, 106, 0) 0%,
+      rgba(17, 103, 106, 0.4) 28%,
+      rgba(17, 103, 106, 0.85) 55%,
+      rgba(17, 103, 106, 0.97) 72%,
+      rgba(17, 103, 106, 1) 100%
     );
+  }
+  /* Şerit dikeyde biraz nefes alsın — görselin hemen dibinde
+     durmasın, ekranın altına da yapışmasın. */
+  .hero-background :global(.refs-bare) {
+    padding-block: 0 clamp(1.6rem, 1.1rem + 1.8vw, 2.6rem);
   }
   .hero-bg {
     position: absolute;
@@ -498,11 +510,22 @@ const imageDims =
      yoksa yazının arkası açıkta kalırdı. */
   @media (max-width: 60rem) {
 
+    /* Mobilde hero TAM EKRAN DEĞİL — kasıtlı.
+       `object-fit: cover` kutuyu doldurmak zorunda olduğu için, kutu ne
+       kadar uzunsa görsel o kadar yakından kırpılıyor. Tam ekran
+       yükseklikte 3:2'lik kaynağın genişliğinin ancak %34'ü görünüyor
+       ve görsel "çok yakın" duruyordu. Yükseklik kısalınca kırpma
+       azalır: bu ölçüde genişliğin ~%42'si görünür. İçeriğin doğal
+       yüksekliği 496px olduğu için metin de sıkışmaz. */
+    .hero-background {
+      min-height: min(70dvh, 38rem);
+    }
     /* Dar ekranda 3:2 kaynaktan dikey bir dilim kırpılıyor; robotlar
        görselin SAĞINDA olduğu için kırpma oraya kaydırılır, yoksa
-       ekranda yalnızca arka plandaki ekranlar kalıyor. */
+       ekranda yalnızca arka plandaki ekranlar kalıyor. Kırpma azalınca
+       bu kaydırma da azaltıldı. */
     .hero-bg img {
-      object-position: 82% center;
+      object-position: 74% center;
     }
     /* Perde masaüstündekinden HAFİF: burada metnin arkasını tümüyle
        kapatmak gerekmiyor, üstte görsel açıkta kalsın diye yukarıdan

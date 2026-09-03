@@ -342,7 +342,7 @@ check(
   // Ana sayfanın hero'su tam ekran koyu görsel olduğu için header
   // TEPEDE DE koyudur (opak --surface-darkest); scroll'da yarı saydam
   // sürüme geçer. Eskiden tepede saydamdı — hero açık zeminliydi.
-  headerBefore.bg === 'rgb(12, 74, 76)' && headerAfter.bg.startsWith('rgba(12, 74, 76'),
+  headerBefore.bg === 'rgb(0, 63, 130)' && headerAfter.bg.startsWith('rgba(0, 63, 130'),
   headerAfter.bg,
 );
 check(

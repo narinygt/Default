@@ -97,7 +97,7 @@ export const home: Record<Lang, HomeContent> = {
       // ayırdığı için düz silinemezdi; bağlaçla yeniden kuruldu.
       h1: 'SAP Finansallarda 10+ Yıl Deneyim ve SAP Bulut Mimarisi',
       lead:
-        'Finansal modüllerde uzmanlık ve bulut modellerinde tarafsız değerlendirme sağlıyoruz; kararınızı savunabileceğiniz gerekçelerle.',
+        'SAP finans modüllerinde derinlemesine uzmanlık, bulut modeli seçiminde tarafsız değerlendirme — aldığınız kararı gerekçesiyle birlikte savunabilmeniz için',
       primaryCta: 'Bize yazın',
       secondaryCta: 'Çözümleri inceleyin',
       figureAlt:
@@ -283,7 +283,7 @@ export const home: Record<Lang, HomeContent> = {
       // Aynı kural: nokta iki cümleyi ayırdığı için bağlaçla birleştirildi.
       h1: '10+ years of SAP finance experience and SAP cloud architecture',
       lead:
-        'Depth in the finance modules and a genuinely neutral read on the cloud models — so the decision you take is one you can defend to your board.',
+        'Deep expertise across the SAP finance modules and a genuinely neutral read on the cloud models — so the decision you take is one you can defend with its reasoning',
       primaryCta: 'Get in touch',
       secondaryCta: 'Explore solutions',
       figureAlt:

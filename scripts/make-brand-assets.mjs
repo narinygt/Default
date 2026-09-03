@@ -17,11 +17,10 @@
  * KOYU ZEMİN SÜRÜMÜ HAKKINDA — okumadan geçmeyin
  * ─────────────────────────────────────────────────────────────────
  * Logo iki marka rengi kullanıyor: #003F82 (lacivert) ve #11676A (teal).
- * Koyu zeminler ise artık #0C4A4C (koyu yeşil) — sitenin laciverdi
- * yeşille değiştirildi, logo'nun kendi renkleri KORUNDU. Sonuç:
+ * Header, çerez banner'ı ve bu varlıkların zemini de #003F82. Sonuç:
  *
- *   • "Consultancy" lacivert → koyu yeşil üzerinde okunmuyor
- *   • "C Peak" teal → koyu yeşil üzerinde 1.51:1, okunmuyor
+ *   • "Consultancy" kelimesi zeminle AYNI renk → tamamen görünmez
+ *   • "C Peak" teal → lacivert üzerinde 1.56:1, okunmuyor
  *
  * Bu yüzden koyu zemin için tek renkli BEYAZ sürüm türetiliyor.
  * Yeni bir marka rengi uydurulmuyor; logo yeniden çizilmiyor; yalnızca
@@ -41,8 +40,8 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const p = (rel) => resolve(root, rel);
 
 /* Koyu ZEMİN rengi (favicon karesi, OG kartı) — sitedeki
-   --surface-darkest ile aynı. Logo'nun kendi laciverdi değildir. */
-const DARK_SURFACE = '#0c4a4c';
+   --surface-darkest ve header ile aynı lacivert. */
+const DARK_SURFACE = '#003f82';
 const TEAL = '#11676A';
 const AMBER = '#e8b33a';
 const FONT = "'Segoe UI', 'Helvetica Neue', Arial, sans-serif";
@@ -193,14 +192,14 @@ function ogSvg({ title, kicker, locale }) {
 const pages = [
   {
     file: 'public/og/cpeak-og-tr.png',
-    title: 'SAP finansında 15 yıl, bulutta yeni bir mimari.',
+    title: 'SAP finansında 10+ yıl, bulutta yeni bir mimari.',
     kicker: 'SAP Finans · Bulut Mimarisi',
     // Türkçe büyük harf: i → İ. Varsayılan toUpperCase() bunu yanlış yapar.
     locale: 'tr-TR',
   },
   {
     file: 'public/og/cpeak-og-en.png',
-    title: 'Fifteen years in SAP finance. A new architecture in the cloud.',
+    title: 'Ten-plus years in SAP finance. A new architecture in the cloud.',
     kicker: 'SAP Finance · Cloud Architecture',
     locale: 'en-GB',
   },

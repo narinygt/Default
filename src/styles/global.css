@@ -139,14 +139,16 @@
      devam eder, bu token yalnızca görsel olarak "siyah" algılanan
      büyük zeminler içindir.
 
-     Önceden lacivert (#003f82) idi; markanın yeşiline geçirildi.
-     Değer rastgele seçilmedi, eski laciverdin iki ölçüsünü de korur:
+     Header ve çerez banner'ı LACİVERT kalır — istenen bu. */
+  --surface-darkest: #003f82;
+
+  /* Tam ekran hero'nun zemini ve perdeleri AYRI bir token'da: burası
+     yeşil, header ve çerez banner'ı lacivert. Değer rastgele seçilmedi,
+     laciverdin iki ölçüsünü de korur:
        beyazla kontrast   10.00:1  (lacivertte 10.33:1)
        --navy'den ayrımı   1.51:1  (lacivertte 1.56:1)
-     Yani derinlik algısı ve hemen altındaki teal şeritten ayrışması
-     aynı kalır, yalnızca rengi değişir. Logo'nun kendi laciverdine
-     (#003F82) DOKUNULMADI; o, markanın kendi rengidir. */
-  --surface-darkest: #0c4a4c;
+     Yani derinlik algısı ve teal şeritten ayrışması aynı. */
+  --surface-hero: #0c4a4c;
   --surface-teal: var(--teal);
 
   /* Metin */

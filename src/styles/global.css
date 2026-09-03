@@ -576,7 +576,9 @@ section {
   max-width: 56rem;
   height: auto;
   aspect-ratio: 3 / 2;
-  margin: 0 0 var(--space-md);
+  /* Kutu, metin sütunundan dar olduğu için ORTALANIR: sola yaslı
+     bırakıldığında sağda kalan boşluk bölümü dengesiz gösteriyordu. */
+  margin: 0 auto var(--space-md);
   border: 1px solid var(--border-soft);
   border-radius: var(--radius);
   background: var(--surface);

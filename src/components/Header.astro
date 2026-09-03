@@ -466,6 +466,25 @@ const mainLinks = [
     border-radius: var(--radius);
     cursor: pointer;
     color: var(--navy);
+    /* `manipulation`, iOS'ta çift dokunuşla yakınlaştırma hareketini
+       kapatır. Varsayılan `auto` ile tarayıcı her dokunuşta "acaba çift
+       dokunuş mu?" diye ~300 ms bekliyor; bu bekleme, hızlı dokunuşlarda
+       düğmenin tepki vermemiş gibi görünmesine yol açıyordu. */
+    touch-action: manipulation;
+    /* Biraz uzun süren dokunuş metin seçimi başlatmasın. */
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+  }
+  /* Görünür ölçü 44×44 kalır; dokunma hedefi görünmez biçimde 52×52'ye
+     çıkar. Header kaydırırken 76 px'ten 60 px'e küçüldüğü için düğme o
+     sırada parmağın altından birkaç piksel kayabiliyordu; bu pay onu
+     yakalar. */
+  .menu-toggle::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
   }
   .site-header[data-scrolled] .menu-toggle,
   .site-header[data-on-dark] .menu-toggle {
@@ -651,7 +670,17 @@ const mainLinks = [
       if (label && labels.close) label.textContent = open ? labels.close : labels.open;
     };
 
-    toggle.addEventListener('click', () => setMenu(menu.hidden));
+    /* Titrek bir dokunuş ya da hızlı çift dokunuş menüyü açıp hemen
+       kapatıyor, kullanıcıya "açılmadı" gibi görünüyordu. Art arda gelen
+       ikinci tetikleme 260 ms boyunca yok sayılır; bilinçli kapatma için
+       bu süre yeterince kısa. */
+    let sonDegisim = 0;
+    toggle.addEventListener('click', () => {
+      const simdi = Date.now();
+      if (simdi - sonDegisim < 260) return;
+      sonDegisim = simdi;
+      setMenu(menu.hidden);
+    });
 
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && !menu.hidden) {

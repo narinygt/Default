@@ -209,6 +209,50 @@ const degisim = await mt.evaluate(async () => {
   return sayac;
 });
 check('Eşik çevresinde header durumu titremiyor', degisim === 0, `${degisim} durum değişimi`);
+
+/* ---------- 7c. `click` üretilmeyen dokunuş ----------
+   Asıl hata buydu. Mobil tarayıcılar, sayfa kaydırma hızıyla süzülürken
+   (momentum) gelen dokunuşu "kaydırmayı durdur" diye yorumlar ve o
+   dokunuş için `click` olayı ÜRETMEZ. Yalnızca `click` dinleyen bir düğme
+   bu durumda ölü görünür.
+   Aşağıda o an birebir kuruluyor: pointerdown ve pointerup gönderilir,
+   `click` BİLEREK gönderilmez. Menü yine de açılmalı. */
+await mt.evaluate(() => {
+  document.documentElement.style.scrollBehavior = 'auto';
+  window.scrollTo(0, 1500);
+});
+await mt.waitForTimeout(400);
+// Önceki bölüm menüyü açık bırakmış olabilir; kapalıdan başlanır.
+if (!(await mt.evaluate(() => document.querySelector('[data-mobile-menu]').hidden))) {
+  await mt.keyboard.press('Escape');
+  await mt.waitForTimeout(250);
+}
+const clicksiz = await mt.evaluate(() => {
+  const el = document.querySelector('[data-menu-toggle]');
+  const r = el.getBoundingClientRect();
+  const x = r.x + r.width / 2;
+  const y = r.y + r.height / 2;
+  let clickGeldi = false;
+  el.addEventListener('click', () => { clickGeldi = true; }, { once: true });
+  const ev = (tur) =>
+    new PointerEvent(tur, {
+      pointerId: 1,
+      pointerType: 'touch',
+      clientX: x,
+      clientY: y,
+      bubbles: true,
+      cancelable: true,
+      isPrimary: true,
+    });
+  el.dispatchEvent(ev('pointerdown'));
+  el.dispatchEvent(ev('pointerup'));
+  return { acildi: !document.querySelector('[data-mobile-menu]').hidden, clickGeldi };
+});
+check(
+  'click üretilmeyen dokunuşta da menü açılıyor',
+  clicksiz.acildi && !clicksiz.clickGeldi,
+  clicksiz.clickGeldi ? 'test hatalı: click yine gönderilmiş' : 'click yok, menü açıldı',
+);
 await mt.close();
 
 /* ---------- 8. Çerez banner'ı: reddet analitiği yüklemiyor ---------- */

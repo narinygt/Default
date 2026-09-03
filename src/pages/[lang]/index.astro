@@ -434,16 +434,27 @@ const imageDims =
     /* Sağa kaydırılır: robotlar sağda kalır, sol taraf metne ayrılır. */
     object-position: 68% center;
   }
-  /* Buğulu devam. Büyütülür (blur kenarlarda saydamlık bırakmasın) ve
-     hafifçe sola kaydırılır — aynı karenin kopyası gibi değil, odanın
-     devamı gibi okunsun. */
+  /* Buğulu devam — karenin ORTASI değil, SOL KENARI kaynak alınır.
+     Fotoğrafın sol ucunda camdan görünen gökdelen silüeti var; sola
+     doğru uzayan şey o olmalı. `object-position: 0%` cover kırpmasını
+     sol kenara sabitler, ölçek onu büyütür: sonuç, odanın camdan
+     devam eden odak dışı şehir manzarası. Ortadan alınsaydı aynı
+     odanın bulanık bir kopyası gibi durur, "uzamış" görünmezdi.
+
+     `transform-origin: 0% 50%` şart: varsayılan merkezden ölçekleme sol
+     kenarı ekranın dışına itiyor ve geriye yine odanın ortası kalıyordu.
+     Sol kenara sabitlenince büyütme sağa doğru açılır, cam yerinde
+     kalır.
+
+     brightness: fotoğrafı bastırmak için DEĞİL, odak dışı bir alanın
+     doğal olarak daha sönük durması için. Metnin okunabilirliği bu
+     değere bağlı değil — ölçüm, harf piksellerinin altındaki en kötü
+     noktada bile eşiğin üstünde kaldığını gösteriyor. */
   .hero-bg-soft {
-    transform: scale(1.35) translateX(-7%);
-    /* brightness: fotoğrafı bastırmak için DEĞİL, odak dışı bir alanın
-       doğal olarak daha sönük durması için. Metnin okunabilirliği bu
-       değere bağlı değil — ölçüm, harf piksellerinin altındaki en kötü
-       noktada bile eşiğin üstünde kaldığını gösteriyor. */
-    filter: blur(26px) saturate(1.05) brightness(0.78);
+    object-position: 0% center;
+    transform-origin: 0% 50%;
+    transform: scale(2.4);
+    filter: blur(30px) saturate(1.1) brightness(0.8);
   }
   /* Net kare yalnızca sağda. Geçiş uzun tutulur ki iki katmanın birleşim
      yeri belli olmasın. */

@@ -20,6 +20,7 @@ import {
 } from '@/i18n/routes';
 import { t } from '@/i18n/ui';
 import { solutionMeta, solutionIcon } from '@/data/solutions';
+import { figures, type FigureKey } from '@/data/figures';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '@/lib/schema';
 
 export function getStaticPaths() {
@@ -43,22 +44,13 @@ const others = SOLUTION_KEYS.filter((k) => k !== solution);
 /**
  * Bölüm görselleri — yalnızca konusuyla birebir eşleşen sayfalarda.
  * Diğer çözüm sayfalarına boşluk doldurmak için görsel konmaz.
- *
- * Görsellerin başlıkları görselin İÇİNE gömülü ve Türkçe olduğu için
- * yalnızca Türkçe sayfalarda gösterilirler; İngilizce sürümleri
- * hazırlandığında `lang` koşulu kaldırılabilir.
  */
-const sayfaGorselleri: Partial<Record<SolutionKey, { src: string; alt: string }>> = {
-  finance: {
-    src: '/media/finans-mimari.webp',
-    alt: 'Dağınık finans yapısından tek mimariye: veri, süreç, kontrol ve raporlama katmanlarının aynı yapıda birleştiğini gösteren şema.',
-  },
-  ai: {
-    src: '/media/yapay-zeka-akisi.webp',
-    alt: 'Yapay zekanın karar sürecindeki rolü: işlemleri tarar, anomaliyi işaretler, danışman inceler ve süreç insan onayıyla sonuçlanır.',
-  },
+const gorselAnahtari: Partial<Record<SolutionKey, FigureKey>> = {
+  finance: 'financeArchitecture',
+  ai: 'aiFlow',
 };
-const sayfaGorseli = lang === 'tr' ? sayfaGorselleri[solution] : undefined;
+const anahtar = gorselAnahtari[solution];
+const sayfaGorseli = anahtar ? figures[anahtar] : undefined;
 
 const schema = [
   serviceSchema({
@@ -146,10 +138,10 @@ const schema = [
         sayfaGorseli && (
           <img
             class="section-figure reveal"
-            src={sayfaGorseli.src}
+            src={sayfaGorseli.src[lang]}
             width="1536"
             height="1024"
-            alt={sayfaGorseli.alt}
+            alt={sayfaGorseli.alt[lang]}
             loading="lazy"
             decoding="async"
           />

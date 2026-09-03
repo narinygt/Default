@@ -7,6 +7,7 @@ import CtaBand from '@/components/CtaBand.astro';
 import { LANGS, SOLUTION_KEYS, path, type Lang } from '@/i18n/routes';
 import { site } from '@/config/site';
 import { t } from '@/i18n/ui';
+import { figures } from '@/data/figures';
 import { home } from '@/data/home';
 
 export function getStaticPaths() {
@@ -183,19 +184,15 @@ const imageDims =
         <p class="lead">{c.process.lead}</p>
       </div>
 
-      {
-        lang === 'tr' && (
-          <img
-            class="section-figure reveal"
-            src="/media/surec-adimlari.webp"
-            width="1536"
-            height="1024"
-            alt="Dört aşamalı çalışma akışı: değerlendirme aşamasında teşhis raporu, mimari aşamasında hedef mimari ve yol haritası, uygulama aşamasında çalışan sistem ve test kayıtları, hypercare aşamasında kapanış ve iyileştirme raporu teslim edilir."
-            loading="lazy"
-            decoding="async"
-          />
-        )
-      }
+      <img
+        class="section-figure reveal"
+        src={figures.process.src[lang]}
+        width="1536"
+        height="1024"
+        alt={figures.process.alt[lang]}
+        loading="lazy"
+        decoding="async"
+      />
 
       <ol class="process-list">
         {

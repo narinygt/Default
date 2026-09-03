@@ -5,6 +5,7 @@ import Ledger from '@/components/Ledger.astro';
 import { SOLUTION_KEYS, path, type Lang } from '@/i18n/routes';
 import { t } from '@/i18n/ui';
 import { solutionMeta } from '@/data/solutions';
+import { figures } from '@/data/figures';
 import { solutionsOverview } from '@/data/pages/solutionsOverview';
 
 interface Props {
@@ -99,19 +100,15 @@ const c = solutionsOverview[lang];
       <p class="lead">{c.cloud.lead}</p>
     </div>
 
-    {
-      lang === 'tr' && (
-        <img
-          class="section-figure reveal"
-          src="/media/bulut-modelleri.webp"
-          width="1536"
-          height="1024"
-          alt="Public Cloud ve Private Cloud modellerinin karşılaştırması: Public Cloud standart süreçler ve hızlı devreye alma, Private Cloud esnek mimari ve daha fazla kontrol sunar. Karar; özelleştirme ihtiyacı, hız ve toplam maliyete göre verilir."
-          loading="lazy"
-          decoding="async"
-        />
-      )
-    }
+    <img
+      class="section-figure reveal"
+      src={figures.cloudModels.src[lang]}
+      width="1536"
+      height="1024"
+      alt={figures.cloudModels.alt[lang]}
+      loading="lazy"
+      decoding="async"
+    />
 
     <div class="cloud-intro reveal">
       {c.cloud.intro.map((p) => <p>{p}</p>)}

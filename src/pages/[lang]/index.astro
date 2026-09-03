@@ -91,12 +91,23 @@ const imageDims =
         )
       }
     </div>
+
+    {
+      /* Tam ekran hero'da logo şeridi hero'nun İÇİNDE, görselin
+         üzerinde ve en altında durur: hero + logolar tek bir ekran
+         dolusu blok olur. Diğer hero seçeneklerinde şerit eskisi gibi
+         hero'nun altında ayrı bir bant olarak kalır. */
+      isBackground && (
+        <div class="hero-refs">
+          <References lang={lang} bare />
+        </div>
+      )
+    }
   </section>
 
   <!-- ============ 2. REFERANSLAR ŞERİDİ ============
-       Hero'nun hemen altındaki koyu zeminli logo şeridi.
        Liste ve ölçü mantığı: src/data/references.ts             -->
-  <References lang={lang} />
+  {!isBackground && <References lang={lang} />}
 
   <!-- ============ 3. ÇÖZÜMLER IZGARASI ============ -->
   <section class="section" id="solutions">
@@ -369,12 +380,51 @@ const imageDims =
   .hero-background {
     background: var(--surface-darkest);
     color: #fff;
-    /* "Tüm ekranı kaplasın": hero, ekran yüksekliğinin çoğunu tutar.
-       Tam 100vh DEĞİL — altındaki bölümün bir kısmı görünsün ki sayfanın
-       devamı olduğu belli olsun. */
-    min-height: min(88vh, 46rem);
+    /* Hero + header birlikte TAM BİR EKRAN tutar; logo şeridi de bu
+       ekranın içinde, en altta kalır. `dvh` mobil için: `vh` tarayıcı
+       adres çubuğunu hesaba katmaz ve şerit ekranın altından taşardı. */
+    /* -1px: header'ın alt kenarlığı da yer kaplar; hesaba katılmazsa
+       sayfa tam 1 piksel kayıyor. */
+    min-height: calc(100vh - var(--header-h) - 1px);
+    min-height: calc(100dvh - var(--header-h) - 1px);
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    padding-block: 0;
+  }
+  /* Metin bloğu kalan alanı doldurur ve içinde dikey ortalanır;
+     logo şeridi altta sabit kalır. */
+  .hero-background .hero-inner {
+    flex: 1 1 auto;
+    align-content: center;
+    padding-block: clamp(2rem, 1rem + 4vw, 4rem);
+  }
+  .hero-refs {
+    position: relative;
+    z-index: 1;
+    flex: none;
+  }
+  /* Logoların arkası koyulaşır. Gerekli, çünkü referans logoları KENDİ
+     renklerinde duruyor (marka görünümlerine dokunulmuyor) ve koyu
+     renkli olanlar — Mercedes-Benz, Boehringer, wavin — fotoğrafın
+     üzerinde okunmuyordu. Beyaza çevirmek markaların görünümünü
+     bozardı; bunun yerine zemin koyulaştırıldı.
+
+     Sert bir bant değil: yukarı doğru tamamen saydama iner, böylece
+     görselden şeride geçiş görünmez. Alttaki yoğunluk, şeridin eski
+     zemini (--surface-dark) ile aynı okunurluğu verecek düzeyde. */
+  .hero-refs::before {
+    content: '';
+    position: absolute;
+    inset: -3.5rem 0 0 0;
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      rgba(5, 31, 32, 0) 0%,
+      rgba(5, 31, 32, 0.55) 42%,
+      rgba(5, 31, 32, 0.86) 78%,
+      rgba(5, 31, 32, 0.92) 100%
+    );
   }
   .hero-bg {
     position: absolute;
@@ -396,9 +446,10 @@ const imageDims =
     inset: 0;
     background: linear-gradient(
       to bottom,
-      rgba(5, 31, 32, 0.55) 0%,
-      rgba(5, 31, 32, 0.16) 34%,
-      rgba(5, 31, 32, 0.5) 100%
+      rgba(5, 31, 32, 0.4) 0%,
+      rgba(5, 31, 32, 0.08) 32%,
+      rgba(5, 31, 32, 0.34) 72%,
+      rgba(5, 31, 32, 0.58) 100%
     );
   }
   .hero-scrim {
@@ -406,15 +457,15 @@ const imageDims =
     inset: 0;
     background: linear-gradient(
       to right,
-      rgba(6, 36, 37, 0.9) 0%,
-      rgba(6, 36, 37, 0.74) 42%,
-      rgba(6, 36, 37, 0) 78%
+      rgba(6, 36, 37, 0.74) 0%,
+      rgba(6, 36, 37, 0.5) 38%,
+      rgba(6, 36, 37, 0) 72%
     );
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
     /* Buğu da karartmayla birlikte sağa doğru biter. */
-    -webkit-mask-image: linear-gradient(to right, #000 0%, #000 42%, transparent 78%);
-    mask-image: linear-gradient(to right, #000 0%, #000 42%, transparent 78%);
+    -webkit-mask-image: linear-gradient(to right, #000 0%, #000 38%, transparent 72%);
+    mask-image: linear-gradient(to right, #000 0%, #000 38%, transparent 72%);
   }
   .hero-background h1 {
     color: #fff;
@@ -446,9 +497,7 @@ const imageDims =
      soldan sağa değil YUKARIDAN AŞAĞIYA çalışır ve maske kalkar —
      yoksa yazının arkası açıkta kalırdı. */
   @media (max-width: 60rem) {
-    .hero-background {
-      min-height: min(82vh, 40rem);
-    }
+
     /* Dar ekranda 3:2 kaynaktan dikey bir dilim kırpılıyor; robotlar
        görselin SAĞINDA olduğu için kırpma oraya kaydırılır, yoksa
        ekranda yalnızca arka plandaki ekranlar kalıyor. */
@@ -461,12 +510,12 @@ const imageDims =
     .hero-scrim {
       background: linear-gradient(
         to bottom,
-        rgba(6, 36, 37, 0.3) 0%,
-        rgba(6, 36, 37, 0.58) 38%,
-        rgba(6, 36, 37, 0.72) 100%
+        rgba(6, 36, 37, 0.24) 0%,
+        rgba(6, 36, 37, 0.5) 38%,
+        rgba(6, 36, 37, 0.66) 100%
       );
-      backdrop-filter: blur(3px);
-      -webkit-backdrop-filter: blur(3px);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
       -webkit-mask-image: none;
       mask-image: none;
     }

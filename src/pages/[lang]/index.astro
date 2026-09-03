@@ -409,7 +409,9 @@ const imageDims =
         transparent 1px 132px
       ),
       radial-gradient(120% 90% at 12% 8%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 55%),
-      linear-gradient(105deg, #f2f4f4 0%, #eceff0 38%, #e4e8ea 68%, #dde2e5 100%);
+      /* Sağa doğru fotoğrafın tonuna yaklaşır: iki katman aynı ışıkta
+         buluşsun, birleşim yeri malzeme değişimi gibi okunmasın. */
+      linear-gradient(105deg, #f2f4f4 0%, #eceff0 34%, #e2e7e9 62%, #d3dade 84%, #c9d2d7 100%);
   }
 
   /* --- Fotoğraf ---
@@ -427,30 +429,59 @@ const imageDims =
     object-fit: cover;
     /* Robotlar sağda kalsın; sol kenardaki cam/duvar geçişe denk gelsin. */
     object-position: 72% center;
-    /* Duraklar metnin bittiği yere göre seçildi. Katman ekranın
-       %28'inden başlıyor; metin %48'de bitiyor. Maskenin %30'u ekranın
-       %50'sine denk gelir — yani fotoğraf, metin alanında TAMAMEN
-       saydam. Görünür olmaya ancak metnin sağında başlıyor. */
-    -webkit-mask-image: linear-gradient(
-      to right,
-      transparent 0%,
-      transparent 30%,
-      rgba(0, 0, 0, 0.07) 40%,
-      rgba(0, 0, 0, 0.22) 50%,
-      rgba(0, 0, 0, 0.48) 60%,
-      rgba(0, 0, 0, 0.78) 72%,
-      #000 86%
-    );
-    mask-image: linear-gradient(
-      to right,
-      transparent 0%,
-      transparent 30%,
-      rgba(0, 0, 0, 0.07) 40%,
-      rgba(0, 0, 0, 0.22) 50%,
-      rgba(0, 0, 0, 0.48) 60%,
-      rgba(0, 0, 0, 0.78) 72%,
-      #000 86%
-    );
+    /* İKİ MASKE BİRLİKTE — fotoğrafın hiçbir kenarı düz bitmez.
+       Tek yönlü maskeyle sol kenar yumuşuyor ama üst ve alt kenarlar
+       düz kalıyordu; fotoğraf o yüzden sayfaya yapıştırılmış bir
+       dikdörtgen gibi duruyordu. İkinci maske dikeyde de sönüm
+       ekliyor, iki maske `intersect` ile kesişiyor: fotoğraf yüzeyin
+       içinden çıkıyormuş gibi görünüyor.
+
+       Yatay duraklar metnin bittiği yere göre: katman ekranın
+       %28'inden başlıyor, metin %48'de bitiyor; maskenin %30'u ekranın
+       %50'sine denk geldiği için fotoğraf metin alanında TAMAMEN
+       saydam. */
+    -webkit-mask-image:
+      linear-gradient(
+        to right,
+        transparent 0%,
+        transparent 30%,
+        rgba(0, 0, 0, 0.07) 40%,
+        rgba(0, 0, 0, 0.22) 50%,
+        rgba(0, 0, 0, 0.48) 60%,
+        rgba(0, 0, 0, 0.78) 72%,
+        #000 86%
+      ),
+      linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(0, 0, 0, 0.45) 9%,
+        #000 22%,
+        #000 74%,
+        rgba(0, 0, 0, 0.5) 90%,
+        transparent 100%
+      );
+    -webkit-mask-composite: source-in;
+    mask-image:
+      linear-gradient(
+        to right,
+        transparent 0%,
+        transparent 30%,
+        rgba(0, 0, 0, 0.07) 40%,
+        rgba(0, 0, 0, 0.22) 50%,
+        rgba(0, 0, 0, 0.48) 60%,
+        rgba(0, 0, 0, 0.78) 72%,
+        #000 86%
+      ),
+      linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(0, 0, 0, 0.45) 9%,
+        #000 22%,
+        #000 74%,
+        rgba(0, 0, 0, 0.5) 90%,
+        transparent 100%
+      );
+    mask-composite: intersect;
   }
 
   /* Metin sütunu: fotoğrafın başladığı yere kadar. Ölçü tesadüfi
@@ -489,24 +520,42 @@ const imageDims =
          fotoğraf kutusu 320px'de başlıyor. Maskenin %50'si ekranda
          ~518px'e denk gelir — yani fotoğraf metnin altında görünür
          olmaya başlıyor, metin alanında tamamen saydam. */
-      -webkit-mask-image: linear-gradient(
-        to bottom,
-        transparent 0%,
-        transparent 34%,
-        rgba(0, 0, 0, 0.1) 46%,
-        rgba(0, 0, 0, 0.34) 56%,
-        rgba(0, 0, 0, 0.68) 68%,
-        #000 82%
-      );
-      mask-image: linear-gradient(
-        to bottom,
-        transparent 0%,
-        transparent 34%,
-        rgba(0, 0, 0, 0.1) 46%,
-        rgba(0, 0, 0, 0.34) 56%,
-        rgba(0, 0, 0, 0.68) 68%,
-        #000 82%
-      );
+      -webkit-mask-image:
+        linear-gradient(
+          to bottom,
+          transparent 0%,
+          transparent 34%,
+          rgba(0, 0, 0, 0.1) 46%,
+          rgba(0, 0, 0, 0.34) 56%,
+          rgba(0, 0, 0, 0.68) 68%,
+          #000 82%
+        ),
+        linear-gradient(
+          to right,
+          transparent 0%,
+          rgba(0, 0, 0, 0.6) 8%,
+          #000 20%,
+          #000 100%
+        );
+      -webkit-mask-composite: source-in;
+      mask-image:
+        linear-gradient(
+          to bottom,
+          transparent 0%,
+          transparent 34%,
+          rgba(0, 0, 0, 0.1) 46%,
+          rgba(0, 0, 0, 0.34) 56%,
+          rgba(0, 0, 0, 0.68) 68%,
+          #000 82%
+        ),
+        linear-gradient(
+          to right,
+          transparent 0%,
+          rgba(0, 0, 0, 0.6) 8%,
+          #000 20%,
+          #000 100%
+        );
+      mask-composite: intersect;
     }
     .hero-background .hero-copy {
       max-width: none;

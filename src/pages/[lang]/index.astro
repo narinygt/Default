@@ -487,15 +487,17 @@ const imageDims =
       min-height: 40dvh;
       padding-block: 0.9rem;
     }
+    /* Alt metin mobilde GÖRÜNMEZ — dar ekranda yalnızca başlık ve
+       butonlar kalsın istendi. Masaüstünde ikisi de durur. Metin
+       sayfadan silinmedi, yalnızca bu genişlikte gizlenir. */
     .hero-background .hero-lead {
-      margin-top: 0.7rem;
-      margin-bottom: 1.05rem;
+      display: none;
     }
-    /* Başlık mobilde bir tık küçülür — üç satırlık kırılımı değişmez,
-       yalnızca satır yüksekliği düşer. Görselli alanı kısaltmak için
-       kalan tek yer burasıydı. */
-    .hero-background h1 {
-      font-size: clamp(1.75rem, 1.25rem + 2.6vw, 2.05rem);
+    /* Başlıkla butonlar arasındaki boşluğu normalde alt metnin alt payı
+       veriyordu; o gizlenince buton satırı başlığa yapışıyor. Boşluk
+       burada yeniden kurulur. */
+    .hero-background .btn-row {
+      margin-top: var(--space-md);
     }
     /* Dar ekranda 3:2 kaynaktan dikey bir dilim kırpılıyor; robotlar
        görselin SAĞINDA olduğu için kırpma oraya kaydırılır, yoksa

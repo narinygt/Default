@@ -587,22 +587,6 @@ section {
   background: var(--surface);
 }
 
-/* DAR EKRANDA KENARDAN KENARA. Görseller ayrıntılı şemalar; telefonda
-   konteyner boşluğu içinde kalınca gereksiz yere küçülüyorlardı.
-   Negatif yan boşluk tam olarak konteynerin iç boşluğu kadardır, yani
-   görsel ekranın iki kenarına dayanır — metin hizası bozulmaz.
-   Kenara dayanan bir kutuda çerçeve ve köşe yuvarlaması gereksizdir. */
-@media (max-width: 40rem) {
-  .section-figure {
-    /* `width: auto` bir <img> üzerinde DOĞAL boyuta düşer (1536 px) ve
-       sayfayı taşırır; genişlik açıkça hesaplanır. */
-    width: calc(100% + var(--container-pad) * 2);
-    max-width: none;
-    margin-inline: calc(var(--container-pad) * -1);
-    border-inline: 0;
-    border-radius: 0;
-  }
-}
 .on-dark .section-figure {
   border-color: rgba(255, 255, 255, 0.16);
 }

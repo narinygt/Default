@@ -195,13 +195,39 @@ const mainLinks = [
   .site-header {
     position: sticky;
     top: 0;
-    z-index: 100;
-    background: transparent;
+    /* Çerez banner'ının (150) ÜSTÜNDE. Açık mobil menü header'ın içinde
+       durduğu ve header bir yığın bağlamı kurduğu için, header banner'ın
+       altında kalırsa banner menünün alt kısmını ve CTA'sını kapatıyor.
+       "İçeriğe atla" bağlantısı (200) yine en üstte kalır. */
+    z-index: 160;
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--dur) var(--ease);
+  }
+
+  /* Header'ın ZEMİNİ ve bulanıklığı, header'ın kendisinde değil ayrı bir
+     katmanda durur. Sebebi kritik:
+
+     `backdrop-filter`, uygulandığı öğeyi içindeki `position: fixed`
+     çocuklar için bir "içeren blok" (containing block) yapar. Bulanıklık
+     doğrudan .site-header üzerindeyken, çocuğu olan mobil menü artık
+     viewport'a değil header'ın kutusuna göre hizalanıyordu: kaydırılmış
+     durumda `inset: 60px 0 0 0` 60 px'lik bir kutuya uygulanıp menüyü
+     390×1 px'e indiriyordu. Menü açılıyor (düğme çarpıya dönüyor, sayfa
+     kaydırma kilitleniyor) ama ekranda görünmüyordu. Sayfanın tepesinde
+     bulanıklık uygulanmadığı için sorun yalnızca aşağı kaydırıldığında
+     çıkıyordu.
+
+     Bulanıklık bu katmana taşınınca .site-header içeren blok olmaktan
+     çıkar; menü yeniden viewport'a hizalanır. Görünüm birebir aynı
+     kalır. */
+  .site-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
     transition:
       background var(--dur) var(--ease),
-      backdrop-filter var(--dur) var(--ease),
-      border-color var(--dur) var(--ease);
-    border-bottom: 1px solid transparent;
+      backdrop-filter var(--dur) var(--ease);
   }
 
   .header-inner {
@@ -216,15 +242,17 @@ const mainLinks = [
      Saydam bırakılırsa altında sayfa zemini (açık) görünür ve beyaz
      logo/menü okunmaz hale gelir. Renk hero ile birebir aynı olduğu
      için bant görünmez, geçiş kesintisiz olur. */
-  .site-header[data-on-dark]:not([data-scrolled]) {
+  .site-header[data-on-dark]:not([data-scrolled])::before {
     background: var(--surface-darkest);
   }
 
   /* Scroll'da: küçülür ve yarı saydam koyu zemin alır. */
-  .site-header[data-scrolled] {
+  .site-header[data-scrolled]::before {
     background: rgba(0, 63, 130, 0.86);
     backdrop-filter: blur(10px) saturate(140%);
     -webkit-backdrop-filter: blur(10px) saturate(140%);
+  }
+  .site-header[data-scrolled] {
     border-bottom-color: rgba(255, 255, 255, 0.1);
   }
   .site-header[data-scrolled] .header-inner {
@@ -704,57 +732,17 @@ const mainLinks = [
       if (label && labels.close) label.textContent = open ? labels.close : labels.open;
     };
 
-    /* Düğme hem `pointerup` hem `click` ile çalışır.
-       ------------------------------------------------------------------
-       Neden ikisi birden: mobil tarayıcılar, sayfa kaydırma hareketinin
-       hızıyla süzülürken (momentum) gelen dokunuşu "kaydırmayı durdur"
-       diye yorumlar ve o dokunuş için `click` ÜRETMEZ. Kullanıcı düğmeye
-       bastığını görür ama hiçbir şey olmaz — şikâyetin "özellikle aşağı
-       kaydırınca" olmasının sebebi budur. `pointerup` bu durumda da
-       gelir, dolayısıyla menü ilk dokunuşta açılır.
-       `click` yine de duruyor: klavye (Enter/Boşluk) ve fare yalnızca
-       onu tetikler.
-
-       Aynı dokunuşun iki kez sayılmaması için: bir tetikleme, kendinden
-       sonraki 120 ms içindeki ikinciyi yutar. `pointerup`tan sonra gelen
-       türev `click` bu aralığın çok içinde kalır; bilinçli ikinci dokunuş
-       (menüyü kapatmak için) ise her zaman daha geç gelir. Bu süre
-       önceden 260 ms idi ve kullanıcının kapatma dokunuşunu da
-       yutabiliyordu. */
+    /* Art arda gelen ikinci tetikleme 120 ms boyunca yok sayılır —
+       titrek bir dokunuşun menüyü açıp hemen kapatmasını engeller.
+       Bilinçli kapatma dokunuşu her zaman daha geç gelir; bu süre
+       önceden 260 ms idi ve kapatma dokunuşunu da yutabiliyordu. */
     let sonTetik = 0;
-    const cevir = () => {
+    toggle.addEventListener('click', () => {
       const simdi = Date.now();
       if (simdi - sonTetik < 120) return;
       sonTetik = simdi;
       setMenu(menu.hidden);
-    };
-
-    /* Parmak düğmenin üstünde başlayıp sayfayı kaydırdıysa bu bir
-       dokunuş değildir; kaldırıldığında menü açılmamalı. Başlangıç
-       noktasından sapma ve sayfanın kayıp kaymadığı bunun için ölçülür. */
-    let bx = 0;
-    let by = 0;
-    let bScroll = 0;
-    let dokunusGecerli = false;
-
-    toggle.addEventListener('pointerdown', (e) => {
-      if (e.pointerType === 'mouse') return;
-      bx = e.clientX;
-      by = e.clientY;
-      bScroll = window.scrollY;
-      dokunusGecerli = true;
     });
-    toggle.addEventListener('pointercancel', () => {
-      dokunusGecerli = false;
-    });
-    toggle.addEventListener('pointerup', (e) => {
-      if (e.pointerType === 'mouse' || !dokunusGecerli) return;
-      dokunusGecerli = false;
-      if (Math.abs(e.clientX - bx) > 10 || Math.abs(e.clientY - by) > 10) return;
-      if (Math.abs(window.scrollY - bScroll) > 4) return;
-      cevir();
-    });
-    toggle.addEventListener('click', cevir);
 
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && !menu.hidden) {

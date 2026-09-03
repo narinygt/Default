@@ -210,48 +210,69 @@ const degisim = await mt.evaluate(async () => {
 });
 check('Eşik çevresinde header durumu titremiyor', degisim === 0, `${degisim} durum değişimi`);
 
-/* ---------- 7c. `click` üretilmeyen dokunuş ----------
-   Asıl hata buydu. Mobil tarayıcılar, sayfa kaydırma hızıyla süzülürken
-   (momentum) gelen dokunuşu "kaydırmayı durdur" diye yorumlar ve o
-   dokunuş için `click` olayı ÜRETMEZ. Yalnızca `click` dinleyen bir düğme
-   bu durumda ölü görünür.
-   Aşağıda o an birebir kuruluyor: pointerdown ve pointerup gönderilir,
-   `click` BİLEREK gönderilmez. Menü yine de açılmalı. */
+/* ---------- 7c. Menü kaydırılmışken GERÇEKTEN çiziliyor mu? ----------
+   Asıl hata buydu ve yalnızca yüksekliği ölçmek yakalıyor.
+
+   `backdrop-filter`, uygulandığı öğeyi içindeki `position: fixed`
+   çocuklar için bir "içeren blok" yapar. Bulanıklık .site-header
+   üzerindeyken, çocuğu olan mobil menü viewport'a değil header'ın
+   kutusuna hizalanıp 390×1 px'e iniyordu: düğme çarpıya dönüyor, sayfa
+   kaydırma kilitleniyor (kullanıcıya donma gibi görünüyor) ama menü
+   ekranda yok. Sayfanın tepesinde bulanıklık uygulanmadığı için sorun
+   yalnızca aşağı kaydırıldığında çıkıyordu.
+
+   Bu yüzden burada `top` değil YÜKSEKLİK ve genişlik ölçülür; ayrıca
+   menünün fixed hizasının header'a kaymadığı doğrulanır. */
 await mt.evaluate(() => {
   document.documentElement.style.scrollBehavior = 'auto';
   window.scrollTo(0, 1500);
 });
-await mt.waitForTimeout(400);
-// Önceki bölüm menüyü açık bırakmış olabilir; kapalıdan başlanır.
+await mt.waitForTimeout(500);
 if (!(await mt.evaluate(() => document.querySelector('[data-mobile-menu]').hidden))) {
   await mt.keyboard.press('Escape');
   await mt.waitForTimeout(250);
 }
-const clicksiz = await mt.evaluate(() => {
-  const el = document.querySelector('[data-menu-toggle]');
-  const r = el.getBoundingClientRect();
-  const x = r.x + r.width / 2;
-  const y = r.y + r.height / 2;
-  let clickGeldi = false;
-  el.addEventListener('click', () => { clickGeldi = true; }, { once: true });
-  const ev = (tur) =>
-    new PointerEvent(tur, {
-      pointerId: 1,
-      pointerType: 'touch',
-      clientX: x,
-      clientY: y,
-      bubbles: true,
-      cancelable: true,
-      isPrimary: true,
-    });
-  el.dispatchEvent(ev('pointerdown'));
-  el.dispatchEvent(ev('pointerup'));
-  return { acildi: !document.querySelector('[data-mobile-menu]').hidden, clickGeldi };
+const kutuKaydirilmis = await mt.evaluate(() => {
+  const r = document.querySelector('[data-menu-toggle]').getBoundingClientRect();
+  return { cx: r.x + r.width / 2, cy: r.y + r.height / 2 };
+});
+await mt.touchscreen.tap(kutuKaydirilmis.cx, kutuKaydirilmis.cy);
+await mt.waitForTimeout(400);
+const cizim = await mt.evaluate(() => {
+  const m = document.querySelector('[data-mobile-menu]');
+  const r = m.getBoundingClientRect();
+  return {
+    w: Math.round(r.width),
+    h: Math.round(r.height),
+    // fixed menü viewport'a hizalıysa offsetParent yoktur.
+    hizaHeaderaKaydi: m.offsetParent !== null,
+    ilkBaglantiGorunur: (() => {
+      const a = m.querySelector('a');
+      const ar = a.getBoundingClientRect();
+      return ar.height > 0 && ar.bottom <= window.innerHeight;
+    })(),
+  };
 });
 check(
-  'click üretilmeyen dokunuşta da menü açılıyor',
-  clicksiz.acildi && !clicksiz.clickGeldi,
-  clicksiz.clickGeldi ? 'test hatalı: click yine gönderilmiş' : 'click yok, menü açıldı',
+  'Kaydırılmışken menü ekranı gerçekten kaplıyor',
+  cizim.h > 400 && cizim.w > 300 && !cizim.hizaHeaderaKaydi && cizim.ilkBaglantiGorunur,
+  `menü ${cizim.w}×${cizim.h}px, header'a hizalandı: ${cizim.hizaHeaderaKaydi ? 'EVET (hata)' : 'hayır'}`,
+);
+
+/* Açık menü, çerez banner'ının üstünde kalmalı — yoksa banner menünün
+   alt kısmını ve CTA'sını kapatıyor. */
+const ustte = await mt.evaluate(() => {
+  const cta = document.querySelector('.mobile-cta');
+  const cr = cta.getBoundingClientRect();
+  const ortaX = cr.x + cr.width / 2;
+  const ortaY = cr.y + cr.height / 2;
+  const enUstte = document.elementFromPoint(ortaX, ortaY);
+  return { ctaErisilebilir: cta.contains(enUstte) || cta === enUstte, ustteki: enUstte?.className ?? '' };
+});
+check(
+  'Açık menüde CTA çerez banner\'ının altında kalmıyor',
+  ustte.ctaErisilebilir,
+  ustte.ctaErisilebilir ? '' : `CTA'nın üstünde: "${ustte.ustteki}"`,
 );
 await mt.close();
 
@@ -293,7 +314,7 @@ const headerBefore = await page.evaluate(() => {
   return {
     scrolled: h.hasAttribute('data-scrolled'),
     height: Math.round(h.querySelector('.header-inner').getBoundingClientRect().height),
-    bg: getComputedStyle(h).backgroundColor,
+    bg: getComputedStyle(h, '::before').backgroundColor,
     lightLogo: getComputedStyle(h.querySelector('.brand-light')).display,
   };
 });
@@ -304,7 +325,9 @@ const headerAfter = await page.evaluate(() => {
   return {
     scrolled: h.hasAttribute('data-scrolled'),
     height: Math.round(h.querySelector('.header-inner').getBoundingClientRect().height),
-    bg: getComputedStyle(h).backgroundColor,
+    // Zemin ve bulanıklık ::before katmanında durur: doğrudan header'a
+    // uygulanınca içindeki fixed menüyü kırıyordu (bkz. 7c).
+    bg: getComputedStyle(h, '::before').backgroundColor,
     lightLogo: getComputedStyle(h.querySelector('.brand-light')).display,
     darkLogo: getComputedStyle(h.querySelector('.brand-dark')).display,
   };

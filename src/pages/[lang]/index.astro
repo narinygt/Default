@@ -517,8 +517,38 @@ const imageDims =
        ve görsel "çok yakın" duruyordu. Yükseklik kısalınca kırpma
        azalır: bu ölçüde genişliğin ~%42'si görünür. İçeriğin doğal
        yüksekliği 496px olduğu için metin de sıkışmaz. */
+    /* Mobilde ölçü hero'nun TAMAMINA değil, görselli/metinli alana
+       verilir: o alan ekranın yarısını kaplar, logo şeridi hemen
+       altında kalır — örnek sitedeki oran bu. Hero'nun kendi
+       min-height'ı kalkar, toplam yükseklik içerikten gelir. */
     .hero-background {
-      min-height: min(70dvh, 38rem);
+      min-height: 0;
+    }
+    /* Görselli/metinli alan ekranın yarısına yakın kalsın diye dikey
+       boşluklar kısılır. Ölçü mavi ŞERİDİ de kapsar: header 77px yer
+       tuttuğu için, bu alanın ekranda %50'de bitmesi metnin 345px'e
+       sığmasını gerektirir — mevcut metin (4 satır alt başlık) buna
+       sığmıyor. Kısılabilecek her şey kısıldı. */
+    .hero-background .hero-inner {
+      min-height: 44dvh;
+      padding-block: 1.25rem;
+    }
+    .hero-background .hero-lead {
+      margin-top: 0.85rem;
+      margin-bottom: 1.35rem;
+    }
+    /* Şeridin arkasındaki koyulaştırma da daralır: masaüstündeki 6rem'lik
+       geçiş, kısalan mobil hero'nun beşte birini kaplayıp fotoğrafı
+       yiyordu. */
+    .hero-refs::before {
+      inset: -3rem 0 0 0;
+    }
+    /* Logo şeridi de sıkışır. */
+    .hero-background :global(.refs-bare) {
+      padding-block: 0 clamp(1rem, 0.8rem + 1vw, 1.5rem);
+    }
+    .hero-background :global(.refs-bare .eyebrow) {
+      margin-bottom: 0.7rem;
     }
     /* Dar ekranda 3:2 kaynaktan dikey bir dilim kırpılıyor; robotlar
        görselin SAĞINDA olduğu için kırpma oraya kaydırılır, yoksa

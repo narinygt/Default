@@ -429,6 +429,16 @@ section {
   max-width: 44rem;
   margin-bottom: var(--space-lg);
 }
+
+/* Başlık bloğunun hemen altında bir bölüm görseli varsa aradaki boşluk
+   kısalır: görsel de başlığın anlattığı şeyin parçası, metin bloğuyla
+   arasındaki mesafe bir sonraki bölüme geçiş kadar geniş olmamalı.
+   Yalnızca bu durum için — görselsiz bölümlerin başlık boşluğu aynı.
+
+   :has() desteklenmezse boşluk eski değerinde kalır; görünüm bozulmaz. */
+.section-head:has(+ .section-figure) {
+  margin-bottom: var(--space-md);
+}
 .section-head p {
   margin-top: var(--space-sm);
 }

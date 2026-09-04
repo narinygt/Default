@@ -593,81 +593,73 @@ section {
      başlar; ortalandığında başlıkla hizasız duruyordu. */
   margin: 0 0 var(--space-md);
 
-  /* ÇERÇEVESİZ: kenarlık + köşe yuvarlaması kaldırıldı. Görseller
-     sayfaya yapıştırılmış bir kutu gibi değil, zemine karışarak
-     bitiyor: dört kenar da maskeyle saydama iniyor.
+  /* ÇERÇEVESİZ: kenarlık + köşe yuvarlaması yok. Görseller sayfaya
+     yapıştırılmış bir kutu gibi değil, zemine karışarak bitiyor.
 
-     Ramp dar (%5) ve YUMUŞAK BAŞLAYIP HIZLA DOLUYOR: alfa %1.2'de
-     0.35'e, %2.4'te 0.75'e çıkıyor. Düz (lineer) rampa, koyu zeminli
-     yapay-zeka görselinde beyaz bir hale gibi okunuyordu; eğri rampa
-     görünür bandı inceltiyor ama sert çizgiyi yine bırakmıyor.
+     Her kenarın kendi rampası var ve rampalar DÜZ (lineer). Tek bir
+     kısa rampayı hızlandırıp yumuşatmak, geçişi ani bir bulanıklık
+     bandına çeviriyordu; alfayı sabit hızla ve daha uzun bir yola
+     yayınca geçiş yumuşuyor.
 
-     Genişlik kenar payı ölçülerek seçildi (scripts yok, tek seferlik
-     ölçüm): koyu görselin sol/sağ etiketleri kenara %0.7-2 mesafede,
-     bu yüzden daha geniş bir dağılma etiketleri yerdi.
+     Uzunluklar tahmin değil: her dosyada içeriğin (etiket, ikon,
+     nesne) kenara uzaklığı ölçüldü ve rampa onun hemen içinde
+     bitiriliyor. Ölçümler aşağıda, görsel bazındaki değerlerde.
 
      mask desteklenmezse görsel kenarları düz biter; kenarlık zaten
-     kalktığı için bu da kabul edilebilir bir sonuç. */
-  --figure-ramp: 5%;
-  --figure-a1: 1.2%;
-  --figure-a2: 2.4%;
-  --figure-a3: 3.6%;
+     yok, sonuç kabul edilebilir. */
+  --f-sol: 4%;
+  --f-sag: 4%;
+  --f-ust: 4%;
+  --f-alt: 4%;
   -webkit-mask-image:
-    linear-gradient(
-      to right,
-      transparent 0,
-      rgba(0, 0, 0, 0.35) var(--figure-a1),
-      rgba(0, 0, 0, 0.75) var(--figure-a2),
-      rgba(0, 0, 0, 0.94) var(--figure-a3),
-      #000 var(--figure-ramp),
-      #000 calc(100% - var(--figure-ramp)),
-      rgba(0, 0, 0, 0.94) calc(100% - var(--figure-a3)),
-      rgba(0, 0, 0, 0.75) calc(100% - var(--figure-a2)),
-      rgba(0, 0, 0, 0.35) calc(100% - var(--figure-a1)),
-      transparent 100%
-    ),
-    linear-gradient(
-      to bottom,
-      transparent 0,
-      rgba(0, 0, 0, 0.35) var(--figure-a1),
-      rgba(0, 0, 0, 0.75) var(--figure-a2),
-      rgba(0, 0, 0, 0.94) var(--figure-a3),
-      #000 var(--figure-ramp),
-      #000 calc(100% - var(--figure-ramp)),
-      rgba(0, 0, 0, 0.94) calc(100% - var(--figure-a3)),
-      rgba(0, 0, 0, 0.75) calc(100% - var(--figure-a2)),
-      rgba(0, 0, 0, 0.35) calc(100% - var(--figure-a1)),
-      transparent 100%
-    );
+    linear-gradient(to right, transparent 0, #000 var(--f-sol)),
+    linear-gradient(to left, transparent 0, #000 var(--f-sag)),
+    linear-gradient(to bottom, transparent 0, #000 var(--f-ust)),
+    linear-gradient(to top, transparent 0, #000 var(--f-alt));
   -webkit-mask-composite: source-in;
   mask-image:
-    linear-gradient(
-      to right,
-      transparent 0,
-      rgba(0, 0, 0, 0.35) var(--figure-a1),
-      rgba(0, 0, 0, 0.75) var(--figure-a2),
-      rgba(0, 0, 0, 0.94) var(--figure-a3),
-      #000 var(--figure-ramp),
-      #000 calc(100% - var(--figure-ramp)),
-      rgba(0, 0, 0, 0.94) calc(100% - var(--figure-a3)),
-      rgba(0, 0, 0, 0.75) calc(100% - var(--figure-a2)),
-      rgba(0, 0, 0, 0.35) calc(100% - var(--figure-a1)),
-      transparent 100%
-    ),
-    linear-gradient(
-      to bottom,
-      transparent 0,
-      rgba(0, 0, 0, 0.35) var(--figure-a1),
-      rgba(0, 0, 0, 0.75) var(--figure-a2),
-      rgba(0, 0, 0, 0.94) var(--figure-a3),
-      #000 var(--figure-ramp),
-      #000 calc(100% - var(--figure-ramp)),
-      rgba(0, 0, 0, 0.94) calc(100% - var(--figure-a3)),
-      rgba(0, 0, 0, 0.75) calc(100% - var(--figure-a2)),
-      rgba(0, 0, 0, 0.35) calc(100% - var(--figure-a1)),
-      transparent 100%
-    );
+    linear-gradient(to right, transparent 0, #000 var(--f-sol)),
+    linear-gradient(to left, transparent 0, #000 var(--f-sag)),
+    linear-gradient(to bottom, transparent 0, #000 var(--f-ust)),
+    linear-gradient(to top, transparent 0, #000 var(--f-alt));
   mask-composite: intersect;
+}
+
+/* Görsel bazında rampa uzunlukları. Yanlarındaki yüzdeler, o dosyada
+   içeriğin ilgili kenara ÖLÇÜLEN uzaklığı; rampa hep onun içinde
+   bitiyor ki hiçbir etiket sönmesin. */
+.section-figure[data-figure='process'] {
+  /* ölçüm: sol %3.4 sağ %2.2 üst %9.0 alt %15.3 */
+  --f-sol: 3%;
+  --f-sag: 2%;
+  --f-ust: 8%;
+  --f-alt: 10%;
+}
+
+.section-figure[data-figure='cloudModels'] {
+  /* ölçüm: sol %9.2 sağ %8.9 üst %3.2 alt %4.4 */
+  --f-sol: 8%;
+  --f-sag: 8%;
+  --f-ust: 3%;
+  --f-alt: 4%;
+}
+
+.section-figure[data-figure='financeArchitecture'] {
+  /* ölçüm: sol %3.6 (başlık) sağ %5.0 üst %5.6 alt %15.2 */
+  --f-sol: 3.5%;
+  --f-sag: 4.5%;
+  --f-ust: 5%;
+  --f-alt: 10%;
+}
+
+.section-figure[data-figure='aiFlow'] {
+  /* ölçüm: sol %3.5 (ikonlar) sağ %2.0 üst %9.7 alt %7.1.
+     Sol kenara değen ince bağlantı çizgisi rampada soluyor; dekoratif
+     olduğu için kabul edildi, etiketlerin hiçbiri etkilenmiyor. */
+  --f-sol: 4%;
+  --f-sag: 3%;
+  --f-ust: 9%;
+  --f-alt: 6%;
 }
 
 /* MASAÜSTÜNDE daha dar: 56rem'de görsel, altına oturduğu başlık

@@ -590,9 +590,23 @@ const imageDims =
       display: none;
     }
     /* Başlıkla butonlar arasındaki boşluğu normalde alt metnin alt payı
-       veriyordu; gizlenince buton satırı başlığa yapışıyor. */
+       veriyordu; gizlenince buton satırı başlığa yapışıyor. Ölçü dar
+       ekranda daha derli toplu tutulur. */
     .hero-background .btn-row {
-      margin-top: var(--space-md);
+      margin-top: 1.25rem;
+    }
+    /* Dar ekranda butonlar bir tık daha küçük. Yükseklik 44px'te
+       DURUR: denetimin dokunma hedefi eşiği bu, altına inilemez —
+       daha küçüğü ancak yazıyı küçültmekle olurdu ve okunurluktan
+       götürürdü. */
+    .hero-background .btn-row .btn {
+      padding: 0.45rem 0.95rem;
+      min-height: 44px;
+      font-size: 0.9rem;
+    }
+    /* Başlık da bir tık küçülür; üç satırlık kırılımı korunur. */
+    .hero-background h1 {
+      font-size: 1.85rem;
     }
   }
 

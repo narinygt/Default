@@ -383,8 +383,13 @@ const imageDims =
     position: relative;
     display: flex;
     align-items: center;
-    min-height: min(calc(100svh - var(--header-h)), 44rem);
-    padding-block: clamp(2.5rem, 1.5rem + 3vw, 4.5rem);
+    /* Yükseklik, ALTINDAKİ REFERANS ŞERİDİNİ de hesaba katar: hero +
+       header + şerit birlikte ilk ekrana sığar, böylece sayfaya
+       girildiğinde referans logoları görselle birlikte görünür.
+       9.5rem, şeridin ölçülen yüksekliğini (133px) ve biraz payı
+       karşılar. */
+    min-height: min(calc(100svh - var(--header-h) - 9.5rem), 44rem);
+    padding-block: clamp(2rem, 1.2rem + 2.5vw, 3.5rem);
     background: #2b2f33;
     color: #fff;
   }

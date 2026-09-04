@@ -505,31 +505,45 @@ const imageDims =
   @media (max-width: 60rem) {
     /* Dar ekranda aynı mantık, ekseni dönük: yüzey üstte, fotoğraf
        altta. Geçiş yine dar ve kontrollü — fotoğrafın üst kenarında. */
+    /* Hero + header, ekranın yaklaşık ÜÇTE İKİSİNİ kaplar; referans
+       şeridi ilk ekranın altında başlar. Sayfa açıldığında altında
+       devam eden içerik olduğu görünür. */
     .hero-background {
-      min-height: min(calc(100svh - var(--header-h)), 40rem);
-      padding-block: clamp(1.5rem, 1rem + 2vw, 2.25rem) 0;
+      min-height: min(calc(66svh - var(--header-h)), 30rem);
+      padding-block: clamp(1.25rem, 1rem + 1.5vw, 2rem) 0;
       align-items: flex-start;
     }
+    /* Fotoğraf metnin bulunduğu bölgeye kadar UZANIR.
+       Önceden alt yarıda başlıyordu ve üstte düz, boş bir koyu panel
+       kalıyordu; metin alanı fotoğraftan kopuk, ayrı bir kutu gibi
+       duruyordu. Şimdi kutu neredeyse tüm hero'yu kaplıyor ve maske
+       yukarıya doğru çok düşük bir yoğunlukta sönüyor: metnin arkasında
+       fotoğrafın dokusu SEZİLİYOR ama detayı okunmuyor. Aşağı indikçe
+       tam netliğe çıkıyor — tek bir mekân gibi. */
     .hero-photo {
-      inset: auto 0 0 0;
+      inset: 0 0 0 0;
       width: 100%;
-      height: 52%;
+      height: 100%;
     }
     .hero-photo img {
-      object-position: 74% 45%;
+      object-position: 74% 62%;
       -webkit-mask-image: linear-gradient(
         to bottom,
-        transparent 0%,
-        rgba(0, 0, 0, 0.4) 10%,
-        rgba(0, 0, 0, 0.8) 20%,
-        #000 30%
+        rgba(0, 0, 0, 0.1) 0%,
+        rgba(0, 0, 0, 0.16) 26%,
+        rgba(0, 0, 0, 0.26) 40%,
+        rgba(0, 0, 0, 0.55) 55%,
+        rgba(0, 0, 0, 0.85) 68%,
+        #000 80%
       );
       mask-image: linear-gradient(
         to bottom,
-        transparent 0%,
-        rgba(0, 0, 0, 0.4) 10%,
-        rgba(0, 0, 0, 0.8) 20%,
-        #000 30%
+        rgba(0, 0, 0, 0.1) 0%,
+        rgba(0, 0, 0, 0.16) 26%,
+        rgba(0, 0, 0, 0.26) 40%,
+        rgba(0, 0, 0, 0.55) 55%,
+        rgba(0, 0, 0, 0.85) 68%,
+        #000 80%
       );
     }
     .hero-background .hero-copy {

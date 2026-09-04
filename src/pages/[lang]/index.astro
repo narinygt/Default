@@ -520,30 +520,39 @@ const imageDims =
        yukarıya doğru çok düşük bir yoğunlukta sönüyor: metnin arkasında
        fotoğrafın dokusu SEZİLİYOR ama detayı okunmuyor. Aşağı indikçe
        tam netliğe çıkıyor — tek bir mekân gibi. */
+    /* Katman hero'dan UZUN ve üste yaslı; taşan alt kısmı .hero-scene
+       kırpar. Sebebi: dar ekranda kutunun oranı 3:2 kaynağı dikeyde hiç
+       kırpmıyordu, dolayısıyla karenin en altındaki masa tamamen
+       görünüyor ve gereğinden fazla yer kaplıyordu. Kutu uzayınca
+       görünen alan karenin üst kısmına denk gelir: robotlar ve ekran
+       kalır, masa büyük ölçüde çıkar. */
     .hero-photo {
-      inset: 0 0 0 0;
+      inset: 0 0 auto 0;
       width: 100%;
-      height: 100%;
+      height: 134%;
     }
     .hero-photo img {
-      object-position: 74% 62%;
+      object-position: 74% 38%;
+      /* Duraklar kutunun TAMAMINA göre; görünen alan kutunun ilk
+         ~%75'i olduğu için tam netlik %58'de tamamlanır, yoksa
+         fotoğraf ekranda hiç netleşmezdi. */
       -webkit-mask-image: linear-gradient(
         to bottom,
         rgba(0, 0, 0, 0.1) 0%,
-        rgba(0, 0, 0, 0.16) 26%,
-        rgba(0, 0, 0, 0.26) 40%,
-        rgba(0, 0, 0, 0.55) 55%,
-        rgba(0, 0, 0, 0.85) 68%,
-        #000 80%
+        rgba(0, 0, 0, 0.16) 19%,
+        rgba(0, 0, 0, 0.26) 29%,
+        rgba(0, 0, 0, 0.55) 40%,
+        rgba(0, 0, 0, 0.85) 50%,
+        #000 58%
       );
       mask-image: linear-gradient(
         to bottom,
         rgba(0, 0, 0, 0.1) 0%,
-        rgba(0, 0, 0, 0.16) 26%,
-        rgba(0, 0, 0, 0.26) 40%,
-        rgba(0, 0, 0, 0.55) 55%,
-        rgba(0, 0, 0, 0.85) 68%,
-        #000 80%
+        rgba(0, 0, 0, 0.16) 19%,
+        rgba(0, 0, 0, 0.26) 29%,
+        rgba(0, 0, 0, 0.55) 40%,
+        rgba(0, 0, 0, 0.85) 50%,
+        #000 58%
       );
     }
     .hero-background .hero-copy {

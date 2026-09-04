@@ -600,10 +600,16 @@ section {
      uzunluklar verilince görsel çarpık bir dikdörtgen gibi okunuyordu;
      eşit rampa bu yamulma hissini kaldırıyor.
 
-     %3, ölçülen en dar kenar payına göre seçildi: içeriğin (etiket,
-     ikon, nesne) kenara uzaklığı dosya bazında ölçüldü, en dar değer
-     bulut görselinin üst kenarında %3.2 çıktı. Rampa bunun içinde
-     kaldığı için hiçbir etiket sönmüyor.
+     ÖNEMLİ: yüzde, her eksende KENDİ uzunluğuna göre çözülür. Görsel
+     3:2 olduğu için tek bir yüzde, yatayda dikeyin 1.5 katı uzunlukta
+     bir rampa üretiyordu — görselin yamuk görünmesinin sebebi buydu.
+     Bu yüzden dikey rampa `* 1.5` ile ölçekleniyor; böylece dört kenar
+     da PİKSEL olarak eşit uzunlukta sönüyor.
+
+     --figure-ramp değeri yatay eksene aittir ve yazıların kenara
+     ölçülen uzaklığına göre görsel bazında seçilir (aşağıya bakınız);
+     maskeli/maskesiz render karşılaştırmasında dört görselde de
+     etkilenen yazı pikseli sayısı sıfırdır.
 
      mask desteklenmezse görsel kenarları düz biter; kenarlık zaten
      yok, sonuç kabul edilebilir. */
@@ -619,8 +625,8 @@ section {
     linear-gradient(
       to bottom,
       transparent 0,
-      #000 var(--figure-ramp),
-      #000 calc(100% - var(--figure-ramp)),
+      #000 calc(var(--figure-ramp) * 1.5),
+      #000 calc(100% - var(--figure-ramp) * 1.5),
       transparent 100%
     );
   -webkit-mask-composite: source-in;
@@ -635,19 +641,40 @@ section {
     linear-gradient(
       to bottom,
       transparent 0,
-      #000 var(--figure-ramp),
-      #000 calc(100% - var(--figure-ramp)),
+      #000 calc(var(--figure-ramp) * 1.5),
+      #000 calc(100% - var(--figure-ramp) * 1.5),
       transparent 100%
     );
   mask-composite: intersect;
 }
 
-/* Yapay zeka görseli yumuşak geçiş KULLANMAZ: kenarları net biter.
-   Koyu zeminli tek görsel bu; açık sayfaya doğru sönerken hep bir
-   hale bırakıyordu. Çerçeve geri gelmiyor, yalnızca maske kalkıyor. */
+/* Görsel bazında yatay rampa. Değerler, içeriğin kenara ölçülen
+   uzaklığından türetildi; dikey rampa 1.5 katı olduğu için dikey pay
+   da 1.5'e bölünerek hesaba katıldı.
+
+   süreç : yatay pay %2.2 / dikey %8.9  → %2
+   bulut : yatay pay %8.9 / dikey %3.2  → %2  (dikey belirleyici)
+   finans: yatay pay %3.5 / dikey %5.5  → %3 */
+.section-figure[data-figure='process'] {
+  --figure-ramp: 2%;
+}
+
+.section-figure[data-figure='cloudModels'] {
+  --figure-ramp: 2%;
+}
+
+.section-figure[data-figure='financeArchitecture'] {
+  --figure-ramp: 3%;
+}
+
+/* Yapay zeka görselinde rampa daha kısa. Sebebi ölçüm: bu dosyada
+   başlığın son kelimesi ("VERMEZ,") sağ kenara %1.5 mesafede duruyor —
+   dört görselin en dar yazı payı. %3'lük rampa o harflerin ucunu
+   söndürürdü. %1.3, yazının hemen dışında bitip sert kenarı kaldırıyor.
+
+   Rampa yine dört kenarda eşit; yalnızca uzunluğu bu dosyaya özel. */
 .section-figure[data-figure='aiFlow'] {
-  -webkit-mask-image: none;
-  mask-image: none;
+  --figure-ramp: 1.3%;
 }
 
 /* MASAÜSTÜNDE daha dar: 56rem'de görsel, altına oturduğu başlık

@@ -582,9 +582,82 @@ section {
   /* Kutu, üstündeki başlık bloğuyla (.section-head) aynı sol kenardan
      başlar; ortalandığında başlıkla hizasız duruyordu. */
   margin: 0 0 var(--space-md);
-  border: 1px solid var(--border-soft);
-  border-radius: var(--radius);
-  background: var(--surface);
+
+  /* ÇERÇEVESİZ: kenarlık + köşe yuvarlaması kaldırıldı. Görseller
+     sayfaya yapıştırılmış bir kutu gibi değil, zemine karışarak
+     bitiyor: dört kenar da maskeyle saydama iniyor.
+
+     Ramp dar (%5) ve YUMUŞAK BAŞLAYIP HIZLA DOLUYOR: alfa %1.2'de
+     0.35'e, %2.4'te 0.75'e çıkıyor. Düz (lineer) rampa, koyu zeminli
+     yapay-zeka görselinde beyaz bir hale gibi okunuyordu; eğri rampa
+     görünür bandı inceltiyor ama sert çizgiyi yine bırakmıyor.
+
+     Genişlik kenar payı ölçülerek seçildi (scripts yok, tek seferlik
+     ölçüm): koyu görselin sol/sağ etiketleri kenara %0.7-2 mesafede,
+     bu yüzden daha geniş bir dağılma etiketleri yerdi.
+
+     mask desteklenmezse görsel kenarları düz biter; kenarlık zaten
+     kalktığı için bu da kabul edilebilir bir sonuç. */
+  --figure-ramp: 5%;
+  --figure-a1: 1.2%;
+  --figure-a2: 2.4%;
+  --figure-a3: 3.6%;
+  -webkit-mask-image:
+    linear-gradient(
+      to right,
+      transparent 0,
+      rgba(0, 0, 0, 0.35) var(--figure-a1),
+      rgba(0, 0, 0, 0.75) var(--figure-a2),
+      rgba(0, 0, 0, 0.94) var(--figure-a3),
+      #000 var(--figure-ramp),
+      #000 calc(100% - var(--figure-ramp)),
+      rgba(0, 0, 0, 0.94) calc(100% - var(--figure-a3)),
+      rgba(0, 0, 0, 0.75) calc(100% - var(--figure-a2)),
+      rgba(0, 0, 0, 0.35) calc(100% - var(--figure-a1)),
+      transparent 100%
+    ),
+    linear-gradient(
+      to bottom,
+      transparent 0,
+      rgba(0, 0, 0, 0.35) var(--figure-a1),
+      rgba(0, 0, 0, 0.75) var(--figure-a2),
+      rgba(0, 0, 0, 0.94) var(--figure-a3),
+      #000 var(--figure-ramp),
+      #000 calc(100% - var(--figure-ramp)),
+      rgba(0, 0, 0, 0.94) calc(100% - var(--figure-a3)),
+      rgba(0, 0, 0, 0.75) calc(100% - var(--figure-a2)),
+      rgba(0, 0, 0, 0.35) calc(100% - var(--figure-a1)),
+      transparent 100%
+    );
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(
+      to right,
+      transparent 0,
+      rgba(0, 0, 0, 0.35) var(--figure-a1),
+      rgba(0, 0, 0, 0.75) var(--figure-a2),
+      rgba(0, 0, 0, 0.94) var(--figure-a3),
+      #000 var(--figure-ramp),
+      #000 calc(100% - var(--figure-ramp)),
+      rgba(0, 0, 0, 0.94) calc(100% - var(--figure-a3)),
+      rgba(0, 0, 0, 0.75) calc(100% - var(--figure-a2)),
+      rgba(0, 0, 0, 0.35) calc(100% - var(--figure-a1)),
+      transparent 100%
+    ),
+    linear-gradient(
+      to bottom,
+      transparent 0,
+      rgba(0, 0, 0, 0.35) var(--figure-a1),
+      rgba(0, 0, 0, 0.75) var(--figure-a2),
+      rgba(0, 0, 0, 0.94) var(--figure-a3),
+      #000 var(--figure-ramp),
+      #000 calc(100% - var(--figure-ramp)),
+      rgba(0, 0, 0, 0.94) calc(100% - var(--figure-a3)),
+      rgba(0, 0, 0, 0.75) calc(100% - var(--figure-a2)),
+      rgba(0, 0, 0, 0.35) calc(100% - var(--figure-a1)),
+      transparent 100%
+    );
+  mask-composite: intersect;
 }
 
 /* MASAÜSTÜNDE daha dar: 56rem'de görsel, altına oturduğu başlık
@@ -602,10 +675,14 @@ section {
   .section-figure {
     max-width: 36rem;
   }
-}
 
-.on-dark .section-figure {
-  border-color: rgba(255, 255, 255, 0.16);
+  /* Yatayda az bilgi taşıyan görseller (tek nesne + tek başlık) daha
+     dar durur; dört görsel aynı ölçüde olunca sayfa tekdüze görünüyor.
+     Yatayda dört etiket taşıyanlar (süreç adımları, yapay zeka akışı)
+     daralt-MA-malı: etiketler okunmaz hale gelir. */
+  .section-figure.dar {
+    max-width: 30rem;
+  }
 }
 
 /* ---------- 7. Kartlar ------------------------------------------ */

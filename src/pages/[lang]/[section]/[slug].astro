@@ -52,6 +52,13 @@ const gorselAnahtari: Partial<Record<SolutionKey, FigureKey>> = {
 const anahtar = gorselAnahtari[solution];
 const sayfaGorseli = anahtar ? figures[anahtar] : undefined;
 
+/**
+ * Masaüstünde daraltılacak görseller — yatayda az bilgi taşıyanlar.
+ * `aiFlow` yatayda dört etiket taşıdığı için dar sürüme alınmaz.
+ */
+const darGorseller: readonly FigureKey[] = ['financeArchitecture'];
+const gorselDar = anahtar ? darGorseller.includes(anahtar) : false;
+
 const schema = [
   serviceSchema({
     lang,
@@ -137,7 +144,7 @@ const schema = [
       {
         sayfaGorseli && (
           <img
-            class="section-figure reveal"
+            class:list={['section-figure', 'reveal', gorselDar && 'dar']}
             src={sayfaGorseli.src[lang]}
             width="1536"
             height="1024"

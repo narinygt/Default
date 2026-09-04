@@ -416,31 +416,44 @@ const imageDims =
   }
 
   /* --- Fotoğraf ---
-     Net, opak, filtresiz. Sağ %58'i kaplar; maske yalnızca kendi sol
-     kenarında çalışır (ilk %30'u) — yani ekranda %42–59 arası. */
+     Net, opak, filtresiz ve TÜM hero'yu kaplar.
+     Önceden yalnızca sağ %54'teydi; solda düz, boş bir koyu panel
+     kalıyor ve metin alanı fotoğraftan kopuk, ayrı bir kutu gibi
+     duruyordu. Şimdi maske sola doğru çok düşük bir yoğunluğa iniyor
+     ama SIFIRA inmiyor: metnin arkasında fotoğrafın dokusu seziliyor,
+     detayı okunmuyor. Sağa gidildikçe tam netliğe çıkıyor — tek bir
+     mekân gibi. (Mobildeki kurulumun yatay eksendeki karşılığı.)
+
+     Tam genişlikte kapsama ölçeği yatayda 1:1 olduğu için yatay kırpma
+     yok — karenin tamamı görünür, yani görüntü de uzaklaşmış olur.
+     Dikeyde kırpma var ve `center` masayı alttan bir miktar kesiyor. */
   .hero-photo {
     position: absolute;
-    inset: 0 0 0 auto;
-    width: 54%;
+    inset: 0;
+    width: 100%;
   }
   .hero-photo img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 68% center;
+    object-position: 62% center;
     -webkit-mask-image: linear-gradient(
       to right,
-      transparent 0%,
-      rgba(0, 0, 0, 0.35) 12%,
-      rgba(0, 0, 0, 0.75) 22%,
-      #000 32%
+      rgba(0, 0, 0, 0.1) 0%,
+      rgba(0, 0, 0, 0.13) 30%,
+      rgba(0, 0, 0, 0.2) 42%,
+      rgba(0, 0, 0, 0.42) 53%,
+      rgba(0, 0, 0, 0.78) 65%,
+      #000 78%
     );
     mask-image: linear-gradient(
       to right,
-      transparent 0%,
-      rgba(0, 0, 0, 0.35) 12%,
-      rgba(0, 0, 0, 0.75) 22%,
-      #000 32%
+      rgba(0, 0, 0, 0.1) 0%,
+      rgba(0, 0, 0, 0.13) 30%,
+      rgba(0, 0, 0, 0.2) 42%,
+      rgba(0, 0, 0, 0.42) 53%,
+      rgba(0, 0, 0, 0.78) 65%,
+      #000 78%
     );
   }
 
@@ -502,9 +515,6 @@ const imageDims =
      gereksiz yere çok satıra bölünüyordu. Bu ölçüde fotoğraf biraz
      sağa çekilip metne yer açılır; 40/20/40 oranı korunur. */
   @media (min-width: 100rem) {
-    .hero-photo {
-      width: 50%;
-    }
     .hero-background .hero-copy {
       max-width: min(40rem, 50%);
     }

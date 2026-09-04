@@ -596,70 +596,58 @@ section {
   /* ÇERÇEVESİZ: kenarlık + köşe yuvarlaması yok. Görseller sayfaya
      yapıştırılmış bir kutu gibi değil, zemine karışarak bitiyor.
 
-     Her kenarın kendi rampası var ve rampalar DÜZ (lineer). Tek bir
-     kısa rampayı hızlandırıp yumuşatmak, geçişi ani bir bulanıklık
-     bandına çeviriyordu; alfayı sabit hızla ve daha uzun bir yola
-     yayınca geçiş yumuşuyor.
+     Rampa DÜZ (lineer) ve DÖRT KENARDA EŞİT. Kenarlara farklı
+     uzunluklar verilince görsel çarpık bir dikdörtgen gibi okunuyordu;
+     eşit rampa bu yamulma hissini kaldırıyor.
 
-     Uzunluklar tahmin değil: her dosyada içeriğin (etiket, ikon,
-     nesne) kenara uzaklığı ölçüldü ve rampa onun hemen içinde
-     bitiriliyor. Ölçümler aşağıda, görsel bazındaki değerlerde.
+     %3, ölçülen en dar kenar payına göre seçildi: içeriğin (etiket,
+     ikon, nesne) kenara uzaklığı dosya bazında ölçüldü, en dar değer
+     bulut görselinin üst kenarında %3.2 çıktı. Rampa bunun içinde
+     kaldığı için hiçbir etiket sönmüyor.
 
      mask desteklenmezse görsel kenarları düz biter; kenarlık zaten
      yok, sonuç kabul edilebilir. */
-  --f-sol: 4%;
-  --f-sag: 4%;
-  --f-ust: 4%;
-  --f-alt: 4%;
+  --figure-ramp: 3%;
   -webkit-mask-image:
-    linear-gradient(to right, transparent 0, #000 var(--f-sol)),
-    linear-gradient(to left, transparent 0, #000 var(--f-sag)),
-    linear-gradient(to bottom, transparent 0, #000 var(--f-ust)),
-    linear-gradient(to top, transparent 0, #000 var(--f-alt));
+    linear-gradient(
+      to right,
+      transparent 0,
+      #000 var(--figure-ramp),
+      #000 calc(100% - var(--figure-ramp)),
+      transparent 100%
+    ),
+    linear-gradient(
+      to bottom,
+      transparent 0,
+      #000 var(--figure-ramp),
+      #000 calc(100% - var(--figure-ramp)),
+      transparent 100%
+    );
   -webkit-mask-composite: source-in;
   mask-image:
-    linear-gradient(to right, transparent 0, #000 var(--f-sol)),
-    linear-gradient(to left, transparent 0, #000 var(--f-sag)),
-    linear-gradient(to bottom, transparent 0, #000 var(--f-ust)),
-    linear-gradient(to top, transparent 0, #000 var(--f-alt));
+    linear-gradient(
+      to right,
+      transparent 0,
+      #000 var(--figure-ramp),
+      #000 calc(100% - var(--figure-ramp)),
+      transparent 100%
+    ),
+    linear-gradient(
+      to bottom,
+      transparent 0,
+      #000 var(--figure-ramp),
+      #000 calc(100% - var(--figure-ramp)),
+      transparent 100%
+    );
   mask-composite: intersect;
 }
 
-/* Görsel bazında rampa uzunlukları. Yanlarındaki yüzdeler, o dosyada
-   içeriğin ilgili kenara ÖLÇÜLEN uzaklığı; rampa hep onun içinde
-   bitiyor ki hiçbir etiket sönmesin. */
-.section-figure[data-figure='process'] {
-  /* ölçüm: sol %3.4 sağ %2.2 üst %9.0 alt %15.3 */
-  --f-sol: 3%;
-  --f-sag: 2%;
-  --f-ust: 8%;
-  --f-alt: 10%;
-}
-
-.section-figure[data-figure='cloudModels'] {
-  /* ölçüm: sol %9.2 sağ %8.9 üst %3.2 alt %4.4 */
-  --f-sol: 8%;
-  --f-sag: 8%;
-  --f-ust: 3%;
-  --f-alt: 4%;
-}
-
-.section-figure[data-figure='financeArchitecture'] {
-  /* ölçüm: sol %3.6 (başlık) sağ %5.0 üst %5.6 alt %15.2 */
-  --f-sol: 3.5%;
-  --f-sag: 4.5%;
-  --f-ust: 5%;
-  --f-alt: 10%;
-}
-
+/* Yapay zeka görseli yumuşak geçiş KULLANMAZ: kenarları net biter.
+   Koyu zeminli tek görsel bu; açık sayfaya doğru sönerken hep bir
+   hale bırakıyordu. Çerçeve geri gelmiyor, yalnızca maske kalkıyor. */
 .section-figure[data-figure='aiFlow'] {
-  /* ölçüm: sol %3.5 (ikonlar) sağ %2.0 üst %9.7 alt %7.1.
-     Sol kenara değen ince bağlantı çizgisi rampada soluyor; dekoratif
-     olduğu için kabul edildi, etiketlerin hiçbiri etkilenmiyor. */
-  --f-sol: 4%;
-  --f-sag: 3%;
-  --f-ust: 9%;
-  --f-alt: 6%;
+  -webkit-mask-image: none;
+  mask-image: none;
 }
 
 /* MASAÜSTÜNDE daha dar: 56rem'de görsel, altına oturduğu başlık

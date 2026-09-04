@@ -587,18 +587,20 @@ section {
   background: var(--surface);
 }
 
-/* MASAÜSTÜNDE daha dar: görsel, üstündeki başlık bloğuyla aynı ölçüye
-   iner (.section-head de 44rem). 56rem'de görsel, altına oturduğu başlık
-   sütunundan geniş kalıyor, bölümü eziyor ve ekranda gereğinden büyük
-   duruyordu.
+/* MASAÜSTÜNDE daha dar: 56rem'de görsel, altına oturduğu başlık
+   sütunundan (.section-head, 44rem) geniş kalıyor, bölümü eziyor ve
+   ekranda gereğinden büyük duruyordu. 36rem'de görsel 576x384 CSS
+   piksele iner; içine gömülü başlıklar 1x ekranda da okunur kalıyor
+   (kaynak dosyalar 1536x1024).
 
    Kural YALNIZCA 62rem (992px) üstünde geçerlidir — sitenin masaüstü
    kırılımı burasıdır. Bunun altında hiçbir şey değişmez: mobilde ve
    tablette genişliği zaten `width: 100%` belirliyor, 56rem sınırı o
-   ölçülerde hiç devreye girmiyordu. */
+   ölçülerde hiç devreye girmiyordu (960px'te 895x597, 768px'te 712x475,
+   390px'te 352x235 — bu ölçüler bu değişiklikle aynen korundu). */
 @media (min-width: 62rem) {
   .section-figure {
-    max-width: 44rem;
+    max-width: 36rem;
   }
 }
 

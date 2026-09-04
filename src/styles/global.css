@@ -202,6 +202,11 @@
 
   --header-h: 76px;
   --header-h-scrolled: 60px;
+  /* Header'ın KENARLIK DAHİL toplam yüksekliği. --header-h yalnızca iç
+     yüksekliktir; altındaki 1px kenarlık ona dahil değil. Görünüm
+     alanından header'ı düşen hesaplar bunu kullanmalı, yoksa 1px
+     kayarlar. Kenarlık değişirse burası da değişmeli. */
+  --header-total-h: calc(var(--header-h) + 1px);
 
   /* Hareket — brief: yalnızca kısa fade-up ve ince durum değişimi */
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);

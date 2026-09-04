@@ -42,73 +42,77 @@ const imageDims =
   <!-- ============ 1. HERO ============
        Görsel seçeneği src/config/site.ts → hero.visual ile değişir:
        'ledger' | 'image' | 'duotone' | 'background'                  -->
-  <section class:list={['hero', `hero-${heroVisual}`]} data-hero>
-    {
-      /* SAHNE: solda mimari yüzey, sağda fotoğraf.
-         İki ayrı katman — fotoğrafın üzerine gradient atmak yerine
-         yüzeyin kendisi bir katman, fotoğraf ayrı bir katman. Fotoğraf
-         sola doğru uzun bir maskeyle söner ve altındaki yüzey ortaya
-         çıkar; böylece geçiş "fotoğrafa gradient uygulanmış" gibi
-         değil, aynı mekânın duvarı sola devam ediyormuş gibi okunur. */
-      isBackground && (
-        <div class="hero-scene" aria-hidden="true">
-          <div class="hero-wall" />
-          <div class="hero-photo">
-            <img
-              src={imageSrc}
-              width={imageDims.w}
-              height={imageDims.h}
-              alt=""
-              fetchpriority="high"
-            />
-          </div>
-        </div>
-      )
-    }
-
-    {!isBackground && <Ledger variant="texture" tone="light" class="hero-texture" />}
-
-    <div class="container hero-inner">
-      <div class="hero-copy reveal">
-        <h1>{c.hero.h1}</h1>
-        <p class="lead hero-lead">{c.hero.lead}</p>
-        <div class="btn-row">
-          <a href={path({ page: 'contact' }, lang)} class="btn btn-primary">{c.hero.primaryCta}</a>
-          <a href={path({ page: 'solutions' }, lang)} class="btn btn-secondary">
-            {c.hero.secondaryCta}
-          </a>
-        </div>
-      </div>
-
+  <div class="ilk-ekran">
+    <section class:list={['hero', `hero-${heroVisual}`]} data-hero>
       {
-        !isBackground && (
-          <figure class="hero-figure reveal" data-delay="1">
-            {isLedger ? (
-              <>
-                <Ledger variant="hero" />
-                <figcaption class="sr-only">{c.hero.figureAlt}</figcaption>
-              </>
-            ) : (
-              <div class:list={['hero-panel', heroVisual === 'image' && 'hero-panel--photo']}>
-                <img
-                  src={imageSrc}
-                  width={imageDims.w}
-                  height={imageDims.h}
-                  alt={c.hero.imageAlt}
-                  fetchpriority="high"
-                />
-              </div>
-            )}
-          </figure>
+        /* SAHNE: solda mimari yüzey, sağda fotoğraf.
+           İki ayrı katman — fotoğrafın üzerine gradient atmak yerine
+           yüzeyin kendisi bir katman, fotoğraf ayrı bir katman. Fotoğraf
+           sola doğru uzun bir maskeyle söner ve altındaki yüzey ortaya
+           çıkar; böylece geçiş "fotoğrafa gradient uygulanmış" gibi
+           değil, aynı mekânın duvarı sola devam ediyormuş gibi okunur. */
+        isBackground && (
+          <div class="hero-scene" aria-hidden="true">
+            <div class="hero-wall" />
+            <div class="hero-photo">
+              <img
+                src={imageSrc}
+                width={imageDims.w}
+                height={imageDims.h}
+                alt=""
+                fetchpriority="high"
+              />
+            </div>
+          </div>
         )
       }
-    </div>
-  </section>
 
-  <!-- ============ 2. REFERANSLAR ŞERİDİ ============
-       Hero'nun hemen altındaki koyu zeminli logo şeridi.
-       Liste ve ölçü mantığı: src/data/references.ts             -->
-  <References lang={lang} />
+      {!isBackground && <Ledger variant="texture" tone="light" class="hero-texture" />}
+
+      <div class="container hero-inner">
+        <div class="hero-copy reveal">
+          <h1>{c.hero.h1}</h1>
+          <p class="lead hero-lead">{c.hero.lead}</p>
+          <div class="btn-row">
+            <a href={path({ page: 'contact' }, lang)} class="btn btn-primary">{c.hero.primaryCta}</a>
+            <a href={path({ page: 'solutions' }, lang)} class="btn btn-secondary">
+              {c.hero.secondaryCta}
+            </a>
+          </div>
+        </div>
+
+        {
+          !isBackground && (
+            <figure class="hero-figure reveal" data-delay="1">
+              {isLedger ? (
+                <>
+                  <Ledger variant="hero" />
+                  <figcaption class="sr-only">{c.hero.figureAlt}</figcaption>
+                </>
+              ) : (
+                <div class:list={['hero-panel', heroVisual === 'image' && 'hero-panel--photo']}>
+                  <img
+                    src={imageSrc}
+                    width={imageDims.w}
+                    height={imageDims.h}
+                    alt={c.hero.imageAlt}
+                    fetchpriority="high"
+                  />
+                </div>
+              )}
+            </figure>
+          )
+        }
+      </div>
+    </section>
+
+    <!-- ============ 2. REFERANSLAR ŞERİDİ ============
+         Hero'nun hemen altındaki logo şeridi. Hero ile aynı
+         sarmalayıcıda: masaüstünde ikisi birlikte ilk ekranı TAM
+         doldurur, şeridin altında boşluk kalmaz.
+         Liste ve ölçü mantığı: src/data/references.ts           -->
+    <References lang={lang} />
+  </div>
 
   <!-- ============ 3. ÇÖZÜMLER IZGARASI ============ -->
   <section class="section" id="solutions">
@@ -380,16 +384,47 @@ const imageDims =
      Yüzeyin tonu tahmin değil ÖLÇÜM: fotoğrafın sol kenar bölgesinin
      ortalaması #2b2f33. Duvar bu tonda kurulduğu için iki katman aynı
      malzeme gibi okunuyor; arada renk sıçraması olmuyor. */
+  /* İLK EKRAN — hero + referans şeridi.
+
+     Masaüstünde ikisi birlikte görünüm alanının TAM kalanını doldurur:
+     sarmalayıcı `100svh - header` yüksekliğinde, şerit doğal boyunda
+     kalır, hero kalan her şeyi alır. Böylece sayfa ilk açıldığında
+     şeridin altında zemin görünmez ve ölçü hiçbir sabite bağlı değildir
+     — şeridin yüksekliği değişirse hero kendiliğinden uyum sağlar.
+
+     Mobilde devrede DEĞİL: orada hero bilinçli olarak ekranın bir
+     bölümünü kaplıyor (bkz. aşağıdaki mobil bloğu), altındaki içeriğin
+     bir kısmı görünsün diye. */
+  @media (min-width: 60.0625rem) {
+    .ilk-ekran {
+      display: flex;
+      flex-direction: column;
+      min-height: calc(100svh - var(--header-total-h));
+    }
+
+    .ilk-ekran > .hero {
+      flex: 1 1 auto;
+      min-height: 0;
+    }
+  }
+
+
   .hero-background {
     position: relative;
     display: flex;
     align-items: center;
-    /* Yükseklik, ALTINDAKİ REFERANS ŞERİDİNİ de hesaba katar: hero +
-       header + şerit birlikte ilk ekrana sığar, böylece sayfaya
-       girildiğinde referans logoları görselle birlikte görünür.
-       9.5rem, şeridin ölçülen yüksekliğini (133px) ve biraz payı
-       karşılar. */
-    min-height: min(calc(100svh - var(--header-h) - 9.5rem), 44rem);
+    /* Yükseklik MASAÜSTÜNDE .ilk-ekran sarmalayıcısı tarafından
+       belirlenir (aşağıya bakınız). Buradaki değer yalnızca bir taban:
+       sarmalayıcının devrede olmadığı durumlarda hero yassı kalmasın.
+
+       Eskiden burada `100svh - header - 9.5rem` vardı; 9.5rem, referans
+       şeridinin o günkü yüksekliğini (133px) karşılamak için konmuş bir
+       sabitti. Şerit sonradan 100px'e inince sabit tutmadı ve şeridin
+       altında her ekranda 51px boş zemin kaldı; 44rem'lik üst sınır da
+       uzun ekranlarda bu boşluğu 199px'e çıkarıyordu. Sabit tamamen
+       kaldırıldı — sarmalayıcı ölçüyü şeridin gerçek yüksekliğinden
+       türetiyor, şerit değişse bile boşluk oluşmuyor. */
+    min-height: 26rem;
     padding-block: clamp(2rem, 1.2rem + 2.5vw, 3.5rem);
     background: #2b2f33;
     color: #fff;
@@ -523,6 +558,28 @@ const imageDims =
   @media (min-width: 100rem) {
     .hero-background .hero-copy {
       max-width: min(40rem, 50%);
+    }
+  }
+
+  /* KISA PENCERELER (yükseklik <= 44rem): hero'nun kendi içeriği +
+     iç boşluğu, kalan alandan büyük kalıyordu ve referans şeridini
+     ekranın altına itiyordu (1440x600'de 71px taşma). İç boşluk ve
+     başlık ölçüsü küçültülerek şerit ekranda tutuluyor. */
+  @media (min-width: 60.0625rem) and (max-height: 44rem) {
+    .hero-background {
+      padding-block: clamp(1.1rem, 0.6rem + 1.2vw, 1.9rem);
+    }
+
+    .hero-background h1 {
+      font-size: clamp(1.7rem, 1rem + 1.5vw, 2.3rem);
+    }
+
+    .hero-background .hero-lead {
+      margin-top: 0.75rem;
+    }
+
+    .hero-background .btn-row {
+      margin-top: 1.1rem;
     }
   }
 

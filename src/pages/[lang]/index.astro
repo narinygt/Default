@@ -364,26 +364,29 @@ const imageDims =
   /* ==================================================================
      HERO SEÇENEĞİ: 'background' — solda mimari yüzey, sağda fotoğraf
      ==================================================================
-     Amaç, ekranı ikiye bölmek değil; TEK bir mekân kurmak. Sağda
-     fotoğrafın kendisi, sola doğru aynı mekânın duvarı devam ediyor.
+     Kompozisyon üç bölge:
+       SOL  %42  temiz metin alanı, sade mimari yüzey
+       ORTA %17  kontrollü geçiş — YALNIZCA fotoğrafın sol kenarında
+       SAĞ  %41  fotoğraf; net, güçlü, kendi ışığıyla
 
-     Neden iki ayrı katman:
-     Fotoğrafın üzerine koyu bir gradient atmak en kolay yol ama sonucu
-     "fotoğraf + gradient" gibi okunuyor; kullanıcı efekti fark ediyor.
-     Bunun yerine ALTTA gerçek bir yüzey (.hero-wall) duruyor, ÜSTTE
-     fotoğraf (.hero-photo) uzun bir maskeyle sönüyor. Fotoğraf
-     kaybolurken ortaya çıkan şey karartma değil, duvarın kendisi.
+     BURADA YAPILMAYAN ŞEYLER (bilerek):
+     Fotoğrafa opaklık düşürme, beyaza karıştırma, çevresine feather /
+     glow / sis verme, üst-alt kenarlara sönüm koyma. Bunların hepsi
+     fotoğrafın etrafında beyaz bir bulut oluşturuyor ve görseli
+     öldürüyordu. Fotoğraf TAM opak ve filtresiz; geçiş yalnızca sol
+     kenardaki dar bir bantta, maskeyle.
 
-     Hero AÇIK zeminli: sitenin kimliği açık, metin koyu — okunabilirlik
-     en yüksek seviyede kalıyor ve hero ile sonraki bölüm arasında sert
-     bir koyu/açık kenarı oluşmuyor. */
+     Yüzeyin tonu tahmin değil ÖLÇÜM: fotoğrafın sol kenar bölgesinin
+     ortalaması #2b2f33. Duvar bu tonda kurulduğu için iki katman aynı
+     malzeme gibi okunuyor; arada renk sıçraması olmuyor. */
   .hero-background {
     position: relative;
     display: flex;
     align-items: center;
-    /* Viewport'a oturur ama gereksiz boşluk bırakmaz. */
     min-height: min(calc(100svh - var(--header-h)), 44rem);
-    padding-block: clamp(3rem, 1.5rem + 6vw, 6rem);
+    padding-block: clamp(2.5rem, 1.5rem + 3vw, 4.5rem);
+    background: #2b2f33;
+    color: #fff;
   }
 
   .hero-scene {
@@ -395,114 +398,113 @@ const imageDims =
   }
 
   /* --- Mimari yüzey ---
-     Düz bir renk değil: hafif bir ışık düşüşü (sol üstten gelen ışık)
-     ve çok soluk dikey panel çizgileri var. Duvarın "yüzey" gibi
-     okunmasını sağlayan şey bu iki ayrıntı; ikisi de gözle zor
-     seçilecek yoğunlukta, dekoratif bir desen izlenimi vermiyor. */
+     Bulanıklık YOK. Yüzeyi yüzey yapan üç şey var, üçü de ince:
+     ışığın sağdan gelmesi (fotoğraftaki ekran ışığının devamı),
+     zeminde çok soluk dikey panel çizgileri, ve alta doğru hafif
+     koyulaşma. Hiçbiri desen gibi okunmuyor. */
   .hero-wall {
     position: absolute;
     inset: 0;
     background:
       repeating-linear-gradient(
         to right,
-        rgba(14, 22, 32, 0.028) 0 1px,
-        transparent 1px 132px
+        rgba(255, 255, 255, 0.022) 0 1px,
+        transparent 1px 148px
       ),
-      radial-gradient(120% 90% at 12% 8%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 55%),
-      /* Sağa doğru fotoğrafın tonuna yaklaşır: iki katman aynı ışıkta
-         buluşsun, birleşim yeri malzeme değişimi gibi okunmasın. */
-      linear-gradient(105deg, #f2f4f4 0%, #eceff0 34%, #e2e7e9 62%, #d3dade 84%, #c9d2d7 100%);
+      linear-gradient(to bottom, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.22) 100%),
+      linear-gradient(100deg, #24282c 0%, #292d31 42%, #2b2f33 72%, #2f3439 100%);
   }
 
   /* --- Fotoğraf ---
-     Sağa yaslı, dikeyde tam kanar. Sola doğru sönümü UZUN ve çok
-     duraklı: tek duraklı doğrusal bir maske "silinmiş" gibi
-     görünüyor, kademeli olan derinlik gibi okunuyor. */
+     Net, opak, filtresiz. Sağ %58'i kaplar; maske yalnızca kendi sol
+     kenarında çalışır (ilk %30'u) — yani ekranda %42–59 arası. */
   .hero-photo {
     position: absolute;
     inset: 0 0 0 auto;
-    width: 72%;
+    width: 54%;
   }
   .hero-photo img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* Robotlar sağda kalsın; sol kenardaki cam/duvar geçişe denk gelsin. */
-    object-position: 72% center;
-    /* İKİ MASKE BİRLİKTE — fotoğrafın hiçbir kenarı düz bitmez.
-       Tek yönlü maskeyle sol kenar yumuşuyor ama üst ve alt kenarlar
-       düz kalıyordu; fotoğraf o yüzden sayfaya yapıştırılmış bir
-       dikdörtgen gibi duruyordu. İkinci maske dikeyde de sönüm
-       ekliyor, iki maske `intersect` ile kesişiyor: fotoğraf yüzeyin
-       içinden çıkıyormuş gibi görünüyor.
-
-       Yatay duraklar metnin bittiği yere göre: katman ekranın
-       %28'inden başlıyor, metin %48'de bitiyor; maskenin %30'u ekranın
-       %50'sine denk geldiği için fotoğraf metin alanında TAMAMEN
-       saydam. */
-    -webkit-mask-image:
-      linear-gradient(
-        to right,
-        transparent 0%,
-        transparent 30%,
-        rgba(0, 0, 0, 0.07) 40%,
-        rgba(0, 0, 0, 0.22) 50%,
-        rgba(0, 0, 0, 0.48) 60%,
-        rgba(0, 0, 0, 0.78) 72%,
-        #000 86%
-      ),
-      linear-gradient(
-        to bottom,
-        transparent 0%,
-        rgba(0, 0, 0, 0.45) 9%,
-        #000 22%,
-        #000 74%,
-        rgba(0, 0, 0, 0.5) 90%,
-        transparent 100%
-      );
-    -webkit-mask-composite: source-in;
-    mask-image:
-      linear-gradient(
-        to right,
-        transparent 0%,
-        transparent 30%,
-        rgba(0, 0, 0, 0.07) 40%,
-        rgba(0, 0, 0, 0.22) 50%,
-        rgba(0, 0, 0, 0.48) 60%,
-        rgba(0, 0, 0, 0.78) 72%,
-        #000 86%
-      ),
-      linear-gradient(
-        to bottom,
-        transparent 0%,
-        rgba(0, 0, 0, 0.45) 9%,
-        #000 22%,
-        #000 74%,
-        rgba(0, 0, 0, 0.5) 90%,
-        transparent 100%
-      );
-    mask-composite: intersect;
+    object-position: 68% center;
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(0, 0, 0, 0.35) 12%,
+      rgba(0, 0, 0, 0.75) 22%,
+      #000 32%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(0, 0, 0, 0.35) 12%,
+      rgba(0, 0, 0, 0.75) 22%,
+      #000 32%
+    );
   }
 
-  /* Metin sütunu: fotoğrafın başladığı yere kadar. Ölçü tesadüfi
-     değil — fotoğraf sağdan %72 genişlikte ve maskesi %40 civarında
-     görünür olmaya başlıyor; metin bu sınırın gerisinde kalır. */
+  /* Metin sütunu sol %42'de biter — fotoğrafın görünmeye başladığı
+     yerin gerisinde. */
   .hero-background .hero-inner {
     display: block;
   }
   .hero-background .hero-copy {
-    max-width: min(34rem, 52%);
+    max-width: min(34rem, 44%);
+  }
+  .hero-background h1 {
+    color: #fff;
+    /* Bu kompozisyonda başlık DAR bir sütunda duruyor; sayfanın
+       genel h1 ölçüsü (64px) burada altı satıra bölünüyor, hem
+       tipografi bozuluyor hem hero ekranı aşıyordu. Ölçü sütuna göre
+       yeniden kuruldu — hero başlığı olarak hâlâ güçlü, ama üç-dört
+       satırda kalıyor. */
+    font-size: clamp(2rem, 1.15rem + 1.9vw, 2.9rem);
+    line-height: 1.12;
+  }
+  .hero-background .hero-lead {
+    color: var(--text-on-dark-muted);
+  }
+  /* Butonlar opak ve marka renklerinde. */
+  .hero-background .btn-primary {
+    background: #fff;
+    color: var(--navy);
+    border-color: #fff;
+  }
+  .hero-background .btn-primary:hover {
+    background: var(--amber);
+    color: var(--ink);
+    border-color: var(--amber);
+  }
+  .hero-background .btn-secondary {
+    background: var(--surface-darkest);
+    color: #fff;
+    border-color: var(--surface-darkest);
+  }
+  .hero-background .btn-secondary:hover {
+    background: var(--navy);
+    border-color: var(--navy);
+    color: #fff;
+  }
+
+  /* ÇOK GENİŞ EKRAN (1600px+).
+     Fotoğraf viewport'a, metin ise ortalanmış container'a göre
+     hizalanıyor. Ekran büyüdükçe container sabit kaldığı için metin
+     sütunu fotoğrafın başladığı yere doğru sıkışıyor ve başlık
+     gereksiz yere çok satıra bölünüyordu. Bu ölçüde fotoğraf biraz
+     sağa çekilip metne yer açılır; 40/20/40 oranı korunur. */
+  @media (min-width: 100rem) {
+    .hero-photo {
+      width: 50%;
+    }
+    .hero-background .hero-copy {
+      max-width: min(40rem, 50%);
+    }
   }
 
   @media (max-width: 60rem) {
-    /* Dar ekranda kompozisyon aynı kalır, yalnızca yön değişir:
-       fotoğraf sağ-ALTTA, yüzey sol-ÜSTTE. Metin yine yüzeyin
-       üzerinde, fotoğrafın detaylı bölgesinden uzakta. */
-    /* Yükseklik metne göre ölçüldü: başlık + açıklama + butonlar dar
-       ekranda ~334px tutuyor. Fotoğrafın altta gerçek bir varlığı
-       olması ve metnin ÜSTÜNE hiç girmemesi için hero'nun bu ikisini
-       birden alması gerekiyor. 40rem bu iki koşulu karşılayan en küçük
-       ölçü; daha büyüğü gereksiz boşluk bırakırdı. */
+    /* Dar ekranda aynı mantık, ekseni dönük: yüzey üstte, fotoğraf
+       altta. Geçiş yine dar ve kontrollü — fotoğrafın üst kenarında. */
     .hero-background {
       min-height: min(calc(100svh - var(--header-h)), 40rem);
       padding-block: clamp(1.5rem, 1rem + 2vw, 2.25rem) 0;
@@ -511,51 +513,24 @@ const imageDims =
     .hero-photo {
       inset: auto 0 0 0;
       width: 100%;
-      height: 62%;
+      height: 52%;
     }
     .hero-photo img {
-      /* Dar ekranda en dikkat çekici bölge korunur: sağdaki robotlar. */
-      object-position: 78% 42%;
-      /* Duraklar metnin bittiği yere göre: metin ~500px'de bitiyor,
-         fotoğraf kutusu 320px'de başlıyor. Maskenin %50'si ekranda
-         ~518px'e denk gelir — yani fotoğraf metnin altında görünür
-         olmaya başlıyor, metin alanında tamamen saydam. */
-      -webkit-mask-image:
-        linear-gradient(
-          to bottom,
-          transparent 0%,
-          transparent 34%,
-          rgba(0, 0, 0, 0.1) 46%,
-          rgba(0, 0, 0, 0.34) 56%,
-          rgba(0, 0, 0, 0.68) 68%,
-          #000 82%
-        ),
-        linear-gradient(
-          to right,
-          transparent 0%,
-          rgba(0, 0, 0, 0.6) 8%,
-          #000 20%,
-          #000 100%
-        );
-      -webkit-mask-composite: source-in;
-      mask-image:
-        linear-gradient(
-          to bottom,
-          transparent 0%,
-          transparent 34%,
-          rgba(0, 0, 0, 0.1) 46%,
-          rgba(0, 0, 0, 0.34) 56%,
-          rgba(0, 0, 0, 0.68) 68%,
-          #000 82%
-        ),
-        linear-gradient(
-          to right,
-          transparent 0%,
-          rgba(0, 0, 0, 0.6) 8%,
-          #000 20%,
-          #000 100%
-        );
-      mask-composite: intersect;
+      object-position: 74% 45%;
+      -webkit-mask-image: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(0, 0, 0, 0.4) 10%,
+        rgba(0, 0, 0, 0.8) 20%,
+        #000 30%
+      );
+      mask-image: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(0, 0, 0, 0.4) 10%,
+        rgba(0, 0, 0, 0.8) 20%,
+        #000 30%
+      );
     }
     .hero-background .hero-copy {
       max-width: none;

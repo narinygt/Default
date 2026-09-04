@@ -535,6 +535,17 @@ const imageDims =
     .hero-background .hero-copy {
       max-width: none;
     }
+    /* Dar ekranda hero'da yalnızca başlık ve butonlar kalır; alt metin
+       gizlenir. Masaüstünde ikisi de durur. Metin sayfadan silinmiyor,
+       yalnızca bu genişlikte gizleniyor. */
+    .hero-background .hero-lead {
+      display: none;
+    }
+    /* Başlıkla butonlar arasındaki boşluğu normalde alt metnin alt payı
+       veriyordu; gizlenince buton satırı başlığa yapışıyor. */
+    .hero-background .btn-row {
+      margin-top: var(--space-md);
+    }
   }
 
   /* ---------- Çözümler ---------- */

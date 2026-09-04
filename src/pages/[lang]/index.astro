@@ -465,7 +465,15 @@ const imageDims =
   .hero-background .hero-lead {
     color: var(--text-on-dark-muted);
   }
-  /* Butonlar opak ve marka renklerinde. */
+  /* Butonlar opak, marka renklerinde ve sayfanın genel buton
+     ölçüsünden bir tık KÜÇÜK — hero'da başlığın yanında daha derli
+     toplu duruyorlar. Yükseklik 46px'te tutuldu: denetimin dokunma
+     hedefi eşiği 44px, altına inilmiyor. */
+  .hero-background .btn-row .btn {
+    padding: 0.55rem 1.15rem;
+    min-height: 46px;
+    font-size: 0.95rem;
+  }
   .hero-background .btn-primary {
     background: #fff;
     color: var(--navy);

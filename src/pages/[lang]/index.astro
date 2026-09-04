@@ -525,11 +525,18 @@ const imageDims =
        kırpmıyordu, dolayısıyla karenin en altındaki masa tamamen
        görünüyor ve gereğinden fazla yer kaplıyordu. Kutu uzayınca
        görünen alan karenin üst kısmına denk gelir: robotlar ve ekran
-       kalır, masa büyük ölçüde çıkar. */
+       kalır, masa büyük ölçüde çıkar.
+
+       ÖLÇÜ BİR DENGE: kutu uzadıkça masa daha çok çıkıyor ama görüntü
+       de o kadar YAKINLAŞIYOR (kapsama ölçeği yükseliyor). Ölçülen
+       değerler — görünen genişlik / yükseklik:
+         %134 → %40 / %75   masa temiz ama çok yakın
+         %118 → %46 / %85   denge burada
+         %108 → %50 / %93   uzak ama masa geri geliyor */
     .hero-photo {
       inset: 0 0 auto 0;
       width: 100%;
-      height: 134%;
+      height: 118%;
     }
     .hero-photo img {
       object-position: 74% 38%;

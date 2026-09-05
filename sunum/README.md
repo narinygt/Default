@@ -49,11 +49,17 @@ Renkler, tipografi ölçeği, köşe yarıçapı ve çizgi kalınlığı doğrud
 `src/styles/global.css` token'larından alınmıştır — sunum için yeni bir
 palet kurulmamıştır.
 
-**Çizgi kullanımı bilinçli olarak azdır.** Deste boyunca yalnızca üç
-yapısal çizgi vardır: çözüm tablosunun başlık altı (05), değer zincirinin
-üzerinde durduğu eksen (07) ve dört sütunu taşıyan çizgi (11). Bunların
-dışındaki ayrımlar aralıkla, yüzeyle ya da renkle yapılır. Bölüm
-etiketlerinin solundaki kısa çizgi sitenin `.eyebrow` öğesidir.
+**Destede hiç çizgi yoktur.** Çerçeve, ayraç, alt çizgi, bağlantı çizgisi
+ve eksen çizgisi kullanılmaz; sitedeki `.eyebrow` öğesinin solundaki kısa
+çizgi de dahil hepsi kaldırılmıştır. Ayrımlar üç şeyle yapılır: aralık,
+yüzey (tablo başlığının altındaki ince zemin, 04'teki dolgulu kutular,
+10'daki beyaz panel, koyu bantlar) ve tipografik ağırlık (05 ve 07'deki
+monospace numaralar). Bunun tek istisnası madde işareti olarak kullanılan
+birkaç noktadır.
+
+Bu, `uretici/lib.cjs` içindeki `rule` / `vrule` / `seg` yardımcılarının
+artık hiçbir slaytta çağrılmadığı anlamına gelir; yardımcılar ileride
+gerekirse diye duruyor.
 
 **Fontlar:** Schibsted Grotesk (başlık), Inter (gövde), IBM Plex Mono
 (etiket ve rakam) — sitenin kullandığı üç yüz. `.pptx` dosyası font

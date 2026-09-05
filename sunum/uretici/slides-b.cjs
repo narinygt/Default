@@ -18,12 +18,10 @@ function solutions(p) {
 
   const cx = [M, M + 3.35, M + 6.55, M + 8.95];
   const cw = [3.1, 3.05, 2.25, 2.68];
+  // Başlık satırını ayıran şey çizgi değil, altındaki ince yüzey.
+  s.addShape('rect', { x: M - 0.18, y: cy0 - 0.09, w: CW + 0.36, h: 0.4, fill: { color: C.paper } });
   ['SOLUTION', 'WHO IT SUITS', 'TYPICAL DURATION', 'PRIMARY BENEFIT']
     .forEach((h, i) => L.monoLabel(s, cx[i], cy0, cw[i], h, C.teal, 7.5));
-
-  // Tablonun TEK çizgisi: başlık satırının altı. Satır ayraçları yerine
-  // aralık kullanılır — deste boyunca çizgi sayısı bilinçli olarak az.
-  L.rule(s, M, cy0 + 0.24, CW, C.teal, 1);
 
   const rows = [
     ['SAP Finance Modules', 'FI, CO and end-to-end financial process design',
@@ -43,7 +41,7 @@ function solutions(p) {
      'Assessment 2–3 weeks\nFirst phase 6–12 weeks', 'Recovered hours and errors caught earlier'],
   ];
 
-  let y = cy0 + 0.44;
+  let y = cy0 + 0.56;
   rows.forEach(([name, sub, who, dur, gain]) => {
     s.addText(name, {
       x: cx[0], y, w: cw[0], h: 0.26, isTextBox: true, margin: 0,
@@ -59,7 +57,7 @@ function solutions(p) {
       fontFace: F.mono, fontSize: 8, color: C.muted, lineSpacing: 12.5, valign: 'top',
     });
     L.body(s, cx[3], y + 0.03, cw[3], 0.6, gain, 'light', 9.5);
-    y += 0.85;
+    y += 0.82;
   });
 
   L.foot(s, 5);
@@ -156,20 +154,22 @@ function value(p) {
     ['OWN', 'Test scenarios written together, the first close run together, documentation left in a form people actually use.'],
   ];
 
-  // Zincirin tek çizgisi: adımların üzerinde durduğu eksen.
-  const cy = cy0 + 0.5, cw = 2.72, gapx = 0.24;
-  L.rule(s, M, cy, CW, RULE.onNavy);
+  // Sıra, çizgiyle değil numarayla kuruluyor: eksen, düğüm ve ok uçları
+  // kaldırıldı; adımları ayıran tek şey aralık ve numaranın ağırlığı.
+  const cy = cy0 + 0.42, cw = 2.72, gapx = 0.24;
   stages.forEach(([k, d], i) => {
     const x = M + i * (cw + gapx);
-    s.addShape('ellipse', { x: x - 0.055, y: cy - 0.055, w: 0.11, h: 0.11,
-      fill: { color: i === 3 ? C.amber : 'FFFFFF' }, line: { color: i === 3 ? C.amber : 'FFFFFF', width: 0.25 } });
-    L.monoLabel(s, x, cy - 0.36, cw, String(i + 1).padStart(2, '0') + '  ' + k, i === 3 ? C.amber : C.amberDark, 8.5);
-    L.body(s, x, cy + 0.24, cw - 0.1, 1.2, d, 'dark', 10);
-    if (i < 3) {
-      const mx = x + cw + gapx / 2;
-      L.seg(s, mx - 0.075, cy - 0.075, mx + 0.02, cy, L.mix(C.navy, 'FFFFFF', 0.55), 0.9);
-      L.seg(s, mx - 0.075, cy + 0.075, mx + 0.02, cy, L.mix(C.navy, 'FFFFFF', 0.55), 0.9);
-    }
+    const accent = i === 3 ? C.amber : C.amberDark;
+    s.addText(String(i + 1).padStart(2, '0'), {
+      x, y: cy, w: cw, h: 0.5, isTextBox: true, margin: 0,
+      fontFace: F.mono, fontSize: 22, color: accent, charSpacing: -0.4, valign: 'middle',
+    });
+    s.addText(k, {
+      x, y: cy + 0.54, w: cw, h: 0.3, isTextBox: true, margin: 0,
+      fontFace: F.display, fontSize: 14, bold: true, color: 'FFFFFF',
+      charSpacing: -0.3, valign: 'middle',
+    });
+    L.body(s, x, cy + 0.94, cw - 0.1, 1.2, d, 'dark', 10);
   });
 
   const also = [
@@ -180,10 +180,10 @@ function value(p) {
     const x = M + i * (CW / 2 + 0.14);
     const w = CW / 2 - 0.28;
     s.addText(t, {
-      x, y: cy + 2.12, w, h: 0.26, isTextBox: true, margin: 0,
+      x, y: cy + 2.46, w, h: 0.26, isTextBox: true, margin: 0,
       fontFace: F.display, fontSize: 12, bold: true, color: 'FFFFFF', charSpacing: -0.25, valign: 'middle',
     });
-    L.body(s, x, cy + 2.43, w, 0.6, d, 'dark', 9.5);
+    L.body(s, x, cy + 2.77, w, 0.6, d, 'dark', 9.5);
   });
 
   L.foot(s, 7, 'dark');

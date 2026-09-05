@@ -68,15 +68,15 @@ const rule = (s, x, y, w, color, width = 0.75) => seg(s, x, y, x + w, y, color, 
 const vrule = (s, x, y, h, color, width = 0.75) => seg(s, x, y, x, y + h, color, width);
 
 /**
- * Bölüm etiketi — sitedeki `.eyebrow`: kısa bir çizgi, ardından
- * monospace büyük harf. Çizgi uzunluğu (1.5rem) ve 0.1em harf
- * aralığı dahil birebir yeniden üretildi.
+ * Bölüm etiketi — sitedeki `.eyebrow`: monospace, büyük harf, 0.1em
+ * harf aralığı. Sitedeki soldaki kısa çizgi BURADA YOK: on iki slaytta
+ * tekrarlanınca desteye çizgi hissi veren şeylerin başında geliyordu.
+ * Etiketi ayıran şey artık yalnızca yüz, renk ve harf aralığı.
  */
 function eyebrow(s, x, y, text, tone = 'light') {
   const col = tone === 'light' ? C.teal : C.amberDark;
-  rule(s, x, y + 0.055, 0.26, col, 1);
   s.addText(text, {
-    x: x + 0.36, y: y - 0.075, w: 6, h: 0.26, isTextBox: true, margin: 0,
+    x, y: y - 0.075, w: 6, h: 0.26, isTextBox: true, margin: 0,
     fontFace: F.mono, fontSize: 8.5, color: col, charSpacing: 0.9, valign: 'middle',
   });
 }

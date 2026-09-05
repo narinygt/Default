@@ -150,7 +150,7 @@ function expertise(p) {
 // =================================================================
 function sapEcosystem(p) {
   const s = p.addSlide();
-  s.background = { color: C.paper };
+  s.background = { color: 'FFFFFF' };
 
   L.header(s, {
     eyebrow: 'SAP EXPERTISE',
@@ -168,7 +168,8 @@ function sapEcosystem(p) {
 
   const boxes = (x, items) => items.forEach(([t, d], i) => {
     const y = topY + i * (bh + gap);
-    s.addShape('rect', { x, y, w: colW, h: bh, fill: { color: 'FFFFFF' }, line: { color: C.soft, width: 0.75 } });
+    // Kutuları ayıran şey kenarlık değil, kendi yüzeyleri.
+    s.addShape('rect', { x, y, w: colW, h: bh, fill: { color: C.soft } });
     s.addText(t, {
       x: x + 0.16, y: y + 0.09, w: colW - 0.32, h: 0.24, isTextBox: true, margin: 0,
       fontFace: F.display, fontSize: 11, bold: true, color: C.teal, charSpacing: -0.2, valign: 'middle',

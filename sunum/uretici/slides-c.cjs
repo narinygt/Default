@@ -155,9 +155,7 @@ function whyCpeak(p) {
      'The people named in the proposal are the people who turn up. You are not charged for a consultant’s learning curve. When scope grows we phase the work rather than inflate the team.'],
   ];
 
-  const pw = 2.72, gapx = 0.24, topY = cy0 + 0.16;
-  // Dört sütunu taşıyan tek çizgi.
-  L.rule(s, M, topY, CW, C.teal, 1);
+  const pw = 2.72, gapx = 0.24, topY = cy0 + 0.1;
   pillars.forEach(([t, d], i) => {
     const x = M + i * (pw + gapx);
     L.monoLabel(s, x, topY + 0.2, pw, String(i + 1).padStart(2, '0'), C.teal, 11);

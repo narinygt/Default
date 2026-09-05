@@ -22,36 +22,43 @@ hiçbir rakam, müşteri iddiası, sertifika, ödül ya da iş ortaklığı
 uydurulmamıştır. Kaynak eşlemesi (TR metin `tr`, EN metin `en`
 anahtarından okunur):
 
-### Sıralama bir argümandır
+### Sayfa sırası
 
-Deste sitenin bölüm sırasını izlemez. Site bir başvuru kaynağıdır;
-sunum ise bir toplantıda savunulan bir sav olmak zorundadır. Sıra şu
-soruları sırasıyla cevaplar: **Bu tablo tanıdık mı? · Yanlış kararın
-bedeli ne? · Buna karşı ne öneriyoruz? · Bunu yapabileceğinizin kanıtı
-ne? · Nasıl çalışıyorsunuz? · Elimde ne kalıyor? · Nasıl başlarım?**
+Sayfa sırası ve numaraları müşterinin verdiği listeye göredir; slayt
+üzerindeki numara o listeyle birebir aynıdır. Kapak ve iletişim sayfası
+numarasızdır.
 
-| Slayt | Rolü | Kaynak |
+| Sayfa | Başlık | Kaynak |
 | --- | --- | --- |
-| 01 Kapak | konumlandırma | `home.ts` — `hero`; görsel: `hero-team.webp` |
-| 02 Başlangıç noktası | müşterinin durumu | `solutions/*.ts` — `challenges`; görsel: `finans-mimari*.webp` |
-| 03 Kararın bedeli | risk | `solutions/*.ts` — `summary`; `approach.ts` — `principles` |
-| 04 Cevabımız | konum + farklar | `about.ts` — `hero`, `story`, `optionalFacts`; `home.ts` — `why`; `references.ts` |
-| 05 Finans çekirdeği | derinlik kanıtı | `solutions/*.ts`; `home.ts` — `aiSection.forClients` |
-| 06 Bulut kararı | fark kanıtı | `solutionsOverview.ts` — `cloud.rows`; görsel: `bulut-modelleri*.webp` |
-| 07 Teknoloji ve iş | fark kanıtı | `home.ts` — `aiSection`; görsel: `yapay-zeka-akisi*.webp` |
-| 08 Nasıl çalışıyoruz | yöntem | `approach.ts` — `principles` |
-| 09 Dört adım | yöntem | `home.ts` — `process`; görsel: `surec-adimlari*.webp` |
-| 10 Elinizde ne kalıyor | somut çıktı | `solutions/*.ts` — `deliverables`; `approach.ts` — `reporting` |
-| 11 Nasıl çalışırız | ticari teklif | `approach.ts` — `engagement`, `notDoing` |
-| 12 Kapanış | sonraki adım | `src/config/site.ts`; `pages/contact.ts`; görsel: `quantum-duotone.webp` |
+| — | Kapak | `home.ts` — `hero`; görsel: `hero-team.webp` |
+| 01 | SAP Finans Modülleri | `solutions/finance.ts`; görsel: `finans-mimari*.webp` |
+| 02 | S/4HANA Dönüşümü | `solutions/s4hana.ts` — geçiş yöntemleri tablosu |
+| 03 | SAP Public Cloud | `solutions/publicCloud.ts` — katman şeması |
+| 04 | SAP Private Cloud | `solutions/privateCloud.ts` — sorumluluk şeması |
+| 05 | Public / Private karşılaştırması | `solutionsOverview.ts` — `cloud.rows`; görsel: `bulut-modelleri*.webp` |
+| 06 | Yapay Zeka ve Finans | `home.ts` — `aiSection`; görsel: `yapay-zeka-akisi*.webp` |
+| 07 | Teslim edilenler | `solutions/*.ts` — `deliverables`; `approach.ts` — `reporting` |
+| 08 | Nasıl çalışırız | `home.ts` — `process`; görsel: `surec-adimlari*.webp` |
+| 09 | Referanslar | `src/data/references.ts` — logoların tamamı |
+| 10 | Yaklaşımımız | `approach.ts` — `principles`, `engagement` |
+| 11 | Ne üzerinde çalışıyoruz | `about.ts` — `focus`, `optionalFacts`; `approach.ts` — `notDoing` |
+| — | İletişim | `src/config/site.ts`; `pages/contact.ts`; görsel: `quantum-duotone.webp` |
 
-Site metni değişirse `icerik.cjs` elle güncellenir — betikler `src/`
-içinden okuma yapmaz, çünkü sunum dili site dilinin kısaltılmış hâlidir,
-birebir kopyası değil.
+**Metinler site cümlelerinin kopyası değildir.** Bilgi sitedendir;
+ifade slayt için kısaltılmış ve kurumsal sunum diline yeniden
+yazılmıştır. Site metni değişirse `icerik.cjs` elle güncellenir —
+betikler `src/` içinden okuma yapmaz.
 
-Slayt başlıkları konu adı değil, **iddia** cümleleridir: "SAP ekosistemi"
-yerine "Dört dağıtım modelinin hepsi aynı finans çekirdeğine bağlanır".
-Başlıkları arka arkaya okumak destenin savını verir.
+Çözüm sayfaları (01–04) ortak bir iskelet kullanır: solda hep aynı sıra
+(çalışma adımları → kime uygun → süre), sağda sayfaya göre değişen alan
+— görsel, tablo ya da şema.
+
+### Logo
+
+Her içerik sayfasının **sağ üst köşesinde** sabit konumda durur; başlık
+bloğu sola yaslı olduğu için orası her slaytta boştur. Kapak ve iletişim
+sayfası logoyu büyük boyutta taşır. Alt bilgide yalnızca sayfa numarası
+vardır.
 
 ## Görseller
 

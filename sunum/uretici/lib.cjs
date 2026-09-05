@@ -143,6 +143,100 @@ function refStrip(s, x0, bandY, bandH, budget, assetDir) {
   });
 }
 
+/**
+ * Referans logolarının tamamı — satırlara sarılmış duvar. Şeritle aynı
+ * ölçü mantığı (ortak yükseklik tavanı + logoya özel genişlik tavanı),
+ * yalnızca ölçek büyük. Her satır kendi içinde ortalanır.
+ */
+function refWall(s, x0, y0, boxW, assetDir, o = {}) {
+  const refs = require('./refs.json');
+  const maxH = o.maxH || 0.42, k = o.k || 0.0105;
+  const gap = o.gap || 0.52, rowGap = o.rowGap || 0.62;
+
+  const sized = refs.map((r) => {
+    const maxW = r.w * k, ar = r.iw / r.ih;
+    let h = maxH, w = h * ar;
+    if (w > maxW) { w = maxW; h = w / ar; }
+    return { r, w, h };
+  });
+
+  // Satır sayısı önce hesaplanır, sonra logolar satırlara EŞİT genişlik
+  // hedefiyle dağıtılır. Doğrudan taşma-sarma yapılsa son satırda tek
+  // logo kalıyor ve duvar yamuk görünüyordu.
+  const totalW = sized.reduce((n, it) => n + it.w, 0) + gap * (sized.length - 1);
+  const rowCount = Math.max(1, Math.ceil(totalW / boxW));
+  const target = totalW / rowCount;
+
+  const rows = [[]];
+  let used = 0;
+  for (const it of sized) {
+    const cur = rows[rows.length - 1];
+    const add = it.w + (cur.length ? gap : 0);
+    if (cur.length && used + add / 2 > target && rows.length < rowCount) {
+      rows.push([it]); used = it.w; continue;
+    }
+    cur.push(it); used += add;
+  }
+
+  rows.forEach((row, ri) => {
+    const total = row.reduce((n, it, i) => n + it.w + (i ? gap : 0), 0);
+    let x = x0 + (boxW - total) / 2;
+    const rowY = y0 + ri * (maxH + rowGap);
+    row.forEach((it, i) => {
+      if (i) x += gap;
+      const file = 'ref-' + it.r.src.split('/').pop().replace(/\.(svg|webp)$/, '') + '.png';
+      s.addImage({ path: assetDir + file, x, y: rowY + (maxH - it.h) / 2, w: it.w, h: it.h });
+      x += it.w;
+    });
+  });
+  return rows.length;
+}
+
+/**
+ * Marka işareti — her içerik sayfasının SAĞ ÜST köşesinde, sabit
+ * konumda. Başlık bloğu sola yaslı olduğu için burası her slaytta
+ * boştur; band ya da görsel taşan sayfalarda da çakışmaz.
+ */
+function brand(s, tone, assetDir) {
+  const w = 1.15;
+  s.addImage({
+    path: assetDir + (tone === 'dark' ? 'logo-dark.png' : 'logo-light.png'),
+    x: W - M - w, y: 0.5, w, h: w / 2.905,
+  });
+}
+
+/**
+ * Yığılmış blok şeması — 03'teki katman ayrımı ve 04'teki sorumluluk
+ * dağılımı aynı öğeyle çizilir. `solidFor` içindeki sıra numaraları
+ * dolu (teal) blok olur, diğerleri açık yüzey.
+ */
+function schema(s, x, y0, w, label, rows, note, solidIdx = []) {
+  monoLabel(s, x, y0, w, label, C.teal, 7.5);
+  const h = rows.length > 2 ? 0.92 : 1.45;
+  let y = y0 + 0.32;
+  rows.forEach(([head, desc], i) => {
+    const solid = solidIdx.indexOf(i) !== -1;
+    s.addShape('rect', { x, y, w, h, fill: { color: solid ? C.teal : C.soft } });
+    s.addText(head, {
+      x: x + 0.28, y: y + 0.14, w: w - 0.56, h: 0.26, isTextBox: true, margin: 0,
+      fontFace: F.mono, fontSize: 8.5, color: solid ? C.amberDark : C.sep,
+      charSpacing: 0.8, valign: 'middle',
+    });
+    s.addText(desc, {
+      x: x + 0.28, y: y + 0.42, w: w - 0.56, h: h - 0.56, isTextBox: true, margin: 0,
+      fontFace: F.body, fontSize: 9.5, color: solid ? 'FFFFFF' : C.ink,
+      lineSpacing: 12.5, valign: 'top',
+    });
+    y += h + 0.16;
+  });
+  if (note) {
+    s.addText(note, {
+      x, y: y + 0.06, w, h: 0.5, isTextBox: true, margin: 0,
+      fontFace: F.body, fontSize: 9, color: C.muted, lineSpacing: 12, valign: 'top',
+    });
+  }
+}
+
 /** Koyu bandın içine düşen sayfa numarası. */
 function pageNo(s, n, bandColor, y) {
   s.addText(String(n).padStart(2, '0'), {
@@ -152,13 +246,9 @@ function pageNo(s, n, bandColor, y) {
   });
 }
 
-/** Alt bilgi: solda isim, sağda slayt numarası. Çizgi ya da şerit yok. */
-function foot(s, n, tone = 'light', name = 'CPeak Consultancy') {
+/** Alt bilgi: yalnızca sayfa numarası — şirket adı artık logoda. */
+function foot(s, n, tone = 'light') {
   const col = tone === 'light' ? C.sep : mix(C.navy, 'FFFFFF', 0.55);
-  s.addText(name, {
-    x: M, y: 6.94, w: 4, h: 0.24, isTextBox: true, margin: 0,
-    fontFace: F.mono, fontSize: 7.5, color: col, charSpacing: 0.6, valign: 'middle',
-  });
   s.addText(String(n).padStart(2, '0'), {
     x: W - M - 1, y: 6.94, w: 1, h: 0.24, isTextBox: true, margin: 0,
     fontFace: F.mono, fontSize: 7.5, color: col, charSpacing: 0.6,
@@ -249,5 +339,5 @@ function header(s, o) {
   return cy + 0.34;
 }
 
-module.exports = { C, F, mix, estLines, header, pageNo, refStrip, RULE, W, H, M, CW, GUT, COL, colX, span,
+module.exports = { C, F, mix, estLines, header, pageNo, refStrip, refWall, brand, schema, RULE, W, H, M, CW, GUT, COL, colX, span,
   seg, rule, vrule, eyebrow, title, lead, body, monoLabel, foot, ledger };

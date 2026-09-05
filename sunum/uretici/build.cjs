@@ -1,6 +1,6 @@
 /**
- * Her dil için bir .pptx üretir. Yerleşim ortaktır; metin
- * `icerik.cjs` içinden, görseller dile göre `figSuffix` ile seçilir.
+ * Her dil için bir .pptx üretir. Sayfa sırası müşterinin verdiği
+ * listeye göredir; slayt üzerindeki numaralar o listeyle birebir aynıdır.
  *
  *   node build.cjs          → iki dili de üretir
  *   node build.cjs tr       → yalnızca Türkçesini
@@ -17,20 +17,19 @@ function deck(t) {
   p.title = t.title;
   p.subject = t.subject;
 
-  // Sıra bir argümandır: sorun → bedel → cevap → derinlik → fark →
-  // yöntem → somut çıktı → ticari teklif → sonraki adım.
-  a.cover(p, t);            // 01
-  a.problem(p, t);          // 02
-  a.stakes(p, t);           // 03
-  a.answer(p, t);           // 04
-  b.sapCore(p, t);          // 05
-  b.cloudDecision(p, t);    // 06
-  c.techBusiness(p, t);     // 07
-  b.value(p, t);            // 08
-  b.methodology(p, t);      // 09
-  c.deliverables(p, t);     // 10
-  c.engagement(p, t);       // 11
-  c.closing(p, t);          // 12
+  a.cover(p, t);          // kapak
+  a.finance(p, t);        // 01 SAP Finans Modülleri
+  a.s4hana(p, t);         // 02 S/4HANA Dönüşümü
+  a.publicCloud(p, t);    // 03 SAP Public Cloud
+  b.privateCloud(p, t);   // 04 SAP Private Cloud
+  b.compare(p, t);        // 05 Public / Private karşılaştırması
+  b.ai(p, t);             // 06 Yapay Zeka ve Finans
+  b.deliverables(p, t);   // 07 Teslim edilenler
+  c.method(p, t);         // 08 Nasıl çalışırız
+  c.references(p, t);     // 09 Referanslar
+  c.approach(p, t);       // 10 Yaklaşımımız
+  c.focus(p, t);          // 11 Ne üzerinde çalışıyoruz
+  c.closing(p, t);        // iletişim
 
   return p.writeFile({ fileName: t.file + '.pptx' }).then((f) => console.log('yazıldı', f));
 }

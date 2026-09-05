@@ -37,7 +37,9 @@ single accent (`#F5DCA4` for small text on dark). Type: Schibsted Grotesk (displ
 Inter (body), IBM Plex Mono (labels). The recurring motif is the site's own
 ledger-rules-dissolving-into-a-network figure.
 
-Only facts published on the site are used. No client names, project outcomes, revenue,
+Only facts published on the site are used. No client names, project outcomes, headcount,
+certifications or partnership claims appear anywhere — and neither does any pricing, fee,
+cost or payment information.
 headcount, certifications or partnership claims are attached to anything.
 
 ## Rebuilding

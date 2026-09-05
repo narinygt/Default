@@ -23,3 +23,4 @@ Thumbs.db
 
 # Sunum derleme ara çıktıları
 presentation/build/img/
+presentation/build/scene-*.json

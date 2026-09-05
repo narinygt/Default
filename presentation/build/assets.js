@@ -1,9 +1,9 @@
 const sharp = require('sharp');
 const fs = require('fs');
 const path = require('path');
-const OUT = __dirname + '/img';
+const OUT = '/tmp/claude-0/-home-user-Default/6c313414-fc11-5a80-9cf8-49dad1a51f26/scratchpad/img';
 fs.mkdirSync(OUT, { recursive: true });
-const PUB = __dirname + '/../../public';
+const PUB = '/home/user/Default/public';
 
 // ---- CPeak signature texture: ledger rules dissolving into a node network ----
 function ledgerSVG(w, h, stroke, op) {
@@ -37,7 +37,7 @@ function ledgerSVG(w, h, stroke, op) {
   await sharp(`${PUB}/brand/cpeak-logo-on-dark.svg`, { density: 700 }).resize({ width: 1400 }).png().toFile(`${OUT}/logo-dark.png`);
 
   // reference logos -> trimmed transparent PNGs
-  const refs = JSON.parse(fs.readFileSync(__dirname + '/refs.json','utf8'));
+  const refs = JSON.parse(fs.readFileSync('/tmp/claude-0/-home-user-Default/6c313414-fc11-5a80-9cf8-49dad1a51f26/scratchpad/refs.json','utf8'));
   for (const r of refs) {
     const src = PUB + r.src;
     const name = path.basename(r.src).replace(/\.(svg|webp|png)$/, '.png');

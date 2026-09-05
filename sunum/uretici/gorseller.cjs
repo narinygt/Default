@@ -52,10 +52,18 @@ async function figure(name, bg, outName) {
 }
 
 (async () => {
-  await figure('finans-mimari-en', 'FFFFFF', 'fig-finance.jpg');
-  await figure('bulut-modelleri-en', 'F7F8F7', 'fig-cloud.jpg');
-  await figure('surec-adimlari-en', 'FFFFFF', 'fig-process.jpg');
-  await figure('yapay-zeka-akisi-en', 'FFFFFF', 'fig-ai.jpg');
+  // Sitede her görselin iki dili var: '-en' ekli dosya İngilizce,
+  // eksiz olan Türkçe. Sunumda da ikisi birden üretilir.
+  const figures = [
+    ['finans-mimari', 'FFFFFF', 'fig-finance'],
+    ['bulut-modelleri', 'F7F8F7', 'fig-cloud'],
+    ['surec-adimlari', 'FFFFFF', 'fig-process'],
+    ['yapay-zeka-akisi', 'FFFFFF', 'fig-ai'],
+  ];
+  for (const [src, bg, out] of figures) {
+    await figure(src + '-en', bg, out + '.jpg');       // İngilizce
+    await figure(src, bg, out + '-tr.jpg');            // Türkçe
+  }
 
   // KAPAK — sitedeki hero'nun 'background' varyantı: görsel sağa yaslı,
   // sol kenarı uzun bir rampayla lacivert zemine karışıyor. Parlaklık

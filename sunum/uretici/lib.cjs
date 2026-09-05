@@ -116,10 +116,19 @@ function monoLabel(s, x, y, w, text, color, size = 8) {
   });
 }
 
+/** Koyu bandın içine düşen sayfa numarası. */
+function pageNo(s, n, bandColor, y) {
+  s.addText(String(n).padStart(2, '0'), {
+    x: W - M - 1, y, w: 1, h: 0.24, isTextBox: true, margin: 0,
+    fontFace: F.mono, fontSize: 7.5, color: mix(bandColor, 'FFFFFF', 0.5),
+    charSpacing: 0.6, align: 'right', valign: 'middle',
+  });
+}
+
 /** Alt bilgi: solda isim, sağda slayt numarası. Çizgi ya da şerit yok. */
-function foot(s, n, tone = 'light') {
+function foot(s, n, tone = 'light', name = 'CPeak Consultancy') {
   const col = tone === 'light' ? C.sep : mix(C.navy, 'FFFFFF', 0.55);
-  s.addText('CPeak Consultancy', {
+  s.addText(name, {
     x: M, y: 6.94, w: 4, h: 0.24, isTextBox: true, margin: 0,
     fontFace: F.mono, fontSize: 7.5, color: col, charSpacing: 0.6, valign: 'middle',
   });
@@ -213,5 +222,5 @@ function header(s, o) {
   return cy + 0.34;
 }
 
-module.exports = { C, F, mix, estLines, header, RULE, W, H, M, CW, GUT, COL, colX, span,
+module.exports = { C, F, mix, estLines, header, pageNo, RULE, W, H, M, CW, GUT, COL, colX, span,
   seg, rule, vrule, eyebrow, title, lead, body, monoLabel, foot, ledger };

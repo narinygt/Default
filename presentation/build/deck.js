@@ -106,7 +106,7 @@ function vhair(s, x, y, h, color, width = 0.75, transparency = 0) {
     fontFace: F.m, fontSize: 10, charSpacing: 2.4, color: C.amberL, valign: 'middle'
   });
   s.addText(d.h, {
-    isTextBox: true, margin: 0, x: ML, y: 2.60, w: 9.4, h: 2.2,
+    isTextBox: true, margin: 0, x: ML, y: 2.78, w: 9.4, h: 1.8,
     fontFace: F.d, fontSize: d.hSize, bold: true, color: C.white, lineSpacing: d.hLead
   });
   s.addText(d.sub, {
@@ -354,15 +354,7 @@ function vhair(s, x, y, h, color, width = 0.75, transparency = 0) {
       fontFace: F.b, fontSize: 9.5, italic: true, color: C.onDarkDim
     });
   });
-  const px = W / 2;
-  vhair(s, px, cy - 0.05, 3.0, 'FFFFFF', 1, 62);
-  s.addShape(pres.ShapeType.rect, {
-    x: px - 0.68, y: cy + 1.14, w: 1.36, h: 0.42, fill: { color: C.navy }, line: { type: 'none' }
-  });
-  s.addText(d.pivot, {
-    isTextBox: true, margin: 0, x: px - 0.68, y: cy + 1.14, w: 1.36, h: 0.42, align: 'center',
-    fontFace: F.m, fontSize: 9, charSpacing: 1.4, color: C.amber, valign: 'middle'
-  });
+  vhair(s, W / 2, cy - 0.05, 3.0, 'FFFFFF', 1, 62);
   s.addText(d.bottom, {
     isTextBox: true, margin: 0, x: ML, y: 6.02, w: 11.4, h: 0.72, valign: 'top',
     fontFace: F.b, fontSize: 11.5, color: C.onDark, lineSpacing: 18
@@ -444,22 +436,18 @@ function vhair(s, x, y, h, color, width = 0.75, transparency = 0) {
 {
   const d = T.s9;
   const s = slide({ eb: d.eyebrow, title: d.title, titleSize: d.titleSize, titleW: d.titleW, titleY: 0.98 });
-  const ry = 2.52, rh = 0.84;
+  const ry = 2.42, rh = 0.86;
   hair(s, ML, ry - 0.18, CW, C.line, 1);
   d.rows.forEach((r, i) => {
     const y = ry + i * rh;
-    node(s, ML + 0.055, y + 0.24, 0.055, C.teal);
+    node(s, ML + 0.055, y + 0.26, 0.055, C.teal);
     s.addText(r[0], {
-      isTextBox: true, margin: 0, x: ML + 0.32, y: y + 0.02, w: 5.05, h: 0.46, valign: 'middle',
-      fontFace: F.d, fontSize: 14.5, bold: true, color: C.ink
+      isTextBox: true, margin: 0, x: ML + 0.32, y: y + 0.04, w: 4.4, h: 0.44, valign: 'middle',
+      fontFace: F.d, fontSize: 15, bold: true, color: C.ink
     });
     s.addText(r[1], {
-      isTextBox: true, margin: 0, x: ML + 5.6, y: y + 0.07, w: 3.1, h: 0.24,
-      fontFace: F.m, fontSize: 8.5, charSpacing: 1.5, color: C.teal, valign: 'middle'
-    });
-    s.addText(r[2], {
-      isTextBox: true, margin: 0, x: ML + 5.6, y: y + 0.34, w: 5.95, h: 0.28,
-      fontFace: F.b, fontSize: 10.5, color: C.muted, valign: 'middle'
+      isTextBox: true, margin: 0, x: ML + 5.1, y: y + 0.04, w: 6.45, h: 0.44, valign: 'middle',
+      fontFace: F.b, fontSize: 11.5, color: C.muted
     });
     hair(s, ML, y + rh - 0.12, CW, i === d.rows.length - 1 ? C.line : C.soft, 1);
   });
@@ -473,7 +461,7 @@ function vhair(s, x, y, h, color, width = 0.75, transparency = 0) {
     dark: true, bg: C.teal, tex: 'tex-amber.png', eb: d.eyebrow,
     title: d.title, titleSize: d.titleSize, titleW: d.titleW
   });
-  const cw = 5.2, cy = 2.56;
+  const cw = 5.2, cy = 2.62;
   d.cols.forEach((c, i) => {
     const x = i === 0 ? ML : W - ML - cw;
     s.addText(c.t, {
@@ -486,7 +474,7 @@ function vhair(s, x, y, h, color, width = 0.75, transparency = 0) {
     });
     hair(s, x, cy + 0.88, cw, 'FFFFFF', 1, 58);
     c.items.forEach((it, j) => {
-      const y = cy + 1.04 + j * 0.70;
+      const y = cy + 1.10 + j * 0.86;
       node(s, x + 0.05, y + 0.12, 0.05, C.amber);
       s.addText(it, {
         isTextBox: true, margin: 0, x: x + 0.3, y, w: cw - 0.3, h: 0.62, valign: 'top',
@@ -494,9 +482,9 @@ function vhair(s, x, y, h, color, width = 0.75, transparency = 0) {
       });
     });
   });
-  hair(s, ML, 6.22, CW, 'FFFFFF', 1, 58);
+  hair(s, ML, 5.96, CW, 'FFFFFF', 1, 58);
   s.addText(d.statement, {
-    isTextBox: true, margin: 0, x: ML, y: 6.36, w: 11.6, h: 0.34, valign: 'middle',
+    isTextBox: true, margin: 0, x: ML, y: 6.10, w: 11.6, h: 0.34, valign: 'middle',
     fontFace: F.d, fontSize: 12.5, bold: true, color: C.amberL
   });
   s.addNotes(d.notes);
@@ -574,7 +562,7 @@ function vhair(s, x, y, h, color, width = 0.75, transparency = 0) {
   const d = T.s13;
   const s = slide({ eb: d.eyebrow, title: d.title, titleSize: d.titleSize, titleW: d.titleW });
   s.addText(d.note, {
-    isTextBox: true, margin: 0, x: 8.3, y: 1.16, w: 4.15, h: 1.2, valign: 'top',
+    isTextBox: true, margin: 0, x: 8.3, y: 1.20, w: 4.15, h: 1.2, valign: 'top',
     fontFace: F.b, fontSize: 12, color: C.muted, lineSpacing: 19
   });
   const refs = JSON.parse(fs.readFileSync(__dirname + '/refs.json', 'utf8'));

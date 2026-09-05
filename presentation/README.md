@@ -14,20 +14,20 @@ written in the register of the site's own Turkish content, not translated word f
 
 | # | English | Türkçe |
 |---|---|---|
-| 01 | Finance is the least forgiving part of an ERP | Finans, bir ERP'nin en affetmez alanıdır |
-| 02 | Depth is a choice, not a limitation | Derinlik bir tercihtir, kısıt değil |
-| 03 | The most expensive decisions are taken first | En pahalı kararlar en başta alınır |
-| 04 | Three disciplines that only make sense together | Yalnızca birlikte anlam kazanan üç disiplin |
-| 05 | We read the system before we recommend anything | Öneride bulunmadan önce sistemi okuruz |
-| 06 | We do not sell a cloud model | Bulut modeli satmıyoruz |
-| 07 | Nothing starts until the last thing has closed | Bir öncekiler kapanmadan hiçbir şey başlamaz |
-| 08 | Expertise is only worth what it changes | Uzmanlık, ancak değiştirdiği kadar değerlidir |
-| 09 | Organised around the question you are asking | Sorduğunuz asıl sorunun etrafında düzenlendi |
-| 10 | We use AI twice | Yapay zekayı iki yerde kullanırız |
-| 11 | A specialism is defined by what it excludes | Bir uzmanlık, dışarıda bıraktıklarıyla tanımlanır |
-| 12 | Three shapes | Üç biçim |
-| 13 | The landscapes the experience comes from | Deneyimin geldiği kurumsal yapılar |
-| 14 | The people named in the proposal turn up | Teklifte adı geçen kişiler, projeye gelen kişilerdir |
+| 01 | Finance-led SAP transformation | Finans odaklı SAP dönüşümü |
+| 02 | Depth over breadth | Genişlik değil, derinlik |
+| 03 | Early decisions, lasting consequences | Erken kararlar, kalıcı sonuçlar |
+| 04 | Three disciplines, one practice | Üç disiplin, tek uzmanlık |
+| 05 | Evidence before advice | Tavsiyeden önce kanıt |
+| 06 | A measured cloud decision | Ölçülmüş bir bulut kararı |
+| 07 | Four stages, four deliverables | Dört adım, dört çıktı |
+| 08 | From capability to outcome | Yetkinlikten sonuca |
+| 09 | Five areas of expertise | Beş uzmanlık alanı |
+| 10 | AI in the system and in delivery | Sistemde ve teslimde yapay zeka |
+| 11 | Clear boundaries | Net sınırlar |
+| 12 | Three engagement models | Üç çalışma modeli |
+| 13 | Experience in complex landscapes | Karmaşık yapılarda deneyim |
+| 14 | Senior consultants, start to finish | Baştan sona kıdemli ekip |
 
 ## Design system
 

@@ -102,7 +102,7 @@ function vhair(s, x, y, h, color, width = 0.75, transparency = 0) {
     fontFace: F.d, fontSize: 44, bold: true, color: C.white, lineSpacing: 51
   });
 
-  s.addText('An independent consultancy, built narrow on purpose: the decisions that are most expensive to reverse are the ones we do ourselves.', {
+  s.addText('Built narrow on purpose: the decisions most expensive to reverse are the ones we do ourselves.', {
     isTextBox: true, margin: 0, x: ML, y: 4.86, w: 7.5, h: 0.9,
     fontFace: F.b, fontSize: 14.5, color: C.onDark, lineSpacing: 24
   });
@@ -124,14 +124,14 @@ function vhair(s, x, y, h, color, width = 0.75, transparency = 0) {
 {
   const s = slide({ eb: 'Positioning', title: 'Depth is a choice,\nnot a limitation.', titleSize: 38, titleW: 6.0 });
 
-  s.addText('The common model in SAP consulting is to sell broad scope, then source a different specialist for each area. It reads well in a proposal — and it is how the most consequential finance decision ends up with the person who has seen it least often.', {
+  s.addText('Sell broad scope, then source a specialist for each area — and the most consequential finance decision reaches the person who has seen it least often.', {
     isTextBox: true, margin: 0, x: ML, y: 3.05, w: 5.35, h: 1.5,
     fontFace: F.b, fontSize: 13.5, color: C.muted, lineSpacing: 22
   });
 
-  vhair(s, ML, 4.85, 1.0, C.teal, 2);
+  vhair(s, ML, 4.30, 1.0, C.teal, 2);
   s.addText('If we take an engagement, it means we are not subcontracting the difficult part of it.', {
-    isTextBox: true, margin: 0, x: ML + 0.28, y: 4.85, w: 5.05, h: 1.0,
+    isTextBox: true, margin: 0, x: ML + 0.28, y: 4.30, w: 5.05, h: 1.0,
     fontFace: F.d, fontSize: 16, bold: true, color: C.teal, lineSpacing: 24
   });
 
@@ -190,14 +190,14 @@ function vhair(s, x, y, h, color, width = 0.75, transparency = 0) {
     title: 'The most expensive decisions\nare taken first — when\nthe least is known.', titleSize: 30, titleW: 6.5
   });
 
-  s.addText('Enterprise structure. Conversion route. Cloud model. Each is settled in the opening weeks of a programme and paid for over the decade that follows.', {
+  s.addText('Enterprise structure. Conversion route. Cloud model. Settled in the opening weeks — paid for over the next decade.', {
     isTextBox: true, margin: 0, x: ML, y: 3.28, w: 5.3, h: 1.1,
     fontFace: F.b, fontSize: 13, color: C.onDark, lineSpacing: 21
   });
 
-  vhair(s, ML, 4.62, 1.0, C.amber, 2);
+  vhair(s, ML, 4.32, 1.0, C.amber, 2);
   s.addText('Advice given without measurement is a guess — and the cost of that guess falls to you.', {
-    isTextBox: true, margin: 0, x: ML + 0.28, y: 4.62, w: 5.0, h: 1.0,
+    isTextBox: true, margin: 0, x: ML + 0.28, y: 4.32, w: 5.0, h: 1.0,
     fontFace: F.d, fontSize: 15, bold: true, color: C.amberL, lineSpacing: 22
   });
 
@@ -249,9 +249,9 @@ function vhair(s, x, y, h, color, width = 0.75, transparency = 0) {
   const s = slide({ eb: 'Where we stand', title: 'Three disciplines that only\nmake sense together.', titleSize: 34, titleW: 8.8 });
 
   const cols = [
-    { t: 'THE FINANCE PROCESS', h: 'How the business actually closes its books', b: 'FI, CO, PA and PS — enterprise structure, chart of accounts, costing, margin and the close calendar.' },
-    { t: 'THE PLATFORM', h: 'The ground the process has to run on', b: 'ECC, S/4HANA on-premise, Cloud ERP Private Edition and Public Edition — compared, not advocated.' },
-    { t: 'THE AUTOMATION', h: 'What can safely stop being done by hand', b: 'SAP’s embedded AI in matching, anomaly detection and predictive accounting — measured before enabling.' }
+    { t: 'THE FINANCE PROCESS', h: 'How the business actually closes its books', b: 'FI, CO, PA and PS — structure, costing, margin, the close.' },
+    { t: 'THE PLATFORM', h: 'The ground the process has to run on', b: 'ECC, S/4HANA, Private and Public Cloud — compared, not advocated.' },
+    { t: 'THE AUTOMATION', h: 'What can safely stop being done by hand', b: 'Matching, anomaly detection, predictive accounting — measured before enabling.' }
   ];
   const cw = 3.42, cgap = 0.68, cy = 2.92;
   cols.forEach((c, i) => {
@@ -341,7 +341,7 @@ function vhair(s, x, y, h, color, width = 0.75, transparency = 0) {
     isTextBox: true, margin: 0, x: rx, y: 2.62, w: 4.4, h: 0.9,
     fontFace: F.d, fontSize: 15, bold: true, color: C.ink, lineSpacing: 21
   });
-  s.addText('Every recommendation starts from what the system is doing, not from what the process documentation says it does. The distance between the two is not a detail — in most landscapes it is the problem itself.', {
+  s.addText('What the system does, not what the documentation says it does. The distance between the two is usually the problem itself.', {
     isTextBox: true, margin: 0, x: rx, y: 3.68, w: 4.4, h: 1.4,
     fontFace: F.b, fontSize: 11.5, color: C.muted, lineSpacing: 18.5
   });
@@ -369,12 +369,12 @@ function vhair(s, x, y, h, color, width = 0.75, transparency = 0) {
   const cols = [
     {
       t: 'PUBLIC CLOUD', h: 'You adopt the standard.',
-      b: 'Speed, a predictable run cost and upgrades you do not manage — in exchange for a core that cannot be modified.',
+      b: 'Speed and a predictable run cost — for a core that cannot be modified.',
       m: '3–5 months', ml: 'single-country finance deployment'
     },
     {
       t: 'PRIVATE CLOUD', h: 'You keep your process logic.',
-      b: 'Flexibility, including your own developments — in exchange for more responsibility and a longer implementation.',
+      b: 'Your own developments kept — for more responsibility and a longer build.',
       m: '7–14 months', ml: 'depending on scope and inherited landscape'
     }
   ];
@@ -416,7 +416,7 @@ function vhair(s, x, y, h, color, width = 0.75, transparency = 0) {
     fontFace: F.m, fontSize: 9, charSpacing: 1.4, color: C.amber, valign: 'middle'
   });
 
-  s.addText('Neither is the advanced version of the other. We compare your processes against standard scope item by item, put both costs and both constraints side by side, and leave the reasoning on paper. The decision stays yours — and the right moment to take it is before signing.', {
+  s.addText('Neither is the advanced version of the other. We put both costs and both constraints side by side; the decision stays yours, and the moment to take it is before signing.', {
     isTextBox: true, margin: 0, x: ML, y: 6.0, w: 11.2, h: 0.72,
     fontFace: F.b, fontSize: 11.5, color: C.onDark, lineSpacing: 18
   });
@@ -429,16 +429,16 @@ function vhair(s, x, y, h, color, width = 0.75, transparency = 0) {
 {
   const s = slide({ eb: 'How the work moves', title: 'Nothing starts until the\nlast thing has closed.', titleSize: 36, titleW: 7.0 });
 
-  s.addText('What each stage delivers is agreed before it begins, and the decision to continue is taken again at every gate. That is what stops a programme collapsing under its own weight.', {
+  s.addText('What each stage delivers is agreed before it begins. At every gate the decision to continue is taken again.', {
     isTextBox: true, margin: 0, x: 7.6, y: 1.18, w: 4.85, h: 1.2,
     fontFace: F.b, fontSize: 11.5, color: C.muted, lineSpacing: 18
   });
 
   const stages = [
-    { n: '01', t: 'Assessment', d: 'Diagnostic report with prioritised findings, read from system data', w: '2–6 weeks' },
-    { n: '02', t: 'Architecture\nand roadmap', d: 'Target architecture and a phased roadmap, options costed side by side', w: '3–6 weeks' },
-    { n: '03', t: 'Delivery', d: 'Working system, test records and an hour-by-hour cutover plan', w: '3–14 months' },
-    { n: '04', t: 'Hypercare', d: 'The first close run alongside your team, plus an improvement backlog', w: '4–12 weeks' }
+    { n: '01', t: 'Assessment', d: 'Diagnostic report, read from system data', w: '2–6 weeks' },
+    { n: '02', t: 'Architecture\nand roadmap', d: 'Target architecture and phased roadmap', w: '3–6 weeks' },
+    { n: '03', t: 'Delivery', d: 'Working system, test records, cutover plan', w: '3–14 months' },
+    { n: '04', t: 'Hypercare', d: 'First close run with your team, improvement backlog', w: '4–12 weeks' }
   ];
   const sy = 3.05, cw = 2.62, cgap = 0.38;
   hair(s, ML, sy, CW, C.line, 1);
@@ -494,9 +494,9 @@ function vhair(s, x, y, h, color, width = 0.75, transparency = 0) {
   hair(s, ML, hy + 0.34, CW, C.line, 1);
 
   const rows = [
-    ['Depth in FI and CO, not breadth beside it', 'Rebuild the close so steps run in parallel instead of waiting on each other', 'A close that is predictable, not merely shorter'],
-    ['A genuinely neutral read on the cloud models', 'Compare your processes against standard scope, item by item, before the contract', 'A model decision that survives the middle of the project'],
-    ['AI put where the hours actually are', 'Calibrate matching thresholds against your own data and write the oversight rules down', 'The team moves from matching items to reviewing exceptions']
+    ['Depth in FI and CO, not breadth beside it', 'Rebuild the close to run in parallel, not in sequence', 'A close that is predictable, not merely shorter'],
+    ['A neutral read on the cloud models', 'Compare your processes to standard scope, before the contract', 'A model decision that survives the middle of the project'],
+    ['AI put where the hours actually are', 'Calibrate thresholds on your own data, write the oversight rules down', 'The team moves from matching items to reviewing exceptions']
   ];
   rows.forEach((r, ri) => {
     const y = hy + 0.62 + ri * 1.16;
@@ -562,10 +562,10 @@ function vhair(s, x, y, h, color, width = 0.75, transparency = 0) {
   const cols = [
     {
       t: 'IN YOUR FINANCE PROCESSES', h: 'Embedded in SAP, not bought beside it',
-      items: ['Intelligent matching — bank and open items cleared from learned clearing behaviour',
-        'Anomaly detection — unusual postings flagged before the close rather than after',
-        'Predictive accounting — the effect of not-yet-final transactions visible during the period',
-        'Joule — a natural-language layer for querying and navigation']
+      items: ['Intelligent matching — bank and open items cleared automatically',
+        'Anomaly detection — unusual postings flagged before the close',
+        'Predictive accounting — the effect of not-yet-final transactions',
+        'Joule — natural-language querying and navigation']
     },
     {
       t: 'IN HOW WE DELIVER', h: 'Applied to volume work, not judgement',
@@ -611,20 +611,20 @@ function vhair(s, x, y, h, color, width = 0.75, transparency = 0) {
 {
   const s = slide({ eb: 'Boundaries', title: 'A specialism is defined\nby what it excludes.', titleSize: 36, titleW: 6.4 });
 
-  s.addText('Saying what we do not do matters as much as saying what we do. We turn the following down, because we do not believe we are the right party for it.', {
+  s.addText('Saying what we do not do matters as much as saying what we do.', {
     isTextBox: true, margin: 0, x: ML, y: 2.96, w: 5.0, h: 1.0,
     fontFace: F.b, fontSize: 12.5, color: C.muted, lineSpacing: 20
   });
-  vhair(s, ML, 4.42, 1.0, C.teal, 2);
+  vhair(s, ML, 3.90, 1.0, C.teal, 2);
   s.addText('It costs us work. It is also why the engagements we do take are ones we can finish.', {
-    isTextBox: true, margin: 0, x: ML + 0.28, y: 4.42, w: 4.75, h: 1.0,
+    isTextBox: true, margin: 0, x: ML + 0.28, y: 3.90, w: 4.75, h: 1.0,
     fontFace: F.d, fontSize: 15, bold: true, color: C.teal, lineSpacing: 22
   });
 
   const items = [
-    'Lead responsibility for SAP modules outside our specialism — logistics, production planning, HR',
-    'Staff augmentation: supplying capacity without architectural or delivery responsibility',
-    'Fixed-price transformation commitments made before an assessment has been done',
+    'Lead responsibility for modules outside our specialism — logistics, production planning, HR',
+    'Staff augmentation without architectural or delivery responsibility',
+    'Fixed-price commitments made before an assessment',
     'Software development or infrastructure operations as a service'
   ];
   const ix = 6.6, iw = W - ML - ix;
@@ -651,11 +651,11 @@ function vhair(s, x, y, h, color, width = 0.75, transparency = 0) {
   const s = slide({ eb: 'Ways in', title: 'Three shapes. Which one fits\nis clear in one conversation.', titleSize: 34, titleW: 9.5 });
 
   const models = [
-    { t: 'Assessment', w: 'A decision has to be taken and the evidence for it is missing: conversion route, cloud model, or a health check on the landscape you run today.', o: 'You end it in a position to decide.', d: '2–6 weeks' },
-    { t: 'Delivery', w: 'The decision is taken and it needs building: a transformation, an implementation or a substantial redesign.', o: 'Phased plan, weekly reporting, cutover and hypercare included.', d: '3–14 months' },
-    { t: 'Expert support', w: 'Your team or another partner runs the programme and depth is needed in one place: a design review, a second opinion, one workstream.', o: 'Narrow scope, agreed output, not extended past its usefulness.', d: 'Days to weeks' }
+    { t: 'Assessment', w: 'A decision has to be taken and the evidence is missing: conversion route, cloud model, a health check.', o: 'You end it in a position to decide.', d: '2–6 weeks' },
+    { t: 'Delivery', w: 'The decision is taken and it needs building: a transformation, an implementation, a redesign.', o: 'Phased plan, weekly reporting, cutover and hypercare included.', d: '3–14 months' },
+    { t: 'Expert support', w: 'Someone else runs the programme and depth is needed in one place: a review, a second opinion, one workstream.', o: 'Narrow scope, agreed output, not extended past its usefulness.', d: 'Days to weeks' }
   ];
-  const cw = 3.62, cgap = 0.42, cy = 2.58, ch = 3.68;
+  const cw = 3.62, cgap = 0.42, cy = 2.62, ch = 3.32;
   models.forEach((m, i) => {
     const x = ML + i * (cw + cgap);
     s.addShape(pres.ShapeType.rect, {
@@ -669,16 +669,16 @@ function vhair(s, x, y, h, color, width = 0.75, transparency = 0) {
       fontFace: F.d, fontSize: 19, bold: true, color: C.ink, valign: 'middle'
     });
     s.addText(m.w, {
-      isTextBox: true, margin: 0, x: x + 0.46, y: cy + 1.24, w: cw - 0.92, h: 1.4,
+      isTextBox: true, margin: 0, x: x + 0.46, y: cy + 1.24, w: cw - 0.92, h: 1.1,
       fontFace: F.b, fontSize: 11, color: C.muted, lineSpacing: 17.5
     });
-    hair(s, x + 0.46, cy + 2.72, cw - 0.92, C.soft, 1);
+    hair(s, x + 0.46, cy + 2.42, cw - 0.92, C.soft, 1);
     s.addText(m.o, {
-      isTextBox: true, margin: 0, x: x + 0.46, y: cy + 2.86, w: cw - 0.92, h: 0.52,
+      isTextBox: true, margin: 0, x: x + 0.46, y: cy + 2.56, w: cw - 0.92, h: 0.52,
       fontFace: F.b, fontSize: 10.5, italic: true, color: C.ink, lineSpacing: 16
     });
     s.addText(m.d, {
-      isTextBox: true, margin: 0, x: x + 0.46, y: cy + 3.36, w: cw - 0.92, h: 0.28, align: 'right',
+      isTextBox: true, margin: 0, x: x + 0.46, y: cy + 3.02, w: cw - 0.92, h: 0.28, align: 'right',
       fontFace: F.m, fontSize: 10.5, color: C.teal, valign: 'middle'
     });
   });
@@ -695,7 +695,7 @@ function vhair(s, x, y, h, color, width = 0.75, transparency = 0) {
 {
   const s = slide({ eb: 'References', title: 'The landscapes the\nexperience comes from.', titleSize: 33, titleW: 7.2 });
 
-  s.addText('More than ten years of hands-on delivery across SAP finance modules and cloud architecture — in multi-entity groups, regulated industries and high-volume operations.', {
+  s.addText('More than ten years across SAP finance modules and cloud architecture.', {
     isTextBox: true, margin: 0, x: 8.0, y: 1.16, w: 4.45, h: 1.4,
     fontFace: F.b, fontSize: 12, color: C.muted, lineSpacing: 19
   });
@@ -747,10 +747,10 @@ function vhair(s, x, y, h, color, width = 0.75, transparency = 0) {
   });
 
   const pillars = [
-    ['SENIOR ONLY', 'The team is small and senior. You are not charged for a consultant’s learning curve.'],
-    ['NARROW BY DESIGN', 'We stay in finance and cloud architecture. The difficult part is not subcontracted.'],
-    ['NEUTRAL', 'We compare, you decide, and the reasoning stays on paper for the people who ask later.'],
-    ['PHASED', 'When scope grows we phase the work rather than inflate the team.']
+    ['SENIOR ONLY', 'A small, senior team. No one’s learning curve on your budget.'],
+    ['NARROW BY DESIGN', 'Finance and cloud architecture only. The difficult part is not subcontracted.'],
+    ['NEUTRAL', 'We compare, you decide, the reasoning stays on paper.'],
+    ['PHASED', 'Scope grows in phases, not in headcount.']
   ];
   const pw = 2.62, pgap = 0.24, py = 2.92;
   pillars.forEach((p, i) => {

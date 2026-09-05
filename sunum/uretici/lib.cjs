@@ -116,6 +116,33 @@ function monoLabel(s, x, y, w, text, color, size = 8) {
   });
 }
 
+/**
+ * Referans logoları şeridi — sitedeki bandın ölçü mantığıyla: ortak bir
+ * YÜKSEKLİK tavanı + logoya özel GENİŞLİK tavanı. Bütçeye sığan kadarı
+ * yerleştirilir ve şerit ortalanır.
+ */
+function refStrip(s, x0, bandY, bandH, budget, assetDir) {
+  const refs = require('./refs.json');
+  const maxH = 0.30, k = 0.0072;
+  const placed = [];
+  let used = 0;
+  for (const r of refs) {
+    const maxW = r.w * k, ar = r.iw / r.ih;
+    let h = maxH, w = h * ar;
+    if (w > maxW) { w = maxW; h = w / ar; }
+    if (used + w + (placed.length ? 0.34 : 0) > budget) continue;
+    used += w + (placed.length ? 0.34 : 0);
+    placed.push({ r, w, h });
+  }
+  let lx = x0 + (budget - used) / 2;
+  placed.forEach(({ r, w, h }, i) => {
+    if (i) lx += 0.34;
+    const file = 'ref-' + r.src.split('/').pop().replace(/\.(svg|webp)$/, '') + '.png';
+    s.addImage({ path: assetDir + file, x: lx, y: bandY + (bandH - h) / 2, w, h });
+    lx += w;
+  });
+}
+
 /** Koyu bandın içine düşen sayfa numarası. */
 function pageNo(s, n, bandColor, y) {
   s.addText(String(n).padStart(2, '0'), {
@@ -222,5 +249,5 @@ function header(s, o) {
   return cy + 0.34;
 }
 
-module.exports = { C, F, mix, estLines, header, pageNo, RULE, W, H, M, CW, GUT, COL, colX, span,
+module.exports = { C, F, mix, estLines, header, pageNo, refStrip, RULE, W, H, M, CW, GUT, COL, colX, span,
   seg, rule, vrule, eyebrow, title, lead, body, monoLabel, foot, ledger };

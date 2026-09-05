@@ -17,18 +17,20 @@ function deck(t) {
   p.title = t.title;
   p.subject = t.subject;
 
-  a.cover(p, t);
-  a.whoWeAre(p, t);
-  a.expertise(p, t);
-  a.sapEcosystem(p, t);
-  b.solutions(p, t);
-  b.cloudDecision(p, t);
-  b.value(p, t);
-  b.methodology(p, t);
-  c.techBusiness(p, t);
-  c.engagements(p, t);
-  c.whyCpeak(p, t);
-  c.closing(p, t);
+  // Sıra bir argümandır: sorun → bedel → cevap → derinlik → fark →
+  // yöntem → somut çıktı → ticari teklif → sonraki adım.
+  a.cover(p, t);            // 01
+  a.problem(p, t);          // 02
+  a.stakes(p, t);           // 03
+  a.answer(p, t);           // 04
+  b.sapCore(p, t);          // 05
+  b.cloudDecision(p, t);    // 06
+  c.techBusiness(p, t);     // 07
+  b.value(p, t);            // 08
+  b.methodology(p, t);      // 09
+  c.deliverables(p, t);     // 10
+  c.engagement(p, t);       // 11
+  c.closing(p, t);          // 12
 
   return p.writeFile({ fileName: t.file + '.pptx' }).then((f) => console.log('yazıldı', f));
 }

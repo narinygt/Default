@@ -64,7 +64,7 @@ const en = {
 
   sap: {
     eyebrow: 'SAP EXPERTISE',
-    title: 'One finance core, four deployment models, one embedded AI layer',
+    title: 'All four deployment models resolve to the same finance core',
     leftLabel: 'DEPLOYMENT MODELS',
     rightLabel: 'EMBEDDED AI CAPABILITIES',
     left: [
@@ -86,7 +86,8 @@ const en = {
       'The financial close, redesigned step by step',
       'Statutory and management reporting from one source',
     ],
-    footnote: 'SAP’s AI capabilities are embedded in the system rather than bought separately. Enabling all of them is not a strategy — we assess which ones your data volume and process discipline can support, and sequence them.',
+    areasLabel: 'SERVICE AREAS',
+    areas: 'SAP Finance Modules · S/4HANA Transformation · SAP Public Cloud · SAP Private Cloud · AI in Finance',
     notes: 'SAP yetkinlik haritası. Dağıtım modelleri ve yapay zeka yetenekleri sitede geçenlerin aynısı. İş ortaklığı ya da sertifika iddiası yok.',
   },
 
@@ -117,7 +118,7 @@ const en = {
 
   cloud: {
     eyebrow: 'CLOUD ARCHITECTURE',
-    title: 'Public or Private Cloud — the most expensive decision to reverse',
+    title: 'We take no side on the cloud model; we measure and place them side by side',
     lead: 'Not the advanced and the cheap version of one another, but different trades.',
     tags: ['PUBLIC', 'PRIVATE'],
     rows: [
@@ -171,7 +172,7 @@ const en = {
   ai: {
     eyebrow: 'TECHNOLOGY AND BUSINESS',
     title: 'We use AI on both sides: in your processes and in how we work',
-    lead: 'Not a separate service line, but part of both the system we deliver and the method we use to deliver it.',
+    lead: 'SAP’s AI capabilities are embedded in the system rather than bought separately. Enabling all of them is not a strategy — we assess which ones your data volume and process discipline can support, and sequence them.',
     blocks: [
       ['IN YOUR FINANCE PROCESSES', 'Automation your team keeps', [
         'Intelligent matching of bank and open items',
@@ -231,6 +232,105 @@ const en = {
        'The people named in the proposal are the people who turn up. You are not charged for a consultant’s learning curve. When scope grows we phase the work rather than inflate the team.'],
     ],
     notes: 'Ana sayfadaki dört fark. Referans şeridi sitenin kendi logo bandıdır.',
+  },
+
+
+  problem: {
+    eyebrow: 'WHERE WE START',
+    title: 'The problem is rarely the system; it is the decisions that accumulated inside it',
+    lead: 'The sentences below are the ones we hear most often in a first conversation. None of them describe a broken system — they describe a structure that drifted.',
+    items: [
+      'The close takes a different number of days every month and nobody can point to where the time goes.',
+      'FI and CO disagree, and the reconciliation happens manually outside the system.',
+      'Every advisor gives a different answer to brownfield versus greenfield, and none of them show their reasoning.',
+      'Whether Public Cloud is “enough” gets debated at length while the actual processes are never compared to the standard scope.',
+      'Errors are found after the close, when correction costs more than prevention would have.',
+    ],
+    notes: 'Deste müşterinin dünyasından açılıyor. Beş cümle sitedeki çözüm sayfalarının challenges dizilerinden birebir alındı.',
+  },
+
+  stakes: {
+    eyebrow: 'WHAT IS AT STAKE',
+    title: 'What these decisions share is that reversing them is expensive',
+    items: [
+      ['THE CLOSE', 'Finance is the least forgiving area of an ERP: a decision made in the chart of accounts constrains group reporting three years later.'],
+      ['CONVERSION ROUTE', 'That single decision sets the duration, the cost and the technical debt you carry for the next decade.'],
+      ['CLOUD MODEL', 'The trade works very well for the right organisation and becomes obvious halfway through the project for the wrong one.'],
+      ['FINDING OUT LATE', 'On a slipping project the expensive part is rarely the slippage itself — it is finding out late.'],
+    ],
+    closingLine: 'Each of these is decided once, early, and paid for over years. That is the whole argument for measuring before recommending.',
+    notes: 'Argümanın motoru: kararların bedeli. Dört cümle de sitedeki çözüm özetlerinden ve yaklaşım sayfasından.',
+  },
+
+  answer: {
+    eyebrow: 'OUR ANSWER',
+    title: 'So we kept the scope narrow: finance modules and cloud architecture',
+    lead: 'An independent consultancy working end to end on the finance modules across SAP ECC, S/4HANA, Private Cloud and Public Cloud. Taking an engagement means not subcontracting the difficult part of it.',
+    facts: 'FOUNDED 2021  ·  ISTANBUL  ·  TÜRKİYE, EMEA AND THE UNITED STATES',
+    refsLabel: 'REFERENCES',
+    pillars: [
+      ['Real depth in the finance modules',
+       'FI and CO are our core discipline, not a capability brought along beside something else. On decisions that are expensive to reverse you get the view of someone who has lived the consequences several times.'],
+      ['Neutral on the cloud model',
+       'We do not advocate for Public or Private Cloud. We compare your processes against standard scope and put the cost and constraint of both models side by side for your situation.'],
+      ['Delivery accelerated by AI',
+       'We use AI for the volume work: analysis, documentation, test generation and migration reconciliation. It shortens the preparation phases and leaves senior time for judgement.'],
+      ['Senior consultants on every engagement',
+       'The people named in the proposal are the people who turn up. You are not charged for a consultant’s learning curve, and when scope grows we phase the work rather than inflate the team.'],
+    ],
+    notes: 'Odak, kurumsal bilgi ve dört fark tek slaytta: bu bir "hakkımızda" değil, argümanın cevabı. Referans şeridi sitenin kendi logo bandı.',
+  },
+
+  deliverables: {
+    eyebrow: 'WHAT YOU GET',
+    title: 'What each phase leaves you is a document people use, not a slide pack',
+    lead: 'What gets delivered is agreed before a phase starts, and how you see progress is fixed at the outset and not changed mid-project.',
+    leftLabel: 'DELIVERABLES',
+    left: [
+      'Diagnostic report with prioritised findings',
+      'Target architecture, chart of accounts and enterprise structure',
+      'Configuration documentation',
+      'Data migration plan with reconciliation reporting',
+      'Test scenarios and recorded test results',
+      'Hour-by-hour cutover plan with rollback criteria',
+      'Key user training and an operating handbook',
+    ],
+    rightLabel: 'VISIBILITY DURING THE ENGAGEMENT',
+    right: [
+      'Weekly status: completed, in progress, risks, awaiting your decision',
+      'Open decision list: who decides what, and by when',
+      'Risk register with a named owner, impact and mitigation',
+      'Phase-end pack: documentation, test records, acceptance criteria',
+      'Change log: every scope change with its effect on time and cost',
+    ],
+    footnote: 'If the process stalls when the consultant leaves, the work was not finished. We treat that as an acceptance criterion rather than a courtesy.',
+    notes: 'Sitede duran ama desteye hiç girmemiş malzeme: teslim kalemleri ve raporlama düzeni. Bir sunumu web sitesi özetinden ayıran şey tam olarak bu somutluk.',
+  },
+
+  engagement: {
+    eyebrow: 'HOW TO ENGAGE US',
+    title: 'Not every need calls for a full programme',
+    lead: 'We work in three shapes, and we establish which one fits during the first conversation.',
+    models: [
+      ['Assessment', '2–6 weeks',
+       'You need to take a decision and lack the evidence for it: conversion approach, cloud model selection, or a health check on an existing landscape.',
+       'System analysis, interviews, prioritised findings and a reasoned recommendation. You end it in a position to decide.'],
+      ['Delivery', '3–14 months',
+       'The decision is taken and it needs building: a transformation, an implementation or a substantial redesign.',
+       'Phased plan, weekly status reporting, defined deliverables and cutover. Hypercare included.'],
+      ['Expert support', 'Days to weeks',
+       'Your team or another partner is running the programme and depth is needed in one area: a design review or a second opinion.',
+       'Narrow, clearly defined scope with an agreed output. Not extended past its usefulness.'],
+    ],
+    declineLabel: 'WORK WE DECLINE',
+    declineLead: 'Saying what we do not do matters as much as saying what we do.',
+    decline: [
+      'Lead responsibility for SAP modules outside our specialism — logistics, production planning, HR',
+      'Staff augmentation without architectural or delivery responsibility',
+      'Fixed-price transformation commitments made before an assessment',
+      'Software development or infrastructure operations as a service',
+    ],
+    notes: 'Ticari teklif ve üstlenmediğimiz işler. İkincisi gerçek bir danışmanlık sunumunun güven kuran slaytıdır ve sitede yazılı olduğu hâlde destede yoktu.',
   },
 
   closing: {
@@ -303,7 +403,7 @@ const tr = {
 
   sap: {
     eyebrow: 'SAP UZMANLIĞI',
-    title: 'Tek finans çekirdeği, dört dağıtım modeli, bir yerleşik yapay zeka katmanı',
+    title: 'Dört dağıtım modelinin hepsi aynı finans çekirdeğine bağlanır',
     leftLabel: 'DAĞITIM MODELLERİ',
     rightLabel: 'YERLEŞİK YAPAY ZEKA YETENEKLERİ',
     left: [
@@ -325,7 +425,8 @@ const tr = {
       'Kapanış sürecinin adım adım yeniden kurgulanması',
       'Yasal ve yönetsel raporlamanın tek kaynaktan üretilmesi',
     ],
-    footnote: 'SAP’nin yapay zeka yetenekleri ayrı bir ürün olarak satın alınmaz, sistemin içinde yerleşiktir. Hepsini açmak strateji değildir — hangisinin sizde çalışacak veri hacmine ve süreç disiplinine sahip olduğunu ölçer, sırayla devreye alırız.',
+    areasLabel: 'ÇÖZÜM ALANLARI',
+    areas: 'SAP Finans Modülleri · S/4HANA Dönüşümü · SAP Public Cloud · SAP Private Cloud · Yapay Zeka ile Finans',
     notes: 'SAP yetkinlik haritası. Dağıtım modelleri ve yapay zeka yetenekleri sitede geçenlerin aynısı. İş ortaklığı ya da sertifika iddiası yok.',
   },
 
@@ -356,7 +457,7 @@ const tr = {
 
   cloud: {
     eyebrow: 'BULUT MİMARİSİ',
-    title: 'Public mu Private Cloud mu — geri dönüşü en pahalı karar',
+    title: 'Bulut modelinde taraf tutmuyoruz; ölçüp yan yana koyuyoruz',
     lead: 'Biri diğerinin gelişmiş ya da ucuz sürümü değil; farklı takaslar.',
     tags: ['PUBLIC', 'PRIVATE'],
     rows: [
@@ -410,7 +511,7 @@ const tr = {
   ai: {
     eyebrow: 'TEKNOLOJİ VE İŞ',
     title: 'Yapay zekayı iki tarafta da kullanıyoruz: sizin süreçlerinizde ve kendi çalışma şeklimizde',
-    lead: 'Ayrı bir hizmet başlığı değil; hem sunduğumuz sistemin hem de kendi yöntemimizin parçası.',
+    lead: 'SAP’nin yapay zeka yetenekleri ayrı bir ürün olarak satın alınmaz, sistemin içinde yerleşiktir. Hepsini açmak strateji değildir — hangisinin sizde karşılığı olduğunu ölçer, sırayla devreye alırız.',
     blocks: [
       ['SİZİN FİNANS SÜREÇLERİNİZDE', 'Ekipte kalan otomasyon', [
         'Banka ve cari kalemlerin akıllı mutabakatı',
@@ -470,6 +571,105 @@ const tr = {
        'Projeye teklifte adı geçen kişiler gelir. Danışmanın öğrenme süresini size fatura etmeyiz. Kapsam büyüdüğünde ekibi büyütmek yerine işi fazlara böleriz.'],
     ],
     notes: 'Ana sayfadaki dört fark. Referans şeridi sitenin kendi logo bandıdır.',
+  },
+
+
+  problem: {
+    eyebrow: 'BAŞLANGIÇ NOKTASI',
+    title: 'Sorun çoğu zaman sistemde değil, sistemin içinde biriken kararlarda',
+    lead: 'Aşağıdaki cümleler ilk görüşmelerde en sık duyduklarımız. Hiçbiri bozuk bir sistemi anlatmıyor; zamanla dağılmış bir yapıyı anlatıyor.',
+    items: [
+      'Ay sonu kapanışı her ay farklı sürüyor; gecikmenin nerede oluştuğu ölçülemiyor.',
+      'Aynı bilgi FI ve CO tarafında farklı çıkıyor; mutabakat elle Excel’de yapılıyor.',
+      'Brownfield mi greenfield mi sorusuna her danışman farklı ve gerekçesiz bir cevap veriyor.',
+      'Public Cloud’un yeterli olup olmayacağı tartışılıyor ancak süreçler standart kapsamla karşılaştırılmıyor.',
+      'Hatalar kapanıştan sonra fark ediliyor; düzeltme maliyeti, önceden yakalamanın maliyetinden yüksek.',
+    ],
+    notes: 'Deste müşterinin dünyasından açılıyor. Beş cümle sitedeki çözüm sayfalarının challenges dizilerinden birebir alındı.',
+  },
+
+  stakes: {
+    eyebrow: 'KARARIN BEDELİ',
+    title: 'Bu kararların ortak özelliği, geri dönüşlerinin pahalı olması',
+    items: [
+      ['KAPANIŞ', 'Finans modülü, ERP’nin en az affeden alanıdır: hesap planında verilen bir karar üç yıl sonra raporlamayı kilitler.'],
+      ['GEÇİŞ YÖNTEMİ', 'Yöntem kararı, projenin süresini, maliyetini ve önümüzdeki on yıl taşınacak teknik borcu baştan belirler.'],
+      ['BULUT MODELİ', 'Takas doğru şirkette çok iyi çalışır; yanlış şirkette ise projenin ortasında anlaşılır.'],
+      ['GEÇ DUYMAK', 'Geciken bir projede en pahalı şey gecikmenin kendisi değil, geç duyulmasıdır.'],
+    ],
+    closingLine: 'Dördü de bir kez, erken verilir ve yıllarca ödenir. Önce ölçüp sonra öneriyor olmamızın tek gerekçesi budur.',
+    notes: 'Argümanın motoru: kararların bedeli. Dört cümle de sitedeki çözüm özetlerinden ve yaklaşım sayfasından.',
+  },
+
+  answer: {
+    eyebrow: 'CEVABIMIZ',
+    title: 'Bu yüzden kapsamı dar tuttuk: finans modülleri ve bulut mimarisi',
+    lead: 'SAP ECC, S/4HANA, Private Cloud ve Public Cloud ortamlarında uçtan uca finans modülleri üzerine çalışan bağımsız bir danışmanlığız. Bir işi almamız, en zor kısmını devretmeyeceğimiz anlamına gelir.',
+    facts: 'KURULUŞ 2021  ·  İSTANBUL  ·  TÜRKİYE, EMEA VE ABD',
+    refsLabel: 'REFERANSLAR',
+    pillars: [
+      ['Finans modülünde gerçek derinlik',
+       'FI ve CO bizim için yan yetkinlik değil, ana uzmanlık alanımızdır. Geri dönüşü pahalı kararlarda, konuyu daha önce defalarca yaşamış birinin görüşünü alırsınız.'],
+      ['Bulut modelinde tarafsızlık',
+       'Public Cloud ve Private Cloud arasında belirli bir modeli savunmuyoruz. Süreçlerinizi standart kapsamla karşılaştırır, iki modelin sizin durumunuzdaki maliyetini ve kısıtını yan yana koyarız.'],
+      ['Yapay zeka ile hızlandırılmış teslim',
+       'Analiz, dokümantasyon, test üretimi ve migrasyon kontrolü gibi hacimli işlerde yapay zeka kullanıyoruz. Bu, hazırlık fazlarını kısaltıyor ve kıdemli zamanı karar gerektiren işlere bırakıyor.'],
+      ['Projede kıdemli danışman çalışır',
+       'Teklifte adı geçen kişiler projeye fiilen gelir. Danışmanın öğrenme süresini size fatura etmeyiz; kapsam büyüdüğünde ekibi büyütmek yerine işi fazlara böleriz.'],
+    ],
+    notes: 'Odak, kurumsal bilgi ve dört fark tek slaytta: bu bir "hakkımızda" değil, argümanın cevabı. Referans şeridi sitenin kendi logo bandı.',
+  },
+
+  deliverables: {
+    eyebrow: 'ELİNİZDE NE KALIYOR',
+    title: 'Her fazın sonunda kalan şey bir sunum değil, kullanılan bir doküman',
+    lead: 'Neyin teslim edileceği faz başlamadan anlaşılır; işin nerede olduğunu nasıl göreceğiniz de baştan sabitlenir ve proje boyunca değişmez.',
+    leftLabel: 'TESLİM KALEMLERİ',
+    left: [
+      'Mevcut durum teşhis raporu ve önceliklendirilmiş bulgular',
+      'Hedef mimari, hesap planı ve organizasyon yapısı dokümanı',
+      'Yapılandırma (customizing) dokümantasyonu',
+      'Veri migrasyon planı ve mutabakat raporları',
+      'Test senaryoları ve test sonuç kayıtları',
+      'Saat bazında devreye alma planı ve geri dönüş kriterleri',
+      'Anahtar kullanıcı eğitimi ve işletme el kitabı',
+    ],
+    rightLabel: 'PROJE BOYUNCA GÖRÜNÜRLÜK',
+    right: [
+      'Haftalık durum raporu: tamamlananlar, riskler, karar bekleyenler',
+      'Açık karar listesi: kimin, neye, ne zamana kadar karar vereceği',
+      'Risk kaydı: her riskin sahibi, etkisi ve azaltma planı',
+      'Faz sonu teslim paketi: doküman, test kaydı, kabul kriteri',
+      'Kapsam değişikliği kaydı: süre ve maliyet etkisiyle birlikte',
+    ],
+    footnote: 'Danışman çıktığında süreç duruyorsa iş bitmemiştir. Bunu bir nezaket değil, bir kabul kriteri olarak görüyoruz.',
+    notes: 'Sitede duran ama desteye hiç girmemiş malzeme: teslim kalemleri ve raporlama düzeni. Bir sunumu web sitesi özetinden ayıran şey tam olarak bu somutluk.',
+  },
+
+  engagement: {
+    eyebrow: 'NASIL ÇALIŞIRIZ',
+    title: 'Her ihtiyaç tam kapsamlı bir proje gerektirmez',
+    lead: 'Üç çalışma biçimimiz var; hangisinin uygun olduğunu ilk görüşmede birlikte belirleriz.',
+    models: [
+      ['Değerlendirme', '2–6 hafta',
+       'Bir karar vermeniz gerekiyor ve elinizde yeterli veri yok: geçiş yöntemi, bulut modeli seçimi ya da mevcut kurulumun sağlık kontrolü.',
+       'Sistem taraması, görüşmeler, önceliklendirilmiş bulgular ve gerekçeli öneri. Sonunda karar verebilecek durumda olursunuz.'],
+      ['Proje teslimi', '3–14 ay',
+       'Kararı vermişsiniz ve uygulanması gerekiyor: dönüşüm, kurulum ya da kapsamlı yeniden yapılandırma.',
+       'Fazlı plan, haftalık durum raporu, tanımlı teslim kalemleri ve devreye alma. Hypercare dahil.'],
+      ['Uzman desteği', 'Birkaç gün – birkaç hafta',
+       'Projeyi kendi ekibiniz ya da başka bir danışman yürütüyor, belirli bir konuda derinlik gerekiyor: tasarım gözden geçirmesi ya da ikinci görüş.',
+       'Kapsam sınırlı ve net tanımlıdır, çıktı üzerinde baştan anlaşılır. Çalışma gereksiz yere uzatılmaz.'],
+    ],
+    declineLabel: 'ÜSTLENMEDİĞİMİZ İŞLER',
+    declineLead: 'Neyi yapmadığımızı söylemek, ne yaptığımızı söylemek kadar önemlidir.',
+    decline: [
+      'Uzmanlık alanımız dışındaki SAP modüllerinin ana sorumluluğu — lojistik, üretim planlama, İK',
+      'Yalnızca kaynak sağlama: mimari ya da teslim sorumluluğu üstlenmeden danışman temini',
+      'Değerlendirme yapılmadan sabit fiyatla taahhüt edilen dönüşüm projeleri',
+      'Yazılım geliştirme ya da altyapı işletim hizmeti',
+    ],
+    notes: 'Ticari teklif ve üstlenmediğimiz işler. İkincisi gerçek bir danışmanlık sunumunun güven kuran slaytıdır ve sitede yazılı olduğu hâlde destede yoktu.',
   },
 
   closing: {

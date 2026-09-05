@@ -1,10 +1,9 @@
 const L = require('./lib.cjs');
 const { C, F, W, H, M, CW, span } = L;
 const A = './assets/';
-const refs = require('./refs.json');
 
 // =================================================================
-// 09 — TEKNOLOJİ VE İŞ
+// 07 — TEKNOLOJİ VE İŞ
 // =================================================================
 function techBusiness(p, t) {
   const c = t.ai;
@@ -47,57 +46,54 @@ function techBusiness(p, t) {
     { text: c.stanceBody, options: { fontFace: F.body, fontSize: 9.5, color: C.muted } },
   ], { x: cx + 0.28, y, w: cwd - 0.28, h: 0.6, isTextBox: true, margin: 0, lineSpacing: 13, valign: 'top' });
 
-  L.foot(s, 9, 'light', t.foot);
+  L.foot(s, 7, 'light', t.foot);
   s.addNotes(c.notes);
   return s;
 }
 
 // =================================================================
-// 10 — PRATİKTE PROJELER
+// 10 — ELİNİZDE NE KALIYOR
 // =================================================================
-function engagements(p, t) {
-  const c = t.cases;
+function deliverables(p, t) {
+  const c = t.deliverables;
   const s = p.addSlide();
   s.background = { color: C.paper };
 
   const cy0 = L.header(s, {
     eyebrow: c.eyebrow, title: c.title, lead: c.lead,
-    w: span(10), leadW: span(8), size: 26,
-  });
-  s.addText(c.tag, {
-    x: W - M - 4.2, y: cy0 - 0.52, w: 4.2, h: 0.24, isTextBox: true, margin: 0,
-    fontFace: F.mono, fontSize: 7.5, color: C.sep, charSpacing: 0.75, align: 'right', valign: 'middle',
+    w: span(10), leadW: span(10), size: 25,
   });
 
-  // Üç sütun beyaz bir yüzeyin üstünde: ayraç çizgisi yok.
-  const cw = 3.72, gapx = 0.38, topY = cy0 + 0.05;
-  c.items.forEach(([sector, scale, ...body], i) => {
-    const x = M + i * (cw + gapx);
-    s.addShape('rect', { x: x - 0.22, y: topY, w: cw + 0.44, h: 4.26, fill: { color: 'FFFFFF' } });
-    s.addText(sector, {
-      x, y: topY + 0.24, w: cw, h: 0.3, isTextBox: true, margin: 0,
-      fontFace: F.display, fontSize: 15, bold: true, color: C.teal, charSpacing: -0.3, valign: 'middle',
+  const panelH = 3.34;
+  const panel = (x, w, label, items) => {
+    s.addShape('rect', { x, y: cy0, w, h: panelH, fill: { color: 'FFFFFF' } });
+    L.monoLabel(s, x + 0.3, cy0 + 0.3, w - 0.6, label, C.teal, 7.5);
+    let y = cy0 + 0.64;
+    items.forEach((txt) => {
+      s.addShape('ellipse', { x: x + 0.32, y: y + 0.115, w: 0.075, h: 0.075,
+        fill: { color: C.teal }, line: { color: C.teal, width: 0.25 } });
+      s.addText(txt, {
+        x: x + 0.58, y, w: w - 0.88, h: 0.32, isTextBox: true, margin: 0,
+        fontFace: F.body, fontSize: 9.5, color: C.ink, lineSpacing: 12.5, valign: 'top',
+      });
+      y += 0.35;
     });
-    L.monoLabel(s, x, topY + 0.58, cw, scale, C.sep, 7);
-    let y = topY + 0.94;
-    body.forEach((txt, j) => {
-      L.monoLabel(s, x, y, cw, c.labels[j], C.teal, 7);
-      L.body(s, x, y + 0.22, cw, 0.9, txt, 'light', 9.5);
-      y += 1.1;
-    });
-  });
+  };
+  panel(M, 5.6, c.leftLabel, c.left);
+  panel(M + 5.98, CW - 5.98, c.rightLabel, c.right);
 
-  L.body(s, M, topY + 4.44, span(10), 0.4, c.disclaimer, 'light', 8.5);
+  L.body(s, M, cy0 + panelH + 0.28, span(10), 0.5, c.footnote, 'light', 9.5);
+
   L.foot(s, 10, 'light', t.foot);
   s.addNotes(c.notes);
   return s;
 }
 
 // =================================================================
-// 11 — NEDEN CPEAK
+// 11 — ÇALIŞMA MODELLERİ VE ÜSTLENMEDİĞİMİZ İŞLER
 // =================================================================
-function whyCpeak(p, t) {
-  const c = t.why;
+function engagement(p, t) {
+  const c = t.engagement;
   const s = p.addSlide();
   s.background = { color: C.paper };
 
@@ -106,42 +102,44 @@ function whyCpeak(p, t) {
     w: span(10), leadW: span(9), size: 26,
   });
 
-  const pw = 2.72, gapx = 0.24, topY = cy0 + 0.1;
-  c.pillars.forEach(([title, d], i) => {
-    const x = M + i * (pw + gapx);
-    L.monoLabel(s, x, topY + 0.2, pw, String(i + 1).padStart(2, '0'), C.teal, 11);
-    s.addText(title, {
-      x, y: topY + 0.52, w: pw - 0.1, h: 0.62, isTextBox: true, margin: 0,
-      fontFace: F.display, fontSize: 13.5, bold: true, color: C.teal, charSpacing: -0.3, lineSpacing: 17, valign: 'top',
+  const cw = 3.72, gapx = 0.38, panelH = 2.9;
+  c.models.forEach(([name, dur, when, shape], i) => {
+    const x = M + i * (cw + gapx);
+    s.addShape('rect', { x: x - 0.22, y: cy0, w: cw + 0.44, h: panelH, fill: { color: 'FFFFFF' } });
+    s.addText(name, {
+      x, y: cy0 + 0.26, w: cw - 1.2, h: 0.3, isTextBox: true, margin: 0,
+      fontFace: F.display, fontSize: 15, bold: true, color: C.teal, charSpacing: -0.3, valign: 'middle',
     });
-    L.body(s, x, topY + 1.2, pw - 0.1, 1.7, d, 'light', 9.5);
+    s.addText(dur, {
+      x: x + cw - 1.35, y: cy0 + 0.26, w: 1.35, h: 0.3, isTextBox: true, margin: 0,
+      fontFace: F.mono, fontSize: 8, color: C.muted, charSpacing: 0.5,
+      align: 'right', valign: 'middle',
+    });
+    L.body(s, x, cy0 + 0.68, cw, 0.95, when, 'light', 9.5);
+    L.body(s, x, cy0 + 1.62, cw, 0.95, shape, 'light', 9.5);
   });
 
-  // Referans şeridi — sitenin kendi logo bandı, çerçevesiz.
-  const bandY = 5.62, bandH = 1.06;
-  s.addShape('rect', { x: 0, y: bandY, w: W, h: bandH, fill: { color: 'FFFFFF' } });
-  L.monoLabel(s, M, bandY + bandH / 2 - 0.1, 1.5, c.refsLabel, C.sep, 7.5);
-
-  const maxH = 0.30, k = 0.0072, budget = CW - 1.62;
-  const placed = [];
-  let used = 0;
-  for (const r of refs) {
-    const maxW = r.w * k, ar = r.iw / r.ih;
-    let h = maxH, w = h * ar;
-    if (w > maxW) { w = maxW; h = w / ar; }
-    if (used + w + (placed.length ? 0.34 : 0) > budget) continue;
-    used += w + (placed.length ? 0.34 : 0);
-    placed.push({ r, w, h });
-  }
-  let lx = M + 1.62 + (budget - used) / 2;
-  placed.forEach(({ r, w, h }, i) => {
-    if (i) lx += 0.34;
-    const file = 'ref-' + r.src.split('/').pop().replace(/\.(svg|webp)$/, '') + '.png';
-    s.addImage({ path: A + file, x: lx, y: bandY + (bandH - h) / 2, w, h });
-    lx += w;
+  // Üstlenmediğimiz işler — koyu bant, sayfa kenarına dayanır.
+  const bandY = 5.5;
+  s.addShape('rect', { x: 0, y: bandY, w: W, h: H - bandY, fill: { color: C.teal } });
+  L.monoLabel(s, M, bandY + 0.28, span(6), c.declineLabel, C.amberDark, 7.5);
+  s.addText(c.declineLead, {
+    x: M, y: bandY + 0.5, w: span(10), h: 0.28, isTextBox: true, margin: 0,
+    fontFace: F.display, fontSize: 12, bold: true, color: 'FFFFFF', charSpacing: -0.25, valign: 'middle',
   });
+  const dw = CW / 2 - 0.3;
+  c.decline.forEach((txt, i) => {
+    const x = M + (i % 2) * (dw + 0.6);
+    const y = bandY + 0.92 + Math.floor(i / 2) * 0.46;
+    s.addShape('ellipse', { x: x + 0.02, y: y + 0.105, w: 0.075, h: 0.075,
+      fill: { color: C.amberDark }, line: { color: C.amberDark, width: 0.25 } });
+    s.addText(txt, {
+      x: x + 0.28, y, w: dw - 0.28, h: 0.4, isTextBox: true, margin: 0,
+      fontFace: F.body, fontSize: 9.5, color: C.onDark, lineSpacing: 12.5, valign: 'top',
+    });
+  });
+  L.pageNo(s, 11, C.teal, H - 0.34);
 
-  L.foot(s, 11, 'light', t.foot);
   s.addNotes(c.notes);
   return s;
 }
@@ -181,4 +179,4 @@ function closing(p, t) {
   return s;
 }
 
-module.exports = { techBusiness, engagements, whyCpeak, closing };
+module.exports = { techBusiness, deliverables, engagement, closing };

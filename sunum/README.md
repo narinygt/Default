@@ -22,24 +22,36 @@ hiçbir rakam, müşteri iddiası, sertifika, ödül ya da iş ortaklığı
 uydurulmamıştır. Kaynak eşlemesi (TR metin `tr`, EN metin `en`
 anahtarından okunur):
 
-| Slayt | Kaynak |
-| --- | --- |
-| 01 Kapak | `src/data/home.ts` — `hero`; görsel: `hero-team.webp` |
-| 02 Biz kimiz | `src/data/pages/about.ts` — `hero`, `story`, `optionalFacts`; `home.ts` — `strip` |
-| 03 Uzmanlık alanları | `about.ts` — `focus`; görsel: `finans-mimari*.webp` |
-| 04 SAP ekosistemi | `src/data/solutions/*.ts`; `home.ts` — `aiSection.forClients` |
-| 05 Çözümler | `solutions/*.ts` — `navTitle`, `navDesc`, `comparison` |
-| 06 Bulut modeli kararı | `pages/solutionsOverview.ts` — `cloud.rows`; görsel: `bulut-modelleri*.webp` |
-| 07 Değeri nasıl üretiyoruz | `pages/approach.ts` — `principles` |
-| 08 Çalışma yaklaşımı | `home.ts` — `process`; görsel: `surec-adimlari*.webp` |
-| 09 Teknoloji ve iş | `home.ts` — `aiSection`; görsel: `yapay-zeka-akisi*.webp` |
-| 10 Pratikte projeler | `home.ts` — `scenarios` (sitedeki "temsili senaryo" uyarısıyla) |
-| 11 Neden CPeak | `home.ts` — `why`; `src/data/references.ts` |
-| 12 Kapanış | `src/config/site.ts`; `pages/contact.ts`; görsel: `quantum-duotone.webp` |
+### Sıralama bir argümandır
+
+Deste sitenin bölüm sırasını izlemez. Site bir başvuru kaynağıdır;
+sunum ise bir toplantıda savunulan bir sav olmak zorundadır. Sıra şu
+soruları sırasıyla cevaplar: **Bu tablo tanıdık mı? · Yanlış kararın
+bedeli ne? · Buna karşı ne öneriyoruz? · Bunu yapabileceğinizin kanıtı
+ne? · Nasıl çalışıyorsunuz? · Elimde ne kalıyor? · Nasıl başlarım?**
+
+| Slayt | Rolü | Kaynak |
+| --- | --- | --- |
+| 01 Kapak | konumlandırma | `home.ts` — `hero`; görsel: `hero-team.webp` |
+| 02 Başlangıç noktası | müşterinin durumu | `solutions/*.ts` — `challenges`; görsel: `finans-mimari*.webp` |
+| 03 Kararın bedeli | risk | `solutions/*.ts` — `summary`; `approach.ts` — `principles` |
+| 04 Cevabımız | konum + farklar | `about.ts` — `hero`, `story`, `optionalFacts`; `home.ts` — `why`; `references.ts` |
+| 05 Finans çekirdeği | derinlik kanıtı | `solutions/*.ts`; `home.ts` — `aiSection.forClients` |
+| 06 Bulut kararı | fark kanıtı | `solutionsOverview.ts` — `cloud.rows`; görsel: `bulut-modelleri*.webp` |
+| 07 Teknoloji ve iş | fark kanıtı | `home.ts` — `aiSection`; görsel: `yapay-zeka-akisi*.webp` |
+| 08 Nasıl çalışıyoruz | yöntem | `approach.ts` — `principles` |
+| 09 Dört adım | yöntem | `home.ts` — `process`; görsel: `surec-adimlari*.webp` |
+| 10 Elinizde ne kalıyor | somut çıktı | `solutions/*.ts` — `deliverables`; `approach.ts` — `reporting` |
+| 11 Nasıl çalışırız | ticari teklif | `approach.ts` — `engagement`, `notDoing` |
+| 12 Kapanış | sonraki adım | `src/config/site.ts`; `pages/contact.ts`; görsel: `quantum-duotone.webp` |
 
 Site metni değişirse `icerik.cjs` elle güncellenir — betikler `src/`
 içinden okuma yapmaz, çünkü sunum dili site dilinin kısaltılmış hâlidir,
 birebir kopyası değil.
+
+Slayt başlıkları konu adı değil, **iddia** cümleleridir: "SAP ekosistemi"
+yerine "Dört dağıtım modelinin hepsi aynı finans çekirdeğine bağlanır".
+Başlıkları arka arkaya okumak destenin savını verir.
 
 ## Görseller
 

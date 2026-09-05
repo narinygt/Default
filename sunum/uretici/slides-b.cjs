@@ -3,42 +3,60 @@ const { C, F, W, H, M, CW, span } = L;
 const A = './assets/';
 
 // =================================================================
-// 05 — ÇÖZÜMLER (karşılaştırma tablosu)
+// 05 — SAP FİNANS ÇEKİRDEĞİ
 // =================================================================
-function solutions(p, t) {
-  const c = t.solutions;
+function sapCore(p, t) {
+  const c = t.sap;
   const s = p.addSlide();
   s.background = { color: 'FFFFFF' };
 
-  const cy0 = L.header(s, {
-    eyebrow: c.eyebrow, title: c.title, lead: c.lead,
-    w: span(10), leadW: span(9), size: 25,
+  L.header(s, { eyebrow: c.eyebrow, title: c.title, w: span(9), size: 25 });
+
+  const topY = 2.30, bh = 0.70, gap = 0.155;
+  const colW = span(3), coreX = L.colX(3.6) - 0.1, coreW = span(4.8);
+  const rightX = W - M - colW;
+  const total = 4 * bh + 3 * gap;
+
+  L.monoLabel(s, M, topY - 0.32, colW, c.leftLabel, C.sep, 7.5);
+  L.monoLabel(s, rightX, topY - 0.32, colW, c.rightLabel, C.sep, 7.5);
+
+  const boxes = (x, items) => items.forEach(([title, desc], i) => {
+    const y = topY + i * (bh + gap);
+    // Kutuları ayıran şey kenarlık değil, kendi yüzeyleri.
+    s.addShape('rect', { x, y, w: colW, h: bh, fill: { color: C.soft } });
+    s.addText(title, {
+      x: x + 0.16, y: y + 0.09, w: colW - 0.32, h: 0.24, isTextBox: true, margin: 0,
+      fontFace: F.display, fontSize: 11, bold: true, color: C.teal, charSpacing: -0.2, valign: 'middle',
+    });
+    s.addText(desc, {
+      x: x + 0.16, y: y + 0.33, w: colW - 0.32, h: 0.32, isTextBox: true, margin: 0,
+      fontFace: F.body, fontSize: 8.5, color: C.muted, lineSpacing: 11, valign: 'top',
+    });
+  });
+  boxes(M, c.left);
+  boxes(rightX, c.right);
+
+  s.addShape('rect', { x: coreX, y: topY, w: coreW, h: total, fill: { color: C.teal } });
+  L.monoLabel(s, coreX + 0.3, topY + 0.34, coreW - 0.6, c.coreLabel, C.amberDark, 8);
+  s.addText('FI · CO · PA · PS', {
+    x: coreX + 0.3, y: topY + 0.62, w: coreW - 0.6, h: 0.55, isTextBox: true, margin: 0,
+    fontFace: F.display, fontSize: 27, bold: true, color: 'FFFFFF', charSpacing: -0.6, valign: 'middle',
+  });
+  c.core.forEach((txt, i) => {
+    const y = topY + 1.46 + i * 0.42;
+    s.addShape('ellipse', { x: coreX + 0.32, y: y + 0.10, w: 0.075, h: 0.075,
+      fill: { color: C.amberDark }, line: { color: C.amberDark, width: 0.25 } });
+    s.addText(txt, {
+      x: coreX + 0.56, y, w: coreW - 0.86, h: 0.3, isTextBox: true, margin: 0,
+      fontFace: F.body, fontSize: 10, color: 'FFFFFF', valign: 'middle',
+    });
   });
 
-  const cx = [M, M + 3.35, M + 6.55, M + 8.95];
-  const cw = [3.1, 3.05, 2.25, 2.68];
-
-  // Başlık satırını ayıran şey çizgi değil, altındaki ince yüzey.
-  s.addShape('rect', { x: M - 0.18, y: cy0 - 0.09, w: CW + 0.36, h: 0.4, fill: { color: C.paper } });
-  c.heads.forEach((h, i) => L.monoLabel(s, cx[i], cy0, cw[i], h, C.teal, 7.5));
-
-  let y = cy0 + 0.56;
-  c.rows.forEach(([name, sub, who, dur, gain]) => {
-    s.addText(name, {
-      x: cx[0], y, w: cw[0], h: 0.26, isTextBox: true, margin: 0,
-      fontFace: F.display, fontSize: 12.5, bold: true, color: C.teal, charSpacing: -0.25, valign: 'middle',
-    });
-    s.addText(sub, {
-      x: cx[0], y: y + 0.28, w: cw[0], h: 0.4, isTextBox: true, margin: 0,
-      fontFace: F.body, fontSize: 8.5, color: C.sep, lineSpacing: 11, valign: 'top',
-    });
-    L.body(s, cx[1], y + 0.03, cw[1], 0.66, who, 'light', 9.5);
-    s.addText(dur, {
-      x: cx[2], y: y + 0.03, w: cw[2], h: 0.55, isTextBox: true, margin: 0,
-      fontFace: F.mono, fontSize: 8, color: C.muted, lineSpacing: 12.5, valign: 'top',
-    });
-    L.body(s, cx[3], y + 0.03, cw[3], 0.66, gain, 'light', 9.5);
-    y += 0.82;
+  // Adlandırılmış çözüm alanları — katalog slaytı yerine tek satır.
+  L.monoLabel(s, M, 6.02, span(4), c.areasLabel, C.sep, 7.5);
+  s.addText(c.areas, {
+    x: M, y: 6.26, w: span(11), h: 0.3, isTextBox: true, margin: 0,
+    fontFace: F.display, fontSize: 12, color: C.teal, charSpacing: -0.2, valign: 'middle',
   });
 
   L.foot(s, 5, 'light', t.foot);
@@ -131,7 +149,7 @@ function value(p, t) {
     L.body(s, x, cy + 2.77, w, 0.6, d, 'dark', 9.5);
   });
 
-  L.foot(s, 7, 'dark', t.foot);
+  L.foot(s, 8, 'dark', t.foot);
   s.addNotes(c.notes);
   return s;
 }
@@ -168,9 +186,9 @@ function methodology(p, t) {
     y += 0.55;
   });
 
-  L.foot(s, 8, 'light', t.foot);
+  L.foot(s, 9, 'light', t.foot);
   s.addNotes(c.notes);
   return s;
 }
 
-module.exports = { solutions, cloudDecision, value, methodology };
+module.exports = { sapCore, cloudDecision, value, methodology };

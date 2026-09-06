@@ -29,7 +29,7 @@ function deck(t) {
   c.references(p, t);     // 09 Referanslar
   c.approach(p, t);       // 10 Yaklaşımımız
   c.focus(p, t);          // 11 Ne üzerinde çalışıyoruz
-  c.closing(p, t);        // iletişim
+  c.closing(p, t);        // kurumsal iletişim
 
   return p.writeFile({ fileName: t.file + '.pptx' }).then((f) => console.log('yazıldı', f));
 }

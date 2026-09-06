@@ -237,6 +237,92 @@ function schema(s, x, y0, w, label, rows, note, solidIdx = []) {
   }
 }
 
+
+/**
+ * KAPAK GRAFİĞİ — özgün, markanın renkleriyle.
+ * Sitedeki fotoğraf ya da 3B render kullanılmaz. Sağa yaslı, genişliği
+ * kademeli azalan katman çubukları: finans mimarisinin katmanlı
+ * yapısına gönderme, tek amber vurgu.
+ */
+function coverArt(s, x, y, w, h) {
+  const n = 9, step = h / n, bar = step * 0.62;
+  for (let i = 0; i < n; i++) {
+    const t = i / (n - 1);
+    // Genişlik tek yönde artıp azalır ve çubuklar SAĞ kenara hizalanır:
+    // iki kenarı da oynayan bir dizi rastgele blok gibi okunuyordu.
+    const bw = w * (0.36 + 0.64 * Math.sin(Math.PI * t));
+    const accent = i === 5;
+    s.addShape('rect', {
+      x: x + w - bw, y: y + i * step, w: bw, h: bar,
+      fill: { color: accent ? C.amber : mix(C.navy, 'FFFFFF', 0.09 + 0.15 * Math.sin(Math.PI * t)) },
+    });
+  }
+}
+
+/** Yatay, numaralı akış şeridi. Adımlar arasında ayraç çizgisi yok. */
+function flowRow(s, x, y, w, steps, o = {}) {
+  const tone = o.tone || 'light';
+  const gap = 0.16;
+  const cw = (w - gap * (steps.length - 1)) / steps.length;
+  steps.forEach((step, i) => {
+    const cx = x + i * (cw + gap);
+    const head = Array.isArray(step) ? step[0] : step;
+    const sub = Array.isArray(step) ? step[1] : null;
+    s.addShape('rect', { x: cx, y, w: cw, h: o.h || 0.92,
+      fill: { color: tone === 'dark' ? mix(C.navy, 'FFFFFF', 0.10) : C.soft } });
+    monoLabel(s, cx + 0.18, y + 0.14, cw - 0.36, String(i + 1).padStart(2, '0'),
+      tone === 'dark' ? C.amberDark : C.sep, 7.5);
+    s.addText(head, {
+      x: cx + 0.18, y: y + 0.34, w: cw - 0.36, h: sub ? 0.24 : 0.4, isTextBox: true, margin: 0,
+      fontFace: F.display, fontSize: 10.5, bold: true,
+      color: tone === 'dark' ? 'FFFFFF' : C.teal, charSpacing: -0.2, valign: 'top',
+    });
+    if (sub) {
+      s.addText(sub, {
+        x: cx + 0.18, y: y + 0.58, w: cw - 0.36, h: 0.3, isTextBox: true, margin: 0,
+        fontFace: F.body, fontSize: 8.5, color: tone === 'dark' ? C.onDark : C.muted,
+        lineSpacing: 10.5, valign: 'top',
+      });
+    }
+  });
+}
+
+/**
+ * Gerçek tablo: teal başlık bandı, dönüşümlü satır yüzeyi.
+ * Sütun genişlikleri `widths` ile oransal verilir.
+ */
+function table(s, x, y, w, headers, rows, widths, o = {}) {
+  const sum = widths.reduce((a, b) => a + b, 0);
+  const cols = widths.map((v) => (v / sum) * w);
+  const colX = cols.map((_, i) => x + cols.slice(0, i).reduce((a, b) => a + b, 0));
+  const hh = 0.42, rh = o.rowH || 0.56, pad = 0.22;
+
+  s.addShape('rect', { x, y, w, h: hh, fill: { color: C.teal } });
+  headers.forEach((h, i) => {
+    s.addText(h, {
+      x: colX[i] + pad, y, w: cols[i] - pad * 2, h: hh, isTextBox: true, margin: 0,
+      fontFace: F.mono, fontSize: 7.5, color: C.amberDark, charSpacing: 0.8, valign: 'middle',
+    });
+  });
+
+  rows.forEach((row, r) => {
+    const ry = y + hh + r * rh;
+    if (r % 2 === 0) s.addShape('rect', { x, y: ry, w, h: rh, fill: { color: 'FFFFFF' } });
+    row.forEach((cell, i) => {
+      s.addText(cell, {
+        x: colX[i] + pad, y: ry, w: cols[i] - pad * 2, h: rh, isTextBox: true, margin: 0,
+        fontFace: i === 0 ? F.display : F.body,
+        fontSize: i === 0 ? 10.5 : 9.5,
+        bold: i === 0,
+        color: i === 0 ? C.ink : C.muted,
+        charSpacing: i === 0 ? -0.2 : 0,
+        lineSpacing: 12, valign: 'middle',
+      });
+    });
+  });
+  return hh + rows.length * rh;
+}
+
 /** Koyu bandın içine düşen sayfa numarası. */
 function pageNo(s, n, bandColor, y) {
   s.addText(String(n).padStart(2, '0'), {
@@ -339,5 +425,5 @@ function header(s, o) {
   return cy + 0.34;
 }
 
-module.exports = { C, F, mix, estLines, header, pageNo, refStrip, refWall, brand, schema, RULE, W, H, M, CW, GUT, COL, colX, span,
+module.exports = { C, F, mix, estLines, header, pageNo, refStrip, refWall, brand, schema, coverArt, flowRow, table, RULE, W, H, M, CW, GUT, COL, colX, span,
   seg, rule, vrule, eyebrow, title, lead, body, monoLabel, foot, ledger };

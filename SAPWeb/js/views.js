@@ -201,7 +201,7 @@
       '</div>' +
       (ids.length ? '<div class="resume-m" style="margin-top:16px">' +
         '<span class="resume-bar" style="max-width:200px"><i style="width:' + yuzde + '%"></i></span>' +
-        '<span class="tnum">%' + yuzde + '</span></div>' : '') +
+        '<span class="tnum">' + SAP.i18n.yuzde(yuzde) + '</span></div>' : '') +
     '</header>' +
     (uyari ? '<p class="lang-notice">' + esc(uyari) + '</p>' : '');
 

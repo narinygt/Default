@@ -87,7 +87,8 @@
       SAP.store.d.quiz[topicId] = { dogru: dogruSayisi, toplam: toplam, ts: Date.now() };
       SAP.store.save();
       var yuzde = Math.round((dogruSayisi / toplam) * 100);
-      SAP.toast(T('quiz.done') + ': ' + dogruSayisi + ' / ' + toplam + ' (%' + yuzde + ')');
+      SAP.toast(T('quiz.done') + ': ' + dogruSayisi + ' / ' + toplam +
+                ' (' + SAP.i18n.yuzde(yuzde) + ')');
     }
   });
 

@@ -51,10 +51,10 @@
 
   /* Başlık alanları da mk()'dan geçer: yazar başlıkta {{FB50}} yazdığında çipe
      dönmeli, ham metin kalmamalı. mk() zaten içeride escape ettiği için güvenli. */
-  /* Alt başlık. `ic` parametresi çağrı yerlerinde duruyor ama ÇİZİLMİYOR:
-     tasarım dili ikon yerine tipografik hiyerarşi kullanır (bkz. theme.css
-     ilke 4). İmza korunuyor ki 33 içerik dosyası değişmesin. */
-  function subH(ic, t) { return '<div class="sub-h">' + mk(t) + '</div>'; }
+  /* Alt başlık. `ic` parametresi çağrı yerlerinde duruyor ama ÇİZİLMİYOR
+     (tasarım dili ikon yerine tipografik hiyerarşi kullanır). Etiket
+     i18n'den geçer: bunlar yazar prozası değil renderer etiketidir. */
+  function subH(ic, t) { return '<div class="sub-h">' + mk(SAP.i18n.etiket(t)) + '</div>'; }
 
   /** Soru-cevap bloğu: küçük soru etiketi + paragraf gövdesi. */
   function qa(q, body) {
@@ -66,18 +66,16 @@
      büyük harf etiketiyle belli eder; başlık verilmemişse türün kendi
      adı etiket olur — böylece tür bilgisi yalnızca renge bağlı kalmaz
      (renk körlüğü için de gerekli). */
-  var NOTE_LABEL = { tip:'İpucu', warn:'Dikkat', err:'Hata', info:'Not' };
-  var NOTE_ICON = { tip:'💡', warn:'⚠️', err:'🚫', info:'ℹ️' };
+  var NOTE_KEY = { tip:'note.tip', warn:'note.warn', err:'note.err', info:'note.info' };
 
-  /* Uyarı kutusunda İKON YOK (kullanıcı talebi): kutu zaten üç şeyle
-     kendini anlatıyor — renk, sol kenar şeridi ve "İpucu / Dikkat /
-     Hata / Not" etiketi. Emoji dördüncü bir tekrardı.
-     NOTE_ICON tablosu duruyor; geri istenirse tek satır yeter. */
+  /* Uyarı kutusunda İKON YOK: kutu zaten üç şeyle kendini anlatıyor —
+     renk, sol kenar şeridi ve tür etiketi. Etiket i18n'den gelir. */
   function note(kind, title, body) {
     if (!body) return '';
     return '<div class="note ' + kind + '">' +
       '<div class="bd">' +
-        '<b class="t">' + (title ? mk(title) : esc(NOTE_LABEL[kind] || 'Not')) + '</b>' +
+        '<b class="t">' + (title ? mk(title)
+          : esc(SAP.i18n.t(NOTE_KEY[kind] || 'note.info'))) + '</b>' +
         mk(body) +
       '</div></div>';
   }
@@ -94,7 +92,8 @@
   function tbl(cols, rows) {
     if (!rows || !rows.length) return '';
     var head = cols.map(function (c) {
-      return '<th' + (c.num ? ' class="num"' : '') + (c.w ? ' style="width:' + c.w + '"' : '') + '>' + mk(c.ad) + '</th>';
+      return '<th' + (c.num ? ' class="num"' : '') + (c.w ? ' style="width:' + c.w + '"' : '') +
+             '>' + mk(SAP.i18n.etiket(c.ad)) + '</th>';
     }).join('');
     var body = rows.map(function (r) {
       return '<tr>' + r.map(function (cell, i) {

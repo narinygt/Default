@@ -105,7 +105,8 @@
       '</a>' +
       '<div class="side-scroll">' + nav + gruplar + '</div>' +
       '<div class="side-foot">' +
-        '<div class="pl"><span>' + esc(T('home.progress')) + '</span><b>%' + genel + '</b></div>' +
+        '<div class="pl"><span>' + esc(T('home.progress')) + '</span>' +
+          '<b class="tnum">' + SAP.i18n.yuzde(genel) + '</b></div>' +
         '<div class="bar"><i style="width:' + genel + '%"></i></div>' +
       '</div>';
   }
@@ -184,7 +185,7 @@
 
   /* İndeksteki tür kodları -> i18n anahtarı. Kod saklanır, etiket
      çizim anında dilden gelir; indeksin dil bilmesi gerekmez. */
-  var TUR = { topic: 'nav.home', tcode: 'ref.tcode', table: 'ref.table', term: 'ref.term' };
+  var TUR = { topic: 'search.topic', tcode: 'ref.tcode', table: 'ref.table', term: 'ref.term' };
 
   function rows() {
     return palRes.map(function (r, i) {

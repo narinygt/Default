@@ -2524,6 +2524,7 @@ window.SAP = (function () {
       'notes.saving':    'Yazılıyor…',
       'notes.chars':     'karakter',
       'search.title':    'Arama sonuçları',
+      'search.topic':    'Konu',
       'search.empty':    'Sonuç bulunamadı.',
       'nf.title':        'Sayfa bulunamadı',
       'nf.back':         'İçindekilere dön',
@@ -2610,6 +2611,7 @@ window.SAP = (function () {
       'notes.saving':    'Saving…',
       'notes.chars':     'characters',
       'search.title':    'Search results',
+      'search.topic':    'Topic',
       'search.empty':    'Nothing found.',
       'nf.title':        'Page not found',
       'nf.back':         'Back to contents',
@@ -2737,6 +2739,76 @@ window.SAP = (function () {
       summary: 'Almost every change follows one sentence: compute the total instead of storing it. Most simplifications are removals, not features.' },
   };
 
+  /* ---------------------------------- BÖLÜM İÇİ ETİKETLER (33+) ---
+     Alt başlıklar ve tablo sütun adları. Bunlar YAZAR PROZASI DEĞİL,
+     renderer'ın kendi etiketleridir — bu yüzden gövde Türkçe kalsa da
+     çevrilirler. Anahtar Türkçe metnin kendisidir: içerik dosyalarına
+     dokunmadan çeviri eklenebilsin diye. */
+  var LABELS_EN = {
+    'Adım adım kullanım': 'Step by step',
+    'Alan özeti': 'Field summary',
+    'Alanlar': 'Fields',
+    'Alınabilecek hatalar ve çözümleri': 'Errors you may hit, and the fix',
+    'Arka planda hangi tablolar güncellenir?': 'Which tables are updated behind the scenes?',
+    'Bu konuda geçen anahtar kavramlar': 'Key concepts in this topic',
+    'ECC ile S/4HANA farkları': 'ECC versus S/4HANA',
+    'Ekrana girilenler': 'What you enter on screen',
+    'En önemli alanlar': 'The fields that matter most',
+    'Hangi hesaplar etkilenir ve neden?': 'Which accounts are affected, and why?',
+    'Kalkan / değişen işlem kodları': 'Removed and replaced transaction codes',
+    'Karşılaştırma': 'Comparison',
+    'Kim ne yapar?': 'Who does what?',
+    'Konu özeti': 'Topic summary',
+    'Mini quiz': 'Quick quiz',
+    'Muhasebe mantığı': 'The accounting logic',
+    'Mülakatta sorulan önemli noktalar': 'Points that come up in interviews',
+    'Notlarım': 'My notes',
+    'Performans farkı': 'Performance difference',
+    'SAP Best Practices': 'SAP Best Practices',
+    'SPRO / IMG yolları': 'SPRO / IMG paths',
+    'Sürecin sonunda ne oldu?': 'How it ended',
+    'Süreç adımları': 'Process steps',
+    'Sık alınan hatalar': 'Common errors',
+    'Sık yapılan hatalar': 'Common mistakes',
+    'T hesaplarıyla görünümü': 'Seen as T-accounts',
+    'Tablolarda ne değişti?': 'What changed in the tables?',
+    'Uyumluluk view’leri': 'Compatibility views',
+    'Veri nereden gelir, nereye gider?': 'Where the data comes from and goes',
+    'Yeni Fiori uygulamaları': 'New Fiori apps',
+    'Örnek ekran akışı': 'Example screen flow',
+    'İlgili işlem kodları': 'Related transaction codes',
+    'İpuçları': 'Tips',
+    'Rol': 'Role',
+    'Sorumluluğu': 'Responsibility',
+    'Kim': 'Who',
+    'Ne yapar': 'Does what',
+    'SAP’ta karşılığı': 'In SAP',
+    'Hesap': 'Account',
+    'Türü': 'Type',
+    'Neden': 'Why',
+    'Hata mesajı': 'Error message',
+    'Sebebi': 'Cause',
+    'Çözümü': 'Fix',
+    'Konu': 'Topic',
+    'ECC': 'ECC',
+    'S/4HANA': 'S/4HANA',
+    'Eski': 'Old',
+    'Yeni': 'New',
+    'Not': 'Note',
+    'Uygulama': 'App',
+    'Ne yapar?': 'What it does',
+    'Tablo': 'Table',
+    'Ne güncellenir': 'What is updated',
+    'Alan': 'Field',
+    'Açıklama': 'Description',
+    'Zorunlu': 'Required',
+    'Ekran': 'Screen',
+    'İşlem': 'Action',
+    'Değer': 'Value',
+    'Girdi': 'Input',
+    'Etki': 'Effect',
+  };
+
   /* ------------------------------------------ BÖLÜM ADLARI (11) --- */
 
   var SECTIONS_EN = {
@@ -2806,6 +2878,13 @@ window.SAP = (function () {
 
     /** Seviye adı (Başlangıç / Orta / İleri). */
     seviye: function (lv) { return i18n.t('level.' + lv); },
+
+    /** Renderer etiketi (alt başlık, tablo sütunu). Karşılığı yoksa
+        Türkçesi döner — eksik çeviri sayfayı kırmaz, sadece görünür. */
+    etiket: function (tr) {
+      if (dil === 'en' && LABELS_EN[tr]) return LABELS_EN[tr];
+      return tr;
+    },
 
     /** Bölüm adı. */
     bolum: function (id, trAd) {
@@ -50174,10 +50253,10 @@ SAP.registerTopic({
 
   /* Başlık alanları da mk()'dan geçer: yazar başlıkta {{FB50}} yazdığında çipe
      dönmeli, ham metin kalmamalı. mk() zaten içeride escape ettiği için güvenli. */
-  /* Alt başlık. `ic` parametresi çağrı yerlerinde duruyor ama ÇİZİLMİYOR:
-     tasarım dili ikon yerine tipografik hiyerarşi kullanır (bkz. theme.css
-     ilke 4). İmza korunuyor ki 33 içerik dosyası değişmesin. */
-  function subH(ic, t) { return '<div class="sub-h">' + mk(t) + '</div>'; }
+  /* Alt başlık. `ic` parametresi çağrı yerlerinde duruyor ama ÇİZİLMİYOR
+     (tasarım dili ikon yerine tipografik hiyerarşi kullanır). Etiket
+     i18n'den geçer: bunlar yazar prozası değil renderer etiketidir. */
+  function subH(ic, t) { return '<div class="sub-h">' + mk(SAP.i18n.etiket(t)) + '</div>'; }
 
   /** Soru-cevap bloğu: küçük soru etiketi + paragraf gövdesi. */
   function qa(q, body) {
@@ -50189,18 +50268,16 @@ SAP.registerTopic({
      büyük harf etiketiyle belli eder; başlık verilmemişse türün kendi
      adı etiket olur — böylece tür bilgisi yalnızca renge bağlı kalmaz
      (renk körlüğü için de gerekli). */
-  var NOTE_LABEL = { tip:'İpucu', warn:'Dikkat', err:'Hata', info:'Not' };
-  var NOTE_ICON = { tip:'💡', warn:'⚠️', err:'🚫', info:'ℹ️' };
+  var NOTE_KEY = { tip:'note.tip', warn:'note.warn', err:'note.err', info:'note.info' };
 
-  /* Uyarı kutusunda İKON YOK (kullanıcı talebi): kutu zaten üç şeyle
-     kendini anlatıyor — renk, sol kenar şeridi ve "İpucu / Dikkat /
-     Hata / Not" etiketi. Emoji dördüncü bir tekrardı.
-     NOTE_ICON tablosu duruyor; geri istenirse tek satır yeter. */
+  /* Uyarı kutusunda İKON YOK: kutu zaten üç şeyle kendini anlatıyor —
+     renk, sol kenar şeridi ve tür etiketi. Etiket i18n'den gelir. */
   function note(kind, title, body) {
     if (!body) return '';
     return '<div class="note ' + kind + '">' +
       '<div class="bd">' +
-        '<b class="t">' + (title ? mk(title) : esc(NOTE_LABEL[kind] || 'Not')) + '</b>' +
+        '<b class="t">' + (title ? mk(title)
+          : esc(SAP.i18n.t(NOTE_KEY[kind] || 'note.info'))) + '</b>' +
         mk(body) +
       '</div></div>';
   }
@@ -50217,7 +50294,8 @@ SAP.registerTopic({
   function tbl(cols, rows) {
     if (!rows || !rows.length) return '';
     var head = cols.map(function (c) {
-      return '<th' + (c.num ? ' class="num"' : '') + (c.w ? ' style="width:' + c.w + '"' : '') + '>' + mk(c.ad) + '</th>';
+      return '<th' + (c.num ? ' class="num"' : '') + (c.w ? ' style="width:' + c.w + '"' : '') +
+             '>' + mk(SAP.i18n.etiket(c.ad)) + '</th>';
     }).join('');
     var body = rows.map(function (r) {
       return '<tr>' + r.map(function (cell, i) {
@@ -50905,7 +50983,7 @@ SAP.registerTopic({
       '</div>' +
       (ids.length ? '<div class="resume-m" style="margin-top:16px">' +
         '<span class="resume-bar" style="max-width:200px"><i style="width:' + yuzde + '%"></i></span>' +
-        '<span class="tnum">%' + yuzde + '</span></div>' : '') +
+        '<span class="tnum">' + SAP.i18n.yuzde(yuzde) + '</span></div>' : '') +
     '</header>' +
     (uyari ? '<p class="lang-notice">' + esc(uyari) + '</p>' : '');
 
@@ -51257,7 +51335,8 @@ SAP.registerTopic({
       SAP.store.d.quiz[topicId] = { dogru: dogruSayisi, toplam: toplam, ts: Date.now() };
       SAP.store.save();
       var yuzde = Math.round((dogruSayisi / toplam) * 100);
-      SAP.toast(T('quiz.done') + ': ' + dogruSayisi + ' / ' + toplam + ' (%' + yuzde + ')');
+      SAP.toast(T('quiz.done') + ': ' + dogruSayisi + ' / ' + toplam +
+                ' (' + SAP.i18n.yuzde(yuzde) + ')');
     }
   });
 
@@ -51576,7 +51655,8 @@ SAP.registerTopic({
       '</a>' +
       '<div class="side-scroll">' + nav + gruplar + '</div>' +
       '<div class="side-foot">' +
-        '<div class="pl"><span>' + esc(T('home.progress')) + '</span><b>%' + genel + '</b></div>' +
+        '<div class="pl"><span>' + esc(T('home.progress')) + '</span>' +
+          '<b class="tnum">' + SAP.i18n.yuzde(genel) + '</b></div>' +
         '<div class="bar"><i style="width:' + genel + '%"></i></div>' +
       '</div>';
   }
@@ -51655,7 +51735,7 @@ SAP.registerTopic({
 
   /* İndeksteki tür kodları -> i18n anahtarı. Kod saklanır, etiket
      çizim anında dilden gelir; indeksin dil bilmesi gerekmez. */
-  var TUR = { topic: 'nav.home', tcode: 'ref.tcode', table: 'ref.table', term: 'ref.term' };
+  var TUR = { topic: 'search.topic', tcode: 'ref.tcode', table: 'ref.table', term: 'ref.term' };
 
   function rows() {
     return palRes.map(function (r, i) {

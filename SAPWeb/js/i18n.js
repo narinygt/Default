@@ -88,6 +88,7 @@
       'notes.saving':    'Yazılıyor…',
       'notes.chars':     'karakter',
       'search.title':    'Arama sonuçları',
+      'search.topic':    'Konu',
       'search.empty':    'Sonuç bulunamadı.',
       'nf.title':        'Sayfa bulunamadı',
       'nf.back':         'İçindekilere dön',
@@ -174,6 +175,7 @@
       'notes.saving':    'Saving…',
       'notes.chars':     'characters',
       'search.title':    'Search results',
+      'search.topic':    'Topic',
       'search.empty':    'Nothing found.',
       'nf.title':        'Page not found',
       'nf.back':         'Back to contents',
@@ -301,6 +303,76 @@
       summary: 'Almost every change follows one sentence: compute the total instead of storing it. Most simplifications are removals, not features.' },
   };
 
+  /* ---------------------------------- BÖLÜM İÇİ ETİKETLER (33+) ---
+     Alt başlıklar ve tablo sütun adları. Bunlar YAZAR PROZASI DEĞİL,
+     renderer'ın kendi etiketleridir — bu yüzden gövde Türkçe kalsa da
+     çevrilirler. Anahtar Türkçe metnin kendisidir: içerik dosyalarına
+     dokunmadan çeviri eklenebilsin diye. */
+  var LABELS_EN = {
+    'Adım adım kullanım': 'Step by step',
+    'Alan özeti': 'Field summary',
+    'Alanlar': 'Fields',
+    'Alınabilecek hatalar ve çözümleri': 'Errors you may hit, and the fix',
+    'Arka planda hangi tablolar güncellenir?': 'Which tables are updated behind the scenes?',
+    'Bu konuda geçen anahtar kavramlar': 'Key concepts in this topic',
+    'ECC ile S/4HANA farkları': 'ECC versus S/4HANA',
+    'Ekrana girilenler': 'What you enter on screen',
+    'En önemli alanlar': 'The fields that matter most',
+    'Hangi hesaplar etkilenir ve neden?': 'Which accounts are affected, and why?',
+    'Kalkan / değişen işlem kodları': 'Removed and replaced transaction codes',
+    'Karşılaştırma': 'Comparison',
+    'Kim ne yapar?': 'Who does what?',
+    'Konu özeti': 'Topic summary',
+    'Mini quiz': 'Quick quiz',
+    'Muhasebe mantığı': 'The accounting logic',
+    'Mülakatta sorulan önemli noktalar': 'Points that come up in interviews',
+    'Notlarım': 'My notes',
+    'Performans farkı': 'Performance difference',
+    'SAP Best Practices': 'SAP Best Practices',
+    'SPRO / IMG yolları': 'SPRO / IMG paths',
+    'Sürecin sonunda ne oldu?': 'How it ended',
+    'Süreç adımları': 'Process steps',
+    'Sık alınan hatalar': 'Common errors',
+    'Sık yapılan hatalar': 'Common mistakes',
+    'T hesaplarıyla görünümü': 'Seen as T-accounts',
+    'Tablolarda ne değişti?': 'What changed in the tables?',
+    'Uyumluluk view’leri': 'Compatibility views',
+    'Veri nereden gelir, nereye gider?': 'Where the data comes from and goes',
+    'Yeni Fiori uygulamaları': 'New Fiori apps',
+    'Örnek ekran akışı': 'Example screen flow',
+    'İlgili işlem kodları': 'Related transaction codes',
+    'İpuçları': 'Tips',
+    'Rol': 'Role',
+    'Sorumluluğu': 'Responsibility',
+    'Kim': 'Who',
+    'Ne yapar': 'Does what',
+    'SAP’ta karşılığı': 'In SAP',
+    'Hesap': 'Account',
+    'Türü': 'Type',
+    'Neden': 'Why',
+    'Hata mesajı': 'Error message',
+    'Sebebi': 'Cause',
+    'Çözümü': 'Fix',
+    'Konu': 'Topic',
+    'ECC': 'ECC',
+    'S/4HANA': 'S/4HANA',
+    'Eski': 'Old',
+    'Yeni': 'New',
+    'Not': 'Note',
+    'Uygulama': 'App',
+    'Ne yapar?': 'What it does',
+    'Tablo': 'Table',
+    'Ne güncellenir': 'What is updated',
+    'Alan': 'Field',
+    'Açıklama': 'Description',
+    'Zorunlu': 'Required',
+    'Ekran': 'Screen',
+    'İşlem': 'Action',
+    'Değer': 'Value',
+    'Girdi': 'Input',
+    'Etki': 'Effect',
+  };
+
   /* ------------------------------------------ BÖLÜM ADLARI (11) --- */
 
   var SECTIONS_EN = {
@@ -370,6 +442,13 @@
 
     /** Seviye adı (Başlangıç / Orta / İleri). */
     seviye: function (lv) { return i18n.t('level.' + lv); },
+
+    /** Renderer etiketi (alt başlık, tablo sütunu). Karşılığı yoksa
+        Türkçesi döner — eksik çeviri sayfayı kırmaz, sadece görünür. */
+    etiket: function (tr) {
+      if (dil === 'en' && LABELS_EN[tr]) return LABELS_EN[tr];
+      return tr;
+    },
 
     /** Bölüm adı. */
     bolum: function (id, trAd) {

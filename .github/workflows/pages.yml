@@ -5,9 +5,9 @@
 #   https://narinygt.github.io/Default/
 # Depo adı değiştirilirse adres de değişir (örn. .../sap-fi-compass/).
 #
-# ⚠️ TEK SEFERLİK AYAR GEREKİR — bu dosya tek başına yetmez:
-#   Settings → Pages → Build and deployment → Source: "GitHub Actions"
-# Bu seçilmeden iş akışı çalışır ama dağıtım adımı hata verir.
+# Pages ayarı ELLE AÇILMAZ: configure-pages eylemi `enablement: true`
+# ile Pages'i kendi yetkisiyle (permissions.pages: write) açar. İlk
+# çalıştırmada siteyi oluşturur, sonrakilerde var olanı kullanır.
 #
 # Neden dosya kopyalanmıyor da SAPWeb/ klasörü yükleniyor: uygulama
 # göreli yollarla çalışıyor (css/…, js/…) ve alt dizinden sunulmaya
@@ -55,6 +55,10 @@ jobs:
           echo "harici kaynak yok"
 
       - uses: actions/configure-pages@v5
+        with:
+          # Pages kapalıysa AÇAR. Bu olmadan ilk çalıştırma
+          # "Get Pages site failed / Not Found" ile düşüyordu.
+          enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: SAPWeb

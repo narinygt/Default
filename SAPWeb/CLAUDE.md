@@ -292,62 +292,67 @@ görünür, açıldığında "Yakında" rozetiyle mevcut meta verisini gösterir
 > Tek kaynak `css/theme.css`'in başındaki ilke bloğudur. Buradaki özet ona
 > uyar; çelişirse **theme.css kazanır**.
 
-Eski tema "hazır AI şablonu" gibi duruyordu: her konuya ayrı pastel renk,
-her karta emoji kutusu, yuvarlatılmış köşeler, mor-mavi birincil renk.
-Yenileme bu dört kalıbı kaldırdı.
+Bu bölüm **iki turda** oturdu ve ikisi de kayda değer:
 
-### Dört ilke
+**1. tur — fazla çıplak.** Tek marka rengi, ikonsuz arayüz, saç teli
+çizgilerle bölünmüş yoğun bir dizin. Şablon hissi gitti ama yerine
+*"dağınık, karmaşık ve göz yorucu"* bir yoğunluk geldi. Ders: bir eğitim
+platformunda sadelik **tek başına** hedef değildir — kullanıcı orada
+saatlerce **okuyacaktır**.
 
-1. **Tek marka rengi.** `--brand` = derin petrol mavisi `oklch(44% 0.098 231)`.
-   Buton, aktif menü satırı, ince vurgu çizgisi, hover ve seçili durum —
-   hepsi bu renkte. **Bölüm zeminleri marka rengiyle doldurulmaz.**
-   ⚠️ **Konu başına renk YOK.** `--h` (hue) değişkeni içerikte hâlâ duruyor
-   ama `--accent` artık ona bakmıyor; hepsi `--brand`'e bağlanıyor.
-   Otuz altı konuyu otuz altı tonla ayırmak kataloğu şablona çevirir;
-   konular **numara, tipografi ve çizgiyle** ayrılır.
-2. **Anlam taşımayan renk yok.** Marka dışındaki renkli tek öğeler muhasebe
-   anlamı taşır: borç kırmızı, alacak yeşil, uyarı toprak sarısı, bilgi mavisi.
-   Degrade, glow, cam efekti, dekoratif renk yok.
-3. **Hiyerarşi renkle değil, koyulukla ve boşlukla.** Kırık beyaz zemin
-   (`oklch(97.6% 0.003 250)`), antrasit metin, üç kademeli gri, saç teli çizgi.
-4. **Sessiz geometri.** Köşe yarıçapı 0–3px, hap/kapsül biçim yok.
-   Gölge yalnızca üç öğede: komut paleti, mobil çekmece, toast.
+**2. tur — bugünkü hâli.** Renk ve yumuşaklık geri geldi, ama kontrollü.
 
-### Tipografi
+### Beş ilke
 
-Tek aile; başlık ile gövde aynı yüzü paylaşır, ayrım **ağırlık (620) ve
-harf aralığında** kurulur. Ölçek `--t-hero: 34px`'te durur — ekranı kaplayan
-başlık yok.
+1. **Renk gruba ait, konuya değil.**
+   Dokuz konu grubunun dokuz rengi var; 36 konunun 36 rengi **yok**.
+   Renk burada süs değil **sınıflandırma**: aynı renk = aynı grup.
+   `data/catalog.js` → `SAP.GROUPS[].hue`, `SAP.grupHue(grupId)`.
+   Dokuz ton tek formülden üretilir (aynı açıklık, aynı doygunluk, farklı
+   açı) — yan yana geldiklerinde gökkuşağı değil tek palet gibi okunurlar.
+   ⚠️ Konu stub'larındaki eski `hue` alanı **artık kullanılmıyor**;
+   `--h` her yerde gruptan geliyor.
+2. **Yumuşak yüzey, yumuşak köşe.** Her şeyi çizgiyle bölmek yorar;
+   ayrım önce **yüzey ve boşlukla** yapılır. Yarıçap 6–20px, kapsül yalnızca
+   rozet ve süzgeç çipinde.
+3. **Göz yormayan kontrast.** Zemin saf beyaz değil sıcak kırık beyaz,
+   metin saf siyah değil yumuşak antrasit. Küçük punto + seyreltilmiş
+   büyük harf etiketler asgariye indi — okunması en yorucu biçim odur.
+4. **Rahat tipografi.** Gövde **16.5px / 1.75**, ölçü 70 karakteri geçmez.
+   Başlıklar iri değil, yeterince belirgin (ağırlık 620–660).
+5. **Ritim.** Katalog dokuz **renkli grup bölümüne** ayrıldı; her bölümün
+   ikonu, başlığı ve "kaç konu / kaç tamamlandı" rozeti var. Sayfa aynı
+   kalıbı 36 kez tekrarlamıyor.
 
-⚠️ **Neden sistem fontu:** uygulama çift tıkla, sunucusuz ve internetsiz
-açılmak zorunda (Kural #5). Harici font dosyası indirilemez, gömülü font da
-`tek-dosya.html`'i şişirirdi. Bu yüzden işletim sisteminin **kurumsal arayüz
-yüzü** kullanılıyor: Windows'ta Segoe UI, macOS'ta SF Pro — ikisi de hümanist,
-Türkçe'yi eksiksiz taşıyan yüzlerdir. "Startup şablonu" çağrışımı yapan
-geometrik gruplardan (Inter, Poppins, Montserrat) bilinçli olarak uzak duruldu.
-Lisanslı bir `.woff2` projeye konursa `--font` / `--font-display` tek satırda
-ona çevrilir; başka hiçbir yer değişmez.
+### Tipografi notu
 
-### Kalıp değişiklikleri (ve hangi dosyada)
+⚠️ Uygulama çift tıkla, sunucusuz ve internetsiz açılmak zorunda
+(Kural #5) — harici font indirilemez, gömülü font `tek-dosya.html`'i
+şişirir. Bu yüzden işletim sisteminin arayüz yüzü kullanılıyor
+(Windows'ta Segoe UI, macOS'ta SF Pro). Lisanslı bir `.woff2` projeye
+konursa yalnızca `--font` / `--font-display` satırı değişir.
 
-| Eski | Yeni | Dosya |
+### Bileşen kararları
+
+| Bileşen | Karar | Dosya |
 |---|---|---|
-| 36 renkli kart ızgarası | Cetvelle bölünmüş **konu dizini** (numara · başlık · özet · künye) | `app.css` §4, `views.js` `topicCard()` |
-| Altı eşit kutuluk istatistik şeridi | **Asimetrik masthead**: solda mesaj, sağda çizgili künye listesi | `app.css` §4, `views.js` `home` |
-| Kenar çubuğunda 36 emoji | İkon yok; grup başlığı + ilerleme noktası | `ui.js` `sidebarHTML()` |
-| Kart/başlık/bölüm ikon kutuları | Kaldırıldı; sıra numarası ve tipografi | `views.js`, `sections.js` `subH()` |
-| Süreç şemasında adım emojisi | **Adım sıra numarası** (`n.ic` verisi duruyor, çizilmiyor) | `diagram.js` `flow()` |
-| Uyarı kutusunda emoji | Renkli sol kural + **tür etiketi** (İpucu / Dikkat / Hata / Not) | `sections.js` `note()` |
-| Emoji tema ve arama ikonu | Tek renk **satır SVG** (arayüzdeki tek iki ikon) | `index.html`, `ui.js` |
+| Katalog | Dokuz **renkli grup bölümü**, her biri kart ızgarası | `views.js` `home`, `app.css` §4 |
+| Konu kartı | Grup renginde üst şerit + ikon kutusu + ilerleme halkası; boşken "Başla →" | `views.js` `topicCard()` |
+| Gezinme sütunu | **Açık zemin** — koyu blok sürekli bir ağırlıktı. Grup başlıkları renkli, aktif satır grup renginde dolgulu | `ui.js`, `app.css` §3 |
+| Konu başlığı | Grup renginde yumuşak panel + ikon kutusu | `views.js`, `app.css` §5 |
+| Süreç şeması | Adım **sıra numarası** (emoji değil), yuvarlak rozet | `diagram.js` `flow()` |
+| Uyarı kutusu | Yumuşak dolgu + ikon + tür etiketi (İpucu/Dikkat/Hata/Not) | `sections.js` `note()` |
+| Ana sayfa eylemi | **"Kaldığın yerden devam et"** + 🎲 rastgele konu | `views.js` `heroCta()` |
+| Baskı | Dokuz grup rengi **tek nötr tona sabitlenir** (gri yazıcıda ayırt edilemez, mürekkep yakar) | `print.css` |
 
 ### Responsive — mobil, masaüstünün küçültülmüşü değildir
 
-- Dizin satırı 3 sütundan tek sütuna iner ve **numara satır içine geçer**.
-- Masthead künyesi telefonda **iki sütuna** bölünür (dikey liste gereksiz uzardı).
-- Tipografi ölçeği `@media (max-width: 44rem)` içinde **token bazında** küçülür
-  (`--t-hero: 26px`), bileşen bileşen değil.
-- Boşluk ölçeği de daralır (`--s7`, `--s8`), böylece bölümler orantısını korur.
+- Tipografi ve boşluk ölçeği `@media (max-width: 44rem)` içinde **token
+  bazında** küçülür (`--t-hero`, `--s7`, `--s8`), bileşen bileşen değil.
+- Kartlar tek sütuna iner; künye paneli **iki sütuna** bölünür (dikey
+  liste gereksiz uzuyordu).
 - 62rem altında gezinme çekmeceye iner, içindekiler sütunu gizlenir.
+- 390px'de yatay taşma yok — headless Chromium'da ölçüldü.
 
 ---
 
@@ -355,7 +360,8 @@ ona çevrilir; başka hiçbir yer değişmez.
 
 | Özellik | Durum | Not |
 |---|---|---|
-| 36 konuluk cetvelli konu dizini | ✅ | Kart ızgarası değil; numara + tipografi ile ayrılır |
+| Dokuz renkli grup bölümüne ayrılmış konu kataloğu | ✅ | Renk **gruptan** gelir, konudan değil (bkz. §5b) |
+| "Kaldığın yerden devam et" + rastgele konu | ✅ | Yarım kalan konuyu sistem bulur |
 | Karanlık / Aydınlık mod | ✅ | Sistem tercihi + manuel geçiş, localStorage'a yazılır |
 | İlerleme çubuğu (bölüm/konu/genel) | ✅ | Bölüm bazında "okundu", karta halka, sidebar'a nokta |
 | Tamamlanan konu işaretleme | ✅ | Tek tıkla tüm bölümler |

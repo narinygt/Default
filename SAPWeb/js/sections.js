@@ -34,12 +34,16 @@
      adı etiket olur — böylece tür bilgisi yalnızca renge bağlı kalmaz
      (renk körlüğü için de gerekli). */
   var NOTE_LABEL = { tip:'İpucu', warn:'Dikkat', err:'Hata', info:'Not' };
+  var NOTE_ICON = { tip:'💡', warn:'⚠️', err:'🚫', info:'ℹ️' };
 
   function note(kind, title, body) {
     if (!body) return '';
-    return '<div class="note ' + kind + '"><div class="bd">' +
-      '<b class="t">' + (title ? mk(title) : esc(NOTE_LABEL[kind] || 'Not')) + '</b>' +
-      mk(body) + '</div></div>';
+    return '<div class="note ' + kind + '">' +
+      '<span class="ic" aria-hidden="true">' + (NOTE_ICON[kind] || 'ℹ️') + '</span>' +
+      '<div class="bd">' +
+        '<b class="t">' + (title ? mk(title) : esc(NOTE_LABEL[kind] || 'Not')) + '</b>' +
+        mk(body) +
+      '</div></div>';
   }
 
   function kv(rows) {

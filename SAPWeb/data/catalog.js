@@ -15,18 +15,32 @@
 SAP.registerModule({ id:'FI', name:'Finansal Muhasebe', short:'FI', icon:'💰', order:1,
   aciklama:'SAP S/4HANA Financial Accounting — dış muhasebe, yasal raporlama ve ödeme süreçleri.' });
 
-/* Kenar çubuğundaki gruplar — sıra burada belirlenir. */
+/* Kenar çubuğundaki gruplar — sıra burada belirlenir.
+
+   `hue` = oklch renk açısı. RENK KONUYA DEĞİL GRUBA AİTTİR:
+   36 konuya 36 ayrı ton vermek kataloğu dağıtıyordu; 9 grup rengi
+   hem renkli hem düzenli bir katalog verir. Tonlar aynı açıklık ve
+   doygunlukta üretildiği için (bkz. theme.css renk formülü) dokuzu
+   birlikte tek bir aile gibi okunur — gökkuşağı gibi değil.
+
+   Renk burada bir SINIFLANDIRMA aracıdır: aynı renk = aynı grup.  */
 SAP.GROUPS = [
-  { id:'temeller',    ad:'Temeller',              ic:'🧱' },
-  { id:'surecler',    ad:'Ana Süreçler',          ic:'🏛️' },
-  { id:'islemler',    ad:'Günlük İşlemler',       ic:'⚙️' },
-  { id:'donem-sonu',  ad:'Dönem Sonu',            ic:'📅' },
-  { id:'mimari',      ad:'Muhasebe Mimarisi',     ic:'🧭' },
-  { id:'entegrasyon', ad:'Entegrasyon',           ic:'🔗' },
-  { id:'teknik',      ad:'Teknik & Raporlama',    ic:'🛠️' },
-  { id:'veri',        ad:'Veri & Geçiş',          ic:'📦' },
-  { id:'ileri',       ad:'İleri Seviye',          ic:'🚀' },
+  { id:'temeller',    ad:'Temeller',              ic:'🧱', hue:162 },
+  { id:'surecler',    ad:'Ana Süreçler',          ic:'🏛️', hue:232 },
+  { id:'islemler',    ad:'Günlük İşlemler',       ic:'⚙️', hue:266 },
+  { id:'donem-sonu',  ad:'Dönem Sonu',            ic:'📅', hue:52  },
+  { id:'mimari',      ad:'Muhasebe Mimarisi',     ic:'🧭', hue:312 },
+  { id:'entegrasyon', ad:'Entegrasyon',           ic:'🔗', hue:196 },
+  { id:'teknik',      ad:'Teknik & Raporlama',    ic:'🛠️', hue:28  },
+  { id:'veri',        ad:'Veri & Geçiş',          ic:'📦', hue:118 },
+  { id:'ileri',       ad:'İleri Seviye',          ic:'🚀', hue:348 },
 ];
+
+/** Bir grubun rengini (hue) döndürür; bilinmeyen grup için nötr ton. */
+SAP.grupHue = function (grupId) {
+  var g = SAP.GROUPS.find(function (x) { return x.id === grupId; });
+  return g && g.hue != null ? g.hue : 240;
+};
 
 [
   /* ------------------------------------------------------- Temeller --- */

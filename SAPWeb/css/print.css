@@ -9,24 +9,35 @@
 
   /* Yazdırırken her zaman aydınlık palet. Ekrandaki kırık beyaz zemin
      kağıtta beyaza döner: kağıt zaten kağıttır, zemini ayrıca boyamak
-     mürekkep israfıdır. Marka rengi baskıda da tek renk olarak kalır. */
+     mürekkep israfıdır.
+
+     ⚠️ GRUP RENGİ BASKIDA SABİTLENİR. Ekranda `--accent*` tokenleri
+     `--h`'den (grup hue'su) hesaplanır; kağıtta bu dokuz farklı renk
+     hem mürekkep yakar hem de gri tonlamalı yazıcıda ayırt edilemez.
+     Bu yüzden burada tek nötr tona sabitlenirler. */
   :root, :root[data-theme="dark"] {
     color-scheme: light;
     --bg: #fff; --bg-alt: #fff;
     --surface: #fff; --surface-2: #f4f5f6; --surface-3: #e8eaec;
     --border: #b3b8bd; --border-soft: #dcdfe2;
     --text: #16191d; --text-2: #3d434a; --text-3: #666d75; --text-inv: #fff;
-    --brand: #10506b; --brand-deep: #0a3a4e; --brand-weak: #eef3f6;
-    --brand-line: #a6bfcb; --brand-fg: #fff;
-    --accent: #10506b; --accent-text: #10506b; --accent-soft: #eef3f6; --accent-br: #a6bfcb;
+    --brand: #1d4a75; --brand-deep: #14375a; --brand-weak: #eef2f7;
+    --brand-line: #aac1d7; --brand-fg: #fff;
+    --accent: #1d4a75; --accent-text: #1d4a75; --accent-soft: #eef2f7;
+    --accent-mid: #cfdcea; --accent-br: #aac1d7;
     --ok: #1d6b46; --ok-soft: #eef5f1; --ok-br: #a7cbb7;
     --warn: #7d5410; --warn-soft: #f9f4e8; --warn-br: #ddc79b;
     --err: #a32d20; --err-soft: #faeeec; --err-br: #e0b2ab;
     --info: #1d4a75; --info-soft: #eef2f7; --info-br: #aac1d7;
-    --rail: #fff; --rail-2: #fff; --rail-line: #dcdfe2; --rail-mark: #10506b;
+    --rail: #fff; --rail-2: #fff; --rail-line: #dcdfe2;
     --rail-tx: #16191d; --rail-tx-2: #3d434a; --rail-tx-3: #666d75; --rail-on: #16191d;
     --sh-1: none; --sh-2: none; --sh-3: none; --sh-pop: none;
   }
+
+  /* Konu başlığı paneli kağıtta dolgusuz — üstte ince bir kural yeter. */
+  .thead { background: #fff !important; padding: 0 0 8pt !important; border-bottom: 1pt solid var(--border); }
+  .thead-ic, .hero-cta { display: none !important; }
+  .card, .ledger, .toc, .quiz, .fc-face { box-shadow: none !important; }
 
   body { background: #fff; font-size: 10.5pt; line-height: 1.5; }
 

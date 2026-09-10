@@ -60,26 +60,27 @@
     var aktif = SAP.route;
     var aktifKonu = aktif.name === 'konu' ? aktif.parts[0] : null;
 
-    /* Gezinme satırlarında ikon YOK — 36 satırlık bir listede emoji
-       sütunu görsel gürültüdür. Ayrım tipografi, grup başlığı ve
-       ilerleme noktasıyla kurulur (bkz. theme.css ilke 4). */
-    function item(href, tx, on) {
+    /* Gezinme sütununda renk GRUP başlıklarında ve aktif satırda taşınır;
+       her satıra ayrı ikon konmaz — 36 satırlık listede emoji sütunu
+       gürültü olurdu. Grup rengi listeyi bölmeye yetiyor. */
+    function item(href, ic, tx, on) {
       return '<a class="side-item' + (on ? ' active' : '') + '" data-go="' + esc(href) + '" href="' + esc(href) + '">' +
-        '<span class="tx">' + esc(tx) + '</span></a>';
+        '<span class="ic">' + ic + '</span><span class="tx">' + esc(tx) + '</span></a>';
     }
 
     var nav =
-      '<div class="side-group">' +
-        item('#/', 'Ana Sayfa', aktif.name === 'home') +
-        item('#/favoriler', 'Favorilerim', aktif.name === 'favoriler') +
-        item('#/notlar', 'Notlarım', aktif.name === 'notlar') +
+      '<div class="side-group side-nav">' +
+        item('#/', '🏠', 'Ana Sayfa', aktif.name === 'home') +
+        item('#/favoriler', '⭐', 'Favorilerim', aktif.name === 'favoriler') +
+        item('#/notlar', '📝', 'Notlarım', aktif.name === 'notlar') +
       '</div>';
 
     var gruplar = SAP.GROUPS.map(function (g) {
       var list = all.filter(function (t) { return t.grup === g.id; });
       if (!list.length) return '';
-      return '<div class="side-group">' +
-        '<div class="side-label">' + esc(g.ad) + '<span class="count">' + list.length + '</span></div>' +
+      return '<div class="side-group" style="--h:' + g.hue + '">' +
+        '<div class="side-label"><span class="ic">' + g.ic + '</span>' + esc(g.ad) +
+          '<span class="count">' + list.length + '</span></div>' +
         list.map(function (t) {
           var p = SAP.store.percent(t.id);
           var dot = t.status !== 'ready' ? '' : (p >= 100 ? ' done' : p > 0 ? ' part' : '');

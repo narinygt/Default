@@ -5,9 +5,20 @@
 #   https://narinygt.github.io/Default/
 # Depo adı değiştirilirse adres de değişir (örn. .../sap-fi-compass/).
 #
-# Pages ayarı ELLE AÇILMAZ: configure-pages eylemi `enablement: true`
-# ile Pages'i kendi yetkisiyle (permissions.pages: write) açar. İlk
-# çalıştırmada siteyi oluşturur, sonrakilerde var olanı kullanır.
+# ⚠️ TEK SEFERLİK ELLE AYAR GEREKİR — ve bunun neden kaçınılmaz olduğu
+# denenerek saptandı:
+#   Settings → Pages → Build and deployment → Source: "GitHub Actions"
+#
+# `enablement: true` denendi; eylem Pages sitesini API'den açmaya
+# çalışıyor ama şununla düşüyor:
+#   "Create Pages site failed. Resource not accessible by integration"
+# Sebep: Pages sitesi OLUŞTURMAK depo üzerinde `administration: write`
+# ister; iş akışına verilen GITHUB_TOKEN'da bu yetki yok ve
+# `permissions:` bloğundan da istenemez. `pages: write` yalnızca
+# DAĞITIM içindir, siteyi kurmak için değil.
+#
+# Parametre yine de `true` bırakıldı: Pages bir kez elle açıldıktan
+# sonra eylem var olan siteyi buluyor ve bu satır zararsız kalıyor.
 #
 # Neden dosya kopyalanmıyor da SAPWeb/ klasörü yükleniyor: uygulama
 # göreli yollarla çalışıyor (css/…, js/…) ve alt dizinden sunulmaya

@@ -91,7 +91,12 @@
     if (!list || !list.length) return '';
     return tbl(
       [{ ad:'Hata mesajı', w:'30%' }, { ad:'Sebebi', w:'32%' }, { ad:'Çözümü' }],
-      list.map(function (e) { return ['**' + e.mesaj + '**', e.sebep, e.cozum]; })
+      /* ⚠️ Mesaj `'**' + … + '**'` ile SARILMAZ. İçerik yazarı mesajın
+         içinde de kalın kullanabiliyor; sarmak `****` üretip biçimi
+         bozuyordu (bkz. Ders #28). Vurgu HTML ile veriliyor, işaretle değil. */
+      list.map(function (e) {
+        return [{ html: '<strong>' + mk(e.mesaj) + '</strong>' }, e.sebep, e.cozum];
+      })
     );
   }
 
@@ -405,7 +410,9 @@
     if (d.fiori && d.fiori.length) {
       out += subH('📱', 'Yeni Fiori uygulamaları');
       out += tbl([{ ad:'Uygulama', w:'32%' }, { ad:'Ne yapar' }],
-        d.fiori.map(function (f) { return ['**' + f.ad + '**', f.aciklama]; }));
+        d.fiori.map(function (f) {
+          return [{ html: '<strong>' + mk(f.ad) + '</strong>' }, f.aciklama];
+        }));
     }
 
     if (d.compatibilityViews && d.compatibilityViews.length) {

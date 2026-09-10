@@ -608,4 +608,29 @@ SAP.registerTcodes([
 
   { kod:'FGI0', ad:'Rapor gezgini (yeni G/L)', modul:'FI-GL', tur:'Rapor', konu:'reporting',
     aciklama:'Yeni Ana Muhasebe için hazırlanmış esnek raporları çalıştırır.' },
+
+  /* ------------------------------------ Veri geçişi ve taşıma partisi --- */
+  { kod:'AS91', ad:'Devir varlığı oluştur (eski veriden)', modul:'FI-AA', tur:'Ana Veri', konu:'migration',
+    aciklama:'Geçişte varlığı **birikmiş amortismanıyla birlikte** açar; normal {{AS01}}\u2019den farkı, geçmiş değerlerin elle girilmesidir. Bakiyeler G/L tarafına ayrıca aktarılır — bu işlem muhasebe kaydı üretmez.' },
+
+  { kod:'SE09', ad:'Taşıma organizatörü', modul:'Teknik', tur:'Teknik', konu:'best-practices',
+    aciklama:'Taşıma isteklerini görüntüler, serbest bırakır ve içeriğini ({{E071}}) gösterir. Bir isteğin neyi taşıdığını görmenin en hızlı yolu.' },
+
+  { kod:'STMS', ad:'Taşıma yönetim sistemi', modul:'Teknik', tur:'Teknik', konu:'best-practices',
+    aciklama:'Taşıma kuyruğunu ve sistem yolunu (geliştirme → test → canlı) yönetir. ⚠️ İsteklerin **sıra numarasıyla** taşınması şarttır; sıra bozulursa test sisteminde çalışan ayar canlıda çalışmaz.' },
+
+  { kod:'SM30', ad:'Tablo/görünüm bakımı', modul:'Teknik', tur:'Teknik', konu:'best-practices',
+    aciklama:'Bakım görünümü tanımlı tabloları düzenler. Bazı tablolar **akım verisi** olarak işaretlidir: canlıda değiştirilirler ve taşıma isteğine girmezler ({{akim-verisi}}).' },
+
+  { kod:'SPDD', ad:'Sözlük nesnelerinde modifikasyon uyarlaması', modul:'Teknik', tur:'Teknik', konu:'migration',
+    aciklama:'Sürüm yükseltme sırasında **veri sözlüğü** nesnelerindeki (tablo, alan) müşteri değişikliklerini uyarlar. ⚠️ Bu adım atlanırsa veri kaybı olabilir; {{SPAU}}\u2019dan önce gelir.' },
+
+  { kod:'SPAU', ad:'Program nesnelerinde modifikasyon uyarlaması', modul:'Teknik', tur:'Teknik', konu:'migration',
+    aciklama:'Sürüm yükseltmede program, ekran ve fonksiyon modüllerindeki müşteri değişikliklerini uyarlar. {{brownfield}} geçişinin en çok emek isteyen adımlarından biridir — {{z-gelistirme}} ne kadar çoksa o kadar uzar.' },
+
+  { kod:'SAT', ad:'Çalışma zamanı analizi', modul:'Teknik', tur:'Teknik', konu:'s4-yenilikleri',
+    aciklama:'Bir programın zamanı nerede harcadığını ölçer (eski adı SE30). S/4HANA sonrası *\u201cneden yavaşladı?\u201d* sorusunda {{ST05}} ile birlikte kullanılır: {{uyumluluk-view}} okuyan kod burada görünür.' },
+
+  { kod:'SCC4', ad:'İstemci ayarları ve koruma', modul:'Teknik', tur:'Teknik', konu:'best-practices',
+    aciklama:'Her istemcinin özelleştirmeye açık olup olmadığını belirler. Canlı istemcide özelleştirme **kapalıdır** — bu bir hata değil, koruma. ⚠️ Tek istisna {{akim-verisi}} tablolarıdır; onlar canlıda da değiştirilir.' },
 ]);

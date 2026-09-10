@@ -692,4 +692,51 @@ SAP.registerTables([
     olusturan:'Belge bölme etkinse her FI belgesi',
     anahtar:'BUKRS + BELNR + GJAHR + BUZEI',
     s4:'Duruyor; bölme sonucu ayrıca {{ACDOCA}} satırlarına yansır.' },
+
+  /* ------------------------------- Veri geçişi / taşıma / S4 partisi --- */
+  { ad:'BUT000', baslik:'İş Ortağı — genel veri', modul:'Çapraz', tur:'Ana Veri', konu:'s4-yenilikleri',
+    aciklama:'S/4HANA\u2019da satıcı ve müşteri ana verisinin **ortak** başlık tablosu. {{is-ortagi}} tek nesnedir; satıcı ve müşteri artık onun **rolleridir**. Şirket kodu ve satın alma/satış verileri hâlâ {{LFB1}} ve {{KNB1}}\u2019de durur — {{BUT000}} onların üstündeki kimliktir.',
+    olusturan:'{{BP}}',
+    anahtar:'PARTNER',
+    s4:'Zorunlu. {{XK01}}/{{XD01}} ile açılan kayıtlar bile arka planda {{cvi}} üzerinden buraya yazılır.',
+    alanlar:[
+      {ad:'PARTNER', aciklama:'İş ortağı numarası', tip:'pk'},
+      {ad:'BPKIND', aciklama:'İş ortağı türü'},
+      {ad:'TYPE', aciklama:'Kişi / Kuruluş / Grup'},
+      {ad:'NAME_ORG1', aciklama:'Unvan'},
+    ]},
+
+  { ad:'MATDOC', baslik:'Malzeme belgesi — birleşik tablo', modul:'MM', tur:'Hareket', konu:'s4-yenilikleri',
+    aciklama:'S/4HANA\u2019da malzeme belgelerinin tek tablosu. FI tarafındaki {{ACDOCA}} ile **aynı mimari kararın** MM karşılığıdır: başlık+kalem+toplam tabloları (MKPF/MSEG/MARD/MBEW) tek tabloda birleşti ve toplamlar **saklanmak yerine hesaplanır**. Eski tablolar {{uyumluluk-view}} olarak okunmaya devam eder.',
+    olusturan:'{{MIGO}} ve stok hareketi üreten her işlem',
+    anahtar:'MBLNR + MJAHR + ZEILE',
+    s4:'Yeni. Konunun dışında ama **deseni** gösterdiği için burada: aynı ilke FI dışında da uygulandı.',
+    alanlar:[
+      {ad:'MBLNR', aciklama:'Malzeme belgesi numarası', tip:'pk'},
+      {ad:'BWART', aciklama:'{{hareket-turu}}'},
+      {ad:'MENGE', aciklama:'Miktar — toplam tablosu yerine buradan toplanır'},
+    ]},
+
+  { ad:'E070', baslik:'Taşıma isteği başlığı', modul:'Teknik', tur:'Teknik', konu:'best-practices',
+    aciklama:'Her {{tasima-istegi}} bir satırdır: sahibi, türü, durumu ve serbest bırakılma zamanı. *\u201cBu ayar canlıya ne zaman gitti?\u201d* sorusu buradan cevaplanır.',
+    olusturan:'{{SE09}}',
+    anahtar:'TRKORR',
+    s4:'Değişmedi.',
+    alanlar:[
+      {ad:'TRKORR', aciklama:'İstek numarası', tip:'pk'},
+      {ad:'TRSTATUS', aciklama:'Durum — **R** serbest bırakılmış'},
+      {ad:'AS4DATE', aciklama:'⭐ Serbest bırakılma tarihi — değişiklik zaman çizelgesi'},
+      {ad:'AS4USER', aciklama:'Sahibi'},
+    ]},
+
+  { ad:'E071', baslik:'Taşıma isteği nesneleri', modul:'Teknik', tur:'Teknik', konu:'best-practices',
+    aciklama:'Bir isteğin **tam olarak neyi** taşıdığını tutar. ⭐ İki isteğin aynı nesneye dokunup dokunmadığı buradan görülür — {{tasima-sirasi}} çakışmalarının teşhis yeri.',
+    olusturan:'{{SE09}}',
+    anahtar:'TRKORR + PGMID + OBJECT + OBJ_NAME',
+    s4:'Değişmedi.',
+    alanlar:[
+      {ad:'TRKORR', aciklama:'İstek numarası', tip:'fk'},
+      {ad:'OBJECT', aciklama:'Nesne türü (TABU, PROG, VDAT…)'},
+      {ad:'OBJ_NAME', aciklama:'Nesne adı — tablo veya program'},
+    ]},
 ]);

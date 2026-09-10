@@ -1228,7 +1228,11 @@ SAP.registerTopic({
     flashcards:[
       { on:'Doğrulama vs İkame', arka:'**Doğrulama** → **ENGELLER**\nVeriye dokunmaz · kullanıcı **hata mesajı görür**\nGGB0 + OB28\n\n**İkame** → **DEĞİŞTİRİR**\nAlanı doldurur/değiştirir · **SESSİZ**\nGGB1 + OBBH' },
       { on:'Kural kurmanın üç adımı', arka:'**1. Tanımla** — GGB0 / GGB1\n**2. Ata** — OB28 / OBBH (şirket kodu + çağrı noktası)\n**3. ETKİNLEŞTİR** — GGB4 (seviye 1/2)\n\n⚠️ 3. adım **en sık atlanan**; "kural çalışmıyor" vakalarının çoğu burada.' },
-      { on:'Karar sorusu: doğrulama mı ikame mi?', arka:'**"Kullanıcı bu kaydı yapabilsin mi?"**\n\n**Hayır** → doğrulama (engelle)\n**Evet ama alan şöyle olsun** → ikame (doldur)\n\n*Alan bir **karar** taşıyorsa (kâr merkezi) → doğrulama.\nAlan **mekanik** ise (tarih) → ikame.*' },
+      /* ⚠️ Dış italik KALDIRILDI: italik tek satırlıktır ve içinde yıldız
+         taşıyamaz; bu satır hem `\n` hem `**kalın**` içeriyordu ve
+         ham `*` olarak çiziliyordu (bkz. Ders #28). Vurguyu zaten
+         içteki kalınlar taşıyor. */
+      { on:'Karar sorusu: doğrulama mı ikame mi?', arka:'**"Kullanıcı bu kaydı yapabilsin mi?"**\n\n**Hayır** → doğrulama (engelle)\n**Evet ama alan şöyle olsun** → ikame (doldur)\n\nAlan bir **karar** taşıyorsa (kâr merkezi) → doğrulama.\nAlan **mekanik** ise (tarih) → ikame.' },
       { on:'Çağrı noktaları ve kısıtları', arka:'**Başlık (0001)** → başlık alanları · kalem alanlarını **okuyamaz**\n**Kalem (0002)** → en yaygın · başlık alanını **YAZAMAZ**\n**Tam belge (0003)** → satırlar arası ilişki için **tek uygun** nokta' },
       { on:'Mesaj tipleri', arka:'**E (hata)** → kayıt **engellenir** ← tek gerçek koruma\n**W (uyarı)** → kullanıcı **geçebilir** ⚠️ ilk yoğun günde kural fiilen kalkar\n**I (bilgi)** → yalnızca bilgilendirir\n\nPolitika dayatılacaksa **E**.' },
       { on:'Etkinlik seviyeleri (GGB4)', arka:'**0** → pasif\n**1** → aktif\n**2** → **toplu giriş hariç** aktif\n\n*Seviye 2 neden var:* geçişte yüklenen eski veri bugünün kuralını sağlamayabilir.\n\n⚠️ Ama **açık kapı** — kritik kontrollerde **1**.' },

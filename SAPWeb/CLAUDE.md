@@ -4,9 +4,9 @@
 > çıkarılan dersler burada tutulur. **Her güncellemede yenilenir.**
 > Amaç: projeyi başka bir yapay zeka sohbetine aktarırken tek dosya vererek tüm bağlamı taşımak.
 
-**Son güncelleme:** 10 Eylül 2026 · **Tasarım sistemi baştan yazıldı** (bkz. §5b).
-Motor tamamlandı, **36 konudan 33'ü** derin içerikle dolduruldu.
-**Sözlükler:** 254 işlem kodu · 88 tablo · 142 terim (üçünde de çift kayıt yok — bkz. Ders #26).
+**Son güncelleme:** 10 Eylül 2026 · **Tasarım sistemi baştan yazıldı** (bkz. §5b) ve
+**36 konunun 36'sı** derin içerikle dolduruldu — katalog **tamamlandı**.
+**Sözlükler:** 262 işlem kodu · 92 tablo · 164 terim (üçünde de çift kayıt yok — bkz. Ders #26).
 
 ## ⚠️ Uygulamayı nasıl açarsın
 - **Doğru yol:** Windows Gezgini'nden `index.html`'e (veya `tek-dosya.html`'e) **çift tıkla**.
@@ -108,7 +108,10 @@ SAPWeb/
 │   ├── error-handling.js
 │   ├── e-donusum.js
 │   ├── lsmw.js
-│   └── data-upload.js
+│   ├── data-upload.js
+│   ├── migration.js
+│   ├── best-practices.js
+│   └── s4-yenilikleri.js
 ├── derle.ps1             # tek-dosya.html üretir (Windows / PowerShell)
 ├── derle.mjs             # aynı çıktının Node karşılığı — `node derle.mjs`
 ├── tek-dosya.html        # ÜRETİLMİŞ tek dosyalık sürüm — taşımak/paylaşmak için
@@ -279,11 +282,14 @@ SAP.registerTopic({ id:'gl-accounting', sections: {
 | 🧭 Muhasebe Mimarisi | **new-gl** ✅ · **parallel-ledger** ✅ |
 | 🔗 Entegrasyon | **cost-center** ✅ · **co-integration** ✅ · **mm-integration** ✅ · **sd-integration** ✅ |
 | 🛠️ Teknik & Raporlama | **sap-tables** ✅ · **tcodes** ✅ · **reporting** ✅ |
-| 📦 Veri & Geçiş | **lsmw** ✅ · **data-upload** ✅ · migration |
-| 🚀 İleri Seviye | **error-handling** ✅ · best-practices · s4-yenilikleri |
+| 📦 Veri & Geçiş | **lsmw** ✅ · **data-upload** ✅ · **migration** ✅ |
+| 🚀 İleri Seviye | **error-handling** ✅ · **best-practices** ✅ · **s4-yenilikleri** ✅ |
 
-✅ = derin içerik yazıldı (11 bölümün tamamı). Diğerleri kart + T-code/tablo bağlantılarıyla
-görünür, açıldığında "Yakında" rozetiyle mevcut meta verisini gösterir (ölü link yok).
+✅ = derin içerik yazıldı (11 bölümün tamamı).
+
+⭐ **Katalog 10 Eylül 2026'da tamamlandı: 36 konunun 36'sı hazır.**
+"Yakında" rozetli konu kalmadı; `status:'planned'` yolu motorda duruyor
+(yeni modül eklenirse yine çalışır) ama FI tarafında kullanılmıyor.
 
 ---
 
@@ -397,6 +403,15 @@ konursa yalnızca `--font` / `--font-display` satırı değişir.
 - Çizilmiş DOM'da **0 bozuk çip** (`.ref-miss` sayısı 0) — audit'ten bağımsız ikinci kontrol
 - Çizilmiş metinde **0 ham `{{` işareti** — üçüncü ve bağımsız kontrol. Bu ölçüm
   138 ham işaret bulup renderer hatasını ortaya çıkardı (bkz. Ders #23)
+- ⭐ **5. eksen — çizilmiş metinde çözülmemiş biçim işareti (`*`)** (bkz. Ders #28).
+  Ölçüm `<code>` içeriği **çıkarılarak** yapılır; kod içindeki yıldız meşrudur.
+
+  **Beklenen sonuç 11'dir ve hepsi belgelenmiş istisnadır** — düz metinde geçen
+  joker desenler: `RFFO*` (bank-accounting ×3, f110 ×6) ve `320*` (special-gl ×2).
+  ⚠️ **On ikinci bir yıldız gerçek hatadır.**
+
+  Bu eksen ilk çalıştırmasında **86 bozuk yer** buldu ve üç ayrı motor kusurunu
+  ortaya çıkardı (Ders #28).
 - 33 hazır konuda **yalnızca 2 dengesiz fiş** (`.jr-bad`) var, **ikisi de kasıtlı**:
   1. `document-posting` — kullanıcının girdiği eksik belge (50.000 ≠ 60.000);
      simülasyonun vergi satırını nasıl tamamladığını gösterir.
@@ -857,20 +872,109 @@ Program `RETURN` tablosunu kontrol ediyordu ama hata **oradan gelmedi**.
 baştan çalıştırmak **8.060 mükerrer** üretecekti.
 ⭐ **Kazanılan 2,5 saat, kaybedilen 3 günle ödendi.**
 
-### Sonraki içerik partisi (kalan 3 konu — sıra)
-1. `migration` → 2. `best-practices` → 3. `s4-yenilikleri`
+### Son parti: `migration` + `best-practices` + `s4-yenilikleri` (34–36. hazır konu)
 
-`migration` bu partinin **doğal devamı**: {{alan-esleme}}, {{donusum-kurali}},
-deneme çalıştırması, {{sayi-mutabakati}} ve geçiş hesabı kontrolü orada da geçerli —
-değişen yalnızca **araç** ({{LTMC}} Migration Cockpit) ve **ölçek**.
-Ayrıca `migration`'a özgü olan: geçiş yaklaşımları (greenfield / brownfield),
-açılış bakiyesi stratejisi ve S/4HANA'ya özgü **eşleme** konuları
-(hesap planı, {{BP}} dönüşümü, {{ACDOCA}} yapısı).
+⭐ **Bu partiyle katalog tamamlandı.** Üçü zincirli yazıldı ve her biri
+öncekilerin **üzerine** kuruluyor:
 
-`error-handling` için sözlük hazırlığı **kısmen yapıldı**: {{SLG1}}, {{SM37}}, {{SP01}}
-işlem kodları ve {{terim:kilitleme}}, {{terim:guncelleme-hatasi}}, {{terim:yetki-nesnesi}},
-{{terim:tampon}}, {{terim:arayuz-tablosu}} terimleri eklendi.
-Eksik kalan: **`BALHDR`** tablosu (uygulama günlüğü başlığı) henüz eklenmedi.
+#### `migration` — ⭐ tez: **bir veri taşıma işi değil, hangi GEÇMİŞİN taşınacağına dair bir MUHASEBE KARARI**
+`lsmw` aracı, `data-upload` yöntemleri anlatmıştı; bu konu **kararı** anlatıyor.
+- **Üç yaklaşım, üç ayrı pişmanlık noktası:** {{greenfield}} (geçmiş gelmez →
+  denetim/raporlama) · {{brownfield}} (eski hatalar da gelir → "madem yeniliyorduk") ·
+  {{secici-gecis}} (bütçe).
+- ⚠️ **Gelir tablosu hesaplarının açılış bakiyesi olmaz** — dönem sonunda
+  sıfırlandıkları için. Karşılaştırmalı tablo **kendiliğinden oluşmaz** ve
+  bilançonun dolu görünmesi bunu **gizler**.
+- ⭐ **n:1 taşınır, 1:n taşınmaz.** Birleştirmede bakiyeler toplanır;
+  bölmede eski bakiye ayrım bilgisini **taşımaz** ve eşleme tablosu çözemez.
+- {{brownfield}}'in üç zorunlu adımı ve sırası: {{cvi}} (⚠️ dönüşümden **önce**,
+  hâlâ ECC'de) → hesap planı hazırlığı (masraf türü G/L ile birleşir) →
+  mali veri dönüşümü (⚠️ geri alınamaz).
+- ⭐ **Üç seviyeli mutabakat:** teknik (yüklendi mi) → muhasebe (doğru mu) →
+  **yasal** (sunulabilir mi). Her seviye bir öncekinin göremediğini yakalar.
+- ⭐ {{deneme-gecisi}} bir **veri testi değil PLAN testidir**; asıl çıktı süredir.
+- ⚠️ {{AS91}} muhasebe kaydı **üretmez** — G/L fişi ayrıdır; hata yıl sonu
+  {{AJAB}} kapanışında çıkar.
+
+**Senaryo — "Geçiş başarılı" ve üç ay sonra bulunamayan gelir tablosu.**
+Dört mutabakat kontrolü de geçti (adet ✓ tutar ✓ geçiş hesabı sıfır ✓ mizan ✓).
+Mart'ta denetçi **2027 karşılaştırmalı gelir tablosunu** istedi — SAP'ta yoktu
+ve olamazdı. Eski sistem de Şubat'ta kapatılmıştı.
+⭐ **Ders: *"geçmişi taşımıyoruz"* eksik bir cümledir.** Tamamı:
+*"…çünkü şurada duracak ve şu kadar süre erişilebilir kalacak."*
+İkinci yarısı yazılmazsa birincisi bir karar değil bir **ertelemedir**.
+
+#### `best-practices` — ⭐ tez: **kararlar ikiye ayrılır — geri alınabilenler ve VERİYLE MÜHÜRLENENLER**
+Bilinçli tasarım kararı: bu bir "iyi pratik listesi" değil, bir **sınıflandırma
+yöntemidir**. Gerekçe: bütün kararlara aynı özeni göstermek imkânsızdır;
+özen **seçici** olmak zorundadır.
+- ⭐ **{{tek-yonlu-kapi}} testi:** *"bu ayar kapalıyken üretilmeyen bir veri var mı?"*
+  Kritik olan ayar değil, ayarın **üretmediği veridir**.
+- **Doğru soru değişir:** çift yönlü kapıda *"bugün ne lazım?"*, tek yönlü kapıda
+  **"üç yıl içinde isteme ihtimalimiz var mı?"**
+- ⭐ **Şüphedeyken açık kur, kullanma** — maliyet asimetriktir.
+- **"Ayarın geri alınabilirliği ≠ hatanın düzeltilebilirliği."** `AKONT` beş
+  dakikada düzelir ama geçmiş kayıtlar eski hesapta kalır.
+- ⚠️ {{akim-verisi}} — *"test sisteminde çalışıyordu"*nun **en sık sebebi**:
+  ayar taşınmadı değil, **taşınacak bir şey yoktu**.
+- {{tasima-sirasi}}: ters sırada **eski hâl yeniyi ezer** ve hata mesajı çıkmaz.
+- ⭐ **{{negatif-test}} olmadan test tamamlanmaz** — kontrol yalnızca ihlal
+  edildiğinde görünür.
+- **Dokümantasyon:** SAP *"ne yapıldığını"* zaten tutuyor ({{CDHDR}}, {{E070}});
+  tutulacak tek şey **neden** — ve en değerli satır **"hangi varsayıma dayanıyor"**.
+
+**Senaryo — "Segment raporu istemiyoruz" ve sekiz ay sonra istenen iş kolu bilançosu.**
+{{belge-bolme}} kapalı kuruldu (makul bir talepti). Gider satırları kâr merkezi
+taşıyordu, **bilanço satırları taşımıyordu**; {{FAGL_SPLINFO}} geçmişte
+**hiç oluşmamıştı** ve geriye dönük doldurulamıyordu.
+⭐ **Ders: karar yanlış değildi, eksik olan bilgiydi** — "bu geri alınamaz".
+
+#### `s4-yenilikleri` — ⭐ tez: **hepsi tek bir cümlenin sonucu — "toplamı saklamak yerine hesapla"**
+Yenilikleri liste olarak öğretmek yerine **tek sebebe** bağlıyor:
+{{bellek-ici}} veritabanı *"diskten okumak pahalıdır"* kısıtını kaldırdı;
+o kısıt için var olan yapılar ({{toplam-tablosu}}, indeks tabloları, mutabakat
+defteri, gecelik toplu işler) **gereksizleşti**.
+⭐ *Yani basitleştirmelerin çoğu yeni bir özellik değil, kaldırılan bir çözümdür.*
+- **Asıl kazanç hız değil tutarlılık:** hesaplanan toplam kalemlerle ayrışamaz →
+  FI–CO mutabakatı **yapısal olarak gereksiz** (kapanış listesinden çıkarılmalı).
+- ⚠️ **SHKZG → HSL:** {{BSEG}}'de tutar pozitif + yön ayrı alanda; {{ACDOCA}}'da
+  tutar **işaretli**. Taşınan sorgudan yön mantığı kaldırılmazsa işaret
+  **iki kez** uygulanır ve toplam sıfıra yakın çıkar — **sessiz hata**.
+- ⚠️ {{uyumluluk-view}} bir **köprüdür**: ne **ücretsizdir** (okuma anında
+  hesaplanır) ne de **birebirdir** (`SHKZG` + `RLDNR` semantiği).
+- {{is-ortagi}} zorunlu ama {{LFB1}} **kalktı sanılıyor — kalmadı, duruyor**.
+- {{masraf-turu}} G/L hesabının **tipi** oldu → sahiplik sorusu doğar.
+- ⭐ Yeni Varlık Muhasebesi: her {{amortisman-alani}} **gerçek zamanlı** kendi
+  defterine yazar; ECC'deki periyodik/delta mantığı kalktı.
+- ⚠️ **"S/4HANA hızlı" cümlesinin eksik yarısı: "uyarlanmış kod için."**
+
+**Senaryo — "Geçtik ama kapanış uzadı" (3 → 4,5 gün) ve sekiz aydır yanlış olan rapor.**
+{{SM37}} → {{SAT}} → {{ST05}} zinciri: üç özel program {{uyumluluk-view}} okuyor
+ve döngü içinde. Taşırken **ikinci bir hata** çıktı: `SHKZG` mantığı silinmemiş,
+işaret iki kez uygulanıyor, mizan 84,2 milyon iken rapor 1,34 milyon gösteriyor.
+Sekiz ay fark edilmemişti çünkü program çökmüyor, hata vermiyor ve
+sıfıra yakın fark *"her şey tutuyor"* gibi okunuyordu.
+⭐ **Ders: kaldırılan tablo geri getirilmedi, TAKLİT EDİLDİ — ve taklit ne
+ücretsizdir ne birebir. İkinci fark sessizdir.**
+Kalıcı önlem tek satır: *taşınan her rapor ilk çalıştırmada {{FS10N}} mizanıyla
+karşılaştırılır.*
+
+**Partinin ana öğretme fikri — üçü de aynı hata sınıfını farklı ölçekte gösteriyor:**
+`migration`'da **proje** ölçeğinde (mutabakat geçti ama kapsam eksikti),
+`best-practices`'te **karar** ölçeğinde (ayar değişti ama veri değişmedi),
+`s4-yenilikleri`'nde **sorgu** ölçeğinde (kod çalıştı ama sonuç yanlıştı).
+Üçünde de sistem **doğru davrandı** ve hiçbir hata mesajı çıkmadı.
+
+### Sözlüğe bu partide eklenenler
+**İşlem kodları (8):** {{AS91}}, {{SE09}}, {{STMS}}, {{SM30}}, {{SPDD}}, {{SPAU}},
+{{SAT}}, {{SCC4}}
+**Tablolar (4):** {{BUT000}}, {{MATDOC}}, {{E070}}, {{E071}}
+**Terimler (22):** {{greenfield}}, {{brownfield}}, {{secici-gecis}}, {{cvi}},
+{{is-ortagi}}, {{basitlestirme-listesi}}, {{acilis-bakiyesi}}, {{kesme-plani}},
+{{deneme-gecisi}} · {{tek-yonlu-kapi}}, {{standarda-yakin}}, {{z-gelistirme}},
+{{badi}}, {{akim-verisi}}, {{tasima-sirasi}}, {{regresyon-testi}}, {{negatif-test}} ·
+{{bellek-ici}}, {{toplam-tablosu}}, {{gomulu-analitik}}, {{fiori}}, {{merkezi-finans}}
+
 
 Sözlüklere eklenenler (aynı deseni izle):
 **AP partisi** — {{ME21N}}, {{ME23N}}, {{MR11}}, {{MIR4}}, {{MIR5}}, {{F-43}}, {{FB09}}, {{OBYR}},
@@ -889,14 +993,25 @@ Sözlüklere eklenenler (aynı deseni izle):
 {{terim:lider-defter}}, {{terim:defter-grubu}}, {{terim:ifrs}}, {{terim:yerel-para-birimi}}.
 
 ### Yeni konu ekleme adımları
-1. `data/catalog.js`'te stub zaten var — dokunma.
+> FI kataloğu tamamlandı; bu adımlar **yeni bir modül** (CO, MM, SD…) veya
+> FI'a eklenecek yeni bir konu için geçerlidir.
+
+1. `data/catalog.js`'te stub yoksa ekle (grup, ikon, seviye, süre, özet).
+   ⚠️ Konu `hue` alanı **artık kullanılmıyor** — renk gruptan gelir (bkz. §5b).
 2. `content/fi/<id>.js` oluştur, §4 şemasına göre `SAP.registerTopic({id, sections:{...}})`.
 3. `index.html` → "3) konu içerikleri" bloğuna tek satır `<script src>` ekle.
 4. Kullanılan yeni T-code/tablo/terim varsa `data/` sözlüklerine ekle.
 5. Tarayıcıda aç, konsolda `SAP.auditRefs()` çalıştır → **boş dizi dönmeli**.
-6. `.\derle.ps1` ile `tek-dosya.html`'i tazele.
+6. `.\derle.ps1` (veya `node derle.mjs`) ile `tek-dosya.html`'i tazele.
 
-### Motor tarafında yapılabilecekler (henüz yapılmadı)
+### Sırada ne var (içerik değil, motor)
+FI kataloğu bittiği için sıradaki iş **içerik değil**. İki yön:
+
+**a) Yeni modül** — CO, MM veya SD. Motor değişmeden eklenir:
+`SAP.registerModule` + `data/catalog-<modul>.js` + `content/<modul>/*.js` +
+`index.html` script satırları. Grup renkleri için `SAP.GROUPS`'a `hue` verilir.
+
+**b) Motor iyileştirmeleri (henüz yapılmadı)**
 - Konu içi arama (sayfa içinde vurgulama)
 - Quiz sonuçlarının konu kartında rozet olarak gösterimi
 - Yanlış cevaplanan soruların tekrar havuzu
@@ -1204,3 +1319,51 @@ Sözlüklere eklenenler (aynı deseni izle):
     `error-handling`’deki **② sessiz hata** sınıfı, `e-donusum`’daki
     *"reddedilen fatura"* vakasının tam olarak kuramsal çerçevesi.
     Yanlış anlama boşa gitmedi — ama **planlanmış bir sıra değildi**.
+
+28. **Biçimlendirme motoru üç ayrı yerden sızıntı yapıyordu — ve hiçbir denetim görmüyordu.**
+    `migration` konusundaki bir başlık ekranda `*Geçiş bir veri taşıma işi değil…*`
+    diye ham yıldızlarla çıktı. Tek bir konunun sorunu sanıldı; **19 dosyada
+    86 yer** olduğu ortaya çıktı — 16'sı bu partiden **önce** vardı.
+
+    Sebep tek değildi, **üç ayrı kusurdu** ve üçü de aynı boşlukta saklanıyordu:
+
+    **① Kalın deseni yıldızı tamamen dışlıyordu.**
+    `/\*\*([^*\n]+)\*\*/` — `[^*\n]` yüzünden `**kalın *italik* kalın**`
+    hiç eşleşmiyor, ardından italik kuralı ilk iki yıldızı yanlış eşleştirip
+    metni bozuyordu. Düzeltme: içeride tek yıldıza izin (`\*(?!\*)`) + tembel nicelik.
+
+    **② Kalın satır sonunu aşamıyordu.**
+    Flash kartlarda `**iki satıra bölünmüş\nkalın cümle**` yaygın bir yazım.
+    `[^*\n]` bunu da engelliyordu. Düzeltme: kalında `\n` serbest.
+    ⚠️ **İtalikte serbest bırakılmadı** — içerikte `RFFO*` ve `320*` gibi
+    joker desenler var ve permissive italik bunları yanlış eşleştirirdi.
+    *Aynı hatanın iki kuralda farklı çözümü olabilir; simetri hedef değildir.*
+
+    **③ ⭐ Kod bloğu içindeki yıldız sonraki geçişlere yem oluyordu.**
+    En sinsi olanı buydu. `` `Z*` `` önce `<code>Z*</code>`'e çevriliyor ama
+    yıldız **metinde kalıyor**; ilerideki bir italik açılışıyla eşleşip
+    aradaki tüm metni `<em>` içine alıyordu.
+    Düzeltme: kod blokları **en başta yer tutucuyla çıkarılır, en sonda geri konur**.
+    Böylece `*`, `->` ve `--` kod içinde hiç işlenmez — ki doğrusu da budur.
+
+    **Ayrıca bir çift-sarma hatası:** `errTable()` mesajı `'**' + mesaj + '**'`
+    ile sarıyordu. Mesajın kendisi kalın içeriyorsa sonuç `****` oluyordu.
+    Düzeltme: vurgu **işaretle değil HTML ile** verilir
+    (`{html:'<strong>' + mk(e.mesaj) + '</strong>'}`). Aynı hata `fiori`
+    tablosunda ve tcode detay sayfasında da vardı.
+
+    ⭐ **Neden hiçbir denetim yakalamadı:** dört eksenin dördü de
+    *"çapraz bağlantı"* sorusunu soruyordu. `auditRefs()` referansın
+    çözülüp çözülmediğine bakar; `.ref-miss` bozuk çipi sayar; ham `{{`
+    taraması işaretin çözülmeye gönderilip gönderilmediğine bakar.
+    **Hiçbiri "biçimlendirme doğru mu?" diye sormuyordu.**
+
+    Bu, Ders #19/#23/#26'nın aynı kalıbı: *bir denetim ne sorduğunu bilir,
+    **sormadığını göremez**.* Her yeni hata sınıfı **yeni bir eksen** ister.
+
+    **5. eksen eklendi:** çizilmiş metinde `<code>` dışında kalan `*` sayısı.
+
+    ⚠️ **Eksen sıfır beklemiyor, 11 bekliyor.** Düz metindeki joker desenler
+    (`RFFO*`, `320*`) meşrudur ve Ders #15/#22'deki kasıtlı dengesiz fişlerle
+    aynı mantıkla **belgelenmiş istisnadır**. Bir kontrolün beklenen değeri
+    sıfır olmak zorunda değildir; **bilinen ve yazılı** olmak zorundadır.

@@ -354,7 +354,7 @@
       '</div>' +
 
       (x.s4 ? U.note('warn', 'S/4HANA’daki durumu', x.s4) : '') +
-      (x.fiori ? U.note('info', 'Fiori karşılığı', '**' + x.fiori + '**') : '') +
+      (x.fiori ? U.note('info', 'Fiori karşılığı', x.fiori) : '') +
 
       (konular.length
         ? '<div class="panel"><h3>📚 Bu işlem kodu şu konularda anlatılıyor</h3>' + relatedGrid(konular.map(function (t) { return t.id; })) + '</div>'

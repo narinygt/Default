@@ -1,0 +1,62 @@
+# ==========================================================================
+# SAP FI Compass — GitHub Pages yayını
+# --------------------------------------------------------------------------
+# Ücretsiz ve alan adı gerektirmez. Yayın adresi:
+#   https://narinygt.github.io/Default/
+# Depo adı değiştirilirse adres de değişir (örn. .../sap-fi-compass/).
+#
+# ⚠️ TEK SEFERLİK AYAR GEREKİR — bu dosya tek başına yetmez:
+#   Settings → Pages → Build and deployment → Source: "GitHub Actions"
+# Bu seçilmeden iş akışı çalışır ama dağıtım adımı hata verir.
+#
+# Neden dosya kopyalanmıyor da SAPWeb/ klasörü yükleniyor: uygulama
+# göreli yollarla çalışıyor (css/…, js/…) ve alt dizinden sunulmaya
+# uygun. Hash tabanlı yönlendirme de sunucu ayarı istemiyor —
+# file:// için seçilen tasarım burada da işe yarıyor.
+# ==========================================================================
+name: Pages
+
+on:
+  push:
+    branches: [claude/website-theme-content-9jhptu]
+    paths:
+      - 'SAPWeb/**'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Aynı anda tek yayın; sıradaki beklesin, çalışan iptal edilmesin.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # Yayına girmeden önce iki temel kontrol: uygulama gerçekten
+      # kendi kendine yetiyor mu?
+      - name: Kendine yeterlilik kontrolü
+        run: |
+          test -f SAPWeb/index.html
+          if grep -rniE '(src|href)="https?://' SAPWeb/index.html; then
+            echo "::error::index.html harici kaynağa bağlanıyor — çevrimdışı kuralı bozuk."
+            exit 1
+          fi
+          echo "harici kaynak yok"
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: SAPWeb
+      - id: deployment
+        uses: actions/deploy-pages@v4

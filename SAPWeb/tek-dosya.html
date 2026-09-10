@@ -2962,9 +2962,21 @@ window.SAP = (function () {
     });
   }
 
-  /* Kod bloğu yer tutucusu. ` ` seçildi çünkü metin buraya gelmeden
-     SAP.esc()'ten geçiyor ve kaçırılmış HTML'de NUL karakteri bulunamaz. */
-  var CODE_MARK = ' ';
+  /* Kod bloğu yer tutucusu.
+
+     ⚠️ ESKİDEN HAM NUL (U+0000) İDİ VE BU BİR HATAYDI. Kaynak dosyada
+     görünmez bir kontrol karakteri duruyordu; grep dosyayı "binary"
+     sanıyor, editörler sessizce kırpabiliyordu. Asıl sorun ise şuydu:
+     tek-dosya.html'de bu betik <script> içine gömülüyor ve HTML
+     ayrıştırıcısı script verisindeki U+0000'ı U+FFFD ile DEĞİŞTİRİR.
+     İşaretleme ve geri koyma aynı değişkenden geldiği için çalışıyordu
+     ama tesadüfen: iki taraf da aynı biçimde bozuluyordu.
+
+     Şimdi U+E000 (özel kullanım alanı) ve KAÇIŞ DİZİSİ olarak yazılı —
+     dosya saf metin kalıyor, HTML'de bozulmuyor. Bu karakterin içerikte
+     geçmesi mümkün değil: metin buraya gelmeden SAP.esc()'ten geçiyor
+     ve özel kullanım alanı hiçbir yazıda kullanılmıyor. */
+  var CODE_MARK = '\uE000';
 
   function inline(s) {
     /* ⚠️ KOD BLOKLARI ÖNCE ÇIKARILIR, EN SON GERİ KONUR.

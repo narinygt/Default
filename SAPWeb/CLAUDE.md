@@ -341,6 +341,7 @@ Kapsam **latin + latin-ext** ile sınırlı: latin-ext Türkçe için
 | Bileşen | Karar | Dosya |
 |---|---|---|
 | Ana sayfa | **Numaralı içindekiler dizini** (01…36), dokuz bölüm. Kart ızgarası, rozet, istatistik kutusu, hero **yok** | `views.js` `home` |
+| Satır meta | Yalnızca **seviye** + okundu noktası. ⚠️ **Süre ("40 dk") ve sayaçlar kaldırıldı** — bir kitabın içindekiler sayfasında ne okuma süresi ne bölüm adedi yazar; okuma hızı okuyucunun işidir | `views.js`, `ui.js` |
 | Açıklama | Satır **tıklanınca** açılır; dizin taranabilir kalır | `.idx-sum`, `store.acikDizin` |
 | Tek eylem | Üstte **"Kaldığın yerden devam et"** + 2px ilerleme çubuğu | `.resume` |
 | Gezinme | **TEK YERDE**: sol sütun. Ana sayfadaki üst süzgeç şeridi kaldırıldı | `ui.js` |

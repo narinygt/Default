@@ -606,7 +606,6 @@ svg { display: block; }
   cursor: pointer;
 }
 .side-label .tx { flex: 1; min-width: 0; }
-.side-label .cnt { font-family: var(--font-mono); letter-spacing: 0; }
 .side-label .chev {
   display: flex;
   transition: transform .2s var(--ease);
@@ -740,7 +739,7 @@ svg { display: block; }
 /* T-hesap motifi: numara solda, dikey kural, ad sağda. */
 .part-h {
   display: grid;
-  grid-template-columns: 56px 1fr auto;
+  grid-template-columns: 56px 1fr;
   align-items: baseline;
   gap: var(--sp-4);
   padding-bottom: var(--sp-3);
@@ -761,7 +760,6 @@ svg { display: block; }
   font-weight: 600;
   letter-spacing: .01em;
 }
-.part-c { font-family: var(--font-mono); font-size: var(--t-xs); color: var(--ink-3); }
 
 /* --- İçindekiler satırı --- */
 .idx { border-bottom: 1px solid var(--rule-soft); }
@@ -812,7 +810,6 @@ svg { display: block; }
   white-space: nowrap;
 }
 .idx-lv { letter-spacing: .01em; }
-.idx-min { font-family: var(--font-mono); }
 .idx-m > span:not(.idx-dot) { color: var(--ink-3); }
 .idx-dot {
   width: 5px; height: 5px;
@@ -1890,7 +1887,8 @@ table.tbl .mono { font-family: var(--font-mono); font-size: 13px; }
   .topbar { padding: 0 var(--sp-3); gap: var(--sp-3); }
 
   /* T-hesap sütunu daralır ama KALKMAZ — ritim korunur. */
-  .part-h, .idx-row { grid-template-columns: 34px 1fr auto; }
+  .part-h { grid-template-columns: 34px 1fr; }
+  .idx-row { grid-template-columns: 34px 1fr auto; }
   .idx-sum { padding-left: calc(34px + var(--sp-3)); }
   .section-h { grid-template-columns: 34px 1fr auto auto; }
   .section-h.plain { grid-template-columns: 34px 1fr; }
@@ -2499,8 +2497,6 @@ window.SAP = (function () {
       'topic.prev':      'Önceki',
       'topic.next':      'Sonraki',
       'topic.soon':      'Bu konunun derin içeriği henüz yazılmadı.',
-      'topic.minutes':   'dk',
-      'topic.sections':  'bölüm',
 
       'level.Başlangıç': 'Başlangıç',
       'level.Orta':      'Orta',
@@ -2586,8 +2582,6 @@ window.SAP = (function () {
       'topic.prev':      'Previous',
       'topic.next':      'Next',
       'topic.soon':      'The full text for this topic has not been written yet.',
-      'topic.minutes':   'min',
-      'topic.sections':  'sections',
 
       'level.Başlangıç': 'Beginner',
       'level.Orta':      'Intermediate',
@@ -50814,7 +50808,7 @@ SAP.registerTopic({
     return '<div class="rel-list">' + items.map(function (t) {
       return '<a class="rel-item" data-go="#/konu/' + esc(t.id) + '" href="#/konu/' + esc(t.id) + '">' +
         '<span>' + esc(bas(t)) + '</span>' +
-        '<span class="m"><span class="tnum">' + esc(t.minutes) + '</span> ' + esc(T('topic.minutes')) + '</span>' +
+        '<span class="m">' + esc(SAP.i18n.seviye(t.level)) + '</span>' +
       '</a>';
     }).join('') + '</div>';
   }
@@ -50887,9 +50881,11 @@ SAP.registerTopic({
                   'aria-expanded="' + (acik ? 'true' : 'false') + '">' +
             '<span class="idx-n">' + nn(i) + '</span>' +
             '<span class="idx-t">' + esc(bas(t)) + '</span>' +
+            /* Süre ve sayaç YOK. Bir kitabın içindekiler sayfasında
+               "40 dk" yazmaz; okuma hızı okuyucunun işidir. Kalan iki
+               işaret bilgi taşır: seviye ve okundu durumu. */
             '<span class="idx-m">' +
               '<span class="idx-lv">' + esc(SAP.i18n.seviye(t.level)) + '</span>' +
-              '<span class="idx-min">' + esc(t.minutes) + ' ' + esc(T('topic.minutes')) + '</span>' +
               '<span class="idx-dot' + durum + '"></span>' +
             '</span>' +
           '</button>' +
@@ -50905,7 +50901,6 @@ SAP.registerTopic({
         '<div class="part-h">' +
           '<span class="part-n">' + nn(gi) + '</span>' +
           '<h2>' + esc(SAP.i18n.grup(g)) + '</h2>' +
-          '<span class="part-c">' + list.length + '</span>' +
         '</div>' +
         '<div class="idx">' + satirlar + '</div>' +
       '</section>';
@@ -50967,9 +50962,6 @@ SAP.registerTopic({
       '<p>' + esc(SAP.i18n.ozet(t)) + '</p>' +
       '<div class="thead-m">' +
         '<span>' + esc(SAP.i18n.seviye(t.level)) + '</span>' +
-        '<span><span class="tnum">' + esc(t.minutes) + '</span> ' + esc(T('topic.minutes')) + '</span>' +
-        (ids.length ? '<span><span class="tnum">' + SAP.store.readCount(t.id) + ' / ' + ids.length +
-          '</span> ' + esc(T('topic.sections')) + '</span>' : '') +
         '<span class="thead-acts">' +
           (ids.length ? '<button class="btn sm' + (tamam ? ' on' : '') + '" type="button" ' +
             'data-action="topic-complete" data-t="' + esc(t.id) + '">' +
@@ -51631,7 +51623,6 @@ SAP.registerTopic({
         '<button class="side-label" type="button" data-action="toggle-group" data-g="' + esc(g.id) + '" ' +
           'aria-expanded="' + (kapali ? 'false' : 'true') + '">' +
           '<span class="tx">' + esc(SAP.i18n.grup(g)) + '</span>' +
-          '<span class="cnt">' + list.length + '</span>' +
           '<span class="chev">' + I('chevron-down') + '</span>' +
         '</button>' +
         '<div class="side-sub">' +

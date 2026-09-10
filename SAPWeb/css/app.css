@@ -240,7 +240,6 @@
   cursor: pointer;
 }
 .side-label .tx { flex: 1; min-width: 0; }
-.side-label .cnt { font-family: var(--font-mono); letter-spacing: 0; }
 .side-label .chev {
   display: flex;
   transition: transform .2s var(--ease);
@@ -374,7 +373,7 @@
 /* T-hesap motifi: numara solda, dikey kural, ad sağda. */
 .part-h {
   display: grid;
-  grid-template-columns: 56px 1fr auto;
+  grid-template-columns: 56px 1fr;
   align-items: baseline;
   gap: var(--sp-4);
   padding-bottom: var(--sp-3);
@@ -395,7 +394,6 @@
   font-weight: 600;
   letter-spacing: .01em;
 }
-.part-c { font-family: var(--font-mono); font-size: var(--t-xs); color: var(--ink-3); }
 
 /* --- İçindekiler satırı --- */
 .idx { border-bottom: 1px solid var(--rule-soft); }
@@ -446,7 +444,6 @@
   white-space: nowrap;
 }
 .idx-lv { letter-spacing: .01em; }
-.idx-min { font-family: var(--font-mono); }
 .idx-m > span:not(.idx-dot) { color: var(--ink-3); }
 .idx-dot {
   width: 5px; height: 5px;
@@ -1524,7 +1521,8 @@ table.tbl .mono { font-family: var(--font-mono); font-size: 13px; }
   .topbar { padding: 0 var(--sp-3); gap: var(--sp-3); }
 
   /* T-hesap sütunu daralır ama KALKMAZ — ritim korunur. */
-  .part-h, .idx-row { grid-template-columns: 34px 1fr auto; }
+  .part-h { grid-template-columns: 34px 1fr; }
+  .idx-row { grid-template-columns: 34px 1fr auto; }
   .idx-sum { padding-left: calc(34px + var(--sp-3)); }
   .section-h { grid-template-columns: 34px 1fr auto auto; }
   .section-h.plain { grid-template-columns: 34px 1fr; }

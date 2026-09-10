@@ -81,7 +81,6 @@
         '<button class="side-label" type="button" data-action="toggle-group" data-g="' + esc(g.id) + '" ' +
           'aria-expanded="' + (kapali ? 'false' : 'true') + '">' +
           '<span class="tx">' + esc(SAP.i18n.grup(g)) + '</span>' +
-          '<span class="cnt">' + list.length + '</span>' +
           '<span class="chev">' + I('chevron-down') + '</span>' +
         '</button>' +
         '<div class="side-sub">' +

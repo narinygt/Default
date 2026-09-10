@@ -63,8 +63,6 @@
       'topic.prev':      'Önceki',
       'topic.next':      'Sonraki',
       'topic.soon':      'Bu konunun derin içeriği henüz yazılmadı.',
-      'topic.minutes':   'dk',
-      'topic.sections':  'bölüm',
 
       'level.Başlangıç': 'Başlangıç',
       'level.Orta':      'Orta',
@@ -150,8 +148,6 @@
       'topic.prev':      'Previous',
       'topic.next':      'Next',
       'topic.soon':      'The full text for this topic has not been written yet.',
-      'topic.minutes':   'min',
-      'topic.sections':  'sections',
 
       'level.Başlangıç': 'Beginner',
       'level.Orta':      'Intermediate',

@@ -32,7 +32,7 @@
     return '<div class="rel-list">' + items.map(function (t) {
       return '<a class="rel-item" data-go="#/konu/' + esc(t.id) + '" href="#/konu/' + esc(t.id) + '">' +
         '<span>' + esc(bas(t)) + '</span>' +
-        '<span class="m"><span class="tnum">' + esc(t.minutes) + '</span> ' + esc(T('topic.minutes')) + '</span>' +
+        '<span class="m">' + esc(SAP.i18n.seviye(t.level)) + '</span>' +
       '</a>';
     }).join('') + '</div>';
   }
@@ -105,9 +105,11 @@
                   'aria-expanded="' + (acik ? 'true' : 'false') + '">' +
             '<span class="idx-n">' + nn(i) + '</span>' +
             '<span class="idx-t">' + esc(bas(t)) + '</span>' +
+            /* Süre ve sayaç YOK. Bir kitabın içindekiler sayfasında
+               "40 dk" yazmaz; okuma hızı okuyucunun işidir. Kalan iki
+               işaret bilgi taşır: seviye ve okundu durumu. */
             '<span class="idx-m">' +
               '<span class="idx-lv">' + esc(SAP.i18n.seviye(t.level)) + '</span>' +
-              '<span class="idx-min">' + esc(t.minutes) + ' ' + esc(T('topic.minutes')) + '</span>' +
               '<span class="idx-dot' + durum + '"></span>' +
             '</span>' +
           '</button>' +
@@ -123,7 +125,6 @@
         '<div class="part-h">' +
           '<span class="part-n">' + nn(gi) + '</span>' +
           '<h2>' + esc(SAP.i18n.grup(g)) + '</h2>' +
-          '<span class="part-c">' + list.length + '</span>' +
         '</div>' +
         '<div class="idx">' + satirlar + '</div>' +
       '</section>';
@@ -185,9 +186,6 @@
       '<p>' + esc(SAP.i18n.ozet(t)) + '</p>' +
       '<div class="thead-m">' +
         '<span>' + esc(SAP.i18n.seviye(t.level)) + '</span>' +
-        '<span><span class="tnum">' + esc(t.minutes) + '</span> ' + esc(T('topic.minutes')) + '</span>' +
-        (ids.length ? '<span><span class="tnum">' + SAP.store.readCount(t.id) + ' / ' + ids.length +
-          '</span> ' + esc(T('topic.sections')) + '</span>' : '') +
         '<span class="thead-acts">' +
           (ids.length ? '<button class="btn sm' + (tamam ? ' on' : '') + '" type="button" ' +
             'data-action="topic-complete" data-t="' + esc(t.id) + '">' +

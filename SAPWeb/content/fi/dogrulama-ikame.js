@@ -63,7 +63,7 @@ SAP.registerTopic({
       'otomatik olarak belge tarihi yazılsın."*\n\n' +
       '**İkame çözüyor:** önkoşul hesap = 102, kural `ZUONR` = belge tarihi.\n\n' +
       'Kullanıcı hiçbir şey yapmıyor, alan kendiliğinden doluyor.\n\n' +
-      '⚠️ **Ama fark burada:** doğrulama kullanıcıya **görünür** (hata mesajı alır); ' +
+      '**Ama fark burada:** doğrulama kullanıcıya **görünür** (hata mesajı alır); ' +
       'ikame **görünmez**. Kullanıcı atama alanının neden dolu olduğunu bilmez.',
 
     muhasebeMantigi:
@@ -77,7 +77,7 @@ SAP.registerTopic({
       'İkame ise farklı bir kategoridedir: bir **kontrol** değil, ' +
       'bir **standartlaştırma** aracıdır. Kullanıcı hatasını engellemez, ' +
       'ihtiyaç bırakmaz.\n\n' +
-      '⚠️ **Ama ikamenin bir muhasebe riski vardır:** veriyi değiştirdiği için ' +
+      '**Ama ikamenin bir muhasebe riski vardır:** veriyi değiştirdiği için ' +
       '*"kaydedilen, girilen midir?"* sorusunu doğurur. ' +
       'Denetim izi açısından ikame kuralları **belgelenmiş** olmalıdır.',
 
@@ -113,17 +113,17 @@ SAP.registerTopic({
           aciklama:'**Engellenecekse** → doğrulama. **Doldurulacak/değiştirilecekse** → ikame. ' +
                    'Karar bu tek soruyla verilir.',
           cikti:'Araç seçimi', ok:'tanımlanır' },
-        { ic:'📝', rol:'Danışman', baslik:'1️⃣ Kural tanımlanır ({{GGB0}} / {{GGB1}})',
+        { ic:'📝', rol:'Danışman', baslik:'1⃣ Kural tanımlanır ({{GGB0}} / {{GGB1}})',
           aciklama:'**Önkoşul** (hangi durumda) + **kural** (ne yapılsın) + ' +
                    'doğrulamada **mesaj** (hata/uyarı/bilgi).',
           cikti:'Tanımlı kural', ok:'atanır' },
-        { ic:'🔗', rol:'Danışman', baslik:'2️⃣ Şirket koduna **atanır** ({{OB28}} / {{OBBH}})',
+        { ic:'🔗', rol:'Danışman', baslik:'2⃣ Şirket koduna **atanır** ({{OB28}} / {{OBBH}})',
           aciklama:'Ayrıca **çağrı noktası** seçilir: belge başlığı · kalem · tam belge. ' +
                    'Yanlış nokta seçilirse kural **hiç çalışmaz**.',
           cikti:'Atanmış kural', ok:'etkinleştirilir' },
-        { ic:'🔌', rol:'Danışman', baslik:'3️⃣ **Etkinleştirilir** ({{GGB4}})',
+        { ic:'🔌', rol:'Danışman', baslik:'3⃣ **Etkinleştirilir** ({{GGB4}})',
           aciklama:'**0** pasif · **1** aktif · **2** toplu giriş hariç aktif. ' +
-                   '⚠️ **En sık atlanan adım** — kural tanımlı ama çalışmıyor.',
+                   '**En sık atlanan adım** — kural tanımlı ama çalışmıyor.',
           cikti:'Çalışan kural', ok:'test edilir' },
         { ic:'🧪', rol:'Test ekibi', baslik:'İki yönlü test edilir',
           aciklama:'**Pozitif:** kural yakalıyor mu? **Negatif:** normal kayıtları ' +
@@ -213,7 +213,7 @@ SAP.registerTopic({
              '**Kayıt oluştu ama kullanıcının girdiğiyle birebir aynı değil.**\n\n' +
              'Fayda: atama alanı hiçbir zaman boş kalmıyor, ' +
              'banka mutabakatı kolaylaşıyor.\n\n' +
-             '⚠️ **Risk:** kullanıcı bu alanın neden dolu olduğunu **bilmiyor**. ' +
+             '**Risk:** kullanıcı bu alanın neden dolu olduğunu **bilmiyor**. ' +
              'Belgelenmemişse yıllar sonra *"bu alan neden hep tarih içeriyor?"* ' +
              'sorusu cevapsız kalır.' },
 
@@ -221,7 +221,7 @@ SAP.registerTopic({
         belgeTuru:'SA', tarih:'15.11.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'770', ad:'Gider — kullanıcı **kâr merkezi PC-2000** girdi', borc:80000,
-            not:'⚠️ Kaydedilen: **PC-1000** — ikame değiştirdi' },
+            not:'Kaydedilen: **PC-1000** — ikame değiştirdi' },
           { hesap:'320', ad:'Satıcılar', alacak:80000 },
         ],
         not:'İkame kuralı, masraf yerine göre kâr merkezini **zorla** türetiyor ve ' +
@@ -287,7 +287,7 @@ SAP.registerTopic({
       '**çağrı noktası** (nerede çalışsın) ve **mesaj tipi** (ne kadar sert olsun).',
 
     liste:[
-      { ad:'🛡️ Araç · Doğrulama (validation)', en:'Validation — GGB0',
+      { ad:'Araç · Doğrulama (validation)', en:'Validation — GGB0',
         aciklama:'Koşul sağlanmazsa kaydı **engeller**. Veriye **dokunmaz**.',
         neZaman:'Bir kaydın oluşmasını önlemek gerektiğinde.',
         ornek:'**Önkoşul:** hesap = 100 → **Kontrol:** tutar ≤ 50.000 → ' +
@@ -295,51 +295,51 @@ SAP.registerTopic({
               'Kullanıcı **görür** ve düzeltmek zorunda kalır.',
         tcodes:['GGB0','OB28'] },
 
-      { ad:'🔧 Araç · İkame (substitution)', en:'Substitution — GGB1',
+      { ad:'Araç · İkame (substitution)', en:'Substitution — GGB1',
         aciklama:'Alan değerini **doldurur veya değiştirir**. Engellemez, **müdahale eder**.',
         neZaman:'Alanı otomatik doldurmak veya standartlaştırmak gerektiğinde.',
         ornek:'**Önkoşul:** hesap = 102 → **Kural:** `ZUONR` = belge tarihi\n\n' +
-              '⚠️ Kullanıcı **görmez** — bu yüzden belgelenmesi zorunludur.',
+              'Kullanıcı **görmez** — bu yüzden belgelenmesi zorunludur.',
         tcodes:['GGB1','OBBH'] },
 
-      { ad:'📍 Çağrı noktası · Belge başlığı', en:'Document Header — 0001',
+      { ad:'Çağrı noktası · Belge başlığı', en:'Document Header — 0001',
         aciklama:'Başlık alanları üzerinde çalışır: belge türü, tarih, referans, başlık metni.',
         neZaman:'Kural yalnızca başlık bilgisine bakıyorsa.',
         ornek:'*"Belge türü SA ise referans alanı zorunlu"*\n\n' +
-              '⚠️ **Kalem alanlarına erişemez** — hesap veya tutara bakan kural ' +
+              '**Kalem alanlarına erişemez** — hesap veya tutara bakan kural ' +
               'burada çalışmaz.' },
 
-      { ad:'📍 Çağrı noktası · Kalem', en:'Line Item — 0002',
+      { ad:'Çağrı noktası · Kalem', en:'Line Item — 0002',
         aciklama:'Her satır için ayrı çalışır: hesap, tutar, maliyet yeri, vergi kodu.',
         neZaman:'En yaygın nokta — kural hesap veya tutara bakıyorsa.',
         ornek:'*"Hesap 100 ise tutar ≤ 50.000"*\n\n' +
-              '⚠️ **Başlık alanını değiştiremez** (ikamede). ' +
+              '**Başlık alanını değiştiremez** (ikamede). ' +
               'Başlık alanı okunabilir ama yazılamaz.' },
 
-      { ad:'📍 Çağrı noktası · Tam belge', en:'Complete Document — 0003',
+      { ad:'Çağrı noktası · Tam belge', en:'Complete Document — 0003',
         aciklama:'Belge **bir bütün olarak** hazır olduğunda, kaydedilmeden hemen önce çalışır.',
         neZaman:'Kural satırlar arası ilişkiye bakıyorsa.',
         ornek:'*"Belgede 100 hesabı varsa toplam tutar 50.000’i geçmesin"* — ' +
               'tek satıra bakarak anlaşılamaz, **belgenin tamamı** gerekir.\n\n' +
               'Satır toplamları ve karşılıklı kontroller için tek uygun noktadır.' },
 
-      { ad:'⚠️ Mesaj · E — Hata', en:'Error',
+      { ad:'Mesaj · E — Hata', en:'Error',
         aciklama:'Kayıt **engellenir**. Kullanıcı geçemez.',
         neZaman:'Politika gerçekten dayatılacaksa.',
         ornek:'**Tek gerçek koruma budur.** Diğer tipler tavsiye niteliğindedir.' },
 
-      { ad:'⚠️ Mesaj · W — Uyarı', en:'Warning',
+      { ad:'Mesaj · W — Uyarı', en:'Warning',
         aciklama:'Uyarır ama kullanıcı **Enter ile geçebilir**.',
         neZaman:'Dikkat çekmek yeterliyse; geçiş kabul edilebilirse.',
-        ornek:'⚠️ **Pratikte etkisiz kalma riski yüksektir:** ilk yoğun günde ' +
+        ornek:'**Pratikte etkisiz kalma riski yüksektir:** ilk yoğun günde ' +
               'herkes geçmeye başlar ve kural fiilen kalkar.' },
 
-      { ad:'⚠️ Mesaj · I — Bilgi', en:'Information',
+      { ad:'Mesaj · I — Bilgi', en:'Information',
         aciklama:'Yalnızca bilgilendirir; akışı hiç kesmez.',
         neZaman:'Kullanıcıyı haberdar etmek yeterliyse.',
         ornek:'Kontrol amacı taşımaz; bilgilendirme aracıdır.' },
 
-      { ad:'🔌 Etkinlik · Seviye 0 / 1 / 2', en:'Activation Level — GGB4',
+      { ad:'Etkinlik · Seviye 0 / 1 / 2', en:'Activation Level — GGB4',
         aciklama:'Kuralın çalışıp çalışmayacağını belirler.',
         neZaman:'Her kural için **zorunlu** son adım.',
         ornek:'**0** pasif · **1** aktif · **2** **toplu giriş hariç** aktif\n\n' +
@@ -348,12 +348,12 @@ SAP.registerTopic({
               'yüklenen eski veri güncel kuralı sağlamayabilir.',
         tcodes:['GGB4'] },
 
-      { ad:'🧩 İleri · Kullanıcı çıkışı (user exit)', en:'User Exit — RGGBS000',
+      { ad:'İleri · Kullanıcı çıkışı (user exit)', en:'User Exit — RGGBS000',
         aciklama:'Standart alanlarla kurulamayan mantık için **ABAP** kodu.',
         neZaman:'Kural tablo okuması veya karmaşık hesaplama gerektiriyorsa.',
         ornek:'İkamede `U`-tipi çıkış, doğrulamada `B`-tipi kural. ' +
               '{{GCX2}} ile atanır.\n\n' +
-              '⚠️ **En son seçenek:** ABAP bakımı gerektirir ve ' +
+              '**En son seçenek:** ABAP bakımı gerektirir ve ' +
               'yükseltmelerde gözden geçirilmesi gerekir.',
         tcodes:['GCX2'] },
     ],
@@ -392,7 +392,7 @@ SAP.registerTopic({
             aciklama:'Tip (**E** hata / **W** uyarı / **I** bilgi) ve metin. ' +
                      'Metin kullanıcıya **ne yapması gerektiğini** söylemelidir.' },
           { baslik:'{{OB28}} ile ata, {{GGB4}} ile **etkinleştir**',
-            aciklama:'⚠️ Bu iki adım olmadan kural **çalışmaz**.' },
+            aciklama:'Bu iki adım olmadan kural **çalışmaz**.' },
         ],
         ekranAkisi:[
           { ekran:'Giriş', islem:'Uygulama alanı **FI** · çağrı noktası **kalem**' },
@@ -425,7 +425,7 @@ SAP.registerTopic({
         neZaman:'Alanı otomatik doldurmak veya standartlaştırmak gerektiğinde.',
         adimlar:[
           { baslik:'Uygulama alanını ve çağrı noktasını seç',
-            aciklama:'⚠️ **Kalem noktasındaki ikame başlık alanını değiştiremez.**' },
+            aciklama:'**Kalem noktasındaki ikame başlık alanını değiştiremez.**' },
           { baslik:'İkame adı ver ve açıklama yaz',
             aciklama:'Açıklama **kritiktir** — ikame sessiz çalıştığı için ' +
                      'tek belge bu alandır.' },
@@ -449,7 +449,7 @@ SAP.registerTopic({
           zorunlu:['Uygulama alanı','Çağrı noktası','İkame adı','Önkoşul','Hedef alan','Değer kaynağı'],
           opsiyonel:['Kullanıcı çıkışı (U-tipi)'] },
         hatalar:[
-          { mesaj:'Field ... cannot be substituted', sebep:'Alan {{GB01}}’de ikameye kapalı.', cozum:'⚠️ {{GB01}} değiştirilebilir ama **SAP notu olmadan yapılmamalıdır** — bazı alanların ikameye kapalı olması kasıtlıdır ve veri bütünlüğünü korur.' },
+          { mesaj:'Field ... cannot be substituted', sebep:'Alan {{GB01}}’de ikameye kapalı.', cozum:'{{GB01}} değiştirilebilir ama **SAP notu olmadan yapılmamalıdır** — bazı alanların ikameye kapalı olması kasıtlıdır ve veri bütünlüğünü korur.' },
           { mesaj:'Başlık alanını değiştiremiyorum', sebep:'Kalem çağrı noktasında başlık alanı **yazılamaz**.', cozum:'Başlık çağrı noktası kullan. Ama o noktada kalem alanları okunamaz.' },
           { mesaj:'İkame kullanıcının girdiğini eziyor, şikâyet var', sebep:'Kural boş/dolu kontrolü yapmıyor.', cozum:'Önkoşula **"alan boşsa"** koşulu ekle; yalnızca boş alanları doldur.' },
         ],
@@ -458,7 +458,7 @@ SAP.registerTopic({
               '*"ben öyle girmedim"* şikâyetine yol açar ve ' +
               'kullanıcının sisteme güvenini zedeler.\n\n' +
               'Çözüm basittir: önkoşula **"alan boşsa"** koşulunu ekle.\n\n' +
-              '⚠️ **Her ikame belgelenmelidir.** Sessiz çalıştığı için ' +
+              '**Her ikame belgelenmelidir.** Sessiz çalıştığı için ' +
               'belgelenmemiş bir ikame, yıllar sonra sebebi bilinmeyen ' +
               'bir sistem davranışına dönüşür ve kimse dokunmaya cesaret edemez.',
         ilgili:['GGB0','GGB4','OBBH','GB01','GCX2'] },
@@ -485,7 +485,7 @@ SAP.registerTopic({
               'Sebep: geçişte yüklenen **eski veri**, bugünün kuralını sağlamayabilir. ' +
               'Örneğin 2019’daki bir kayıt, 2027’de konulan tutar sınırını aşıyor olabilir.\n\n' +
               'Kural seviye 1 olsaydı geçmiş veri **yüklenemezdi**.\n\n' +
-              '⚠️ Ama bu bir **açık kapıdır**: toplu giriş yoluyla kural atlatılabilir. ' +
+              'Ama bu bir **açık kapıdır**: toplu giriş yoluyla kural atlatılabilir. ' +
               'Kritik kontrollerde seviye **1** tercih edilmelidir.',
         ilgili:['GGB0','GGB1','OB28','OBBH'] },
 
@@ -512,11 +512,11 @@ SAP.registerTopic({
         adimlar:[
           { baslik:'Şirket kodunu gir' },
           { baslik:'Çağrı noktasını seç',
-            aciklama:'⚠️ Nokta seçimi **hangi alanların değiştirilebileceğini** belirler.' },
+            aciklama:'Nokta seçimi **hangi alanların değiştirilebileceğini** belirler.' },
           { baslik:'İkame adını gir' },
           { baslik:'Etkinlik seviyesini gir' },
         ],
-        ipucu:'⚠️ **Çağrı noktası seçimi geri dönüşü zor bir karardır.** ' +
+        ipucu:'**Çağrı noktası seçimi geri dönüşü zor bir karardır.** ' +
               'Kalem noktasındaki ikame **başlık alanını değiştiremez**; ' +
               'başlık noktasındaki ikame **kalem alanlarını okuyamaz**.\n\n' +
               'Yanlış nokta seçilirse kural ya çalışmaz ya beklenmedik davranır. ' +
@@ -538,7 +538,7 @@ SAP.registerTopic({
         tutar:'Hangi alanın doğrulamada **kullanılabileceğini** ve ikamede ' +
               '**değiştirilebileceğini** tutar.',
         olusturan:'SAP standart teslimatı',
-        guncelleyen:'⚠️ Değiştirilebilir ama **SAP notu olmadan yapılmamalıdır**',
+        guncelleyen:'Değiştirilebilir ama **SAP notu olmadan yapılmamalıdır**',
         anahtar:'CLASS + TABNAME + FIELDNAME',
         iliskiler:'{{GGB0}} ve {{GGB1}} bu tabloya bakarak alan listesini sunar.',
         s4:'Değişmedi.',
@@ -630,14 +630,14 @@ SAP.registerTopic({
         aciklama:'Önkoşul + hedef alan + değer kaynağı.',
         alanlar:[
           { ad:'Uygulama alanı + çağrı noktası', zorunlu:true,
-            aciklama:'⚠️ **Kalem noktası başlık alanını yazamaz.**' },
+            aciklama:'**Kalem noktası başlık alanını yazamaz.**' },
           { ad:'Önkoşul', zorunlu:true, aciklama:'**"Alan boşsa"** koşulu eklenmesi önerilir — ' +
                    'kullanıcının girdiğini ezmemek için.' },
           { ad:'Hedef alan', zorunlu:true, aciklama:'{{GB01}} listesinden seçilir; ' +
                    'kapalı alanlar görünmez.' },
           { ad:'Değer kaynağı', zorunlu:true, aciklama:'Sabit değer · başka alan · ' +
                    '**kullanıcı çıkışı** ({{GCX2}}).' },
-          { ad:'Açıklama', zorunlu:false, aciklama:'⚠️ **Fiilen zorunludur** — ' +
+          { ad:'Açıklama', zorunlu:false, aciklama:'**Fiilen zorunludur** — ' +
                    'ikame sessiz çalıştığı için tek belge bu alandır.' },
         ],
         ipucu:'**İkame yalnızca boş alanları doldurmalıdır.** ' +
@@ -667,7 +667,7 @@ SAP.registerTopic({
     hatalar:[
       { mesaj:'Kural tanımladım ama hiç çalışmıyor', sebep:'Atanmamış veya etkinleştirilmemiş.', cozum:'Sırayla: tanım → **atama** ({{OB28}}/{{OBBH}}) → **etkinleştirme** ({{GGB4}} seviye 1/2) → çağrı noktası. Çoğu vaka üçüncüde çözülür.' },
       { mesaj:'Field ... is not allowed in this Boolean class', sebep:'Alan o çağrı noktasında kullanılamıyor ({{GB01}}).', cozum:'Farklı çağrı noktası seç. Başlık alanı kalem noktasında okunabilir ama yazılamaz.' },
-      { mesaj:'Field ... cannot be substituted', sebep:'{{GB01}}’de ikameye kapalı.', cozum:'⚠️ {{GB01}} değiştirilebilir ama **SAP notu olmadan yapılmamalıdır** — kapalılık kasıtlı olabilir.' },
+      { mesaj:'Field ... cannot be substituted', sebep:'{{GB01}}’de ikameye kapalı.', cozum:'{{GB01}} değiştirilebilir ama **SAP notu olmadan yapılmamalıdır** — kapalılık kasıtlı olabilir.' },
       { mesaj:'Kural normal kayıtları da engelliyor, iş durdu', sebep:'Önkoşul çok geniş veya boş bırakılmış.', cozum:'Önkoşulu daralt. Acil durumda {{GGB4}} ile **seviye 0** yapılıp kural geçici durdurulabilir.' },
       { mesaj:'İkame kullanıcının girdiğini değiştiriyor', sebep:'Önkoşulda "alan boşsa" kontrolü yok.', cozum:'Önkoşula bu koşulu ekle; ikame yalnızca boş alanları doldursun.' },
       { mesaj:'Kural elle kayıtta çalışıyor, yüklemede çalışmıyor', sebep:'Etkinlik seviyesi **2** (toplu giriş hariç).', cozum:'Kritik kontrollerde seviye **1** kullanılmalıdır — aksi hâlde toplu giriş bir **açık kapıdır**.' },
@@ -703,7 +703,7 @@ SAP.registerTopic({
       '**4.** Hesap belirleme, vergi hesaplama, {{belge-bolme}} çalışır.\n' +
       '**5.** Denklik kontrolü.\n' +
       '**6.** Tablolara yazılır.\n\n' +
-      '⚠️ **2. ve 3. adımın sırası önemlidir:** doğrulama, ikamenin ' +
+      '**2. ve 3. adımın sırası önemlidir:** doğrulama, ikamenin ' +
       '**değiştirdiği değeri** görür — kullanıcının girdiğini değil.\n\n' +
       'Bu, beklenmedik etkileşimlere yol açabilir: ikame bir alanı değiştirir, ' +
       'doğrulama o yeni değeri reddeder ve kullanıcı ' +
@@ -755,7 +755,7 @@ SAP.registerTopic({
       'Doğrulama ve ikame kuralları taşınır ama **standart yapılandırmadan farklı** ' +
       'bir mekanizma kullanır: {{GGB0}}/{{GGB1}} menüsünden ' +
       '**açıkça taşıma isteğine eklenir**.\n\n' +
-      '⚠️ **En sık geçiş sorunu:** kural taşınır ama ' +
+      '**En sık geçiş sorunu:** kural taşınır ama ' +
       '**etkinlik seviyesi taşınmaz** veya sıfırlanır. ' +
       'Canlıda kural tanımlı görünür ama çalışmaz.\n\n' +
       'Ayrıca kullanıcı çıkışı kullanılıyorsa ABAP nesnesi **ayrı** taşınır; ' +
@@ -969,11 +969,11 @@ SAP.registerTopic({
         aciklama:'İkamenin ne yaptığı ve neden kurulduğu araştırılıyor.',
         girdi:[
           { alan:'İkame adı', deger:'`Z_PRCTR_DERIVE`' },
-          { alan:'**Açıklama**', deger:'**Boş** ✕ — hiçbir açıklama yazılmamış' },
+          { alan:'**Açıklama**', deger:'**Boş** — hiçbir açıklama yazılmamış' },
           { alan:'Önkoşul', deger:'`BSEG-HKONT` = `0000770300`' },
           { alan:'Hedef alan', deger:'`BSEG-PRCTR`' },
           { alan:'Değer', deger:'Sabit **PC-1000**' },
-          { alan:'"Alan boşsa" koşulu', deger:'**YOK** ✕ — kullanıcının girdiğini **eziyor**' },
+          { alan:'"Alan boşsa" koşulu', deger:'**YOK** — kullanıcının girdiğini **eziyor**' },
         ],
         not:'**İki tasarım hatası bir arada:**\n\n' +
              '**1. Açıklama boş.** Kuralın neden kurulduğu **hiçbir yerde yazılı değil**. ' +
@@ -1021,7 +1021,7 @@ SAP.registerTopic({
           { tablo:'BSEG', ne:'`PRCTR` = PC-2000 — kullanıcının girdiği değer' },
           { tablo:'ACDOCA', ne:'Aynı değer yansıdı' },
         ],
-        not:'⚠️ **Geçmiş kayıtlar düzelmedi.** 2026–2027 arası ' +
+        not:'**Geçmiş kayıtlar düzelmedi.** 2026–2027 arası ' +
              'yanlış kâr merkezine düşmüş kayıtlar duruyor.\n\n' +
              'Düzeltme için {{KB11N}} ile CO içinde taşıma gerekir ' +
              '(bkz. {{konu:cost-center}}) — FI zaten doğru.' },
@@ -1083,7 +1083,7 @@ SAP.registerTopic({
       '**"Doğrulama ile ikame farkı nedir?"** **Doğrulama engeller, ikame değiştirir.** Doğrulama veriye dokunmaz, kaydı reddeder ve kullanıcı **hata mesajı görür**. İkame alan değerini **sessizce** doldurur/değiştirir — kullanıcı fark etmez. Bu, ikamenin hem gücü hem riskidir.',
       '**"Kural tanımladım ama çalışmıyor. Neden?"** Üç adımdan biri eksiktir: **tanım** → **atama** ({{OB28}}/{{OBBH}}) → **etkinleştirme** ({{GGB4}} seviye 1/2). Vakaların çoğu **etkinleştirmede** çözülür. Dördüncü ihtimal: yanlış çağrı noktası.',
       '**"Çağrı noktası neden önemli?"** Erişimi belirler. **Kalem** noktasındaki ikame **başlık alanını yazamaz**; **başlık** noktasındaki kural kalem alanlarını **okuyamaz**. Satırlar arası ilişkiye bakan kural **tam belge** noktasında olmalıdır.',
-      '**"Etkinlik seviyesi 2 ne demek?"** **Toplu giriş hariç** aktif. Veri yüklemelerinde ({{toplu-giris}}, {{LSMW}}) kural devre dışı kalır — çünkü yüklenen eski veri bugünün kuralını sağlamayabilir. ⚠️ Ama bu bir **açık kapıdır**; kritik kontrollerde seviye **1** kullanılır.',
+      '**"Etkinlik seviyesi 2 ne demek?"** **Toplu giriş hariç** aktif. Veri yüklemelerinde ({{toplu-giris}}, {{LSMW}}) kural devre dışı kalır — çünkü yüklenen eski veri bugünün kuralını sağlamayabilir. Ama bu bir **açık kapıdır**; kritik kontrollerde seviye **1** kullanılır.',
       '**"İkame neden riskli?"** **Sessiz veri değişikliği.** Kullanıcı bir değer girer, sistem başkasını kaydeder ve hiçbir mesaj çıkmaz. Belgelenmemişse yıllar sonra sebebi bilinmeyen bir davranışa dönüşür. Çözüm: önkoşula **"alan boşsa"** koşulu + **açıklama yazmak**.',
       '**"Mesaj tipi neden kritik?"** **E** kaydı engeller (tek gerçek koruma). **W** uyarır ama kullanıcı **geçebilir** — ilk yoğun günde herkes geçer ve kural fiilen kalkar. Politika dayatılacaksa **E** kullanılmalıdır.',
       '**"Bir alanı ikame edemiyorum. Neden?"** {{GB01}}’de o alan ikameye **kapalıdır**. Tablo değiştirilebilir ama **SAP notu olmadan yapılmamalıdır** — kapalılık veri bütünlüğü için kasıtlı olabilir.',
@@ -1164,7 +1164,7 @@ SAP.registerTopic({
         aciklama:'Seviye **2**, kuralın {{toplu-giris}} işlemlerinde **çalışmamasını** sağlar.\n\n' +
                  '**Neden var:** veri geçişinde yüklenen **eski veri**, bugünün kuralını ' +
                  'sağlamayabilir. Kural seviye 1 olsaydı geçmiş veri yüklenemezdi.\n\n' +
-                 '⚠️ **Riski:** bu bir **açık kapıdır**. Toplu giriş yoluyla ' +
+                 '**Riski:** bu bir **açık kapıdır**. Toplu giriş yoluyla ' +
                  'kural atlatılabilir. Kritik kontrollerde seviye **1** tercih edilmelidir.' },
 
       { soru:'İkame kullanıcının girdiği değeri eziyor. Doğru çözüm nedir?',
@@ -1219,7 +1219,7 @@ SAP.registerTopic({
         ], dogru:2,
         aciklama:'{{GB01}} tablosu hangi alanın doğrulamada **kullanılabileceğini** ve ' +
                  'ikamede **değiştirilebileceğini** tutar.\n\n' +
-                 'Tablo teknik olarak değiştirilebilir — ama ⚠️ **SAP notu olmadan ' +
+                 'Tablo teknik olarak değiştirilebilir — ama **SAP notu olmadan ' +
                  'yapılmamalıdır**. Bazı alanların ikameye kapalı olması ' +
                  '**kasıtlıdır** ve veri bütünlüğünü korur.\n\n' +
                  'Önce farklı bir çağrı noktası veya farklı bir çözüm aranmalıdır.' },
@@ -1227,19 +1227,19 @@ SAP.registerTopic({
 
     flashcards:[
       { on:'Doğrulama vs İkame', arka:'**Doğrulama** → **ENGELLER**\nVeriye dokunmaz · kullanıcı **hata mesajı görür**\nGGB0 + OB28\n\n**İkame** → **DEĞİŞTİRİR**\nAlanı doldurur/değiştirir · **SESSİZ**\nGGB1 + OBBH' },
-      { on:'Kural kurmanın üç adımı', arka:'**1. Tanımla** — GGB0 / GGB1\n**2. Ata** — OB28 / OBBH (şirket kodu + çağrı noktası)\n**3. ETKİNLEŞTİR** — GGB4 (seviye 1/2)\n\n⚠️ 3. adım **en sık atlanan**; "kural çalışmıyor" vakalarının çoğu burada.' },
+      { on:'Kural kurmanın üç adımı', arka:'**1. Tanımla** — GGB0 / GGB1\n**2. Ata** — OB28 / OBBH (şirket kodu + çağrı noktası)\n**3. ETKİNLEŞTİR** — GGB4 (seviye 1/2)\n\n3. adım **en sık atlanan**; "kural çalışmıyor" vakalarının çoğu burada.' },
       /* ⚠️ Dış italik KALDIRILDI: italik tek satırlıktır ve içinde yıldız
          taşıyamaz; bu satır hem `\n` hem `**kalın**` içeriyordu ve
          ham `*` olarak çiziliyordu (bkz. Ders #28). Vurguyu zaten
          içteki kalınlar taşıyor. */
       { on:'Karar sorusu: doğrulama mı ikame mi?', arka:'**"Kullanıcı bu kaydı yapabilsin mi?"**\n\n**Hayır** → doğrulama (engelle)\n**Evet ama alan şöyle olsun** → ikame (doldur)\n\nAlan bir **karar** taşıyorsa (kâr merkezi) → doğrulama.\nAlan **mekanik** ise (tarih) → ikame.' },
       { on:'Çağrı noktaları ve kısıtları', arka:'**Başlık (0001)** → başlık alanları · kalem alanlarını **okuyamaz**\n**Kalem (0002)** → en yaygın · başlık alanını **YAZAMAZ**\n**Tam belge (0003)** → satırlar arası ilişki için **tek uygun** nokta' },
-      { on:'Mesaj tipleri', arka:'**E (hata)** → kayıt **engellenir** ← tek gerçek koruma\n**W (uyarı)** → kullanıcı **geçebilir** ⚠️ ilk yoğun günde kural fiilen kalkar\n**I (bilgi)** → yalnızca bilgilendirir\n\nPolitika dayatılacaksa **E**.' },
-      { on:'Etkinlik seviyeleri (GGB4)', arka:'**0** → pasif\n**1** → aktif\n**2** → **toplu giriş hariç** aktif\n\n*Seviye 2 neden var:* geçişte yüklenen eski veri bugünün kuralını sağlamayabilir.\n\n⚠️ Ama **açık kapı** — kritik kontrollerde **1**.' },
+      { on:'Mesaj tipleri', arka:'**E (hata)** → kayıt **engellenir** ← tek gerçek koruma\n**W (uyarı)** → kullanıcı **geçebilir** ilk yoğun günde kural fiilen kalkar\n**I (bilgi)** → yalnızca bilgilendirir\n\nPolitika dayatılacaksa **E**.' },
+      { on:'Etkinlik seviyeleri (GGB4)', arka:'**0** → pasif\n**1** → aktif\n**2** → **toplu giriş hariç** aktif\n\n*Seviye 2 neden var:* geçişte yüklenen eski veri bugünün kuralını sağlamayabilir.\n\nAma **açık kapı** — kritik kontrollerde **1**.' },
       { on:'İkamenin en büyük riski', arka:'**Sessiz veri değişikliği.**\n\nKullanıcı bir değer girer → sistem başkasını kaydeder → **hiçbir mesaj yok**.\n\nBelgelenmemişse yıllar sonra *"bu alan neden hep böyle doluyor?"* → **kimse bilmez**.' },
       { on:'İkame tasarımının üç kuralı', arka:'**a)** Yalnızca **boş alanları** doldur → önkoşula *"alan boşsa"* ekle\n**b)** **Açıklamayı iş diliyle** yaz → sessiz çalıştığı için tek iz\n**c)** Aktif ikamelerin **listesini** proje dokümanında tut' },
-      { on:'İkame ve doğrulama sırası', arka:'**İkame ÖNCE, doğrulama SONRA.**\n\n→ Doğrulama, ikamenin **değiştirdiği** değeri kontrol eder — kullanıcının girdiğini **değil**.\n\n⚠️ Beklenmedik etkileşim: ikame değiştirir, doğrulama reddeder → *"ben o değeri girmedim"*.' },
-      { on:'GB01 tablosu ne yapar?', arka:'Hangi alanın **doğrulamada kullanılabileceğini** ve **ikamede değiştirilebileceğini** tutar.\n\nFI belgeleri için boolean sınıfı **09**.\n\n⚠️ Değiştirilebilir ama **SAP notu olmadan yapılmamalı** — kapalılık kasıtlı olabilir.' },
+      { on:'İkame ve doğrulama sırası', arka:'**İkame ÖNCE, doğrulama SONRA.**\n\n→ Doğrulama, ikamenin **değiştirdiği** değeri kontrol eder — kullanıcının girdiğini **değil**.\n\nBeklenmedik etkileşim: ikame değiştirir, doğrulama reddeder → *"ben o değeri girmedim"*.' },
+      { on:'GB01 tablosu ne yapar?', arka:'Hangi alanın **doğrulamada kullanılabileceğini** ve **ikamede değiştirilebileceğini** tutar.\n\nFI belgeleri için boolean sınıfı **09**.\n\nDeğiştirilebilir ama **SAP notu olmadan yapılmamalı** — kapalılık kasıtlı olabilir.' },
       { on:'Önkoşulu boş bırakmak', arka:'Kural **HER KAYITTA** çalışır → sistem kullanılamaz hâle gelir.\n\n**Acil çözüm:** GGB4 → seviye **0** (kuralı silmeye gerek yok — güvenlik valfi)\n\n**Kalıcı:** önkoşulu daralt + **negatif test** yap.' },
       { on:'Neden negatif test daha önemli?', arka:'**Pozitif test:** kural yakalaması gerekeni engelliyor mu?\n**Negatif test:** **normal kayıtlar geçiyor mu?**\n\nFazla geniş önkoşul → **iş durur**. ' +
         'Yakalamayan kural rahatsız edicidir; **durduran kural felakettir**.' },

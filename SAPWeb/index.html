@@ -7,6 +7,7 @@
 <title>SAP S/4HANA FI Eğitim Platformu</title>
 
 <!-- Tema, kabuk ve yazdırma stilleri. Harici font/CDN yok: internetsiz de aynı görünür. -->
+<link rel="stylesheet" href="css/fonts.css">
 <link rel="stylesheet" href="css/theme.css">
 <link rel="stylesheet" href="css/app.css">
 <link rel="stylesheet" href="css/print.css">
@@ -32,20 +33,17 @@
   <div class="scrim" id="scrim" data-action="close-menu"></div>
 
   <div class="main">
+    <!-- Üst çubuk: konum + arama + dil + tema. Buradaki ikonlar Lucide'dir
+         (16px, 1.5 kalınlık, currentColor) ve ui.js tarafından basılır.
+         EMOJİ YOK — bkz. theme.css ilke 5. -->
     <header class="topbar">
-      <button class="iconbtn menubtn" type="button" data-action="toggle-menu" aria-label="Menü">☰</button>
+      <button class="iconbtn menubtn" id="menu-btn" type="button" data-action="toggle-menu"></button>
       <nav class="topbar-crumb" id="crumb" aria-label="Konum"></nav>
       <span class="topbar-spacer"></span>
-      <!-- Arayüzdeki TEK iki ikon bunlar ve ikisi de tek renk çizgi
-           ikondur; emoji kullanılmaz (bkz. theme.css ilke 4). -->
-      <button class="searchbtn" type="button" data-action="open-search" aria-label="Ara">
-        <svg class="ic-search" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-          <circle cx="7" cy="7" r="4.25" fill="none" stroke="currentColor" stroke-width="1.4"/>
-          <path d="M10.2 10.2 L14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-        </svg>
-        <span class="lb">Ara…</span><kbd>Ctrl K</kbd>
-      </button>
-      <button class="iconbtn" type="button" id="theme-btn" data-action="toggle-theme" aria-label="Tema"></button>
+      <button class="searchbtn" id="search-btn" type="button" data-action="open-search"></button>
+      <!-- Dil anahtarı — ekranın sağ üst köşesi, istendiği gibi. -->
+      <div class="langsw" id="langsw" role="group" aria-label="Language"></div>
+      <button class="iconbtn" type="button" id="theme-btn" data-action="toggle-theme"></button>
     </header>
 
     <main class="view" id="view"></main>
@@ -68,6 +66,7 @@
 
 <!-- 1) çekirdek -->
 <script src="js/core.js"></script>
+<script src="js/i18n.js"></script>
 <script src="js/markup.js"></script>
 <script src="js/diagram.js"></script>
 

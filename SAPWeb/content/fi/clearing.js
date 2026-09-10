@@ -102,7 +102,7 @@ SAP.registerTopic({
           aciklama:'Geçiş hesaplarının bakiyesi incelenir. {{gr-ir}} için {{F.19}} yeniden sınıflama, ' +
                    'kalıcı farklar için {{MR11}} temizliği.',
           cikti:'Temiz bilanço', ok:'hata varsa' },
-        { ic:'↩️', rol:'Muhasebe uzmanı', baslik:'Yanlış kapatma geri alınır ({{FBRA}})',
+        { ic:'↩', rol:'Muhasebe uzmanı', baslik:'Yanlış kapatma geri alınır ({{FBRA}})',
           aciklama:'Kapatma silinir, kalemler yeniden açık hâle gelir. Düzeltme kaydı gerekmez.',
           cikti:'Yeniden açık kalemler' },
       ],
@@ -847,7 +847,7 @@ SAP.registerTopic({
           { alan:'Hesap', deger:'159000 → Kontrol verisi sekmesi' },
           { alan:'Açık kalem yönetimi (`XOPVW`)', deger:'X — **doğru** ✓' },
           { alan:'Kalem görüntüleme (`XKRES`)', deger:'X — doğru ✓' },
-          { alan:'**Sıralama anahtarı (`ZUAWA`)**', deger:'**BOŞ** ✕ — sorunun kaynağı' },
+          { alan:'**Sıralama anahtarı (`ZUAWA`)**', deger:'**BOŞ** — sorunun kaynağı' },
           { alan:'Beklenen', deger:'014 (sipariş numarası) veya 018 (satınalma belgesi)' },
         ],
         not:'Sıralama anahtarı boş olduğu için kayıt sırasında atama alanı hiç doldurulmuyor. ' +

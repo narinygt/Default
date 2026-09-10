@@ -226,7 +226,7 @@ SAP.registerTopic({
              '240.000 × 9/12 = **180.000 TL**.\n\n' +
              'Ayrılamayan 60.000 TL (3/12) **kaybolmaz**: 6. yılda gider yazılarak tamamlanır. ' +
              'Yani araç 5 yıl yerine **6 takvim yılına** yayılır.\n\n' +
-             '⚠️ Aynı gün alınan bir **makine** için tam yıl (240.000 TL) ayrılırdı — ' +
+             'Aynı gün alınan bir **makine** için tam yıl (240.000 TL) ayrılırdı — ' +
              'kıst yalnızca binek otomobile özgüdür.' },
 
       { baslik:'**Kıst amortisman** — son yıl · ilk yıldan kalan tamamlanıyor',
@@ -395,11 +395,11 @@ SAP.registerTopic({
   cesitler: {
     anlatim:
       'AA’da çeşitlenme üç eksende olur ve aşağıdaki liste bu üç gruba ayrılmıştır:\n\n' +
-      '**🔄 Varlık hareketleri** — varlığa ne oluyor? *(edinim, transfer, çıkış, AuC)*\n' +
-      '**🧮 Hesaplama yöntemleri** — tutar nasıl bulunuyor? *(doğrusal, azalan, YST, üretim, kalıntılı)*\n' +
-      '**📋 VUK uygulamaları** — mevzuatın özel kuralları *(kıst, fevkalade, özel maliyet…)*\n\n' +
+      '** Varlık hareketleri** — varlığa ne oluyor? *(edinim, transfer, çıkış, AuC)*\n' +
+      '** Hesaplama yöntemleri** — tutar nasıl bulunuyor? *(doğrusal, azalan, YST, üretim, kalıntılı)*\n' +
+      '** VUK uygulamaları** — mevzuatın özel kuralları *(kıst, fevkalade, özel maliyet…)*\n\n' +
       '━━━━━━━━━━\n\n' +
-      '### 🧮 Hesaplama yöntemleri — aynı varlık, beş sonuç\n\n' +
+      '### Hesaplama yöntemleri — aynı varlık, beş sonuç\n\n' +
       'Yöntemleri anlamanın en hızlı yolu **aynı varlığı beş kez hesaplamaktır**.\n\n' +
       '**Varlık:** 600.000 TL · faydalı ömür **5 yıl**\n\n' +
       '**① Doğrusal** — `Tutar ÷ Ömür`\n' +
@@ -421,7 +421,7 @@ SAP.registerTopic({
       'Aynı varlığın iki alanda farklı yöntemle değerlenmesi, {{paralel-defter}}’in en somut kullanım sebebidir.',
 
     liste:[
-      { ad:'🔄 Hareket · Edinim', en:'Acquisition',
+      { ad:'Hareket · Edinim', en:'Acquisition',
         aciklama:'Varlığın kayıtlara girmesi. Üç yolu vardır: **{{ABZON}}** (karşı hesap otomatik, satıcısız), ' +
                  '**{{F-90}}** (doğrudan satıcı hesabına), **MM üzerinden** (sipariş → mal girişi → fatura).',
         neZaman:'{{ABZON}} basit alımlarda; {{F-90}} satıcı faturası doğrudan girilecekse; ' +
@@ -429,19 +429,19 @@ SAP.registerTopic({
         ornek:'{{hareket-turu}} **100** — dış edinim. Kayıt: 253 borç / 320 alacak.',
         tcodes:['ABZON','F-90','MIGO','MIRO'] },
 
-      { ad:'🔄 Hareket · Hurdaya ayırma', en:'Scrapping — ABAVN',
+      { ad:'Hareket · Hurdaya ayırma', en:'Scrapping — ABAVN',
         aciklama:'Gelir getirmeyen çıkış. {{net-defter-degeri}}’nin tamamı **zarar** yazılır.',
         neZaman:'Varlık kullanılamaz hâle geldiğinde, imha edildiğinde, çalındığında.',
         ornek:'{{hareket-turu}} **200/250**. Defter değeri 420.000 ise 420.000 TL zarar.',
         tcodes:['ABAVN'] },
 
-      { ad:'🔄 Hareket · Satış', en:'Retirement with Revenue — F-92 / ABAON',
+      { ad:'Hareket · Satış', en:'Retirement with Revenue — F-92 / ABAON',
         aciklama:'Bedelli çıkış. Satış bedeli ile {{net-defter-degeri}} karşılaştırılır; fark kâr veya zarar olur.',
         neZaman:'Varlık üçüncü tarafa satıldığında.',
         ornek:'Defter değeri 420.000, satış 500.000 → **80.000 TL kâr** (679 hesabı).',
         tcodes:['F-92','ABAON'] },
 
-      { ad:'🔄 Hareket · AuC özet yerleşim', en:'AuC — Summary Settlement',
+      { ad:'Hareket · AuC özet yerleşim', en:'AuC — Summary Settlement',
         aciklama:'Tüm AuC maliyeti **tek bir hedef varlığa** aktarılır. ' +
                  'Kalemler ayrı ayrı izlenmez, toplam devredilir.',
         neZaman:'Yatırım tek bir varlık üretiyorsa: bir bina, bir makine, bir araç.',
@@ -449,7 +449,7 @@ SAP.registerTopic({
               'Basittir, yerleşim kuralı tek satırdır. **Varsayılan seçim budur.**',
         tcodes:['AIBU','ABUMN'] },
 
-      { ad:'🔄 Hareket · AuC kalem bazlı yerleşim', en:'AuC — Line Item Settlement',
+      { ad:'Hareket · AuC kalem bazlı yerleşim', en:'AuC — Line Item Settlement',
         aciklama:'AuC maliyeti **birden çok hedef varlığa bölünerek** aktarılır. ' +
                  'Her maliyet kalemi ayrı izlenir ve kendi hedefine gider.',
         neZaman:'Yatırım **farklı faydalı ömürde** varlıklar üretiyorsa: ' +
@@ -459,7 +459,7 @@ SAP.registerTopic({
               '**Varlık sınıfında baştan seçilmelidir** — sonradan değiştirilemez.',
         tcodes:['AIAB','AIBU'] },
 
-      { ad:'🔄 Hareket · AuC kısmi aktifleştirme', en:'Partial Capitalization',
+      { ad:'Hareket · AuC kısmi aktifleştirme', en:'Partial Capitalization',
         aciklama:'Yatırımın **devreye alınan bölümü** aktifleştirilir, kalanı AuC’de bekler.',
         neZaman:'Aşamalı devreye alınan projelerde: fabrikanın ilk hattı çalışırken ' +
                 'ikincisi inşa halindeyse.',
@@ -469,7 +469,7 @@ SAP.registerTopic({
               '**En sık atlanan adımdır** — proje "tamamen bitsin" diye beklenir.',
         tcodes:['AIBU'] },
 
-      { ad:'🔄 Hareket · Yatırım avansı', en:'Down Payment on Investment',
+      { ad:'Hareket · Yatırım avansı', en:'Down Payment on Investment',
         aciklama:'Yatırım için satıcıya verilen avans; **259** hesabında izlenir, 258’de değil.',
         neZaman:'Sözleşmede peşin ödeme öngörülmüşse.',
         ornek:'600.000 TL avans → 259 borç. Hakediş geldikçe mahsup edilir ve ' +
@@ -478,25 +478,25 @@ SAP.registerTopic({
               'Karıştırmak yatırımı olduğundan pahalı gösterir.',
         tcodes:['F-48','F-54'] },
 
-      { ad:'🔄 Hareket · Transfer', en:'Transfer — ABUMN',
+      { ad:'Hareket · Transfer', en:'Transfer — ABUMN',
         aciklama:'Varlığın başka bir varlığa, sınıfa veya şirket koduna aktarılması. ' +
                  'En sık kullanımı {{yatirim-devam}}’ın gerçek varlığa dönüştürülmesidir.',
         neZaman:'AuC aktifleştirmede, sınıf düzeltmesinde, şirketler arası devirde.',
         ornek:'{{hareket-turu}} **300/336**. 258 alacak / 252 borç.',
         tcodes:['ABUMN','AIBU','AIAB'] },
 
-      { ad:'🧮 Yöntem ① · Doğrusal (eşit tutarlı)', en:'Straight-line — VUK md. 315',
+      { ad:'Yöntem ① · Doğrusal (eşit tutarlı)', en:'Straight-line — VUK md. 315',
         aciklama:'Edinim değeri {{faydali-omur}}’e **eşit olarak** bölünür. Her dönem aynı tutar. ' +
                  'Oran = 1 / faydalı ömür.',
         neZaman:'**VUK’un varsayılan yöntemidir.** Faydanın zamana eşit yayıldığı her varlıkta ' +
                 'kullanılabilir; ayrıca azalan bakiyeler uygulanamayan mükellefler için tek seçenektir.',
         ornek:'600.000 TL / 10 yıl = yıllık **60.000 TL**.\n\n' +
-              '⚠️ **Kıst uygulanmaz:** varlık 28 Aralık’ta alınsa bile o yıl için ' +
+              '**Kıst uygulanmaz:** varlık 28 Aralık’ta alınsa bile o yıl için ' +
               '**tam yıl** amortismanı ayrılabilir (binek otomobil hariç). ' +
               'Faydalı ömürler Maliye Bakanlığı listesiyle (333 sıra no’lu VUK Genel Tebliği) belirlenir.',
         tcodes:['AFAMA','AFAMR'] },
 
-      { ad:'🧮 Yöntem ② · Azalan bakiyeler', en:'Declining Balance — VUK mük. md. 315',
+      { ad:'Yöntem ② · Azalan bakiyeler', en:'Declining Balance — VUK mük. md. 315',
         aciklama:'Amortisman **edinim değeri üzerinden değil, {{net-defter-degeri}} üzerinden** ' +
                  'sabit oranla hesaplanır. Taban küçüldüğü için tutar her yıl azalır.',
         neZaman:'Faydanın ilk yıllarda yoğunlaştığı varlıklarda; **vergi ertelemesi** amacıyla. ' +
@@ -507,7 +507,7 @@ SAP.registerTopic({
               'hiçbir zaman sıfırlanmazdı. **Azalandan normale geçilebilir, tersi olmaz.**',
         tcodes:['AFAMD','AFAMS'] },
 
-      { ad:'📋 VUK · {{kist-amortisman}}', en:'Pro-rata — VUK md. 320/2',
+      { ad:'VUK · {{kist-amortisman}}', en:'Pro-rata — VUK md. 320/2',
         aciklama:'İşletmeye alındığı yıl için **tam yıl değil, kullanıldığı ay kadar** amortisman. ' +
                  'VUK’ta **kural değil istisnadır**.',
         neZaman:'**Yalnızca binek otomobillerde.** Diğer tüm varlıklarda kıst uygulanmaz.',
@@ -519,34 +519,34 @@ SAP.registerTopic({
               '(araç kiralama, sürücü kursu) kıst uygulamaz.',
         tcodes:['AFAMP'] },
 
-      { ad:'🧮 Yöntem ③ · {{yil-sayilari-toplami}}', en:'Sum-of-the-Years’-Digits — IFRS',
+      { ad:'Yöntem ③ · {{yil-sayilari-toplami}}', en:'Sum-of-the-Years’-Digits — IFRS',
         aciklama:'Sabit taban üzerinden, **her yıl azalan bir oranla** hesaplanan hızlandırılmış yöntem.',
         neZaman:'IFRS raporlamasında; faydanın önde yoğunlaştığı ama azalan bakiyelerin ' +
                 'fazla agresif kaldığı varlıklarda.',
         ornek:'`Tutar × (Kalan ömür ÷ Yıl sayıları toplamı)`\n\n' +
               '5 yıl → payda 15 → 200.000 / 160.000 / 120.000 / 80.000 / 40.000\n\n' +
               '**Azalandan farkı:** taban **sabittir**, oran değişir → son yıl özel kural gerekmez.\n\n' +
-              '⚠️ **VUK’ta yoktur** — Türkiye’de yalnızca IFRS {{amortisman-alani}}’nda.' },
+              '**VUK’ta yoktur** — Türkiye’de yalnızca IFRS {{amortisman-alani}}’nda.' },
 
-      { ad:'🧮 Yöntem ④ · {{uretim-miktari-yontemi}}', en:'Units of Production — IFRS',
+      { ad:'Yöntem ④ · {{uretim-miktari-yontemi}}', en:'Units of Production — IFRS',
         aciklama:'Amortisman **zamana değil, fiilen üretilen miktara** göre hesaplanır.',
         neZaman:'Presler, kalıplar, madencilik ekipmanı — durduğunda yıpranmayan varlıklar.',
         ornek:'`Birim = Tutar ÷ Toplam tahmini üretim` → `Dönem = Birim × O dönemin üretimi`\n\n' +
               '600.000 ÷ 300.000 adet = **2 TL/adet**. Yılda 80.000 adet → **160.000 TL**.\n\n' +
               '**Zorluğu:** her dönem fiili üretim miktarının sisteme girilmesi gerekir.\n\n' +
-              '⚠️ VUK’ta genel yöntem değildir; madenlerde (md. 316) benzer mantık vardır.' },
+              'VUK’ta genel yöntem değildir; madenlerde (md. 316) benzer mantık vardır.' },
 
-      { ad:'🧮 Yöntem ⑤ · {{kalinti-deger}}li hesaplama', en:'Residual Value — IFRS (IAS 16)',
+      { ad:'Yöntem ⑤ · {{kalinti-deger}}li hesaplama', en:'Residual Value — IFRS (IAS 16)',
         aciklama:'Ömür sonunda beklenen satış değeri, amortismana tabi tutardan **düşülür**.',
         neZaman:'IFRS raporlamasında; araç, iş makinesi gibi ikinci el değeri anlamlı varlıklarda.',
         ornek:'`Amortismana tabi tutar = Edinim değeri − Kalıntı değer`\n\n' +
               '(600.000 − 100.000) ÷ 5 = **100.000/yıl**. ' +
               '5 yıl sonra {{net-defter-degeri}} **sıfır değil, 100.000 TL**.\n\n' +
-              '⚠️ **VUK’ta kalıntı değer yoktur** — varlık tam itfa edilir ve sıfırlanır. ' +
+              '**VUK’ta kalıntı değer yoktur** — varlık tam itfa edilir ve sıfırlanır. ' +
               'IFRS’te ise her dönem **gözden geçirilir**.\n\n' +
               'Bu fark, {{paralel-defter}} ihtiyacının en somut örneklerinden biridir.' },
 
-      { ad:'📋 VUK · {{fevkalade-amortisman}}', en:'Extraordinary — VUK md. 317',
+      { ad:'VUK · {{fevkalade-amortisman}}', en:'Extraordinary — VUK md. 317',
         aciklama:'Olağandışı değer kaybı hâllerinde normal oranın üzerinde amortisman.',
         neZaman:'Üç hâlde: **afet** (yangın, deprem, su basması), **yeni icatlar** nedeniyle ' +
                 'teknik verim düşüşü, **cebri çalışma** nedeniyle aşırı yıpranma.',
@@ -555,13 +555,13 @@ SAP.registerTopic({
               'SAP’ta özel amortisman tipi olarak {{ABMA}} ile girilir.',
         tcodes:['ABMA'] },
 
-      { ad:'📋 VUK · Madenlerde amortisman', en:'Depletion — VUK md. 316',
+      { ad:'VUK · Madenlerde amortisman', en:'Depletion — VUK md. 316',
         aciklama:'Maden ve taş ocaklarında, imtiyaz veya maliyet bedelinin **işletme süresine göre** itfası.',
         neZaman:'Madencilik faaliyetlerinde.',
         ornek:'Nispetler **Maliye ve Sanayi Bakanlıklarınca** belirlenir. ' +
               'Rezervin tükenme hızına bağlı olduğu için standart faydalı ömür listesi kullanılmaz.' },
 
-      { ad:'📋 VUK · {{ozel-maliyet-bedeli}} itfası', en:'Leasehold Improvements — VUK md. 327',
+      { ad:'VUK · {{ozel-maliyet-bedeli}} itfası', en:'Leasehold Improvements — VUK md. 327',
         aciklama:'Kiralanan gayrimenkule yapılan ve kiracıya ait olmayan iyileştirmelerin itfası.',
         neZaman:'Kiralık mağaza/ofis dekorasyonu, asma tavan, klima tesisatı.',
         ornek:'**Kira süresine göre eşit yüzdelerle** itfa edilir — varlığın kendi ömrüne göre değil.\n\n' +
@@ -569,7 +569,7 @@ SAP.registerTopic({
               '• **Süre belli değilse → 5 yıl**\n' +
               '• Süre dolmadan boşaltılırsa **itfa edilmemiş kısım o yıl gider** yazılır' },
 
-      { ad:'📋 VUK · Düşük değerli varlıklar', en:'Low Value Assets — VUK md. 313',
+      { ad:'VUK · Düşük değerli varlıklar', en:'Low Value Assets — VUK md. 313',
         aciklama:'Belirlenen haddi aşmayan alet, edevat, mefruşat ve peştemallıkların ' +
                  '**doğrudan gider** yazılabilmesi.',
         neZaman:'Küçük tutarlı, çok sayıda varlıkta — takip maliyeti sağladığı doğruluktan pahalıysa.',
@@ -579,7 +579,7 @@ SAP.registerTopic({
               'anahtar (`GWG` benzeri) ile yönetilir.',
         tcodes:['AFAMA'] },
 
-      { ad:'📋 VUK · Amortismana tabi olmayanlar', en:'Non-depreciable Assets — VUK md. 314',
+      { ad:'VUK · Amortismana tabi olmayanlar', en:'Non-depreciable Assets — VUK md. 314',
         aciklama:'Yıpranmaya tabi olmadığı için amortisman ayrılmayan varlıklar.',
         neZaman:'**Boş arazi ve arsalar.** Ayrıca {{yatirim-devam}} (henüz kullanıma hazır değil).',
         ornek:'Arsa **hiçbir zaman** amortismana tabi değildir; üzerindeki bina ayrı varlık olarak ' +
@@ -587,7 +587,7 @@ SAP.registerTopic({
               'meyvalık, dutluk gibi tesisler amortismana tabidir.)*\n\n' +
               'SAP’ta amortisman anahtarı **0000** verilerek sağlanır.' },
 
-      { ad:'📋 VUK · {{yenileme-fonu}}', en:'Renewal Fund — VUK md. 328–329',
+      { ad:'VUK · {{yenileme-fonu}}', en:'Renewal Fund — VUK md. 328–329',
         aciklama:'Satılan varlığın **yenilenmesi amacıyla** kârın vergilendirilmesinin ertelenmesi.',
         neZaman:'Yenileme zorunlu ya da karar verilip teşebbüse geçilmişse.',
         ornek:'Satış kârı **en fazla 3 yıl** pasifte (549 Özel fonlar) tutulur, ' +
@@ -596,7 +596,7 @@ SAP.registerTopic({
               '**Vergi ertelemesidir, indirim değil.** SAP’ta standart AA fonksiyonu değildir; ' +
               'elle G/L kaydıyla izlenir.' },
 
-      { ad:'🔄 Hareket · Olağandışı amortisman', en:'Unplanned Depreciation — ABAA',
+      { ad:'Hareket · Olağandışı amortisman', en:'Unplanned Depreciation — ABAA',
         aciklama:'Planlanan amortismanın dışında, değer düşüklüğü nedeniyle elle kaydedilen amortisman.',
         neZaman:'Hasar, teknolojik eskime, piyasa değerinde kalıcı düşüş.',
         ornek:'Yangında hasar gören makinenin değeri 200.000 TL düşürülür.',
@@ -728,26 +728,26 @@ SAP.registerTopic({
              'Amortisman anahtarı, bu beş cevabın paketlenmiş hâlidir.',
         neZaman:'Kurulumda; yeni bir amortisman davranışı gerektiğinde (örneğin binek otomobil için kıst).',
         adimlar:[
-          { baslik:'1️⃣ "Hangi mantıkla hesaplayayım?"',
+          { baslik:'1⃣ "Hangi mantıkla hesaplayayım?"',
             aciklama:'Doğrusal mı, azalan bakiyeler mi? Oranı ben mi vereceğim yoksa ' +
                      '{{faydali-omur}}’den mi hesaplasın? **Ömür bitince ne olsun** — dursun mu, ' +
                      'kalanı sıfırlasın mı?\n\n' +
                      'Cevap **temel yönteme** ({{AFAMR}}) yazılır.' },
-          { baslik:'2️⃣ "Azalan bakiyelerse, ne kadar hızlı?"',
+          { baslik:'2⃣ "Azalan bakiyelerse, ne kadar hızlı?"',
             aciklama:'Çarpan kaç olsun (VUK’ta **2**)? Tavan var mı (VUK’ta **%50**)? ' +
                      'Alt sınır var mı?\n\n' +
                      'Cevap **azalan bakiyeler yöntemine** ({{AFAMD}}) yazılır. ' +
                      'Doğrusal anahtarlarda bu adım **boş bırakılır**.' },
-          { baslik:'3️⃣ "Oran zamanla değişecek mi?"',
+          { baslik:'3⃣ "Oran zamanla değişecek mi?"',
             aciklama:'*"İlk 4 yıl %40, sonra %25"* gibi bir kademe var mı? ' +
                      'VUK’taki **azalandan normale geçiş** burada tanımlanır.\n\n' +
                      'Cevap **çok seviyeli yönteme** ({{AFAMS}}) yazılır. Gerekmiyorsa boş.' },
-          { baslik:'4️⃣ "Ne zaman başlasın, ne zaman bitsin?" — **en kritik adım**',
+          { baslik:'4⃣ "Ne zaman başlasın, ne zaman bitsin?" — **en kritik adım**',
             aciklama:'Varlık Nisan’da alındıysa amortisman **Ocak’tan mı** yoksa **Nisan’dan mı** başlasın? ' +
                      'Çıkışta son ay sayılsın mı?\n\n' +
                      'Cevap **dönem kontrolü yöntemine** ({{AFAMP}}) yazılır. ' +
                      '**{{kist-amortisman}} tam olarak burada yaşar.**' },
-          { baslik:'5️⃣ "Tavan tutar var mı?"',
+          { baslik:'5⃣ "Tavan tutar var mı?"',
             aciklama:'Yıllık amortisman belirli bir tutarı geçmesin mi? ' +
                      'Nadiren kullanılır; çoğu anahtarda **boş**.' },
           { baslik:'Beş cevap birleştirilir ve anahtara bir kod verilir',
@@ -766,7 +766,7 @@ SAP.registerTopic({
           { ekran:'1 · Temel yöntem', islem:'Doğrusal · faydalı ömürden · ömür bitince dur — **Z_GENEL ile aynı**' },
           { ekran:'2 · Azalan bakiyeler', islem:'*(boş)* — **aynı**' },
           { ekran:'3 · Çok seviyeli', islem:'*(boş)* — **aynı**' },
-          { ekran:'4 · **Dönem kontrolü**', islem:'Edinim: **edinim ayından itibaren oransal** → ⚠️ **TEK FARK**' },
+          { ekran:'4 · **Dönem kontrolü**', islem:'Edinim: **edinim ayından itibaren oransal** → **TEK FARK**' },
           { ekran:'5 · Azami tutar', islem:'*(boş)* — **aynı**' },
         ],
         alanlar:{
@@ -784,7 +784,7 @@ SAP.registerTopic({
               'Anahtarın neden beş parçaya bölündüğü tam olarak budur: ' +
               '**ortak parçaları paylaşıp yalnızca farklı olanı değiştirebilmek.** ' +
               'Tek parça olsaydı her varlık tipi için sıfırdan anahtar yazmak gerekirdi.\n\n' +
-              '⚠️ **Kullanılmakta olan anahtarın parametresini değiştirme.** ' +
+              '**Kullanılmakta olan anahtarın parametresini değiştirme.** ' +
               'O anahtarı taşıyan tüm varlıkların gelecek amortismanı değişir. ' +
               'Değişiklik gerekiyorsa **yeni anahtar** açıp varlıklara ata.',
         ilgili:['AFAMR','AFAMD','AFAMS','AFAMP','AW01N'] },
@@ -1282,14 +1282,14 @@ SAP.registerTopic({
         '**① Temel yöntem ({{AFAMR}}) — hesaplamanın iskeleti**\n\n' +
         '• *Amortisman tipi:* normal mi, özel/fevkalade mi\n' +
         '• *Hesaplama tabanı — dört seçenek:*\n' +
-        '  → **Yüzde ile:** oranı ben veririm (%20 gibi)\n' +
-        '  → **Faydalı ömürden:** sistem hesaplasın (1 ÷ 5 = %20) — *en yaygın*\n' +
-        '  → **Toplam yüzde:** kademeli oran tablosu kullanılsın\n' +
-        '  → **Anlık (%100):** düşük değerli varlıklarda tek seferde\n' +
+        '→ **Yüzde ile:** oranı ben veririm (%20 gibi)\n' +
+        '→ **Faydalı ömürden:** sistem hesaplasın (1 ÷ 5 = %20) — *en yaygın*\n' +
+        '→ **Toplam yüzde:** kademeli oran tablosu kullanılsın\n' +
+        '→ **Anlık (%100):** düşük değerli varlıklarda tek seferde\n' +
         '• *Taban değer:* edinim değeri mi, **{{net-defter-degeri}}** mi ' +
         '(azalan bakiyeler bunu kullanır), yoksa **{{kalinti-deger}} düşülmüş tutar** mı\n' +
         '• *Ömür bitince ne olsun:* **dur** / **kalan değeri sıfırla** / devam et\n' +
-        '  → **Azalan bakiyelerde "kalanı sıfırla" seçilmezse varlık asla sıfırlanmaz.** ' +
+        '→ **Azalan bakiyelerde "kalanı sıfırla" seçilmezse varlık asla sıfırlanmaz.** ' +
         'En sık gözden kaçan ayar budur.\n' +
         '• *Çıkış yılı davranışı:* satıldığı yıl amortisman ayrılsın mı\n\n' +
         '**② Azalan bakiyeler yöntemi ({{AFAMD}}) — hızlandırma ayarları**\n\n' +
@@ -1339,7 +1339,7 @@ SAP.registerTopic({
         '"edinim ayından itibaren oransal" kuralı seçilir.\n\n' +
         'Yani **iki ayrı anahtar gerekir** ve aralarındaki tek fark budur — ' +
         'somut örneği {{AFAMA}} kartındaki `Z_GENEL` / `Z_BINEK` karşılaştırmasındadır.\n\n' +
-        '⚠️ **Sık yapılan kurulum hatası:** tüm varlıklara tek anahtar verilip ' +
+        '**Sık yapılan kurulum hatası:** tüm varlıklara tek anahtar verilip ' +
         'binek otomobillere de tam yıl amortisman ayrılması. ' +
         'Mizan tutar, fiş dengelidir, hata mesajı çıkmaz — ' +
         'ama **vergi matrahı yanlış hesaplanır** ve fark ancak incelemede ortaya çıkar.' },
@@ -1450,7 +1450,7 @@ SAP.registerTopic({
         'Her satırın **kendi {{amortisman-anahtari}} ve kendi {{faydali-omur}}** değeri vardır. ' +
         '{{AFAB}} çalıştığında **üçünü birden** hesaplar.\n\n' +
         '**Amortisman alanı = aynı varlığın bir değerleme açısıdır.** Hepsi bu.\n\n' +
-        '⚠️ **Pratikteki en sık hata:** {{AW01N}}’de varlığa bakarken **hangi alanda** ' +
+        '**Pratikteki en sık hata:** {{AW01N}}’de varlığa bakarken **hangi alanda** ' +
         'olduğuna dikkat etmemek. Sol panelden alan seçilir; ' +
         'alan 01’de 240.000, alan 15’te 300.000 görünür. ' +
         '"Değerler tutmuyor" denilen durumların çoğu budur.' },
@@ -1851,7 +1851,7 @@ SAP.registerTopic({
         aciklama:'Amortismana tabi tutar = 600.000 − 100.000 = **500.000 TL** → yıllık 100.000 TL.\n\n' +
                  '5 yıl sonra birikmiş amortisman 500.000, net defter değeri **100.000 TL** — ' +
                  'varlık defterde bu değerle durmaya devam eder.\n\n' +
-                 '⚠️ **VUK’ta kalıntı değer yoktur:** varlık tam itfa edilir ve NDD **sıfırlanır**. ' +
+                 '**VUK’ta kalıntı değer yoktur:** varlık tam itfa edilir ve NDD **sıfırlanır**. ' +
                  'Bu fark, {{paralel-defter}} ihtiyacının somut örneklerinden biridir.' },
 
       { soru:'Doğrusal, azalan, YST ve üretim miktarı yöntemlerinde **toplam** amortisman nasıl karşılaştırılır?',
@@ -2061,7 +2061,7 @@ SAP.registerTopic({
       { on:'Varlığın 4 temel tablosu nedir?', arka:'**ANLA** — ana kayıt (sınıf, aktifleştirme tarihi)\n**ANLB** — amortisman ayarları (her alan için bir satır)\n**ANLC** — yıllık değer toplamları\n**ANEP** — hareketler (edinim, çıkış, transfer)\n\n+ **ANLZ** zaman bağımlı (maliyet yeri)' },
       { on:'Varlık çıkışında muhasebe kaydı nasıl olur?', arka:'**Her iki hesap da tamamen temizlenir:**\n• 253 alacak → edinim değerinin **tümü**\n• 257 borç → birikmiş amortismanın **tümü**\n\nBedel − NDD = kâr (679) veya zarar (689).\n\nSAP hesaplamayı otomatik yapar.' },
       { on:'Beş hesaplama yöntemi — 600.000 TL / 5 yıl / ilk yıl', arka:'**① Doğrusal** → 120.000 *(600.000÷5)*\n**② Azalan %40** → 240.000 *(NDD×%40)*\n**③ YST** → 200.000 *(×5/15)*\n**④ Üretim** → 160.000 *(2 TL×80.000 adet)*\n**⑤ Kalıntılı** → 100.000 *((600−100)÷5)*\n\nİlk dördünde **toplam aynı** (600.000); ⑤’te 500.000.' },
-      { on:'Yıl sayıları toplamı (YST) formülü', arka:'`Tutar × (Kalan ömür ÷ Yıl sayıları toplamı)`\n\n5 yıl → payda **5+4+3+2+1 = 15**\n\n200.000 → 160.000 → 120.000 → 80.000 → 40.000\n\n**Azalandan farkı:** taban **sabit**, oran değişir → son yıl özel kural **gerekmez**.\n\n⚠️ VUK’ta **yok**, IFRS’te var.' },
+      { on:'Yıl sayıları toplamı (YST) formülü', arka:'`Tutar × (Kalan ömür ÷ Yıl sayıları toplamı)`\n\n5 yıl → payda **5+4+3+2+1 = 15**\n\n200.000 → 160.000 → 120.000 → 80.000 → 40.000\n\n**Azalandan farkı:** taban **sabit**, oran değişir → son yıl özel kural **gerekmez**.\n\nVUK’ta **yok**, IFRS’te var.' },
       { on:'Üretim miktarı esaslı amortisman', arka:'`Birim = Tutar ÷ Toplam tahmini üretim`\n`Dönem = Birim × O dönemin üretimi`\n\n600.000 ÷ 300.000 adet = **2 TL/adet**\n80.000 adet → **160.000 TL**\n\n**Neden:** pres/kalıp durduğunda yıpranmaz.\n**Zorluk:** her dönem fiili miktar girilmeli.' },
       { on:'Kalıntı değer — VUK vs IFRS', arka:'`Amortismana tabi tutar = Edinim − Kalıntı`\n\n**VUK:** kalıntı değer **YOK** → varlık tam itfa, NDD **sıfır**\n**IFRS:** kalıntı **var** ve her dönem gözden geçirilir → NDD sıfırlanmaz\n\n→ Paralel defter ihtiyacının somut sebebi.' },
       { on:'Yöntem seçimi vergi indirimi midir?', arka:'**HAYIR — vergi ertelemesidir.**\n\nDoğrusal, azalan, YST ve üretim yöntemlerinde **toplam amortisman aynıdır** (600.000).\n\nDeğişen yalnızca **hangi yıla ne kadar** düştüğü.\n\n*Tek istisna:* kalıntı değerli hesaplama — orada tutarın kendisi küçülür.' },
@@ -2074,13 +2074,13 @@ SAP.registerTopic({
       { on:'Azalan bakiyeler — VUK kuralları', arka:'• Oran = normal oranın **2 katı**, azami **%50**\n• Yalnızca **bilanço esasına** göre defter tutanlar\n• Taban: **net defter değeri** (her yıl küçülür)\n• Son yıl: kalanın tamamı\n• **Azalandan normale geçilir, tersi olmaz**' },
       { on:'Özel maliyet bedeli kaç yılda itfa edilir?', arka:'**Kira süresine göre eşit yüzdelerle** (VUK md. 327) — varlığın kendi ömrüne göre **değil**.\n\n• Kira 8 yıl → 8 yılda\n• **Süre belli değilse → 5 yıl**\n• Süre dolmadan boşaltılırsa → **kalan o yıl gider**' },
       { on:'Hangi varlıklar amortismana tabi değildir?', arka:'**Boş arazi ve arsalar** (VUK md. 314)\n**AuC** (henüz kullanıma hazır değil)\n\nSAP’ta: amortisman anahtarı **0000**.\n\n*İstisna:* tarım işletmelerinde vücuda getirilen meyvalık, dutluk gibi tesisler **amortismana tabidir**.' },
-      { on:'Fevkalade amortisman hangi hâllerde?', arka:'**Üç hâl** (VUK md. 317):\n1. **Afet** — yangın, deprem, su basması\n2. **Yeni icatlar** — teknik verim düşüşü\n3. **Cebri çalışma** — aşırı yıpranma\n\n⚠️ Oran serbest değil: **Maliye Bakanlığınca** belirlenir, **başvuru gerekir**.' },
+      { on:'Fevkalade amortisman hangi hâllerde?', arka:'**Üç hâl** (VUK md. 317):\n1. **Afet** — yangın, deprem, su basması\n2. **Yeni icatlar** — teknik verim düşüşü\n3. **Cebri çalışma** — aşırı yıpranma\n\nOran serbest değil: **Maliye Bakanlığınca** belirlenir, **başvuru gerekir**.' },
       { on:'Türkiye kurulumunda kaç amortisman anahtarı gerekir?', arka:'**En az iki** — aynı temel yöntem, farklı dönem kontrolü:\n\n**a)** Genel varlıklar → "yıl başından itibaren" (**tam yıl**)\n**b)** Binek otomobil → "edinim ayından oransal" (**kıst**)\n\nTek anahtar kullanılırsa vergi matrahı yanlış hesaplanır — **hata mesajı çıkmaz**.' },
       { on:'AuC (yapılmakta olan yatırım) amortismana tabi midir?', arka:'**Hayır.**\n\nVarlık henüz kullanıma hazır değil, fayda sağlamıyor.\n\nAuC varlık sınıfı amortisman anahtarını **0000** getirir → sistem yapısal olarak ayıramaz.\n\nAIAB (kural) → **AIBU** (aktifleştirme) ile başlar.' },
       { on:'AuC neden gerekli? (üç fayda)', arka:'İnşaat harcaması **ne gider ne kullanıma hazır varlık**.\n\n**1.** Doğru dönemsellik — amortisman fayda başlayınca başlar\n**2.** Farklı modüllerden maliyet toplama (FI faturası + MM malzeme + CO işçilik)\n**3.** Doğru faydalı ömür ataması (kalem bazlı yerleşim)' },
       { on:'AuC’de hangi hesaplar çalışır?', arka:'`259` **Verilen yatırım avansı** — henüz maliyet değil\n`258` **Yapılmakta olan yatırımlar** — maliyet birikir\n`252/253/255` **hedef varlıklar** — aktifleştirmede borç\n`320` satıcı · `153` stok · `770` işçilik — karşı hesaplar\n\nHesap belirleme: **AO90** + varlık sınıfı.' },
       { on:'AuC aktifleştirmesi kâr/zarar yaratır mı?', arka:'**HAYIR.**\n\n258 alacak / 252 borç → bilanço toplamı **değişmez**, gelir tablosu **etkilenmez**.\n\nBu bir **sınıflandırma değişikliğidir**: "hazırlanıyor" → "kullanımda".\n\nDeğişen tek şey: o tarihten sonra **amortisman başlar**.' },
-      { on:'Özet vs kalem bazlı yerleşim', arka:'**Özet** — tüm maliyet **tek hedefe**. Basit, varsayılan.\n\n**Kalem bazlı** — maliyet **birden çok varlığa** bölünür: bina 50 yıl, makine 10 yıl, demirbaş 5 yıl.\n\n⚠️ Varlık sınıfında **baştan seçilir, sonradan değiştirilemez**.' },
+      { on:'Özet vs kalem bazlı yerleşim', arka:'**Özet** — tüm maliyet **tek hedefe**. Basit, varsayılan.\n\n**Kalem bazlı** — maliyet **birden çok varlığa** bölünür: bina 50 yıl, makine 10 yıl, demirbaş 5 yıl.\n\nVarlık sınıfında **baştan seçilir, sonradan değiştirilemez**.' },
       { on:'AIBU’da en kritik alan hangisi?', arka:'**Aktifleştirme tarihi.**\n\nAmortismanın başlangıcını **bu tarih** belirler — faturaların tarihi değil.\n\nSistem soruyor çünkü *"varlık ne zaman kullanıma hazır oldu?"* sorusunu **yalnızca insan bilebilir**.\n\nErken tarih → kullanılmayan varlığa amortisman\nGeç tarih → çalışan varlığın maliyeti gizlenir' },
       { on:'Kısmi aktifleştirme ne zaman gerekir?', arka:'**Aşamalı devreye alınan projelerde.**\n\nİlk hat Ağustos’ta çalışıyor, ikincisi Aralık’ta bitiyor → Ağustos’ta **kısmi aktifleştirme**.\n\nBeklenirse çalışan hat **dört ay amortismansız** üretim yapar: maliyet eksik, kâr yüksek görünür.\n\n**En sık atlanan adım.**' },
       { on:'Varlık sınıfı sonradan değiştirilebilir mi?', arka:'**Hayır.**\n\nHesap belirlemeyi ve numara aralığını taşır.\n\nDüzeltmenin tek yolu: **ABUMN** ile doğru sınıfta yeni varlığa transfer. Değerler ve birikmiş amortisman taşınır.' },

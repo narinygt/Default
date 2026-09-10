@@ -542,7 +542,7 @@ SAP.registerTables([
 
   { ad:'EDOCUMENT', baslik:'E-belge başlığı — muhasebe belgesinin elektronik ikizi', modul:'FI', tur:'Hareket', konu:'e-donusum',
     aciklama:'Her e-belgenin **statüsünü ve kaynak belgeye bağlantısını** tutar. ' +
-             '⚠️ Muhasebe belgesinden **ayrı bir nesnedir**: {{BKPF}} başarılı olsa bile ' +
+             'Muhasebe belgesinden **ayrı bir nesnedir**: {{BKPF}} başarılı olsa bile ' +
              'buradaki statü **hata** veya **red** olabilir.',
     olusturan:'Fatura kaydı (FI veya SD) e-belge tetikleyicisini çalıştırdığında',
     anahtar:'EDOC_GUID',
@@ -553,7 +553,7 @@ SAP.registerTables([
       {ad:'SOURCE_TYPE', aciklama:'Kaynak tipi — FI faturası mı, SD faturası mı'},
       {ad:'SOURCE_KEY', aciklama:'Kaynak belge anahtarı — {{BKPF}} / {{VBRK}} bağlantısı', tip:'fk'},
       {ad:'EDOC_TYPE', aciklama:'E-belge tipi — e-fatura, e-arşiv, e-irsaliye'},
-      {ad:'EDOC_STATUS', aciklama:'⭐ **Statü** — oluştu / gönderildi / kabul / **red** / hata'},
+      {ad:'EDOC_STATUS', aciklama:'**Statü** — oluştu / gönderildi / kabul / **red** / hata'},
       {ad:'PROC_STATUS', aciklama:'İşlem durumu — yeniden gönderim gerekip gerekmediği'},
     ]},
 
@@ -568,12 +568,12 @@ SAP.registerTables([
     alanlar:[
       {ad:'EDOC_GUID', aciklama:'E-belge kimliği', tip:'fk'},
       {ad:'FILE_TYPE', aciklama:'Giden XML mi, gelen yanıt mı'},
-      {ad:'FILE_RAW', aciklama:'⭐ **XML içeriği** — uyuşmazlıkta bakılacak yer'},
+      {ad:'FILE_RAW', aciklama:'**XML içeriği** — uyuşmazlıkta bakılacak yer'},
     ]},
 
   { ad:'EDIDC', baslik:'IDoc kontrol kaydı — statünün tutulduğu yer', modul:'TEKNİK', tur:'Sistem', konu:'data-upload',
     aciklama:'Her {{idoc}}’un başlığını ve **statüsünü** tutar. ' +
-             '⭐ IDoc’un en büyük avantajının teknik temeli budur: ' +
+             'IDoc’un en büyük avantajının teknik temeli budur: ' +
              'başarısız mesaj **kaybolmaz**, statüsüyle birlikte tabloda kalır ' +
              've {{BD87}} ile yeniden işlenebilir.',
     olusturan:'IDoc alımı veya üretimi',
@@ -582,10 +582,10 @@ SAP.registerTables([
     s4:'Değişmedi.',
     alanlar:[
       {ad:'DOCNUM', aciklama:'IDoc numarası', tip:'pk'},
-      {ad:'STATUS', aciklama:'⭐ **Statü** — 53 başarılı · 51 uygulama hatası · **56 partner profili yok**'},
+      {ad:'STATUS', aciklama:'**Statü** — 53 başarılı · 51 uygulama hatası · **56 partner profili yok**'},
       {ad:'MESTYP', aciklama:'Mesaj tipi — hangi iş nesnesi'},
       {ad:'DIRECT', aciklama:'Yön — 1 giden, 2 gelen'},
-      {ad:'SNDPRN / RCVPRN', aciklama:'Gönderen / alan partner — ⚠️ {{WE20}} profiliyle eşleşmeli'},
+      {ad:'SNDPRN / RCVPRN', aciklama:'Gönderen / alan partner — {{WE20}} profiliyle eşleşmeli'},
     ]},
 
   { ad:'BALHDR', baslik:'Uygulama günlüğü başlığı', modul:'TEKNİK', tur:'Sistem', konu:'error-handling',
@@ -725,12 +725,12 @@ SAP.registerTables([
     alanlar:[
       {ad:'TRKORR', aciklama:'İstek numarası', tip:'pk'},
       {ad:'TRSTATUS', aciklama:'Durum — **R** serbest bırakılmış'},
-      {ad:'AS4DATE', aciklama:'⭐ Serbest bırakılma tarihi — değişiklik zaman çizelgesi'},
+      {ad:'AS4DATE', aciklama:'Serbest bırakılma tarihi — değişiklik zaman çizelgesi'},
       {ad:'AS4USER', aciklama:'Sahibi'},
     ]},
 
   { ad:'E071', baslik:'Taşıma isteği nesneleri', modul:'Teknik', tur:'Teknik', konu:'best-practices',
-    aciklama:'Bir isteğin **tam olarak neyi** taşıdığını tutar. ⭐ İki isteğin aynı nesneye dokunup dokunmadığı buradan görülür — {{tasima-sirasi}} çakışmalarının teşhis yeri.',
+    aciklama:'Bir isteğin **tam olarak neyi** taşıdığını tutar. İki isteğin aynı nesneye dokunup dokunmadığı buradan görülür — {{tasima-sirasi}} çakışmalarının teşhis yeri.',
     olusturan:'{{SE09}}',
     anahtar:'TRKORR + PGMID + OBJECT + OBJ_NAME',
     s4:'Değişmedi.',

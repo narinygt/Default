@@ -104,7 +104,7 @@ SAP.registerTopic({
           aciklama:'Maliyet yeri, açıklama, tutar düzeltmesi. ' +
                    'Belge **serbestçe değiştirilebilir** — muhasebeleşmemiş çünkü.',
           cikti:'Tam belge', ok:'onay gerekiyorsa' },
-        { ic:'✅', rol:'Onaylayan', baslik:'Onay verilir ({{FBV4}}) — *isteğe bağlı*',
+        { ic:'✓', rol:'Onaylayan', baslik:'Onay verilir ({{FBV4}}) — *isteğe bağlı*',
           aciklama:'Tutar limitine göre onay akışı. Onaysız belge muhasebeleştirilemez.',
           cikti:'Onaylı belge', ok:'inceleme' },
         { ic:'🔍', rol:'Müdür', baslik:'İncelenir ({{FBV3}})',
@@ -873,8 +873,8 @@ SAP.registerTopic({
         aciklama:'Asistanın yetkileri inceleniyor.',
         girdi:[
           { alan:'MUHASEBE01 — {{FV60}} yetkisi', deger:'**Var** ✓ (park edebiliyor)' },
-          { alan:'MUHASEBE01 — {{FBV0}} yetkisi', deger:'**Var** ✕ (muhasebeleştirebiliyor da)' },
-          { alan:'MUHASEBE01 — {{FB60}} yetkisi', deger:'**Var** ✕ (doğrudan da kaydedebiliyor)' },
+          { alan:'MUHASEBE01 — {{FBV0}} yetkisi', deger:'**Var** (muhasebeleştirebiliyor da)' },
+          { alan:'MUHASEBE01 — {{FB60}} yetkisi', deger:'**Var** (doğrudan da kaydedebiliyor)' },
           { alan:'Sonuç', deger:'Park bir **imkân**, kontrol değil' },
         ],
         not:'**Kök sebep bulundu.** Park süreci tanımlandı, eğitim verildi, ' +
@@ -1141,12 +1141,12 @@ SAP.registerTopic({
     ],
 
     flashcards:[
-      { on:'Park edilen belge mizanı etkiler mi?', arka:'**HAYIR.**\n\nVBKPF/VBSEG **muhasebe tablosu değildir**.\n\nMizanda ✕ · FBL1N’de ✕ · ACDOCA’da ✕\n\n⚠️ Dönem sonunda park kalıntısı varsa dönem **eksik kapanır** — hiçbir rapor göstermez.' },
-      { on:'Dört-göz prensibi nasıl kurulur?', arka:'**Yetkilendirmeyle — park özelliğiyle DEĞİL.**\n\n**Rol A:** FV60, FV50, FBV2, FBV3\n**Rol B:** FBV0, FBV3\n\n⚠️ FB60 yetkisi de kaldırılmalı — yoksa park etmeden doğrudan kaydeder.' },
-      { on:'Park vs Hold', arka:'**Park** — numara alır · herkes görür · raporlanır · **denetim izi bırakır** → iç kontrol aracı ✓\n\n**Hold** — kişisel · numara almaz · iz bırakmaz → dört-göz için **kullanılamaz** ✕' },
+      { on:'Park edilen belge mizanı etkiler mi?', arka:'**HAYIR.**\n\nVBKPF/VBSEG **muhasebe tablosu değildir**.\n\nMizanda · FBL1N’de · ACDOCA’da \n\nDönem sonunda park kalıntısı varsa dönem **eksik kapanır** — hiçbir rapor göstermez.' },
+      { on:'Dört-göz prensibi nasıl kurulur?', arka:'**Yetkilendirmeyle — park özelliğiyle DEĞİL.**\n\n**Rol A:** FV60, FV50, FBV2, FBV3\n**Rol B:** FBV0, FBV3\n\nFB60 yetkisi de kaldırılmalı — yoksa park etmeden doğrudan kaydeder.' },
+      { on:'Park vs Hold', arka:'**Park** — numara alır · herkes görür · raporlanır · **denetim izi bırakır** → iç kontrol aracı ✓\n\n**Hold** — kişisel · numara almaz · iz bırakmaz → dört-göz için **kullanılamaz** ' },
       { on:'"Park esnek, muhasebeleştirme katı" ne demek?', arka:'**Parkta:** dengesiz olabilir · zorunlu alanlar boş · dönem kapalı olabilir · silinebilir\n\n**FBV0’da:** denklik **zorunlu** · alanlar dolu · dönem **açık** · artık değiştirilemez\n\nPark = çalışma alanı, defter değil.' },
       { on:'Belge numarasına ne olur?', arka:'**Park anında verilir, muhasebeleştirmede KORUNUR.**\n\nAvantaj: parkta verilen referans geçerliliğini sürdürür.\n\nYan etki: silinen park belgelerinin numaraları **boşa gider** — aralıkta boşluk **normaldir**.' },
-      { on:'Aralık’ta park, Ocak’ta muhasebe — hangi dönem?', arka:'**FBV0 anındaki kayıt tarihine göre.**\n\na) Aralık açık → Aralık ✓\nb) Aralık kapalı, tarih değişmiyor → **hata**\nc) Aralık kapalı, tarih Ocak → **gider yanlış dönemde** ⚠️ hata vermez!' },
+      { on:'Aralık’ta park, Ocak’ta muhasebe — hangi dönem?', arka:'**FBV0 anındaki kayıt tarihine göre.**\n\na) Aralık açık → Aralık ✓\nb) Aralık kapalı, tarih değişmiyor → **hata**\nc) Aralık kapalı, tarih Ocak → **gider yanlış dönemde** hata vermez!' },
       { on:'FB03 park edilmiş belgeyi bulur mu?', arka:'**HAYIR** — FB03 yalnızca BKPF’ye bakar.\n\nPark edilmiş belge **FBV3** ile görüntülenir.\n\n"Numara var ama görüntülenemiyor" şikâyetinin ana sebebi budur.' },
       { on:'Yanlış park edilmiş belge nasıl düzeltilir?', arka:'**FBV0 → Sil.**\n\nMuhasebe izi **kalmaz**.\n\nMuhasebeleşmiş olsaydı: FB08 ile ters kayıt → mizanda **iki kalıcı kayıt**.\n\n→ Şüpheli belgeyi park et, muhasebeleştirme.' },
       { on:'Denetime kanıt — hangi sorgu?', arka:'**VBKPF-USNAM ≠ BKPF-USNAM**\n\nPark eden ile muhasebeleştiren kullanıcının hiçbir belgede aynı olmaması.\n\nSonuç **0 olmalı**.\n\nSüreç dokümanı niyeti, bu sorgu **sonucu** gösterir.' },

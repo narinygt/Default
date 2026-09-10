@@ -111,7 +111,7 @@ SAP.registerTopic({
           aciklama:'{{tablo-anahtari}} hangi alanlar? Hangi tabloya bağlı? ' +
                    'Alan tipi ne?',
           cikti:'Tablo yapısı', ok:'sonuç' },
-        { ic:'✅', rol:'Danışman', baslik:'Kök sebep bulunur',
+        { ic:'✓', rol:'Danışman', baslik:'Kök sebep bulunur',
           aciklama:'Belge park edilmiş · kalem yönetimi kapalı · ' +
                    'aktarım bayrağı "A" · vergi satırı yazılmamış.',
           cikti:'Teşhis', ok:'çözüm' },
@@ -181,7 +181,7 @@ SAP.registerTopic({
              '**{{BSET}}** → 1 satır (vergi: matrah 100.000 + vergi 20.000)\n' +
              '**{{BSIK}}** → 1 satır (satıcı **açık** kalemi)\n' +
              '**{{GLT0}}** → 3 hesabın dönem toplamı güncellenir\n\n' +
-             '⚠️ **Tutarlar {{BSEG}}’de her zaman pozitiftir.** ' +
+             '**Tutarlar {{BSEG}}’de her zaman pozitiftir.** ' +
              'Borç/alacak yönü `SHKZG` alanındadır: **S** = borç (Soll), **H** = alacak (Haben). ' +
              'Ham veri okurken bu bilinmezse toplamlar yanlış hesaplanır.' },
 
@@ -213,7 +213,7 @@ SAP.registerTopic({
              'yalnızca açıkları tutan küçük tabloda çalışsın diye. ' +
              'Kapatılmış kalemler yıllar içinde milyonlara ulaşır ve ' +
              'sorguyu yavaşlatırdı.\n\n' +
-             '⚠️ S/4HANA’da ikisi de **görünümdür**; taşıma diye bir şey yoktur. ' +
+             'S/4HANA’da ikisi de **görünümdür**; taşıma diye bir şey yoktur. ' +
              '{{ACDOCA}}’daki kapatma alanı doldurulur, o kadar.' },
     ],
 
@@ -251,7 +251,7 @@ SAP.registerTopic({
       'tablonun ne işe yaradığını ve S/4HANA’da ne olduğunu anlatır.',
 
     liste:[
-      { ad:'📄 Belge · Başlık–kalem çifti', en:'Header–Item Tables',
+      { ad:'Belge · Başlık–kalem çifti', en:'Header–Item Tables',
         aciklama:'Bir belgenin tekil bilgisi başlıkta, çoğul bilgisi kalemde.',
         neZaman:'Her muhasebe belgesinde.',
         ornek:'{{BKPF}} (başlık) + {{BSEG}} (kalem). ' +
@@ -259,7 +259,7 @@ SAP.registerTopic({
               'Aynı desen her yerde: {{VBRK}}/{{VBRP}} (SD faturası), ' +
               '{{RBKP}}/{{RSEG}} (MM faturası), {{VBKPF}}/{{VBSEG}} (park).' },
 
-      { ad:'🗂️ İndeks · Açık / kapalı kalem', en:'Index Tables',
+      { ad:'İndeks · Açık / kapalı kalem', en:'Index Tables',
         aciklama:'İş ortağı ve hesap bazında **hızlı erişim** için tutulan alt kümeler.',
         neZaman:'ECC’de performans için; S/4HANA’da **görünüm olarak**.',
         ornek:'**Satıcı:** {{BSIK}} açık · {{BSAK}} kapalı\n' +
@@ -268,14 +268,14 @@ SAP.registerTopic({
               'Kapatma yapıldığında kayıt **birinden diğerine taşınır**. ' +
               'Yeni bilgi taşımazlar — {{BSEG}}’in alt kümesidirler.' },
 
-      { ad:'📊 Toplam · Bakiye tabloları', en:'Totals Tables',
+      { ad:'Toplam · Bakiye tabloları', en:'Totals Tables',
         aciklama:'Hesap × dönem bazında birikmiş toplamlar.',
         neZaman:'ECC’de bakiye raporları için.',
         ornek:'{{GLT0}} (klasik G/L), FAGLFLEXT (New G/L).\n\n' +
-              '⚠️ **S/4HANA’da kaldırıldı.** Toplamlar {{ACDOCA}}’dan ' +
+              '**S/4HANA’da kaldırıldı.** Toplamlar {{ACDOCA}}’dan ' +
               '**anlık hesaplanır** — "toplam tutmuyor" sorunu ortadan kalktı.' },
 
-      { ad:'⚙️ Yapılandırma · Özelleştirme tabloları', en:'Customizing Tables',
+      { ad:'Yapılandırma · Özelleştirme tabloları', en:'Customizing Tables',
         aciklama:'Sistemin nasıl davranacağını belirleyen ayarlar.',
         neZaman:'Her kayıtta okunurlar.',
         ornek:'{{T001}} şirket kodu · {{T030}} hesap belirleme · ' +
@@ -283,7 +283,7 @@ SAP.registerTopic({
               '**{{tampon}}lanırlar** — bu yüzden yapılandırma değişikliği ' +
               'bazen hemen etkili olmaz.' },
 
-      { ad:'👤 Ana veri · İş ortağı ve hesap', en:'Master Data Tables',
+      { ad:'Ana veri · İş ortağı ve hesap', en:'Master Data Tables',
         aciklama:'Satıcı, müşteri, G/L hesabı, duran varlık bilgileri.',
         neZaman:'Kayıt sırasında okunur; ana veri işlemleriyle güncellenir.',
         ornek:'{{LFA1}}/{{LFB1}} satıcı · {{KNA1}}/{{KNB1}} müşteri · ' +
@@ -291,26 +291,26 @@ SAP.registerTopic({
               '**Desen:** `*A1` genel seviye (tüm şirket kodları için ortak), ' +
               '`*B1` şirket kodu seviyesi.' },
 
-      { ad:'🔍 İzleme · Değişiklik ve günlük', en:'Log Tables',
+      { ad:'İzleme · Değişiklik ve günlük', en:'Log Tables',
         aciklama:'Kim ne zaman ne değiştirdi; toplu işlem günlükleri.',
         neZaman:'Denetimde; teşhiste.',
         ornek:'{{CDHDR}}/{{CDPOS}} {{degisiklik-belgesi}} · ' +
               '{{NRIV}} numara aralığı durumu\n\n' +
               'Uygulama günlükleri {{SLG1}} ile okunur.' },
 
-      { ad:'⚡ S/4HANA · {{evrensel-kayit-defteri}}', en:'Universal Journal',
+      { ad:'S/4HANA · {{evrensel-kayit-defteri}}', en:'Universal Journal',
         aciklama:'FI ve CO kalemlerinin **tek tabloda** birleşmesi.',
         neZaman:'S/4HANA’da her kayıtta.',
         ornek:'**{{ACDOCA}}** — hesap, maliyet yeri, kâr merkezi, segment, defter ' +
               'aynı satırda. Toplam tablosu **yok**.\n\n' +
               'Yerini aldıkları: {{BSEG}}, COEP, {{GLT0}}, FAGLFLEXA/T ve daha fazlası.' },
 
-      { ad:'🔄 Uyumluluk · Türetilen görünümler', en:'Compatibility Views',
+      { ad:'Uyumluluk · Türetilen görünümler', en:'Compatibility Views',
         aciklama:'Eski tablo adıyla sorgulanabilen ama **{{ACDOCA}}’dan türetilen** yapılar.',
         neZaman:'Eski programlar çalışmaya devam etsin diye.',
         ornek:'{{BSEG}}, {{BSIK}}, {{BSAK}}, {{BSID}}, {{GLT0}} — ' +
               'hepsi S/4HANA’da görünümdür.\n\n' +
-              '⚠️ **Performans notu:** görünüm üzerinden okuma, ' +
+              '**Performans notu:** görünüm üzerinden okuma, ' +
               '{{ACDOCA}}’yı doğrudan okumaktan **yavaştır**. ' +
               'Yeni geliştirmeler {{ACDOCA}} kullanmalıdır.' },
     ],
@@ -361,7 +361,7 @@ SAP.registerTopic({
               '{{SKB1}} `XKRES` → hesapta kalem yönetimi açık mı?\n' +
               '{{VBKPF}} → belge park mı edilmiş?\n' +
               '{{T030K}} → vergi hesabı tanımlı mı?\n\n' +
-              '⚠️ **Kullanıcıya verilmemelidir:** yetki kontrolü zayıftır ve ' +
+              '**Kullanıcıya verilmemelidir:** yetki kontrolü zayıftır ve ' +
               'ham veri (çözülmemiş kodlar, `SHKZG` işareti) **yanıltıcıdır**.',
         ilgili:['SE11','SE16','FB03'] },
 
@@ -408,7 +408,7 @@ SAP.registerTopic({
           { baslik:'**Ortam → Değişiklikler**', aciklama:'{{degisiklik-belgesi}} — kim ne değiştirdi.' },
           { baslik:'Belge başlığından kaydeden kullanıcıyı gör' },
         ],
-        ipucu:'⚠️ **{{FB03}} yalnızca {{BKPF}}’ye bakar.**\n\n' +
+        ipucu:'**{{FB03}} yalnızca {{BKPF}}’ye bakar.**\n\n' +
               'Belge bulunamıyorsa iki ihtimal vardır:\n' +
               '**1.** Belge **park edilmiş** → {{VBKPF}}’te, {{FBV3}} ile görüntülenir\n' +
               '**2.** **{{guncelleme-hatasi}}** olmuş → {{SM13}}’te görünür\n\n' +
@@ -455,7 +455,7 @@ SAP.registerTopic({
         alanlar:[
           { ad:'BUZEI', aciklama:'Satır numarası', tip:'pk' },
           { ad:'**SHKZG**', aciklama:'**Borç/alacak göstergesi: S = borç, H = alacak.** ' +
-                   'Tutar her zaman pozitiftir; yön burada. ⚠️ Ham veri okurken kritik.' },
+                   'Tutar her zaman pozitiftir; yön burada. Ham veri okurken kritik.' },
           { ad:'DMBTR', aciklama:'Yerel para birimi tutarı' },
           { ad:'WRBTR', aciklama:'İşlem para birimi tutarı' },
           { ad:'HKONT', aciklama:'G/L hesabı' },
@@ -476,7 +476,7 @@ SAP.registerTopic({
           { ad:'DOCLN', aciklama:'Satır numarası — belge bölme sonrası {{BSEG}}’den **fazla olabilir**', tip:'pk' },
           { ad:'RACCT', aciklama:'Hesap / masraf türü — **aynı numara**' },
           { ad:'KOSTL / PRCTR / SEGMENT', aciklama:'CO ve raporlama boyutları — **aynı satırda**' },
-          { ad:'HSL / WSL / KSL', aciklama:'Yerel / işlem / grup para birimi. ⚠️ **İşaretli** — alacak negatif' },
+          { ad:'HSL / WSL / KSL', aciklama:'Yerel / işlem / grup para birimi. **İşaretli** — alacak negatif' },
         ] },
 
       { ad:'BSIK', baslik:'Satıcı açık kalemleri',
@@ -579,7 +579,7 @@ SAP.registerTopic({
         aciklama:'*"Bu tabloda ne var?"* sorusunun ekranı.',
         alanlar:[
           { ad:'Tablo adı', zorunlu:true },
-          { ad:'Seçim kriterleri', zorunlu:false, aciklama:'⚠️ **Anahtar alanlarla süz** — ' +
+          { ad:'Seçim kriterleri', zorunlu:false, aciklama:'**Anahtar alanlarla süz** — ' +
                    'anahtar dışı alanla süzmek büyük tablolarda çok yavaştır.' },
           { ad:'Maksimum satır', zorunlu:false, aciklama:'Varsayılan sınırı artırmak ' +
                    'büyük tablolarda zaman aşımına yol açar.' },
@@ -612,7 +612,7 @@ SAP.registerTopic({
         aciklama:'Kullanıcı dilinden teknik dile geçiş noktası.',
         alanlar:[
           { ad:'Belge numarası + şirket kodu + mali yıl', zorunlu:true,
-            aciklama:'⚠️ Mali yıl **anahtarın parçasıdır** — farklı yıllarda aynı numara olabilir.' },
+            aciklama:'Mali yıl **anahtarın parçasıdır** — farklı yıllarda aynı numara olabilir.' },
           { ad:'Kalemler', zorunlu:false },
           { ad:'Ortam → Değişiklikler', zorunlu:false, aciklama:'{{degisiklik-belgesi}}' },
           { ad:'Belge başlığı', zorunlu:false, aciklama:'Kaydeden kullanıcı ve tarih.' },
@@ -665,7 +665,7 @@ SAP.registerTopic({
       'Yazma sayısının azalması iki fayda getirdi: ' +
       '**performans** (özellikle toplam tablosundaki kilit çakışmaları kalktı) ve ' +
       '**tutarsızlık ihtimalinin ortadan kalkması**.\n\n' +
-      '⚠️ **Asenkron güncelleme:** kullanıcıya numara verildikten sonra ' +
+      '**Asenkron güncelleme:** kullanıcıya numara verildikten sonra ' +
       'yazma arka planda yapılır. Başarısız olursa {{guncelleme-hatasi}} oluşur ' +
       've numara verilmiş olmasına rağmen **belge yoktur**.',
 
@@ -846,7 +846,7 @@ SAP.registerTopic({
       '{{BSEG}}, {{BSIK}}, {{BSAK}}, {{BSID}}, {{BSAD}}, {{BSIS}}, {{BSAS}}, {{GLT0}} — ' +
       'hepsi **{{ACDOCA}}’dan türetilen görünümler**.',
       'Eski programlar **değiştirilmeden çalışır** — geçişin en büyük kolaylığı budur.',
-      '⚠️ **Ama yavaştır.** Yeni geliştirmeler ve performans sorunu yaşayan ' +
+      '**Ama yavaştır.** Yeni geliştirmeler ve performans sorunu yaşayan ' +
       'eski programlar {{ACDOCA}}’yı doğrudan okumalıdır.',
       '{{BKPF}} ve {{BSET}} **gerçek tablo olarak duruyor** — görünüm değil.',
     ],
@@ -859,7 +859,7 @@ SAP.registerTopic({
       '**2. Okuma hızlandı.** Sütun bazlı depolama sayesinde ' +
       'büyük tablolarda toplama ve süzme işlemleri çok hızlı. ' +
       'İndeks tablolarına gerek kalmamasının sebebi budur.\n\n' +
-      '⚠️ **Uyumluluk görünümleri bu kazancı azaltır.** ' +
+      '**Uyumluluk görünümleri bu kazancı azaltır.** ' +
       'Eski program {{BSIK}}’i sorguladığında sistem bunu {{ACDOCA}} üzerinden ' +
       '**türetir** — ek iş yükü demektir.',
 
@@ -957,7 +957,7 @@ SAP.registerTopic({
           { tablo:'BSET', ne:'Vergi satırı yazıldı' },
           { tablo:'BSIK', ne:'Satıcı açık kalemi oluştu' },
         ],
-        not:'⚠️ **Her güncelleme hatası yeniden çalıştırılamaz.** ' +
+        not:'**Her güncelleme hatası yeniden çalıştırılamaz.** ' +
              'Geçici kaynak sorunlarında (disk, bellek, kilit) genelde çalışır. ' +
              'Veri hatası veya program hatası varsa kayıt **yeniden girilmelidir**.\n\n' +
              'Karar {{SM13}}’teki hata detayına bakılarak verilir.' },
@@ -1174,11 +1174,11 @@ SAP.registerTopic({
 
     flashcards:[
       { on:'FI belgesi hangi tablolarda durur?', arka:'**Başlık–kalem çifti:**\n\n**ECC:** BKPF + **BSEG**\n**S/4:** BKPF + **ACDOCA**\n\nBağlantı: `BUKRS + BELNR + GJAHR`\n\nAynı desen: VBRK/VBRP (SD) · RBKP/RSEG (MM) · VBKPF/VBSEG (park)' },
-      { on:'BKPF anahtarı nedir ve neden önemli?', arka:'**`BUKRS + BELNR + GJAHR`** — üçlü.\n\n⚠️ **Mali yıl anahtarın parçası** → aynı numara farklı yıllarda **tekrar kullanılabilir**.\n\nSorguya GJAHR eklenmezse iki kayıt gelir ve "çift kayıt" sanılır.' },
+      { on:'BKPF anahtarı nedir ve neden önemli?', arka:'**`BUKRS + BELNR + GJAHR`** — üçlü.\n\n**Mali yıl anahtarın parçası** → aynı numara farklı yıllarda **tekrar kullanılabilir**.\n\nSorguya GJAHR eklenmezse iki kayıt gelir ve "çift kayıt" sanılır.' },
       { on:'BSIK vs BSAK', arka:'**BSIK** — satıcı **AÇIK** kalemleri\n**BSAK** — satıcı **KAPATILMIŞ** kalemleri\n\nKapatmada kayıt **taşınır**.\n\nMüşteri: BSID/BSAD · G/L: BSIS/BSAS\n\nS/4’te ikisi de **uyumluluk görünümü**.' },
-      { on:'BSEG’de tutarlar neden hep pozitif?', arka:'Yön ayrı alanda: **`SHKZG`**\n\n**S** = Soll (borç)\n**H** = Haben (alacak)\n\n⚠️ Doğrudan toplarsan 120.000+120.000 = 240.000 → "dengesiz" sanırsın.\n\n**ACDOCA’da tutarlar İŞARETLİ** — alacak negatif.' },
+      { on:'BSEG’de tutarlar neden hep pozitif?', arka:'Yön ayrı alanda: **`SHKZG`**\n\n**S** = Soll (borç)\n**H** = Haben (alacak)\n\nDoğrudan toplarsan 120.000+120.000 = 240.000 → "dengesiz" sanırsın.\n\n**ACDOCA’da tutarlar İŞARETLİ** — alacak negatif.' },
       { on:'Belge numarası var, belge yok — üç ihtimal', arka:'**1. Yanlış mali yıl** (GJAHR anahtarın parçası)\n**2. Belge PARK edilmiş** → VBKPF · FBV3\n**3. GÜNCELLEME HATASI** → SM13\n\nFB03 yalnızca **BKPF**’ye bakar, bu ayrımı kendisi yapamaz.' },
-      { on:'Güncelleme hatası nedir?', arka:'Numara verildikten **sonra** asenkron yazmanın başarısız olması.\n\n→ Numara var, **belge yok**\n→ Kullanıcı **hata görmez**\n→ SM13’te görünür\n\n⚠️ Toplu olabilir; **SM13 günlük kontrol** tek erken uyarı.' },
+      { on:'Güncelleme hatası nedir?', arka:'Numara verildikten **sonra** asenkron yazmanın başarısız olması.\n\n→ Numara var, **belge yok**\n→ Kullanıcı **hata görmez**\n→ SM13’te görünür\n\nToplu olabilir; **SM13 günlük kontrol** tek erken uyarı.' },
       { on:'İndeks/toplam tabloları neden vardı?', arka:'**Performans.** BSEG anahtarı **belge numarasıyla** başlar → satıcı bazlı sorgu tüm tabloyu tarardı.\n\nBSIK anahtarı **LIFNR** ile başlar → hızlı.\nGLT0 toplamı **önceden** tutar.\n\n**Bedeli:** çok yazma + tutarsızlık riski.' },
       { on:'S/4HANA’da neden kalktılar?', arka:'**HANA’da "tüm tabloyu tara" artık pahalı değil.**\n\nSütun bazlı depolama + bellek içi işleme → milisaniyeler.\n\n→ Varlık sebepleri **ortadan kalktı** → uyumluluk görünümüne dönüştüler.\n\n*Ders: kısıt kalkınca çözüm gereksizleşir.*' },
       { on:'S/4HANA’da bir belge kaç tabloya yazar?', arka:'**Üç:** BKPF · **ACDOCA** · BSET\n\n*(ECC’de 5+: BKPF, BSEG, BSIK, GLT0, BSET)*\n\n**BSET duruyor** — KDV beyanı hâlâ buna dayanır.\n\nBSEG/BSIK/GLT0 → **uyumluluk görünümü**' },

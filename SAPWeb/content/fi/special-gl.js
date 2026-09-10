@@ -234,7 +234,7 @@ SAP.registerTopic({
              'Toplam nakit çıkışı: 360.000 + 840.000 = 1.200.000 TL ✓\n\n' +
              'Satıcı açık kalemi kapandı, işlem tamamlandı.' },
 
-      { baslik:'⚠️ **Hatalı senaryo** — mahsup atlanır, tam tutar ödenir',
+      { baslik:'**Hatalı senaryo** — mahsup atlanır, tam tutar ödenir',
         belgeTuru:'KZ', tarih:'30.09.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'320', ad:'Satıcılar — V-2001', borc:1200000, not:'**Tam fatura tutarı**' },
@@ -814,7 +814,7 @@ SAP.registerTopic({
         '320100 Yurtiçi satıcılar · 320200 Yurtdışı satıcılar · 320300 Grup şirketleri\n\n' +
         'Her biri için **ayrı bir eşleşme satırı** gerekir. Yalnızca 320100 tanımlanmışsa:\n\n' +
         '**a)** Yurtiçi satıcılara avans ödenir ✓\n' +
-        '**b)** Yurtdışı satıcılara avans **ödenemez** ✕\n\n' +
+        '**b)** Yurtdışı satıcılara avans **ödenemez** \n\n' +
         'Hata mesajı *"Alternative reconciliation account not defined"* der ama ' +
         '**hangi hesap için** olduğunu her zaman net söylemez. ' +
         'Kullanıcı "dün çalışıyordu, bugün çalışmıyor" der — ' +
@@ -963,7 +963,7 @@ SAP.registerTopic({
                  'Netleştirilmeleri gerekiyor.' },
         not:'İki adım da doğru yapıldı. Sorun **yapılmayan** adımda.' },
 
-      { baslik:'⚠️ **Mahsup adımı atlandı** — hata burada', tcode:'F-54',
+      { baslik:'**Mahsup adımı atlandı** — hata burada', tcode:'F-54',
         aciklama:'{{F-54}} hiç çalıştırılmadı. Kimse fark etmedi.',
         girdi:[
           { alan:'Beklenen işlem', deger:'{{F-54}} — 320 borç 360.000 / 159 alacak 360.000' },
@@ -1006,7 +1006,7 @@ SAP.registerTopic({
           { alan:'İlk sorgu', deger:'V-2001 · açık kalemler · gösterge **boş**' },
           { alan:'Sonuç', deger:'**Açık kalem yok** — her şey normal görünüyor' },
           { alan:'İkinci sorgu', deger:'V-2001 · açık kalemler · gösterge **A**' },
-          { alan:'**Sonuç**', deger:'**360.000 TL açık avans** ✕' },
+          { alan:'**Sonuç**', deger:'**360.000 TL açık avans** ' },
         ],
         not:'**Teşhisin kilit noktası:** {{FBL1N}}’de özel G/L göstergesi alanı ' +
              'boş bırakılırsa avanslar **listelenmez**.\n\n' +
@@ -1230,7 +1230,7 @@ SAP.registerTopic({
 
     flashcards:[
       { on:'Özel ana muhasebe nedir?', arka:'Satıcı/müşteri işlemini **farklı bir mutabakat hesabında** izleme.\n\nMekanizma: tek karakterlik **özel G/L göstergesi** (BSEG-UMSKZ).\n\n**İş ortağı aynı kalır, G/L hesabı değişir** — ayırır ama koparmaz.' },
-      { on:'Avans zinciri — dört adım', arka:'**1. Talep** F-47 (gösterge F, istatistiksel)\n**2. Ödeme** F-48 (gösterge A) → 159 borç\n**3. Fatura** FB60/MIRO (gösterge yok) → 320 alacak\n**4. MAHSUP** F-54 → 320 borç / 159 alacak\n\n⚠️ 4. adım en sık atlanan.' },
+      { on:'Avans zinciri — dört adım', arka:'**1. Talep** F-47 (gösterge F, istatistiksel)\n**2. Ödeme** F-48 (gösterge A) → 159 borç\n**3. Fatura** FB60/MIRO (gösterge yok) → 320 alacak\n**4. MAHSUP** F-54 → 320 borç / 159 alacak\n\n4. adım en sık atlanan.' },
       { on:'F-54 atlanırsa ne olur?', arka:'**Hiçbir hata olmaz.** Fiş dengeli, mizan tutar.\n\nAma:\n• Bilanço **her iki tarafta şişer**\n• Kalan ödemede avans **ikinci kez ödenebilir** → gerçek nakit kaybı\n\nÖnlem: ay sonu FBL1N gösterge A kontrolü.' },
       { on:'Gerçek vs istatistiksel kalem', arka:'**Gerçek** — G/L kaydı üretir, bilançoyu etkiler (F-48, gösterge **A**)\n\n**İstatistiksel** — karşı kayıt yok, yalnızca izlenir (F-47, gösterge **F**)\n\nAma F110 istatistiksel kalemi de **ödeme önerisine alır**.' },
       { on:'Alternatif hesap nasıl belirlenir?', arka:'**T074** anahtarı — üç alan:\n\n1. Hesap tipi (**K** satıcı / **D** müşteri)\n2. Özel G/L göstergesi\n3. **Normal mutabakat hesabı** (320)\n\n→ Alternatif hesap (159)\n\n3. alan en sık atlanan detay.' },
@@ -1238,7 +1238,7 @@ SAP.registerTopic({
       { on:'Neden ayrı bir G/L kaydı yetmez?', arka:'**Üç şey kaybolur:**\n\n1. **İş ortağı bağlantısı** — FBL1N görmez\n2. **Otomatik mahsup** — F-54 bulamaz\n3. **Süreç entegrasyonu** — F110 görmez\n\nÖzel G/L bunları korurken yalnızca hesabı değiştirir.' },
       { on:'Müşteri avansı hangi hesapta?', arka:'**340 Alınan sipariş avansları** — bir **YÜKÜMLÜLÜK**.\n\nPara alındı, mal/hizmet verilmedi → borç.\n\nSatıcı tarafının aynası:\n159 = **varlık** (mal alma hakkı)\n340 = **kaynak** (mal verme borcu)' },
       { on:'Birden çok mutabakat hesabı sorunu', arka:'320100 yurtiçi · 320200 yurtdışı · 320300 grup\n\n**Her biri için ayrı T074 satırı gerekir.**\n\nYalnızca biri tanımlıysa: bazı satıcılara avans ödenir, bazılarına ödenemez — hata mesajı sebebi net söylemez.' },
-      { on:'Alternatif hesap FS00 ayarı?', arka:'❌ "Yalnızca otomatik kayıt" — **YANLIŞ**, özel G/L çalışmaz\n\n✓ **Mutabakat hesabı** olarak işaretle (SKB1-MITKZ = K veya D)\n\nBu zaten doğrudan kaydı engeller ama özel G/L’ye izin verir.' },
+      { on:'Alternatif hesap FS00 ayarı?', arka:'"Yalnızca otomatik kayıt" — **YANLIŞ**, özel G/L çalışmaz\n\n✓ **Mutabakat hesabı** olarak işaretle (SKB1-MITKZ = K veya D)\n\nBu zaten doğrudan kaydı engeller ama özel G/L’ye izin verir.' },
       { on:'Özel G/L kalem tipleri', arka:'**A** — avans (verilen 159 / alınan 340)\n**F** — avans talebi (istatistiksel)\n**W** — senet (121 / 321)\n**T** — teminat (126 / 326)\n\nHepsi tek karakter, hepsi UMSKZ alanında.' },
       { on:'Mahsup listesi boş geliyor — sebep?', arka:'**Avans düz G/L kaydıyla yapılmış**, özel G/L göstergesiyle değil.\n\nKalem satıcı numarası taşımadığı için F-54 bulamaz.\n\nDüzeltme: avans kaydını ters kaydet, **F-48 + gösterge A** ile yeniden gir.' },
     ],

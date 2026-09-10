@@ -779,8 +779,8 @@ SAP.registerTopic({
           { alan:'Belge', deger:'1900004102 · KR · 10.06.2027' },
           { alan:'Gider satırı 1', deger:'60.000 TL · **KM 1000** ✓' },
           { alan:'Gider satırı 2', deger:'40.000 TL · **KM 2000** ✓' },
-          { alan:'KDV satırı', deger:'20.000 TL · **KM yok** ✕' },
-          { alan:'Satıcı satırı', deger:'120.000 TL · **KM yok** ✕' },
+          { alan:'KDV satırı', deger:'20.000 TL · **KM yok** ' },
+          { alan:'Satıcı satırı', deger:'120.000 TL · **KM yok** ' },
         ],
         fis:{ baslik:'Belge 1900004102 — bölme kapalı', belgeTuru:'KR', tarih:'10.06.2027',
           satirlar:[

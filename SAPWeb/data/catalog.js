@@ -24,9 +24,10 @@ SAP.registerModule({ id:'FI', name:'Finansal Muhasebe', short:'FI', icon:'💰',
    birlikte tek bir aile gibi okunur — gökkuşağı gibi değil.
 
    Renk burada bir SINIFLANDIRMA aracıdır: aynı renk = aynı grup.  */
-/* Dokuz açı renk çemberine EŞİT aralıkla (33°) yerleştirilmiştir ve
-   hiçbiri marka açısına (38 — yumuşak kiremit) yakın düşmez; en yakını
-   66 ile 28° uzakta. Böylece marka rengi bir gruba ait sanılmaz.  */
+/* Dokuz açı renk çemberine EŞİT aralıkla (33°) yerleştirilmiştir.
+   Marka (252 — #001F3F) açı olarak `islemler`e (264) 12° yakındır ama
+   AÇIKLIK olarak çok uzaktır: marka %23.8, grup tonları %54. Bu yüzden
+   karışmazlar — ayrım renkten değil, koyuluktan geliyor.  */
 SAP.GROUPS = [
   { id:'temeller',    ad:'Temeller',              ic:'🧱', hue:165 },
   { id:'surecler',    ad:'Ana Süreçler',          ic:'🏛️', hue:231 },
@@ -42,7 +43,7 @@ SAP.GROUPS = [
 /** Bir grubun rengini (hue) döndürür; bilinmeyen grup için marka tonu. */
 SAP.grupHue = function (grupId) {
   var g = SAP.GROUPS.find(function (x) { return x.id === grupId; });
-  return g && g.hue != null ? g.hue : 38;
+  return g && g.hue != null ? g.hue : 252;
 };
 
 [

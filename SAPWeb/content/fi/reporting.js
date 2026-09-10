@@ -252,70 +252,70 @@ SAP.registerTopic({
       'raporlama becerisinin büyük kısmıdır.',
 
     liste:[
-      { ad:'📊 Bakiye · {{FS10N}} G/L bakiyesi', en:'G/L Account Balances',
+      { ad:'Bakiye · {{FS10N}} G/L bakiyesi', en:'G/L Account Balances',
         aciklama:'Hesabın dönem dönem borç, alacak ve bakiye toplamları.',
         neZaman:'*"Ne kadar?"* sorusu; hızlı kontrol; mizan hazırlığı.',
         ornek:'Ocak 380.000 · Şubat 410.000 · … Ayrıntı **yoktur**; ' +
               'belge numarası görünmez.',
         tcodes:['FS10N'] },
 
-      { ad:'📊 Bakiye · {{FAGLB03}} defter bazlı bakiye', en:'G/L Balances (New G/L)',
+      { ad:'Bakiye · {{FAGLB03}} defter bazlı bakiye', en:'G/L Balances (New G/L)',
         aciklama:'{{FS10N}}’in defter, {{kar-merkezi}} ve segment filtreli hâli.',
         neZaman:'{{paralel-defter}} veya segment raporlaması varsa.',
-        ornek:'⚠️ **Defter alanı boş bırakılırsa lider defter gelir** — ' +
+        ornek:'**Defter alanı boş bırakılırsa lider defter gelir** — ' +
               'IFRS bakiyesi için defter kodu girilmelidir.',
         tcodes:['FAGLB03'] },
 
-      { ad:'📋 Döküm · {{FBL3N}} G/L kalemleri', en:'G/L Line Items',
+      { ad:'Döküm · {{FBL3N}} G/L kalemleri', en:'G/L Line Items',
         aciklama:'Bir hesabın **tek tek kalemleri**; belgeye çift tıklanabilir.',
         neZaman:'*"Neden bu kadar?"* sorusu; teşhis; denetim dökümü.',
-        ornek:'⚠️ **Ön koşul:** hesapta {{SKB1}} kalem yönetimi açık olmalı. ' +
+        ornek:'**Ön koşul:** hesapta {{SKB1}} kalem yönetimi açık olmalı. ' +
               'Kapalıysa rapor **boş döner** ve ayar **geriye dönük çalışmaz**.',
         tcodes:['FBL3N'] },
 
-      { ad:'📋 Döküm · {{FBL1N}} / {{FBL5N}} iş ortağı kalemleri', en:'Vendor / Customer Line Items',
+      { ad:'Döküm · {{FBL1N}} / {{FBL5N}} iş ortağı kalemleri', en:'Vendor / Customer Line Items',
         aciklama:'Satıcı ve müşteri bazında döküm; **açık/kapalı kalem** ayrımı yapar.',
         neZaman:'Satıcı borcu, müşteri alacağı, yaşlandırma, ihtar analizi.',
         ornek:'{{mutabakat-hesabi}}nın dökümü buradan alınır — {{FBL3N}}’den değil. ' +
               'Vade, ihtar seviyesi ve ödeme bloğu sütunları eklenebilir.',
         tcodes:['FBL1N','FBL5N'] },
 
-      { ad:'📋 Döküm · {{FAGLL03}} defter bazlı kalemler', en:'G/L Line Items (New G/L)',
+      { ad:'Döküm · {{FAGLL03}} defter bazlı kalemler', en:'G/L Line Items (New G/L)',
         aciklama:'{{FBL3N}}’in defter, kâr merkezi ve segment filtreli hâli.',
         neZaman:'Segment analizi; belge bölme sonucunu görmek.',
-        ornek:'⚠️ {{FBL3N}} **giriş görünümünü**, {{FAGLL03}} **genel defter görünümünü** okur. ' +
+        ornek:'{{FBL3N}} **giriş görünümünü**, {{FAGLL03}} **genel defter görünümünü** okur. ' +
               'Farklı satır sayısı göstermeleri **hata değildir** (bkz. {{konu:new-gl}}).',
         tcodes:['FAGLL03'] },
 
-      { ad:'📑 Mali tablo · {{F.01}} bilanço / gelir tablosu', en:'Financial Statements',
+      { ad:'Mali tablo · {{F.01}} bilanço / gelir tablosu', en:'Financial Statements',
         aciklama:'Hesapları {{mali-tablo-yapisi}}’na göre gruplayıp yasal tablo üretir.',
         neZaman:'Dönem sonu; yasal raporlama; yönetim sunumu.',
-        ornek:'⚠️ **"Atanmamış hesaplar" satırı sıfır olmalıdır.** ' +
+        ornek:'**"Atanmamış hesaplar" satırı sıfır olmalıdır.** ' +
               'Dolu ise bir hesap yapıya eklenmemiştir ve **yanlış yerde** raporlanıyordur.',
         tcodes:['F.01','OB58'] },
 
-      { ad:'🛠️ Özel · Report Painter / Writer', en:'Report Painter',
+      { ad:'Özel · Report Painter / Writer', en:'Report Painter',
         aciklama:'Programlama olmadan, satır-sütun tanımlayarak özel mali rapor üretme.',
         neZaman:'Standart rapor yetmediğinde; yönetim raporu formatı özel ise.',
         ornek:'Rapor grupları {{GR55}} ile çalıştırılır. ' +
               'Öğrenme eğrisi diktir ama **geliştirici gerektirmez**.',
         tcodes:['GR55'] },
 
-      { ad:'🛠️ Özel · {{SQVI}} hızlı sorgu', en:'QuickViewer',
+      { ad:'Özel · {{SQVI}} hızlı sorgu', en:'QuickViewer',
         aciklama:'Tabloları birleştirip liste raporu üretir; **kişisel** araçtır.',
         neZaman:'Tek seferlik analiz; hızlı veri çekme.',
         ornek:'Kişiye özeldir, paylaşılmaz. Yaygın kullanım gerekiyorsa ' +
               'SAP Query’ye taşınmalıdır.',
         tcodes:['SQVI'] },
 
-      { ad:'🛠️ Özel · {{SE16N}} tablo görüntüleme', en:'Table Display',
+      { ad:'Özel · {{SE16N}} tablo görüntüleme', en:'Table Display',
         aciklama:'Ham tablo verisi. **Rapor değildir** — teşhis aracıdır.',
         neZaman:'Bir alanın gerçekte ne değer taşıdığını görmek gerektiğinde.',
         ornek:'{{VBRK}} `RFBSK` kontrolü, {{T030K}} eksik satır teşhisi gibi. ' +
-              '⚠️ **Kullanıcıya verilmemelidir** — yetki kontrolü zayıftır.',
+              '**Kullanıcıya verilmemelidir** — yetki kontrolü zayıftır.',
         tcodes:['SE16N'] },
 
-      { ad:'⚡ S/4HANA · Fiori analitik uygulamaları', en:'Fiori Analytical Apps',
+      { ad:'S/4HANA · Fiori analitik uygulamaları', en:'Fiori Analytical Apps',
         aciklama:'{{cds-view}} tabanlı, anlık hesaplanan görsel raporlar.',
         neZaman:'S/4HANA’da; yönetim panoları ve serbest analiz için.',
         ornek:'Trial Balance, Display Line Items, Financial Statement — ' +
@@ -362,7 +362,7 @@ SAP.registerTopic({
           zorunlu:['G/L hesabı','Şirket kodu','Kalem türü'],
           opsiyonel:['Tarih aralığı','Belge türü','Kullanıcı','Metin','Düzen'] },
         hatalar:[
-          { mesaj:'Rapor boş dönüyor ama hesapta bakiye var', sebep:'Hesapta **kalem yönetimi kapalı** ({{SKB1}}).', cozum:'{{FS00}}’da işareti aç. ⚠️ **Geriye dönük çalışmaz** — yalnızca sonraki kayıtlar görünür.' },
+          { mesaj:'Rapor boş dönüyor ama hesapta bakiye var', sebep:'Hesapta **kalem yönetimi kapalı** ({{SKB1}}).', cozum:'{{FS00}}’da işareti aç. **Geriye dönük çalışmaz** — yalnızca sonraki kayıtlar görünür.' },
           { mesaj:'Aradığım sütun listede yok', sebep:'Varsayılan düzende değil.', cozum:'Düzen değiştir → sütun ekle → **düzeni kaydet**. Bir kez kur, hep kullan.' },
           { mesaj:'Çok yavaş çalışıyor', sebep:'Tarih aralığı geniş veya hesap çok hareketli.', cozum:'Aralığı daralt; S/4HANA’da {{FAGLL03}} veya Fiori uygulaması daha hızlıdır.' },
         ],
@@ -385,7 +385,7 @@ SAP.registerTopic({
           { baslik:'Karşılaştırma dönemini gir', aciklama:'Genelde önceki yıl aynı dönem.' },
           { baslik:'Raporu çalıştır' },
           { baslik:'**"Atanmamış hesaplar" satırını kontrol et**',
-            aciklama:'⚠️ **Sıfır olmalıdır.** Dolu ise bir hesap yapıya eklenmemiştir.' },
+            aciklama:'**Sıfır olmalıdır.** Dolu ise bir hesap yapıya eklenmemiştir.' },
         ],
         ekranAkisi:[
           { ekran:'Seçim', islem:'Şirket 1000 · dönem 12/2027 · karşılaştırma 12/2026' },
@@ -471,7 +471,7 @@ SAP.registerTopic({
           { baslik:'Alanları seç ve seçim kriterlerini belirle' },
           { baslik:'Çalıştır' },
         ],
-        ipucu:'⚠️ **{{SQVI}} kişiye özeldir** — başkasıyla paylaşılamaz. ' +
+        ipucu:'**{{SQVI}} kişiye özeldir** — başkasıyla paylaşılamaz. ' +
               'Yaygın kullanılacaksa SAP Query’ye (SQ01) taşınmalıdır.\n\n' +
               'Ayrıca büyük tablolarda dikkatli kullanılmalıdır: ' +
               'yanlış birleştirme sistemi yorabilir.',
@@ -632,7 +632,7 @@ SAP.registerTopic({
           { ad:'Raporlama dönemi', zorunlu:true },
           { ad:'Karşılaştırma dönemi', zorunlu:false, aciklama:'Genelde önceki yıl aynı dönem.' },
           { ad:'Defter', zorunlu:false, aciklama:'{{paralel-defter}} varsa hangi standarda göre.' },
-          { ad:'**"Atanmamış hesaplar" satırı**', zorunlu:false, aciklama:'⚠️ **Sıfır olmalıdır.**' },
+          { ad:'**"Atanmamış hesaplar" satırı**', zorunlu:false, aciklama:'**Sıfır olmalıdır.**' },
         ],
         ipucu:'Rapor çıktığında ilk bakılacak yer **en alttaki "atanmamış hesaplar"** satırıdır. ' +
               'Sıfırdan farklıysa mizan doğru olsa bile sunum yanlıştır ve ' +
@@ -643,7 +643,7 @@ SAP.registerTopic({
     opsiyonel:['Tarih aralığı','Düzen','Defter','Boyut filtreleri'],
 
     hatalar:[
-      { mesaj:'{{FBL3N}} boş dönüyor ama hesapta bakiye var', sebep:'Hesapta **kalem yönetimi kapalı** ({{SKB1}} `XKRES`).', cozum:'{{FS00}}’da aç. ⚠️ **Geriye dönük çalışmaz** — geçmiş kalemler kalıcı olarak görünmez.' },
+      { mesaj:'{{FBL3N}} boş dönüyor ama hesapta bakiye var', sebep:'Hesapta **kalem yönetimi kapalı** ({{SKB1}} `XKRES`).', cozum:'{{FS00}}’da aç. **Geriye dönük çalışmaz** — geçmiş kalemler kalıcı olarak görünmez.' },
       { mesaj:'"Açık kalem" seçtim, liste boş', sebep:'Hesapta {{acik-kalem-yonetimi}} yok.', cozum:'Kalem türünü **"tümü"** yap. Gider/gelir hesaplarında açık kalem yönetimi olmaz.' },
       { mesaj:'{{FBL3N}} ile {{FAGLL03}} farklı satır sayısı gösteriyor', sebep:'Biri giriş görünümünü, diğeri genel defter görünümünü okur ({{belge-bolme}}).', cozum:'**Hata değildir.** Segment analizinde {{FAGLL03}} kullanılır.' },
       { mesaj:'{{F.01}}’de "atanmamış hesaplar" dolu', sebep:'Yeni hesap {{OB58}} yapısına eklenmemiş.', cozum:'{{OB58}}’de doğru düğüme ata. **Aralık kullanmak** bu sorunu kalıcı çözer.' },
@@ -746,7 +746,7 @@ SAP.registerTopic({
         'Sırayla kontrol edilir:\n\n' +
         '**1. Kalem yönetimi kapalı** ({{SKB1}} `XKRES`)\n' +
         'En sık sebep. Hesap kalemleri **saklamıyordur**; yalnızca toplam vardır. ' +
-        '⚠️ Ayar açılabilir ama **geçmişe etki etmez**.\n\n' +
+        'Ayar açılabilir ama **geçmişe etki etmez**.\n\n' +
         '**2. Yanlış kalem türü**\n' +
         '"Açık kalem" seçilmiş ama hesapta {{acik-kalem-yonetimi}} yok. ' +
         'Gider/gelir hesaplarında **"tümü"** kullanılmalıdır.\n\n' +
@@ -907,7 +907,7 @@ SAP.registerTopic({
         girdi:[
           { alan:'Pazarlama giderleri satırı', deger:'2.100.000 TL' },
           { alan:'Diğer satırlar', deger:'Beklendiği gibi' },
-          { alan:'**En alt: "Atanmamış hesaplar"**', deger:'**1.200.000 TL** ✕' },
+          { alan:'**En alt: "Atanmamış hesaplar"**', deger:'**1.200.000 TL** ' },
           { alan:'Toplam gider', deger:'Doğru — tutar kaybolmamış, **yanlış yerde**' },
         ],
         not:'**Bulundu.** Eksik 1,2 milyon TL kaybolmamış — ' +
@@ -946,7 +946,7 @@ SAP.registerTopic({
              'aralık ataması **kalıcı** çözüyor.\n\n' +
              'Artık 770 grubunda açılacak her yeni hesap otomatik kapsanacak ve ' +
              'aynı hata tekrarlanamayacak.\n\n' +
-             '⚠️ Aralık atarken **çakışma kontrolü** yapılmalı: ' +
+             'Aralık atarken **çakışma kontrolü** yapılmalı: ' +
              'aynı hesap iki düğüme atanırsa *"assigned twice"* hatası alınır.' },
 
       { baslik:'Rapor yeniden alınıyor', tcode:'F.01',
@@ -969,14 +969,14 @@ SAP.registerTopic({
         aciklama:'Kontrol sırasında başka bir sorun ortaya çıkıyor.',
         girdi:[
           { alan:'770300 dökümü', deger:'842 kalem ✓' },
-          { alan:'**649000 Diğer gelirler** dökümü', deger:'**Boş** ✕' },
+          { alan:'**649000 Diğer gelirler** dökümü', deger:'**Boş** ' },
           { alan:'649000 bakiyesi', deger:'480.000 TL — bakiye **var**' },
           { alan:'{{SKB1}} kalem yönetimi', deger:'**Kapalı**' },
         ],
         not:'İkinci sorun: 649000 hesabında bakiye var ama **döküm alınamıyor**.\n\n' +
              'Sebep: hesapta {{SKB1}} **kalem yönetimi kapalı** — ' +
              'sistem o hesap için kalemleri hiç saklamamış.\n\n' +
-             '⚠️ **Ayar açılabilir ama geçmişe etki etmez.** ' +
+             '**Ayar açılabilir ama geçmişe etki etmez.** ' +
              '480.000 TL’nin neyden oluştuğu sistem üzerinden ' +
              '**hiçbir zaman** öğrenilemeyecek.\n\n' +
              'Bu, mali tablo yapısı sorunundan **daha ciddidir**: ' +
@@ -1034,7 +1034,7 @@ SAP.registerTopic({
     ],
 
     onemliNoktalar:[
-      '**"{{FBL3N}} boş dönüyor ama bakiye var. Neden?"** Hesapta **kalem yönetimi kapalıdır** ({{SKB1}} `XKRES`). ⚠️ Ayar açılabilir ama **geçmişe etki etmez** — o dönemlerin ayrıntısı kalıcı olarak kayıptır. Mülakatın klasik raporlama sorusudur.',
+      '**"{{FBL3N}} boş dönüyor ama bakiye var. Neden?"** Hesapta **kalem yönetimi kapalıdır** ({{SKB1}} `XKRES`). Ayar açılabilir ama **geçmişe etki etmez** — o dönemlerin ayrıntısı kalıcı olarak kayıptır. Mülakatın klasik raporlama sorusudur.',
       '**"Bakiye raporu ile döküm farkı nedir?"** Bakiye *"ne kadar?"*, döküm *"neden bu kadar?"* sorusunu cevaplar. Dökümün ayırt edici özelliği **belgeye çift tıklanabilmesidir** ({{FB03}}) — FI teşhisinin temeli budur.',
       '**"Mutabakat hesabının dökümü nasıl alınır?"** {{FBL1N}} (satıcı) veya {{FBL5N}} (müşteri) ile. {{FBL3N}} teknik olarak çalışır ama iş ortağı bilgisi olmadan kullanışsız bir liste verir.',
       '**"{{F.01}}’de atanmamış hesaplar satırı ne demek?"** {{mali-tablo-yapisi}}’na eklenmemiş hesaplar orada toplanır. **Mizan doğru olsa bile sunum yanlıştır.** Her zaman sıfır olmalıdır.',
@@ -1077,7 +1077,7 @@ SAP.registerTopic({
         ], dogru:2,
         aciklama:'Kalem yönetimi kapalıyken sistem o hesap için **kalemleri saklamaz**; ' +
                  'yalnızca toplamlar tutulur. Bakiye görünür, ayrıntı görünmez.\n\n' +
-                 '⚠️ **Ayar sonradan açılabilir ama geçmişe etki etmez.** ' +
+                 '**Ayar sonradan açılabilir ama geçmişe etki etmez.** ' +
                  'Önceki dönemlerin ayrıntısı **kalıcı olarak** kayıptır — ' +
                  'denetimde ciddi sorun yaratabilir.' },
 
@@ -1177,7 +1177,7 @@ SAP.registerTopic({
       { on:'Bakiye raporu vs kalem dökümü', arka:'**Bakiye** → *"Ne kadar?"*\nFS10N · FAGLB03 · hızlı · ayrıntı **yok**\n\n**Döküm** → *"Neden bu kadar?"*\nFBL3N · FAGLL03 · **belgeye çift tıklanır** ← teşhisin temeli\n\nÖn koşul: **kalem yönetimi açık**.' },
       { on:'FBL3N boş dönüyor — teşhis sırası', arka:'**1. Kalem yönetimi kapalı** (SKB1-XKRES) ← en sık\n2. Yanlış kalem türü ("açık" seçilmiş)\n3. Tarih aralığı\n4. Yanlış şirket kodu / defter\n5. Yetki (SU53)\n\n**İpucu:** aynı raporu başka hesapta dene.' },
       { on:'Kalem yönetimi geriye dönük açılır mı?', arka:'**HAYIR.**\n\nKapalıyken yapılan kayıtların kalemleri **hiç saklanmamıştır**.\n\nAyar açılır → **yalnızca sonraki kayıtlar** görünür.\n\nGeçmiş dönemler **kalıcı olarak** ayrıntısız kalır → denetimde ciddi sorun.' },
-      { on:'"Atanmamış hesaplar" satırı ne demek?', arka:'Mali tablo yapısına (OB58) **eklenmemiş** hesaplar orada toplanır.\n\n⚠️ **Her zaman sıfır olmalı.**\n\nDolu ise: mizan doğru, toplam doğru, **sunum yanlış** — hata mesajı çıkmaz.\n\nKalıcı çözüm: **aralık ataması**.' },
+      { on:'"Atanmamış hesaplar" satırı ne demek?', arka:'Mali tablo yapısına (OB58) **eklenmemiş** hesaplar orada toplanır.\n\n**Her zaman sıfır olmalı.**\n\nDolu ise: mizan doğru, toplam doğru, **sunum yanlış** — hata mesajı çıkmaz.\n\nKalıcı çözüm: **aralık ataması**.' },
       { on:'OB58’de neden aralık kullanılır?', arka:'`770000–779999` → o grupta açılan **her yeni hesap otomatik kapsanır**.\n\nTek tek atama → her yeni hesapta OB58 güncellenmeli → **unutulur** (hesap açan ile yapıyı yöneten farklı kişiler).' },
       { on:'Mutabakat hesabının dökümü nasıl alınır?', arka:'**FBL1N** (satıcı) / **FBL5N** (müşteri)\n\nFBL3N teknik olarak çalışır ama **iş ortağı bilgisi vermez** → kullanışsız liste.\n\nFBL1N: açık/kapalı ayrımı + vade + ihtar seviyesi.' },
       { on:'FBL3N vs FAGLL03', arka:'**FBL3N** → BSEG · **giriş görünümü**\n**FAGLL03** → **genel defter görünümü** + defter/segment filtresi\n\nBelge bölme etkinse **farklı satır sayısı** gösterirler → **hata değil**.\n\nSegment analizinde → FAGLL03.' },

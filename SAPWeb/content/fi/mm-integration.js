@@ -921,7 +921,7 @@ SAP.registerTopic({
         aciklama:'Kaydetmeden simülasyon yapılıyor — hangi anahtarların eksik olduğu tam olarak görülüyor.',
         girdi:[
           { alan:'Tesis / Malzeme / Hareket türü', deger:'1000 · BOYA-450 · 101' },
-          { alan:'BSX (stok)', deger:'**✕ Tanımsız** — sınıf 3020 için hesap yok' },
+          { alan:'BSX (stok)', deger:'** Tanımsız** — sınıf 3020 için hesap yok' },
           { alan:'WRX (GR/IR)', deger:'✓ 159000 — sınıftan bağımsız, tanımlı' },
           { alan:'PRD (fiyat farkı)', deger:'✓ 711000 — tanımlı' },
         ],

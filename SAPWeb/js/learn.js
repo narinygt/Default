@@ -10,6 +10,7 @@
   'use strict';
 
   var esc = SAP.esc, mk = SAP.mk;
+  var T = function (k) { return SAP.i18n.t(k); };
   var HARF = ['A', 'B', 'C', 'D', 'E', 'F'];
 
   /* Oturum içi quiz durumu: { topicId: { qIndex: seciliIndex } } */
@@ -34,14 +35,15 @@
     }).join('');
 
     return '<div class="quiz" data-quiz="' + esc(topicId) + '" data-toplam="' + sorular.length + '">' +
-      '<div class="quiz-h"><b>🎯 Mini quiz</b>' +
-        '<span class="sc" data-quiz-score>' +
-          (kayit ? 'Önceki sonuç: ' + kayit.dogru + ' / ' + kayit.toplam : '0 / ' + sorular.length) +
+      '<div class="quiz-h"><b>' + esc(T('quiz.title')) + '</b>' +
+        '<span class="sc tnum" data-quiz-score>' +
+          (kayit ? kayit.dogru + ' / ' + kayit.toplam : '0 / ' + sorular.length) +
         '</span>' +
       '</div>' + body +
       '<div class="quiz-f">' +
-        '<button class="btn sm" type="button" data-action="quiz-reset" data-t="' + esc(topicId) + '">↺ Baştan çöz</button>' +
-        '<span style="font-size:12.5px;color:var(--text-3)">Bir şıkka tıklayınca doğru cevap ve açıklaması görünür.</span>' +
+        '<button class="btn sm" type="button" data-action="quiz-reset" data-t="' + esc(topicId) + '">' +
+          esc(T('quiz.reset')) + '</button>' +
+        '<span class="quiz-hint">' + esc(T('quiz.hint')) + '</span>' +
       '</div>' +
     '</div>';
   }
@@ -85,8 +87,7 @@
       SAP.store.d.quiz[topicId] = { dogru: dogruSayisi, toplam: toplam, ts: Date.now() };
       SAP.store.save();
       var yuzde = Math.round((dogruSayisi / toplam) * 100);
-      SAP.toast(yuzde === 100 ? '🎉 Tam puan! ' + dogruSayisi + ' / ' + toplam
-                              : 'Quiz bitti: ' + dogruSayisi + ' / ' + toplam + ' (%' + yuzde + ')');
+      SAP.toast(T('quiz.done') + ': ' + dogruSayisi + ' / ' + toplam + ' (%' + yuzde + ')');
     }
   });
 
@@ -115,7 +116,7 @@
      olarak gösteriyordu; sayfanın geri kalanının yoğunluğu yanında
      boşluk olarak okunuyordu.
 
-     ⚠️ İçerik SİLİNMEDİ: `ogrenme.flashcards` verisi 36 konu dosyasında
+     UYARI — İçerik SİLİNMEDİ: `ogrenme.flashcards` verisi 36 konu dosyasında
      duruyor (yaklaşık 430 kart). Özellik geri istenirse bu blok ve
      sections.js'teki iki satır geri konur; içerik yeniden yazılmaz.
      Bölümün özet / önemli noktalar / sık hatalar / quiz parçaları
@@ -127,9 +128,9 @@
     var v = SAP.store.note(topicId);
     return '<div class="notes">' +
       '<textarea data-note="' + esc(topicId) + '" rows="6" ' +
-        'placeholder="Bu konuyla ilgili kendi notlarını buraya yaz. Otomatik kaydedilir.">' + esc(v) + '</textarea>' +
+        'placeholder="' + esc(T('notes.ph')) + '">' + esc(v) + '</textarea>' +
       '<div class="notes-f"><span data-note-status>' +
-        (v ? '✓ Kayıtlı · ' + v.length + ' karakter' : 'Henüz not yok') +
+        (v ? T('notes.saved') + ' · ' + v.length + ' ' + T('notes.chars') : '') +
       '</span></div>' +
     '</div>';
   }
@@ -141,10 +142,11 @@
     clearTimeout(noteTimer);
     var id = ta.dataset.note, val = ta.value;
     var status = ta.parentElement.querySelector('[data-note-status]');
-    if (status) status.textContent = 'Yazılıyor…';
+    if (status) status.textContent = T('notes.saving');
     noteTimer = setTimeout(function () {
       SAP.store.setNote(id, val);
-      if (status) status.textContent = val.trim() ? '✓ Kayıtlı · ' + val.length + ' karakter' : 'Henüz not yok';
+      if (status) status.textContent = val.trim()
+        ? T('notes.saved') + ' · ' + val.length + ' ' + T('notes.chars') : '';
     }, 500);
   });
 
@@ -158,8 +160,7 @@
   SAP.action('toggle-fav', function (btn) {
     var eklendi = SAP.store.toggleFav(btn.dataset.t);
     var t = SAP.topic(btn.dataset.t);
-    SAP.toast(eklendi ? '⭐ Favorilere eklendi: ' + (t ? t.title : '')
-                      : 'Favorilerden çıkarıldı');
+    SAP.toast((eklendi ? T('topic.fav') : T('topic.unfav')) + ': ' + (t ? SAP.i18n.baslik(t) : ''));
     SAP.render({ keepScroll: true });
   });
 
@@ -171,11 +172,11 @@
     var hepsi = SAP.store.readCount(tid) >= ids.length;
     if (hepsi) {
       delete SAP.store.d.progress[tid];
-      SAP.toast('İlerleme sıfırlandı');
+      SAP.toast('—');
     } else {
       var p = SAP.store.d.progress[tid] || (SAP.store.d.progress[tid] = {});
       ids.forEach(function (s) { p[s] = 1; });
-      SAP.toast('✅ Konu tamamlandı: ' + t.title);
+      SAP.toast(T('topic.done') + ': ' + SAP.i18n.baslik(t));
     }
     SAP.store.save();
     SAP.render({ keepScroll: true });

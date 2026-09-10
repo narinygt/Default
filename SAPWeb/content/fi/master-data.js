@@ -87,7 +87,7 @@ SAP.registerTopic({
         { ic:'🛒', rol:'Satın alma', baslik:'Satın alma bölümü doldurulur ({{LFM1}})',
           aciklama:'Sipariş para birimi, teslimat koşulu, satın alma grubu. MM tarafı için gereklidir.',
           cikti:'{{LFM1}} kaydı', ok:'onaya gider' },
-        { ic:'✅', rol:'Muhasebe müdürü', baslik:'Banka bilgisi onaylanır ve kullanıma açılır',
+        { ic:'✓', rol:'Muhasebe müdürü', baslik:'Banka bilgisi onaylanır ve kullanıma açılır',
           aciklama:'Dolandırıcılığın en sık girişi banka hesabı değişikliğidir; bu alan ayrı onaydan geçirilir.',
           cikti:'Kullanıma hazır satıcı' },
       ],

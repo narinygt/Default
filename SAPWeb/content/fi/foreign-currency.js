@@ -93,7 +93,7 @@ SAP.registerTopic({
           aciklama:'{{F.05}} / {{FAGL_FC_VAL}} — açık kalemler ve bakiyeler dönem sonu kuruyla yeniden ölçülür. ' +
                    'Fark **gerçekleşmemiştir**.',
           cikti:'Değerleme belgesi', ok:'sonraki dönem' },
-        { ic:'↩️', rol:'Sistem', baslik:'Değerleme ters kaydedilir',
+        { ic:'↩', rol:'Sistem', baslik:'Değerleme ters kaydedilir',
           aciklama:'Genelde sonraki dönemin ilk günü. Fark henüz gerçekleşmediği için geçici bir kayıttır.',
           cikti:'Ters kayıt', ok:'kalem kapanır' },
         { ic:'💸', rol:'AP / AR', baslik:'Ödeme veya tahsilat yapılır',
@@ -210,13 +210,13 @@ SAP.registerTopic({
              'Bu ek tutar **bedelin parçasıdır** ve KDV’ye tabidir.\n\n' +
              'Kim düzenler: **lehine fark oluşan taraf**. Kur yükseldi → satıcı; ' +
              'kur düştü → alıcı düzenler.\n\n' +
-             '⚠️ **SAP kur farkını otomatik kaydeder ama kur farkı faturasını üretmez.** ' +
+             '**SAP kur farkını otomatik kaydeder ama kur farkı faturasını üretmez.** ' +
              'Ayrı takip edilmesi gereken bir süreçtir; atlanırsa KDV incelemesinde ' +
              'eleştiri konusu olur.\n\n' +
              '*Uygulama esasları KDV Genel Uygulama Tebliği ile belirlenir; ' +
              'güncel düzenleme mali müşavire teyit ettirilmelidir.*' },
 
-      { baslik:'❌ **Yanlış** — verilen avansın değerlenmesi',
+      { baslik:'**Yanlış** — verilen avansın değerlenmesi',
         belgeTuru:'SA', tarih:'31.01.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'159', ad:'Verilen sipariş avansları (dövizli)', borc:190000, not:'**Yapılmamalı**' },
@@ -243,7 +243,7 @@ SAP.registerTopic({
              'kur farkları varlığın **maliyetine eklenir**; sonraki dönemlerde oluşanların ' +
              'maliyete eklenmesi ise **ihtiyaridir**.\n\n' +
              'Sonucu: 340.000 TL gider yazılmaz, **amortisman yoluyla** yıllara yayılır.\n\n' +
-             '⚠️ **SAP bunu otomatik yapmaz.** {{F.05}} farkı 656 hesabına yazar; ' +
+             '**SAP bunu otomatik yapmaz.** {{F.05}} farkı 656 hesabına yazar; ' +
              'yatırım dönemine ait olanların 258’e aktarılması **elle** yapılır. ' +
              'Dönem sonu kontrol listesine konmalıdır.' },
 
@@ -821,7 +821,7 @@ SAP.registerTopic({
         'İkisi de mevzuata uygun olabilir ama **sonuçları farklıdır** ve ' +
         'seçim tutarlı uygulanmalıdır.\n\n' +
         '━━━━━━━━━━\n\n' +
-        '⚠️ **SAP bunu otomatik ayırmaz.**\n\n' +
+        '**SAP bunu otomatik ayırmaz.**\n\n' +
         '{{F.05}} tüm açık kalemleri değerler ve farkı `656`’ya yazar — ' +
         'yatırıma ait olanla normal ticari borcu **ayırt etmez**.\n\n' +
         'Yatırım dönemine ait farkların {{yatirim-devam}} hesabına (258) aktarılması ' +
@@ -1113,7 +1113,7 @@ SAP.registerTopic({
         aciklama:'Satıcı **daha fazla TL** tahsil etmiştir; bu ek tutar bedelin parçasıdır ve ' +
                  '**KDV’ye tabidir**. KDV oranı asıl işlemle aynıdır.\n\n' +
                  'Kur yükseldi → satıcı düzenler. Kur düştü → alıcı düzenler.\n\n' +
-                 '⚠️ **SAP kur farkını otomatik kaydeder ama bu faturayı üretmez.** ' +
+                 '**SAP kur farkını otomatik kaydeder ama bu faturayı üretmez.** ' +
                  'Muhasebe doğru, KDV eksik kalır — ayrı takip gerekir.' },
 
       { soru:'Yatırım (henüz aktifleştirilmemiş makine) borcunun kur farkı nereye yazılır?',
@@ -1126,7 +1126,7 @@ SAP.registerTopic({
         aciklama:'VUK uygulamasında yatırımın **aktifleştirildiği dönemin sonuna kadar** ' +
                  'oluşan kur farkları **maliyete eklenir**; sonrakiler ihtiyaridir.\n\n' +
                  'Sonucu: gider yazılmaz, **amortisman yoluyla** yıllara yayılır.\n\n' +
-                 '⚠️ **SAP bunu otomatik ayırmaz** — {{F.05}} farkı 656’ya yazar. ' +
+                 '**SAP bunu otomatik ayırmaz** — {{F.05}} farkı 656’ya yazar. ' +
                  'Yatırıma ait kısmın 258’e aktarılması **elle** yapılır ve ' +
                  'dönem sonu kontrol listesine konmalıdır.' },
 
@@ -1227,9 +1227,9 @@ SAP.registerTopic({
     flashcards:[
       { on:'Kur farkı hangi hesaplara yazılır?', arka:'`646` **Kambiyo kârları** — kur lehte\n`656` **Kambiyo zararları** — kur aleyhte\n\nDöviz tutarı **hiç değişmez**; yalnızca TL karşılığı değişir.\n\nAlt hesap ayrımı önerilir:\n`.01` gerçekleşmemiş (ters kaydedilir)\n`.02` gerçekleşmiş (kalıcı)' },
       { on:'Hangi kalemler değerlenir?', arka:'**Değerlenir (parasal):**\n102 banka · 320 satıcı · 120 alıcı · krediler · senetler\n→ karşılığında **para** alınacak/ödenecek\n\n**Değerlenmez (parasal olmayan):**\n153 stok · 253 duran varlık · **159/340 avanslar**\n→ karşılığında **mal/hizmet**' },
-      { on:'Avans neden değerlenmez?', arka:'50.000 EUR avans verdin, kur 35→40 oldu. Kâr ettin mi?\n\n**HAYIR** — sana **para** değil **mal** gelecek.\n\nDeğerlersen **var olmayan kâr** yaratırsın; mal gelince geri alınır → **iki dönem yanlış**.\n\n⚠️ F.05/OBA1 listesine avans hesapları **konmaz**.' },
-      { on:'Kur farkı faturası nedir? (Türkiye)', arka:'Dövizli satışta tahsilat günü **lehte** oluşan fark için düzenlenir ve **KDV hesaplanır**.\n\nKur yükseldi → **satıcı** düzenler\nKur düştü → **alıcı** düzenler\n\nKDV oranı asıl işlemle aynı.\n\n⚠️ **SAP bunu üretmez** — muhasebe doğru, KDV eksik kalır.' },
-      { on:'Yatırım dönemi kur farkı nereye?', arka:'**Aktifleştirme dönemi sonuna kadar → maliyete (258)**\nSonraki dönemler → **ihtiyari**\n\nSonuç: gider yazılmaz, **amortismanla** yayılır.\n\n⚠️ SAP ayırmaz — F.05 hepsini 656’ya yazar. 258’e aktarım **elle**.' },
+      { on:'Avans neden değerlenmez?', arka:'50.000 EUR avans verdin, kur 35→40 oldu. Kâr ettin mi?\n\n**HAYIR** — sana **para** değil **mal** gelecek.\n\nDeğerlersen **var olmayan kâr** yaratırsın; mal gelince geri alınır → **iki dönem yanlış**.\n\nF.05/OBA1 listesine avans hesapları **konmaz**.' },
+      { on:'Kur farkı faturası nedir? (Türkiye)', arka:'Dövizli satışta tahsilat günü **lehte** oluşan fark için düzenlenir ve **KDV hesaplanır**.\n\nKur yükseldi → **satıcı** düzenler\nKur düştü → **alıcı** düzenler\n\nKDV oranı asıl işlemle aynı.\n\n**SAP bunu üretmez** — muhasebe doğru, KDV eksik kalır.' },
+      { on:'Yatırım dönemi kur farkı nereye?', arka:'**Aktifleştirme dönemi sonuna kadar → maliyete (258)**\nSonraki dönemler → **ihtiyari**\n\nSonuç: gider yazılmaz, **amortismanla** yayılır.\n\nSAP ayırmaz — F.05 hepsini 656’ya yazar. 258’e aktarım **elle**.' },
       { on:'Gerçekleşmemiş kur farkı hesabı dönem başında sıfır değilse?', arka:'**Ters kayıt çalıştırılmamıştır** → fark **çift sayılmış**.\n\nDeğerleme geçicidir, ertesi gün ters kaydedilir.\n\nBu kontrol, gerçekleşmiş/gerçekleşmemiş farkı **ayrı alt hesapta** izlemenin somut faydasıdır.' },
 
       { on:'Çevrim, değerleme ve gerçekleşme farkı nedir?', arka:'**Çevrim** — kayıt anında yerel paraya dönüştürme (bir kez)\n\n**Değerleme** — dönem sonunda güncel kurla yeniden ölçme (gerçekleşmemiş, ters kaydedilir)\n\n**Gerçekleşme** — kalem kapandığında farkın kesinleşmesi (kalıcı)' },

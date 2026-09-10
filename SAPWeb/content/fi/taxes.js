@@ -694,7 +694,7 @@ SAP.registerTopic({
         'V1 → 191001, V2 → 191002 gibi.\n\n' +
         'Ne zaman gerekir? Farklı oranları ayrı hesapta izlemek istendiğinde ' +
         'veya indirilemeyen KDV’nin ayrı hesapta tutulması gerektiğinde.\n\n' +
-        '⚠️ **Sonradan işaretlemek risklidir:** geçmiş kayıtlar eski hesapta, ' +
+        '**Sonradan işaretlemek risklidir:** geçmiş kayıtlar eski hesapta, ' +
         'yeniler yeni hesapta kalır ve hesap bakiyeleri anlamsızlaşır.\n\n' +
         '━━━━━━━━━━\n\n' +
         '**En sık hata: eksik satır**\n\n' +
@@ -1075,7 +1075,7 @@ SAP.registerTopic({
 
     flashcards:[
       { on:'Vergi kodu hangi üç şeyi taşır?', arka:'**1. Oran** (%20, %10, %0)\n**2. Tip** — A çıkış (hesaplanan) / V giriş (indirilecek)\n**3. Hesap ataması** — OB40 üzerinden hangi G/L hesabına\n\nTanım: FTXP → T007A' },
-      { on:'Vergi bilgisi hangi tabloda tutulur?', arka:'**BSET** — matrah (HWBAS) + vergi tutarı (HWSTE) + vergi kodu.\n\n⚠️ **BSEG değil.** Beyanname BSET’ten üretilir.\n\nBu ayrım, "rapor ile mizan neden tutmuyor?" sorusunun cevabıdır.' },
+      { on:'Vergi bilgisi hangi tabloda tutulur?', arka:'**BSET** — matrah (HWBAS) + vergi tutarı (HWSTE) + vergi kodu.\n\n**BSEG değil.** Beyanname BSET’ten üretilir.\n\nBu ayrım, "rapor ile mizan neden tutmuyor?" sorusunun cevabıdır.' },
       { on:'İndirilemeyen KDV nereye kaydedilir?', arka:'**İlgili giderin veya varlığın maliyetine eklenir.**\n\n10.000 gider + 2.000 KDV → tek satır **12.000 gider**\n\n191’e yazılmaz (varlık değil), ayrı gider hesabı açılmaz.\nOB40 → **NAV** anahtarı.' },
       { on:'MWS, VST, NAV nedir?', arka:'{{OB40}} işlem anahtarları:\n\n**MWS** — hesaplanan (çıkış) KDV → 391\n**VST** — indirilecek (giriş) KDV → 191\n**NAV** — indirilemeyen → hesap atanır ama **kullanılmaz**, tutar maliyete eklenir' },
       { on:'Vergi oranı değişti. Ne yaparsın?', arka:'**Yeni kod açarsın**, eskisini kapatırsın.\n\nMevcut kodun oranını değiştirirsen geçmiş belgeler eski oranla, yeniler yeni oranla kalır — ama rapor **ikisini aynı kod altında toplar**.\n\nHer kod = tek oran.' },

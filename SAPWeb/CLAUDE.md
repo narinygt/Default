@@ -8,10 +8,13 @@
 **36 konunun 36'sı** derin içerikle dolduruldu — katalog **tamamlandı**.
 **Sözlükler:** 262 işlem kodu · 92 tablo · 164 terim (üçünde de çift kayıt yok — bkz. Ders #26).
 
-> ⚠️ **Son turda iki değişiklik + bir hata düzeltmesi:** marka rengi maviden
-> **yumuşak kiremite** (açı 38) geçti, **soru kartı bölümü kaldırıldı**, ve
-> grup renklerinin **hiç uygulanmadığı** ortaya çıktı — dokuz rengin dokuzu da
-> 240 mavi hesaplanıyordu (bkz. **Ders #29**, 6. doğrulama ekseni).
+> ⭐ **ARAYÜZ BAŞTAN TASARLANDI — "Dijital muhasebe defteri".**
+> İçerik ve işlevler aynı; değişen görsel dil ve yerleşim (bkz. §5b).
+> Özet: ana sayfa **numaralı bir içindekiler dizini** oldu (kart ızgarası
+> kalktı), **tek vurgu rengi** defter yeşili `#1F5C4A` (dokuz grup rengi
+> kaldırıldı), **kutu/gölge/gradyan yok**, **emoji sıfır** (Lucide çizgi
+> ikonları), **Fraunces + Inter + IBM Plex Mono gömüldü**, ve arayüz
+> **TR/EN** iki dilli (bkz. §10).
 
 ## ⚠️ Uygulamayı nasıl açarsın
 - **Doğru yol:** Windows Gezgini'nden `index.html`'e (veya `tek-dosya.html`'e) **çift tıkla**.
@@ -298,120 +301,68 @@ SAP.registerTopic({ id:'gl-accounting', sections: {
 
 ---
 
-## 5b. Tasarım Sistemi (2026 yenilemesi)
+## 5b. Tasarım Sistemi — "Dijital Muhasebe Defteri" (2026 yenilemesi)
 
 > Tek kaynak `css/theme.css`'in başındaki ilke bloğudur. Buradaki özet ona
 > uyar; çelişirse **theme.css kazanır**.
 
-Bu bölüm **iki turda** oturdu ve ikisi de kayda değer:
-
-**1. tur — fazla çıplak.** Tek marka rengi, ikonsuz arayüz, saç teli
-çizgilerle bölünmüş yoğun bir dizin. Şablon hissi gitti ama yerine
-*"dağınık, karmaşık ve göz yorucu"* bir yoğunluk geldi. Ders: bir eğitim
-platformunda sadelik **tek başına** hedef değildir — kullanıcı orada
-saatlerce **okuyacaktır**.
-
-**2. tur — renk geri geldi ama görünmedi.** Grup rengi sistemi yazıldı, dokuz
-açı verildi… ve **hiç çalışmadı**. `--accent` `:root`ta tanımlıydı, `var(--h)`
-orada çözülüyordu; alt elemanda `--h:162` yazmak hiçbir şeyi değiştirmiyordu.
-Ekranda dokuz grubun dokuzu da aynı maviydi. Kullanıcı *"mavi çok standart
-duruyor"* dediğinde asıl sebep buydu (bkz. Ders #29).
-
-**3. tur — bugünkü hâli.** Hata düzeltildi (formül `*` üzerinde), marka rengi
-maviden **yumuşak kiremite** geçti, dokuz grup açısı yeniden dağıtıldı,
-soru kartı bölümü kaldırıldı.
+**Konsept:** bu bir kurs sitesi değil, iyi dizilmiş bir teknik kitaptır.
+Kullanıcı burada *gezinmez*, **okur**. Bütün kararlar bu cümleden çıkar.
+İlham: Stripe Docs, Linear, Readwise.
 
 ### Beş ilke
 
-1. **Renk gruba ait, konuya değil.**
-   Dokuz konu grubunun dokuz rengi var; 36 konunun 36 rengi **yok**.
-   Renk burada süs değil **sınıflandırma**: aynı renk = aynı grup.
-   `data/catalog.js` → `SAP.GROUPS[].hue`, `SAP.grupHue(grupId)`.
-   Dokuz ton tek formülden üretilir (aynı açıklık, aynı doygunluk, farklı
-   açı) — yan yana geldiklerinde gökkuşağı değil tek palet gibi okunurlar.
-   ⚠️ Konu stub'larındaki eski `hue` alanı **artık kullanılmıyor**;
-   `--h` her yerde gruptan geliyor.
-   ⚠️⚠️ **Türetilmiş `--accent*` tokenleri `:root`ta DEĞİL, `*` üzerinde
-   tanımlanır.** Bu bir stil tercihi değil **zorunluluktur** — gerekçesi
-   Ders #29'da. Koyu tema ve `print.css` de aynı seviyede geçersiz kılar.
-2. **Yumuşak yüzey, yumuşak köşe.** Her şeyi çizgiyle bölmek yorar;
-   ayrım önce **yüzey ve boşlukla** yapılır. Yarıçap 6–20px, kapsül yalnızca
-   rozet ve süzgeç çipinde.
-3. **Göz yormayan kontrast.** Zemin saf beyaz değil sıcak kırık beyaz,
-   metin saf siyah değil yumuşak antrasit. Küçük punto + seyreltilmiş
-   büyük harf etiketler asgariye indi — okunması en yorucu biçim odur.
-4. **Rahat tipografi.** Gövde **16.5px / 1.75**, ölçü 70 karakteri geçmez.
-   Başlıklar iri değil, yeterince belirgin (ağırlık 620–660).
-5. **Ritim.** Katalog dokuz **renkli grup bölümüne** ayrıldı; her bölümün
-   ikonu, başlığı ve "kaç konu / kaç tamamlandı" rozeti var. Sayfa aynı
-   kalıbı 36 kez tekrarlamıyor.
+1. **Kutu yok, kural çizgisi var.** Kart, gölge, gradyan, yuvarlak köşe
+   yok. Ayrım 1px çizgi ve boşlukla yapılır. Yarıçap yalnızca form alanı
+   ve odak halkasında (2px).
+2. **Tek vurgu rengi** — defter yeşili `#1F5C4A`. Kategorilere renk
+   **verilmez**; dokuz grup rengi kaldırıldı. Renk yalnızca **durum**
+   taşır: okunmuş, aktif, bağlantı, ilerleme.
+   *Gerekçe:* kategori rengi bir kurs kataloğunda yön verir, bir kitapta
+   gürültü yapar.
+3. **T-hesap ritmi.** Borç/alacak motifi süs değil sayfanın iskeleti:
+   solda dar numara/etiket sütunu, sağda geniş içerik, arada tek dikey
+   kural. Üç yerde tekrarlanır: **dizin satırı · bölüm başlığı · kv bloğu**.
+4. **Üç font, üç iş.** Fraunces → başlık · Inter → gövde ·
+   **IBM Plex Mono → rakamlar** (`tabular-nums`; muhasebede rakam hizalanır).
+5. **İkon neredeyse yok, emoji hiç yok.** Kalanlar Lucide çizgi ikonu:
+   16px, currentColor, 13 adet. Yeni ikon eklemeden önceki soru:
+   *"bu ikon olmasa cümle anlaşılmaz mıydı?"*
 
-### Renk paleti
+### Fontlar — çevrimdışı kuralı bozulmadı
 
-| Rol | Değer | Nerede |
-|---|---|---|
-| **Marka** | `oklch(50% 0.088 38)` — yumuşak kiremit | Logo kutusu, butonlar, bağlantı, arama odağı, genel ilerleme, aktif gezinme satırı |
-| Grup açıları | 66 · 99 · 132 · 165 · 198 · 231 · 264 · 297 · 330 | Kart üst şeridi, ikon kutusu, grup başlığı, konu başlığı paneli |
-| Anlamsal | ok 158 · uyarı 68 · hata 27 · bilgi 245 | Uyarı kutuları, fiş denklik uyarısı |
+⚠️ Üç aile `css/fonts.css` içine **base64 woff2** olarak gömüldü (≈512 KB).
+Harici `<link>` çevrimdışı açılışta sessizce düşerdi (Kural #5, Ders #2).
+Kapsam **latin + latin-ext** ile sınırlı: latin-ext Türkçe için
+**zorunludur** (ı ğ ş İ Ğ Ş). Kiril/Yunan alınmadı — 1.2 MB olurdu.
 
-**Kontrast — ölçülmüş değerler** (canvas piksel probu, WCAG AA eşiği 4.5):
-buton beyaz/marka **6.06** · bağlantı **5.92** · gövde metin **12.94** ·
-ikincil **6.19** · üçüncül **4.79** · dokuz grubun etiketi **5.97–6.67**,
-ikonu **4.57–5.05**. ⚠️ `--text-3` bu turda **3.33'ten** 4.79'a çıkarıldı
-(açık temada 63% → 54%); koyu tema zaten geçiyordu.
-
-**Marka neden kiremit?** Kullanıcı isteği: *"pastel bir renk seç, mavi çok
-standart duruyor."* Doygunluk bilerek düşük (0.088) — pastel karakter
-buradan gelir. Açıklık %50'de tutuldu; daha açık bir ton beyaz yazıyla
-4.5:1 kontrastın altına düşerdi. Sıcak kırık beyaz zeminle (açı 95) aynı
-sıcaklık ailesinde olduğu için zemine oturuyor, üstünde yüzmüyor.
-
-**Dokuz grup açısı neden yeniden dağıtıldı?** Eski dağılım düzensizdi
-(aralar 24°–66°) ve `teknik` (28) yeni marka açısına (38) **10° uzaktaydı** —
-marka rengi bir gruba ait sanılırdı. Yenisi çembere **eşit 33° aralıkla**
-yerleşiyor ve en yakın grup markadan 28° uzakta.
-
-### Tipografi notu
-
-⚠️ Uygulama çift tıkla, sunucusuz ve internetsiz açılmak zorunda
-(Kural #5) — harici font indirilemez, gömülü font `tek-dosya.html`'i
-şişirir. Bu yüzden işletim sisteminin arayüz yüzü kullanılıyor
-(Windows'ta Segoe UI, macOS'ta SF Pro). Lisanslı bir `.woff2` projeye
-konursa yalnızca `--font` / `--font-display` satırı değişir.
-
-### Bileşen kararları
+### Yerleşim kararları
 
 | Bileşen | Karar | Dosya |
 |---|---|---|
-| Katalog | Dokuz **renkli grup bölümü**, her biri kart ızgarası | `views.js` `home`, `app.css` §4 |
-| Konu kartı | Grup renginde üst şerit + ikon kutusu + ilerleme halkası; boşken "Başla →" | `views.js` `topicCard()` |
-| Gezinme sütunu | **Açık zemin** — koyu blok sürekli bir ağırlıktı. Grup başlıkları renkli, aktif satır grup renginde dolgulu | `ui.js`, `app.css` §3 |
-| Konu başlığı | Grup renginde yumuşak panel + ikon kutusu | `views.js`, `app.css` §5 |
-| Süreç şeması | Adım **sıra numarası** (emoji değil), yuvarlak rozet | `diagram.js` `flow()` |
-| Uyarı kutusu | Yumuşak dolgu + ikon + tür etiketi (İpucu/Dikkat/Hata/Not) | `sections.js` `note()` |
-| Ana sayfa eylemi | **"Kaldığın yerden devam et"** + 🎲 rastgele konu | `views.js` `heroCta()` |
-| Soru kartları | **KALDIRILDI** — yüksek boş kutunun ortasında tek satır, sayfanın yoğunluğu yanında boşluk gibi okunuyordu. ⚠️ Veri silinmedi | `learn.js`, `sections.js` |
-| Baskı | Dokuz grup rengi **tek nötr tona sabitlenir** (gri yazıcıda ayırt edilemez, mürekkep yakar) — ⚠️ sabitleme `*` seviyesinde yapılır, `:root` yetmez | `print.css` |
+| Ana sayfa | **Numaralı içindekiler dizini** (01…36), dokuz bölüm. Kart ızgarası, rozet, istatistik kutusu, hero **yok** | `views.js` `home` |
+| Açıklama | Satır **tıklanınca** açılır; dizin taranabilir kalır | `.idx-sum`, `store.acikDizin` |
+| Tek eylem | Üstte **"Kaldığın yerden devam et"** + 2px ilerleme çubuğu | `.resume` |
+| Gezinme | **TEK YERDE**: sol sütun. Ana sayfadaki üst süzgeç şeridi kaldırıldı | `ui.js` |
+| Sol sütun | ☰ ile katlanır; grup başlıkları chevron ile katlanır; konular 01…36 numaralı | `ui.js`, `.side-*` |
+| Bölüm başlığı | `01 │ Ad … Okundu ⌄` — T-hesap ayrımının ikinci tekrarı | `.section-h` |
+| Uyarı kutusu | İkon yok; **sol renkli şerit + tür etiketi** | `sections.js` `note()` |
+| Baskı | Aynı palet, zemin beyaz; katlanmış bölümler **tam basılır** | `print.css` |
 
-### Responsive — mobil, masaüstünün küçültülmüşü değildir
+### Responsive
 
-- Tipografi ve boşluk ölçeği `@media (max-width: 44rem)` içinde **token
-  bazında** küçülür (`--t-hero`, `--s7`, `--s8`), bileşen bileşen değil.
-- Kartlar tek sütuna iner; künye paneli **iki sütuna** bölünür (dikey
-  liste gereksiz uzuyordu).
-- 62rem altında gezinme çekmeceye iner, içindekiler sütunu gizlenir.
-- **Taşma taraması kapsamlı yapılır:** 36 konu + 6 rota, **390 ve 360px**
-  (84 ölçüm). ⚠️ Tek sayfada ölçmek yetmez — ana sayfa temizken üç konu
-  sayfası taşıyordu (bkz. Ders #30).
-
----
+Mobil, masaüstünün küçültülmüşü değildir: **T-hesap ayrımı korunur**,
+yalnızca numara sütunu 56px → 34px iner. Seviye etiketi 44rem altında
+düşer, süre kalır. 68rem altında yan içindekiler gizlenir, 62rem altında
+sol sütun çekmeceye iner.
 
 ## 6. Özellikler
 
 | Özellik | Durum | Not |
 |---|---|---|
-| Dokuz renkli grup bölümüne ayrılmış konu kataloğu | ✅ | Renk **gruptan** gelir, konudan değil (bkz. §5b) |
+| Numaralı içindekiler dizini (01…36) | ✅ | Kitap dizini; açıklama tıklayınca açılır (bkz. §5b) |
 | "Kaldığın yerden devam et" + rastgele konu | ✅ | Yarım kalan konuyu sistem bulur |
+| **Arayüz dili TR / EN** | ✅ | Sağ üst köşede anahtar; arayüz + 36 başlık + 36 özet + grup/bölüm adları çevrili. ⚠️ Konu **gövdesi Türkçe kalır** — bkz. §10 |
 | Karanlık / Aydınlık mod | ✅ | Sistem tercihi + manuel geçiş, localStorage'a yazılır |
 | İlerleme çubuğu (bölüm/konu/genel) | ✅ | Bölüm bazında "okundu", karta halka, sidebar'a nokta |
 | Tamamlanan konu işaretleme | ✅ | Tek tıkla tüm bölümler |
@@ -456,7 +407,15 @@ konursa yalnızca `--font` / `--font-display` satırı değişir.
 
   Bu eksen ilk çalıştırmasında **86 bozuk yer** buldu ve üç ayrı motor kusurunu
   ortaya çıkardı (Ders #28).
-- ⭐ **6. eksen — grup rengi gerçekten uygulanıyor mu?** (bkz. Ders #29)
+- ⭐ **6. eksen — EMOJİ.** Çizilmiş kabukta ve 36 konu sayfasında emoji
+  sayısı **0 olmalıdır**. Ölçüm `✓ ✕` gibi tipografik glifleri hariç tutar
+  (onlar emoji değil, metin glifi). Bu eksen ilk çalıştırmasında **705**
+  bulmuştu — tablo hücrelerindeki `✅/❌`; tek renkli `✓/✕`'e çevrildiler.
+
+  ⚠️ **Eski 6. eksen (grup rengi) EMEKLİ EDİLDİ:** dokuz grup rengi
+  kaldırıldığı için ölçecek bir şey kalmadı. Ders #29 yine de geçerlidir —
+  `:root`ta `var()` tuzağı CSS'in kalıcı bir davranışıdır.
+- ~~Grup rengi ekseni~~ (bkz. Ders #29)
   Dokuz `.grp` bölümünün `--accent` **hesaplanmış** değeri okunur;
   **dokuzu da farklı olmalıdır**.
 
@@ -1545,3 +1504,33 @@ FI kataloğu bittiği için sıradaki iş **içerik değil**. İki yön:
     **Genel ders:** *"doğrulandı" bir kapsam belirtmeden yazılmamalıdır.*
     ①'de kapsam bir sayfaydı ama "site" diye yazılmıştı. Bu yüzden §7'deki
     her madde artık **kaç örnek üzerinde** ölçüldüğünü söylüyor.
+
+---
+
+## 10. Dil Katmanı (TR / EN) — ve sınırının gerekçesi
+
+`js/i18n.js`. Anahtar sağ üst köşede; seçim `localStorage`'a yazılır.
+
+**Çevrilir:** bütün arayüz metinleri · dokuz grup adı · 36 konunun
+**başlığı ve özeti** · seviye adları (Başlangıç → Beginner) · 11 bölüm adı ·
+boş durum metinleri. Ayrıca **yüzde biçimi** dile göre değişir:
+TR `%40`, EN `40%` — küçük ama bir arayüzün dil bilip bilmediğini
+ele veren ilk yerlerden biri.
+
+**⚠️ Çevrilmez ve bu bilinçli bir karardır:** konuların **derin gövdesi**
+(11 bölümün metni, senaryolar, fişler, quiz soruları). İki sebep:
+
+1. **Hacim:** yaklaşık 2 milyon karakter.
+2. ⭐ **Terminoloji riski:** muhasebe metni makine çevirisinden sağ çıkmaz.
+   *"Kapatma"* bu projede hem **closing** (dönem) hem **clearing** (kalem)
+   demektir ve ayrım bağlamdadır. *"Mutabakat hesabı"* → *reconciliation
+   account*, ama *"mutabakat"* tek başına *reconciliation* değil bazen
+   *agreement*'tır. **Yarım çevrilmiş bir muhasebe metni, çevrilmemiş
+   olandan daha tehlikelidir** — çünkü okuyucu doğru sanır.
+
+EN seçiliyken konu sayfasının başında bunu söyleyen tek satırlık bir
+uyarı çıkar (`.lang-notice`). Bu bir eksiklik değil, **açıklanmış bir
+karardır**; gizlenmesi yanlış olurdu.
+
+**Yeni dil eklemek:** `DICT`'e bir anahtar seti + `TOPICS_EN` benzeri bir
+konu sözlüğü + `DILLER` dizisine bir kod. Motorda değişiklik gerekmez.

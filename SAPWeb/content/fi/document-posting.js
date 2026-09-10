@@ -99,7 +99,7 @@ SAP.registerTopic({
           aciklama:'Hesabın {{alan-durumu}} grubu ile kayıt anahtarının alan durumu karşılaştırılır. ' +
                    '**En kısıtlayıcı olan kazanır.** Zorunlu alan boşsa kayıt durur.',
           cikti:'Alanlar tamam', ok:'geçerse' },
-        { ic:'✅', rol:'Sistem', baslik:'5. Doğrulama ve yerine koyma',
+        { ic:'✓', rol:'Sistem', baslik:'5. Doğrulama ve yerine koyma',
           aciklama:'{{OB28}} doğrulama kuralları iş kurallarını kontrol eder; {{OBBH}} yerine koyma ' +
                    'kuralları alanları otomatik doldurur veya değiştirir.',
           cikti:'Kurallar geçildi', ok:'geçerse' },
@@ -882,7 +882,7 @@ SAP.registerTopic({
         girdi:[
           { alan:'Satıcı', deger:'V-2001' },
           { alan:'Belge tarihi (`BLDAT`)', deger:'31.12.2026 ✓ doğru' },
-          { alan:'**Kayıt tarihi (`BUDAT`)**', deger:'03.01.2027 ✕ **varsayılan bırakıldı**' },
+          { alan:'**Kayıt tarihi (`BUDAT`)**', deger:'03.01.2027 **varsayılan bırakıldı**' },
           { alan:'Dönem göstergesi', deger:'01 / 2027 — ekranda görünüyordu ama fark edilmedi' },
           { alan:'Tutar / Vergi', deger:'60.000 TL brüt / %20' },
         ],

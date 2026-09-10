@@ -263,7 +263,7 @@ SAP.registerTopic({
              '(kâr merkezi değişmedikçe) oluşmazdı. ' +
              '**Hedef türü, FI etkisini belirler.**' },
 
-      { baslik:'❌ Yerleşim atlanırsa — maliyet siparişte asılı kalır',
+      { baslik:'Yerleşim atlanırsa — maliyet siparişte asılı kalır',
         belgeTuru:'—', tarih:'31.12.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'—', ad:'İç sipariş 500118 · bakiye **1.850.000 TL** · yerleşim **yapılmadı**', borc:0, alacak:0,
@@ -1032,8 +1032,8 @@ SAP.registerTopic({
       { baslik:'Hata deseni incelenir — hangi işlemler çalışıyor?', tcode:'FB60',
         aciklama:'Neyin çalışıp neyin durduğu ayrıştırılıyor.',
         girdi:[
-          { alan:'{{FB60}} gider faturası', deger:'**Hata** ✕' },
-          { alan:'{{FB50}} G/L gider kaydı', deger:'**Hata** ✕' },
+          { alan:'{{FB60}} gider faturası', deger:'**Hata** ' },
+          { alan:'{{FB50}} G/L gider kaydı', deger:'**Hata** ' },
           { alan:'{{F-28}} müşteri tahsilatı', deger:'Çalışıyor ✓' },
           { alan:'{{F-53}} satıcı ödemesi', deger:'Çalışıyor ✓' },
           { alan:'{{FB50}} banka virman (gider hesabı yok)', deger:'Çalışıyor ✓' },
@@ -1063,10 +1063,10 @@ SAP.registerTopic({
         aciklama:'Kök sebep doğrulanıyor.',
         girdi:[
           { alan:'Kontrol alanı', deger:'1000' },
-          { alan:'COIN (gerçek kayıt)', deger:'**2027 aralığı var · 2028 YOK** ✕' },
-          { alan:'RKU1 (yeniden kayıt)', deger:'2028 yok ✕' },
-          { alan:'RKIU (devir)', deger:'2028 yok ✕' },
-          { alan:'KOAO (yerleşim)', deger:'2028 yok ✕' },
+          { alan:'COIN (gerçek kayıt)', deger:'**2027 aralığı var · 2028 YOK** ' },
+          { alan:'RKU1 (yeniden kayıt)', deger:'2028 yok ' },
+          { alan:'RKIU (devir)', deger:'2028 yok ' },
+          { alan:'KOAO (yerleşim)', deger:'2028 yok ' },
         ],
         not:'**Kök sebep bulundu.** CO numara aralıkları yıl bazlı tanımlanmış ve ' +
              '2028 yılı için **hiçbiri açılmamış**.\n\n' +
@@ -1119,7 +1119,7 @@ SAP.registerTopic({
         girdi:[
           { alan:'Dağıtım', deger:'6100 Bilgi İşlem → 3 maliyet yeri · 480.000 TL' },
           { alan:'CO belgesi', deger:'Oluştu ✓' },
-          { alan:'FI belgesi', deger:'**Oluşmadı** ✕' },
+          { alan:'FI belgesi', deger:'**Oluşmadı** ' },
           { alan:'Beklenen', deger:'Hedef maliyet yerleri **farklı kâr merkezlerinde**' },
         ],
         not:'Dağıtım CO’da çalıştı ama FI’da **hiçbir şey değişmedi**.\n\n' +
@@ -1135,7 +1135,7 @@ SAP.registerTopic({
           { alan:'Şirket kodu değişimi', deger:'İşaretli ✓' },
           { alan:'Bölüm değişimi', deger:'İşaretli ✓' },
           { alan:'Fonksiyonel alan değişimi', deger:'İşaretli ✓' },
-          { alan:'**Kâr merkezi değişimi**', deger:'**İşaretsiz** ✕' },
+          { alan:'**Kâr merkezi değişimi**', deger:'**İşaretsiz** ' },
         ],
         not:'**İkinci kök sebep bulundu.** Varyantta kâr merkezi kutusu işaretlenmemiş.\n\n' +
              'Bu ayar, {{new-gl}} kurulumu yapılırken atlanmış. ' +
@@ -1361,9 +1361,9 @@ SAP.registerTopic({
       { on:'CO numara aralığı (KANK) eksikse?', arka:'**CO kaydı başarısız → FI kaydı da olmaz** (aynı LUW).\n\nHata **FI ekranında** görünür, sebep **CO’da**.\n\nKlasik: yılbaşında FBN1 açılır, **KANK unutulur** → 1 Ocak’ta gider kayıtları durur.' },
       { on:'Teşhis: gider kayıtları durdu, tahsilat çalışıyor', arka:'**Sorun CO’da.**\n\nTahsilat/ödeme = **bilanço hesapları** → CO’ya yansımaz\nGider = **masraf türü var** → CO entegrasyonu devrede\n\nGider hesaplarını ayıran tek şey masraf türüdür.' },
       { on:'Masraf türü kategorileri', arka:'**1** — birincil (gider hesabı)\n**11** — gelir\n**42** — devir (CO içi, KSV5)\n**43** — hizmet aktarımı (faaliyet)\n\nKategori yanlışsa ilgili işlem tipi **çalışmaz**.' },
-      { on:'Kontrol alanına çok şirket kodu bağlamanın şartı?', arka:'**Aynı hesap planı** + **aynı mali yıl varyantı**\n\n✓ Kazanç: şirketler arası maliyet dağıtımı\n⚠️ Karar **kurulumun ilk haftasında** verilir — sonradan değiştirilemez.' },
+      { on:'Kontrol alanına çok şirket kodu bağlamanın şartı?', arka:'**Aynı hesap planı** + **aynı mali yıl varyantı**\n\n✓ Kazanç: şirketler arası maliyet dağıtımı\nKarar **kurulumun ilk haftasında** verilir — sonradan değiştirilemez.' },
       { on:'S/4HANA’da FI–CO mutabakatı', arka:'**Kavram olarak YOK.**\n\nECC: BSEG (FI) + COEP (CO) → iki tablo → mutabakat\nS/4: **ACDOCA tek satır** → tutarsızlık **fiziksel olarak imkânsız**\n\n→ Eski mutabakat programları **kaldırılmalı**.' },
-      { on:'KO88 yerleşimi atlanırsa?', arka:'**Maliyet siparişte asılı kalır.**\n\n✕ Duran varlık oluşmaz → amortisman başlamaz\n✕ Maliyet yeri raporunda görünmez\n✕ Aktifleştirilecek tutar **gider olarak kalır**\n\n→ Yıl sonu listesine "açık iç sipariş?" ekle.' },
+      { on:'KO88 yerleşimi atlanırsa?', arka:'**Maliyet siparişte asılı kalır.**\n\nDuran varlık oluşmaz → amortisman başlamaz\nMaliyet yeri raporunda görünmez\nAktifleştirilecek tutar **gider olarak kalır**\n\n→ Yıl sonu listesine "açık iç sipariş?" ekle.' },
       { on:'FAGLCOFIRTINT — kâr merkezi kutusu unutulursa?', arka:'CO belgesi oluşur, **FI belgesi oluşmaz** — ve **hata mesajı çıkmaz**.\n\nSonuç: CO’da kâr merkezi gideri artar, FI’daki kâr merkezi bilançosunda artmaz.\n\nFark her ay birikir, sebebi bulunması zor.' },
       { on:'Bilanço hesabına masraf türü açılır mı?', arka:'**HAYIR.**\n\nAçılırsa o hesaba yapılan **her kayıt CO nesnesi ister** → satıcı, banka, stok kayıtları gereksiz zorlaşır.\n\nMasraf türü yalnızca **gelir tablosu** hesapları içindir.' },
       { on:'S/4HANA’da masraf türü nerede tanımlanır?', arka:'**FS00 içinde — G/L hesabının özelliği.**\n\nHesap açarken "birincil masraf türü" seçilir, iş biter.\n\nKA01 çalışmaya devam eder ama **zorunlu değil**.\n\nİkincil masraf türleri de artık **G/L hesabı**.' },

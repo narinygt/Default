@@ -157,7 +157,7 @@ SAP.registerTopic({
         '**Doğru yöntem:** çalışan bir şirket kodunu (veya SAP’ın örnek şirket kodunu) ' +
         '**kopyala**, sonra farklılıkları düzelt. ' +
         'Kopyalama bağlı ayarları birlikte getirir.\n\n' +
-        '⚠️ Kopyalamadan sonra mutlaka kontrol edilecekler: ' +
+        'Kopyalamadan sonra mutlaka kontrol edilecekler: ' +
         'ülke, para birimi, vergi ayarları, banka hesapları, adres. ' +
         'Bunlar kaynak şirket kodundan gelir ve **yanlış kalırsa fark edilmesi zordur**.' },
     ],
@@ -257,69 +257,69 @@ SAP.registerTopic({
       'Aşağıdaki liste bu ayrımı takip ediyor.',
 
     liste:[
-      { ad:'⭐ Zorunlu · {{sirket-kodu}}', en:'Company Code',
+      { ad:'Zorunlu · {{sirket-kodu}}', en:'Company Code',
         aciklama:'**Yasal muhasebe birimi.** Bilanço ve gelir tablosu bu seviyede üretilir.',
         neZaman:'Her tüzel kişilik için bir tane. FI’ın en temel birimidir.',
         ornek:'4 karakter (1000, TR01). Her belge bir şirket koduna aittir. ' +
               '{{T001}} tablosunda saklanır.',
         tcodes:['OX02','OBY6'] },
 
-      { ad:'⭐ Zorunlu · {{hesap-plani}}', en:'Chart of Accounts',
+      { ad:'Zorunlu · {{hesap-plani}}', en:'Chart of Accounts',
         aciklama:'Kullanılabilir G/L hesaplarının listesi — **bilançonun dili**.',
         neZaman:'En az bir tane. Birden çok şirket kodu **aynı** planı paylaşabilir.',
         ornek:'**Grup genelinde tek operasyonel plan hedeflenmelidir.** ' +
               'Ayrı planlar ortak {{kontrol-alani}}’nı ve kolay konsolidasyonu engeller.',
         tcodes:['OB13','FS00'] },
 
-      { ad:'⭐ Zorunlu · {{mali-yil-varyanti}}', en:'Fiscal Year Variant',
+      { ad:'Zorunlu · {{mali-yil-varyanti}}', en:'Fiscal Year Variant',
         aciklama:'Yılın dönemlere nasıl bölüneceği; **dönemsellik ilkesinin sistemdeki karşılığı**.',
         neZaman:'Her şirket koduna atanır.',
         ornek:'`K4` takvim yılı (12 normal + 4 özel dönem). ' +
               'Nisan–Mart gibi kaymış yıllar için ayrı varyant tanımlanır.',
         tcodes:['OB29'] },
 
-      { ad:'⭐ Zorunlu · Yerel para birimi', en:'Local Currency',
+      { ad:'Zorunlu · Yerel para birimi', en:'Local Currency',
         aciklama:'Şirket kodunun defter tuttuğu para birimi ({{T001}} `WAERS`).',
         neZaman:'Şirket kodu tanımlanırken. **Sonradan değiştirilemez.**',
         ornek:'Grup ve serbest para birimleri **ek olarak** tanımlanabilir — ' +
               'ama bu da kayıt başlamadan yapılmalıdır ({{paralel-para-birimi}}).' },
 
-      { ad:'🔷 İsteğe bağlı · Ülke hesap planı', en:'Country Chart of Accounts',
+      { ad:'İsteğe bağlı · Ülke hesap planı', en:'Country Chart of Accounts',
         aciklama:'Yerel yasal raporlama için **alternatif hesap numaraları**.',
         neZaman:'Grup operasyonel planı kullanırken yerel mevzuat farklı numara istiyorsa.',
         ornek:'Kayıt 400100’e yapılır, yasal rapor 770 numarasıyla basılır. ' +
               '**İki ayrı hesap planı kurmadan** hem konsolidasyon hem yerel uyum sağlanır.' },
 
-      { ad:'🔷 İsteğe bağlı · Şirket (konsolidasyon)', en:'Company',
+      { ad:'İsteğe bağlı · Şirket (konsolidasyon)', en:'Company',
         aciklama:'Konsolidasyon çatısı. Bir şirkete **birden çok şirket kodu** bağlanabilir.',
         neZaman:'Grup konsolidasyonu yapılacaksa.',
-        ornek:'⚠️ **Şirket kodu ile karıştırılmamalıdır:** şirket kodu bilanço üretir, ' +
+        ornek:'**Şirket kodu ile karıştırılmamalıdır:** şirket kodu bilanço üretir, ' +
               'şirket konsolidasyon birimidir. {{T880}} tablosunda saklanır.',
         tcodes:['OX15'] },
 
-      { ad:'🔷 İsteğe bağlı · {{is-alani}}', en:'Business Area',
+      { ad:'İsteğe bağlı · {{is-alani}}', en:'Business Area',
         aciklama:'Şirket kodundan **bağımsız**, faaliyet bazlı raporlama birimi.',
         neZaman:'Faaliyet raporlaması şirket kodu sınırlarını aşıyorsa.',
         ornek:'**S/4HANA’da yerini büyük ölçüde {{kar-merkezi}} ve segment aldı.** ' +
               'Yeni kurulumlarda genelde tercih edilmez.',
         tcodes:['OX03'] },
 
-      { ad:'🔷 İsteğe bağlı · {{kredi-kontrol-alani}}', en:'Credit Control Area',
+      { ad:'İsteğe bağlı · {{kredi-kontrol-alani}}', en:'Credit Control Area',
         aciklama:'Müşteri {{kredi-limiti}} kontrolünün yapıldığı birim.',
         neZaman:'Kredili satış yapılıyorsa.',
         ornek:'Birden çok şirket kodu bağlanırsa müşterinin **toplam riski** birlikte izlenir. ' +
               'Ayrı alanlar kurulursa her şirket kendi limitini bağımsız yönetir.',
         tcodes:['OB45'] },
 
-      { ad:'🔷 İsteğe bağlı · {{kontrol-alani}} (CO)', en:'Controlling Area',
+      { ad:'İsteğe bağlı · {{kontrol-alani}} (CO)', en:'Controlling Area',
         aciklama:'Maliyet muhasebesinin yapıldığı çerçeve.',
         neZaman:'CO kullanılıyorsa — pratikte her kurulumda.',
-        ornek:'⚠️ **FI’a bağımlıdır:** bağlı şirket kodları **aynı hesap planını** ve ' +
+        ornek:'**FI’a bağımlıdır:** bağlı şirket kodları **aynı hesap planını** ve ' +
               '**aynı mali yıl varyantını** kullanmak zorundadır. ' +
               'Bu yüzden CO tasarımı FI’dan bağımsız yapılamaz.',
         tcodes:['OKKP'] },
 
-      { ad:'🔷 İsteğe bağlı · {{kar-merkezi}} / segment', en:'Profit Center / Segment',
+      { ad:'İsteğe bağlı · {{kar-merkezi}} / segment', en:'Profit Center / Segment',
         aciklama:'Sorumluluk ve segment bazlı raporlama birimleri.',
         neZaman:'Segment bilançosu gerekiyorsa — {{belge-bolme}} ile birlikte.',
         ornek:'S/4HANA’da {{ACDOCA}} boyutu olarak taşınır; ' +
@@ -383,9 +383,9 @@ SAP.registerTopic({
         adimlar:[
           { baslik:'Şirket kodunu seç' },
           { baslik:'**Hesap planını ata**',
-            aciklama:'⚠️ **Kayıt başladıktan sonra değiştirilemez.** Tüm kayıtlar bu plana referans verir.' },
+            aciklama:'**Kayıt başladıktan sonra değiştirilemez.** Tüm kayıtlar bu plana referans verir.' },
           { baslik:'**Mali yıl varyantını ata**',
-            aciklama:'⚠️ Değiştirilmesi dönem eşleşmesini bozar; pratikte geri dönüşsüzdür.' },
+            aciklama:'Değiştirilmesi dönem eşleşmesini bozar; pratikte geri dönüşsüzdür.' },
           { baslik:'Kayıt dönemi varyantını ata', aciklama:'{{OB52}}’nin bağlandığı varyant.' },
           { baslik:'Alan durumu varyantını ata', aciklama:'Hangi alanların zorunlu/opsiyonel olduğu.' },
           { baslik:'Ülke ve para birimini doğrula',
@@ -470,7 +470,7 @@ SAP.registerTopic({
         adimlar:[
           { baslik:'Kontrol alanını tanımla', aciklama:'Para birimi, hesap planı, mali yıl varyantı.' },
           { baslik:'**Şirket kodlarını ata**',
-            aciklama:'⚠️ **Şart:** bağlı şirket kodları **aynı hesap planını** ve ' +
+            aciklama:'**Şart:** bağlı şirket kodları **aynı hesap planını** ve ' +
                      '**aynı mali yıl varyantını** kullanmalıdır.' },
           { baslik:'Etkin bileşenleri seç', aciklama:'Maliyet yeri, iç sipariş, CO-PA…' },
           { baslik:'Numara aralıklarını tanımla ({{KANK}})',
@@ -617,10 +617,10 @@ SAP.registerTopic({
       { ad:'{{OBY6}} — global parametreler',
         aciklama:'Projenin kaderini belirleyen dört alanın bulunduğu ekran.',
         alanlar:[
-          { ad:'**Hesap planı**', zorunlu:true, aciklama:'⚠️ Kayıt başladıktan sonra **değiştirilemez**.' },
-          { ad:'**Mali yıl varyantı**', zorunlu:true, aciklama:'⚠️ Değiştirilmesi dönem eşleşmesini bozar.' },
+          { ad:'**Hesap planı**', zorunlu:true, aciklama:'Kayıt başladıktan sonra **değiştirilemez**.' },
+          { ad:'**Mali yıl varyantı**', zorunlu:true, aciklama:'Değiştirilmesi dönem eşleşmesini bozar.' },
           { ad:'**Ülke**', zorunlu:true, aciklama:'Vergi kodlarını belirler.' },
-          { ad:'**Para birimi**', zorunlu:true, aciklama:'⚠️ Sonradan değiştirilemez.' },
+          { ad:'**Para birimi**', zorunlu:true, aciklama:'Sonradan değiştirilemez.' },
           { ad:'Alan durumu varyantı', zorunlu:true, aciklama:'Hangi alanların zorunlu olduğu.' },
           { ad:'Kayıt dönemi varyantı', zorunlu:true, aciklama:'{{OB52}}’nin bağlandığı varyant.' },
         ],
@@ -1133,7 +1133,7 @@ SAP.registerTopic({
                  'tolerans grupları, alan durumu, vergi ayarları, banka tanımları.\n\n' +
                  'Sıfırdan açılan şirket kodunda bunların hiçbiri yoktur; ' +
                  'eksikler tek tek hata olarak çıkar ve **haftalar sürer**.\n\n' +
-                 '⚠️ Kopyalama sonrası **ülke, para birimi, vergi ayarları ve adres** ' +
+                 'Kopyalama sonrası **ülke, para birimi, vergi ayarları ve adres** ' +
                  'mutlaka doğrulanmalıdır — kaynak şirketten gelirler.' },
 
       { soru:'Fatura TR01’e geldi ama masraf DE01’e ait. Sistem ne yapar?',
@@ -1185,7 +1185,7 @@ SAP.registerTopic({
       { on:'OBY6’daki geri dönüşsüz dört alan', arka:'**1. Hesap planı** — tüm kayıtlar referans verir\n**2. Mali yıl varyantı** — dönem eşleşmesi bozulur\n**3. Para birimi** — tüm çevrimler yanlış olur\n**4. Ülke** — vergi yapılandırması buna bağlı\n\nKayıt başladıktan sonra **pratikte değiştirilemez**.' },
       { on:'Kaç hesap planı kurulmalı?', arka:'**Bir tane.**\n\nAyrı planların bedeli:\n• Ortak kontrol alanı **kurulamaz**\n• Hesap belirleme **iki kat** (OBYC/VKOA/OB40)\n• Konsolidasyon **elle eşleştirme** ister\n\nYerel ihtiyaç → **ülke hesap planı**.' },
       { on:'Kontrol alanı şartı nedir?', arka:'Bağlı şirket kodları **aynı hesap planını** ve **aynı mali yıl varyantını** kullanmalı.\n\n→ Bu yüzden FI kuruluş kararları **CO düşünülerek** verilir.\n\nŞirket kodu açmadan sor: *"hangi kontrol alanına bağlanacak?"*' },
-      { on:'Şirket kodu nasıl oluşturulur?', arka:'**KOPYALAYARAK** — sıfırdan değil.\n\nYüzlerce bağlı ayar birlikte gelir: belge türleri, numara aralıkları, tolerans grupları, alan durumu.\n\n⚠️ Sonra doğrula: **ülke · para birimi · vergi · banka · adres**' },
+      { on:'Şirket kodu nasıl oluşturulur?', arka:'**KOPYALAYARAK** — sıfırdan değil.\n\nYüzlerce bağlı ayar birlikte gelir: belge türleri, numara aralıkları, tolerans grupları, alan durumu.\n\nSonra doğrula: **ülke · para birimi · vergi · banka · adres**' },
       { on:'Şirketler arası kayıt nasıl olur?', arka:'**İki ayrı belge** oluşur — her tüzel kişilik kendi bilançosunu üretmek zorunda.\n\nKöprü: grup içi hesaplar\n`195` alacak (bir tarafta)\n`395` borç (diğer tarafta)\n\nKonsolidasyonda **karşılıklı elenir**.' },
       { on:'Ülke hesap planı ne işe yarar?', arka:'**Tek kayıt, iki görünüm.**\n\nKayıt grup planında (400100), yasal rapor yerel numarayla (770).\n\nG/L ana verisinde **alternatif hesap numarası** tanımlanır.\n\n→ Ayrı operasyonel plan kurmadan yerel uyum.' },
       { on:'Özel dönemler (13–16) neden var?', arka:'Kapanış kayıtlarını **Aralık’ın normal işlemlerinden ayırmak** için.\n\nAynı tarihe (31.12) kayıt yapılır ama **farklı döneme** düşer.\n\n13 → denetim düzeltmeleri\n14 → vergi düzeltmeleri\n\n→ "Aralık’ın gerçek gideri neydi?" cevaplanabilir.' },

@@ -106,20 +106,20 @@ SAP.registerTopic({
           aciklama:'**Kayıt / rapor** mı, **özelleştirme** mi, **teknik** mi? ' +
                    'Bu soru hangi yolun kullanılacağını belirler.',
           cikti:'Tür', ok:'yol seçilir' },
-        { ic:'🔤', rol:'Danışman', baslik:'1️⃣ Kalıptan tahmin — en hızlısı',
+        { ic:'🔤', rol:'Danışman', baslik:'1⃣ Kalıptan tahmin — en hızlısı',
           aciklama:'Modül harfi + işlem harfi + numara. ' +
                    'Satıcı faturası → FI + fatura → **{{FB60}}**. ' +
                    'Deneyimli danışmanın %80’i buradan çözülür.',
           cikti:'Tahmin', ok:'tutmazsa' },
-        { ic:'🔍', rol:'Danışman', baslik:'2️⃣ Açıklamadan arama — en güvenilir',
+        { ic:'🔍', rol:'Danışman', baslik:'2⃣ Açıklamadan arama — en güvenilir',
           aciklama:'{{SE16N}} → {{TSTCT}} → `TTEXT` içinde `*fatura*`. ' +
                    'Kodu bilmeden **ne yaptığını** bilmek yeterlidir.',
           cikti:'Aday kodlar', ok:'özelleştirmeyse' },
-        { ic:'⚙️', rol:'Danışman', baslik:'3️⃣ {{SPRO}} ağacı — özelleştirme için',
+        { ic:'⚙️', rol:'Danışman', baslik:'3⃣ {{SPRO}} ağacı — özelleştirme için',
           aciklama:'IMG ağacında konu aranır; düğüme tıklanınca **kod zaten oradadır**. ' +
                    '`OB*` kodlarını ezberlemeye gerek kalmaz.',
           cikti:'Özelleştirme ekranı', ok:'özel kodsa' },
-        { ic:'🧩', rol:'Danışman', baslik:'4️⃣ {{SE93}} — "bu kod ne çalıştırıyor?"',
+        { ic:'🧩', rol:'Danışman', baslik:'4⃣ {{SE93}} — "bu kod ne çalıştırıyor?"',
           aciklama:'Özellikle müşteriye özel `Z*` kodlarında. ' +
                    'Program adı ve ekran numarası görünür.',
           cikti:'Program adı', ok:'kullanıma alınır' },
@@ -160,14 +160,14 @@ SAP.registerTopic({
         '**`/n`** — yalnızca mevcut işlemi kapatır, ana menüye döner.\n\n' +
         '**`/i`** — bulunulan oturumu **kapatır**.\n\n' +
         '**`/nex`** — sistemden **onay sormadan** çıkar. ' +
-        '⚠️ Kaydedilmemiş veri **sorulmadan gider**.\n\n' +
+        'Kaydedilmemiş veri **sorulmadan gider**.\n\n' +
         '━━━━━━━━━━\n\n' +
         '**`/$sync`** — tüm **{{tampon}}ları** temizler.\n\n' +
         'Bu sonuncusu bir danışman aracıdır ve şu soruyu çözer: ' +
         '*"Özelleştirmeyi değiştirdim ama etkisi görünmüyor."* ' +
         '{{T001}}, {{T004}}, {{T030}} gibi yapılandırma tabloları tamponlanır; ' +
         'değişiklik hemen okunmayabilir.\n\n' +
-        '⚠️ **Canlı sistemde dikkatli kullanılır** — tüm kullanıcıları etkiler ve ' +
+        '**Canlı sistemde dikkatli kullanılır** — tüm kullanıcıları etkiler ve ' +
         'geçici performans düşüşü yaratır. Test sisteminde serbesttir.' },
     ],
   },
@@ -221,7 +221,7 @@ SAP.registerTopic({
           { hesap:'770', ad:'Genel yönetim gideri', alacak:100000 },
           { hesap:'191', ad:'İndirilecek KDV', alacak:20000 },
         ],
-        not:'⚠️ **Ters kayıt silme değildir** — orijinal belge yerinde kalır, ' +
+        not:'**Ters kayıt silme değildir** — orijinal belge yerinde kalır, ' +
              '**yeni bir belge** üretilir ve ikisi birbirine bağlanır ' +
              '({{BKPF}} `STBLG` alanı).\n\n' +
              'Mizanda **iki kayıt** görünür. Bu, denetim izinin gereğidir: ' +
@@ -296,12 +296,12 @@ SAP.registerTopic({
       '**01** oluştur · **02** değiştir · **03** görüntüle\n\n' +
       '`AS01/02/03` varlık · `FK01/02/03` satıcı · `KS01/02/03` maliyet yeri\n\n' +
       '**9x** = eski veri aktarımı (*Altdaten*): `AS91` devir varlığı\n\n' +
-      '⚠️ **Ünlü istisna: {{FS00}}.** G/L hesabında `FS01/02/03` yoktur; ' +
+      '**Ünlü istisna: {{FS00}}.** G/L hesabında `FS01/02/03` yoktur; ' +
       '`FS00` **tek ekranda** üçünü de yapar — mod ekranın içinden seçilir. ' +
       'Kalıbın istisnası olduğu için sık sorulur.',
 
     liste:[
-      { ad:'📝 Kayıt · `F-` tireli — eski nesil', en:'Classic posting',
+      { ad:'Kayıt · `F-` tireli — eski nesil', en:'Classic posting',
         aciklama:'{{kayit-anahtari}} **elle girilir**. Çok kalemli ve kapatmalı işlemler için.',
         neZaman:'Kapatma, avans, karmaşık çok satırlı kayıtlar.',
         ornek:'`F-02` G/L · `F-43` satıcı faturası · **{{F-53}}** ödeme · ' +
@@ -310,7 +310,7 @@ SAP.registerTopic({
               'neredeyse tamamı bu ailededir — çünkü {{acik-kalem}} seçim ekranı gerekir.',
         tcodes:['F-53','F-28','F-32'] },
 
-      { ad:'📝 Kayıt · `FB` tiresiz — yeni nesil (Enjoy)', en:'Enjoy posting',
+      { ad:'Kayıt · `FB` tiresiz — yeni nesil (Enjoy)', en:'Enjoy posting',
         aciklama:'Tek ekran, kayıt anahtarı **gerekmez** — borç/alacak seçilir, sistem türetir.',
         neZaman:'Günlük tek belgelik kayıtlar. Kullanıcıya verilecek varsayılan.',
         ornek:'**{{FB50}}** G/L · **{{FB60}}** satıcı faturası · **{{FB70}}** müşteri faturası · ' +
@@ -318,25 +318,25 @@ SAP.registerTopic({
               '**Son rakam ipucu:** `0` girişi, `2` değiştirme, `3` görüntüleme eğilimindedir.',
         tcodes:['FB50','FB60','FB03'] },
 
-      { ad:'📋 Döküm · `FBL_N` — kalem listeleri', en:'Line item display',
+      { ad:'Döküm · `FBL_N` — kalem listeleri', en:'Line item display',
         aciklama:'Hesap bazında {{dokum}}; **belgeye inilebilir**.',
         neZaman:'*"Bakiye neden bu kadar?"* sorusunda.',
         ornek:'**{{FBL1N}}** satıcı (**1**) · **{{FBL3N}}** G/L (**3**) · ' +
               '**{{FBL5N}}** müşteri (**5**)\n\n' +
               'Sondaki **`N`** = *neu* (yeni) — eski `FBL1` sürümünün ALV’li hâli.\n\n' +
-              '⚠️ Döküm için hesapta **kalem yönetimi açık** olmalıdır ' +
+              'Döküm için hesapta **kalem yönetimi açık** olmalıdır ' +
               've geriye dönük açılamaz (bkz. {{konu:reporting}}).',
         tcodes:['FBL1N','FBL3N','FBL5N'] },
 
-      { ad:'📊 Rapor · `F.` noktalı — eski rapor programları', en:'Classic reports',
+      { ad:'Rapor · `F.` noktalı — eski rapor programları', en:'Classic reports',
         aciklama:'Nokta (`.`) rapor tipi işlemi işaret eder. Çoğu **toplu** çalışır.',
         neZaman:'Dönem sonu ve toplu işlemler.',
         ornek:'**{{F.01}}** mali tablo · **{{F.05}}** kur değerlemesi · ' +
               '**{{F.13}}** otomatik kapatma · {{F.19}} GR/IR analizi · `F.80` toplu ters kayıt\n\n' +
-              '⚠️ Bu ailenin tamamında **önce test çalıştırması** yapılır.',
+              'Bu ailenin tamamında **önce test çalıştırması** yapılır.',
         tcodes:['F.01','F.05','F.13'] },
 
-      { ad:'📊 Rapor · `S_ALR_87012xxx` — üretilmiş kodlar', en:'Generated report codes',
+      { ad:'Rapor · `S_ALR_87012xxx` — üretilmiş kodlar', en:'Generated report codes',
         aciklama:'Rapor ağacından **otomatik üretilmiş** kodlar. Okunabilir değildirler.',
         neZaman:'Standart mali raporlar.',
         ornek:'{{S_ALR_87012357}} KDV listesi · {{S_ALR_87012284}} mali tablo · ' +
@@ -345,7 +345,7 @@ SAP.registerTopic({
               '**Menüden veya favoriden** erişilir. Kalıbı bilmenin faydası: ' +
               'bu öneki görünce *"bu bir standart rapordur, menüde vardır"* denir.' },
 
-      { ad:'⚙️ Özelleştirme · `OB` / `OBA` / `OBY`', en:'FI Customizing',
+      { ad:'Özelleştirme · `OB` / `OBA` / `OBY`', en:'FI Customizing',
         aciklama:'FI yapılandırma ekranlarına **kısayol**. Hepsi {{SPRO}} ağacında da vardır.',
         neZaman:'Yapılandırma değişikliğinde.',
         ornek:'**{{OB52}}** dönem açma · **{{OBA7}}** belge türleri · ' +
@@ -355,14 +355,14 @@ SAP.registerTopic({
               'düğüme tıklanınca kod **zaten görünür**.',
         tcodes:['OB52','OBA7','OB40'] },
 
-      { ad:'⚙️ Özelleştirme · `GG` — kural motoru', en:'Validation / Substitution',
+      { ad:'Özelleştirme · `GG` — kural motoru', en:'Validation / Substitution',
         aciklama:'{{konu:dogrulama-ikame}} araçları. FI-SL kökenli oldukları için ayrı önek.',
         neZaman:'Kayıt anında kural koyarken.',
         ornek:'**{{GGB0}}** doğrulama · **{{GGB1}}** ikame · **{{GGB4}}** etkinleştirme\n\n' +
               'Atama ayrı ailededir: {{OB28}} ve {{OBBH}}.',
         tcodes:['GGB0','GGB1','GGB4'] },
 
-      { ad:'🏛️ Varlık · `A` — duran varlık', en:'Asset Accounting',
+      { ad:'Varlık · `A` — duran varlık', en:'Asset Accounting',
         aciklama:'Duran varlık muhasebesinin tamamı `A` ile başlar.',
         neZaman:'Varlık edinimi, amortisman, satış.',
         ornek:'{{AS01}} varlık aç · `AS91` **devir** varlığı (9x = eski veri) · ' +
@@ -372,7 +372,7 @@ SAP.registerTopic({
               '**tüm hareketlerini ve tüm alanlarını** tek ekranda gösterir.',
         tcodes:['AS01','AFAB','AW01N'] },
 
-      { ad:'💰 Toplu işlem · `F110` / `F150` — programlar', en:'Batch programs',
+      { ad:'Toplu işlem · `F110` / `F150` — programlar', en:'Batch programs',
         aciklama:'Numaralı, tiresiz, noktasız kodlar genelde **büyük programlardır**.',
         neZaman:'Toplu ödeme ve ihtar.',
         ornek:'**{{F110}}** otomatik ödeme · **{{F150}}** ihtar\n\n' +
@@ -380,17 +380,17 @@ SAP.registerTopic({
               'Öneri adımı, toplu işlemin **geri alınabilir tek noktasıdır**.',
         tcodes:['F110','F150'] },
 
-      { ad:'🔗 CO · `K` — kontrol muhasebesi', en:'Controlling',
+      { ad:'CO · `K` — kontrol muhasebesi', en:'Controlling',
         aciklama:'CO nesneleri ve işlemleri `K` ile başlar.',
         neZaman:'Maliyet yeri, masraf türü, iç sipariş işlemlerinde.',
         ornek:'{{KS01}} maliyet yeri · {{KA01}} masraf türü · {{KO01}} iç sipariş · ' +
               '**{{KB11N}}** yeniden kaydetme · {{KSU5}} dağıtım · {{KSV5}} devir · ' +
               '{{OKB9}} varsayılan atama\n\n' +
-              '⚠️ CO içi düzeltme **{{FB08}} ile değil {{KB11N}} ile** yapılır — ' +
+              'CO içi düzeltme **{{FB08}} ile değil {{KB11N}} ile** yapılır — ' +
               'FI zaten doğrudur (bkz. {{konu:cost-center}}).',
         tcodes:['KS01','KB11N','OKB9'] },
 
-      { ad:'🔧 Teknik · `SE` / `SM` / `SU` / `ST`', en:'Technical',
+      { ad:'Teknik · `SE` / `SM` / `SU` / `ST`', en:'Technical',
         aciklama:'Modül değil, **sistem** araçları. Danışmanın teşhis takımı.',
         neZaman:'Teşhis, geliştirme, yetki analizi.',
         ornek:'**{{SE16N}}** tablo içeriği · {{SE11}} tablo yapısı · {{SE93}} kod tanımı · ' +
@@ -398,16 +398,16 @@ SAP.registerTopic({
               '**{{SM12}}** kilitler · **{{SM13}}** güncelleme hataları · {{SM37}} işler\n' +
               '**{{SU53}}** yetki hatası · {{SU3}} kendi parametrelerin\n' +
               '{{ST05}} SQL izleme\n\n' +
-              '⚠️ Bu aile **son kullanıcıya verilmez** (bkz. {{konu:sap-tables}}).',
+              'Bu aile **son kullanıcıya verilmez** (bkz. {{konu:sap-tables}}).',
         tcodes:['SE16N','SM13','SU53'] },
 
-      { ad:'🌐 Merkezi bakım · `X` — tüm alanlar', en:'Central maintenance',
+      { ad:'Merkezi bakım · `X` — tüm alanlar', en:'Central maintenance',
         aciklama:'`X` = tüm görünümler birlikte. FI + MM veya FI + SD aynı ekranda.',
         neZaman:'Ana veri açarken — **tercih edilen yol**.',
         ornek:'**{{XK01}}** satıcı (FI + satın alma) · **{{XD01}}** müşteri (FI + satış)\n\n' +
               'Karşılaştır: {{FK01}} yalnızca **muhasebe** görünümü, ' +
               '`MK01` yalnızca **satın alma** görünümü.\n\n' +
-              '⚠️ {{FK01}} ile açılan satıcıya **sipariş girilemez** — ' +
+              '{{FK01}} ile açılan satıcıya **sipariş girilemez** — ' +
               'satın alma görünümü yoktur. Klasik yeni danışman hatası.',
         tcodes:['XK01','XD01','FK01'] },
     ],
@@ -481,7 +481,7 @@ SAP.registerTopic({
           opsiyonel:['Varsayılan yazıcı','Tarih/sayı biçimi','Oturum dili'] },
         hatalar:[
           { mesaj:'Parametre girdim ama alan dolmuyor', sebep:'O alan parametre kimliğine bağlı değil.', cozum:'Alanın üzerinde `F1` → **Teknik bilgi** → parametre kimliği görünür; boşsa desteklenmiyordur.' },
-          { mesaj:'Varsayılan yanlış şirket kodunu getiriyor', sebep:'Eski `BUK` değeri duruyor.', cozum:'{{SU3}}’ten güncelle. ⚠️ Yanlış varsayılan **yanlış şirket koduna kayıt** riskidir.' },
+          { mesaj:'Varsayılan yanlış şirket kodunu getiriyor', sebep:'Eski `BUK` değeri duruyor.', cozum:'{{SU3}}’ten güncelle. Yanlış varsayılan **yanlış şirket koduna kayıt** riskidir.' },
         ],
         ipucu:'**Bir alanın parametre kimliğini nasıl bulursun?**\n\n' +
               'Alanın üzerine gel → **`F1`** → **Teknik bilgi** → *Parameter ID*.\n\n' +
@@ -577,7 +577,7 @@ SAP.registerTopic({
         iliskiler:'{{TSTC}}’nin metin uzantısı.',
         s4:'Değişmedi.',
         alanlar:[
-          { ad:'SPRSL', aciklama:'Dil — `TR` / `EN` / `DE`. ⚠️ **Verilmezse tüm diller gelir**', tip:'pk' },
+          { ad:'SPRSL', aciklama:'Dil — `TR` / `EN` / `DE`. **Verilmezse tüm diller gelir**', tip:'pk' },
           { ad:'TCODE', aciklama:'İşlem kodu', tip:'pk' },
           { ad:'TTEXT', aciklama:'**Açıklama** — `*ihtar*` gibi jokerle aranır' },
         ] },
@@ -632,11 +632,11 @@ SAP.registerTopic({
                    'karşılaştırmak için.' },
           { ad:'`/n`', zorunlu:false, aciklama:'İşlemi kapat, ana menüye dön.' },
           { ad:'`/i`', zorunlu:false, aciklama:'Bulunulan oturumu kapat.' },
-          { ad:'`/nex`', zorunlu:false, aciklama:'⚠️ **Onay sormadan** çıkış — ' +
+          { ad:'`/nex`', zorunlu:false, aciklama:'**Onay sormadan** çıkış — ' +
                    'kaydedilmemiş veri sorulmadan gider.' },
           { ad:'`/$sync`', zorunlu:false, aciklama:'**{{tampon}}ları temizle.** ' +
                    '*"Ayarı değiştirdim, etkisi görünmüyor"* sorununun çözümü. ' +
-                   '⚠️ Canlıda tüm kullanıcıları etkiler.' },
+                   'Canlıda tüm kullanıcıları etkiler.' },
         ],
         ipucu:'**`/o` en az bilinen ama en çok işe yarayan önektir.**\n\n' +
               'Kaydı bir oturumda yaparken diğerinde {{SE16N}} ile tabloya bakmak, ' +
@@ -654,7 +654,7 @@ SAP.registerTopic({
           { ad:'Teknik ad gösterimi', zorunlu:false, aciklama:'Ek → Ayarlar → ' +
                    '*Teknik adları göster*. **Öğrenirken açılmalıdır.**' },
         ],
-        ipucu:'⭐ **"Teknik adları göster" ayarını ilk gün aç.**\n\n' +
+        ipucu:'**"Teknik adları göster" ayarını ilk gün aç.**\n\n' +
               'Menüde gezinirken her düğümün yanında **işlem kodu görünür**. ' +
               'Bu, kod öğrenmenin en zahmetsiz yoludur: iş yaparken ' +
               'kodlar kendiliğinden aşina hâle gelir.\n\n' +
@@ -673,7 +673,7 @@ SAP.registerTopic({
               '**Teknik bilgi** → *Parameter ID*.\n\n' +
               'Aynı ekran alanın **teknik adını** da verir — ' +
               '{{SE16N}} ile tabloda arama yaparken tam olarak buna ihtiyacın olur.\n\n' +
-              '⚠️ Yanlış `BUK` varsayılanı, **yanlış şirket koduna kayıt** riskidir; ' +
+              'Yanlış `BUK` varsayılanı, **yanlış şirket koduna kayıt** riskidir; ' +
               'birden çok şirket kodunda çalışıyorsan boş bırakmak daha güvenlidir.' },
     ],
 
@@ -683,19 +683,19 @@ SAP.registerTopic({
     hatalar:[
       { mesaj:'You are not authorized to use transaction ...', sebep:'`S_TCODE` yetkisi yok.', cozum:'{{SU53}} ile eksik yetkiyi gör, ekran görüntüsüyle yetkilendirmeye ilet.' },
       { mesaj:'Transaction ... does not exist', sebep:'Kod yok, yanlış yazılmış veya bu sürümde kaldırılmış.', cozum:'{{TSTCT}}’de açıklamadan ara. S/4HANA’da kaldırılmış olabilir — **basitleştirme listesine** bak.' },
-      { mesaj:'Kod açılıyor ama liste **boş** geliyor — hata da yok', sebep:'⚠️ `S_TCODE` var ama **veri yetkisi** yok (`F_BKPF_BUK`).', cozum:'En yanıltıcı hatadır: işlem başlar, veri gelmez. {{SU53}} kontrol edilir. Detay: bu konudaki senaryo.' },
-      { mesaj:'Ayarı değiştirdim ama etkisi görünmüyor', sebep:'Tablo {{tampon}}lanmış.', cozum:'Oturumu kapatıp aç; olmazsa `/$sync`. ⚠️ Canlıda tüm kullanıcıları etkiler.' },
+      { mesaj:'Kod açılıyor ama liste **boş** geliyor — hata da yok', sebep:'`S_TCODE` var ama **veri yetkisi** yok (`F_BKPF_BUK`).', cozum:'En yanıltıcı hatadır: işlem başlar, veri gelmez. {{SU53}} kontrol edilir. Detay: bu konudaki senaryo.' },
+      { mesaj:'Ayarı değiştirdim ama etkisi görünmüyor', sebep:'Tablo {{tampon}}lanmış.', cozum:'Oturumu kapatıp aç; olmazsa `/$sync`. Canlıda tüm kullanıcıları etkiler.' },
       { mesaj:'Komut alanına kod yazdım, hata verdi', sebep:'Mevcut işlem hâlâ açık.', cozum:'`/n` öneki ile yaz: `/nFB03`.' },
       { mesaj:'`Z*` kod ne yapıyor bilmiyorum', sebep:'Müşteriye özel geliştirme.', cozum:'{{SE93}} ile programı bul, {{SE38}} ile incele.' },
     ],
 
     ipuclari:[
-      '⭐ **"Teknik adları göster" ayarını ilk gün aç** — kodlar iş yaparken kendiliğinden öğrenilir.',
+      '**"Teknik adları göster" ayarını ilk gün aç** — kodlar iş yaparken kendiliğinden öğrenilir.',
       '`/o` ile ikinci oturum aç: bir tarafta kayıt, diğerinde tablo.',
       'Kodu bilmiyorsan {{TSTCT}}’de **açıklamadan** ara; Türkçe sonuç vermezse **İngilizceye geç**.',
       'Özelleştirmede `OB*` ezberleme — {{SPRO}} ağacında konuyu bul, kod düğümde yazılı.',
       '{{SU3}} → `BUK` ile şirket kodunu varsayılan yap; ' +
-      '⚠️ çok şirketli çalışıyorsan boş bırak.',
+      'çok şirketli çalışıyorsan boş bırak.',
       'Alanın parametre kimliğini ve teknik adını **`F1` → Teknik bilgi** verir.',
       'Favorileri **dışa aktar** — yeni sisteme veya yeni projeye taşınır.',
     ],
@@ -733,7 +733,7 @@ SAP.registerTopic({
       '(`F_BKPF_BUK` şirket kodu, `F_BKPF_KOA` hesap türü).\n' +
       '**5.** Kayıt yapılırsa {{konu:dogrulama-ikame}} kuralları devreye girer.\n' +
       '**6.** Belge yazılır; `TCODE` alanı doldurulur.\n\n' +
-      '⚠️ **2. ve 4. adımın ayrı olması kritiktir.** ' +
+      '**2. ve 4. adımın ayrı olması kritiktir.** ' +
       '`S_TCODE` varsa işlem **açılır**; veri yetkisi yoksa **boş liste** gelir. ' +
       'Kullanıcı hata görmez ve *"kayıt yok"* sanır. ' +
       'Bu, bu konudaki senaryonun konusudur.',
@@ -770,7 +770,7 @@ SAP.registerTopic({
     transport:
       'Standart işlem kodları taşınmaz — **sistemle gelirler**.\n\n' +
       'Özel (`Z*`) kodlar {{SE93}} ile oluşturulur ve **taşınır**. ' +
-      '⚠️ Kod taşınır ama **arkasındaki program ayrı bir nesnedir**; ' +
+      'Kod taşınır ama **arkasındaki program ayrı bir nesnedir**; ' +
       'biri gelip diğeri gelmezse *"kod var ama çalışmıyor"* durumu oluşur.\n\n' +
       '**Roller ({{PFCG}}) ayrıca taşınır.** Kod canlıya gitmiş olsa bile ' +
       'rol güncellenmemişse kullanıcı **yetkisiz** kalır — ' +
@@ -780,7 +780,7 @@ SAP.registerTopic({
       { yol:'SE93 → İşlem kodu bakımı', not:'Özel kod oluşturma ve tip belirleme' },
       { yol:'SU3 → Kendi kullanıcı verisi → Parametreler', not:'`BUK`, `CAC`, `GJR`' },
       { yol:'PFCG → Rol bakımı → Menü', not:'Koda `S_TCODE` yetkisi rolden gelir' },
-      { yol:'Easy Access → Ek → Ayarlar → Teknik adları göster', not:'⭐ İlk gün açılmalı' },
+      { yol:'Easy Access → Ek → Ayarlar → Teknik adları göster', not:'İlk gün açılmalı' },
     ],
 
     ekstra:[
@@ -837,7 +837,7 @@ SAP.registerTopic({
         '**hatalı bir durum değildir**.\n\n' +
         '**Teşhis:** kullanıcı boş liste aldıktan **hemen sonra** {{SU53}} çalıştırır; ' +
         'son başarısız yetki kontrolü görünür. Ekran görüntüsü yetkilendirme ekibine gider.\n\n' +
-        '⚠️ **{{SU53}} son kontrolü gösterir** — araya başka bir işlem girerse ' +
+        '**{{SU53}} son kontrolü gösterir** — araya başka bir işlem girerse ' +
         'iz kaybolur. Bu yüzden *"hemen sonra"* şarttır.' },
     ],
 
@@ -915,7 +915,7 @@ SAP.registerTopic({
       'Değişen, kodların **arkasındaki sorguların** hızlanmasıdır.\n\n' +
       '{{FBL3N}} gibi döküm kodları sütun bazlı depolama sayesinde ' +
       'büyük hesaplarda belirgin şekilde hızlandı.\n\n' +
-      '⚠️ Ama **{{uyumluluk-view}} üzerinden** çalışan özel kodlar tersine yavaşlayabilir; ' +
+      'Ama **{{uyumluluk-view}} üzerinden** çalışan özel kodlar tersine yavaşlayabilir; ' +
       'geçiş sonrası performans testi bu yüzden gereklidir.',
 
     bestPractices:[
@@ -990,7 +990,7 @@ SAP.registerTopic({
              'Kullanıcının **`S_TCODE`** yetkisi vardı — bu yüzden {{FBL5N}} **açıldı**. ' +
              'Ama **`F_BKPF_BUK`** yetkisi yalnızca şirket kodu **1000** içindi; ' +
              'sorgu **2000** içindi.\n\n' +
-             '⚠️ **Neden hata vermedi?** Çoğu FI raporu yetkiyi bir **süzgeç** olarak uygular: ' +
+             '**Neden hata vermedi?** Çoğu FI raporu yetkiyi bir **süzgeç** olarak uygular: ' +
              'yetkili şirket kodlarını listeler ve yalnızca onları sorgular. ' +
              '2000 listede olmadığı için sorgu **hiç çalışmadı** ve boş döndü. ' +
              'Program açısından bu **hatalı bir durum değildir**.\n\n' +
@@ -1030,7 +1030,7 @@ SAP.registerTopic({
         tabloEtkisi:[
           { tablo:'BSID', ne:'**Değişmedi** — veri zaten oradaydı, yalnızca yetki değişti' },
         ],
-        not:'⚠️ **Oturum kapatıp açmak gerekti.** Yetkiler oturum başında ' +
+        not:'**Oturum kapatıp açmak gerekti.** Yetkiler oturum başında ' +
              '**{{tampon}}a** alınır; rol atandıktan sonra mevcut oturumda ' +
              'hemen etkili olmaz.\n\n' +
              'Bu, *"yetki verdim ama hâlâ çalışmıyor"* şikâyetinin ' +
@@ -1097,7 +1097,7 @@ SAP.registerTopic({
       '**"`F-02` ile {{FB50}} farkı nedir?"** İkisi de G/L kaydı yapar ve **aynı belgeyi** üretir. Fark: **`F-02` eski nesil**, {{kayit-anahtari}} (40/50) **elle girilir**; **{{FB50}} yeni nesil (Enjoy)**, borç/alacak seçiminden anahtarı **kendisi türetir**. Tire (`-`) eski nesli işaret eder.',
       '**"Neden kapatma işlemleri hep `F-` ailesinde?"** Kapatma doğası gereği **{{acik-kalem}} seçimi** gerektirir — bir listeden fatura işaretlersin. Yeni nesil `FB` ekranları **tek satır kayıt** için tasarlandı, çok kalemli seçim sunmaz. Kod ailesi **işin muhasebe doğasını** yansıtır.',
       '**"{{BSIK}} adı nereden geliyor?"** **BS** + **I** (*offen* = açık) + **K** (*Kreditor* = satıcı). Aynı kuralla: {{BSAK}} kapatılmış satıcı, {{BSID}} açık müşteri, {{BSAS}} kapatılmış G/L. **Sekiz tablo adı, iki kural.**',
-      '**"{{FK01}} ile {{XK01}} farkı?"** **{{FK01}}** yalnızca **muhasebe** görünümünü açar; **{{XK01}}** merkezi — FI **ve satın alma** görünümlerini birlikte. ⚠️ {{FK01}} ile açılan satıcıya **sipariş girilemez**. Klasik yeni danışman hatası.',
+      '**"{{FK01}} ile {{XK01}} farkı?"** **{{FK01}}** yalnızca **muhasebe** görünümünü açar; **{{XK01}}** merkezi — FI **ve satın alma** görünümlerini birlikte. {{FK01}} ile açılan satıcıya **sipariş girilemez**. Klasik yeni danışman hatası.',
       '**"İşlem kodu açılıyor ama liste boş, hata da yok. Neden?"** **`S_TCODE`** var (kod çalışıyor) ama **`F_BKPF_BUK`** yok (veri yetkisi). Rapor yetkiyi **süzgeç** olarak uygular; yetkisiz şirket kodu **hiç sorgulanmaz** → boş sonuç, program açısından **hata değil**. Teşhis: boş listeden **hemen sonra** {{SU53}}.',
       '**"Kodu bilmiyorum, nasıl bulurum?"** Dört yol: **(1)** kalıptan tahmin, **(2)** {{SE16N}} → {{TSTCT}} → `TTEXT` içinde jokerle ara, **(3)** özelleştirmeyse {{SPRO}} ağacı (kod düğümde **yazılıdır**), **(4)** `Z*` kodsa {{SE93}}. Türkçe sonuç yoksa **İngilizceye geç**.',
       '**"`FS01/02/03` neden yok?"** **{{FS00}} istisnadır** — G/L hesabında oluştur/değiştir/görüntüle **tek ekranda**, mod ekranın içinden seçilir. `01/02/03` kalıbı {{AS01}}, {{FK01}}, {{KS01}}’de geçerlidir.',
@@ -1116,7 +1116,7 @@ SAP.registerTopic({
     ],
 
     ipuclari:[
-      '⭐ **İlk gün iki ayar:** menüde *teknik adları göster* + {{SU3}}’te `BUK` parametresi.',
+      '**İlk gün iki ayar:** menüde *teknik adları göster* + {{SU3}}’te `BUK` parametresi.',
       'Almanca kökü tahmin et: **K**reditor · **D**ebitor · **S**achkonto · *neu* = `N` eki.',
       '`/o` ile ikinci oturum: bir tarafta kayıt, diğerinde {{SE16N}}.',
       'Alanın **parametre kimliği ve teknik adı**: üzerinde `F1` → **Teknik bilgi**.',
@@ -1182,7 +1182,7 @@ SAP.registerTopic({
                  '**{{XK01}}** satıcıyı FI **ve satın alma** görünümleriyle açar.\n' +
                  '**{{FK01}}** yalnızca **muhasebe** görünümünü açar.\n' +
                  '`MK01` ise yalnızca **satın alma** görünümünü.\n\n' +
-                 '⚠️ **Klasik hata:** {{FK01}} ile açılan satıcıya **sipariş girilemez** — ' +
+                 '**Klasik hata:** {{FK01}} ile açılan satıcıya **sipariş girilemez** — ' +
                  'satın alma görünümü yoktur.\n\n' +
                  'S/4HANA’da üçü de **{{BP}}**’ye taşındı.' },
 
@@ -1226,7 +1226,7 @@ SAP.registerTopic({
                  '{{tampon}}lanır** — performans için bellekte tutulurlar.\n\n' +
                  'Bu yüzden bir özelleştirme değişikliği **hemen etkili olmayabilir**.\n\n' +
                  '`/$sync` tüm tamponları temizler ve değişiklik anında görünür.\n\n' +
-                 '⚠️ **Canlı sistemde dikkatli kullanılır** — tüm kullanıcıları etkiler ve ' +
+                 '**Canlı sistemde dikkatli kullanılır** — tüm kullanıcıları etkiler ve ' +
                  'geçici performans düşüşü yaratır. Genelde **oturumu kapatıp açmak** yeterlidir.' },
 
       { soru:'S/4HANA geçişinde kullanılan işlem kodlarının envanteri en doğru nasıl çıkarılır?',
@@ -1251,15 +1251,15 @@ SAP.registerTopic({
       { on:'Sekiz tablo adı, iki kural', arka:'**BS** + **I/A** + **K/D/S**\n\n**I** = *offen* → **AÇIK** kalem\n**A** = *ausgeglichen* → **KAPALI** kalem\n\n| | Satıcı | Müşteri | G/L |\n|---|---|---|---|\n| Açık | BSIK | BSID | BSIS |\n| Kapalı | BSAK | BSAD | BSAS |' },
       { on:'`F-` tireli vs `FB` tiresiz', arka:'**`F-`** → **ESKİ** nesil\nKayıt anahtarı **elle** (31, 40, 50…)\nÇok kalemli · açık kalem seçimi **var**\n→ F-02, F-43, **F-53**, **F-28**, **F-32**\n\n**`FB`** → **YENİ** nesil (Enjoy)\nTek ekran · anahtar **gerekmez**\n→ FB50, FB60, FB70, FB03, FB08' },
       { on:'Kapatma neden hep `F-` ailesinde?', arka:'Kapatma **açık kalem seçimi** gerektirir — bir listeden fatura işaretlersin.\n\n`FB` ekranları **tek satır kayıt** için tasarlandı, çok kalemli seçim sunmaz.\n\n→ **Kod ailesi, işin muhasebe doğasını yansıtır.**' },
-      { on:'Sayı ekleri ve ünlü istisna', arka:'**01** oluştur · **02** değiştir · **03** görüntüle\n`AS01/02/03` · `FK01/02/03` · `KS01/02/03`\n\n**9x** = eski veri (*Altdaten*) → `AS91`\n\n⚠️ **İSTİSNA: FS00**\nG/L hesabı — üç modu **tek ekranda**' },
-      { on:'`FBL1N` / `FBL3N` / `FBL5N`', arka:'**1** = satıcı · **3** = G/L · **5** = müşteri\n\nSondaki **`N`** = *neu* (yeni) — ALV’li sürüm\n\n⚠️ Döküm için hesapta **kalem yönetimi açık** olmalı ve **geriye dönük açılamaz**.' },
-      { on:'Yetkinin iki katmanı', arka:'**Katman 1 — `S_TCODE`**\n*"Bu kodu çalıştırabilir mi?"*\nYoksa → **net hata mesajı**\n\n**Katman 2 — `F_BKPF_BUK`**\n*"Hangi veriyi görebilir?"*\nYoksa → **BOŞ LİSTE, hata YOK** ⚠️' },
+      { on:'Sayı ekleri ve ünlü istisna', arka:'**01** oluştur · **02** değiştir · **03** görüntüle\n`AS01/02/03` · `FK01/02/03` · `KS01/02/03`\n\n**9x** = eski veri (*Altdaten*) → `AS91`\n\n**İSTİSNA: FS00**\nG/L hesabı — üç modu **tek ekranda**' },
+      { on:'`FBL1N` / `FBL3N` / `FBL5N`', arka:'**1** = satıcı · **3** = G/L · **5** = müşteri\n\nSondaki **`N`** = *neu* (yeni) — ALV’li sürüm\n\nDöküm için hesapta **kalem yönetimi açık** olmalı ve **geriye dönük açılamaz**.' },
+      { on:'Yetkinin iki katmanı', arka:'**Katman 1 — `S_TCODE`**\n*"Bu kodu çalıştırabilir mi?"*\nYoksa → **net hata mesajı**\n\n**Katman 2 — `F_BKPF_BUK`**\n*"Hangi veriyi görebilir?"*\nYoksa → **BOŞ LİSTE, hata YOK** ' },
       { on:'Boş liste geldi, hata yok — teşhis', arka:'**1.** {{SE16N}} → tabloda veri var mı?\n→ Varsa sorun **erişim**, yoksa **kayıt**\n\n**2.** **HEMEN** {{SU53}}\n→ Son başarısız yetki kontrolü\n\n**3.** Rol atandıktan sonra **oturumu kapat/aç**\n(yetkiler oturum başında tamponlanır)' },
-      { on:'Komut alanı önekleri', arka:'**`/n<kod>`** → işlemi kapat, yenisini başlat *(en sık)*\n**`/o<kod>`** → **ayrı oturumda** aç\n**`/i`** → oturumu kapat\n**`/nex`** → ⚠️ onaysız çıkış\n**`/$sync`** → **tamponları temizle**' },
-      { on:'`/$sync` ne zaman?', arka:'*"Ayarı değiştirdim ama etkisi görünmüyor."*\n\nT001, T004, T030 gibi yapılandırma tabloları **tamponlanır**.\n\n⚠️ Canlıda **tüm kullanıcıları** etkiler.\nÖnce **oturumu kapatıp açmayı** dene.' },
-      { on:'Kodu bilmiyorsan — dört yol', arka:'**1.** Kalıptan tahmin *(en hızlı)*\n**2.** {{SE16N}} → **TSTCT** → `TTEXT` = `*ihtar*` *(en güvenilir)*\n**3.** {{SPRO}} ağacı — kod düğümde **yazılı** *(özelleştirme)*\n**4.** {{SE93}} — `Z*` kod ne çalıştırıyor?\n\n💡 Türkçe sonuç yoksa **İngilizceye geç**' },
-      { on:'İlk gün yapılacak iki ayar', arka:'⭐ **1. Menü → Ek → Ayarlar → "Teknik adları göster"**\n→ Kodlar iş yaparken **kendiliğinden** öğrenilir\n\n⭐ **2. {{SU3}} → Parametreler**\n`BUK` şirket kodu · `CAC` kontrol alanı · `GJR` mali yıl\n\n💡 Alanın parametre kimliği: **`F1` → Teknik bilgi**' },
-      { on:'S/4HANA’da kalkan kodlar', arka:'**Ana veri:** XK01 · XD01 · FK01 · FD01 → **BP**\n**MM:** MB01 · MB1A · MB1B · MB31 → **MIGO**\n**ME21** → ME21N\n\n✅ **FI kayıt ve döküm kodları kalkmadı**\n\nKaynak: **basitleştirme listesi** + **Fiori Apps Reference Library**' },
+      { on:'Komut alanı önekleri', arka:'**`/n<kod>`** → işlemi kapat, yenisini başlat *(en sık)*\n**`/o<kod>`** → **ayrı oturumda** aç\n**`/i`** → oturumu kapat\n**`/nex`** → onaysız çıkış\n**`/$sync`** → **tamponları temizle**' },
+      { on:'`/$sync` ne zaman?', arka:'*"Ayarı değiştirdim ama etkisi görünmüyor."*\n\nT001, T004, T030 gibi yapılandırma tabloları **tamponlanır**.\n\nCanlıda **tüm kullanıcıları** etkiler.\nÖnce **oturumu kapatıp açmayı** dene.' },
+      { on:'Kodu bilmiyorsan — dört yol', arka:'**1.** Kalıptan tahmin *(en hızlı)*\n**2.** {{SE16N}} → **TSTCT** → `TTEXT` = `*ihtar*` *(en güvenilir)*\n**3.** {{SPRO}} ağacı — kod düğümde **yazılı** *(özelleştirme)*\n**4.** {{SE93}} — `Z*` kod ne çalıştırıyor?\n\nTürkçe sonuç yoksa **İngilizceye geç**' },
+      { on:'İlk gün yapılacak iki ayar', arka:'**1. Menü → Ek → Ayarlar → "Teknik adları göster"**\n→ Kodlar iş yaparken **kendiliğinden** öğrenilir\n\n**2. {{SU3}} → Parametreler**\n`BUK` şirket kodu · `CAC` kontrol alanı · `GJR` mali yıl\n\nAlanın parametre kimliği: **`F1` → Teknik bilgi**' },
+      { on:'S/4HANA’da kalkan kodlar', arka:'**Ana veri:** XK01 · XD01 · FK01 · FD01 → **BP**\n**MM:** MB01 · MB1A · MB1B · MB31 → **MIGO**\n**ME21** → ME21N\n\n**FI kayıt ve döküm kodları kalkmadı**\n\nKaynak: **basitleştirme listesi** + **Fiori Apps Reference Library**' },
     ],
   },
 

@@ -112,6 +112,11 @@ window.SAP = (function () {
       notes: {},        // { topicId: 'metin' }
       quiz: {},         // { topicId: { dogru, toplam, ts } }
       lastRoute: '',
+      lang: 'tr',          // arayüz dili — bkz. i18n.js
+      railKapali: false,   // geniş ekranda gezinme sütunu katlı mı
+      kapaliGrup: {},      // { grupId: 1 } — kenar çubuğunda katlanmış gruplar
+      kapaliBolum: {},     // { 'tid:sid': 1 } — konu sayfasında katlanmış bölümler
+      acikDizin: {},       // { topicId: 1 } — içindekilerde açıklaması açık satırlar
     },
 
     load: function () {
@@ -134,7 +139,34 @@ window.SAP = (function () {
 
     reset: function () {
       try { localStorage.removeItem(KEY); } catch (e) {}
-      store.d = { theme: store.d.theme, progress: {}, favorites: [], notes: {}, quiz: {}, lastRoute: '' };
+      store.d = { theme: store.d.theme, progress: {}, favorites: [], notes: {}, quiz: {},
+                  lastRoute: '', lang: store.d.lang, railKapali: false,
+                  kapaliGrup: {}, kapaliBolum: {}, acikDizin: {} };
+    },
+
+    /* --- katlama durumu ---
+       Açık/kapalı değil KAPALI olan saklanır: varsayılan açıktır, bu yüzden
+       kayıt yalnızca kullanıcı bir şeyi kapattığında büyür. */
+    isGroupClosed: function (gid) { return !!store.d.kapaliGrup[gid]; },
+    toggleGroup: function (gid) {
+      if (store.d.kapaliGrup[gid]) delete store.d.kapaliGrup[gid];
+      else store.d.kapaliGrup[gid] = 1;
+      store.save();
+    },
+    /* İçindekilerde açıklaması AÇIK olan satırlar. Varsayılan kapalıdır
+       (dizin taranabilir kalsın), bu yüzden açık olanlar saklanır. */
+    isTocOpen: function (tid) { return !!store.d.acikDizin[tid]; },
+    toggleToc: function (tid) {
+      if (store.d.acikDizin[tid]) { delete store.d.acikDizin[tid]; store.save(); return false; }
+      store.d.acikDizin[tid] = 1; store.save(); return true;
+    },
+
+    isSectionClosed: function (tid, sid) { return !!store.d.kapaliBolum[tid + ':' + sid]; },
+    toggleSection: function (tid, sid) {
+      var k = tid + ':' + sid;
+      if (store.d.kapaliBolum[k]) delete store.d.kapaliBolum[k];
+      else store.d.kapaliBolum[k] = 1;
+      store.save();
     },
 
     /* --- ilerleme --- */

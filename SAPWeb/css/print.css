@@ -11,49 +11,31 @@
      kağıtta beyaza döner: kağıt zaten kağıttır, zemini ayrıca boyamak
      mürekkep israfıdır.
 
-     ⚠️ GRUP RENGİ BASKIDA SABİTLENİR. Ekranda `--accent*` tokenleri
-     `--h`'den (grup hue'su) hesaplanır; kağıtta bu dokuz farklı renk
-     hem mürekkep yakar hem de gri tonlamalı yazıcıda ayırt edilemez.
-     Bu yüzden burada tek nötr tona sabitlenirler. */
+     Palet TEK VURGU RENGİYLE aynı kalır (defter yeşili gri tonlamada
+     da koyu basar); değişen tek şey zemin: kırık beyaz -> beyaz. */
   :root, :root[data-theme="dark"] {
     color-scheme: light;
-    --bg: #fff; --bg-alt: #fff;
-    --surface: #fff; --surface-2: #f4f5f6; --surface-3: #e8eaec;
-    --border: #b3b8bd; --border-soft: #dcdfe2;
-    --text: #16191d; --text-2: #3d434a; --text-3: #666d75; --text-inv: #fff;
-    --brand: #8a4a30; --brand-deep: #6b3823; --brand-weak: #f7f0eb;
-    --brand-line: #d8bcac; --brand-fg: #fff;
-    --ok: #1d6b46; --ok-soft: #eef5f1; --ok-br: #a7cbb7;
-    --warn: #7d5410; --warn-soft: #f9f4e8; --warn-br: #ddc79b;
-    --err: #a32d20; --err-soft: #faeeec; --err-br: #e0b2ab;
-    --info: #1d4a75; --info-soft: #eef2f7; --info-br: #aac1d7;
-    --rail: #fff; --rail-2: #fff; --rail-line: #dcdfe2;
-    --rail-tx: #16191d; --rail-tx-2: #3d434a; --rail-tx-3: #666d75; --rail-on: #16191d;
-    --sh-1: none; --sh-2: none; --sh-3: none; --sh-pop: none;
-  }
-
-  /* ⚠️ Grup renkleri `*` üzerinde hesaplanıyor (theme.css, Ders #29);
-     yalnızca `:root`ta sabitlemek YETMEZ — alt elemanlar `*` kuralından
-     kendi hue'larını hesaplamaya devam eder. Bu yüzden nötr tona
-     sabitleme de aynı seviyede yapılır. */
-  *, *::before, *::after,
-  :root[data-theme="dark"] *,
-  :root[data-theme="dark"] *::before,
-  :root[data-theme="dark"] *::after {
-    --accent: #8a4a30; --accent-text: #6b3823; --accent-soft: #f7f0eb;
-    --accent-mid: #ecdcd2; --accent-br: #d8bcac;
+    --paper: #fff; --paper-2: #f5f4f0; --paper-3: #eceae4;
+    --rule: #d9d5cc; --rule-soft: #e8e5de; --rule-firm: #b3ada0;
+    --ink: #111; --ink-2: #3a3a3a; --ink-3: #5c5c5c; --ink-4: #808080;
+    --ink-inv: #fff;
+    --accent: #1f5c4a; --accent-deep: #15412f;
+    --accent-tint: #eef2f0; --accent-line: #b9cec5;
+    --debit: #111; --credit: #1f5c4a;
+    --alert: #8c3a2b; --alert-t: #f7f1ef;
+    --warn: #7a5a18; --warn-t: #f7f3e9;
+    --ok: #1f5c4a; --ok-t: #eef2f0;
   }
 
   /* Konu başlığı paneli kağıtta dolgusuz — üstte ince bir kural yeter. */
-  .thead { background: #fff !important; padding: 0 0 8pt !important; border-bottom: 1pt solid var(--border); }
-  .thead-ic, .hero-cta { display: none !important; }
-  .card, .ledger, .toc, .quiz { box-shadow: none !important; }
+  .thead { padding: 0 0 8pt !important; border-bottom: 1pt solid var(--rule); }
 
   body { background: #fff; font-size: 10.5pt; line-height: 1.5; }
 
   /* Ekran kabuğu çıktıya girmez */
-  .sidebar, .topbar, .scrim, .toc, .pager, .filters,
-  .palette-bg, .toast, .card-fav, .readbtn, .menubtn,
+  .sidebar, .topbar, .scrim, .toc, .pager,
+  .palette-bg, .toast, .readbtn, .menubtn, .langsw, .lang-notice,
+  .resume, .idx-sum, .chev,
   .thead-acts, .quiz-f, .notes-f, .kicker,
   [data-noprint] { display: none !important; }
 
@@ -63,8 +45,10 @@
   .wrap { max-width: none; }
 
   /* Bölümler sayfa içinde bölünmesin */
+  /* Katlanmış bölümler kağıda TAM basılır — ekran durumu çıktıyı kısmasın. */
+  .section.closed .section-body { display: block !important; }
   .section { break-inside: avoid-page; margin-bottom: 20pt; }
-  .section-h { break-after: avoid-page; border-bottom: 1pt solid var(--border); }
+  .section-h { break-after: avoid-page; border-bottom: 1pt solid var(--rule); }
   .sub-h, .qa-q { break-after: avoid-page; }
   .jr, .tacc, .dia, .note, .tc-card, .er-ent, .quiz-q, .step {
     break-inside: avoid;
@@ -74,26 +58,25 @@
   table.tbl tr { break-inside: avoid; }
   thead { display: table-header-group; }
 
-  .dia { background: #fff !important; border: 1pt solid var(--border); }
-  .card::after, .card::before { display: none !important; }
+  .dia { background: #fff !important; border: 1pt solid var(--rule); }
 
   /* Bağlantılar düz metin gibi görünsün, ama T-code/tablo çipleri belli olsun */
   a { color: inherit; text-decoration: none; }
-  .ref { border: 1px solid var(--border); background: transparent !important; color: var(--text) !important; }
+  .ref { border: 1px solid var(--rule); background: transparent !important; color: var(--ink) !important; }
   .ref-tcode, .ref-table { font-family: var(--font-mono); font-weight: 700; }
-  .ref-term { border: none; border-bottom: 1px dotted var(--text-3); }
+  .ref-term { border: none; border-bottom: 1px dotted var(--ink-3); }
 
   /* Quiz cevapları çıktıda görünür olsun */
-  .opt { border: 1px solid var(--border); }
+  .opt { border: 1px solid var(--rule); }
   .quiz-ex { display: block !important; }
 
   .print-head {
     display: block !important;
     margin-bottom: 14pt;
     padding-bottom: 8pt;
-    border-bottom: 2pt solid var(--text);
+    border-bottom: 2pt solid var(--ink);
     font-size: 9pt;
-    color: var(--text-3);
+    color: var(--ink-3);
   }
 }
 

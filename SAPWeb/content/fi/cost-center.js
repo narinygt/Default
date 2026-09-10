@@ -198,7 +198,7 @@ SAP.registerTopic({
       { baslik:'Yanlış maliyet yeri — FI doğru, CO yanlış',
         belgeTuru:'KR', tarih:'12.10.2027', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'770', ad:'Reklam gideri — **maliyet yeri 3100 Üretim** ✕', borc:180000,
+          { hesap:'770', ad:'Reklam gideri — **maliyet yeri 3100 Üretim** ', borc:180000,
             not:'FI **doğru**, CO **yanlış** — Pazarlama olmalıydı' },
           { hesap:'191', ad:'İndirilecek KDV', borc:36000 },
           { hesap:'320', ad:'Satıcılar', alacak:216000 },
@@ -225,7 +225,7 @@ SAP.registerTopic({
              'mizanda **iki gereksiz belge** yaratır ve FI’ı kirletir.\n\n' +
              '*(Tabloda 0/0 gösterimi, FI etkisi olmadığını vurgulamak içindir.)*' },
 
-      { baslik:'❌ **Yanlış düzeltme yöntemi** — FI’dan ters kayıt',
+      { baslik:'**Yanlış düzeltme yöntemi** — FI’dan ters kayıt',
         belgeTuru:'KR', tarih:'13.10.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'320', ad:'Satıcılar', borc:216000, not:'Ters kayıt' },
@@ -1300,16 +1300,16 @@ SAP.registerTopic({
 
     flashcards:[
       { on:'Maliyet yeri entegrasyonu nedir?', arka:'Gider kaydının **FI’da hesaba, CO’da maliyet yerine** aynı anda yazılması.\n\n**FI sorusu:** "ne harcandı?" → 770\n**CO sorusu:** "kim harcadı?" → 4200 Pazarlama\n\nKöprü: **masraf türü** (numarası hesapla aynı).' },
-      { on:'Yanlış maliyet yeri nasıl düzeltilir?', arka:'**KB11N — CO içi yeniden kayıt.**\n\n✓ FI belgesi **oluşmaz** · mizan **değişmez**\n\n❌ FB08 ile ters kayıt: 3 belge, kirli satıcı hesabı, gereksiz KDV satırları\n\n**İlke: hatayı oluştuğu katmanda düzelt.**' },
+      { on:'Yanlış maliyet yeri nasıl düzeltilir?', arka:'**KB11N — CO içi yeniden kayıt.**\n\n✓ FI belgesi **oluşmaz** · mizan **değişmez**\n\nFB08 ile ters kayıt: 3 belge, kirli satıcı hesabı, gereksiz KDV satırları\n\n**İlke: hatayı oluştuğu katmanda düzelt.**' },
       { on:'"Requires an assignment to a CO object" — sebep?', arka:'Hesabın **masraf türü var** ama CO nesnesi girilmemiş **ve OKB9 varsayılanı yok**.\n\nÇözüm iki yönlü:\n• Kullanıcı kayıtta girsin\n• OKB9 ile varsayılan tanımlansın\n\nEn sık CO entegrasyon hatası.' },
-      { on:'Kâr merkezi nereden gelir?', arka:'**Maliyet yerinden türetilir** — CSKS-PRCTR.\n\nKullanıcı girmez, otomatik dolar.\n\n⚠️ Maliyet yerine kâr merkezi atanmamışsa + belge bölme etkinse → belge **reddedilir**. Hata bölmede görünür, sebep CO’da.' },
-      { on:'Hangi satırlar maliyet yeri taşır?', arka:'**Yalnızca gelir tablosu hesapları.**\n\n✓ 770 gider · 600 gelir\n✕ 320 satıcı · 102 banka · 153 stok · 191 KDV\n\nSebep: bir **varlık veya borç "harcanmaz"**.' },
+      { on:'Kâr merkezi nereden gelir?', arka:'**Maliyet yerinden türetilir** — CSKS-PRCTR.\n\nKullanıcı girmez, otomatik dolar.\n\nMaliyet yerine kâr merkezi atanmamışsa + belge bölme etkinse → belge **reddedilir**. Hata bölmede görünür, sebep CO’da.' },
+      { on:'Hangi satırlar maliyet yeri taşır?', arka:'**Yalnızca gelir tablosu hesapları.**\n\n✓ 770 gider · 600 gelir\n320 satıcı · 102 banka · 153 stok · 191 KDV\n\nSebep: bir **varlık veya borç "harcanmaz"**.' },
       { on:'Dağıtım (KSU5) vs devir (KSV5)', arka:'**Dağıtım** — orijinal masraf türü **korunur** → şeffaf, çok satır\n\n**Devir** — devir türü (kat. 42) altında **toplanır** → sade, az satır, detay kaybolur\n\n**İkisi de FI’ı etkilemez.**' },
       { on:'OKB9’un riski nedir?', arka:'**Eskir ve sessizce yanlış yazar.**\n\nOrganizasyon değişir, yeni maliyet yeri açılır, **varsayılan kalır**.\n\nSistem hata vermez (varsayılan geçerli bir MY).\n\n→ **Değişken hesaplarda tanımlama**; kullanıcı düşünsün.' },
       { on:'S/4HANA’da ne değişti?', arka:'**BSEG (FI) + COEP (CO) → tek ACDOCA satırı**\n\n• FI–CO mutabakatı **kavram olarak kalktı**\n• Tutarsızlık **yapısal olarak imkânsız**\n• Masraf türü = **G/L hesabının özelliği** (FS00)\n• İkincil masraf türleri hesap planında' },
       { on:'Atama hatasının işareti nedir?', arka:'**Birbirini dengeleyen iki bütçe sapması.**\n\nMY-A: +1.240.000\nMY-B: −1.180.000\nToplam: ~0\n\nGerçek aşımda **toplam da artardı**. Bu desen → önce atama hatası ara.' },
       { on:'Maliyet yeri hatası nasıl yakalanır?', arka:'**Hiçbir muhasebe kontrolü yakalamaz.**\n\nFiş dengeli · mizan tutar · gelir tablosu doğru · KDV doğru · hata mesajı yok\n\nTek erken uyarı: **maliyet yeri sorumlusunun aylık KSB1 gözden geçirmesi**.' },
-      { on:'CSKS geçerlilik aralığı ne işe yarar?', arka:'**DATBI anahtarın parçasıdır.**\n\nMaliyet yeri **silinmez, kapatılır** — bitiş tarihi geçmişe çekilir.\n\n✓ Geçmiş kayıtlar korunur\n✕ Yeni kayıt yapılamaz\n\nKâr merkezi değişikliği **geçmişe etki etmez**.' },
+      { on:'CSKS geçerlilik aralığı ne işe yarar?', arka:'**DATBI anahtarın parçasıdır.**\n\nMaliyet yeri **silinmez, kapatılır** — bitiş tarihi geçmişe çekilir.\n\n✓ Geçmiş kayıtlar korunur\nYeni kayıt yapılamaz\n\nKâr merkezi değişikliği **geçmişe etki etmez**.' },
       { on:'CO numara aralığı eksikse?', arka:'**KANK tanımı yoksa CO kaydı başarısız → FI kaydı da olmaz** (aynı LUW).\n\nKlasik senaryo: yılbaşında FI aralıkları açılır, **CO unutulur** → 1 Ocak sabahı gider kayıtları durur.\n\n→ Kapanış listesine ekle.' },
     ],
   },

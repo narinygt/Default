@@ -16,7 +16,7 @@ SAP.registerTopic({
       'ama bu tanım yanıltıcıdır ve **en büyük yanlış anlamanın kaynağıdır**.\n\n' +
       'E-fatura, *"faturayı yazıcı yerine e-posta ile göndermek"* değildir.\n\n' +
       '━━━━━━━━━━\n\n' +
-      '⭐ **Bu konunun tek cümlelik tezi:**\n\n' +
+      '**Bu konunun tek cümlelik tezi:**\n\n' +
       '**Muhasebe belgesi ile e-belge, iki ayrı nesnedir ve iki ayrı yaşam döngüsü vardır.**\n\n' +
       'Kâğıt dünyada fatura **tek bir şeydi**: kaydettin, yazdırdın, gönderdin. ' +
       'Elektronik dünyada **iki şey** vardır:\n\n' +
@@ -69,7 +69,7 @@ SAP.registerTopic({
       'Herkes müşterinin oyaladığını düşünüyor.\n\n' +
       '━━━━━━━━━━\n\n' +
       'Danışman {{EDOC_COCKPIT}}’i açıyor. Aynı faturanın e-belge statüsü:\n\n' +
-      '🚫 **RED — "Alıcı e-fatura mükellefi değil"**\n\n' +
+      '**RED — "Alıcı e-fatura mükellefi değil"**\n\n' +
       'Fatura {{e-arsiv}} olarak kesilmesi gerekirken {{e-fatura}} olarak gönderilmiş ' +
       '(veya tersi). {{gib}} reddetmiş. Müşteriye **hiç ulaşmamış**.\n\n' +
       'Müşteri doğru söylüyordu.\n\n' +
@@ -89,12 +89,12 @@ SAP.registerTopic({
       '**İptal kavramı değişti.** Muhasebede iptal {{FB08}} ters kayıttır ve ' +
       'her zaman mümkündür. E-tarafta:\n' +
       '• {{e-arsiv}} → belirli süre içinde **iptal edilebilir**\n' +
-      '• {{e-fatura}} → ⚠️ **iptal edilemez**. {{ticari-fatura}} senaryosunda ' +
+      '• {{e-fatura}} → **iptal edilemez**. {{ticari-fatura}} senaryosunda ' +
       'alıcı reddedebilir; aksi hâlde **iade faturası** kesilir.\n\n' +
       '**Dönem kesinleşmesi.** {{berat}} alınan dönem yasal olarak kapanır. ' +
       'Muhasebede {{OB52}} ile açabilirsin — ama **yapmamalısın**.\n\n' +
       '━━━━━━━━━━\n\n' +
-      '⭐ **Kritik sonuç:** muhasebe ile e-belge arasındaki **iptal asimetrisi**, ' +
+      '**Kritik sonuç:** muhasebe ile e-belge arasındaki **iptal asimetrisi**, ' +
       'e-dönüşümdeki hataların neden bu kadar pahalı olduğunu açıklar.\n\n' +
       '{{FB08}} ile SAP’ta belgeyi ters kaydedersin — ama GİB tarafındaki ' +
       'e-fatura **yerinde durur**. İki taraf **ayrışır**. ' +
@@ -121,7 +121,7 @@ SAP.registerTopic({
       { rol:'{{ozel-entegrator}}', gorev:'XML’i {{gib}}’e iletir.' },
       { rol:'{{gib}} / Alıcı', gorev:'Kabul veya **red** yanıtı döner.' },
       { rol:'Sistem', gorev:'Yanıt {{EDOCUMENT}} statüsüne işlenir.' },
-      { rol:'Danışman', gorev:'⭐ {{EDOC_COCKPIT}} **günlük** kontrol edilir.' },
+      { rol:'Danışman', gorev:'{{EDOC_COCKPIT}} **günlük** kontrol edilir.' },
     ],
 
     diyagram:{
@@ -134,16 +134,16 @@ SAP.registerTopic({
           cikti:'Fatura', ok:'ikiye ayrılır' },
         { ic:'📗', rol:'Sistem · Kol 1', baslik:'Muhasebe belgesi oluşur',
           aciklama:'{{BKPF}} + {{BSEG}} · cari hesap borçlanır · mizana girer.\n\n' +
-                   '✅ Bu kol **genelde sorunsuzdur** ve kullanıcı burayı görür.',
+                   '✓ Bu kol **genelde sorunsuzdur** ve kullanıcı burayı görür.',
           cikti:'{{BKPF}}', ok:'aynı anda' },
         { ic:'📡', rol:'Sistem · Kol 2', baslik:'E-belge oluşur — **ayrı nesne**',
           aciklama:'{{EDOCUMENT}} kaydı açılır. ' +
-                   '⚠️ Kullanıcı bu kolu **görmez** — sorunların kaynağı budur.',
+                   'Kullanıcı bu kolu **görmez** — sorunların kaynağı budur.',
           cikti:'{{EDOCUMENT}}', ok:'tip belirlenir' },
         { ic:'🔍', rol:'Sistem', baslik:'{{mukellef-sorgulama}} — hangi belge tipi?',
           aciklama:'Alıcı e-fatura sistemine **kayıtlı mı**?\n\n' +
                    'Kayıtlı → **{{e-fatura}}** · Kayıtsız → **{{e-arsiv}}**\n\n' +
-                   '⚠️ Bu karar **liste güncelliğine** bağlıdır. ' +
+                   'Bu karar **liste güncelliğine** bağlıdır. ' +
                    'Eski liste = yanlış belge tipi = **red**.',
           cikti:'Belge tipi', ok:'XML üretilir' },
         { ic:'📄', rol:'Sistem', baslik:'{{ubl-tr}} XML üretilir',
@@ -152,19 +152,19 @@ SAP.registerTopic({
           cikti:'XML', ok:'imzalanır' },
         { ic:'🔏', rol:'Sistem', baslik:'{{mali-muhur}} ile imzalanır',
           aciklama:'Tüzel kişi **mali mühür**, gerçek kişi **e-imza**. ' +
-                   '⚠️ Sertifika süresi dolmuşsa **tüm gönderim durur**.',
+                   'Sertifika süresi dolmuşsa **tüm gönderim durur**.',
           cikti:'İmzalı XML', ok:'gönderilir' },
         { ic:'🚚', rol:'{{ozel-entegrator}}', baslik:'GİB’e iletilir',
           aciklama:'Çoğu kurulumda gönderimi **entegratörün add-on’u** yapar, ' +
                    'SAP standardı değil.\n\n' +
-                   '⚠️ Sorun giderirken ilk soru: *"hata SAP’ta mı, entegratörde mi?"*',
+                   'Sorun giderirken ilk soru: *"hata SAP’ta mı, entegratörde mi?"*',
           cikti:'Gönderim', ok:'yanıt bekle' },
-        { ic:'↩️', rol:'{{gib}} / Alıcı', baslik:'Yanıt döner — **kabul veya red**',
+        { ic:'↩', rol:'{{gib}} / Alıcı', baslik:'Yanıt döner — **kabul veya red**',
           aciklama:'{{temel-fatura}}: red hakkı yok, süreç biter.\n' +
-                   '{{ticari-fatura}}: ⚠️ alıcı **reddedebilir**.\n\n' +
+                   '{{ticari-fatura}}: alıcı **reddedebilir**.\n\n' +
                    'Red gelirse muhasebe belgesi **yerinde durur** — iki taraf ayrışır.',
           cikti:'Statü', ok:'işlenir' },
-        { ic:'📊', rol:'Danışman', baslik:'⭐ {{EDOC_COCKPIT}} günlük kontrol',
+        { ic:'📊', rol:'Danışman', baslik:'{{EDOC_COCKPIT}} günlük kontrol',
           aciklama:'Muhasebe kapanışı bu kontrolü **kapsamaz**. ' +
                    'Ayrı bir günlük rutin olmalıdır.',
           cikti:'Temiz statü listesi' },
@@ -179,7 +179,7 @@ SAP.registerTopic({
       { rol:'Sistem', eylem:'XML üretir ve imzalar', sistem:'{{ubl-tr}} + {{mali-muhur}}' },
       { rol:'Entegratör', eylem:'GİB’e iletir', sistem:'{{ozel-entegrator}} add-on’u' },
       { rol:'GİB / Alıcı', eylem:'Yanıt verir', sistem:'Kabul / red' },
-      { rol:'Danışman', eylem:'Statü izler', sistem:'⭐ {{EDOC_COCKPIT}} — **günlük**' },
+      { rol:'Danışman', eylem:'Statü izler', sistem:'{{EDOC_COCKPIT}} — **günlük**' },
     ],
 
     veriAkisi:{
@@ -196,7 +196,7 @@ SAP.registerTopic({
         '**Hiçbiri e-belge statüsüne bakmaz.**\n\n' +
         'Bu yüzden bir ay boyunca reddedilmiş faturalar birikebilir ve ' +
         'kapanış **sorunsuz** görünür — çünkü muhasebe tarafı gerçekten sorunsuzdur.\n\n' +
-        '⭐ **Kalıcı çözüm iki adımdır:**\n\n' +
+        '**Kalıcı çözüm iki adımdır:**\n\n' +
         '**1. Günlük:** {{EDOC_COCKPIT}}’te hata ve red statüsü **sıfır** olmalı.\n' +
         '**2. Ay sonu:** kapanış listesine *"e-belge statüsü temiz mi?"* maddesi eklenir.\n\n' +
         'Bu, {{konu:error-handling}} konusundaki **② sessiz hata** sınıfının ' +
@@ -207,14 +207,14 @@ SAP.registerTopic({
   /* =================================================== 3. MUHASEBE === */
   muhasebe: {
     anlatim:
-      '⭐ **E-dönüşüm muhasebe kaydını değiştirmez.** Bu, konunun en rahatlatıcı gerçeğidir: ' +
+      '**E-dönüşüm muhasebe kaydını değiştirmez.** Bu, konunun en rahatlatıcı gerçeğidir: ' +
       'satış faturası e-fatura da olsa kâğıt da olsa aynı kaydı üretir.\n\n' +
       'Değişen, **düzeltme mekanizmasıdır** — ve asıl zorluk oradadır.',
 
     etkilenenHesaplar:[
       { hesap:'120 Alıcılar', tur:'Bilanço — Varlık', neden:'Fatura kaydı borç doğurur — **e-belge statüsünden bağımsız**.' },
       { hesap:'600 Yurt içi satışlar', tur:'Gelir', neden:'Hasılat kaydı — değişmez.' },
-      { hesap:'391 Hesaplanan KDV', tur:'Bilanço — Kaynak', neden:'⚠️ Beyan GİB’e gider; **e-belge gitmezse ayrışma** doğar.' },
+      { hesap:'391 Hesaplanan KDV', tur:'Bilanço — Kaynak', neden:'Beyan GİB’e gider; **e-belge gitmezse ayrışma** doğar.' },
       { hesap:'360 Ödenecek vergiler', tur:'Bilanço — Kaynak', neden:'{{tevkifat}}lı e-faturada ayrı satır.' },
       { hesap:'610 Satıştan iadeler', tur:'Gelir (–)', neden:'Red gelirse **iade faturası** — ters kayıt değil.' },
     ],
@@ -227,7 +227,7 @@ SAP.registerTopic({
           { hesap:'600', ad:'Yurt içi satışlar', alacak:100000 },
           { hesap:'391', ad:'Hesaplanan KDV %20', alacak:20000, not:'{{BSET}}' },
         ],
-        not:'✅ **E-dönüşüm bu kaydı hiç değiştirmedi.**\n\n' +
+        not:'✓ **E-dönüşüm bu kaydı hiç değiştirmedi.**\n\n' +
              'Muhasebe açısından e-fatura ile kâğıt fatura **birebir aynıdır**. ' +
              'Hesaplar aynı, tutarlar aynı, {{BSET}} aynı.\n\n' +
              'Değişen, bu kaydın **yanında** ikinci bir nesnenin ({{EDOCUMENT}}) ' +
@@ -244,7 +244,7 @@ SAP.registerTopic({
         not:'Tevkifatlı işlemde KDV’nin bir kısmını **alıcı** beyan eder.\n\n' +
              'Örnek: 20.000 KDV’nin %60’ı (12.000) alıcıda, %40’ı (8.000) satıcıda. ' +
              'Fatura tutarı 120.000 yerine **108.000** tahsil edilir.\n\n' +
-             '⚠️ **E-dönüşüm açısından kritik nokta:** tevkifat oranı ve kodu ' +
+             '**E-dönüşüm açısından kritik nokta:** tevkifat oranı ve kodu ' +
              '{{ubl-tr}} XML’inde **ayrı alanlarda** taşınır. ' +
              'Muhasebe kaydı doğru olsa bile XML’de tevkifat bilgisi eksikse ' +
              '{{gib}} belgeyi **reddeder**.\n\n' +
@@ -258,7 +258,7 @@ SAP.registerTopic({
           { hesap:'391', ad:'Hesaplanan KDV', borc:20000 },
           { hesap:'120', ad:'Alıcılar', alacak:120000 },
         ],
-        not:'⚠️ **Burada bir muhasebe tercihi değil, bir mevzuat kısıtı var.**\n\n' +
+        not:'**Burada bir muhasebe tercihi değil, bir mevzuat kısıtı var.**\n\n' +
              '{{FB08}} ile ters kayıt yapmak **SAP’ta mümkündür** ve muhasebeyi düzeltir. ' +
              'Ama {{gib}} tarafındaki e-fatura **yerinde durur** — ters kayıt ' +
              'GİB’e giden bir belge üretmez.\n\n' +
@@ -281,12 +281,12 @@ SAP.registerTopic({
         'Muhasebede iptal **her zaman mümkündür**: {{FB08}} ters kayıt yapar.\n\n' +
         'E-belge tarafında **öyle değildir** ve üç farklı kural vardır:\n\n' +
         '**{{e-arsiv}}** → belirli süre içinde **iptal edilebilir**\n' +
-        '**{{e-fatura}} / {{temel-fatura}}** → ⚠️ **iptal edilemez, reddedilemez** → ' +
+        '**{{e-fatura}} / {{temel-fatura}}** → **iptal edilemez, reddedilemez** → ' +
         'yalnızca **iade faturası**\n' +
         '**{{e-fatura}} / {{ticari-fatura}}** → alıcı süresi içinde **reddedebilir**; ' +
         'süre geçtiyse yine iade faturası\n\n' +
         '━━━━━━━━━━\n\n' +
-        '⚠️ **Tehlike şurada:** kullanıcı SAP’ta {{FB08}} yapar, ' +
+        '**Tehlike şurada:** kullanıcı SAP’ta {{FB08}} yapar, ' +
         'muhasebe düzelir, **rahatlar**. GİB tarafında fatura **hâlâ geçerlidir**.\n\n' +
         'Bu ayrışma genelde **KDV beyanında** ortaya çıkar: ' +
         'muhasebedeki hesaplanan KDV ile GİB’e giden e-fatura toplamı **tutmaz**.\n\n' +
@@ -302,7 +302,7 @@ SAP.registerTopic({
       'E-dönüşüm tek bir belge değil, bir **belge ailesidir**. ' +
       'Her birinin kendi tetikleyicisi, kendi zamanlaması ve kendi iptal kuralı vardır.\n\n' +
       '━━━━━━━━━━\n\n' +
-      '⭐ **Önce en sık karıştırılan ayrım: e-Fatura mı, e-Arşiv mi?**\n\n' +
+      '**Önce en sık karıştırılan ayrım: e-Fatura mı, e-Arşiv mi?**\n\n' +
       'Bu **kullanıcının tercihi değildir**. Tek bir soruya bağlıdır:\n\n' +
       '**"Alıcı e-fatura sistemine kayıtlı mı?"**\n\n' +
       '**Kayıtlı** → **{{e-fatura}}** zorunlu · GİB üzerinden alıcıya **iletilir** · ' +
@@ -314,19 +314,19 @@ SAP.registerTopic({
       '**listenin güncelliği bu yüzden kritiktir**.',
 
     liste:[
-      { ad:'📨 Belge · {{e-fatura}} — kayıtlı mükellefler arası', en:'e-Invoice',
+      { ad:'Belge · {{e-fatura}} — kayıtlı mükellefler arası', en:'e-Invoice',
         aciklama:'Alıcı e-fatura sistemine kayıtlıysa **zorunludur**. ' +
                  'GİB üzerinden alıcıya **iletilir**.',
         neZaman:'B2B satışlarda, alıcı kayıtlıysa.',
         ornek:'**İki senaryo vardır ve farkları kritiktir:**\n\n' +
               '**{{temel-fatura}}** — alıcının sistem üzerinden **red hakkı yoktur**. ' +
               'Fatura iletilir, süreç biter.\n\n' +
-              '**{{ticari-fatura}}** — ⚠️ alıcı süresi içinde **kabul veya red** yanıtı verir. ' +
+              '**{{ticari-fatura}}** — alıcı süresi içinde **kabul veya red** yanıtı verir. ' +
               'Yani fatura muhasebeleşmiş olsa bile **reddedilebilir**.\n\n' +
-              '⚠️ **İptal edilemez.** Düzeltme **iade faturasıyla** yapılır.',
+              '**İptal edilemez.** Düzeltme **iade faturasıyla** yapılır.',
         tcodes:['EDOC_COCKPIT'] },
 
-      { ad:'📄 Belge · {{e-arsiv}} — kayıtsız alıcı / nihai tüketici', en:'e-Archive Invoice',
+      { ad:'Belge · {{e-arsiv}} — kayıtsız alıcı / nihai tüketici', en:'e-Archive Invoice',
         aciklama:'Alıcı e-fatura sistemine kayıtlı **değilse** kesilir. ' +
                  'GİB’e **raporlanır**, alıcıya ayrıca iletilir.',
         neZaman:'Nihai tüketici satışları, kayıtsız mükellefler, internet satışları.',
@@ -334,16 +334,16 @@ SAP.registerTopic({
               '**1. İletim** — GİB üzerinden alıcıya gitmez; **raporlanır**. ' +
               'Alıcıya e-posta veya kâğıt çıktı ile ulaştırılır.\n' +
               '**2. Red yok** — alıcı sistem üzerinden reddedemez.\n' +
-              '**3. ⭐ İptal edilebilir** — belirli bir süre içinde. ' +
+              '**3. İptal edilebilir** — belirli bir süre içinde. ' +
               'Bu, e-faturaya göre **önemli bir esnekliktir**.\n\n' +
-              '⚠️ Bir müşteri sonradan e-fatura mükellefi olursa, ' +
+              'Bir müşteri sonradan e-fatura mükellefi olursa, ' +
               'ona artık e-arşiv kesilemez — bu, bu konudaki **senaryonun** konusudur.',
         tcodes:['EDOC_COCKPIT'] },
 
-      { ad:'🚚 Belge · {{e-irsaliye}} — mal hareketiyle birlikte', en:'e-Delivery Note',
+      { ad:'Belge · {{e-irsaliye}} — mal hareketiyle birlikte', en:'e-Delivery Note',
         aciklama:'Sevk irsaliyesinin elektronik hâli. **Faturadan bağımsız** bir belgedir.',
         neZaman:'Mal sevkiyatında — fatura kesilmeden önce olabilir.',
-        ornek:'⚠️ **Tetikleyicisi FI değil, lojistiktir:** ' +
+        ornek:'**Tetikleyicisi FI değil, lojistiktir:** ' +
               'SD teslimatı veya MM mal hareketi.\n\n' +
               'Bu yüzden e-irsaliye sorunları çoğu zaman **muhasebede değil, ' +
               'lojistik tarafında** çözülür — ve FI danışmanına gelen ' +
@@ -352,12 +352,12 @@ SAP.registerTopic({
               'fatura sonra kesilebilir. İkisi **aynı anda olmak zorunda değildir**.',
         tcodes:['EDOC_COCKPIT'] },
 
-      { ad:'📚 Belge · {{e-defter}} — yevmiye ve kebir', en:'e-Ledger',
+      { ad:'Belge · {{e-defter}} — yevmiye ve kebir', en:'e-Ledger',
         aciklama:'Yevmiye ve Büyük Defter’in elektronik üretilip {{berat}} ile onaylatılması.',
         neZaman:'Aylık (veya üç aylık) dönemler hâlinde, dönem kapanışından sonra.',
         ornek:'**Akış:** dönem kapanır → XML üretilir → imzalanır → ' +
               '**{{berat}}** hesaplanır → GİB’e yüklenir → onay alınır.\n\n' +
-              '⭐ **En kritik sonuç:** beratı alınan dönem **yasal olarak kesinleşir**.\n\n' +
+              '**En kritik sonuç:** beratı alınan dönem **yasal olarak kesinleşir**.\n\n' +
               '{{OB52}} ile o dönemi teknik olarak açabilirsin — ' +
               'ama açıp kayıt yaparsan defter ile SAP **ayrışır** ve ' +
               'bu bir **mevzuat sorunudur**, muhasebe sorunu değil.\n\n' +
@@ -365,7 +365,7 @@ SAP.registerTopic({
               '**daha katı** olduğunun gerekçesidir (bkz. {{konu:closing}}).',
         tcodes:['OB52'] },
 
-      { ad:'🧾 Belge · e-Müstahsil ve e-SMM', en:'Other e-Documents',
+      { ad:'Belge · e-Müstahsil ve e-SMM', en:'Other e-Documents',
         aciklama:'Sektöre özgü diğer e-belgeler.',
         neZaman:'Tarımsal alım (müstahsil) ve serbest meslek faaliyetlerinde.',
         ornek:'**e-Müstahsil Makbuzu** — çiftçiden yapılan alımlarda. ' +
@@ -376,23 +376,23 @@ SAP.registerTopic({
               'GİB’e iletim. Fark **belge tipi ve alan setindedir**.\n\n' +
               'Sektöre göre e-Bilet, e-Adisyon gibi başka türler de vardır.' },
 
-      { ad:'🔀 Gönderim · Doğrudan entegrasyon', en:'Direct Integration',
+      { ad:'Gönderim · Doğrudan entegrasyon', en:'Direct Integration',
         aciklama:'Şirket kendi sistemini doğrudan {{gib}}’e bağlar.',
         neZaman:'Çok yüksek hacimde; teknik ekip kapasitesi varsa.',
         ornek:'**Avantaj:** aracı yok, maliyet düşük, tam kontrol.\n\n' +
-              '**Dezavantaj:** ⚠️ **tüm teknik yük şirkettedir** — ' +
+              '**Dezavantaj:** **tüm teknik yük şirkettedir** — ' +
               'GİB arayüz değişiklikleri, sertifika yönetimi, saklama yükümlülüğü, ' +
               'kesinti durumunda müdahale.\n\n' +
               'GİB arayüzü **mevzuatla değişir**; her değişiklikte ' +
               'geliştirme yapmak gerekir. Bu yüzden pratikte **azınlıktadır**.' },
 
-      { ad:'🔀 Gönderim · {{ozel-entegrator}} — en yaygın', en:'Private Integrator',
+      { ad:'Gönderim · {{ozel-entegrator}} — en yaygın', en:'Private Integrator',
         aciklama:'GİB yetkili aracı kurum; arayüz, iletim ve saklamayı üstlenir.',
-        neZaman:'⭐ Kurulumların **çoğunluğu**.',
+        neZaman:'Kurulumların **çoğunluğu**.',
         ornek:'**Danışman için en kritik mimari bilgi budur:**\n\n' +
               'SAP standardı e-belgeyi **üretir** ({{EDOCUMENT}} + {{ubl-tr}} XML). ' +
               '**Gönderimi** ise çoğu kurulumda **entegratörün SAP add-on’u** yapar.\n\n' +
-              '⚠️ Yani sistemde **iki ayrı yazılım** vardır ve ' +
+              'Yani sistemde **iki ayrı yazılım** vardır ve ' +
               'sorun giderirken ilk soru şudur:\n\n' +
               '**"Hata SAP tarafında mı, entegratör tarafında mı?"**\n\n' +
               '**Ayrım noktası:** {{EDOCUMENT}} kaydı **oluştu mu**?\n' +
@@ -400,16 +400,16 @@ SAP.registerTopic({
               '• Oluştu ama gönderilmediyse → sorun **entegratörde** veya iletişimde\n\n' +
               'Bu tek soru, teşhis süresini yarıya indirir.' },
 
-      { ad:'🔀 Gönderim · GİB Portal', en:'GİB Portal',
+      { ad:'Gönderim · GİB Portal', en:'GİB Portal',
         aciklama:'GİB’in kendi web arayüzünden **elle** giriş.',
         neZaman:'Çok düşük hacimli mükellefler.',
-        ornek:'⚠️ **SAP entegrasyonu yoktur.** Faturalar elle girilir.\n\n' +
+        ornek:'**SAP entegrasyonu yoktur.** Faturalar elle girilir.\n\n' +
               'Bu, SAP kullanan bir şirket için **uygun değildir** — ' +
               'çift giriş demektir ve mutabakatsızlık **kaçınılmazdır**.\n\n' +
               'Danışman olarak karşılaşırsan bu genelde ' +
               '**geçici bir durumdur** veya küçük bir yan şirkettir.' },
 
-      { ad:'🏷️ Fatura tipi · SATIŞ / İADE / TEVKİFAT / İSTİSNA', en:'Invoice Type Codes',
+      { ad:'Fatura tipi · SATIŞ / İADE / TEVKİFAT / İSTİSNA', en:'Invoice Type Codes',
         aciklama:'{{ubl-tr}} XML’inde faturanın **niteliğini** belirten kod.',
         neZaman:'Her e-faturada — yanlış tip **red sebebidir**.',
         ornek:'**Yaygın tipler:**\n\n' +
@@ -419,7 +419,7 @@ SAP.registerTopic({
               '**İSTİSNA** — KDV istisnası olan işlemler (**istisna kodu zorunlu**)\n' +
               '**ÖZEL MATRAH** — özel matrah şekilleri\n' +
               '**İHRAÇ KAYITLI** — ihracat kayıtlı teslimler\n\n' +
-              '⚠️ **SAP tarafında bu tip, vergi kodundan ve satış belge türünden türetilir.** ' +
+              '**SAP tarafında bu tip, vergi kodundan ve satış belge türünden türetilir.** ' +
               'Eşleme eksikse tip yanlış gider ve GİB reddeder.\n\n' +
               'İstisna faturasında ayrıca **istisna kodu** zorunludur; ' +
               'boş giderse belge **reddedilir**.',
@@ -429,10 +429,10 @@ SAP.registerTopic({
     karsilastirmaBasliklar:['{{e-fatura}}', '{{e-arsiv}}'],
     karsilastirma:[
       ['Alıcı', 'Sisteme **kayıtlı** mükellef', 'Kayıtsız / nihai tüketici'],
-      ['Seçim', '⚠️ **Tercih değil** — {{mukellef-sorgulama}} belirler', 'Aynı — alıcının durumu belirler'],
+      ['Seçim', '**Tercih değil** — {{mukellef-sorgulama}} belirler', 'Aynı — alıcının durumu belirler'],
       ['İletim', 'GİB üzerinden alıcıya **iletilir**', 'GİB’e **raporlanır**, alıcıya ayrıca'],
       ['Alıcı yanıtı', '{{ticari-fatura}}’da **red mümkün**', 'Red yok'],
-      ['İptal', '🚫 **İptal edilemez**', '✅ Süre içinde **iptal edilebilir**'],
+      ['İptal', '**İptal edilemez**', '✓ Süre içinde **iptal edilebilir**'],
       ['Düzeltme', '**İade faturası**', 'İptal veya iade faturası'],
       ['Yanlış tip seçilirse', '**GİB reddeder** — sessizce', 'Aynı'],
       ['Format', '{{ubl-tr}} XML', '{{ubl-tr}} XML'],
@@ -444,7 +444,7 @@ SAP.registerTopic({
     liste:[
       { kod:'EDOC_COCKPIT', ad:'eDocument Cockpit — e-belgenin gerçek durumu',
         amac:'E-belgelerin statüsünü gösterir: oluştu, gönderildi, kabul, **red**, hata.',
-        neZaman:'⭐ **Her gün.** Ve müşteri *"fatura gelmedi"* dediği her seferde.',
+        neZaman:'**Her gün.** Ve müşteri *"fatura gelmedi"* dediği her seferde.',
         adimlar:[
           { baslik:'Tarih aralığı ve e-belge tipi seçilir' },
           { baslik:'**Statüye göre süzülür**',
@@ -465,12 +465,12 @@ SAP.registerTopic({
           zorunlu:['Tarih aralığı'],
           opsiyonel:['E-belge tipi','Statü','Şirket kodu','Kaynak belge numarası'] },
         hatalar:[
-          { mesaj:'Fatura kestim ama cockpit’te **hiç görünmüyor**', sebep:'E-belge **hiç oluşmamış** — tetikleyici çalışmamış.', cozum:'⚠️ Bu **SAP tarafı** sorunudur, entegratör değil. E-belge tipi ataması, müşteri ana verisi ve belge türü eşlemesi kontrol edilir.' },
+          { mesaj:'Fatura kestim ama cockpit’te **hiç görünmüyor**', sebep:'E-belge **hiç oluşmamış** — tetikleyici çalışmamış.', cozum:'Bu **SAP tarafı** sorunudur, entegratör değil. E-belge tipi ataması, müşteri ana verisi ve belge türü eşlemesi kontrol edilir.' },
           { mesaj:'Statü "gönderildi"de takılı kalmış', sebep:'Entegratörden yanıt dönmemiş.', cozum:'Entegratör portalından kontrol et. Sorun **SAP dışındadır**.' },
           { mesaj:'Statü **red** — sebep yazmıyor', sebep:'Red gerekçesi yanıt dosyasındadır.', cozum:'`EDOCUMENTFILE`’daki **gelen yanıt XML**’ini oku.' },
-          { mesaj:'Toplu yeniden gönderdim, yine hata', sebep:'Kalıcı veri hatası — iletişim sorunu değil.', cozum:'⚠️ {{EDOC_RESUBMIT}} yalnızca **geçici** hataları çözer. Önce kaynak veriyi düzelt.' },
+          { mesaj:'Toplu yeniden gönderdim, yine hata', sebep:'Kalıcı veri hatası — iletişim sorunu değil.', cozum:'{{EDOC_RESUBMIT}} yalnızca **geçici** hataları çözer. Önce kaynak veriyi düzelt.' },
         ],
-        ipucu:'⭐ **Bu ekran günlük rutin olmalıdır** ve bu, konunun ' +
+        ipucu:'**Bu ekran günlük rutin olmalıdır** ve bu, konunun ' +
               'en yüksek getirili tek tavsiyesidir.\n\n' +
               'Sebebi: muhasebe kapanışı e-belge statüsünü **kapsamaz**. ' +
               'Mizan denk, dönem kapalı, her şey yolunda görünür — ' +
@@ -484,7 +484,7 @@ SAP.registerTopic({
         amac:'Hata durumundaki e-belgeleri toplu yeniden gönderir.',
         neZaman:'**Yalnızca geçici** hatalarda: entegratör kesintisi, ağ sorunu, GİB bakımı.',
         adimlar:[
-          { baslik:'⚠️ **Önce hata sebebini oku** — geçici mi, kalıcı mı?',
+          { baslik:'**Önce hata sebebini oku** — geçici mi, kalıcı mı?',
             aciklama:'Bu ayrım yapılmadan yeniden gönderim **zaman kaybıdır**.' },
           { baslik:'Geçici ise: tarih aralığı ve statü ile süz, yeniden gönder' },
           { baslik:'Kalıcı ise: **kaynak veriyi düzelt**',
@@ -494,7 +494,7 @@ SAP.registerTopic({
         ekranAkisi:[
           { ekran:'Durum', islem:'47 belge **hata** statüsünde' },
           { ekran:'Ayrım', islem:'39’u *"bağlantı zaman aşımı"* → **geçici**' },
-          { ekran:'', islem:'8’i *"istisna kodu eksik"* → ⚠️ **kalıcı**' },
+          { ekran:'', islem:'8’i *"istisna kodu eksik"* → **kalıcı**' },
           { ekran:'Eylem', islem:'39 yeniden gönderildi ✓ · 8’inde önce **vergi kodu** düzeltildi' },
         ],
         alanlar:{ zorunlu:['Tarih aralığı'], opsiyonel:['E-belge tipi','Statü'] },
@@ -502,7 +502,7 @@ SAP.registerTopic({
           { mesaj:'Yeniden gönderdim, aynı hata', sebep:'Kalıcı veri hatası.', cozum:'Hata metnini oku. *"Zaman aşımı / bağlantı"* geçicidir; *"kod eksik / geçersiz / mükellef değil"* **kalıcıdır**.' },
           { mesaj:'Aynı fatura iki kez gitti mi?', sebep:'Yeniden gönderim endişesi.', cozum:'Çerçeve aynı e-belge kimliğini kullanır; **çift kayıt üretmez**. Yine de gönderim öncesi statü kontrol edilir.' },
         ],
-        ipucu:'⚠️ **En sık yapılan hata: her hatada yeniden göndermek.**\n\n' +
+        ipucu:'**En sık yapılan hata: her hatada yeniden göndermek.**\n\n' +
               'Yeniden gönderim yalnızca **iletişim** sorunlarını çözer. ' +
               'Veri hatası varsa aynı hatalı XML tekrar gider ve tekrar reddedilir.\n\n' +
               '**Ayrım kuralı:**\n' +
@@ -518,7 +518,7 @@ SAP.registerTopic({
         adimlar:[
           { baslik:'Ülke ve vergi kodu girilir' },
           { baslik:'Oran ve hesap anahtarı tanımlanır' },
-          { baslik:'⚠️ **E-belge eşlemesi kontrol edilir**',
+          { baslik:'**E-belge eşlemesi kontrol edilir**',
             aciklama:'İstisna kodu, tevkifat oranı, fatura tipi ataması. ' +
                      'Bu eşleme çoğu kurulumda **entegratör add-on’unda** tutulur.' },
         ],
@@ -526,14 +526,14 @@ SAP.registerTopic({
           { ekran:'Belirti', islem:'İstisna faturası **red** — *"istisna kodu eksik"*' },
           { ekran:'{{FTXP}}', islem:'Vergi kodu **doğru** · oran %0 · muhasebe **sorunsuz**' },
           { ekran:'Kök sebep', islem:'Vergi kodu ↔ **istisna kodu** eşlemesi yapılmamış' },
-          { ekran:'Ders', islem:'⭐ Muhasebe doğru, **e-belge alanı** eksik' },
+          { ekran:'Ders', islem:'Muhasebe doğru, **e-belge alanı** eksik' },
         ],
         alanlar:{ zorunlu:['Ülke','Vergi kodu','Oran'], opsiyonel:['İstisna kodu eşlemesi','Tevkifat oranı'] },
         hatalar:[
           { mesaj:'İstisna faturası reddediliyor', sebep:'İstisna kodu boş gidiyor.', cozum:'Vergi kodu ile istisna kodu eşlemesi tanımlanır — muhasebe tarafı doğru olsa bile bu **ayrı bir eşlemedir**.' },
           { mesaj:'Tevkifatlı fatura reddediliyor', sebep:'Tevkifat oranı XML’de eksik.', cozum:'{{tevkifat}} kodu ile e-belge alanı eşlemesi kontrol edilir.' },
         ],
-        ipucu:'⭐ **Bu kod, konunun ana tezinin en somut kanıtıdır.**\n\n' +
+        ipucu:'**Bu kod, konunun ana tezinin en somut kanıtıdır.**\n\n' +
               'Bir vergi kodu **muhasebe açısından mükemmel** çalışabilir: ' +
               'doğru oran, doğru hesap, doğru {{BSET}} kaydı.\n\n' +
               'Ve aynı vergi kodu **e-belge açısından eksik** olabilir: ' +
@@ -563,9 +563,9 @@ SAP.registerTopic({
         alanlar:[
           { ad:'EDOC_GUID', aciklama:'E-belge kimliği', tip:'pk' },
           { ad:'SOURCE_TYPE', aciklama:'FI faturası mı, SD faturası mı' },
-          { ad:'SOURCE_KEY', aciklama:'⭐ **Muhasebe belgesine köprü** — iki tarafı bağlayan alan', tip:'fk' },
+          { ad:'SOURCE_KEY', aciklama:'**Muhasebe belgesine köprü** — iki tarafı bağlayan alan', tip:'fk' },
           { ad:'EDOC_TYPE', aciklama:'e-fatura / e-arşiv / e-irsaliye' },
-          { ad:'EDOC_STATUS', aciklama:'⭐ **Statü** — hata ve **red** burada görünür' },
+          { ad:'EDOC_STATUS', aciklama:'**Statü** — hata ve **red** burada görünür' },
         ] },
 
       { ad:'EDOCUMENTFILE', baslik:'Gönderilen XML — uyuşmazlıkta tek kanıt',
@@ -576,19 +576,19 @@ SAP.registerTopic({
         s4:'Değişmedi.',
         alanlar:[
           { ad:'FILE_TYPE', aciklama:'Giden XML mi, **gelen yanıt** mı' },
-          { ad:'FILE_RAW', aciklama:'⭐ **XML içeriği.** *"Ne gönderdik?"* ve *"red sebebi ne?"* — ikisinin de cevabı' },
+          { ad:'FILE_RAW', aciklama:'**XML içeriği.** *"Ne gönderdik?"* ve *"red sebebi ne?"* — ikisinin de cevabı' },
         ] },
 
       { ad:'BKPF', baslik:'Muhasebe tarafı — e-belgeden **bağımsız**',
-        tutar:'Belge başlığı. ⚠️ Burada **her şey yolunda** olabilir.',
+        tutar:'Belge başlığı. Burada **her şey yolunda** olabilir.',
         olusturan:'Fatura kaydı',
         anahtar:'BUKRS + BELNR + GJAHR',
         iliskiler:'{{EDOCUMENT}}.`SOURCE_KEY` buraya işaret eder.',
         s4:'Kalemler {{ACDOCA}}’da.',
         alanlar:[
-          { ad:'BELNR', aciklama:'Belge numarası — ⚠️ **e-fatura numarasından farklıdır**', tip:'pk' },
+          { ad:'BELNR', aciklama:'Belge numarası — **e-fatura numarasından farklıdır**', tip:'pk' },
           { ad:'XBLNR', aciklama:'Referans — e-fatura numarası genelde buraya yazılır' },
-          { ad:'STBLG', aciklama:'⚠️ Ters kayıt. **Dolu olması e-belgenin iptal edildiği anlamına gelmez**' },
+          { ad:'STBLG', aciklama:'Ters kayıt. **Dolu olması e-belgenin iptal edildiği anlamına gelmez**' },
         ] },
 
       { ad:'BSET', baslik:'Vergi satırları — XML’in vergi bölümünün kaynağı',
@@ -598,7 +598,7 @@ SAP.registerTopic({
         iliskiler:'{{ubl-tr}} XML’inin vergi bölümü buradan türetilir.',
         s4:'Duruyor.',
         alanlar:[
-          { ad:'MWSKZ', aciklama:'⭐ Vergi kodu — **e-belge tipi ve istisna kodu bundan türetilir**' },
+          { ad:'MWSKZ', aciklama:'Vergi kodu — **e-belge tipi ve istisna kodu bundan türetilir**' },
           { ad:'HWBAS / HWSTE', aciklama:'Matrah ve vergi tutarı — XML’e taşınan değerler' },
         ] },
     ],
@@ -611,7 +611,7 @@ SAP.registerTopic({
           alanlar:[{ ad:'BELNR', tip:'pk' }, { ad:'XBLNR' }, { ad:'STBLG' }] },
         { ad:'BSET', rol:'Vergi', aciklama:'XML vergi bölümünün **kaynağı**',
           alanlar:[{ ad:'BELNR', tip:'fk' }, { ad:'MWSKZ' }, { ad:'HWSTE' }] },
-        { ad:'EDOCUMENT', rol:'E-belge', aciklama:'⭐ **Kol 2** — red ve hata **burada**',
+        { ad:'EDOCUMENT', rol:'E-belge', aciklama:'**Kol 2** — red ve hata **burada**',
           alanlar:[{ ad:'EDOC_GUID', tip:'pk' }, { ad:'SOURCE_KEY', tip:'fk' }, { ad:'EDOC_STATUS' }] },
         { ad:'EDOCUMENTFILE', rol:'XML', aciklama:'Gönderilen dosya — **hukuki kanıt**',
           alanlar:[{ ad:'EDOC_GUID', tip:'fk' }, { ad:'FILE_RAW' }] },
@@ -619,7 +619,7 @@ SAP.registerTopic({
           alanlar:[{ ad:'VBELN', tip:'pk' }, { ad:'RFBSK' }] },
       ],
       iliskiler:[
-        { from:'BKPF', to:'EDOCUMENT', alanlar:'SOURCE_KEY', not:'⭐ **iki kolu bağlayan tek alan**' },
+        { from:'BKPF', to:'EDOCUMENT', alanlar:'SOURCE_KEY', not:'**iki kolu bağlayan tek alan**' },
         { from:'VBRK', to:'EDOCUMENT', alanlar:'SOURCE_KEY', not:'SD kaynaklı' },
         { from:'BKPF', to:'BSET', alanlar:'BELNR', not:'vergi satırları' },
         { from:'EDOCUMENT', to:'EDOCUMENTFILE', alanlar:'EDOC_GUID', not:'XML ve yanıtlar' },
@@ -638,11 +638,11 @@ SAP.registerTopic({
         aciklama:'E-belgenin gerçek durumunu gösteren tek ekran.',
         alanlar:[
           { ad:'Tarih aralığı', zorunlu:true, aciklama:'Günlük kontrolde dünden bugüne.' },
-          { ad:'**Statü**', zorunlu:false, aciklama:'⭐ Önce **hata** ve **red** süzülür. Hedef: **0**.' },
+          { ad:'**Statü**', zorunlu:false, aciklama:'Önce **hata** ve **red** süzülür. Hedef: **0**.' },
           { ad:'E-belge tipi', zorunlu:false, aciklama:'e-fatura / e-arşiv / e-irsaliye.' },
           { ad:'Kaynak belge', zorunlu:false, aciklama:'{{FB03}} / {{VF03}}’e geçiş için.' },
         ],
-        ipucu:'⭐ **Hedef basit: hata ve red statüsü = 0.**\n\n' +
+        ipucu:'**Hedef basit: hata ve red statüsü = 0.**\n\n' +
               'Muhasebe kapanışı bu kontrolü kapsamaz — mizan denk olsa bile ' +
               'reddedilmiş faturalar birikmiş olabilir.\n\n' +
               '{{konu:error-handling}}’deki *"{{SLG1}} kırmızı = 0"* kuralının ' +
@@ -650,13 +650,13 @@ SAP.registerTopic({
               '**sessiz hatalar ancak bakılırsa görünür.**' },
 
       { ad:'{{FB03}} / {{VF03}} — kaynak belge',
-        aciklama:'Muhasebe tarafını görmek için. ⚠️ **E-belge hakkında bilgi vermez.**',
+        aciklama:'Muhasebe tarafını görmek için. **E-belge hakkında bilgi vermez.**',
         alanlar:[
-          { ad:'Belge numarası', zorunlu:true, aciklama:'⚠️ **E-fatura numarasından farklıdır.**' },
+          { ad:'Belge numarası', zorunlu:true, aciklama:'**E-fatura numarasından farklıdır.**' },
           { ad:'`XBLNR` Referans', zorunlu:false, aciklama:'E-fatura numarası genelde burada.' },
-          { ad:'`STBLG`', zorunlu:false, aciklama:'⚠️ Ters kayıt — **e-belge iptali demek değildir**.' },
+          { ad:'`STBLG`', zorunlu:false, aciklama:'Ters kayıt — **e-belge iptali demek değildir**.' },
         ],
-        ipucu:'⚠️ **Bu ekrana bakarak e-belge hakkında hüküm verme.**\n\n' +
+        ipucu:'**Bu ekrana bakarak e-belge hakkında hüküm verme.**\n\n' +
               '{{FB03}} *"kaydettik mi?"* sorusunu cevaplar. ' +
               '*"Gönderebildik mi?"* sorusunun cevabı **{{EDOC_COCKPIT}}**’tedir.\n\n' +
               'Bu iki soruyu karıştırmak, bu konudaki hataların **çoğunun kaynağıdır**.' },
@@ -665,10 +665,10 @@ SAP.registerTopic({
         aciklama:'İstisna ve tevkifat redlerinin kaynağı.',
         alanlar:[
           { ad:'Vergi kodu', zorunlu:true, aciklama:'Muhasebe tarafı.' },
-          { ad:'**İstisna kodu eşlemesi**', zorunlu:false, aciklama:'⚠️ Eksikse istisna faturası **reddedilir**.' },
+          { ad:'**İstisna kodu eşlemesi**', zorunlu:false, aciklama:'Eksikse istisna faturası **reddedilir**.' },
           { ad:'**Tevkifat oranı**', zorunlu:false, aciklama:'XML’de ayrı alan; eksikse red.' },
         ],
-        ipucu:'⭐ Bir vergi kodu **muhasebe açısından mükemmel**, ' +
+        ipucu:'Bir vergi kodu **muhasebe açısından mükemmel**, ' +
               '**e-belge açısından eksik** olabilir.\n\n' +
               'Yeni vergi kodu açma sürecine ' +
               '*"e-belge alan eşlemesi yapıldı mı?"* adımı eklenmelidir.' },
@@ -678,19 +678,19 @@ SAP.registerTopic({
     opsiyonel:['Entegratör portal erişimi','E-arşiv iptal yetkisi'],
 
     hatalar:[
-      { mesaj:'Fatura kesildi ama {{EDOC_COCKPIT}}’te **hiç yok**', sebep:'E-belge tetikleyicisi çalışmamış.', cozum:'⚠️ **SAP tarafı** sorunu. E-belge tipi ataması, müşteri ana verisi ve belge türü eşlemesi kontrol edilir.' },
+      { mesaj:'Fatura kesildi ama {{EDOC_COCKPIT}}’te **hiç yok**', sebep:'E-belge tetikleyicisi çalışmamış.', cozum:'**SAP tarafı** sorunu. E-belge tipi ataması, müşteri ana verisi ve belge türü eşlemesi kontrol edilir.' },
       { mesaj:'Statü **RED** — "alıcı e-fatura mükellefi değil"', sebep:'Yanlış belge tipi — {{mukellef-sorgulama}} listesi eski.', cozum:'Liste güncellenir; fatura doğru tiple yeniden kesilir. Bu konudaki **senaryonun** konusu.' },
-      { mesaj:'Statü **RED** — "istisna kodu eksik"', sebep:'Vergi kodu ↔ istisna kodu eşlemesi yok.', cozum:'{{FTXP}}. ⚠️ Muhasebe doğru olsa bile bu **ayrı bir eşlemedir**.' },
+      { mesaj:'Statü **RED** — "istisna kodu eksik"', sebep:'Vergi kodu ↔ istisna kodu eşlemesi yok.', cozum:'{{FTXP}}. Muhasebe doğru olsa bile bu **ayrı bir eşlemedir**.' },
       { mesaj:'Bir sabah **tüm gönderim durdu**', sebep:'{{mali-muhur}} sertifikası süresi dolmuş.', cozum:'Sertifika yenilenir. **Kalıcı önlem:** son kullanma tarihi takvime bağlanır.' },
       { mesaj:'Statü "gönderildi"de **takılı**', sebep:'Entegratörden yanıt dönmemiş.', cozum:'Entegratör portalı kontrol edilir — sorun **SAP dışındadır**.' },
-      { mesaj:'{{FB08}} yaptım ama GİB’de fatura duruyor', sebep:'⚠️ **İptal asimetrisi.** Ters kayıt e-belge üretmez.', cozum:'{{e-fatura}} iptal edilemez — **iade faturası** kesilir. {{e-arsiv}} ise süre içinde iptal edilebilir.' },
+      { mesaj:'{{FB08}} yaptım ama GİB’de fatura duruyor', sebep:'**İptal asimetrisi.** Ters kayıt e-belge üretmez.', cozum:'{{e-fatura}} iptal edilemez — **iade faturası** kesilir. {{e-arsiv}} ise süre içinde iptal edilebilir.' },
       { mesaj:'KDV beyanı ile GİB e-fatura toplamı tutmuyor', sebep:'Reddedilen veya gönderilemeyen faturalar.', cozum:'{{EDOC_COCKPIT}}’te dönem taranır; muhasebede olup GİB’e gitmeyenler bulunur.' },
-      { mesaj:'Berat alınmış döneme kayıt yapıldı', sebep:'{{OB52}} açık bırakılmış.', cozum:'⚠️ **Mevzuat sorunu.** Düzeltme sonraki döneme. Berat sonrası dönem {{OB52}}’de **kapatılmalıdır**.' },
+      { mesaj:'Berat alınmış döneme kayıt yapıldı', sebep:'{{OB52}} açık bırakılmış.', cozum:'**Mevzuat sorunu.** Düzeltme sonraki döneme. Berat sonrası dönem {{OB52}}’de **kapatılmalıdır**.' },
     ],
 
     ipuclari:[
-      '⭐ **{{EDOC_COCKPIT}} günlük açılır — hedef: hata ve red = 0.**',
-      '⭐ {{FB03}} *"kaydettik mi?"*, {{EDOC_COCKPIT}} *"gönderebildik mi?"* — **farklı sorular**.',
+      '**{{EDOC_COCKPIT}} günlük açılır — hedef: hata ve red = 0.**',
+      '{{FB03}} *"kaydettik mi?"*, {{EDOC_COCKPIT}} *"gönderebildik mi?"* — **farklı sorular**.',
       'Sorun giderirken ilk ayrım: **{{EDOCUMENT}} oluştu mu?** ' +
       'Oluşmadıysa SAP, oluştu ama gitmediyse entegratör.',
       'Red sebebi ekranda değil, `EDOCUMENTFILE`’daki **yanıt XML**’indedir.',
@@ -700,7 +700,7 @@ SAP.registerTopic({
       'yoksa bir sabah tüm gönderim durur.',
       '{{mukellef-sorgulama}} listesi **düzenli güncellenir**; ' +
       'eski liste = yanlış belge tipi = sessiz red.',
-      '⚠️ {{berat}} alınan dönemi {{OB52}}’de **kapat** — ' +
+      '{{berat}} alınan dönemi {{OB52}}’de **kapat** — ' +
       'artık muhasebe değil **mevzuat** meselesi.',
       'Yeni vergi kodu açarken *"e-belge alan eşlemesi yapıldı mı?"* diye sor.',
     ],
@@ -716,7 +716,7 @@ SAP.registerTopic({
     ],
 
     commit:
-      '⚠️ **E-belge üretimi muhasebe LUW’unun içinde değildir.**\n\n' +
+      '**E-belge üretimi muhasebe LUW’unun içinde değildir.**\n\n' +
       'Bu, konunun teknik temelidir ve tezini açıklar:\n\n' +
       'Fatura muhasebeleşir ve **commit olur** — belge kesindir. ' +
       'E-belge üretimi ve gönderimi **sonrasında**, ayrı bir işlem olarak çalışır.\n\n' +
@@ -727,7 +727,7 @@ SAP.registerTopic({
       'hata olarak bildirmez.',
 
     belgeNo:
-      '⚠️ **İki ayrı numara vardır ve karıştırılmamalıdır:**\n\n' +
+      '**İki ayrı numara vardır ve karıştırılmamalıdır:**\n\n' +
       '**SAP belge numarası** — {{BKPF}}.`BELNR` · şirket kodu + yıl bazında · ' +
       '{{FBN1}} numara aralığından\n\n' +
       '**E-fatura numarası** — GİB formatında **16 karakter**: ' +
@@ -735,7 +735,7 @@ SAP.registerTopic({
       'Kâğıt faturadaki matbaa serisinin karşılığıdır.\n\n' +
       'E-fatura numarası genelde {{BKPF}}.`XBLNR` (referans) alanına yazılır — ' +
       'böylece iki numara birbirine bağlanır.\n\n' +
-      '⚠️ **Kesintisizlik zorunludur.** E-fatura serisinde boşluk olmamalıdır. ' +
+      '**Kesintisizlik zorunludur.** E-fatura serisinde boşluk olmamalıdır. ' +
       'Bu, {{guncelleme-hatasi}} nedeniyle numara yanmasının ' +
       'e-tarafta neden daha ciddi olduğunu açıklar.',
 
@@ -749,7 +749,7 @@ SAP.registerTopic({
       '**6.** {{mali-muhur}} ile imzalanır\n' +
       '**7.** Entegratöre iletilir (çoğu kurulumda **add-on**)\n' +
       '**8.** Yanıt alınır → `EDOC_STATUS` güncellenir\n\n' +
-      '⭐ **Teşhiste bu sıra doğrudan kullanılır:** hangi adımda durdu?\n' +
+      '**Teşhiste bu sıra doğrudan kullanılır:** hangi adımda durdu?\n' +
       '• 3. adım olmadıysa → **tetikleyici/eşleme** sorunu (SAP)\n' +
       '• 5. adımda hata → **veri/eşleme** sorunu (SAP)\n' +
       '• 7. adımda takılı → **entegratör** sorunu\n' +
@@ -759,7 +759,7 @@ SAP.registerTopic({
       '{{belge-turu}} ile e-belge tipi arasında **eşleme** vardır: ' +
       'hangi fatura türünün e-belge üreteceği ve hangi tipte üreteceği ' +
       'yapılandırmayla belirlenir.\n\n' +
-      '⚠️ **Sık atlanan durum:** yeni bir satış belge türü veya fatura türü ' +
+      '**Sık atlanan durum:** yeni bir satış belge türü veya fatura türü ' +
       'açıldığında e-belge eşlemesi yapılmazsa, o türle kesilen faturalar ' +
       '**hiç e-belge üretmez**.\n\n' +
       'Belirtisi nettir ve tanınması kolaydır: fatura {{FB03}}’te **var**, ' +
@@ -769,7 +769,7 @@ SAP.registerTopic({
     numberRange:
       'E-fatura serisi SAP belge numara aralığından **ayrıdır** ve ' +
       'genelde entegratör add-on’unda veya ayrı bir aralıkta yönetilir.\n\n' +
-      '⚠️ **Yıl geçişinde kontrol edilmelidir** — tıpkı {{FBN1}} gibi. ' +
+      '**Yıl geçişinde kontrol edilmelidir** — tıpkı {{FBN1}} gibi. ' +
       'Yeni yılın e-fatura serisi tanımlanmamışsa 1 Ocak’ta ' +
       'e-fatura kesilemez (muhasebe kaydı yapılabilir ama e-belge üretilemez).\n\n' +
       'Bu, {{konu:error-handling}}’de anlatılan yıl sonu numara aralığı ' +
@@ -784,7 +784,7 @@ SAP.registerTopic({
       'Bu yüzden bir vergi kodu iki ayrı yerde eksik olabilir:\n' +
       '• {{OB40}}’ta hesap ataması yok → **muhasebe** hatası (konuşan)\n' +
       '• E-belge eşlemesi yok → **e-belge** reddi (sessiz)\n\n' +
-      '⚠️ İlki kaydı **durdurur**, ikincisi durdurmaz. ' +
+      'İlki kaydı **durdurur**, ikincisi durdurmaz. ' +
       'Bu asimetri, e-belge hatalarının neden geç fark edildiğini açıklar.',
 
     tur:
@@ -795,7 +795,7 @@ SAP.registerTopic({
       '{{EDOC_COCKPIT}}\n' +
       '**2. Yerelleştirme (SAP Türkiye)** — {{ubl-tr}} formatı, alan eşlemeleri\n' +
       '**3. Entegratör add-on’u (üçüncü taraf)** — GİB iletişimi, imzalama, saklama\n\n' +
-      '⭐ **Danışman için pratik sonucu:** bir sorun geldiğinde ' +
+      '**Danışman için pratik sonucu:** bir sorun geldiğinde ' +
       '**hangi katmanda** olduğu belirlenir. ' +
       'Üçüncü katman SAP desteği kapsamında **değildir** — ' +
       'entegratör firmasına gider.',
@@ -805,7 +805,7 @@ SAP.registerTopic({
       '**SAP tarafı** — e-belge tipi tanımları, kaynak tipi eşlemeleri, ' +
       'vergi kodu ilişkileri → normal {{tasima-istegi}}\n\n' +
       '**Entegratör add-on’u** — kendi tabloları ve ayarları → ' +
-      '⚠️ genelde **ayrı yönetilir**\n\n' +
+      'genelde **ayrı yönetilir**\n\n' +
       '**Klasik geçiş hatası:** SAP tarafı canlıya taşınır, ' +
       'entegratör ayarları unutulur. Sonuç: e-belge **oluşur** ama ' +
       '**gönderilemez** — ve bu, en zor teşhis edilen durumlardan biridir ' +
@@ -813,10 +813,10 @@ SAP.registerTopic({
 
     img:[
       { yol:'eDocument → Genel ayarlar → Kaynak tipi tanımlama', not:'Hangi belge e-belge üretecek' },
-      { yol:'eDocument → E-belge tipi ataması', not:'⚠️ Yeni fatura türünde atlanırsa e-belge **hiç oluşmaz**' },
-      { yol:'FTXP → Vergi kodu', not:'⚠️ İstisna ve tevkifat **e-belge eşlemesi**' },
-      { yol:'OB52 → Dönem kapatma', not:'⚠️ {{berat}} alınan dönem **kapatılmalı**' },
-      { yol:'Entegratör add-on ayarları', not:'⚠️ SAP IMG dışında; **ayrı taşınır**' },
+      { yol:'eDocument → E-belge tipi ataması', not:'Yeni fatura türünde atlanırsa e-belge **hiç oluşmaz**' },
+      { yol:'FTXP → Vergi kodu', not:'İstisna ve tevkifat **e-belge eşlemesi**' },
+      { yol:'OB52 → Dönem kapatma', not:'{{berat}} alınan dönem **kapatılmalı**' },
+      { yol:'Entegratör add-on ayarları', not:'SAP IMG dışında; **ayrı taşınır**' },
     ],
 
     ekstra:[
@@ -836,7 +836,7 @@ SAP.registerTopic({
         'İletişim çalışıyor, **içerik** yanlış. Red sebebi ' +
         '`EDOCUMENTFILE`’daki yanıt XML’inde.\n\n' +
         '━━━━━━━━━━\n\n' +
-        '⭐ **Belirtiyi tanımak:**\n\n' +
+        '**Belirtiyi tanımak:**\n\n' +
         '{{EDOC_COCKPIT}}’te belge **hiç yok** → SAP\n' +
         'Belge var, statü **hata/takılı** → entegratör\n' +
         'Belge var, statü **red** → veri\n\n' +
@@ -857,7 +857,7 @@ SAP.registerTopic({
         '**Ayrık olduğu için:** fatura kaydedilir, e-belge sonra gönderilir, ' +
         'kesinti geçince yeniden denenir. İş **durmaz**.\n\n' +
         '━━━━━━━━━━\n\n' +
-        '⚠️ **Ama bu esnekliğin bedeli vardır:** iki taraf ayrışabilir ve ' +
+        '**Ama bu esnekliğin bedeli vardır:** iki taraf ayrışabilir ve ' +
         'sistem bunu hata olarak bildirmez.\n\n' +
         '**Bedeli ödemenin yolu izlemedir.** Tasarım ayrık olduğu için ' +
         'kontrol **insana** kalır — ve bu, {{EDOC_COCKPIT}}’in neden ' +
@@ -874,7 +874,7 @@ SAP.registerTopic({
         'Bu, e-dönüşümde yapılan **en pahalı yanlış varsayımdır**.\n\n' +
         'Kullanıcı hatalı faturayı görür, {{FB08}} ile ters kaydeder, ' +
         'muhasebe düzelir ve **konuyu kapatır**.\n\n' +
-        '⚠️ **GİB tarafında fatura hâlâ geçerlidir.** ' +
+        '**GİB tarafında fatura hâlâ geçerlidir.** ' +
         'Ters kayıt GİB’e giden bir belge **üretmez**.\n\n' +
         '**Doğru yol belge tipine göre değişir:**\n\n' +
         '**{{e-arsiv}}** → süre içinde **iptal edilebilir**\n' +
@@ -903,8 +903,8 @@ SAP.registerTopic({
       { konu:'{{EDOCUMENT}} tablosu', ecc:'Var', s4:'**Duruyor** — yapı korundu' },
       { konu:'İzleme ekranı', ecc:'{{EDOC_COCKPIT}}', s4:'Cockpit **duruyor** + Fiori uygulamaları' },
       { konu:'Vergi verisi', ecc:'{{BSET}} + {{BSEG}}', s4:'{{BSET}} duruyor; {{ACDOCA}} tutarı taşır' },
-      { konu:'Bulut', ecc:'Yok', s4:'⭐ **Cloud edition** — GİB uyum güncellemeleri SAP tarafından' },
-      { konu:'Entegratör add-on’u', ecc:'Gerekli', s4:'⚠️ **Hâlâ gerekli** — Türkiye’de yaygın model' },
+      { konu:'Bulut', ecc:'Yok', s4:'**Cloud edition** — GİB uyum güncellemeleri SAP tarafından' },
+      { konu:'Entegratör add-on’u', ecc:'Gerekli', s4:'**Hâlâ gerekli** — Türkiye’de yaygın model' },
     ],
 
     universalJournal:
@@ -913,7 +913,7 @@ SAP.registerTopic({
       'Dolaylı bir fayda var: {{ACDOCA}} tek kaynak olduğu için ' +
       '*"muhasebede ne var?"* sorusu **tek sorguyla** cevaplanıyor. ' +
       'Bu, e-belge ile muhasebe arasındaki **mutabakatı kolaylaştırır**.\n\n' +
-      '⚠️ Ama ayrışma sorununu **çözmez**: {{EDOCUMENT}} hâlâ ayrı bir tablodur ' +
+      'Ama ayrışma sorununu **çözmez**: {{EDOCUMENT}} hâlâ ayrı bir tablodur ' +
       've hâlâ bağımsız olarak başarısız olabilir.\n\n' +
       'Yani {{konu:error-handling}}’de anlatılan *"FI/CO mutabakat sınıfı ortadan kalktı"* ' +
       'iyileşmesinin **e-dönüşümde bir karşılığı yoktur** — ' +
@@ -922,7 +922,7 @@ SAP.registerTopic({
     kalkanTcodes:[
       { eski:'{{EDOC_COCKPIT}}', yeni:'**Duruyor**', not:'+ Fiori izleme uygulamaları' },
       { eski:'—', yeni:'**DRC** çatısı', not:'E-belge ve yasal raporlama birleşti' },
-      { eski:'—', yeni:'**Cloud edition**', not:'⭐ Mevzuat güncellemeleri SAP tarafından gelir' },
+      { eski:'—', yeni:'**Cloud edition**', not:'Mevzuat güncellemeleri SAP tarafından gelir' },
     ],
 
     fiori:[
@@ -931,20 +931,20 @@ SAP.registerTopic({
       { ad:'Manage Electronic Documents', aciklama:'Belge bazında statü, ' +
              'yeniden gönderim ve XML görüntüleme.' },
       { ad:'Statistics for Electronic Documents', aciklama:'Dönemsel red/hata oranı — ' +
-             '⭐ *"bu ay kaç fatura reddedildi?"* sorusunun ekranı.' },
+             '*"bu ay kaç fatura reddedildi?"* sorusunun ekranı.' },
       { ad:'Manage Journal Entries', aciklama:'Kaynak muhasebe belgesine geçiş.' },
     ],
 
     compatibilityViews:[
       '{{EDOCUMENT}} ve `EDOCUMENTFILE` **gerçek tablodur** — görünüm değil.',
       'Özel e-belge raporları {{uyumluluk-view}}’dan **etkilenmez**.',
-      '⚠️ Ama vergi verisini {{BSEG}}’den okuyan eski özel raporlar etkilenir — ' +
+      'Ama vergi verisini {{BSEG}}’den okuyan eski özel raporlar etkilenir — ' +
       '`SHKZG` işaret mantığı ({{konu:sap-tables}}).',
     ],
 
     performans:
       'E-belge üretimi **asenkron** olduğu için fatura kaydını yavaşlatmaz.\n\n' +
-      '⚠️ Darboğaz genelde **entegratör tarafındadır**: yoğun dönemlerde ' +
+      'Darboğaz genelde **entegratör tarafındadır**: yoğun dönemlerde ' +
       '(ay sonu, kampanya) gönderim kuyruğu birikir.\n\n' +
       'Belirtisi: {{EDOC_COCKPIT}}’te *"gönderildi"* statüsünde **çok sayıda** belge ' +
       've yanıt gecikmesi.\n\n' +
@@ -953,17 +953,17 @@ SAP.registerTopic({
       'bu ayrım önemlidir.',
 
     bestPractices:[
-      '⭐ **{{EDOC_COCKPIT}} kontrolünü ay sonu kapanış listesine ekle** — ' +
+      '**{{EDOC_COCKPIT}} kontrolünü ay sonu kapanış listesine ekle** — ' +
       'muhasebe kapanışı bunu kapsamıyor.',
       '{{mukellef-sorgulama}} listesini **düzenli güncelle**; ' +
       'güncelleme sıklığını süreç olarak tanımla.',
-      '⚠️ {{mali-muhur}} son kullanma tarihini **takvime bağla** — ' +
+      '{{mali-muhur}} son kullanma tarihini **takvime bağla** — ' +
       'yenilenmezse bir sabah tüm gönderim durur.',
       'Yeni **fatura türü** veya **vergi kodu** açma sürecine ' +
       '*"e-belge eşlemesi yapıldı mı?"* adımı ekle.',
       'Yıl geçişinde **e-fatura serisini** de kontrol et — {{FBN1}} yanında.',
       '{{berat}} alınan dönemi {{OB52}}’de **kapat ve kapalı tut**.',
-      '⚠️ Geçişte **entegratör ayarlarının ayrı taşındığını** unutma — ' +
+      'Geçişte **entegratör ayarlarının ayrı taşındığını** unutma — ' +
       'SAP tarafı doğru görünürken gönderim çalışmayabilir.',
       'Aylık **mutabakat**: muhasebedeki hesaplanan KDV ile ' +
       'GİB’e giden e-fatura toplamı karşılaştırılır.',
@@ -991,7 +991,7 @@ SAP.registerTopic({
       { k:'{{FB03}}', v:'Faturalar **var** ✓' },
       { k:'{{FBL5N}}', v:'Cari hesap borcu **doğru** ✓' },
       { k:'Müşterinin iddiası', v:'*"Böyle bir fatura yok"*' },
-      { k:'Bakılmayan yer', v:'⚠️ **{{EDOC_COCKPIT}}**' },
+      { k:'Bakılmayan yer', v:'**{{EDOC_COCKPIT}}**' },
     ],
 
     adimlar:[
@@ -999,7 +999,7 @@ SAP.registerTopic({
         aciklama:'İlk kez bu ekrana bakılıyor.',
         girdi:[
           { alan:'Süzgeç', deger:'Müşteri Marmara Ambalaj · son 6 ay' },
-          { alan:'4 faturanın statüsü', deger:'🚫 **RED**' },
+          { alan:'4 faturanın statüsü', deger:'**RED**' },
           { alan:'Red sebebi', deger:'*"Alıcı e-fatura mükellefidir"*' },
           { alan:'Kesilen tip', deger:'**{{e-arsiv}}** — yanlış' },
         ],
@@ -1010,7 +1010,7 @@ SAP.registerTopic({
              'Reddedilen e-arşiv fatura alıcıya **hiç ulaşmaz**. ' +
              'Marmara Ambalaj’ın kayıtlarında böyle bir fatura **yok** — ' +
              'çünkü gerçekten yok.\n\n' +
-             '⚠️ Ve SAP bu durumda **hiçbir uyarı vermemişti**: ' +
+             'Ve SAP bu durumda **hiçbir uyarı vermemişti**: ' +
              'muhasebe belgesi başarıyla oluşmuştu.' },
 
       { baslik:'Neden yanlış tip seçildi?', tcode:'SE16N',
@@ -1019,13 +1019,13 @@ SAP.registerTopic({
           { alan:'Müşteri ana verisi', deger:'E-belge tipi = **e-arşiv**' },
           { alan:'Son güncelleme', deger:'{{CDHDR}} → **14 ay önce**' },
           { alan:'GİB mükellef listesi', deger:'Marmara Ambalaj **kayıtlı** — 8 ay önce eklenmiş' },
-          { alan:'Sistemdeki liste', deger:'⚠️ **11 ay önce** güncellenmiş' },
+          { alan:'Sistemdeki liste', deger:'**11 ay önce** güncellenmiş' },
         ],
         not:'**Kök sebep bulundu.**\n\n' +
              'Marmara Ambalaj 8 ay önce e-fatura mükellefi olmuş. ' +
              'Sistemdeki {{mukellef-sorgulama}} listesi ise **11 ay önce** güncellenmiş.\n\n' +
              'Yani liste, müşterinin mükellef olmasından **önceki** durumu gösteriyor.\n\n' +
-             '⚠️ **Bu bir yazılım hatası değil, bir süreç eksikliğidir:** ' +
+             '**Bu bir yazılım hatası değil, bir süreç eksikliğidir:** ' +
              'liste güncelleme **kimsenin görevi değildi**. ' +
              'İlk kurulumda yüklenmiş ve unutulmuş.' },
 
@@ -1033,11 +1033,11 @@ SAP.registerTopic({
         aciklama:'Aynı sınıf hata taranıyor.',
         girdi:[
           { alan:'Tarama', deger:'Son 12 ay · statü **RED**' },
-          { alan:'Sonuç', deger:'⚠️ **63 fatura** · **11 farklı müşteri**' },
+          { alan:'Sonuç', deger:'**63 fatura** · **11 farklı müşteri**' },
           { alan:'Toplam tutar', deger:'**2.940.000 TRY**' },
           { alan:'En eski', deger:'**9 ay önce** — hiç fark edilmemiş' },
         ],
-        not:'⚠️ **Sorun tek müşteride değildi.**\n\n' +
+        not:'**Sorun tek müşteride değildi.**\n\n' +
              '11 müşteri e-fatura mükellefi olmuş, sistem hepsine ' +
              'hâlâ {{e-arsiv}} kesiyordu. 63 fatura, 9 aydır reddediliyordu.\n\n' +
              '**Hiçbiri fark edilmemişti** çünkü:\n' +
@@ -1052,14 +1052,14 @@ SAP.registerTopic({
         girdi:[
           { alan:'Ay sonu kapanışı', deger:'Sorunsuz — mizan denk ✓' },
           { alan:'{{F150}} ihtar', deger:'Çalışmış — ihtarlar gönderilmiş' },
-          { alan:'⚠️ İhtar sonucu', deger:'Müşteriler *"fatura yok"* demiş, **kayda geçmemiş**' },
+          { alan:'İhtar sonucu', deger:'Müşteriler *"fatura yok"* demiş, **kayda geçmemiş**' },
           { alan:'KDV beyanı', deger:'Muhasebeden üretilmiş — **fark görülmemiş**' },
         ],
         not:'**Üç kontrol de sorunu kaçırdı ve her biri kendi açısından haklıydı.**\n\n' +
              '**Kapanış** muhasebeye bakar — muhasebe doğruydu.\n' +
              '**İhtar** vadesi geçen kalemi bulur — kalem gerçekten vadesi geçmişti.\n' +
              '**KDV beyanı** muhasebeden üretilir — muhasebe tutarlıydı.\n\n' +
-             '⚠️ **Hiçbiri "bu fatura karşı tarafa ulaştı mı?" sorusunu sormuyordu.**\n\n' +
+             '**Hiçbiri "bu fatura karşı tarafa ulaştı mı?" sorusunu sormuyordu.**\n\n' +
              'Müşteriler ihtara *"fatura yok"* diye cevap vermiş ama ' +
              'bu cevaplar **kayda geçmemiş** — satış temsilcileri ' +
              'bunu bir *"oyalama"* olarak yorumlamış.\n\n' +
@@ -1070,7 +1070,7 @@ SAP.registerTopic({
         girdi:[
           { alan:'① Mükellef listesi', deger:'GİB’den **güncel** liste yüklendi' },
           { alan:'② Ana veri', deger:'11 müşterinin e-belge tipi → **e-fatura**' },
-          { alan:'③ Reddedilen faturalar', deger:'⚠️ **Yeniden gönderilemez** — tip yanlıştı' },
+          { alan:'③ Reddedilen faturalar', deger:'**Yeniden gönderilemez** — tip yanlıştı' },
           { alan:'④ Çözüm', deger:'İptal + **doğru tiple yeniden düzenleme**' },
           { alan:'⑤ Doğrulama', deger:'{{EDOC_COCKPIT}} → red **0** ✓' },
         ],
@@ -1081,7 +1081,7 @@ SAP.registerTopic({
             { hesap:'391', ad:'Hesaplanan KDV %20', alacak:31166.67 },
           ], not:'Muhasebe kaydı **orijinaliyle aynı** — değişen yalnızca ' +
                  'e-belge tipi ve fatura tarihi.\n\n' +
-                 '⚠️ Ama vade **yeniden başladı**: 9 aylık gecikme ' +
+                 'Ama vade **yeniden başladı**: 9 aylık gecikme ' +
                  'tahsilat açısından **geri kazanılamadı**.\n\n' +
                  'Bu, sessiz hatanın gerçek maliyetidir — ' +
                  'muhasebe düzeltilebilir, **geçen zaman düzeltilemez**.' },
@@ -1090,7 +1090,7 @@ SAP.registerTopic({
           { tablo:'BKPF', ne:'İptal + yeni belgeler' },
           { tablo:'KNB1', ne:'11 müşterinin e-belge tipi güncellendi' },
         ],
-        not:'⚠️ **Reddedilen fatura yeniden gönderilemedi.** ' +
+        not:'**Reddedilen fatura yeniden gönderilemedi.** ' +
              '{{EDOC_RESUBMIT}} yalnızca **geçici** hataları çözer; ' +
              'burada hata **kalıcıydı** — belge tipi yanlıştı.\n\n' +
              'Doğru yol: mevcut belgeleri iptal edip ' +
@@ -1102,7 +1102,7 @@ SAP.registerTopic({
           { alan:'① Günlük kontrol', deger:'{{EDOC_COCKPIT}} → **hata ve red = 0** · sabah rutini' },
           { alan:'② Kapanış listesi', deger:'Ay sonu adımlarına **"e-belge statüsü temiz mi?"** eklendi' },
           { alan:'③ Süreç sahibi', deger:'{{mukellef-sorgulama}} listesi güncelleme **aylık görev** olarak atandı' },
-          { alan:'④ Sinyal', deger:'⭐ İhtar yanıtı *"fatura yok"* → **e-belge kontrolü tetikler**' },
+          { alan:'④ Sinyal', deger:'İhtar yanıtı *"fatura yok"* → **e-belge kontrolü tetikler**' },
           { alan:'⑤ Mutabakat', deger:'Aylık: muhasebe hesaplanan KDV ↔ GİB e-fatura toplamı' },
         ],
         not:'**Dördüncü önlem en ilginç olanıdır.**\n\n' +
@@ -1150,26 +1150,26 @@ SAP.registerTopic({
   /* =================================================== 11. ÖĞRENME === */
   ogrenme: {
     ozet:[
-      '⭐ **Ana tez:** muhasebe belgesi ({{BKPF}}) ile e-belge ({{EDOCUMENT}}) ' +
+      '**Ana tez:** muhasebe belgesi ({{BKPF}}) ile e-belge ({{EDOCUMENT}}) ' +
       '**iki ayrı nesnedir** ve **bağımsız** başarısız olabilir.',
       '{{FB03}} *"kaydettik mi?"*, {{EDOC_COCKPIT}} *"gönderebildik mi?"* — **farklı sorular**.',
       '**{{e-fatura}} mı {{e-arsiv}} mi**, kullanıcının tercihi değil — ' +
       '**alıcının mükellefiyet durumu** belirler ({{mukellef-sorgulama}}).',
       '**İptal asimetrisi:** e-arşiv süre içinde iptal edilebilir; ' +
       'e-fatura **edilemez** → **iade faturası**.',
-      '⚠️ **{{FB08}} e-faturayı iptal etmez** — muhasebe düzelir, GİB tarafı **kalır**.',
+      '**{{FB08}} e-faturayı iptal etmez** — muhasebe düzelir, GİB tarafı **kalır**.',
       'Faturanın hukuki hâli **{{ubl-tr}} XML**’dir — ekran veya PDF değil.',
       '**Teşhis ayrımı:** {{EDOCUMENT}} oluştu mu? Oluşmadıysa **SAP**, ' +
       'oluştu ama gitmediyse **entegratör**, red geldiyse **veri**.',
       '{{berat}} alınan dönem **yasal olarak** kesinleşir — {{OB52}} artık mevzuat meselesi.',
-      '⭐ **{{EDOC_COCKPIT}} günlük rutin olmalı** — muhasebe kapanışı bunu kapsamaz.',
+      '**{{EDOC_COCKPIT}} günlük rutin olmalı** — muhasebe kapanışı bunu kapsamaz.',
     ],
 
     onemliNoktalar:[
-      '**"Fatura SAP’ta başarıyla kaydedildi. E-fatura süreci de başarılı mıdır?"** ⭐ **Hayır — bu iki ayrı sorudur.** {{BKPF}}’te belge oluşması {{EDOCUMENT}} statüsü hakkında **hiçbir şey söylemez**. E-belge üretimi muhasebe LUW’unun **dışında**, asenkron çalışır. Bu **kasıtlı bir tasarımdır**: aksi hâlde entegratör kesintisi tüm faturalamayı durdururdu. Bedeli, iki tarafın ayrışabilmesidir.',
+      '**"Fatura SAP’ta başarıyla kaydedildi. E-fatura süreci de başarılı mıdır?"** **Hayır — bu iki ayrı sorudur.** {{BKPF}}’te belge oluşması {{EDOCUMENT}} statüsü hakkında **hiçbir şey söylemez**. E-belge üretimi muhasebe LUW’unun **dışında**, asenkron çalışır. Bu **kasıtlı bir tasarımdır**: aksi hâlde entegratör kesintisi tüm faturalamayı durdururdu. Bedeli, iki tarafın ayrışabilmesidir.',
       '**"e-Fatura ile e-Arşiv arasındaki fark nedir, hangisini seçersin?"** Seçim **yoktur** — alıcı e-fatura sistemine **kayıtlıysa** {{e-fatura}} zorunludur, kayıtsızsa {{e-arsiv}} kesilir. Karar {{mukellef-sorgulama}} listesinden gelir. Farkları: e-fatura GİB üzerinden **iletilir** ve **iptal edilemez**; e-arşiv **raporlanır**, alıcıya ayrıca gönderilir ve süre içinde **iptal edilebilir**.',
-      '**"Hatalı e-fatura kesildi, nasıl düzeltilir?"** ⚠️ **{{FB08}} yeterli değildir.** Ters kayıt muhasebeyi düzeltir ama GİB tarafındaki fatura **yerinde kalır** — ters kayıt GİB’e giden belge üretmez. Doğru yol: {{e-arsiv}} ise süre içinde **iptal**; {{e-fatura}} ise **iade faturası** (bu da bir e-belgedir ve GİB’e gider). Ayrışma genelde **KDV beyanında** ortaya çıkar.',
-      '**"E-fatura gitmiyor. Nereden başlarsın?"** ⭐ **Tek soruyla ikiye böl: {{EDOCUMENT}} kaydı oluştu mu?** **Oluşmadıysa** → SAP tarafı (belge türü ↔ e-belge tipi eşlemesi, müşteri ana verisi, kaynak tipi). **Oluştu ama "gönderildi"de takılı** → entegratör/iletişim. **Oluştu ve red geldi** → veri/mevzuat; red sebebi `EDOCUMENTFILE`’daki **yanıt XML**’inde.',
+      '**"Hatalı e-fatura kesildi, nasıl düzeltilir?"** **{{FB08}} yeterli değildir.** Ters kayıt muhasebeyi düzeltir ama GİB tarafındaki fatura **yerinde kalır** — ters kayıt GİB’e giden belge üretmez. Doğru yol: {{e-arsiv}} ise süre içinde **iptal**; {{e-fatura}} ise **iade faturası** (bu da bir e-belgedir ve GİB’e gider). Ayrışma genelde **KDV beyanında** ortaya çıkar.',
+      '**"E-fatura gitmiyor. Nereden başlarsın?"** **Tek soruyla ikiye böl: {{EDOCUMENT}} kaydı oluştu mu?** **Oluşmadıysa** → SAP tarafı (belge türü ↔ e-belge tipi eşlemesi, müşteri ana verisi, kaynak tipi). **Oluştu ama "gönderildi"de takılı** → entegratör/iletişim. **Oluştu ve red geldi** → veri/mevzuat; red sebebi `EDOCUMENTFILE`’daki **yanıt XML**’inde.',
       '**"İstisna faturası reddediliyor ama vergi kodu doğru. Neden?"** Vergi kodu **iki ayrı yeri** besler: {{OB40}} hesap ataması (muhasebe) ve **e-belge alan eşlemesi** (istisna kodu, tevkifat oranı). Birincisi eksikse kayıt **durur** — konuşan hata. İkincisi eksikse kayıt **geçer**, e-belge **reddedilir** — sessiz hata. Bu asimetri, e-belge hatalarının neden geç fark edildiğini açıklar.',
       '**"Neden SAP faturayı e-belge başarılı olana kadar bekletmiyor?"** Bilinçli tasarım. Bağlı olsaydı entegratör kesintisi, GİB bakımı veya ağ sorunu **tüm faturalamayı durdururdu** — dış bir servisin erişilebilirliği şirketin muhasebe yapma yeteneğini belirlerdi. Gevşek bağlantı **dayanıklılık kazandırır**, **tutarlılık garantisini kaybettirir** — ve kaybedilen garanti bir **izleme yükümlülüğüne** dönüşür.',
       '**"{{e-defter}} beratı alınan döneme kayıt yapılabilir mi?"** {{OB52}} ile **teknik olarak** açabilirsin — ama yapmamalısın. Berat alınan dönem **yasal olarak kesinleşir**; kayıt yaparsan defter ile SAP **ayrışır** ve bu bir **mevzuat sorunudur**. Türkiye’de dönem disiplininin neden daha katı olduğunun gerekçesi budur. Düzeltme **sonraki döneme** kaydedilir.',
@@ -1177,23 +1177,23 @@ SAP.registerTopic({
     ],
 
     sikHatalar:[
-      { hata:'{{FB03}}’te faturayı görüp *"her şey yolunda"* demek.', dogru:'⭐ Muhasebe belgesi ile e-belge **ayrı nesnelerdir**. {{EDOC_COCKPIT}} ayrıca kontrol edilir.' },
-      { hata:'{{FB08}} ile e-faturayı iptal ettiğini sanmak.', dogru:'⚠️ Ters kayıt GİB’e belge **göndermez**. e-Fatura iptal edilemez — **iade faturası** kesilir.' },
+      { hata:'{{FB03}}’te faturayı görüp *"her şey yolunda"* demek.', dogru:'Muhasebe belgesi ile e-belge **ayrı nesnelerdir**. {{EDOC_COCKPIT}} ayrıca kontrol edilir.' },
+      { hata:'{{FB08}} ile e-faturayı iptal ettiğini sanmak.', dogru:'Ters kayıt GİB’e belge **göndermez**. e-Fatura iptal edilemez — **iade faturası** kesilir.' },
       { hata:'E-fatura / e-arşiv seçimini kullanıcıya bırakmak.', dogru:'Bu bir tercih değil, **alıcının mükellefiyet durumunun** sonucudur. {{mukellef-sorgulama}} belirler.' },
       { hata:'{{mukellef-sorgulama}} listesini bir kez yükleyip unutmak.', dogru:'Liste **sürekli değişir**. Güncelleme bir **süreç sahibi** gerektirir; kimsenin görevi değilse yapılmaz.' },
       { hata:'Her hatada {{EDOC_RESUBMIT}} çalıştırmak.', dogru:'Yeniden gönderim yalnızca **geçici** hataları çözer. *"Kod eksik / mükellef değil"* **kalıcıdır** — önce veri düzeltilir.' },
-      { hata:'Muhasebe kapanışını yeterli saymak.', dogru:'⭐ Kapanış e-belge statüsünü **kapsamaz**. Ay sonu listesine *"e-belge temiz mi?"* eklenir.' },
+      { hata:'Muhasebe kapanışını yeterli saymak.', dogru:'Kapanış e-belge statüsünü **kapsamaz**. Ay sonu listesine *"e-belge temiz mi?"* eklenir.' },
       { hata:'Red sebebini ekranda aramak.', dogru:'Sebep `EDOCUMENTFILE`’daki **gelen yanıt XML**’indedir.' },
       { hata:'Sorunu doğrudan entegratöre yönlendirmek.', dogru:'Önce **{{EDOCUMENT}} oluştu mu?** diye bak. Oluşmadıysa sorun **SAP’tadır**.' },
       { hata:'{{mali-muhur}} son kullanma tarihini takip etmemek.', dogru:'Yenilenmezse bir sabah **tüm gönderim durur**. Takvime bağlanır.' },
       { hata:'Yeni vergi kodu açıp e-belge eşlemesini atlamak.', dogru:'Muhasebe doğru çalışır, e-fatura **reddedilir**. Süreç listesine adım eklenir.' },
-      { hata:'{{berat}} alınan dönemi açık bırakmak.', dogru:'⚠️ Artık muhasebe değil **mevzuat** meselesi. {{OB52}}’de kapatılır ve kapalı tutulur.' },
-      { hata:'Müşterinin *"fatura yok"* demesini bahane saymak.', dogru:'⭐ Bu bir **sinyaldir**. E-belge kontrolünü tetiklemelidir.' },
+      { hata:'{{berat}} alınan dönemi açık bırakmak.', dogru:'Artık muhasebe değil **mevzuat** meselesi. {{OB52}}’de kapatılır ve kapalı tutulur.' },
+      { hata:'Müşterinin *"fatura yok"* demesini bahane saymak.', dogru:'Bu bir **sinyaldir**. E-belge kontrolünü tetiklemelidir.' },
     ],
 
     ipuclari:[
-      '⭐ **{{EDOC_COCKPIT}} her sabah açılır — hedef: hata ve red = 0.**',
-      '⭐ Teşhiste ilk soru: **{{EDOCUMENT}} oluştu mu?** SAP / entegratör ayrımını bu yapar.',
+      '**{{EDOC_COCKPIT}} her sabah açılır — hedef: hata ve red = 0.**',
+      'Teşhiste ilk soru: **{{EDOCUMENT}} oluştu mu?** SAP / entegratör ayrımını bu yapar.',
       'Belirti okuma: cockpit’te **hiç yok** → SAP · **takılı** → entegratör · **red** → veri.',
       'Red sebebi için `EDOCUMENTFILE`’daki **yanıt XML**’ini oku.',
       'Hata metni *"zaman aşımı / bağlantı"* → geçici · ' +
@@ -1213,7 +1213,7 @@ SAP.registerTopic({
           'Sadece SD faturalarında ayrıdır',
           'S/4HANA’da birleştiler, artık aynıdır',
         ], dogru:1,
-        aciklama:'⭐ **Bu konunun tezi.** Fatura kaydı iki kol üretir:\n\n' +
+        aciklama:'**Bu konunun tezi.** Fatura kaydı iki kol üretir:\n\n' +
                  '**Kol 1:** {{BKPF}} + {{BSEG}} — muhasebe\n' +
                  '**Kol 2:** {{EDOCUMENT}} — e-belge\n\n' +
                  'E-belge üretimi muhasebe LUW’unun **dışında**, asenkron çalışır. ' +
@@ -1228,7 +1228,7 @@ SAP.registerTopic({
           'Evet, ama dönem açık olmalı',
           'Hayır, e-fatura hiç düzeltilemez',
         ], dogru:1,
-        aciklama:'⚠️ **İptal asimetrisi** — e-dönüşümdeki en pahalı yanlış varsayım.\n\n' +
+        aciklama:'**İptal asimetrisi** — e-dönüşümdeki en pahalı yanlış varsayım.\n\n' +
                  '{{FB08}} muhasebeyi düzeltir ama **GİB’e giden bir belge üretmez**. ' +
                  'E-fatura GİB tarafında **geçerli kalır** ve iki taraf **ayrışır**.\n\n' +
                  '**Doğru yol belge tipine göre:**\n' +
@@ -1249,7 +1249,7 @@ SAP.registerTopic({
                  '**Kayıtlı** → {{e-fatura}} **zorunlu**\n' +
                  '**Kayıtsız** → {{e-arsiv}}\n\n' +
                  'Kararı {{mukellef-sorgulama}} listesi verir.\n\n' +
-                 '⚠️ **Liste sürekli değişir** — yeni mükellefler eklenir. ' +
+                 '**Liste sürekli değişir** — yeni mükellefler eklenir. ' +
                  'Sistemdeki kopya eskirse, artık e-fatura mükellefi olmuş bir müşteriye ' +
                  'e-arşiv kesilir ve {{gib}} **sessizce reddeder**. ' +
                  'Bu, bu konudaki senaryonun tam olarak konusudur.' },
@@ -1261,7 +1261,7 @@ SAP.registerTopic({
           'Müşteri faturayı aldı mı?',
           'Dönem açık mı?',
         ], dogru:1,
-        aciklama:'⭐ **Teşhisin yarısını eleyen soru.**\n\n' +
+        aciklama:'**Teşhisin yarısını eleyen soru.**\n\n' +
                  '**Oluşmadıysa → SAP tarafı.** Tetikleyici çalışmamış: ' +
                  'belge türü ↔ e-belge tipi eşlemesi eksik, müşteri ana verisi ' +
                  'veya kaynak tipi tanımı eksik.\n\n' +
@@ -1284,7 +1284,7 @@ SAP.registerTopic({
                  '**2. E-belge** — istisna kodu, tevkifat oranı, fatura tipi\n\n' +
                  'Bunlar **ayrı eşlemelerdir**. Birincisi mükemmel çalışırken ' +
                  'ikincisi eksik olabilir.\n\n' +
-                 '⚠️ **Asimetri kritiktir:** hesap ataması eksikse kayıt **durur** ' +
+                 '**Asimetri kritiktir:** hesap ataması eksikse kayıt **durur** ' +
                  '(konuşan hata). E-belge eşlemesi eksikse kayıt **geçer**, ' +
                  'e-belge **reddedilir** (sessiz hata).\n\n' +
                  'Bu yüzden yeni vergi kodu açma sürecine ' +
@@ -1303,7 +1303,7 @@ SAP.registerTopic({
                  'satışı ve sevkiyatı durdururdu — kabul edilemez.\n\n' +
                  'Ayrık olduğu için fatura kaydedilir, e-belge sonra gönderilir, ' +
                  'kesinti geçince yeniden denenir. **İş durmaz.**\n\n' +
-                 '⚠️ **Bedeli:** iki taraf ayrışabilir ve sistem bunu bildirmez.\n\n' +
+                 '**Bedeli:** iki taraf ayrışabilir ve sistem bunu bildirmez.\n\n' +
                  '**Mimari ders:** gevşek bağlantı **dayanıklılık kazandırır**, ' +
                  '**tutarlılık garantisini kaybettirir** — ve kaybedilen garanti ' +
                  'bir **izleme yükümlülüğüne** dönüşür. ' +
@@ -1318,10 +1318,10 @@ SAP.registerTopic({
         ], dogru:1,
         aciklama:'{{berat}} alınan dönem **yasal olarak kesinleşir**. ' +
                  '{{OB52}} ile teknik olarak açabilirsin — SAP engellemez.\n\n' +
-                 '⚠️ Ama kayıt yaparsan **e-defter ile SAP ayrışır** ve ' +
+                 'Ama kayıt yaparsan **e-defter ile SAP ayrışır** ve ' +
                  'bu bir **mevzuat sorunudur**, muhasebe sorunu değil.\n\n' +
                  'Düzeltme **sonraki döneme** kaydedilir.\n\n' +
-                 '⭐ Bu, Türkiye’de dönem disiplininin neden başka ülkelerden ' +
+                 'Bu, Türkiye’de dönem disiplininin neden başka ülkelerden ' +
                  '**daha katı** olduğunun gerekçesidir: {{OB52}} artık ' +
                  'yalnızca muhasebe düzeni değil, **yasal uyum** aracıdır.' },
 
@@ -1344,19 +1344,19 @@ SAP.registerTopic({
     ],
 
     flashcards:[
-      { on:'⭐ Konunun tezi — tek cümle', arka:'**Muhasebe belgesi ile e-belge İKİ AYRI NESNEDİR.**\n\n**Kol 1:** {{BKPF}} + {{BSEG}} → mizan\n**Kol 2:** {{EDOCUMENT}} → GİB\n\nBağımsız başarısız olabilirler.\nSistem bunu **hata olarak bildirmez**.' },
-      { on:'İki ekran, iki farklı soru', arka:'**{{FB03}}** → *"Kaydettik mi?"*\n**{{EDOC_COCKPIT}}** → *"Gönderebildik mi?"*\n\n⚠️ Mizan denk + cari borç doğru + belge yerinde\n= e-belge gitti **DEMEK DEĞİLDİR**' },
-      { on:'e-Fatura mı, e-Arşiv mi?', arka:'⚠️ **Tercih DEĞİL** — alıcının durumu belirler\n\n**Kayıtlı mükellef** → **e-Fatura**\nGİB üzerinden **iletilir** · 🚫 iptal edilemez\n\n**Kayıtsız / nihai tüketici** → **e-Arşiv**\nGİB’e **raporlanır** · ✅ süre içinde iptal\n\nKarar: {{mukellef-sorgulama}} listesi' },
-      { on:'⚠️ İptal asimetrisi', arka:'**Muhasebe:** {{FB08}} her zaman mümkün\n\n**E-belge:**\n• e-Arşiv → ✅ süre içinde **iptal**\n• e-Fatura → 🚫 **iptal edilemez** → **iade faturası**\n• Ticari senaryo → alıcı **reddedebilir**\n\n⚠️ {{FB08}} GİB’e belge **göndermez** → iki taraf **ayrışır**' },
-      { on:'⭐ Teşhisi ikiye bölen soru', arka:'**"{{EDOCUMENT}} kaydı oluştu mu?"**\n\n**Hiç yok** → **SAP** tarafı\n(belge türü eşlemesi, ana veri, kaynak tipi)\n\n**Var, "gönderildi"de takılı** → **entegratör**\n\n**Var, RED** → **veri / mevzuat**\n(sebep: yanıt XML’inde)' },
-      { on:'Geçici mi, kalıcı mı hata?', arka:'**GEÇİCİ** → {{EDOC_RESUBMIT}} çalışır\n*"zaman aşımı" · "bağlantı" · "servis kullanılamıyor"*\n\n**KALICI** → ⚠️ önce **veriyi düzelt**\n*"kod eksik" · "geçersiz" · "mükellef değil" · "format"*\n\nYeniden göndermek aynı hatalı XML’i tekrar yollar' },
-      { on:'Üç katman — sorumluluk sınırı', arka:'**1. Çerçeve (SAP)** — {{EDOCUMENT}}, statü, cockpit\n**2. Yerelleştirme (SAP TR)** — {{ubl-tr}}, alan eşlemeleri\n**3. Entegratör add-on (3. taraf)** — GİB iletimi, imza, saklama\n\n⚠️ 3. katman **SAP desteği kapsamında değil**' },
-      { on:'Vergi kodu iki yeri besler', arka:'**1. Muhasebe** — {{OB40}}, oran, {{BSET}}\nEksikse → kayıt **DURUR** (konuşan hata)\n\n**2. E-belge** — istisna kodu, tevkifat oranı\nEksikse → kayıt **GEÇER**, e-belge **REDDEDİLİR** (sessiz)\n\n⭐ Bu asimetri redlerin neden geç fark edildiğini açıklar' },
-      { on:'Neden iki taraf ayrışabiliyor?', arka:'**Bilinçli tasarım.**\n\nBağlı olsaydı → entegratör kesintisi **tüm faturalamayı** durdururdu\n\nAyrık olduğu için → iş **durmaz**\n\n⚠️ Bedeli: tutarlılık garantisi yok\n→ Kaybedilen garanti = **izleme yükümlülüğü**\n→ {{EDOC_COCKPIT}} **günlük**' },
-      { on:'{{berat}} ve dönem kapanışı', arka:'{{e-defter}} → XML → imza → **berat** → GİB\n\n⭐ **Beratı alınan dönem YASAL olarak kesinleşir**\n\n{{OB52}} ile açabilirsin ama **açma** — defter ile SAP ayrışır, bu **mevzuat sorunudur**\n\n→ Türkiye’de dönem disiplini neden daha katı' },
-      { on:'"Bir sabah hiçbiri gitmiyor"', arka:'**Belirti ayırt edici:** tek tek değil **TOPTAN** durma\n\n→ Altyapı sorunu:\n**{{mali-muhur}} sertifikası süresi doldu**\nveya entegratör kesintisi / GİB bakımı\n\nTek tek redler = **veri** sorunu\nToptan durma = **altyapı**\n\n📅 Sertifika tarihini **takvime bağla**' },
-      { on:'Muhasebe kapanışının kör noktası', arka:'⚠️ Kapanış · ihtar · KDV beyanı — **üçü de** e-belge statüsünü kaçırır\n\nHiçbiri *"fatura karşı tarafa ulaştı mı?"* diye sormaz\n\n⭐ **İki ek kontrol:**\n① Günlük {{EDOC_COCKPIT}} → hata+red = **0**\n② Aylık: hesaplanan KDV ↔ GİB e-fatura toplamı' },
-      { on:'Sinyal vardı, okunamadı', arka:'Müşteri: *"Böyle bir fatura yok"*\n\n❌ **Bahane** olarak yorumlandı\n✅ Aslında bir **VERİ**\n\n⭐ Kural: tahsilat/ihtar görüşmesinde bu cevap gelirse → **e-belge kontrolü tetiklenir**\n\n*Sessiz hatalarda sinyal genelde vardır — beklenmedik yerden, beklenmedik dille gelir.*' },
+      { on:'Konunun tezi — tek cümle', arka:'**Muhasebe belgesi ile e-belge İKİ AYRI NESNEDİR.**\n\n**Kol 1:** {{BKPF}} + {{BSEG}} → mizan\n**Kol 2:** {{EDOCUMENT}} → GİB\n\nBağımsız başarısız olabilirler.\nSistem bunu **hata olarak bildirmez**.' },
+      { on:'İki ekran, iki farklı soru', arka:'**{{FB03}}** → *"Kaydettik mi?"*\n**{{EDOC_COCKPIT}}** → *"Gönderebildik mi?"*\n\nMizan denk + cari borç doğru + belge yerinde\n= e-belge gitti **DEMEK DEĞİLDİR**' },
+      { on:'e-Fatura mı, e-Arşiv mi?', arka:'**Tercih DEĞİL** — alıcının durumu belirler\n\n**Kayıtlı mükellef** → **e-Fatura**\nGİB üzerinden **iletilir** · iptal edilemez\n\n**Kayıtsız / nihai tüketici** → **e-Arşiv**\nGİB’e **raporlanır** · ✓ süre içinde iptal\n\nKarar: {{mukellef-sorgulama}} listesi' },
+      { on:'İptal asimetrisi', arka:'**Muhasebe:** {{FB08}} her zaman mümkün\n\n**E-belge:**\n• e-Arşiv → ✓ süre içinde **iptal**\n• e-Fatura → **iptal edilemez** → **iade faturası**\n• Ticari senaryo → alıcı **reddedebilir**\n\n{{FB08}} GİB’e belge **göndermez** → iki taraf **ayrışır**' },
+      { on:'Teşhisi ikiye bölen soru', arka:'**"{{EDOCUMENT}} kaydı oluştu mu?"**\n\n**Hiç yok** → **SAP** tarafı\n(belge türü eşlemesi, ana veri, kaynak tipi)\n\n**Var, "gönderildi"de takılı** → **entegratör**\n\n**Var, RED** → **veri / mevzuat**\n(sebep: yanıt XML’inde)' },
+      { on:'Geçici mi, kalıcı mı hata?', arka:'**GEÇİCİ** → {{EDOC_RESUBMIT}} çalışır\n*"zaman aşımı" · "bağlantı" · "servis kullanılamıyor"*\n\n**KALICI** → önce **veriyi düzelt**\n*"kod eksik" · "geçersiz" · "mükellef değil" · "format"*\n\nYeniden göndermek aynı hatalı XML’i tekrar yollar' },
+      { on:'Üç katman — sorumluluk sınırı', arka:'**1. Çerçeve (SAP)** — {{EDOCUMENT}}, statü, cockpit\n**2. Yerelleştirme (SAP TR)** — {{ubl-tr}}, alan eşlemeleri\n**3. Entegratör add-on (3. taraf)** — GİB iletimi, imza, saklama\n\n3. katman **SAP desteği kapsamında değil**' },
+      { on:'Vergi kodu iki yeri besler', arka:'**1. Muhasebe** — {{OB40}}, oran, {{BSET}}\nEksikse → kayıt **DURUR** (konuşan hata)\n\n**2. E-belge** — istisna kodu, tevkifat oranı\nEksikse → kayıt **GEÇER**, e-belge **REDDEDİLİR** (sessiz)\n\nBu asimetri redlerin neden geç fark edildiğini açıklar' },
+      { on:'Neden iki taraf ayrışabiliyor?', arka:'**Bilinçli tasarım.**\n\nBağlı olsaydı → entegratör kesintisi **tüm faturalamayı** durdururdu\n\nAyrık olduğu için → iş **durmaz**\n\nBedeli: tutarlılık garantisi yok\n→ Kaybedilen garanti = **izleme yükümlülüğü**\n→ {{EDOC_COCKPIT}} **günlük**' },
+      { on:'{{berat}} ve dönem kapanışı', arka:'{{e-defter}} → XML → imza → **berat** → GİB\n\n**Beratı alınan dönem YASAL olarak kesinleşir**\n\n{{OB52}} ile açabilirsin ama **açma** — defter ile SAP ayrışır, bu **mevzuat sorunudur**\n\n→ Türkiye’de dönem disiplini neden daha katı' },
+      { on:'"Bir sabah hiçbiri gitmiyor"', arka:'**Belirti ayırt edici:** tek tek değil **TOPTAN** durma\n\n→ Altyapı sorunu:\n**{{mali-muhur}} sertifikası süresi doldu**\nveya entegratör kesintisi / GİB bakımı\n\nTek tek redler = **veri** sorunu\nToptan durma = **altyapı**\n\nSertifika tarihini **takvime bağla**' },
+      { on:'Muhasebe kapanışının kör noktası', arka:'Kapanış · ihtar · KDV beyanı — **üçü de** e-belge statüsünü kaçırır\n\nHiçbiri *"fatura karşı tarafa ulaştı mı?"* diye sormaz\n\n**İki ek kontrol:**\n① Günlük {{EDOC_COCKPIT}} → hata+red = **0**\n② Aylık: hesaplanan KDV ↔ GİB e-fatura toplamı' },
+      { on:'Sinyal vardı, okunamadı', arka:'Müşteri: *"Böyle bir fatura yok"*\n\n✕ **Bahane** olarak yorumlandı\n✓ Aslında bir **VERİ**\n\nKural: tahsilat/ihtar görüşmesinde bu cevap gelirse → **e-belge kontrolü tetiklenir**\n\n*Sessiz hatalarda sinyal genelde vardır — beklenmedik yerden, beklenmedik dille gelir.*' },
     ],
   },
 

@@ -13,85 +13,28 @@
 
   var esc = SAP.esc, mk = SAP.mk, mkp = SAP.mkp, mkul = SAP.mkul;
   var U = SAP.ui;
-
-  /* Ana sayfa süzgeç durumu — oturum içi, kalıcı değil. */
-  var filtre = { grup: null, favori: false, hazir: false, seviye: null };
+  var T = function (k) { return SAP.i18n.t(k); };
 
   /* ------------------------------------------------------ yardımcı --- */
-
-  function lvClass(l) { return 'lv-' + SAP.slug(l || ''); }
 
   function grup(id) {
     return SAP.GROUPS.find(function (x) { return x.id === id; }) || {};
   }
-  function grupAdi(id) { return grup(id).ad || ''; }
+  /** Konu başlığı — dile göre. */
+  function bas(t) { return SAP.i18n.baslik(t); }
+  /** İki haneli sıra numarası: 01, 02… Kitap dizini böyle numaralanır. */
+  function nn(i) { return (i + 1 < 10 ? '0' : '') + (i + 1); }
 
-  /** Konunun rengi grubundan gelir — konu başına ayrı ton yoktur. */
-  function hue(t) { return SAP.grupHue(t && t.grup); }
-
-  /* Konu kartı. Renk, ikon ve ilerleme halkası birlikte kartı
-     "taranabilir" yapar: göz önce renge, sonra ikona, sonra başlığa
-     gider. Üçü de aynı gruptan gelir. */
-  function topicCard(t) {
-    var yuzde = SAP.store.percent(t.id);
-    var fav = SAP.store.isFav(t.id);
-    var hazir = t.status === 'ready';
-
-    return '<div class="card' + (hazir ? '' : ' soon') + '" style="--h:' + hue(t) + '" ' +
-        'data-go="#/konu/' + esc(t.id) + '" role="button" tabindex="0">' +
-      '<button class="card-fav' + (fav ? ' on' : '') + '" type="button" data-action="toggle-fav" ' +
-        'data-t="' + esc(t.id) + '" aria-label="Favorilere ekle" title="Favorilere ekle">' +
-        (fav ? '★' : '☆') + '</button>' +
-      '<div class="card-top">' +
-        '<span class="card-ic">' + esc(t.icon) + '</span>' +
-        '<div class="card-h"><h3>' + esc(t.title) + '</h3>' +
-          '<div class="sub">' + esc(t.level) + ' · ' + esc(t.minutes) + ' dk</div></div>' +
-      '</div>' +
-      '<div class="card-desc">' + esc(t.summary) + '</div>' +
-      '<div class="card-foot">' +
-        (hazir ? '' : '<span class="tag soon">Yakında</span>') +
-        (yuzde
-          ? '<span class="card-prog"><span class="ring-mini" style="--p:' + yuzde + '"></span>' +
-            '<span>%' + yuzde + '</span></span>'
-          : (hazir ? '<span class="card-go">Başla →</span>' : '')) +
-      '</div>' +
-    '</div>';
-  }
-
+  /** İlgili konular — kart değil, düz liste. */
   function relatedGrid(ids) {
     var items = (ids || []).map(SAP.topic).filter(Boolean);
     if (!items.length) return '';
-    return '<div class="rel-grid">' + items.map(function (t) {
-      return '<a class="rel" style="--h:' + hue(t) + '" data-go="#/konu/' + esc(t.id) + '" ' +
-        'href="#/konu/' + esc(t.id) + '">' +
-        '<span class="ic">' + esc(t.icon) + '</span>' +
-        '<span class="tx"><b>' + esc(t.title) + '</b>' +
-          '<span>' + esc(t.level) + ' · ' + esc(t.minutes) + ' dk</span></span>' +
+    return '<div class="rel-list">' + items.map(function (t) {
+      return '<a class="rel-item" data-go="#/konu/' + esc(t.id) + '" href="#/konu/' + esc(t.id) + '">' +
+        '<span>' + esc(bas(t)) + '</span>' +
+        '<span class="m"><span class="tnum">' + esc(t.minutes) + '</span> ' + esc(T('topic.minutes')) + '</span>' +
       '</a>';
     }).join('') + '</div>';
-  }
-
-  /* Açılıştaki tek eylem çağrısı. "Nereden devam edeyim?" sorusunu
-     kullanıcı yerine sistem cevaplar: yarım kalan konu varsa oraya,
-     yoksa ilk konuya. Boş bir kahraman alanını doldurmak için değil —
-     öğrenmeye dönmenin önündeki tek adımı kaldırmak için var. */
-  function heroCta(hazir) {
-    if (!hazir.length) return '';
-
-    var yarim = null, enYuksek = 0;
-    hazir.forEach(function (t) {
-      var p = SAP.store.percent(t.id);
-      if (p > 0 && p < 100 && p >= enYuksek) { enYuksek = p; yarim = t; }
-    });
-
-    var hedef = yarim || hazir.filter(function (t) { return SAP.store.percent(t.id) < 100; })[0] || hazir[0];
-    var etiket = yarim ? 'Kaldığın yerden devam et' : 'Öğrenmeye başla';
-
-    return '<div class="hero-cta">' +
-      '<a class="btn pri" data-go="#/konu/' + esc(hedef.id) + '" href="#/konu/' + esc(hedef.id) + '">' +
-        esc(etiket) + ' <b>' + esc(hedef.title) + '</b></a>' +
-      '<button class="btn" type="button" data-action="random-topic">🎲 Rastgele konu</button>' +
-    '</div>';
   }
 
   /** Bir T-code veya tablonun geçtiği konuları bulur (geri bağlantı). */
@@ -103,13 +46,18 @@
     });
   }
 
-  /* ==================================================== ANA SAYFA ==== */
+  /* ==================================================== İÇİNDEKİLER ====
+     Ana sayfa bir KİTABIN İÇİNDEKİLER SAYFASIDIR:
+       · üstte tek bir eylem ("kaldığın yerden devam et") + ince çubuk
+       · altında dokuz bölüm, her biri numaralı bir konu listesi
+     Kart ızgarası, rozet, istatistik kutusu ve üst süzgeç şeridi YOK.
+     Süzgeç gerekmiyor çünkü dizinin tamamı zaten tek ekranda taranabilir;
+     gezinme tek yerde (sol sütun) duruyor. */
 
   SAP.view('home', function () {
     var all = SAP.allTopics();
     var hazir = all.filter(function (t) { return t.status === 'ready'; });
 
-    /* Genel ilerleme: yalnızca içeriği hazır konular üzerinden hesaplanır. */
     var toplamBolum = 0, okunanBolum = 0;
     hazir.forEach(function (t) {
       toplamBolum += SAP.sectionIds(t).length;
@@ -117,106 +65,106 @@
     });
     var genel = toplamBolum ? Math.round((okunanBolum / toplamBolum) * 100) : 0;
 
-    var liste = all.filter(function (t) {
-      if (filtre.grup && t.grup !== filtre.grup) return false;
-      if (filtre.favori && !SAP.store.isFav(t.id)) return false;
-      if (filtre.hazir && t.status !== 'ready') return false;
-      if (filtre.seviye && t.level !== filtre.seviye) return false;
-      return true;
+    /* Devam edilecek konu: yarım kalan varsa o, yoksa ilk bitmemiş konu. */
+    var yarim = null, enYuksek = 0;
+    hazir.forEach(function (t) {
+      var p = SAP.store.percent(t.id);
+      if (p > 0 && p < 100 && p >= enYuksek) { enYuksek = p; yarim = t; }
     });
+    var hedef = yarim ||
+      hazir.filter(function (t) { return SAP.store.percent(t.id) < 100; })[0] || hazir[0];
 
-    var grupChips = SAP.GROUPS.map(function (g) {
-      var n = all.filter(function (t) { return t.grup === g.id; }).length;
-      return '<button class="fchip" type="button" style="--h:' + g.hue + '" ' +
-        'data-action="filter-grup" data-v="' + esc(g.id) + '" ' +
-        'aria-pressed="' + (filtre.grup === g.id) + '">' +
-        '<span class="ic">' + g.ic + '</span>' + esc(g.ad) +
-        '<span class="n">' + n + '</span></button>';
+    var resume = hedef
+      ? '<a class="resume" data-go="#/konu/' + esc(hedef.id) + '" href="#/konu/' + esc(hedef.id) + '">' +
+          '<div class="resume-lb">' + esc(yarim ? T('home.resume') : T('home.start')) + '</div>' +
+          '<div class="resume-t">' + esc(bas(hedef)) + U.icon('arrow-right') + '</div>' +
+          '<div class="resume-m">' +
+            '<span>' + esc(T('home.progress')) + '</span>' +
+            '<span class="resume-bar"><i style="width:' + genel + '%"></i></span>' +
+            '<span class="tnum">' + SAP.i18n.yuzde(genel) + '</span>' +
+          '</div>' +
+        '</a>'
+      : '';
+
+    /* Dokuz bölüm, 01'den başlayan sürekli numaralandırma.
+       Numara KONUYA aittir, gruba değil: kitapta bölüm 3'ün ilk konusu
+       "12" ise okuyucu onu 12 olarak arar. */
+    var sira = 0;
+    var bolumler = SAP.GROUPS.map(function (g, gi) {
+      var list = all.filter(function (t) { return t.grup === g.id; });
+      if (!list.length) return '';
+
+      var satirlar = list.map(function (t) {
+        var i = sira++;
+        var p = SAP.store.percent(t.id);
+        var durum = p >= 100 ? ' done' : p > 0 ? ' part' : '';
+        var acik = SAP.store.isTocOpen(t.id);
+        return '<div class="idx-wrap">' +
+          '<button class="idx-row' + (p >= 100 ? ' read' : '') + '" type="button" ' +
+                  'data-action="toc-toggle" data-t="' + esc(t.id) + '" ' +
+                  'aria-expanded="' + (acik ? 'true' : 'false') + '">' +
+            '<span class="idx-n">' + nn(i) + '</span>' +
+            '<span class="idx-t">' + esc(bas(t)) + '</span>' +
+            '<span class="idx-m">' +
+              '<span class="idx-lv">' + esc(SAP.i18n.seviye(t.level)) + '</span>' +
+              '<span class="idx-min">' + esc(t.minutes) + ' ' + esc(T('topic.minutes')) + '</span>' +
+              '<span class="idx-dot' + durum + '"></span>' +
+            '</span>' +
+          '</button>' +
+          '<div class="idx-sum' + (acik ? ' open' : '') + '" data-sum="' + esc(t.id) + '"><div>' +
+            esc(SAP.i18n.ozet(t)) +
+            '<a class="idx-go" data-go="#/konu/' + esc(t.id) + '" href="#/konu/' + esc(t.id) + '">' +
+              esc(T('home.start')) + U.icon('arrow-right') + '</a>' +
+          '</div></div>' +
+        '</div>';
+      }).join('');
+
+      return '<section class="part">' +
+        '<div class="part-h">' +
+          '<span class="part-n">' + nn(gi) + '</span>' +
+          '<h2>' + esc(SAP.i18n.grup(g)) + '</h2>' +
+          '<span class="part-c">' + list.length + '</span>' +
+        '</div>' +
+        '<div class="idx">' + satirlar + '</div>' +
+      '</section>';
     }).join('');
 
-    /* Katalog GRUPLARA BÖLÜNMÜŞ olarak çizilir. 36 kartlık tek bir duvar
-       hem dağınık görünüyor hem de nereye bakacağını söylemiyordu;
-       renkli grup başlıkları sayfaya hem ritim hem yön veriyor. */
-    var kartlar = liste.length
-      ? SAP.GROUPS.map(function (g) {
-          var list = liste.filter(function (t) { return t.grup === g.id; });
-          if (!list.length) return '';
-          var okunmus = list.filter(function (t) { return SAP.store.percent(t.id) >= 100; }).length;
-          return '<section class="grp" style="--h:' + g.hue + '">' +
-            '<div class="grp-h">' +
-              '<span class="grp-ic">' + g.ic + '</span>' +
-              '<h2>' + esc(g.ad) + '</h2>' +
-              '<span class="grp-n">' +
-                (okunmus ? okunmus + ' / ' + list.length + ' tamamlandı' : list.length + ' konu') +
-              '</span>' +
-            '</div>' +
-            '<div class="cards">' + list.map(topicCard).join('') + '</div>' +
-          '</section>';
-        }).join('')
-      : '<div class="empty"><span class="ic">🔍</span>' +
-        '<b>Bu süzgeçlere uyan konu yok</b>' +
-        '<button class="btn pri" style="margin-top:14px" type="button" data-action="filter-clear">Süzgeçleri temizle</button></div>';
-
-    /* Masthead ASİMETRİKTİR: solda mesaj, sağda künye. Altı eşit kutuluk
-       bir "istatistik şeridi" yerine, sağ sütunda çizgiyle bölünmüş bir
-       künye listesi duruyor — editoryal bir açılış, şablon değil. */
     return '<div class="wrap-full">' +
-      '<div class="masthead">' +
-        '<div class="hero">' +
-          '<div class="kicker">Finansal Muhasebe · Danışman seviyesi</div>' +
-          '<h1>SAP S/4HANA<br>Financial Accounting</h1>' +
-          '<p>İşlem kodu ezberlemeden öte: her sürecin iş mantığını, muhasebe etkisini, ' +
-          'SAP ekranlarını, tablolarını ve S/4HANA’daki çalışma şeklini birlikte öğreten ' +
-          'interaktif eğitim platformu.</p>' +
-          heroCta(hazir) +
-        '</div>' +
-
-        '<dl class="ledger">' +
-          '<div><dt>Konu</dt><dd>' + all.length + '</dd></div>' +
-          '<div><dt>İçeriği hazır</dt><dd>' + hazir.length + '</dd></div>' +
-          '<div><dt>İşlem kodu</dt><dd>' + SAP.tcodeMap.size + '</dd></div>' +
-          '<div><dt>Tablo</dt><dd>' + SAP.tableMap.size + '</dd></div>' +
-          '<div><dt>Sözlük terimi</dt><dd>' + SAP.termMap.size + '</dd></div>' +
-          '<div class="prog"><dt>Genel ilerleme</dt><dd>%' + genel + '</dd>' +
-            '<div class="bar"><i style="width:' + genel + '%"></i></div></div>' +
-        '</dl>' +
-      '</div>' +
-
-      '<div class="cat-head">' +
-        '<h2>Konular</h2>' +
-        '<span class="cat-count">' + liste.length + ' / ' + all.length + '</span>' +
-      '</div>' +
-
-      '<div class="filters">' +
-        '<button class="fchip" type="button" data-action="filter-clear" aria-pressed="' +
-          (!filtre.grup && !filtre.favori && !filtre.hazir && !filtre.seviye) + '">Tümü</button>' +
-        grupChips +
-        '<span class="grow"></span>' +
-        '<button class="fchip" type="button" data-action="filter-hazir" aria-pressed="' + filtre.hazir + '">' +
-          '<span class="ic">✅</span>Hazır</button>' +
-        '<button class="fchip" type="button" data-action="filter-favori" aria-pressed="' + filtre.favori + '">' +
-          '<span class="ic">⭐</span>Favoriler</button>' +
-      '</div>' +
-
-      kartlar +
+      '<header class="toc-head">' +
+        '<h1>' + esc(T('home.title')) + '</h1>' +
+        '<p>' + esc(T('home.subtitle')) + '</p>' +
+      '</header>' +
+      resume +
+      bolumler +
     '</div>';
   });
 
-  SAP.action('filter-grup', function (el) {
-    filtre.grup = (filtre.grup === el.dataset.v) ? null : el.dataset.v;
-    SAP.render({ keepScroll: true });
+  /* Dizin satırı açılıp kapanır. Tam sayfa çizim YOK (Ders #4). */
+  SAP.action('toc-toggle', function (btn) {
+    var id = btn.dataset.t;
+    var box = btn.parentElement.querySelector('[data-sum="' + id + '"]');
+    if (!box) return;
+    var acik = SAP.store.toggleToc(id);
+    box.classList.toggle('open', acik);
+    btn.setAttribute('aria-expanded', acik ? 'true' : 'false');
   });
+
   SAP.action('random-topic', function () {
     var hazir = SAP.allTopics().filter(function (t) { return t.status === 'ready'; });
     if (!hazir.length) return;
     SAP.go('#/konu/' + hazir[Math.floor(Math.random() * hazir.length)].id);
   });
-  SAP.action('filter-favori', function () { filtre.favori = !filtre.favori; SAP.render({ keepScroll: true }); });
-  SAP.action('filter-hazir', function () { filtre.hazir = !filtre.hazir; SAP.render({ keepScroll: true }); });
-  SAP.action('filter-clear', function () {
-    filtre = { grup: null, favori: false, hazir: false, seviye: null };
-    SAP.render({ keepScroll: true });
+
+  /* Bölüm katlama. Tam sayfa çizim YAPILMAZ (bkz. Ders #4): kaydırma
+     konumu korunmalı, yoksa katlanan bölümün başlığı ekrandan kaçar. */
+  SAP.action('toggle-section', function (el) {
+    var sec = el.closest('.section');
+    if (!sec) return;
+    SAP.store.toggleSection(el.dataset.t, el.dataset.s);
+    var kapali = sec.classList.toggle('closed');
+    el.setAttribute('aria-expanded', kapali ? 'false' : 'true');
   });
+
 
   /* ================================================= KONU SAYFASI ==== */
 
@@ -229,42 +177,42 @@
     var fav = SAP.store.isFav(t.id);
     var tamam = ids.length && SAP.store.readCount(t.id) >= ids.length;
 
-    /* --- başlık --- */
-    var head = '<div class="thead">' +
-      '<div class="thead-top">' +
-        '<span class="thead-ic">' + esc(t.icon) + '</span>' +
-        '<div style="flex:1;min-width:0">' +
-          '<div class="kicker">' + esc(grup(t.grup).ic || '') + ' ' + esc(grupAdi(t.grup)) + '</div>' +
-          '<h1>' + esc(t.title) + '</h1>' +
-          '<div class="lede">' + esc(t.summary) + '</div>' +
-        '</div>' +
-        '<div class="thead-acts">' +
-          '<button class="iconbtn' + (fav ? ' on' : '') + '" type="button" data-action="toggle-fav" ' +
-            'data-t="' + esc(t.id) + '" title="Favorilere ekle">' + (fav ? '★' : '☆') + '</button>' +
-          '<button class="btn sm" type="button" data-action="print" title="PDF olarak dışa aktar">PDF</button>' +
-        '</div>' +
+    /* --- başlık — kutu değil, kural çizgisiyle biten bir künye --- */
+    var uyari = SAP.i18n.govdeUyarisi();
+    var head = '<header class="thead">' +
+      '<div class="thead-k">' + esc(SAP.i18n.grup(grup(t.grup))) + '</div>' +
+      '<h1>' + esc(bas(t)) + '</h1>' +
+      '<p>' + esc(SAP.i18n.ozet(t)) + '</p>' +
+      '<div class="thead-m">' +
+        '<span>' + esc(SAP.i18n.seviye(t.level)) + '</span>' +
+        '<span><span class="tnum">' + esc(t.minutes) + '</span> ' + esc(T('topic.minutes')) + '</span>' +
+        (ids.length ? '<span><span class="tnum">' + SAP.store.readCount(t.id) + ' / ' + ids.length +
+          '</span> ' + esc(T('topic.sections')) + '</span>' : '') +
+        '<span class="thead-acts">' +
+          (ids.length ? '<button class="btn sm' + (tamam ? ' on' : '') + '" type="button" ' +
+            'data-action="topic-complete" data-t="' + esc(t.id) + '">' +
+            (tamam ? U.icon('check') + esc(T('topic.done')) : esc(T('topic.markAll'))) + '</button>' : '') +
+          '<button class="btn sm' + (fav ? ' on' : '') + '" type="button" data-action="toggle-fav" ' +
+            'data-t="' + esc(t.id) + '">' + U.icon('bookmark') +
+            esc(fav ? T('topic.unfav') : T('topic.fav')) + '</button>' +
+          '<button class="btn sm" type="button" data-action="print">' +
+            U.icon('printer') + esc(T('topic.print')) + '</button>' +
+        '</span>' +
       '</div>' +
-      '<div class="thead-meta">' +
-        '<span class="tag ' + lvClass(t.level) + '">' + esc(t.level) + '</span>' +
-        '<span class="tag">' + esc(t.minutes) + ' dk</span>' +
-        (ids.length ? '<span class="tag">' + SAP.store.readCount(t.id) + ' / ' + ids.length + ' bölüm</span>' : '') +
-        (ids.length ? '<button class="readbtn' + (tamam ? ' on' : '') + '" type="button" ' +
-          'data-action="topic-complete" data-t="' + esc(t.id) + '">' +
-          (tamam ? '✓ Konu tamamlandı' : 'Tümünü okundu işaretle') + '</button>' : '') +
-      '</div>' +
-      (ids.length ? '<div class="bar" style="margin-top:14px"><i style="width:' + yuzde + '%"></i></div>' : '') +
-    '</div>';
+      (ids.length ? '<div class="resume-m" style="margin-top:16px">' +
+        '<span class="resume-bar" style="max-width:200px"><i style="width:' + yuzde + '%"></i></span>' +
+        '<span class="tnum">%' + yuzde + '</span></div>' : '') +
+    '</header>' +
+    (uyari ? '<p class="lang-notice">' + esc(uyari) + '</p>' : '');
 
     /* --- içerik hazır değilse --- */
     if (!ids.length) {
-      return '<div class="topic-layout" style="--h:' + hue(t) + '"><div>' + head +
-        '<div class="print-head">SAP S/4HANA FI Eğitim Platformu — ' + esc(t.title) + '</div>' +
-        U.note('warn', 'Bu konunun derin içeriği henüz yazılmadı',
-          'Platform motoru hazır; bu konu sıradaki içerik partisinde 11 bölümün tamamıyla doldurulacak. ' +
-          'Aşağıdaki işlem kodu ve tablo bağlantıları şimdiden kullanılabilir.') +
-        (t.tcodes && t.tcodes.length ? U.subH('⌨️', 'Bu konuda geçecek işlem kodları') + U.chips(t.tcodes) : '') +
-        (t.tables && t.tables.length ? U.subH('🗃️', 'Bu konuda geçecek tablolar') + U.chips(t.tables) : '') +
-        U.subH('🔗', 'İlgili konular') + relatedGrid(t.related) +
+      return '<div class="topic-layout"><div>' + head +
+        '<div class="print-head">SAP S/4HANA FI — ' + esc(bas(t)) + '</div>' +
+        U.note('warn', '', T('topic.soon')) +
+        (t.tcodes && t.tcodes.length ? U.subH('', T('ref.tcode')) + U.chips(t.tcodes) : '') +
+        (t.tables && t.tables.length ? U.subH('', T('ref.table')) + U.chips(t.tables) : '') +
+        U.subH('', T('topic.related')) + relatedGrid(t.related) +
       '</div></div>';
     }
 
@@ -279,25 +227,33 @@
           console.error('[SAP] bölüm çizim hatası:', t.id, s.id, err);
           icerik = U.note('err', 'Bu bölüm çizilemedi', esc(err && err.message));
         }
-        return '<section class="section" id="b-' + esc(s.id) + '">' +
-          '<div class="section-h">' +
-            '<span class="num">' + (i + 1) + '</span>' +
-            '<h2>' + esc(s.ad) + '</h2>' +
+        var kapali = SAP.store.isSectionClosed(t.id, s.id);
+        /* Başlığın kendisi katlama düğmesidir; "Okundu işaretle" onun
+           İÇİNDE ayrı bir buton olarak durur. Olay delegasyonu en içteki
+           taşıyıcıyı seçtiği için (bkz. Ders #7) ikisi çakışmaz. */
+        return '<section class="section' + (kapali ? ' closed' : '') + '" id="b-' + esc(s.id) + '">' +
+          '<div class="section-h" data-action="toggle-section" ' +
+               'data-t="' + esc(t.id) + '" data-s="' + esc(s.id) + '" ' +
+               'role="button" tabindex="0" aria-expanded="' + (kapali ? 'false' : 'true') + '">' +
+            '<span class="num">' + nn(i) + '</span>' +
+            '<h2>' + esc(SAP.i18n.bolum(s.id, s.ad)) + '</h2>' +
             '<button class="readbtn' + (okundu ? ' on' : '') + '" type="button" data-action="toggle-read" ' +
               'data-t="' + esc(t.id) + '" data-s="' + esc(s.id) + '">' +
-              (okundu ? '✓ Okundu' : 'Okundu işaretle') + '</button>' +
-          '</div>' + icerik +
+              esc(okundu ? T('topic.read') : T('topic.markRead')) + '</button>' +
+            '<span class="chev">' + U.icon('chevron-down') + '</span>' +
+          '</div>' +
+          '<div class="section-body">' + icerik + '</div>' +
         '</section>';
       }).join('');
 
     /* --- içindekiler --- */
-    var toc = '<aside class="toc"><div class="toc-label">Bu sayfada</div>' +
+    var toc = '<aside class="toc"><div class="toc-label">' + esc(T('topic.onPage')) + '</div>' +
       SAP.SECTIONS.filter(function (s) { return ids.indexOf(s.id) !== -1; })
         .map(function (s, i) {
           return '<button class="toc-item' + (SAP.store.isRead(t.id, s.id) ? ' read' : '') + '" type="button" ' +
             'data-action="goto-section" data-s="b-' + esc(s.id) + '">' +
-            '<span class="n">' + (SAP.store.isRead(t.id, s.id) ? '✓' : (i + 1)) + '</span>' +
-            '<span class="tx">' + esc(s.ad) + '</span></button>';
+            '<span class="n">' + nn(i) + '</span>' +
+            '<span class="tx">' + esc(SAP.i18n.bolum(s.id, s.ad)) + '</span></button>';
         }).join('') +
     '</aside>';
 
@@ -307,16 +263,19 @@
     var onceki = sirali[idx - 1], sonraki = sirali[idx + 1];
     var pager = '<div class="pager">' +
       (onceki ? '<a class="pg" data-go="#/konu/' + esc(onceki.id) + '" href="#/konu/' + esc(onceki.id) + '">' +
-        '<span>← Önceki konu</span><b>' + esc(onceki.title) + '</b></a>' : '<span style="flex:1"></span>') +
+        '<span class="lb">' + esc(T('topic.prev')) + '</span>' +
+        '<span class="tt">' + esc(bas(onceki)) + '</span></a>' : '<span style="flex:1"></span>') +
       (sonraki ? '<a class="pg next" data-go="#/konu/' + esc(sonraki.id) + '" href="#/konu/' + esc(sonraki.id) + '">' +
-        '<span>Sonraki konu →</span><b>' + esc(sonraki.title) + '</b></a>' : '<span style="flex:1"></span>') +
+        '<span class="lb">' + esc(T('topic.next')) + '</span>' +
+        '<span class="tt">' + esc(bas(sonraki)) + '</span></a>' : '<span style="flex:1"></span>') +
     '</div>';
 
-    return '<div class="topic-layout" style="--h:' + hue(t) + '">' +
+    return '<div class="topic-layout">' +
       '<div>' +
-        '<div class="print-head">SAP S/4HANA FI Eğitim Platformu — ' + esc(t.title) + '</div>' +
+        '<div class="print-head">SAP S/4HANA FI — ' + esc(bas(t)) + '</div>' +
         head + govde +
-        '<section class="section"><div class="section-h plain"><h2>İlgili Konular</h2></div>' +
+        '<section class="section"><div class="section-h plain">' +
+          '<span class="num"></span><h2>' + esc(T('topic.related')) + '</h2></div>' +
           relatedGrid(t.related) + '</section>' +
         pager +
       '</div>' + toc +
@@ -357,12 +316,12 @@
       (x.fiori ? U.note('info', 'Fiori karşılığı', x.fiori) : '') +
 
       (konular.length
-        ? '<div class="panel"><h3>📚 Bu işlem kodu şu konularda anlatılıyor</h3>' + relatedGrid(konular.map(function (t) { return t.id; })) + '</div>'
+        ? '<div class="panel"><h3>' + esc(T('ref.usedIn')) + '</h3>' + relatedGrid(konular.map(function (t) { return t.id; })) + '</div>'
         : (x.konu && SAP.topic(x.konu)
-            ? '<div class="panel"><h3>📚 İlgili konu</h3>' + relatedGrid([x.konu]) + '</div>' : '')) +
+            ? '<div class="panel"><h3>' + esc(T('ref.usedIn')) + '</h3>' + relatedGrid([x.konu]) + '</div>' : '')) +
 
       (ayniKonu.length
-        ? '<div class="panel"><h3>⌨️ Aynı alandaki diğer işlem kodları</h3>' + U.chips(ayniKonu.slice(0, 24)) + '</div>'
+        ? '<div class="panel"><h3>' + esc(T('ref.siblings')) + '</h3>' + U.chips(ayniKonu.slice(0, 24)) + '</div>'
         : '') +
     '</div>';
   });
@@ -394,19 +353,19 @@
       ]) +
 
       (x.alanlar && x.alanlar.length
-        ? '<div class="panel"><h3>🔑 En önemli alanlar</h3>' +
+        ? '<div class="panel"><h3>En önemli alanlar</h3>' +
           U.tbl([{ ad:'Alan', w:'22%', mono:true }, { ad:'Ne işe yarar' }],
             x.alanlar.map(function (a) {
-              return [a.ad + (a.tip === 'pk' ? '  🔑' : a.tip === 'fk' ? '  🔗' : ''), a.aciklama];
+              return [a.ad + (a.tip === 'pk' ? '  · PK' : a.tip === 'fk' ? '  · FK' : ''), a.aciklama];
             })) + '</div>'
         : '') +
 
       (x.s4 ? U.note('warn', 'S/4HANA’daki yapısı', x.s4) : '') +
 
       (konular.length
-        ? '<div class="panel"><h3>📚 Bu tablo şu konularda anlatılıyor</h3>' + relatedGrid(konular.map(function (t) { return t.id; })) + '</div>'
+        ? '<div class="panel"><h3>Bu tablo şu konularda anlatılıyor</h3>' + relatedGrid(konular.map(function (t) { return t.id; })) + '</div>'
         : (x.konu && SAP.topic(x.konu)
-            ? '<div class="panel"><h3>📚 İlgili konu</h3>' + relatedGrid([x.konu]) + '</div>' : '')) +
+            ? '<div class="panel"><h3>' + esc(T('ref.usedIn')) + '</h3>' + relatedGrid([x.konu]) + '</div>' : '')) +
     '</div>';
   });
 
@@ -419,7 +378,7 @@
 
     return '<div class="wrap">' +
       '<div class="dt-head">' +
-        '<div class="dt-badge" style="font-family:var(--font);font-size:17px">📖</div>' +
+        '<div class="dt-badge">' + esc(T('ref.term')) + '</div>' +
         '<div class="bd"><h1>' + esc(x.ad) + '</h1>' +
           '<div class="lede">' + esc(x.en) + '</div></div>' +
       '</div>' +
@@ -429,11 +388,11 @@
       '</div>' +
 
       (x.ilgili && x.ilgili.length
-        ? '<div class="panel"><h3>🔗 İlişkili terimler</h3>' + U.chips(x.ilgili, 'terim') + '</div>'
+        ? '<div class="panel"><h3>İlişkili terimler</h3>' + U.chips(x.ilgili, 'terim') + '</div>'
         : '') +
 
       (x.konu && SAP.topic(x.konu)
-        ? '<div class="panel"><h3>📚 Bu terimin anlatıldığı konu</h3>' + relatedGrid([x.konu]) + '</div>'
+        ? '<div class="panel"><h3>Bu terimin anlatıldığı konu</h3>' + relatedGrid([x.konu]) + '</div>'
         : '') +
     '</div>';
   });
@@ -443,7 +402,7 @@
   SAP.view('favoriler', function () {
     var list = SAP.store.d.favorites.map(SAP.topic).filter(Boolean);
     return '<div class="wrap-full">' +
-      '<div class="hero"><h1>⭐ Favorilerim</h1><p>Yıldızladığın konular burada toplanır.</p></div>' +
+      '<header class="toc-head"><h1>' + esc(T('fav.title')) + '</h1></header>' +
       (list.length
         ? '<div class="cards">' + list.map(topicCard).join('') + '</div>'
         : '<div class="empty">Henüz favori konu yok.<br>' +
@@ -458,14 +417,14 @@
     var ids = Object.keys(notes).filter(function (id) { return SAP.topic(id); });
 
     return '<div class="wrap">' +
-      '<div class="hero"><h1>📝 Notlarım</h1><p>Konu sayfalarında yazdığın notların tamamı.</p></div>' +
+      '<header class="toc-head"><h1>' + esc(T('notes.title')) + '</h1></header>' +
       (ids.length
         ? ids.map(function (id) {
             var t = SAP.topic(id);
             return '<div class="panel" style="--h:' + (t.hue || 274) + '">' +
               '<h3>' + esc(t.icon) + ' ' + esc(t.title) +
                 '<a class="btn sm" style="margin-left:auto" data-go="#/konu/' + esc(id) + '" ' +
-                'href="#/konu/' + esc(id) + '">Konuya git →</a></h3>' +
+                'href="#/konu/' + esc(id) + '">' + esc(T('home.start')) + '</a></h3>' +
               '<div class="prose" style="white-space:pre-wrap">' + esc(notes[id]) + '</div>' +
             '</div>';
           }).join('')
@@ -481,7 +440,8 @@
     var res = SAP.search(q, 60);
 
     return '<div class="wrap">' +
-      '<div class="hero"><h1>🔍 “' + esc(q) + '”</h1><p>' + res.length + ' sonuç bulundu.</p></div>' +
+      '<header class="toc-head"><h1>' + esc(T('search.title')) + '</h1>' +
+      '<p>“' + esc(q) + '” · <span class="tnum">' + res.length + '</span></p></header>' +
       (res.length
         ? '<div class="panel">' + res.map(function (r) {
             return '<a class="pres" data-go="' + esc(r.href) + '" href="' + esc(r.href) + '">' +

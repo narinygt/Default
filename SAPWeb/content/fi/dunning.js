@@ -104,7 +104,7 @@ SAP.registerTopic({
           aciklama:'{{KNB1}} `MAHNA` alanı. **Prosedür atanmamış müşteri ihtar almaz** — ' +
                    'en sık "neden ihtar gitmedi?" sebebidir.',
           cikti:'İhtara açık müşteri', ok:'periyodik çalıştırma' },
-        { ic:'▶️', rol:'Tahsilat', baslik:'1. Parametreler ({{F150}})',
+        { ic:'▶', rol:'Tahsilat', baslik:'1. Parametreler ({{F150}})',
           aciklama:'İhtar tarihi, belge tarihine kadar, şirket kodu, müşteri aralığı. ' +
                    '**İhtar tarihi**, gecikme gününün hesaplandığı referanstır.',
           cikti:'Çalıştırma parametreleri', ok:'öneri üretilir' },
@@ -736,7 +736,7 @@ SAP.registerTopic({
     ],
 
     ekstra:[
-      { ic:'⏱️', baslik:'Gecikme günü ile ihtar aralığı — en çok karıştırılan ikili', metin:
+      { ic:'⏱', baslik:'Gecikme günü ile ihtar aralığı — en çok karıştırılan ikili', metin:
         'İki ayrı gün sayısı vardır ve farkları anlaşılmazsa ' +
         '"seviye neden ilerlemiyor?" sorusu cevapsız kalır.\n\n' +
         '**Gecikme günü (days in arrears):** vadeden kaç gün sonra bu seviyenin ' +
@@ -1165,10 +1165,10 @@ SAP.registerTopic({
       { on:'İhtar muhasebe kaydı üretir mi?', arka:'**Normalde HAYIR.**\n\nYalnızca ihtar alanları güncellenir:\n• KNB1-MAHNS (seviye)\n• KNB1-MADAT (tarih)\n• Kalem seviyeleri\n\nMizan **değişmez**. Ücret/faiz varsa **onlar** ayrı kayıttır.' },
       { on:'"Neden ihtar gitmedi?" — teşhis sırası', arka:'**1. KNB1-MAHNA dolu mu?** ← vakaların çoğu\n2. Müşteri ihtar bloğu var mı?\n3. Kalem bloğu var mı?\n4. Tutar asgari sınırın üstünde mi?\n5. Gecikme günü + ihtar aralığı dolmuş mu?' },
       { on:'Gecikme günü vs ihtar aralığı', arka:'**Gecikme günü** — vadeden kaç gün sonra bu **seviye** devreye girer (14/30/60)\n\n**İhtar aralığı** — aynı müşteriye iki ihtar arasında geçmesi gereken asgari süre (T047-MANWT)\n\nAralık dolmamışsa gecikme yeterli olsa bile ihtar **üretilmez**.' },
-      { on:'F150 dört adımı', arka:'**1. Parametre** — ihtar tarihi kritik\n**2. Öneri** — hiçbir şey güncellenmez ✓ risksiz\n**3. Düzenleme** — çıkar, seviye değiştir, sil\n**4. Basım** — ⚠️ **geri dönüşü yok**' },
-      { on:'Kalemler farklı seviyelerdeyse?', arka:'Müşteriye **TEK mektup** gider.\n\nSeviyesi **en yüksek** kalemin seviyesidir.\nTüm kalemler mektupta listelenir.\n\n⚠️ Yan etki: küçük eski bir kalem tüm ilişkiyi yasal seviyeye çeker.' },
+      { on:'F150 dört adımı', arka:'**1. Parametre** — ihtar tarihi kritik\n**2. Öneri** — hiçbir şey güncellenmez ✓ risksiz\n**3. Düzenleme** — çıkar, seviye değiştir, sil\n**4. Basım** — **geri dönüşü yok**' },
+      { on:'Kalemler farklı seviyelerdeyse?', arka:'Müşteriye **TEK mektup** gider.\n\nSeviyesi **en yüksek** kalemin seviyesidir.\nTüm kalemler mektupta listelenir.\n\nYan etki: küçük eski bir kalem tüm ilişkiyi yasal seviyeye çeker.' },
       { on:'Öneri listesinde 42 müşteri var — ne demek?', arka:'**42 mektup demek DEĞİL.**\n\nÖneri = "incelenen müşteriler" listesi.\n\nDurum sütunu okunmalı:\n• Prosedür yok\n• Bloklu\n• Asgari tutarın altında\n• **İhtar edilecek** ← gerçek sayı' },
-      { on:'Prosedür taşınırsa ihtar çalışır mı?', arka:'**HAYIR.**\n\nFBMP prosedürü = **özelleştirme** → taşınır ✓\nKNB1-MAHNA ataması = **ana veri** → taşınmaz ✕\n\nCanlıda müşterilere ayrıca atanmalıdır.' },
+      { on:'Prosedür taşınırsa ihtar çalışır mı?', arka:'**HAYIR.**\n\nFBMP prosedürü = **özelleştirme** → taşınır ✓\nKNB1-MAHNA ataması = **ana veri** → taşınmaz \n\nCanlıda müşterilere ayrıca atanmalıdır.' },
       { on:'Gecikme faizi nasıl kaydedilir?', arka:'**F.2B** ile — ihtardan **ayrı** program.\n\nMüşteride **faiz göstergesi** tanımlı olmalı; yoksa hesaplama o müşteriyi **sessizce atlar**.\n\nİhtar mektubu faizden bahsedebilir ama kaydı ayrıdır.' },
       { on:'İhtar bloğunun riski nedir?', arka:'**Son kullanma tarihi yoktur.**\n\nGeçici sebeple konur (ödeme planı, itiraz), kaldırılması **unutulur**.\n\nBloklu müşteri hiçbir ihtar listesinde **görünmez** → yıllarca takipsiz kalır.\n\n→ Kalem bloğunu tercih et.' },
       { on:'İhtar seviyesi nerede tutulur?', arka:'**İki yerde:**\n\n• Müşteri bazında: **KNB1-MAHNS** + MADAT\n• Kalem bazında: **BSID/BSEG-MAHNS**\n\nBasım adımında **ikisi de** güncellenir.\nElle değiştirilebilir — karşılık politikası buna bağlıysa risk.' },

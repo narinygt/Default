@@ -99,7 +99,7 @@ SAP.registerTopic({
           aciklama:'Açıklama metninde belge numarası, referans veya tutar aranır. ' +
                    'Bulunursa {{banka-ara-hesabi}} kalemi kapatılır.',
           cikti:'Eşleşen açık kalem', ok:'eşleşirse' },
-        { ic:'✅', rol:'Sistem', baslik:'FI belgesi otomatik oluşur',
+        { ic:'✓', rol:'Sistem', baslik:'FI belgesi otomatik oluşur',
           aciklama:'Ara hesap kapanır, gerçek banka hesabı çalışır. Satır "işlendi" olarak işaretlenir.',
           cikti:'FI belgesi', ok:'eşleşmezse' },
         { ic:'✋', rol:'Banka muhasebecisi', baslik:'Eşleşmeyenler elle işlenir ({{FEBAN}})',

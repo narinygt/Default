@@ -16,6 +16,39 @@
 
   /* ------------------------------------------------ ortak parçalar --- */
 
+  /* ------------------------------------------------------ İKONLAR ---
+     Lucide çizgi ikonları, elle gömülü: 24 birimlik viewBox, 2 birim
+     kalınlık, currentColor. Harici paket YOK (Kural #5) ve EMOJİ YOK
+     (theme.css ilke 5).
+
+     ⚠️ Liste bilerek kısadır. Yeni ikon eklemeden önceki soru:
+     "bu ikon olmasa cümle anlaşılmaz mıydı?" Cevap hayırsa eklenmez. */
+  var ICONS = {
+    'arrow-right':  '<path d="M5 12h14M12 5l7 7-7 7"/>',
+    'arrow-left':   '<path d="M19 12H5M12 19l-7-7 7-7"/>',
+    'chevron-down': '<path d="m6 9 6 6 6-6"/>',
+    'search':       '<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
+    'menu':         '<path d="M4 6h16M4 12h16M4 18h16"/>',
+    'moon':         '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>',
+    'sun':          '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/>',
+    'book-open':    '<path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/>',
+    'bookmark':     '<path d="m19 21-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>',
+    'pencil':       '<path d="M12 20h9"/><path d="M16.4 3.6a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>',
+    'check':        '<path d="M20 6 9 17l-5-5"/>',
+    'printer':      '<path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v8H6z"/>',
+    'shuffle':      '<path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/>',
+  };
+
+  /** 16px Lucide ikonu. Bilinmeyen ad boş döner — sayfayı kırmaz. */
+  function icon(ad, sinif) {
+    var d = ICONS[ad];
+    if (!d) return '';
+    return '<svg class="ic' + (sinif ? ' ' + sinif : '') + '" viewBox="0 0 24 24" ' +
+      'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" ' +
+      'stroke-linejoin="round" aria-hidden="true" focusable="false">' + d + '</svg>';
+  }
+
+
   /* Başlık alanları da mk()'dan geçer: yazar başlıkta {{FB50}} yazdığında çipe
      dönmeli, ham metin kalmamalı. mk() zaten içeride escape ettiği için güvenli. */
   /* Alt başlık. `ic` parametresi çağrı yerlerinde duruyor ama ÇİZİLMİYOR:
@@ -36,10 +69,13 @@
   var NOTE_LABEL = { tip:'İpucu', warn:'Dikkat', err:'Hata', info:'Not' };
   var NOTE_ICON = { tip:'💡', warn:'⚠️', err:'🚫', info:'ℹ️' };
 
+  /* Uyarı kutusunda İKON YOK (kullanıcı talebi): kutu zaten üç şeyle
+     kendini anlatıyor — renk, sol kenar şeridi ve "İpucu / Dikkat /
+     Hata / Not" etiketi. Emoji dördüncü bir tekrardı.
+     NOTE_ICON tablosu duruyor; geri istenirse tek satır yeter. */
   function note(kind, title, body) {
     if (!body) return '';
     return '<div class="note ' + kind + '">' +
-      '<span class="ic" aria-hidden="true">' + (NOTE_ICON[kind] || 'ℹ️') + '</span>' +
       '<div class="bd">' +
         '<b class="t">' + (title ? mk(title) : esc(NOTE_LABEL[kind] || 'Not')) + '</b>' +
         mk(body) +
@@ -433,7 +469,7 @@
 
   function renderSenaryo(d) {
     var out = '';
-    if (d.baslik) out += '<div class="sub-h"><span class="em">🏢</span>' + mk(d.baslik) + '</div>';
+    if (d.baslik) out += '<div class="sub-h">' + mk(d.baslik) + '</div>';
     if (d.hikaye) out += note('info', 'Senaryo', d.hikaye);
     if (d.veriler && d.veriler.length) {
       out += kv(d.veriler.map(function (v) { return [v.k, v.v]; }));
@@ -458,7 +494,7 @@
       '</div>';
     });
 
-    if (d.sonuc) out += subH('✅', 'Sürecin sonunda ne oldu?') + '<div class="prose">' + mkp(d.sonuc) + '</div>';
+    if (d.sonuc) out += subH('✓', 'Sürecin sonunda ne oldu?') + '<div class="prose">' + mkp(d.sonuc) + '</div>';
     return out;
   }
 
@@ -480,7 +516,7 @@
     if (d.sikHatalar && d.sikHatalar.length) {
       out += subH('⚠️', 'Sık yapılan hatalar');
       out += tbl([{ ad:'Yanlış yaklaşım', w:'45%' }, { ad:'Doğrusu' }],
-        d.sikHatalar.map(function (h) { return ['❌ ' + h.hata, '✅ ' + h.dogru]; }));
+        d.sikHatalar.map(function (h) { return ['✕ ' + h.hata, '✓ ' + h.dogru]; }));
     }
 
     if (d.ipuclari && d.ipuclari.length) {
@@ -536,6 +572,7 @@
   SAP.ui.kv = kv;
   SAP.ui.tbl = tbl;
   SAP.ui.subH = subH;
+  SAP.ui.icon = icon;
   SAP.ui.steps = steps;
   SAP.ui.chips = chips;
 

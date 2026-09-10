@@ -145,7 +145,7 @@ SAP.registerTopic({
           aciklama:'Ekrandaki özet yetmez. {{SLG1}} ayrıntılı günlük, ' +
                    '{{SM37}} işin durumu, {{SP01}} çıktı kuyruğu.',
           cikti:'Satır bazında hata', ok:'çöz' },
-        { ic:'✅', rol:'Danışman', baslik:'Kök sebep çözülür ve **aynı sınıf taranır**',
+        { ic:'✓', rol:'Danışman', baslik:'Kök sebep çözülür ve **aynı sınıf taranır**',
           aciklama:'Bir kullanıcıda çıkan hata genelde **yalnız değildir**. ' +
                    'Aynı rolü, aynı hesabı, aynı vergi kodunu kullanan ' +
                    'diğerleri de kontrol edilir.',
@@ -180,7 +180,7 @@ SAP.registerTopic({
         'uzun metin açılır. Uzun metin çoğu zaman şunları içerir:\n\n' +
         '• **Teşhis** — ne oldu\n' +
         '• **Sistem yanıtı** — sistem ne yaptı\n' +
-        '• **Prosedür** — ⭐ **ne yapılması gerektiği**\n\n' +
+        '• **Prosedür** — **ne yapılması gerektiği**\n\n' +
         'Üçüncü bölüm çoğu vakayı **tek başına** çözer ve ' +
         'yeni danışmanların en çok atladığı yerdir.\n\n' +
         '**Sık görülen mesaj sınıfları:**\n' +
@@ -211,7 +211,7 @@ SAP.registerTopic({
           { hesap:'191', ad:'İndirilecek KDV', borc:20000 },
           { hesap:'320', ad:'Satıcılar', alacak:120000 },
         ],
-        not:'✅ **En ucuz senaryo.** {{konu:dogrulama-ikame}} kuralı ' +
+        not:'**En ucuz senaryo.** {{konu:dogrulama-ikame}} kuralı ' +
              'maliyet yeri boşken kaydı **engelledi**; kullanıcı doldurdu ve doğru kayıt oluştu.\n\n' +
              'Sistemde **tek belge** var ve o da doğru. ' +
              'Düzeltme yok, ters kayıt yok, denetimde açıklama yok.\n\n' +
@@ -225,7 +225,7 @@ SAP.registerTopic({
           { hesap:'770', ad:'Genel yönetim gideri', alacak:100000 },
           { hesap:'191', ad:'İndirilecek KDV', alacak:20000 },
         ],
-        not:'⚠️ Orijinal belge **yerinde kalır** — SAP’ta muhasebeleşmiş belge **silinemez**.\n\n' +
+        not:'Orijinal belge **yerinde kalır** — SAP’ta muhasebeleşmiş belge **silinemez**.\n\n' +
              '{{FB08}} yeni bir belge üretir ve ikisini {{BKPF}} `STBLG` alanıyla bağlar. ' +
              'Sonra **doğru kayıt** üçüncü belge olarak girilir.\n\n' +
              '**Toplam: 3 belge.** Mizanda görünür ama aynı dönemde olduğu için ' +
@@ -238,7 +238,7 @@ SAP.registerTopic({
           { hesap:'760', ad:'Pazarlama gideri (doğru hesap)', borc:100000 },
           { hesap:'770', ad:'Genel yönetim gideri (yanlış hesap)', alacak:100000 },
         ],
-        not:'🚫 **En pahalı senaryo.** Hata Kasım’da yapıldı, **Ocak’ta** bulundu.\n\n' +
+        not:'**En pahalı senaryo.** Hata Kasım’da yapıldı, **Ocak’ta** bulundu.\n\n' +
              'Üç ek sorun doğar:\n\n' +
              '**1. Dönem kapalı.** Kasım’a kayıt yapılamaz; düzeltme **Ocak’a** düşer.\n\n' +
              '**2. Karşılaştırmalı raporlar bozulur.** Kasım’ın gideri fazla, ' +
@@ -284,21 +284,21 @@ SAP.registerTopic({
       'Aşağıda FI’da **en sık karşılaşılan hatalar** üç sınıfa ayrılmış hâlde. ' +
       'Her biri için: **ne demek · neden oluyor · nasıl çözülür · kalıcı önlem**.\n\n' +
       '━━━━━━━━━━\n\n' +
-      '**💬 Konuşan hatalar (①)** — mesaj var, çözümü işaret ediyor. ' +
+      '** Konuşan hatalar (①)** — mesaj var, çözümü işaret ediyor. ' +
       'Sıkıcı ama kolay; mesajın uzun metnini okumak çoğunu bitirir.\n\n' +
-      '**🔇 Sessiz hatalar (②)** — mesaj yok, sonuç yanlış. ' +
+      '** Sessiz hatalar (②)** — mesaj yok, sonuç yanlış. ' +
       '**Bu konunun asıl değeri buradadır.** Bunları bilmeyen danışman ' +
       'hatanın varlığından bile haberdar olmaz.\n\n' +
-      '**💥 Çöken hatalar (③)** — program durur. Gürültülü ama nadir.',
+      '** Çöken hatalar (③)** — program durur. Gürültülü ama nadir.',
 
     liste:[
       /* ---------- ① KONUŞAN ---------- */
-      { ad:'💬 ① · "Dönem kapalı" — `F5 201` / `FGV 007`', en:'Posting period closed',
+      { ad:'① · "Dönem kapalı" — `F5 201` / `FGV 007`', en:'Posting period closed',
         aciklama:'{{OB52}}’de o dönem, o hesap türü için açık değil.',
         neZaman:'Ay başında ve ay sonunda; en sık görülen FI hatası.',
         ornek:'**Kontrol sırası:**\n\n' +
               '**1.** {{OB52}} → dönem varyantı → hesap türü satırı\n' +
-              '**2.** ⚠️ **Hesap türü ayrımını atlama:** `+` genel satırdır ama ' +
+              '**2.** **Hesap türü ayrımını atlama:** `+` genel satırdır ama ' +
               '`S` (G/L), `K` (satıcı), `D` (müşteri), `A` (varlık) **ayrı satır** olabilir. ' +
               'Satıcı kaydı için `K` kapalıysa `+` açık olsa bile hata alırsın.\n' +
               '**3.** İki tarih aralığı vardır: normal dönem ve **özel dönem** (13–16).\n' +
@@ -308,7 +308,7 @@ SAP.registerTopic({
               'dönem disiplini çöker.',
         tcodes:['OB52'] },
 
-      { ad:'💬 ① · "Hesap belirleme yapılamadı"', en:'Account determination error',
+      { ad:'① · "Hesap belirleme yapılamadı"', en:'Account determination error',
         aciklama:'Otomatik kayıt hangi hesaba gideceğini **bulamıyor**. ' +
                  'Sistem hesabı tahmin etmez — tanımsızsa durur.',
         neZaman:'Yeni malzeme, yeni vergi kodu, yeni değerleme sınıfı devreye girince.',
@@ -317,13 +317,13 @@ SAP.registerTopic({
               '**SD** kaynaklı ise → {{VKOA}}\n' +
               '**Vergi** ise → {{OB40}} / {{T030K}}\n' +
               '**Duran varlık** ise → {{AO90}}\n\n' +
-              '⚠️ **En sık sebep: yeni bir değerleme sınıfı** açılmış ama ' +
+              '**En sık sebep: yeni bir değerleme sınıfı** açılmış ama ' +
               '{{OBYC}}’ye satır eklenmemiş.\n\n' +
               '**Kalıcı önlem:** yeni değerleme sınıfı / vergi kodu açma sürecine ' +
               '*"hesap ataması yapıldı mı?"* adımı eklenir.',
         tcodes:['OBYC','VKOA','OB40'] },
 
-      { ad:'💬 ① · "Belge dengesiz" — borç ≠ alacak', en:'Document not balanced',
+      { ad:'① · "Belge dengesiz" — borç ≠ alacak', en:'Document not balanced',
         aciklama:'Çift taraflı kayıt ilkesi. Ekranda görünmeyen bir satır olabilir.',
         neZaman:'Elle çok satırlı kayıtta; toplu yüklemede.',
         ornek:'**Görünmeyen sebepler:**\n\n' +
@@ -331,56 +331,56 @@ SAP.registerTopic({
               '• **Vergi satırı** otomatik eklenip toplamı değiştirmiş\n' +
               '• **{{belge-bolme}}** aktifse: belge girişte denk ama ' +
               '**defter görünümünde** bölme boyutu (kâr merkezi) dolu olmadığı için denksiz\n\n' +
-              '⚠️ Üçüncüsü en kafa karıştırıcıdır: hata *"dengesiz"* der ' +
+              'Üçüncüsü en kafa karıştırıcıdır: hata *"dengesiz"* der ' +
               'ama sorun **denge değil, eksik bölme karakteristiğidir** ' +
               '(bkz. {{konu:new-gl}}).\n\n' +
               '**Not:** park etme denklik aramaz ({{konu:document-parking}}) — ' +
               'bu hata yalnızca **muhasebeleştirmede** çıkar.',
         tcodes:['FB50','FBV0'] },
 
-      { ad:'💬 ① · "Hesap kayda kapalı / kilitli"', en:'Account blocked for posting',
+      { ad:'① · "Hesap kayda kapalı / kilitli"', en:'Account blocked for posting',
         aciklama:'{{FS00}}’de hesap kilitli veya **silme işareti** konmuş.',
         neZaman:'Hesap planı düzenlemesi sonrası; devir hesaplarında.',
         ornek:'**Üç ayrı ayar karıştırılır:**\n\n' +
               '**Kayda kapalı** — geçici, kaldırılabilir\n' +
               '**Silme işareti** — hesap kaldırılacak, kullanılmamalı\n' +
               '**Şirket kodunda yok** — hesap **planda** var ama bu şirket kodunda **açılmamış**\n\n' +
-              '⚠️ Üçüncüsü farklı bir mesaj verir ve çözümü de farklıdır: ' +
+              'Üçüncüsü farklı bir mesaj verir ve çözümü de farklıdır: ' +
               '{{FS00}}’de **şirket kodu verisi eklenir** ({{SKB1}}).\n\n' +
               'Kilidi kaldırmadan önce sor: **neden kilitliydi?** ' +
               'Genelde bir sebebi vardır.',
         tcodes:['FS00'] },
 
-      { ad:'💬 ① · "Alan zorunlu" / "Alan değiştirilemez"', en:'Field status error',
+      { ad:'① · "Alan zorunlu" / "Alan değiştirilemez"', en:'Field status error',
         aciklama:'{{alan-durumu}} grubu alanı zorunlu ya da gizli yapmış.',
         neZaman:'Yeni hesap açılınca; kâr merkezi/maliyet yeri zorunluluğunda.',
         ornek:'**Alan durumu iki yerden gelir ve ikisi de geçerlidir:**\n\n' +
               '**1.** G/L hesabının **alan durumu grubu** ({{FS00}} → {{OBC4}})\n' +
               '**2.** **Kayıt anahtarının** alan durumu ({{OB41}})\n\n' +
-              '⚠️ İkisi çakışırsa **daha kısıtlayıcı olan kazanır**. ' +
+              'İkisi çakışırsa **daha kısıtlayıcı olan kazanır**. ' +
               'Bu yüzden *"hesapta opsiyonel yaptım ama hâlâ zorunlu istiyor"* olur — ' +
               'kayıt anahtarı zorunlu tutuyordur.\n\n' +
               '**Ayrıca:** {{konu:dogrulama-ikame}} kuralı da alan zorunluluğu ' +
               'dayatabilir. Alan durumu temizse **doğrulamaya** bak.',
         tcodes:['FS00','OBC4','OB41'] },
 
-      { ad:'💬 ① · "Yetkiniz yok" — net mesajlı hâli', en:'Not authorized',
+      { ad:'① · "Yetkiniz yok" — net mesajlı hâli', en:'Not authorized',
         aciklama:'`S_TCODE` yok — işlem **hiç başlamıyor**.',
         neZaman:'Yeni kullanıcı, rol değişikliği, taşıma sonrası.',
         ornek:'**{{SU53}}** ile eksik nesne görülür, ekran görüntüsü ' +
               'yetkilendirme ekibine gider.\n\n' +
-              '⚠️ **{{SU53}} yalnızca SON başarısız kontrolü gösterir** — ' +
+              '**{{SU53}} yalnızca SON başarısız kontrolü gösterir** — ' +
               'hemen çalıştırılmalı.\n\n' +
               '**"Dün çalışıyordu" ise:** {{SU01}} → rol **geçerlilik tarihi**. ' +
               'Süresi dolmuş roller sessizce düşer.\n\n' +
-              '⚠️ Rol atandıktan sonra **oturum kapatılıp açılmalı** — ' +
+              'Rol atandıktan sonra **oturum kapatılıp açılmalı** — ' +
               'yetkiler oturum başında {{tampon}}a alınır.\n\n' +
               '**Bu hatanın sessiz kardeşi aşağıda** — asıl tehlikeli olan o.',
         tcodes:['SU53','SU01','PFCG'] },
 
       /* ---------- ② SESSİZ ---------- */
-      { ad:'🔇 ② · Boş liste — hata yok, veri yok sanılıyor', en:'Empty result, no error',
-        aciklama:'⚠️ **En yanıltıcı FI hatası.** İşlem açılıyor, çalışıyor, boş dönüyor.',
+      { ad:'② · Boş liste — hata yok, veri yok sanılıyor', en:'Empty result, no error',
+        aciklama:'**En yanıltıcı FI hatası.** İşlem açılıyor, çalışıyor, boş dönüyor.',
         neZaman:'Rapor ve döküm işlemlerinde; yeni kullanıcılarda.',
         ornek:'**Üç farklı sebep, aynı belirti:**\n\n' +
               '**1. Veri yetkisi yok.** `S_TCODE` var ama `F_BKPF_BUK` yok. ' +
@@ -394,12 +394,12 @@ SAP.registerTopic({
               'varsa **hemen** {{SU53}} → sonra hesap ayarı.',
         tcodes:['SU53','SE16N'] },
 
-      { ad:'🔇 ② · Belge numarası verildi ama belge yok', en:'Update termination',
+      { ad:'② · Belge numarası verildi ama belge yok', en:'Update termination',
         aciklama:'{{guncelleme-hatasi}}. Numara **diyalogda** verilir, kayıt ' +
                  '**güncelleme görevinde** yazılır. İkincisi çökerse numara yanar.',
         neZaman:'Toplu yüklemelerde ve yoğun anlarda; tek tek kayıtta nadir.',
         ornek:'**{{SM13}}** ile güncelleme kayıtları incelenir.\n\n' +
-              '⚠️ **Neden bu kadar tehlikeli:** kullanıcı ekranda ' +
+              '**Neden bu kadar tehlikeli:** kullanıcı ekranda ' +
               '*"Belge 1900001234 kaydedildi"* mesajını **görür** ve işine devam eder. ' +
               'Belge yoktur.\n\n' +
               'Toplu yüklemede **hiç fark edilmez** — 500 kayıttan 14’ü ' +
@@ -408,10 +408,10 @@ SAP.registerTopic({
               'zorunlu adım olmalı: gönderilen = oluşan.',
         tcodes:['SM13','SM21'] },
 
-      { ad:'🔇 ② · Kayıt oluyor ama alan değerleri "kendiliğinden" değişiyor', en:'Silent substitution',
+      { ad:'② · Kayıt oluyor ama alan değerleri "kendiliğinden" değişiyor', en:'Silent substitution',
         aciklama:'Aktif bir **ikame** kullanıcının girdiğini eziyor.',
         neZaman:'Kâr merkezi, maliyet yeri, iş alanı gibi türetilen alanlarda.',
-        ornek:'⚠️ Belirti kullanıcı diliyle şöyle gelir: ' +
+        ornek:'Belirti kullanıcı diliyle şöyle gelir: ' +
               '*"Ben doğru girdim ama raporda başka görünüyor."*\n\n' +
               'Teşhiste **akla en son gelen** şeydir çünkü ikame **sessizdir** — ' +
               'hiçbir mesaj vermez (bkz. {{konu:dogrulama-ikame}}).\n\n' +
@@ -421,22 +421,22 @@ SAP.registerTopic({
               'Açıklaması boş bir ikame, iki yıl sonra kimsenin çözemeyeceği bir tuzaktır.',
         tcodes:['GGB1','OBBH','GGB4'] },
 
-      { ad:'🔇 ② · Ayar değiştirildi ama etkisi görünmüyor', en:'Buffer / transport issue',
+      { ad:'② · Ayar değiştirildi ama etkisi görünmüyor', en:'Buffer / transport issue',
         aciklama:'İki farklı sebep: **{{tampon}}** veya **taşıma gelmemiş**.',
         neZaman:'Özelleştirme değişikliği sonrası.',
         ornek:'**Önce hangisi olduğunu ayır:**\n\n' +
               '**Tampon** — değişikliği **sen** yaptın, aynı sistemde. ' +
               '{{T001}}, {{T004}}, {{T030}} tamponlanır. ' +
               'Çözüm: oturumu kapat/aç; olmazsa `/$sync` ' +
-              '(⚠️ canlıda tüm kullanıcıları etkiler).\n\n' +
+              '( canlıda tüm kullanıcıları etkiler).\n\n' +
               '**Taşıma** — değişiklik **başka sistemde** yapıldı. ' +
               '{{tasima-istegi}} canlıya gelmemiş veya **hatayla** gelmiş. ' +
               'Kontrol: `STMS` taşıma günlüğü, dönüş kodu.\n\n' +
-              '⚠️ **Dönüş kodu 4 "başarılı" değildir** — uyarıyla geçti demektir ' +
+              '**Dönüş kodu 4 "başarılı" değildir** — uyarıyla geçti demektir ' +
               've bazı nesneler gelmemiş olabilir.',
         tcodes:['SE16N'] },
 
-      { ad:'🔇 ② · CO’da var, FI’da yok (veya tersi)', en:'FI-CO reconciliation gap',
+      { ad:'② · CO’da var, FI’da yok (veya tersi)', en:'FI-CO reconciliation gap',
         aciklama:'Gerçek zamanlı bütünleşme kopmuş veya işlem **yalnızca CO içi**.',
         neZaman:'Maliyet yeri aktarmalarından sonra.',
         ornek:'**Önce normal olanı ele:** {{KB11N}} ile yapılan ' +
@@ -445,18 +445,18 @@ SAP.registerTopic({
               'Bu bir hata **değildir** (bkz. {{konu:cost-center}}).\n\n' +
               '**Gerçek sorun** ise gerçek zamanlı bütünleşmenin çalışmamasıdır: ' +
               '{{FAGLCOFIRTINT}} ayarı, {{KANK}} numara aralığı eksikliği.\n\n' +
-              '⚠️ {{KANK}} eksikse **FI kaydı da durur** — CO numara aralığı ' +
+              '{{KANK}} eksikse **FI kaydı da durur** — CO numara aralığı ' +
               'olmadan FI/CO ortak LUW tamamlanamaz.',
         tcodes:['KB11N','FAGLCOFIRTINT','KANK'] },
 
-      { ad:'🔇 ② · Toplu işlem "bitti" dedi ama sonuç eksik', en:'Batch partial failure',
+      { ad:'② · Toplu işlem "bitti" dedi ama sonuç eksik', en:'Batch partial failure',
         aciklama:'Ekrandaki özet mesaj **yeterli değildir**.',
         neZaman:'{{F110}}, {{AFAB}}, {{F.05}}, {{FF_5}} sonrası.',
         ornek:'**Üç ayrı yere bakılır ve üçü farklı şey söyler:**\n\n' +
               '**{{SM37}}** — iş **çalıştı mı, bitti mi**?\n' +
-              '**{{SLG1}}** — ⭐ **satır bazında ne oldu?** ({{BALHDR}})\n' +
+              '**{{SLG1}}** — **satır bazında ne oldu?** ({{BALHDR}})\n' +
               '**{{SP01}}** — çıktı üretildi mi?\n\n' +
-              '⚠️ Bir iş **"başarıyla tamamlandı"** görünürken ' +
+              'Bir iş **"başarıyla tamamlandı"** görünürken ' +
               'günlükte onlarca hata satırı olabilir. ' +
               'İşin durumu **program çöktü mü** sorusunu cevaplar, ' +
               '**iş doğru yapıldı mı** sorusunu değil.\n\n' +
@@ -465,7 +465,7 @@ SAP.registerTopic({
         tcodes:['SM37','SLG1','SP01'] },
 
       /* ---------- ③ ÇÖKEN ---------- */
-      { ad:'💥 ③ · Program çöktü — dump ekranı', en:'ABAP short dump',
+      { ad:'③ · Program çöktü — dump ekranı', en:'ABAP short dump',
         aciklama:'{{ST22}} ile analiz edilir. Çoğu **veri hatasıdır**, program hatası değil.',
         neZaman:'Nadir; genelde beklenmedik veri veya eksik özelleştirmede.',
         ornek:'**{{ST22}}’de okunacak üç şey:**\n\n' +
@@ -474,19 +474,19 @@ SAP.registerTopic({
               '`TABLE_INVALID_INDEX` eksik satır\n' +
               '**Kaynak satır** — hangi programın neresinde\n' +
               '**"Kullanıcı ne yapıyordu"** — hangi işlem, hangi veri\n\n' +
-              '⚠️ **Yaygın yanlış refleks:** *"program bozuk, geliştiriciye gönder."*\n' +
+              '**Yaygın yanlış refleks:** *"program bozuk, geliştiriciye gönder."*\n' +
               'Çoğu dump **eksik özelleştirmeden** doğar: tanımsız kur, ' +
               'sıfır ömürlü amortisman anahtarı, boş numara aralığı.\n\n' +
               'Önce **veriyi** kontrol et — çoğu vaka orada biter.',
         tcodes:['ST22','SM21'] },
 
-      { ad:'💥 ③ · İşlem donuyor / kayıt kaydedilmiyor', en:'Lock / enqueue',
+      { ad:'③ · İşlem donuyor / kayıt kaydedilmiyor', en:'Lock / enqueue',
         aciklama:'{{kilitleme}} — başka bir kullanıcı veya iş aynı nesneyi tutuyor.',
         neZaman:'{{F110}} çalışırken; aynı ana veriyi iki kişi açtığında.',
         ornek:'**{{SM12}}** ile kilit sahibi ve zamanı görülür.\n\n' +
               '**En sık senaryo:** {{F110}} çalışırken kullanıcı aynı satıcıya ' +
               'ödeme yapmaya çalışıyor → ödeme programı kalemi **kilitlemiş**.\n\n' +
-              '⚠️ **Kilit elle silinmez** — çalışan işlem yarım kalır ve ' +
+              '**Kilit elle silinmez** — çalışan işlem yarım kalır ve ' +
               'tutarsız veri bırakabilir.\n\n' +
               '**Doğru sıra:** ① {{SM12}}’de sahibi bul ② {{SM37}}’de iş hâlâ ' +
               'çalışıyor mu bak ③ çalışıyorsa **bekle** ④ iş çökmüş ve kilit ' +
@@ -498,7 +498,7 @@ SAP.registerTopic({
     karsilastirma:[
       ['Mesaj', 'Var — çözümü işaret eder', '**Yok**'],
       ['Fark edilme', 'Anında', '**Günler / aylar sonra**'],
-      ['Kullanıcı davranışı', 'Bildirir', '⚠️ **Etrafından dolaşır**'],
+      ['Kullanıcı davranışı', 'Bildirir', '**Etrafından dolaşır**'],
       ['Teşhis zorluğu', 'Düşük', '**Yüksek**'],
       ['Tipik araç', '{{OBA5}} · mesaj uzun metni', '{{SU53}} · {{SM13}} · {{SLG1}}'],
       ['Muhasebe etkisi', 'Kayıt **oluşmaz** — zarar yok', '**Yanlış kayıt oluşur**'],
@@ -515,7 +515,7 @@ SAP.registerTopic({
         neZaman:'Yetki mesajında **ve** boş liste geldiğinde.',
         adimlar:[
           { baslik:'Kullanıcı hatayı alır veya **boş liste** görür' },
-          { baslik:'⚠️ **Hemen** {{SU53}} çalıştırılır',
+          { baslik:'**Hemen** {{SU53}} çalıştırılır',
             aciklama:'Araya başka işlem girerse iz **kaybolur** — yalnızca son kontrol tutulur.' },
           { baslik:'Başarısız nesne ve eksik değer okunur',
             aciklama:'`F_BKPF_BUK` + `BUKRS` = 2000 gibi.' },
@@ -535,7 +535,7 @@ SAP.registerTopic({
           { mesaj:'Rol atandı ama hâlâ çalışmıyor', sebep:'Yetkiler oturum başında {{tampon}}a alınır.', cozum:'Oturumu kapatıp aç. Devam ederse {{SU01}}’de rolün **geçerlilik tarihini** kontrol et.' },
           { mesaj:'Hata yok ama liste boş', sebep:'Veri yetkisi süzgeç olarak uygulanmış.', cozum:'Tam olarak bu araç için: boş listeden **hemen sonra** {{SU53}}.' },
         ],
-        ipucu:'⭐ **Kullanıcılara "{{SU53}} refleksi" öğretmek**, bu konudaki ' +
+        ipucu:'**Kullanıcılara "{{SU53}} refleksi" öğretmek**, bu konudaki ' +
               'en yüksek getirili tek eylemdir.\n\n' +
               'Sessiz bir hatayı **görünür kılabilecek tek kişi onu yaşayandır**. ' +
               'Kullanıcı boş liste görünce *"veri yok"* deyip geçerse, ' +
@@ -554,7 +554,7 @@ SAP.registerTopic({
           { baslik:'Kök sebep okunur',
             aciklama:'Genelde kilit çakışması, tablo alanı taşması veya özel kod hatası.' },
           { baslik:'Gerekirse güncelleme **yeniden çalıştırılır** veya silinir',
-            aciklama:'⚠️ Bu karar Basis ile birlikte verilir.' },
+            aciklama:'Bu karar Basis ile birlikte verilir.' },
         ],
         ekranAkisi:[
           { ekran:'Belirti', islem:'*"Belge 1900001234 kaydedildi"* — ama {{FB03}}’te **yok**' },
@@ -567,7 +567,7 @@ SAP.registerTopic({
           { mesaj:'{{SM13}} boş görünüyor', sebep:'Kayıtların saklama süresi dolmuş veya tarih aralığı dar.', cozum:'Aralığı genişlet; çok eskiyse iz kalmamış olabilir.' },
           { mesaj:'Numara yandı, tekrar kullanılamıyor', sebep:'Numara diyalogda verilir, güncellemede yazılır.', cozum:'Normaldir. Belge numaralarında **boşluk** oluşur; denetimde açıklanabilir olmalı.' },
         ],
-        ipucu:'⚠️ **Toplu yükleme sonrası {{SM13}} kontrolü zorunlu adım olmalıdır.**\n\n' +
+        ipucu:'**Toplu yükleme sonrası {{SM13}} kontrolü zorunlu adım olmalıdır.**\n\n' +
               'Tek tek kayıtta güncelleme hatası nadirdir ve kullanıcı fark eder. ' +
               'Toplu yüklemede **hiç fark edilmez**: 500 kayıt gönderilir, ' +
               '486’sı oluşur, 14’ü sessizce kaybolur.\n\n' +
@@ -597,7 +597,7 @@ SAP.registerTopic({
           { mesaj:'Günlük bulunamadı', sebep:'Program günlük yazmıyor veya saklama süresi dolmuş.', cozum:'{{SM37}} iş günlüğüne bak; bazı programlar yalnızca liste çıktısı üretir ({{SP01}}).' },
           { mesaj:'Çok fazla mesaj var', sebep:'Bilgi mesajları da geliyor.', cozum:'Yalnızca **kırmızı** ile süz; {{BALHDR}} `PROBCLASS` alanı sınıfı tutar.' },
         ],
-        ipucu:'⚠️ **{{SM37}} ile {{SLG1}} farklı sorulara cevap verir** ve ' +
+        ipucu:'**{{SM37}} ile {{SLG1}} farklı sorulara cevap verir** ve ' +
               'karıştırılmaları en sık yapılan teşhis hatasıdır:\n\n' +
               '**{{SM37}}** → *"Program çalıştı mı, çöktü mü?"*\n' +
               '**{{SLG1}}** → *"İş doğru yapıldı mı?"*\n\n' +
@@ -620,7 +620,7 @@ SAP.registerTopic({
         ekranAkisi:[
           { ekran:'İstek', islem:'*"Bu uyarı her kayıtta çıkıyor, kapatalım"*' },
           { ekran:'Kontrol', islem:'Mesajın **sınıfı değiştirilebilir mi?** Çoğu değiştirilemez' },
-          { ekran:'Karar', islem:'⚠️ Kapatmadan önce: **uyarı neden çıkıyor?**' },
+          { ekran:'Karar', islem:'Kapatmadan önce: **uyarı neden çıkıyor?**' },
           { ekran:'Sonuç', islem:'Kök sebep düzeltildi — mesaj zaten çıkmıyor' },
         ],
         alanlar:{ zorunlu:['Uygulama alanı','Mesaj numarası','Yeni sınıf'], opsiyonel:['Kullanıcı adı'] },
@@ -628,13 +628,13 @@ SAP.registerTopic({
           { mesaj:'Mesaj listede yok', sebep:'Her mesajın sınıfı değiştirilemez.', cozum:'Yalnızca SAP’ın izin verdiği mesajlar {{OBA5}}’te görünür. Görünmüyorsa **değiştirilemez** — kök sebebi çöz.' },
           { mesaj:'Değişiklik etkili olmuyor', sebep:'Kullanıcı adı alanı dolu.', cozum:'Belirli bir kullanıcı için tanımlanmış; herkes için boş bırakılır.' },
         ],
-        ipucu:'🚫 **{{OBA5}} bir "hatayı sustur" aracı değildir.**\n\n' +
+        ipucu:'**{{OBA5}} bir "hatayı sustur" aracı değildir.**\n\n' +
               'En sık kötüye kullanımı budur: uyarı rahatsız edince kapatılır, ' +
               've uyarının **koruduğu şey** ortadan kalkar.\n\n' +
               '**Doğru kullanım iki yönlüdür:**\n\n' +
               '**Gevşetme** — iş süreci gereği o kontrol geçerli değilse, ' +
               've bu **belgelenmişse**.\n\n' +
-              '**⭐ Sıkılaştırma** — az bilinen ama daha değerli kullanım: ' +
+              '** Sıkılaştırma** — az bilinen ama daha değerli kullanım: ' +
               'bir **uyarıyı hataya** çevirmek. ' +
               '{{konu:dogrulama-ikame}} konusundaki ilkeyle aynı: ' +
               '**yalnızca `E` gerçek korumadır**, `W` ilk yoğun günde geçilir.\n\n' +
@@ -662,7 +662,7 @@ SAP.registerTopic({
           { mesaj:'Dump anlaşılmıyor', sebep:'Teknik içerik.', cozum:'**Hata tipi** ve **"kullanıcı ne yapıyordu"** bölümleri yeterlidir; kaynak kodu okumak gerekmez.' },
           { mesaj:'Aynı dump tekrarlıyor', sebep:'Kök sebep düzeltilmemiş.', cozum:'Veri düzeltilmediyse her çalıştırmada tekrarlar. Aynı sorunu taşıyan **diğer kayıtları da tara**.' },
         ],
-        ipucu:'⚠️ **En yaygın yanlış refleks:** *"program bozuk, geliştiriciye gönder."*\n\n' +
+        ipucu:'**En yaygın yanlış refleks:** *"program bozuk, geliştiriciye gönder."*\n\n' +
               'Danışmanlıkta gördüğün dump’ların çoğu **veri veya özelleştirme** ' +
               'kaynaklıdır: tanımsız döviz kuru, sıfır faydalı ömür, ' +
               'boş numara aralığı, eksik hesap ataması.\n\n' +
@@ -688,10 +688,10 @@ SAP.registerTopic({
         iliskiler:'Şirket kodunun dönem varyantı {{T001}}’den gelir.',
         s4:'Değişmedi.',
         alanlar:[
-          { ad:'MKOAR', aciklama:'⚠️ **Hesap türü** — `+` genel · `S` G/L · `K` satıcı · `D` müşteri · `A` varlık', tip:'pk' },
+          { ad:'MKOAR', aciklama:'**Hesap türü** — `+` genel · `S` G/L · `K` satıcı · `D` müşteri · `A` varlık', tip:'pk' },
           { ad:'FRPE1 / TOPE1', aciklama:'**Birinci** aralık — normal dönemler' },
           { ad:'FRPE2 / TOPE2', aciklama:'**İkinci** aralık — genelde özel dönemler (13–16)' },
-          { ad:'BUKRS', aciklama:'⚠️ Boş olabilir — o zaman **tüm şirket kodları** için geçerli' },
+          { ad:'BUKRS', aciklama:'Boş olabilir — o zaman **tüm şirket kodları** için geçerli' },
         ] },
 
       { ad:'BALHDR', baslik:'Uygulama günlüğü başlığı — toplu işlemin gerçek sonucu',
@@ -703,7 +703,7 @@ SAP.registerTopic({
         alanlar:[
           { ad:'OBJECT / SUBOBJECT', aciklama:'Hangi programın günlüğü' },
           { ad:'ALDATE / ALUSER', aciklama:'Ne zaman, kim çalıştırdı' },
-          { ad:'PROBCLASS', aciklama:'⭐ **En yüksek mesaj sınıfı** — 1 çok kritik … 4 bilgi. Süzmenin en hızlı yolu' },
+          { ad:'PROBCLASS', aciklama:'**En yüksek mesaj sınıfı** — 1 çok kritik … 4 bilgi. Süzmenin en hızlı yolu' },
         ] },
 
       { ad:'BKPF', baslik:'Kapsam ölçmenin tablosu',
@@ -713,10 +713,10 @@ SAP.registerTopic({
         iliskiler:'`STBLG` ters kayıt bağlantısını tutar.',
         s4:'Duruyor; kalemler {{ACDOCA}}’da.',
         alanlar:[
-          { ad:'TCODE', aciklama:'⭐ **Belgeyi üreten işlem** — *"bu hatalı kayıtlar hangi ekrandan girildi?"*' },
+          { ad:'TCODE', aciklama:'**Belgeyi üreten işlem** — *"bu hatalı kayıtlar hangi ekrandan girildi?"*' },
           { ad:'USNAM', aciklama:'Kaydeden kullanıcı — aynı hatayı yapan başkaları var mı?' },
           { ad:'STBLG', aciklama:'**Ters kayıt belgesi** — dolu ise bu belge iptal edilmiş' },
-          { ad:'CPUDT', aciklama:'Giriş tarihi — ⚠️ **kayıt tarihinden farklı olabilir**' },
+          { ad:'CPUDT', aciklama:'Giriş tarihi — **kayıt tarihinden farklı olabilir**' },
         ] },
 
       { ad:'CDHDR', baslik:'Değişiklik belgeleri — "dün çalışıyordu" sorusunun cevabı',
@@ -727,7 +727,7 @@ SAP.registerTopic({
         s4:'Değişmedi.',
         alanlar:[
           { ad:'OBJECTCLAS', aciklama:'Nesne sınıfı — `KRED` satıcı, `DEBI` müşteri, `SACH` G/L' },
-          { ad:'UDATE / USERNAME', aciklama:'⭐ *"Dün çalışıyordu"* dendiğinde **ilk bakılacak yer**' },
+          { ad:'UDATE / USERNAME', aciklama:'*"Dün çalışıyordu"* dendiğinde **ilk bakılacak yer**' },
           { ad:'TCODE', aciklama:'Değişikliğin yapıldığı işlem' },
         ] },
     ],
@@ -766,12 +766,12 @@ SAP.registerTopic({
       { ad:'Mesajın kendisi — çift tıkla',
         aciklama:'En çok atlanan ve en çok işe yarayan adım.',
         alanlar:[
-          { ad:'Mesaj numarası', zorunlu:true, aciklama:'`F5 201` gibi. ⚠️ **Metin değil numara** aranır — metin dile göre değişir.' },
+          { ad:'Mesaj numarası', zorunlu:true, aciklama:'`F5 201` gibi. **Metin değil numara** aranır — metin dile göre değişir.' },
           { ad:'Teşhis', zorunlu:false, aciklama:'Ne oldu.' },
           { ad:'Sistem yanıtı', zorunlu:false, aciklama:'Sistem ne yaptı.' },
-          { ad:'**Prosedür**', zorunlu:false, aciklama:'⭐ **Ne yapılması gerektiği** — çoğu vakayı tek başına çözer.' },
+          { ad:'**Prosedür**', zorunlu:false, aciklama:'**Ne yapılması gerektiği** — çoğu vakayı tek başına çözer.' },
         ],
-        ipucu:'⭐ **Mesajın uzun metnini okumak, FI destek işinin en yüksek ' +
+        ipucu:'**Mesajın uzun metnini okumak, FI destek işinin en yüksek ' +
               'getirili tek alışkanlığıdır.**\n\n' +
               'SAP mesajlarının çoğunda **Prosedür** bölümü vardır ve ' +
               'orada çözüm **yazılıdır**. Yeni danışmanlar bu bölümü ' +
@@ -781,7 +781,7 @@ SAP.registerTopic({
         aciklama:'Mesaj yoksa veya mesaj yeterli değilse.',
         alanlar:[
           { ad:'{{SU53}}', zorunlu:false, aciklama:'**Yetki** — boş liste geldiyse **hemen** çalıştır.' },
-          { ad:'{{SM12}}', zorunlu:false, aciklama:'**Kilit** — işlem donuyorsa. ⚠️ Elle silme.' },
+          { ad:'{{SM12}}', zorunlu:false, aciklama:'**Kilit** — işlem donuyorsa. Elle silme.' },
           { ad:'{{SM13}}', zorunlu:false, aciklama:'**Güncelleme hatası** — numara var belge yok.' },
           { ad:'{{SM21}}', zorunlu:false, aciklama:'Sistem günlüğü — uygulama değil **sistem** sorunuysa.' },
         ],
@@ -795,10 +795,10 @@ SAP.registerTopic({
         aciklama:'Toplu işlemde **üçüne de** bakılır; üçü farklı şey söyler.',
         alanlar:[
           { ad:'{{SM37}}', zorunlu:false, aciklama:'*"Program çalıştı mı, çöktü mü?"*' },
-          { ad:'{{SLG1}}', zorunlu:false, aciklama:'⭐ *"İş **doğru** yapıldı mı?"* — satır bazında.' },
+          { ad:'{{SLG1}}', zorunlu:false, aciklama:'*"İş **doğru** yapıldı mı?"* — satır bazında.' },
           { ad:'{{SP01}}', zorunlu:false, aciklama:'*"Çıktı üretildi mi?"* — {{F150}} ihtar mektupları.' },
         ],
-        ipucu:'⚠️ **{{SM37}}’de "başarıyla tamamlandı" görmek yetmez.**\n\n' +
+        ipucu:'**{{SM37}}’de "başarıyla tamamlandı" görmek yetmez.**\n\n' +
               'İş durumu **programın çökmediğini** söyler; ' +
               'kalemlerin **işlendiğini** söylemez.\n\n' +
               'Bir {{F110}} çalıştırması başarıyla bitip **hiçbir ödeme üretmemiş** olabilir — ' +
@@ -810,11 +810,11 @@ SAP.registerTopic({
     opsiyonel:['Ekran görüntüsü','"Daha önce çalışıyor muydu?" cevabı'],
 
     hatalar:[
-      { mesaj:'Posting period ... is not open (`F5 201`)', sebep:'{{OB52}}’de dönem kapalı.', cozum:'⚠️ **Hesap türü satırını** kontrol et — `+` açık olsa bile `K`/`D`/`A` kapalı olabilir.' },
+      { mesaj:'Posting period ... is not open (`F5 201`)', sebep:'{{OB52}}’de dönem kapalı.', cozum:'**Hesap türü satırını** kontrol et — `+` açık olsa bile `K`/`D`/`A` kapalı olabilir.' },
       { mesaj:'Account determination for entry ... not possible', sebep:'{{OBYC}}/{{VKOA}}/{{OB40}}’ta satır yok.', cozum:'Modül hangi tabloya bakacağını söyler. Genelde **yeni değerleme sınıfı** eklenmiş, satır eklenmemiştir.' },
       { mesaj:'Belge dengesiz — ama ekranda denk görünüyor', sebep:'{{belge-bolme}} aktif; defter görünümünde bölme boyutu eksik.', cozum:'Kâr merkezi gibi bölme karakteristiği dolduruldu mu bak ({{konu:new-gl}}).' },
       { mesaj:'Liste boş geliyor, hata yok', sebep:'Veri yetkisi yok — süzgeç olarak uygulanmış.', cozum:'{{SE16N}} ile veri var mı bak → **hemen** {{SU53}}.' },
-      { mesaj:'"Belge kaydedildi" dedi ama {{FB03}}’te yok', sebep:'{{guncelleme-hatasi}}.', cozum:'{{SM13}}. ⚠️ Toplu yüklemede **sayı mutabakatı** yap.' },
+      { mesaj:'"Belge kaydedildi" dedi ama {{FB03}}’te yok', sebep:'{{guncelleme-hatasi}}.', cozum:'{{SM13}}. Toplu yüklemede **sayı mutabakatı** yap.' },
       { mesaj:'İşlem donuyor, kaydetmiyor', sebep:'{{kilitleme}} — başka işlem nesneyi tutuyor.', cozum:'{{SM12}} sahibi bul → {{SM37}} iş çalışıyor mu → çalışıyorsa **bekle**.' },
       { mesaj:'Ayarı değiştirdim, etkisi yok', sebep:'{{tampon}} veya taşıma gelmemiş.', cozum:'Aynı sistemde ise oturum yenile / `/$sync`. Farklı sistemde ise `STMS` taşıma dönüş kodu.' },
       { mesaj:'Toplu işlem "bitti" ama sonuç eksik', sebep:'{{SM37}} yalnızca çökme durumunu gösterir.', cozum:'{{SLG1}} ile **satır bazında** günlüğü oku.' },
@@ -822,16 +822,16 @@ SAP.registerTopic({
     ],
 
     ipuclari:[
-      '⭐ **Mesajın üzerine çift tıkla — "Prosedür" bölümü çoğu vakayı çözer.**',
+      '**Mesajın üzerine çift tıkla — "Prosedür" bölümü çoğu vakayı çözer.**',
       'Metni değil **numarayı** ara: `F5 201`. Metin dile ve sürüme göre değişir.',
-      '⭐ **"Daha önce çalışıyor muydu?"** sorusu aramayı ikiye böler: ' +
+      '**"Daha önce çalışıyor muydu?"** sorusu aramayı ikiye böler: ' +
       'hiç çalışmadıysa **yapılandırma**, dün çalışıyorsa **değişiklik** ({{CDHDR}}).',
       'Boş liste **"veri yok" demek değildir**: {{SE16N}} → sonra **hemen** {{SU53}}.',
       'Toplu işlemde {{SM37}} yetmez — {{SLG1}} satır bazında gerçeği söyler.',
       'Toplu yükleme sonrası **sayı mutabakatı**: gönderilen = oluşan. Değilse {{SM13}}.',
       'Dump gördüğünde önce **veriyi** kontrol et; çoğu dump program hatası değildir.',
       'Kilit **elle silinmez** — önce {{SM37}}’de iş hâlâ çalışıyor mu bak.',
-      '⭐ Çözdükten sonra **aynı sınıfı tara**: aynı rolü, hesabı, vergi kodunu ' +
+      'Çözdükten sonra **aynı sınıfı tara**: aynı rolü, hesabı, vergi kodunu ' +
       'kullanan başkaları da etkilenmiş olabilir.',
     ],
   },
@@ -853,7 +853,7 @@ SAP.registerTopic({
       '**2. Güncelleme görevi** — asıl yazma **asenkron** yapılır.\n\n' +
       'İkincisi çökerse kullanıcı **başarı mesajını görmüştür** ama belge yoktur. ' +
       'Numara da **yanmıştır** — belge numaralarında boşluk oluşur.\n\n' +
-      '⚠️ Bu, {{guncelleme-hatasi}}’nın neden bu kadar sinsi olduğunu açıklar ve ' +
+      'Bu, {{guncelleme-hatasi}}’nın neden bu kadar sinsi olduğunu açıklar ve ' +
       'toplu yüklemede **sayı mutabakatının** neden zorunlu olduğunu gösterir.',
 
     belgeNo:
@@ -862,7 +862,7 @@ SAP.registerTopic({
       '• Numara aralığında **boşluk** oluşur ve bu normaldir.\n' +
       '• Denetimde *"bu numaralar neden atlanmış?"* sorusu gelebilir; ' +
       'cevap {{SM13}} kayıtlarıdır.\n\n' +
-      '⚠️ Numara aralığı **dolduğunda** ise farklı bir hata gelir ve ' +
+      'Numara aralığı **dolduğunda** ise farklı bir hata gelir ve ' +
       'tüm kayıt durur. {{FBN1}} ile aralık kontrol edilir — ' +
       'yıl sonu geçişlerinde atlanan bir kontroldür.',
 
@@ -877,7 +877,7 @@ SAP.registerTopic({
       '**6. Denklik** — borç = alacak (ve {{belge-bolme}} varsa defter görünümünde de)\n' +
       '**7. Hesap belirleme** — otomatik satırlar için {{OBYC}}/{{VKOA}}/{{OB40}}\n' +
       '**8. Numara aralığı** — belge numarası verilir\n' +
-      '**9. Güncelleme görevi** — ⚠️ **asenkron**, burada çökerse sessizdir\n\n' +
+      '**9. Güncelleme görevi** — **asenkron**, burada çökerse sessizdir\n\n' +
       '**Pratik kullanım:** hata hangi aşamada geldi? ' +
       'Alan hatası aldıysan dönem kontrolüne **daha gelmemiştir** — ' +
       'dönemi kontrol etmek zaman kaybıdır.',
@@ -891,7 +891,7 @@ SAP.registerTopic({
       '**Ters kayıt belge türü** → {{FB08}} için tanımlı değilse iptal edilemez.',
 
     numberRange:
-      '⚠️ **Yıl sonu geçişinde en sık atlanan kontrol.**\n\n' +
+      '**Yıl sonu geçişinde en sık atlanan kontrol.**\n\n' +
       'Belge numara aralıkları **yıl bazlı** tanımlanabilir. ' +
       'Yeni yıla ait aralık {{FBN1}} ile açılmamışsa, ' +
       '1 Ocak sabahı **hiçbir kayıt yapılamaz**.\n\n' +
@@ -909,7 +909,7 @@ SAP.registerTopic({
       '**SD** ({{VF01}}) → {{VKOA}} · `ERL` `ERS` `ERF`\n' +
       '**Vergi** → {{OB40}} / {{T030K}} · üç alanlı anahtar\n' +
       '**Duran varlık** → {{AO90}} · değerleme sınıfı bazında\n\n' +
-      '⚠️ **En sık kök sebep aynıdır:** yeni bir **değerleme sınıfı**, ' +
+      '**En sık kök sebep aynıdır:** yeni bir **değerleme sınıfı**, ' +
       'yeni bir **vergi kodu** veya yeni bir **hesap grubu** açılmış, ' +
       'ama hesap atama tablosuna satır eklenmemiş.\n\n' +
       'Bu yüzden "yeni X açma" süreçlerine ' +
@@ -922,7 +922,7 @@ SAP.registerTopic({
       '**I (Information)** — bilgi verir.\n' +
       '**A (Abort)** — işlem sonlanır.\n' +
       '**S (Success)** — başarı.\n\n' +
-      '⚠️ **W ile kurulan koruma, koruma değildir.** ' +
+      '**W ile kurulan koruma, koruma değildir.** ' +
       'İlk yoğun günde herkes Enter’a basar ve kural fiilen kalkar. ' +
       '{{konu:dogrulama-ikame}} konusundaki ilkeyle aynıdır.',
 
@@ -930,16 +930,16 @@ SAP.registerTopic({
       'Hataların önemli bir kısmı **taşıma kaynaklıdır**:\n\n' +
       '**Eksik taşıma** — ayar test sisteminde var, canlıda yok.\n' +
       '**Sıra hatası** — bağımlı nesne önce gelmiş.\n' +
-      '**Dönüş kodu 4** — ⚠️ *"başarılı"* değildir; **uyarıyla geçti** demektir ' +
+      '**Dönüş kodu 4** — *"başarılı"* değildir; **uyarıyla geçti** demektir ' +
       've bazı nesneler gelmemiş olabilir. `STMS` günlüğü satır satır okunur.\n\n' +
-      '⚠️ **Rol ({{PFCG}}) ayrı taşınır.** Özelleştirme canlıya gitmiş olsa bile ' +
+      '**Rol ({{PFCG}}) ayrı taşınır.** Özelleştirme canlıya gitmiş olsa bile ' +
       'rol güncellenmemişse kullanıcı yetkisiz kalır — ' +
       'geçişte en sık atlanan adımlardan biri.',
 
     img:[
-      { yol:'OB52 → Kayıt dönemlerini aç ve kapat', not:'⚠️ Hesap türü satırlarını ayrı kontrol et' },
+      { yol:'OB52 → Kayıt dönemlerini aç ve kapat', not:'Hesap türü satırlarını ayrı kontrol et' },
       { yol:'OBA5 → Mesaj kontrolü', not:'Hata ↔ uyarı. Kapatmadan önce "neyi koruyordu?"' },
-      { yol:'FBN1 → Belge numara aralıkları', not:'⚠️ Yıl sonu kontrolü — **Aralık ayında**' },
+      { yol:'FBN1 → Belge numara aralıkları', not:'Yıl sonu kontrolü — **Aralık ayında**' },
       { yol:'OBC4 → Alan durumu grupları', not:'{{OB41}} kayıt anahtarıyla birlikte değerlendirilir' },
       { yol:'PFCG → Rol bakımı', not:'Yetki hatalarının kaynağı; ayrı taşınır' },
     ],
@@ -950,18 +950,18 @@ SAP.registerTopic({
         'Bu tablo, konunun pratik özetidir:\n\n' +
         '| Belirti | İlk bakılacak yer |\n' +
         '|---|---|\n' +
-        '| Mesajlı hata | ⭐ **Mesaja çift tıkla → Prosedür** |\n' +
+        '| Mesajlı hata | **Mesaja çift tıkla → Prosedür** |\n' +
         '| *"Yetkiniz yok"* | {{SU53}} → {{SU01}} rol geçerliliği |\n' +
         '| **Boş liste, hata yok** | {{SE16N}} (veri var mı) → **hemen** {{SU53}} |\n' +
         '| *"Kaydedildi"* ama belge yok | {{SM13}} |\n' +
         '| İşlem donuyor | {{SM12}} → {{SM37}} |\n' +
-        '| Toplu işlem eksik | {{SM37}} + ⭐ **{{SLG1}}** |\n' +
+        '| Toplu işlem eksik | {{SM37}} + **{{SLG1}}** |\n' +
         '| Çıktı gelmedi | {{SP01}} |\n' +
         '| Program çöktü | {{ST22}} → **önce veriyi kontrol et** |\n' +
         '| Ayar etkisiz (aynı sistem) | {{tampon}} → oturum yenile / `/$sync` |\n' +
         '| Ayar etkisiz (başka sistem) | `STMS` taşıma dönüş kodu |\n' +
         '| **Değer kendiliğinden değişiyor** | {{GGB1}} ikame envanteri |\n' +
-        '| *"Dün çalışıyordu"* | ⭐ {{CDHDR}} / {{CDPOS}} — **ne değişti?** |\n' +
+        '| *"Dün çalışıyordu"* | {{CDHDR}} / {{CDPOS}} — **ne değişti?** |\n' +
         '| Sistem geneli sorun | {{SM21}} |\n\n' +
         '**Bu tabloyu ezberlemek, hata mesajlarını ezberlemekten ' +
         'kat kat verimlidir** — çünkü mesajlar binlerce, belirtiler ise ondur.' },
@@ -1001,7 +1001,7 @@ SAP.registerTopic({
         '{{konu:dogrulama-ikame}} ile **önleme** gerekir.\n\n' +
         '**2.** Uyarı bu iş süreci için **anlamsız** → ' +
         'kapatılabilir, ama **gerekçesi belgelenmeli**.\n\n' +
-        '⚠️ Gerekçesiz kapatılan bir mesaj, iki yıl sonra ' +
+        'Gerekçesiz kapatılan bir mesaj, iki yıl sonra ' +
         '*"bu kontrol neden yok?"* sorusuna cevapsız kalır — ' +
         've kimse geri açmaya cesaret edemez.\n\n' +
         '**Aynı ilke ters yönde de geçerli ve daha değerlidir:** ' +
@@ -1021,16 +1021,16 @@ SAP.registerTopic({
     eccFarklari:[
       { konu:'Dönem hataları', ecc:'{{OB52}}', s4:'**Aynı** — değişmedi' },
       { konu:'Yetki hataları', ecc:'`S_TCODE` + nesne', s4:'**Aynı** + Fiori kutucuk yetkisi' },
-      { konu:'FI/CO mutabakat farkı', ecc:'Ayrı tablolar → **fark oluşabilirdi**', s4:'⭐ **Sınıf ortadan kalktı** — {{ACDOCA}} tek tablo' },
-      { konu:'Toplam tablosu tutarsızlığı', ecc:'GLT0 ≠ {{BSEG}} olabilirdi ({{F.03}})', s4:'⭐ **Kalktı** — toplam tablosu yok, anlık hesaplanır' },
-      { konu:'İndeks tablosu tutarsızlığı', ecc:'{{BSIK}} ≠ {{BSEG}} olabilirdi', s4:'⭐ **Kalktı** — indeksler görünüme dönüştü' },
-      { konu:'Geçiş hataları', ecc:'Yok', s4:'⚠️ **Yeni sınıf** — iş ortağı, hesap eşleme, bakiye taşıma' },
-      { konu:'Hata mesajı gösterimi', ecc:'GUI durum çubuğu', s4:'Fiori **mesaj kutusu** — ⚠️ uzun metne erişim farklı' },
+      { konu:'FI/CO mutabakat farkı', ecc:'Ayrı tablolar → **fark oluşabilirdi**', s4:'**Sınıf ortadan kalktı** — {{ACDOCA}} tek tablo' },
+      { konu:'Toplam tablosu tutarsızlığı', ecc:'GLT0 ≠ {{BSEG}} olabilirdi ({{F.03}})', s4:'**Kalktı** — toplam tablosu yok, anlık hesaplanır' },
+      { konu:'İndeks tablosu tutarsızlığı', ecc:'{{BSIK}} ≠ {{BSEG}} olabilirdi', s4:'**Kalktı** — indeksler görünüme dönüştü' },
+      { konu:'Geçiş hataları', ecc:'Yok', s4:'**Yeni sınıf** — iş ortağı, hesap eşleme, bakiye taşıma' },
+      { konu:'Hata mesajı gösterimi', ecc:'GUI durum çubuğu', s4:'Fiori **mesaj kutusu** — uzun metne erişim farklı' },
       { konu:'Dump analizi', ecc:'{{ST22}}', s4:'{{ST22}} **duruyor**' },
     ],
 
     universalJournal:
-      '⭐ **{{evrensel-kayit-defteri}} bütün bir hata sınıfını ortadan kaldırdı.**\n\n' +
+      '**{{evrensel-kayit-defteri}} bütün bir hata sınıfını ortadan kaldırdı.**\n\n' +
       'ECC’de FI ve CO **ayrı tablolarda** dururdu; aralarındaki tutarsızlık ' +
       'gerçek ve sık bir sorundu. {{F.03}} gibi mutabakat raporları ' +
       'bu yüzden vardı ve ay sonunda **rutin olarak** çalıştırılırdı.\n\n' +
@@ -1044,14 +1044,14 @@ SAP.registerTopic({
       '*"iki yer uyuşmuyor"* hata sınıfı kendiliğinden yok olur.',
 
     kalkanTcodes:[
-      { eski:'{{F.03}} — FI mutabakat', yeni:'**Gereksiz**', not:'⭐ FI/CO tek tabloda; tutarsızlık yapısal olarak imkânsız' },
+      { eski:'{{F.03}} — FI mutabakat', yeni:'**Gereksiz**', not:'FI/CO tek tabloda; tutarsızlık yapısal olarak imkânsız' },
       { eski:'Toplam tablosu düzeltme programları', yeni:'**Gereksiz**', not:'Toplam tablosu yok — anlık hesaplanır' },
       { eski:'İndeks yeniden oluşturma', yeni:'**Gereksiz**', not:'İndeksler {{uyumluluk-view}}’a dönüştü' },
-      { eski:'—', yeni:'**Yeni:** geçiş kontrol raporları', not:'⚠️ Yeni hata sınıfı: eşleme ve bakiye taşıma' },
+      { eski:'—', yeni:'**Yeni:** geçiş kontrol raporları', not:'Yeni hata sınıfı: eşleme ve bakiye taşıma' },
     ],
 
     fiori:[
-      { ad:'Mesaj kutusu', aciklama:'⚠️ Fiori’de mesajlar durum çubuğunda değil ' +
+      { ad:'Mesaj kutusu', aciklama:'Fiori’de mesajlar durum çubuğunda değil ' +
              '**kutuda** gösterilir. Uzun metne erişim GUI’den farklıdır — ' +
              'kullanıcı *"detay yok"* sanabilir.' },
       { ad:'Manage Journal Entries', aciklama:'Belge arama ve düzeltme; ' +
@@ -1059,18 +1059,18 @@ SAP.registerTopic({
       { ad:'Application Jobs', aciklama:'{{SM37}} + {{SLG1}} karşılığı — ' +
              'iş durumu ve günlük **aynı ekranda**.' },
       { ad:'Display Technical Job Log', aciklama:'Toplu işlem günlüğünün Fiori hâli.' },
-      { ad:'Fiori kutucuk yetkisi', aciklama:'⚠️ **Yeni bir sessiz hata kaynağı:** ' +
+      { ad:'Fiori kutucuk yetkisi', aciklama:'**Yeni bir sessiz hata kaynağı:** ' +
              'kullanıcının `S_TCODE` yetkisi var ama **kutucuk rolde yok** → ' +
              'uygulama Launchpad’de **görünmez**. Kullanıcı *"uygulama kayboldu"* der.' },
     ],
 
     compatibilityViews:[
-      '⚠️ {{uyumluluk-view}} **yeni bir hata sınıfı** yarattı: ' +
+      '{{uyumluluk-view}} **yeni bir hata sınıfı** yarattı: ' +
       'eski özel raporlar çalışır ama **yavaşlar**.',
       'Görünüme **yazma** denemesi hata verir — eski özel kodlar ' +
       '{{BSEG}}’e yazmaya çalışıyorsa çalışmaz.',
       '{{BSEG}}’de tutarlar **pozitif + `SHKZG`**, {{ACDOCA}}’da **işaretli**. ' +
-      '⚠️ Sorgu taşınırken `SHKZG` mantığı **kaldırılmazsa işaret iki kez uygulanır** ' +
+      'Sorgu taşınırken `SHKZG` mantığı **kaldırılmazsa işaret iki kez uygulanır** ' +
       '(bkz. {{konu:sap-tables}}).',
     ],
 
@@ -1079,21 +1079,21 @@ SAP.registerTopic({
       'kullanıcı için aynı şeydir: rapor açılmıyorsa çalışmıyordur.\n\n' +
       'İki yönlü değişim oldu:\n\n' +
       '**Hızlanan:** standart döküm ve bakiye raporları — sütun bazlı depolama.\n\n' +
-      '**⚠️ Yavaşlayan:** {{uyumluluk-view}} üzerinden çalışan **eski özel raporlar**. ' +
+      '** Yavaşlayan:** {{uyumluluk-view}} üzerinden çalışan **eski özel raporlar**. ' +
       'Görünüm her sorguda {{ACDOCA}}’dan yeniden türetilir.\n\n' +
       '**Kalıcı çözüm:** özel raporları doğrudan {{ACDOCA}} okuyacak şekilde ' +
       'yeniden yazmak. Geçişte bu iş **kapsam dışı bırakılır** ve ' +
       'canlıya alındıktan sonra sorun olarak geri döner.',
 
     bestPractices:[
-      '⭐ Geçiş öncesi **dump ve güncelleme hatası envanteri** çıkar: ' +
+      'Geçiş öncesi **dump ve güncelleme hatası envanteri** çıkar: ' +
       '{{ST22}} ve {{SM13}}’teki mevcut hatalar geçişten sonra ' +
       '**"S/4HANA bozdu"** diye raporlanır. Önce mevcut durumu belgele.',
       'Mevcut {{konu:dogrulama-ikame}} kurallarını gözden geçir — ' +
       'bazıları {{ACDOCA}} alan yapısıyla uyumsuz olabilir.',
       'Kullanıcılara **Fiori’de uzun metne nasıl erişileceğini** öğret; ' +
       'yoksa *"hata detayı yok"* şikâyeti gelir.',
-      '⚠️ **Fiori kutucuk yetkisini** rol tasarımına dahil et — ' +
+      '**Fiori kutucuk yetkisini** rol tasarımına dahil et — ' +
       '`S_TCODE` yeterli değil, uygulama görünmezse kullanıcı erişemez.',
       'Geçiş sonrası ilk ay **{{SM13}} ve {{SLG1}} günlük kontrol edilir**; ' +
       'sessiz hatalar bu dönemde yoğunlaşır.',
@@ -1119,7 +1119,7 @@ SAP.registerTopic({
       { k:'{{SM37}} durumu', v:'**Başarıyla tamamlandı** ✓ (yeşil)' },
       { k:'Beklenen amortisman', v:'8.420.000 TRY' },
       { k:'Kaydedilen', v:'**6.573.000 TRY**' },
-      { k:'Fark', v:'⚠️ **1.847.000 TRY**' },
+      { k:'Fark', v:'**1.847.000 TRY**' },
       { k:'Fark edilme', v:'**3 hafta sonra** — Aralık kapanışında' },
     ],
 
@@ -1130,7 +1130,7 @@ SAP.registerTopic({
           { alan:'{{SM37}}', deger:'İş `RAPOST2000` · durum **Başarıyla tamamlandı**' },
           { alan:'Süre', deger:'14 dakika — normal' },
           { alan:'Çıkarım', deger:'Program **çökmedi**' },
-          { alan:'Ama', deger:'⚠️ *"Çökmedi"* ≠ *"doğru yaptı"*' },
+          { alan:'Ama', deger:'*"Çökmedi"* ≠ *"doğru yaptı"*' },
         ],
         not:'**Bu senaryonun kalbi burası.**\n\n' +
              '{{SM37}} yalnızca **programın çökmediğini** söyler. ' +
@@ -1143,7 +1143,7 @@ SAP.registerTopic({
         aciklama:'Ekrandaki özetin arkasındaki ayrıntı okunuyor.',
         girdi:[
           { alan:'Nesne', deger:'Duran varlık amortismanı · Kasım 2027' },
-          { alan:'Kırmızı mesaj', deger:'⚠️ **34 satır**' },
+          { alan:'Kırmızı mesaj', deger:'**34 satır**' },
           { alan:'Mesaj', deger:'*"Amortisman anahtarı ... için faydalı ömür eksik"*' },
           { alan:'Etkilenen', deger:'34 varlık — toplam **1.847.000 TRY**' },
         ],
@@ -1173,7 +1173,7 @@ SAP.registerTopic({
           { alan:'Tablo', deger:'{{CDHDR}} / {{CDPOS}} — değişiklik belgeleri' },
           { alan:'Bulgu', deger:'`Z400` sınıfı **12.10.2027**’de açılmış' },
           { alan:'Açan', deger:'Danışman — yeni ürün hattı için' },
-          { alan:'Eksik', deger:'⚠️ Sınıfın **varsayılan faydalı ömrü** girilmemiş' },
+          { alan:'Eksik', deger:'Sınıfın **varsayılan faydalı ömrü** girilmemiş' },
         ],
         not:'**Kök sebep bulundu.**\n\n' +
              'Yeni varlık sınıfı açılmış ama {{OAOA}}’da **varsayılan ömür** ' +
@@ -1186,12 +1186,12 @@ SAP.registerTopic({
       { baslik:'Kapsam gerçekten 34 mü? — Ekim de kontrol edilir', tcode:'SLG1',
         aciklama:'Bir dönem bulunca öncekiler de taranır.',
         girdi:[
-          { alan:'Ekim 2027 günlüğü', deger:'⚠️ **11 kırmızı satır** — aynı hata' },
+          { alan:'Ekim 2027 günlüğü', deger:'**11 kırmızı satır** — aynı hata' },
           { alan:'Ekim farkı', deger:'412.000 TRY' },
           { alan:'Toplam etki', deger:'**2.259.000 TRY** (Ekim + Kasım)' },
           { alan:'Ders', deger:'Bir dönemde bulunan hata **ilk oluştuğu dönem değildir**' },
         ],
-        not:'⚠️ **Kritik adım.** Hatanın **bulunduğu** dönem, ' +
+        not:'**Kritik adım.** Hatanın **bulunduğu** dönem, ' +
              '**başladığı** dönem değildir.\n\n' +
              'Kasım’da 34, Ekim’de 11 varlık etkilenmiş. ' +
              'Yalnızca Kasım düzeltilseydi, Ekim farkı ' +
@@ -1212,7 +1212,7 @@ SAP.registerTopic({
           satirlar:[
             { hesap:'770', ad:'Amortisman gideri', borc:2259000, not:'Ekim + Kasım farkı' },
             { hesap:'257', ad:'Birikmiş amortisman', alacak:2259000 },
-          ], not:'⚠️ Ekim dönemi kapalı olduğu için **iki ayın farkı Kasım’a** düştü.\n\n' +
+          ], not:'Ekim dönemi kapalı olduğu için **iki ayın farkı Kasım’a** düştü.\n\n' +
                  'Muhasebe doğru — toplam amortisman yerinde. ' +
                  'Ama **Kasım gideri şişkin** görünüyor ve ' +
                  'aylık karşılaştırmalı raporda açıklama gerektiriyor.\n\n' +
@@ -1222,7 +1222,7 @@ SAP.registerTopic({
           { tablo:'ANLC', ne:'Amortisman değerleri yeniden hesaplandı' },
           { tablo:'ACDOCA', ne:'Amortisman kalemleri **Kasım dönemine** yazıldı' },
         ],
-        not:'⚠️ **Sıra önemliydi.** Önce {{OAOA}} (sınıf varsayılanı), ' +
+        not:'**Sıra önemliydi.** Önce {{OAOA}} (sınıf varsayılanı), ' +
              'sonra {{AS02}} (mevcut varlıklar), en son {{AFAB}}.\n\n' +
              'Sınıf düzeltilmeden varlıklar düzeltilseydi, ' +
              'Aralık’ta açılan yeni varlıklar **aynı hatayı** tekrarlayacaktı.' },
@@ -1280,9 +1280,9 @@ SAP.registerTopic({
       'Bu konu **hata sözlüğü değil, teşhis yöntemidir** — mesajlar binlerce, belirtiler ondur.',
       '**Üç hata sınıfı:** ① konuşan (mesaj var) · ② **sessiz** (mesaj yok, sonuç yanlış) · ③ çöken (dump).',
       '**Danışmanı ayıran ② sınıfıdır.** Konuşan hatayı herkes çözer.',
-      '⭐ **Mesaja çift tıkla → "Prosedür" bölümü** çoğu vakayı tek başına çözer.',
+      '**Mesaja çift tıkla → "Prosedür" bölümü** çoğu vakayı tek başına çözer.',
       'Metni değil **numarayı** ara: `F5 201`. Metin dile ve sürüme göre değişir.',
-      '⭐ **"Daha önce çalışıyor muydu?"** aramayı ikiye böler: hiç çalışmadıysa **yapılandırma**, dün çalışıyorsa **değişiklik** ({{CDHDR}}).',
+      '**"Daha önce çalışıyor muydu?"** aramayı ikiye böler: hiç çalışmadıysa **yapılandırma**, dün çalışıyorsa **değişiklik** ({{CDHDR}}).',
       '**{{SM37}} ≠ {{SLG1}}:** biri *"çöktü mü?"*, diğeri *"doğru yapıldı mı?"*.',
       '**Boş liste "veri yok" demek değildir:** {{SE16N}} → **hemen** {{SU53}}.',
       'Düzeltme maliyeti zamanla artar: önlenirse **0 belge**, sonra bulunursa **3 belge + dönem sorunu**.',
@@ -1292,32 +1292,32 @@ SAP.registerTopic({
     onemliNoktalar:[
       '**"Kullanıcı rapor açıyor, liste boş, hata yok. Nereden başlarsın?"** Bu ② sınıfıdır. Sıra: **(1)** {{SE16N}} ile tabloda veri var mı — varsa sorun **erişim**, yoksa **kayıt**; **(2)** varsa **hemen** {{SU53}} — `S_TCODE` var ama `F_BKPF_BUK` yoksa rapor yetkiyi **süzgeç** olarak uygular, yetkisiz şirket kodu hiç sorgulanmaz ve bu program açısından **hata değildir**; **(3)** yetki tamamsa hesapta **kalem yönetimi** kontrol edilir.',
       '**"{{SM37}} yeşil ama sonuç eksik. Nasıl olur?"** {{SM37}} **programın çökmediğini** söyler, kalemlerin işlendiğini değil. Toplu programlar hatalı kalemi **atlayıp devam eder** — doğru tasarımdır. Gerçek sonuç **{{SLG1}}**’dedir. Kapanış listesinde *"{{SLG1}} kırmızı = 0"* adımı olmalı.',
-      '**"Dönem kapalı hatası alıyorum ama {{OB52}}’de dönem açık."** ⚠️ **Hesap türü satırı.** `+` genel satırdır; `S` (G/L), `K` (satıcı), `D` (müşteri), `A` (varlık) **ayrı satır** olabilir. Satıcı faturası için `K` kapalıysa `+` açık olsa bile hata alırsın. Ayrıca **ikinci tarih aralığı** (özel dönemler 13–16) ve varlık için **AA dönemi** kontrol edilir.',
-      '**"Belge kaydedildi dedi ama belge yok."** {{guncelleme-hatasi}}. Numara **diyalogda** verilir, kayıt **güncelleme görevinde** asenkron yazılır. İkincisi çökerse kullanıcı başarı mesajını görür, belge yoktur, **numara yanar**. Teşhis: {{SM13}}. ⚠️ Toplu yüklemede hiç fark edilmez — **sayı mutabakatı** zorunlu olmalı.',
+      '**"Dönem kapalı hatası alıyorum ama {{OB52}}’de dönem açık."** **Hesap türü satırı.** `+` genel satırdır; `S` (G/L), `K` (satıcı), `D` (müşteri), `A` (varlık) **ayrı satır** olabilir. Satıcı faturası için `K` kapalıysa `+` açık olsa bile hata alırsın. Ayrıca **ikinci tarih aralığı** (özel dönemler 13–16) ve varlık için **AA dönemi** kontrol edilir.',
+      '**"Belge kaydedildi dedi ama belge yok."** {{guncelleme-hatasi}}. Numara **diyalogda** verilir, kayıt **güncelleme görevinde** asenkron yazılır. İkincisi çökerse kullanıcı başarı mesajını görür, belge yoktur, **numara yanar**. Teşhis: {{SM13}}. Toplu yüklemede hiç fark edilmez — **sayı mutabakatı** zorunlu olmalı.',
       '**"Hesap belirleme yapılamadı — nereye bakarım?"** **Modül tabloyu söyler:** MM → {{OBYC}}, SD → {{VKOA}}, vergi → {{OB40}}/{{T030K}}, varlık → {{AO90}}. En sık kök sebep: **yeni değerleme sınıfı / vergi kodu** açılmış, hesap atama satırı eklenmemiş.',
-      '**"Bu uyarıyı kapatabilir misin?"** {{OBA5}} bunu mümkün kılar ama önce sor: **bu uyarı neyi koruyordu?** Çok çıkıyorsa ya uyarı **işini yapıyordur** (kapatılmamalı, önleme gerekir) ya da süreç için anlamsızdır (kapatılır ama **gerekçe belgelenir**). ⭐ Ters yön daha değerli: kritik bir kontrol `W` ise {{OBA5}} ile **`E`** yapılır — yalnızca `E` gerçek korumadır.',
+      '**"Bu uyarıyı kapatabilir misin?"** {{OBA5}} bunu mümkün kılar ama önce sor: **bu uyarı neyi koruyordu?** Çok çıkıyorsa ya uyarı **işini yapıyordur** (kapatılmamalı, önleme gerekir) ya da süreç için anlamsızdır (kapatılır ama **gerekçe belgelenir**). Ters yön daha değerli: kritik bir kontrol `W` ise {{OBA5}} ile **`E`** yapılır — yalnızca `E` gerçek korumadır.',
       '**"Program çöktü, geliştiriciye mi göndereyim?"** Hayır — önce **veriyi** kontrol et. Danışmanın gördüğü dump’ların çoğu **veri veya özelleştirme** kaynaklıdır: tanımsız kur, sıfır faydalı ömür, boş numara aralığı. Sıra: hata tipini oku → hangi veriyle çöktü → o veriyi kontrol et → **hâlâ anlamsızsa** geliştirici.',
-      '**"S/4HANA hangi hata sınıflarını ortadan kaldırdı?"** ⭐ **Mutabakat hataları.** ECC’de FI ve CO ayrı tablolardaydı, tutarsızlık mümkündü ({{F.03}}); toplam ({{GLT0}}) ve indeks ({{BSIK}}) tabloları kaynakla uyuşmayabilirdi. {{ACDOCA}}’da hepsi **tek tablo veya türetilmiş görünüm** — tutarsızlık **yapısal olarak imkânsız**. Buna karşılık **yeni sınıf doğdu:** geçiş hataları ve {{uyumluluk-view}} performans sorunları.',
+      '**"S/4HANA hangi hata sınıflarını ortadan kaldırdı?"** **Mutabakat hataları.** ECC’de FI ve CO ayrı tablolardaydı, tutarsızlık mümkündü ({{F.03}}); toplam ({{GLT0}}) ve indeks ({{BSIK}}) tabloları kaynakla uyuşmayabilirdi. {{ACDOCA}}’da hepsi **tek tablo veya türetilmiş görünüm** — tutarsızlık **yapısal olarak imkânsız**. Buna karşılık **yeni sınıf doğdu:** geçiş hataları ve {{uyumluluk-view}} performans sorunları.',
     ],
 
     sikHatalar:[
       { hata:'{{SM37}}’de "başarıyla tamamlandı" görüp toplu işlemi doğru saymak.', dogru:'İş durumu **çökme** bilgisidir. Satır bazında gerçek **{{SLG1}}**’dedir. Kapanışta ikisine de bakılır.' },
       { hata:'Hata mesajının **metnini** aramak.', dogru:'Metin dile ve sürüme göre değişir. **Numara** aranır (`F5 201`) ve mesaja **çift tıklanıp** uzun metin okunur.' },
-      { hata:'Mesajın "Prosedür" bölümünü hiç açmamak.', dogru:'⭐ SAP mesajlarının çoğunda çözüm **yazılıdır**. En yüksek getirili alışkanlık budur.' },
+      { hata:'Mesajın "Prosedür" bölümünü hiç açmamak.', dogru:'SAP mesajlarının çoğunda çözüm **yazılıdır**. En yüksek getirili alışkanlık budur.' },
       { hata:'Boş liste gelince "veri yok" sonucuna varmak.', dogru:'② sınıfı hatanın en tipik hâli. {{SE16N}} → **hemen** {{SU53}}.' },
       { hata:'{{SU53}}’ü çok sonra çalıştırmak.', dogru:'Yalnızca **son** başarısız kontrolü gösterir. Araya işlem girerse iz kaybolur — hatayı **tekrarlatıp** hemen çalıştır.' },
-      { hata:'Dönem hatasında yalnızca `+` satırına bakmak.', dogru:'⚠️ **Hesap türü** satırları ayrıdır: `S` `K` `D` `A`. Ayrıca ikinci aralık ve AA dönemi.' },
+      { hata:'Dönem hatasında yalnızca `+` satırına bakmak.', dogru:'**Hesap türü** satırları ayrıdır: `S` `K` `D` `A`. Ayrıca ikinci aralık ve AA dönemi.' },
       { hata:'Kilidi {{SM12}}’den elle silmek.', dogru:'Çalışan işlem yarım kalır, tutarsız veri bırakabilir. Önce {{SM37}}’de iş çalışıyor mu bak — çalışıyorsa **bekle**.' },
       { hata:'Dump görünce doğrudan geliştiriciye göndermek.', dogru:'Çoğu dump **veri hatasıdır**. Önce hata tipi + hangi veriyle çöktüğü kontrol edilir.' },
       { hata:'Uyarıyı gerekçesiz kapatmak.', dogru:'İki yıl sonra *"bu kontrol neden yok?"* sorusu cevapsız kalır. Kapatma gerekçesi **belgelenir**.' },
       { hata:'Belirtiyi düzeltip kapatmak.', dogru:'Dönemi açıp kaydettirmek bugünü kurtarır, yarın tekrar eder. **Üç kez "neden"** sor.' },
-      { hata:'Çözdükten sonra taramamak.', dogru:'⭐ *"Başka kimde var?"* Sessiz hatalar **bildirilmez, etrafından dolaşılır** — tarama olmadan görünmezler.' },
+      { hata:'Çözdükten sonra taramamak.', dogru:'*"Başka kimde var?"* Sessiz hatalar **bildirilmez, etrafından dolaşılır** — tarama olmadan görünmezler.' },
       { hata:'Toplu yükleme sonrası kayıt sayısını kontrol etmemek.', dogru:'**Sayı mutabakatı** zorunlu adım: gönderilen = oluşan. Değilse {{SM13}}.' },
     ],
 
     ipuclari:[
-      '⭐ **Mesaja çift tıkla → "Prosedür"** — en yüksek getirili tek alışkanlık.',
-      '⭐ **"Daha önce çalışıyor muydu?"** — aramayı yarıya indirir. Cevap "dün çalışıyordu" ise {{CDHDR}}.',
+      '**Mesaja çift tıkla → "Prosedür"** — en yüksek getirili tek alışkanlık.',
+      '**"Daha önce çalışıyor muydu?"** — aramayı yarıya indirir. Cevap "dün çalışıyordu" ise {{CDHDR}}.',
       'Belirti → araç eşlemesini ezberle (teknik bölümdeki kart); mesajları değil.',
       'Toplu işlemde **her zaman üçü**: {{SM37}} (çöktü mü) · {{SLG1}} (doğru mu) · {{SP01}} (çıktı).',
       'Bir dönemde hata bulduysan **önceki dönemleri de tara** — başladığı dönem farklıdır.',
@@ -1387,7 +1387,7 @@ SAP.registerTopic({
                  '**2. Güncelleme görevi** — asıl yazma **asenkron** yapılır.\n\n' +
                  'İkincisi çökerse belge oluşmaz ama **numara yanar**.\n\n' +
                  'Teşhis: **{{SM13}}**.\n\n' +
-                 '⚠️ Tek kayıtta nadirdir; **toplu yüklemede hiç fark edilmez**. ' +
+                 'Tek kayıtta nadirdir; **toplu yüklemede hiç fark edilmez**. ' +
                  'Bu yüzden yükleme sonrası **sayı mutabakatı** ' +
                  '(gönderilen = oluşan) zorunlu olmalıdır.' },
 
@@ -1419,7 +1419,7 @@ SAP.registerTopic({
                  '**1.** Kullanıcılar gerçekten çok hata yapıyor → uyarı **işini yapıyor**. ' +
                  'Kapatmak yerine {{konu:dogrulama-ikame}} ile **önlemek** gerekir.\n' +
                  '**2.** Bu süreç için anlamsız → kapatılabilir, ama **gerekçe belgelenmeli**.\n\n' +
-                 '⭐ **Ters yön daha değerlidir:** kritik bir kontrol `W` ile kurulmuşsa ' +
+                 '**Ters yön daha değerlidir:** kritik bir kontrol `W` ile kurulmuşsa ' +
                  '{{OBA5}} ile **`E`** yapılır. **Yalnızca `E` gerçek korumadır** — ' +
                  '`W` ilk yoğun günde Enter’la geçilir.' },
 
@@ -1455,25 +1455,25 @@ SAP.registerTopic({
                  'tutarsızlık **yapısal olarak imkânsızdır**.\n\n' +
                  '**Mimari ders:** bir veriyi iki yerde tutmayı bırakınca, ' +
                  '*"iki yer uyuşmuyor"* hata sınıfı kendiliğinden yok olur.\n\n' +
-                 '⚠️ Buna karşılık **yeni bir sınıf doğdu:** geçiş hataları ve ' +
+                 'Buna karşılık **yeni bir sınıf doğdu:** geçiş hataları ve ' +
                  '{{uyumluluk-view}} performans sorunları.' },
     ],
 
     flashcards:[
-      { on:'Üç hata sınıfı', arka:'**① Konuşan** — mesaj var, çözümü işaret eder\n*Kolay. Uzun metni oku.*\n\n**② Sessiz** — mesaj yok, sonuç yanlış\n⚠️ *En tehlikeli. Danışmanı ayıran sınıf.*\n\n**③ Çöken** — program durdu (dump)\n*Gürültülü ama nadir.*' },
-      { on:'⭐ En yüksek getirili alışkanlık', arka:'**Mesajın üzerine ÇİFT TIKLA**\n\nUzun metin üç bölüm içerir:\n• **Teşhis** — ne oldu\n• **Sistem yanıtı** — sistem ne yaptı\n• ⭐ **Prosedür** — **ne yapılmalı**\n\nÜçüncüsü çoğu vakayı **tek başına** çözer.' },
-      { on:'Mesaj numarası vs metin', arka:'❌ **Metin** — dile göre değişir, sürümle güncellenir, çevirisi eksik olabilir\n\n✅ **Numara** — `F5 201` · **değişmez**\n\nSınıflar: `F5` FI kayıt · `FS` G/L · `AA` varlık · `KI` CO · `M8` MM fatura' },
-      { on:'⭐ Aramayı ikiye bölen soru', arka:'**"Daha önce çalışıyor muydu?"**\n\n*"Hiç çalışmadı"* → **YAPILANDIRMA**\nYeni hesap, vergi kodu, değerleme sınıfı\n\n*"Dün çalışıyordu"* → **DEĞİŞİKLİK**\n{{CDHDR}} / {{CDPOS}} · taşıma · rol · dönem' },
-      { on:'{{SM37}} ≠ {{SLG1}}', arka:'**{{SM37}}** → *"Program çöktü mü?"*\n\n**{{SLG1}}** → *"İş DOĞRU yapıldı mı?"*\n\n⚠️ İş **yeşil**, günlük **kırmızı** olabilir.\nToplu programlar hatalı kalemi **atlayıp devam eder**.\n\n📋 Kapanışta: **"SLG1 kırmızı = 0"**' },
+      { on:'Üç hata sınıfı', arka:'**① Konuşan** — mesaj var, çözümü işaret eder\n*Kolay. Uzun metni oku.*\n\n**② Sessiz** — mesaj yok, sonuç yanlış\n*En tehlikeli. Danışmanı ayıran sınıf.*\n\n**③ Çöken** — program durdu (dump)\n*Gürültülü ama nadir.*' },
+      { on:'En yüksek getirili alışkanlık', arka:'**Mesajın üzerine ÇİFT TIKLA**\n\nUzun metin üç bölüm içerir:\n• **Teşhis** — ne oldu\n• **Sistem yanıtı** — sistem ne yaptı\n• **Prosedür** — **ne yapılmalı**\n\nÜçüncüsü çoğu vakayı **tek başına** çözer.' },
+      { on:'Mesaj numarası vs metin', arka:'**Metin** — dile göre değişir, sürümle güncellenir, çevirisi eksik olabilir\n\n**Numara** — `F5 201` · **değişmez**\n\nSınıflar: `F5` FI kayıt · `FS` G/L · `AA` varlık · `KI` CO · `M8` MM fatura' },
+      { on:'Aramayı ikiye bölen soru', arka:'**"Daha önce çalışıyor muydu?"**\n\n*"Hiç çalışmadı"* → **YAPILANDIRMA**\nYeni hesap, vergi kodu, değerleme sınıfı\n\n*"Dün çalışıyordu"* → **DEĞİŞİKLİK**\n{{CDHDR}} / {{CDPOS}} · taşıma · rol · dönem' },
+      { on:'{{SM37}} ≠ {{SLG1}}', arka:'**{{SM37}}** → *"Program çöktü mü?"*\n\n**{{SLG1}}** → *"İş DOĞRU yapıldı mı?"*\n\nİş **yeşil**, günlük **kırmızı** olabilir.\nToplu programlar hatalı kalemi **atlayıp devam eder**.\n\nKapanışta: **"SLG1 kırmızı = 0"**' },
       { on:'Boş liste geldi, hata yok', arka:'**1.** {{SE16N}} → tabloda veri var mı?\n→ Varsa **erişim** sorunu, yoksa **kayıt** sorunu\n\n**2.** **HEMEN** {{SU53}}\n\n**Neden mesaj yok?** Rapor yetkiyi **süzgeç** olarak uygular — yetkisiz şirket kodu **hiç sorgulanmaz**. Program açısından hata değil.' },
-      { on:'"Kaydedildi" dedi, belge yok', arka:'**{{guncelleme-hatasi}}**\n\n① **Diyalog görevi** → numara verilir, mesaj çıkar\n② **Güncelleme görevi** → asenkron yazma\n\nİkincisi çökerse: **mesaj var, belge yok, numara yandı**\n\n🔍 {{SM13}}\n⚠️ Toplu yüklemede **sayı mutabakatı** şart' },
-      { on:'"Dönem kapalı" ama OB52 açık', arka:'⚠️ **HESAP TÜRÜ SATIRI**\n\n`+` genel · `S` G/L · **`K` satıcı** · `D` müşteri · `A` varlık\n\nSatıcı faturası için `K` kapalıysa `+` açık olsa bile hata!\n\nİki kontrol daha:\n• **İkinci aralık** (özel dönem 13–16)\n• Varlıksa **AA dönemi**' },
-      { on:'"Hesap belirleme yapılamadı"', arka:'**Modül tabloyu söyler:**\n\n**MM** → {{OBYC}} (BSX/WRX/PRD/GBB)\n**SD** → {{VKOA}} (ERL/ERS/ERF)\n**Vergi** → {{OB40}} / {{T030K}}\n**Varlık** → {{AO90}}\n\n⚠️ En sık sebep: **yeni değerleme sınıfı** açılmış, satır eklenmemiş' },
+      { on:'"Kaydedildi" dedi, belge yok', arka:'**{{guncelleme-hatasi}}**\n\n① **Diyalog görevi** → numara verilir, mesaj çıkar\n② **Güncelleme görevi** → asenkron yazma\n\nİkincisi çökerse: **mesaj var, belge yok, numara yandı**\n\n{{SM13}}\nToplu yüklemede **sayı mutabakatı** şart' },
+      { on:'"Dönem kapalı" ama OB52 açık', arka:'**HESAP TÜRÜ SATIRI**\n\n`+` genel · `S` G/L · **`K` satıcı** · `D` müşteri · `A` varlık\n\nSatıcı faturası için `K` kapalıysa `+` açık olsa bile hata!\n\nİki kontrol daha:\n• **İkinci aralık** (özel dönem 13–16)\n• Varlıksa **AA dönemi**' },
+      { on:'"Hesap belirleme yapılamadı"', arka:'**Modül tabloyu söyler:**\n\n**MM** → {{OBYC}} (BSX/WRX/PRD/GBB)\n**SD** → {{VKOA}} (ERL/ERS/ERF)\n**Vergi** → {{OB40}} / {{T030K}}\n**Varlık** → {{AO90}}\n\nEn sık sebep: **yeni değerleme sınıfı** açılmış, satır eklenmemiş' },
       { on:'Belirti → araç kartı', arka:'Boş liste → **{{SU53}}**\nBelge yok → **{{SM13}}**\nDonuyor → **{{SM12}}**\nToplu eksik → **{{SLG1}}**\nÇıktı yok → **{{SP01}}**\nÇöktü → **{{ST22}}**\nAyar etkisiz → **{{tampon}}** / STMS\nDeğer değişiyor → **{{GGB1}}**\n"Dün çalışıyordu" → **{{CDHDR}}**' },
-      { on:'Düzeltmenin maliyeti', arka:'**Önlendi** → 0 belge ✅\n**Aynı gün** → 3 belge\n**Aynı dönem** → 3 belge + mizan kontrolü\n**Dönem kapandıktan sonra** → + yanlış döneme düşen düzeltme\n**Beyandan sonra** → + **düzeltme beyannamesi** 🚫\n\n→ Hata yönetimi bir **önleme** konusudur' },
-      { on:'{{OBA5}} — "hatayı sustur" aracı DEĞİL', arka:'Kapatmadan önce: **bu uyarı neyi koruyordu?**\n\nÇok çıkıyorsa ya uyarı **işini yapıyordur** (önleme gerekir) ya da anlamsızdır (**gerekçe belgelenir**)\n\n⭐ **Ters yön daha değerli:**\nKritik kontrol `W` ise → **`E`** yap\n**Yalnızca `E` gerçek korumadır**' },
-      { on:'Kapanış refleksi — iki soru', arka:'**1. "Bu neden mümkün oldu?"**\n→ Kök sebep. Üç kez "neden" sor.\n→ Belirtiyi düzeltmek yarın tekrar eder.\n\n**2. "Başka kimde var?"**\n→ Aynı rol / hesap / vergi kodu / sınıf\n→ ⚠️ Sessiz hatalar **bildirilmez, etrafından dolaşılır**' },
-      { on:'S/4HANA — kalkan hata sınıfı', arka:'⭐ **Mutabakat farkları YAPISAL OLARAK imkânsız**\n\nECC: FI ≠ CO · GLT0 ≠ BSEG · BSIK ≠ BSEG\nS/4: hepsi {{ACDOCA}} veya ondan **türetilmiş görünüm**\n\n*Bir veriyi iki yerde tutmayı bırakınca, "iki yer uyuşmuyor" hatası yok olur.*\n\n⚠️ Yeni sınıf: **geçiş hataları** + uyumluluk görünümü performansı' },
+      { on:'Düzeltmenin maliyeti', arka:'**Önlendi** → 0 belge ✓\n**Aynı gün** → 3 belge\n**Aynı dönem** → 3 belge + mizan kontrolü\n**Dönem kapandıktan sonra** → + yanlış döneme düşen düzeltme\n**Beyandan sonra** → + **düzeltme beyannamesi** \n\n→ Hata yönetimi bir **önleme** konusudur' },
+      { on:'{{OBA5}} — "hatayı sustur" aracı DEĞİL', arka:'Kapatmadan önce: **bu uyarı neyi koruyordu?**\n\nÇok çıkıyorsa ya uyarı **işini yapıyordur** (önleme gerekir) ya da anlamsızdır (**gerekçe belgelenir**)\n\n**Ters yön daha değerli:**\nKritik kontrol `W` ise → **`E`** yap\n**Yalnızca `E` gerçek korumadır**' },
+      { on:'Kapanış refleksi — iki soru', arka:'**1. "Bu neden mümkün oldu?"**\n→ Kök sebep. Üç kez "neden" sor.\n→ Belirtiyi düzeltmek yarın tekrar eder.\n\n**2. "Başka kimde var?"**\n→ Aynı rol / hesap / vergi kodu / sınıf\n→ Sessiz hatalar **bildirilmez, etrafından dolaşılır**' },
+      { on:'S/4HANA — kalkan hata sınıfı', arka:'**Mutabakat farkları YAPISAL OLARAK imkânsız**\n\nECC: FI ≠ CO · GLT0 ≠ BSEG · BSIK ≠ BSEG\nS/4: hepsi {{ACDOCA}} veya ondan **türetilmiş görünüm**\n\n*Bir veriyi iki yerde tutmayı bırakınca, "iki yer uyuşmuyor" hatası yok olur.*\n\nYeni sınıf: **geçiş hataları** + uyumluluk görünümü performansı' },
     ],
   },
 

@@ -300,18 +300,18 @@ SAP.registerTcodes([
     aciklama:'{{kredi-limiti}} kontrolünün yapıldığı organizasyon birimini tanımlar; şirket kodlarına atanır.' },
   /* ------------------------------------------------------- E-Dönüşüm --- */
   { kod:'EDOC_COCKPIT', ad:'eDocument Cockpit — e-belge izleme merkezi', modul:'FI', tur:'Rapor', konu:'e-donusum',
-    aciklama:'E-belgelerin **statüsünü** gösteren ana ekran: oluştu, gönderildi, kabul, **red**, hata. ⚠️ Muhasebe belgesi başarılı olsa bile e-belge burada **hata** durumunda olabilir — bu yüzden günlük kontrol edilir.' },
+    aciklama:'E-belgelerin **statüsünü** gösteren ana ekran: oluştu, gönderildi, kabul, **red**, hata. Muhasebe belgesi başarılı olsa bile e-belge burada **hata** durumunda olabilir — bu yüzden günlük kontrol edilir.' },
   { kod:'EDOC_RESUBMIT', ad:'Başarısız e-belgeyi yeniden gönder', modul:'FI', tur:'İşlem', konu:'e-donusum',
     aciklama:'Hata durumundaki e-belgeleri **toplu** yeniden gönderir. Geçici iletişim hatalarında kullanılır; kalıcı veri hatasında önce **kaynak veri** düzeltilmelidir.' },
 
   { kod:'OBC4', ad:'Alan durumu değişkeni ve grupları', modul:'FI-GL', tur:'Özelleştirme', konu:'error-handling',
-    aciklama:'G/L hesaplarının **alan durumu gruplarını** tanımlar: hangi alan zorunlu, opsiyonel veya gizli. ⚠️ {{OB41}} kayıt anahtarı alan durumuyla birlikte değerlendirilir — **daha kısıtlayıcı olan kazanır**.' },
+    aciklama:'G/L hesaplarının **alan durumu gruplarını** tanımlar: hangi alan zorunlu, opsiyonel veya gizli. {{OB41}} kayıt anahtarı alan durumuyla birlikte değerlendirilir — **daha kısıtlayıcı olan kazanır**.' },
   { kod:'F.03', ad:'FI mutabakat (ECC)', modul:'FI-GL', tur:'Rapor', konu:'error-handling',
-    aciklama:'ECC’de belge, indeks ve toplam tabloları arasındaki tutarsızlıkları arardı. ⭐ **S/4HANA’da gereksizdir** — {{ACDOCA}} tek kaynak olduğu için tutarsızlık yapısal olarak imkânsızdır.' },
+    aciklama:'ECC’de belge, indeks ve toplam tabloları arasındaki tutarsızlıkları arardı. **S/4HANA’da gereksizdir** — {{ACDOCA}} tek kaynak olduğu için tutarsızlık yapısal olarak imkânsızdır.' },
   { kod:'OBB8', ad:'Ödeme koşullarını tanımla', modul:'FI', tur:'Özelleştirme', konu:'master-data',
-    aciklama:'Vade hesaplama ve iskonto kurallarını tanımlar. ⚠️ Veri geçişinde eski sistemdeki ödeme koşulu kodu burada **tanımlı değilse** yükleme o satırlarda durur — {{konu:lsmw}}’de sık görülen bir veri temizliği kalemidir.' },
+    aciklama:'Vade hesaplama ve iskonto kurallarını tanımlar. Veri geçişinde eski sistemdeki ödeme koşulu kodu burada **tanımlı değilse** yükleme o satırlarda durur — {{konu:lsmw}}’de sık görülen bir veri temizliği kalemidir.' },
   { kod:'SE37', ad:'Fonksiyon modülü — test ve inceleme', modul:'TEKNİK', tur:'Teknik', konu:'data-upload',
-    aciklama:'{{bapi}}’ları **tek kayıtla test etmenin** yeridir. ⚠️ Test ederken `BAPI_TRANSACTION_COMMIT` çağrılmazsa kayıt **yazılmaz** — BAPI’nin en sık atlanan kuralı.' },
+    aciklama:'{{bapi}}’ları **tek kayıtla test etmenin** yeridir. Test ederken `BAPI_TRANSACTION_COMMIT` çağrılmazsa kayıt **yazılmaz** — BAPI’nin en sık atlanan kuralı.' },
   { kod:'WE20', ad:'Partner profilleri', modul:'TEKNİK', tur:'Özelleştirme', konu:'data-upload',
     aciklama:'Hangi partnerden hangi {{idoc}} mesaj tipinin kabul edileceğini tanımlar. Profil yoksa IDoc **statü 56** ile reddedilir — *"IDoc geldi ama işlenmedi"* vakasının en sık sebebi.' },
   { kod:'SM21', ad:'Sistem günlüğü (system log)', modul:'TEKNİK', tur:'Teknik', konu:'error-handling',
@@ -617,13 +617,13 @@ SAP.registerTcodes([
     aciklama:'Taşıma isteklerini görüntüler, serbest bırakır ve içeriğini ({{E071}}) gösterir. Bir isteğin neyi taşıdığını görmenin en hızlı yolu.' },
 
   { kod:'STMS', ad:'Taşıma yönetim sistemi', modul:'Teknik', tur:'Teknik', konu:'best-practices',
-    aciklama:'Taşıma kuyruğunu ve sistem yolunu (geliştirme → test → canlı) yönetir. ⚠️ İsteklerin **sıra numarasıyla** taşınması şarttır; sıra bozulursa test sisteminde çalışan ayar canlıda çalışmaz.' },
+    aciklama:'Taşıma kuyruğunu ve sistem yolunu (geliştirme → test → canlı) yönetir. İsteklerin **sıra numarasıyla** taşınması şarttır; sıra bozulursa test sisteminde çalışan ayar canlıda çalışmaz.' },
 
   { kod:'SM30', ad:'Tablo/görünüm bakımı', modul:'Teknik', tur:'Teknik', konu:'best-practices',
     aciklama:'Bakım görünümü tanımlı tabloları düzenler. Bazı tablolar **akım verisi** olarak işaretlidir: canlıda değiştirilirler ve taşıma isteğine girmezler ({{akim-verisi}}).' },
 
   { kod:'SPDD', ad:'Sözlük nesnelerinde modifikasyon uyarlaması', modul:'Teknik', tur:'Teknik', konu:'migration',
-    aciklama:'Sürüm yükseltme sırasında **veri sözlüğü** nesnelerindeki (tablo, alan) müşteri değişikliklerini uyarlar. ⚠️ Bu adım atlanırsa veri kaybı olabilir; {{SPAU}}\u2019dan önce gelir.' },
+    aciklama:'Sürüm yükseltme sırasında **veri sözlüğü** nesnelerindeki (tablo, alan) müşteri değişikliklerini uyarlar. Bu adım atlanırsa veri kaybı olabilir; {{SPAU}}\u2019dan önce gelir.' },
 
   { kod:'SPAU', ad:'Program nesnelerinde modifikasyon uyarlaması', modul:'Teknik', tur:'Teknik', konu:'migration',
     aciklama:'Sürüm yükseltmede program, ekran ve fonksiyon modüllerindeki müşteri değişikliklerini uyarlar. {{brownfield}} geçişinin en çok emek isteyen adımlarından biridir — {{z-gelistirme}} ne kadar çoksa o kadar uzar.' },
@@ -632,5 +632,5 @@ SAP.registerTcodes([
     aciklama:'Bir programın zamanı nerede harcadığını ölçer (eski adı SE30). S/4HANA sonrası *\u201cneden yavaşladı?\u201d* sorusunda {{ST05}} ile birlikte kullanılır: {{uyumluluk-view}} okuyan kod burada görünür.' },
 
   { kod:'SCC4', ad:'İstemci ayarları ve koruma', modul:'Teknik', tur:'Teknik', konu:'best-practices',
-    aciklama:'Her istemcinin özelleştirmeye açık olup olmadığını belirler. Canlı istemcide özelleştirme **kapalıdır** — bu bir hata değil, koruma. ⚠️ Tek istisna {{akim-verisi}} tablolarıdır; onlar canlıda da değiştirilir.' },
+    aciklama:'Her istemcinin özelleştirmeye açık olup olmadığını belirler. Canlı istemcide özelleştirme **kapalıdır** — bu bir hata değil, koruma. Tek istisna {{akim-verisi}} tablolarıdır; onlar canlıda da değiştirilir.' },
 ]);

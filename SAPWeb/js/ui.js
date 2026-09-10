@@ -15,22 +15,16 @@
     return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   }
 
-  /* Tema düğmesinin ikonu tek renk SVG'dir — emoji değil: emoji kendi
-     renk paletini getirir ve tek marka rengi kuralını deler. */
-  var ICON_MOON = '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">' +
-    '<path d="M13.2 9.9A5.6 5.6 0 0 1 6.1 2.8a5.6 5.6 0 1 0 7.1 7.1Z" ' +
-    'fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>';
-  var ICON_SUN = '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">' +
-    '<circle cx="8" cy="8" r="3.1" fill="none" stroke="currentColor" stroke-width="1.3"/>' +
-    '<path d="M8 .9v2.1M8 13v2.1M.9 8h2.1M13 8h2.1M3 3l1.5 1.5M11.5 11.5 13 13M13 3l-1.5 1.5M4.5 11.5 3 13" ' +
-    'fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>';
+
+  var I = function (n) { return SAP.ui.icon(n); };
 
   function applyTheme(t) {
     document.documentElement.setAttribute('data-theme', t);
     var b = document.getElementById('theme-btn');
     if (b) {
-      b.innerHTML = t === 'dark' ? ICON_SUN : ICON_MOON;
-      b.title = t === 'dark' ? 'Aydınlık moda geç' : 'Karanlık moda geç';
+      b.innerHTML = I(t === 'dark' ? 'sun' : 'moon');
+      var lb = SAP.i18n.t(t === 'dark' ? 'nav.theme.light' : 'nav.theme.dark');
+      b.title = lb; b.setAttribute('aria-label', lb);
     }
   }
 
@@ -39,6 +33,7 @@
     var next = cur === 'dark' ? 'light' : 'dark';
     SAP.store.d.theme = next;
     SAP.store.save();
+    SAP.i18n.set(SAP.store.d.lang || 'tr');
     applyTheme(next);
     /* ER diyagram çizgileri renk değişkeni kullandığı için yeniden çizilir. */
     if (SAP.diagram) SAP.diagram.drawER(document);
@@ -48,6 +43,7 @@
 
   function sidebarHTML() {
     var all = SAP.allTopics();
+    var T = SAP.i18n.t;
 
     var toplam = 0, okunan = 0;
     all.forEach(function (t) {
@@ -60,48 +56,79 @@
     var aktif = SAP.route;
     var aktifKonu = aktif.name === 'konu' ? aktif.parts[0] : null;
 
-    /* Gezinme sütununda renk GRUP başlıklarında ve aktif satırda taşınır;
-       her satıra ayrı ikon konmaz — 36 satırlık listede emoji sütunu
-       gürültü olurdu. Grup rengi listeyi bölmeye yetiyor. */
-    function item(href, ic, tx, on) {
+    /* Gezinme TEK YERDE: bu sütun. Ana sayfada süzgeç şeridi yok.
+       Satırlarda ikon YOK — 36 satırlık bir listede ikon sütunu
+       gürültüdür; ilk üç kısayol dışında hiçbiri ikon almaz. */
+    function item(href, ikon, tx, on) {
       return '<a class="side-item' + (on ? ' active' : '') + '" data-go="' + esc(href) + '" href="' + esc(href) + '">' +
-        '<span class="ic">' + ic + '</span><span class="tx">' + esc(tx) + '</span></a>';
+        I(ikon) + '<span>' + esc(tx) + '</span></a>';
     }
 
     var nav =
-      '<div class="side-group side-nav">' +
-        item('#/', '🏠', 'Ana Sayfa', aktif.name === 'home') +
-        item('#/favoriler', '⭐', 'Favorilerim', aktif.name === 'favoriler') +
-        item('#/notlar', '📝', 'Notlarım', aktif.name === 'notlar') +
+      '<div class="side-nav">' +
+        item('#/', 'book-open', T('nav.home'), aktif.name === 'home') +
+        item('#/favoriler', 'bookmark', T('nav.fav'), aktif.name === 'favoriler') +
+        item('#/notlar', 'pencil', T('nav.notes'), aktif.name === 'notlar') +
       '</div>';
 
+    /* Konular sürekli numaralanır (01…36) — kitapta olduğu gibi. */
+    var sira = 0;
     var gruplar = SAP.GROUPS.map(function (g) {
       var list = all.filter(function (t) { return t.grup === g.id; });
       if (!list.length) return '';
-      return '<div class="side-group" style="--h:' + g.hue + '">' +
-        '<div class="side-label"><span class="ic">' + g.ic + '</span>' + esc(g.ad) +
-          '<span class="count">' + list.length + '</span></div>' +
+      var kapali = SAP.store.isGroupClosed(g.id);
+      return '<div class="side-group' + (kapali ? ' closed' : '') + '" data-grp="' + esc(g.id) + '">' +
+        '<button class="side-label" type="button" data-action="toggle-group" data-g="' + esc(g.id) + '" ' +
+          'aria-expanded="' + (kapali ? 'false' : 'true') + '">' +
+          '<span class="tx">' + esc(SAP.i18n.grup(g)) + '</span>' +
+          '<span class="cnt">' + list.length + '</span>' +
+          '<span class="chev">' + I('chevron-down') + '</span>' +
+        '</button>' +
+        '<div class="side-sub">' +
         list.map(function (t) {
+          var n = (++sira < 10 ? '0' : '') + sira;
           var p = SAP.store.percent(t.id);
-          var dot = t.status !== 'ready' ? '' : (p >= 100 ? ' done' : p > 0 ? ' part' : '');
-          return '<a class="side-item' + (aktifKonu === t.id ? ' active' : '') + '" ' +
-            'data-go="#/konu/' + esc(t.id) + '" href="#/konu/' + esc(t.id) + '" title="' + esc(t.title) + '">' +
-            '<span class="tx">' + esc(t.title) + '</span>' +
-            '<span class="side-dot' + dot + '"></span></a>';
+          return '<a class="side-topic' + (aktifKonu === t.id ? ' active' : '') +
+              (p >= 100 ? ' done' : '') + '" ' +
+            'data-go="#/konu/' + esc(t.id) + '" href="#/konu/' + esc(t.id) + '" ' +
+            'title="' + esc(SAP.i18n.baslik(t)) + '">' +
+            '<span class="st">' + n + '</span>' +
+            '<span class="tx">' + esc(SAP.i18n.baslik(t)) + '</span>' +
+          '</a>';
         }).join('') +
+        '</div>' +
       '</div>';
     }).join('');
 
     return '<a class="brand" data-go="#/" href="#/">' +
-        '<span class="brand-mark">FI</span>' +
-        '<span class="brand-txt"><b>SAP S/4HANA FI</b><span>Eğitim Platformu</span></span>' +
+        '<b>' + esc(T('app.name')) + '</b><span>' + esc(T('app.tagline')) + '</span>' +
       '</a>' +
       '<div class="side-scroll">' + nav + gruplar + '</div>' +
       '<div class="side-foot">' +
-        '<div class="pl"><span>Genel ilerleme</span><b>%' + genel + '</b></div>' +
+        '<div class="pl"><span>' + esc(T('home.progress')) + '</span><b>%' + genel + '</b></div>' +
         '<div class="bar"><i style="width:' + genel + '%"></i></div>' +
       '</div>';
   }
+
+  /* ================================================== DİL ANAHTARI ==== */
+  /* Sağ üst köşe. İki düğme, mono punto, aktif olan dolgulu.
+     Dil değişince TAM ÇİZİM yapılır — başlıklar, kenar çubuğu, üst çubuk
+     ve içerik aynı anda değişmeli; parça güncelleme burada yanlış olurdu. */
+
+  function langHTML() {
+    var cur = SAP.i18n.get();
+    return SAP.i18n.diller.map(function (d) {
+      return '<button type="button" data-action="set-lang" data-l="' + d + '" ' +
+        'aria-pressed="' + (d === cur) + '" lang="' + d + '">' + d.toUpperCase() + '</button>';
+    }).join('');
+  }
+
+  SAP.action('set-lang', function (btn) {
+    if (btn.dataset.l === SAP.i18n.get()) return;
+    SAP.i18n.set(btn.dataset.l);
+    SAP.render();
+    applyTheme(document.documentElement.getAttribute('data-theme') || 'light');
+  });
 
   /* =================================================== ÜST ÇUBUK ==== */
 
@@ -112,26 +139,26 @@
     if (r.name === 'konu') {
       var t = SAP.topic(r.parts[0]);
       var g = t && SAP.GROUPS.find(function (x) { return x.id === t.grup; });
-      if (g) parca.push('<b class="hidesm">' + esc(g.ad) + '</b><span class="sep hidesm">/</span>');
-      parca.push('<span class="cur">' + esc(t ? t.title : 'Bilinmeyen konu') + '</span>');
+      if (g) parca.push('<b class="hidesm">' + esc(SAP.i18n.grup(g)) + '</b><span class="sep hidesm">/</span>');
+      parca.push('<span class="cur">' + esc(t ? SAP.i18n.baslik(t) : '—') + '</span>');
     } else if (r.name === 'tcode') {
-      parca.push('<b class="hidesm">İşlem kodu</b><span class="sep hidesm">/</span>');
+      parca.push('<b class="hidesm">' + esc(SAP.i18n.t('ref.tcode')) + '</b><span class="sep hidesm">/</span>');
       parca.push('<span class="cur">' + esc(r.parts[0] || '') + '</span>');
     } else if (r.name === 'tablo') {
-      parca.push('<b class="hidesm">Tablo</b><span class="sep hidesm">/</span>');
+      parca.push('<b class="hidesm">' + esc(SAP.i18n.t('ref.table')) + '</b><span class="sep hidesm">/</span>');
       parca.push('<span class="cur">' + esc(r.parts[0] || '') + '</span>');
     } else if (r.name === 'terim') {
       var x = SAP.term(r.parts[0]);
-      parca.push('<b class="hidesm">Sözlük</b><span class="sep hidesm">/</span>');
+      parca.push('<b class="hidesm">' + esc(SAP.i18n.t('ref.term')) + '</b><span class="sep hidesm">/</span>');
       parca.push('<span class="cur">' + esc(x ? x.ad : r.parts[0]) + '</span>');
     } else if (r.name === 'favoriler') {
-      parca.push('<span class="cur">Favorilerim</span>');
+      parca.push('<span class="cur">' + esc(SAP.i18n.t('fav.title')) + '</span>');
     } else if (r.name === 'notlar') {
-      parca.push('<span class="cur">Notlarım</span>');
+      parca.push('<span class="cur">' + esc(SAP.i18n.t('notes.title')) + '</span>');
     } else if (r.name === 'ara') {
-      parca.push('<span class="cur">Arama sonuçları</span>');
+      parca.push('<span class="cur">' + esc(SAP.i18n.t('search.title')) + '</span>');
     } else {
-      parca.push('<span class="cur">Ana Sayfa</span>');
+      parca.push('<span class="cur">' + esc(SAP.i18n.t('home.title')) + '</span>');
     }
     return parca.join('');
   }
@@ -235,7 +262,14 @@
     else if (e.key === 'Enter') { e.preventDefault(); pick(palSel); }
   });
 
-  /* ================================================ MOBİL MENÜ ==== */
+  /* ======================================== MENÜ / KATLAMA ==== */
+  /* ☰ butonu İKİ farklı iş yapar ve bu bilinçli:
+       - dar ekranda (<= 62rem) sütun bir ÇEKMECEDİR → üstüne açılır
+       - geniş ekranda sütun yerindedir → KATLANIR, içerik genişler
+     Ayrım genişlikten okunur; iki ayrı buton koymak gereksiz olurdu. */
+
+  var DAR = '(max-width: 62rem)';
+  function darMi() { return window.matchMedia(DAR).matches; }
 
   function setMenu(open) {
     var sb = document.getElementById('sidebar');
@@ -244,11 +278,51 @@
     sb.classList.toggle('open', open);
     sc.classList.toggle('show', open);
   }
+
+  function applyCollapse() {
+    document.body.classList.toggle('rail-collapsed', !!SAP.store.d.railKapali);
+  }
+
   SAP.action('toggle-menu', function () {
-    var sb = document.getElementById('sidebar');
-    setMenu(!(sb && sb.classList.contains('open')));
+    if (darMi()) {
+      var sb = document.getElementById('sidebar');
+      setMenu(!(sb && sb.classList.contains('open')));
+    } else {
+      SAP.store.d.railKapali = !SAP.store.d.railKapali;
+      SAP.store.save();
+    
+  applyCollapse();
+      /* ER çizgileri genişliğe göre hesaplanır — düzen değişti, yeniden çiz. */
+      if (SAP.diagram) setTimeout(function () { SAP.diagram.drawER(document); }, 280);
+    }
   });
   SAP.action('close-menu', function () { setMenu(false); });
+
+  SAP.action('toggle-group', function (btn) {
+    SAP.store.toggleGroup(btn.dataset.g);
+    var box = btn.closest('.side-group');
+    if (!box) return;
+    var kapali = box.classList.toggle('closed');
+    btn.setAttribute('aria-expanded', kapali ? 'false' : 'true');
+  });
+
+  applyCollapse();
+
+  /* Kabuk düğmeleri — her çizimde tazelenir, çünkü dil değişebilir. */
+  function chromeHTML() {
+    var T = SAP.i18n.t;
+    var mb = document.getElementById('menu-btn');
+    if (mb) { mb.innerHTML = I('menu'); mb.title = T('nav.menu'); mb.setAttribute('aria-label', T('nav.menu')); }
+
+    var sb = document.getElementById('search-btn');
+    if (sb) {
+      sb.innerHTML = I('search') + '<span class="lb">' + esc(T('nav.search')) + '</span><kbd>Ctrl K</kbd>';
+      sb.setAttribute('aria-label', T('nav.search'));
+    }
+
+    var ls = document.getElementById('langsw');
+    if (ls) { ls.innerHTML = langHTML(); ls.setAttribute('aria-label', T('nav.lang')); }
+  }
 
   /* ============================================= RENDER KANCALARI ==== */
 
@@ -257,7 +331,9 @@
     if (sb) sb.innerHTML = sidebarHTML();
     var cb = document.getElementById('crumb');
     if (cb) cb.innerHTML = crumbHTML();
+    chromeHTML();
     setMenu(false);
+    applyCollapse();
 
     var t = SAP.route.name === 'konu' ? SAP.topic(SAP.route.parts[0]) : null;
     document.title = (t ? t.title + ' — ' : '') + 'SAP S/4HANA FI Eğitim Platformu';
@@ -284,6 +360,8 @@
 
   function boot() {
     SAP.store.load();
+    /* Dil temadan ÖNCE kurulur: applyTheme düğme etiketini i18n'den okur. */
+    SAP.i18n.set(SAP.store.d.lang || 'tr');
     applyTheme(SAP.store.d.theme || sysTheme());
 
     /* Kullanıcı sistem temasını değiştirirse ve elle seçim yapılmadıysa uy. */

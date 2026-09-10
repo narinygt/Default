@@ -211,7 +211,7 @@ SAP.registerTopic({
         not:'IFRS 16, operasyonel kiralamaları **bilançoya alır**. Yerel mevzuat almayabilir.\n\n' +
              'Bu kayıt {{FB01L}} ile **yalnızca 2L defterine** girildi. ' +
              'Lider defterde bu varlık ve yükümlülük **hiç yok** — kira gideri olarak izleniyor.\n\n' +
-             '⚠️ Defter grubu **boş bırakılsaydı** bu kayıt yerel deftere de gidecek ve ' +
+             'Defter grubu **boş bırakılsaydı** bu kayıt yerel deftere de gidecek ve ' +
              'yerel bilanço bozulacaktı.' },
 
       { baslik:'Adım 4 — Makine 3. yıl sonunda satılır · lider defterdeki sonuç',
@@ -833,7 +833,7 @@ SAP.registerTopic({
         girdi:[
           { alan:'Hesap', deger:'770100 Amortisman gideri' },
           { alan:'Defter **0L**', deger:'4.200.000 TL ✓' },
-          { alan:'Defter **2L**', deger:'**0 TL** ✕' },
+          { alan:'Defter **2L**', deger:'**0 TL** ' },
           { alan:'Kontrol', deger:'Defter alanı bilinçli olarak 2L girildi — okuma hatası **yok**' },
         ],
         not:'İlk adım her zaman budur: **rapor doğru mu okunuyor?** ' +
@@ -845,7 +845,7 @@ SAP.registerTopic({
         girdi:[
           { alan:'Defter 2L — satış/alış kayıtları', deger:'**Var** ✓ — 6 aylık tüm faturalar' },
           { alan:'Defter 2L — açılış bakiyeleri', deger:'**Var** ✓' },
-          { alan:'Defter 2L — amortisman', deger:'**Yok** ✕' },
+          { alan:'Defter 2L — amortisman', deger:'**Yok** ' },
           { alan:'Çıkarım', deger:'Defter çalışıyor; sorun **yalnızca duran varlık tarafında**' },
         ],
         not:'Bu ayrım teşhisi daraltıyor: defter tanımı doğru, kayıtlar akıyor, ' +
@@ -857,7 +857,7 @@ SAP.registerTopic({
         aciklama:'Alan ↔ defter grubu eşleşmesi kontrol ediliyor.',
         girdi:[
           { alan:'Alan **01** (yerel)', deger:'Defter grubu **0L** ✓' },
-          { alan:'Alan **32** (IFRS)', deger:'Defter grubu **BOŞ** ✕' },
+          { alan:'Alan **32** (IFRS)', deger:'Defter grubu **BOŞ** ' },
           { alan:'Alan 32 durumu', deger:'Tanımlı, varlıklarda mevcut, değerleri hesaplanıyor' },
           { alan:'**Kök sebep**', deger:'Alan 32 hiçbir deftere **bağlanmamış**' },
         ],
@@ -1109,7 +1109,7 @@ SAP.registerTopic({
 
     flashcards:[
       { on:'Paralel defter nedir?', arka:'**Aynı işlemi birden çok muhasebe standardına göre kaydetme.**\n\n0L lider defter (yerel)\n2L/3L ek defterler (IFRS, vergi)\n\nVeri çoğaltılmaz — **fark kaydedilir**.' },
-      { on:'Defter grubu boş bırakılırsa?', arka:'Kayıt **TÜM DEFTERLERE** gider.\n\n"Hiçbiri" veya "yalnızca lider" **değil**.\n\n⚠️ IFRS farkı olan kaydı defter grubu belirtmeden girmek, farkı yerel deftere de yazar — **hata mesajı çıkmaz**.' },
+      { on:'Defter grubu boş bırakılırsa?', arka:'Kayıt **TÜM DEFTERLERE** gider.\n\n"Hiçbiri" veya "yalnızca lider" **değil**.\n\nIFRS farkı olan kaydı defter grubu belirtmeden girmek, farkı yerel deftere de yazar — **hata mesajı çıkmaz**.' },
       { on:'Lider defterin özellikleri?', arka:'• Sistemde **tek** (kod 0L)\n• **Tüm** şirket kodlarında geçerli\n• **Şirket kodunun** mali yıl varyantını kullanır\n• **CO ile entegre** çalışan defterdir\n\nEk defterler bu kısıtlara tabi değildir.' },
       { on:'Paralel defterin temel ilkesi?', arka:'**Olguyu tüm defterlere yaz, değerleme yargısını defter bazlı yaz.**\n\n"1.200.000 TL’ye makine alındı" = olgu → tüm defterler\n"Kaç yılda tükenir?" = yargı → defter bazlı' },
       { on:'Duran varlıkta paralel defter nasıl çalışır?', arka:'Her **amortisman alanı** bir defter grubuna bağlanır (**OADB**).\n\nAlan 01 → 0L (yerel, 10 yıl)\nAlan 32 → 2L (IFRS, 8 yıl)\n\n**Tek AFAB** çalıştırması her iki defteri de besler.' },

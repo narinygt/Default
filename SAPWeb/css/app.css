@@ -1267,46 +1267,6 @@ table.tbl .mono { font-family: var(--font-mono); font-size: 13px; }
 }
 .quiz-f { padding: var(--s4) var(--s5); background: var(--surface-2); display: flex; align-items: center; gap: var(--s3); flex-wrap: wrap; }
 
-/* --- Flash kart --- */
-.fc-wrap { max-width: 480px; margin: 0 auto; }
-.fc-scene { perspective: 1400px; cursor: pointer; }
-.fc-inner {
-  position: relative;
-  width: 100%;
-  height: 240px;
-  transition: transform .55s var(--ease);
-  transform-style: preserve-3d;
-}
-.fc-inner.flip { transform: rotateY(180deg); }
-.fc-face {
-  position: absolute;
-  inset: 0;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  border-radius: var(--r-lg);
-  border: 1px solid var(--border-soft);
-  background: var(--surface);
-  box-shadow: var(--sh-2);
-  display: flex;
-  flex-direction: column;
-  padding: var(--s5);
-}
-.fc-face.back { transform: rotateY(180deg); background: var(--accent-soft); border-color: var(--accent-br); }
-.fc-lb { font-size: var(--t-xs); font-weight: 660; color: var(--text-3); margin-bottom: var(--s3); flex: 0 0 auto; }
-.fc-tx {
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
-  display: flex;
-  align-items: center;
-  font-size: var(--t-sm);
-  line-height: 1.68;
-}
-.fc-face.front .fc-tx { font-size: 19px; font-weight: 640; line-height: 1.45; }
-.fc-hint { flex: 0 0 auto; margin-top: var(--s2); font-size: var(--t-xs); color: var(--text-3); text-align: center; }
-.fc-nav { display: flex; align-items: center; gap: var(--s3); margin-top: var(--s4); }
-.fc-nav .pos { flex: 1; text-align: center; font-size: var(--t-sm); color: var(--text-3); font-weight: 600; }
-
 /* --- Notlar --- */
 .notes textarea {
   width: 100%;
@@ -1572,7 +1532,6 @@ table.tbl .mono { font-family: var(--font-mono); font-size: 13px; }
   .pager .pg.next { text-align: left; }
 
   .topbar-crumb .hidesm { display: none; }
-  .fc-inner { height: 264px; }
   .dia { padding: var(--s4) var(--s3); }
   .quiz-q { padding: var(--s4); }
   .tc-b { padding: var(--s4); }

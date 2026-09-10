@@ -1,9 +1,9 @@
 /* ==========================================================================
-   learn.js — Öğrenme katmanı: quiz, flash kartlar, notlar, ilerleme, favori
+   learn.js — Öğrenme katmanı: quiz, notlar, ilerleme, favori
    --------------------------------------------------------------------------
    Bu bileşenler tam sayfa yeniden çizim YAPMAZ; DOM'u noktasal günceller.
    Sebep: quiz cevabında sayfa yeniden çizilirse kaydırma konumu ve
-   flash kartın 3D dönüş animasyonu kaybolur.
+   açılmış açıklamalar kaybolur.
    ========================================================================== */
 
 (function (SAP) {
@@ -108,82 +108,18 @@
     if (sc) sc.textContent = '0 / ' + quiz.dataset.toplam;
   });
 
-  /* =================================================== FLASH KART ==== */
+  /* ================================================= SORU KARTLARI ====
+     KALDIRILDI (kullanıcı talebi, Eylül 2026).
 
-  /**
-   * Tüm kartlar DOM'a basılır, yalnızca güncel olan görünür. Böylece ileri-geri
-   * gezinirken içerik yeniden üretilmez ve 3D dönüş animasyonu bozulmaz.
-   */
-  function flashHTML(topicId, kartlar) {
-    var faces = kartlar.map(function (k, i) {
-      return '<div class="fc-scene" data-fc-card="' + i + '"' + (i ? ' hidden' : '') + ' ' +
-             'data-action="flash-flip" role="button" tabindex="0" aria-label="Kartı çevir">' +
-        '<div class="fc-inner">' +
-          '<div class="fc-face front">' +
-            '<div class="fc-lb">Soru</div>' +
-            '<div class="fc-tx">' + mk(k.on) + '</div>' +
-            '<div class="fc-hint">Cevap için tıkla · Space</div>' +
-          '</div>' +
-          '<div class="fc-face back">' +
-            '<div class="fc-lb">Cevap</div>' +
-            '<div class="fc-tx">' + mk(k.arka) + '</div>' +
-            '<div class="fc-hint">← / → ile gezin</div>' +
-          '</div>' +
-        '</div>' +
-      '</div>';
-    }).join('');
+     Gerekçe: kart, içeriği yüksek boş bir kutunun ortasında tek satır
+     olarak gösteriyordu; sayfanın geri kalanının yoğunluğu yanında
+     boşluk olarak okunuyordu.
 
-    return '<div class="fc-wrap" data-fc="' + esc(topicId) + '" data-i="0" data-n="' + kartlar.length + '">' +
-      faces +
-      '<div class="fc-nav">' +
-        '<button class="btn sm" type="button" data-action="flash-prev">← Önceki</button>' +
-        '<span class="pos" data-fc-pos>1 / ' + kartlar.length + '</span>' +
-        '<button class="btn sm" type="button" data-action="flash-next">Sonraki →</button>' +
-      '</div>' +
-    '</div>';
-  }
-
-  function flashShow(wrap, i) {
-    var n = Number(wrap.dataset.n);
-    i = (i + n) % n;
-    wrap.dataset.i = String(i);
-    wrap.querySelectorAll('[data-fc-card]').forEach(function (c) {
-      var on = Number(c.dataset.fcCard) === i;
-      c.hidden = !on;
-      if (!on) c.querySelector('.fc-inner').classList.remove('flip');
-    });
-    var pos = wrap.querySelector('[data-fc-pos]');
-    if (pos) pos.textContent = (i + 1) + ' / ' + n;
-  }
-
-  SAP.action('flash-flip', function (scene) {
-    var inner = scene.querySelector('.fc-inner');
-    if (inner) inner.classList.toggle('flip');
-  });
-  SAP.action('flash-next', function (btn) {
-    var w = btn.closest('.fc-wrap'); if (w) flashShow(w, Number(w.dataset.i) + 1);
-  });
-  SAP.action('flash-prev', function (btn) {
-    var w = btn.closest('.fc-wrap'); if (w) flashShow(w, Number(w.dataset.i) - 1);
-  });
-
-  /* Flash kart klavye kısayolları — yalnızca kart ekranda görünürken. */
-  document.addEventListener('keydown', function (e) {
-    var w = document.querySelector('.fc-wrap');
-    if (!w) return;
-    var t = e.target;
-    if (t && typeof t.closest === 'function' && t.closest('input, textarea, select')) return;
-    if (document.querySelector('.palette-bg')) return;
-
-    if (e.key === ' ' || e.key === 'Enter') {
-      var cur = w.querySelector('[data-fc-card]:not([hidden]) .fc-inner');
-      if (cur) { e.preventDefault(); cur.classList.toggle('flip'); }
-    } else if (e.key === 'ArrowRight') {
-      e.preventDefault(); flashShow(w, Number(w.dataset.i) + 1);
-    } else if (e.key === 'ArrowLeft') {
-      e.preventDefault(); flashShow(w, Number(w.dataset.i) - 1);
-    }
-  });
+     ⚠️ İçerik SİLİNMEDİ: `ogrenme.flashcards` verisi 36 konu dosyasında
+     duruyor (yaklaşık 430 kart). Özellik geri istenirse bu blok ve
+     sections.js'teki iki satır geri konur; içerik yeniden yazılmaz.
+     Bölümün özet / önemli noktalar / sık hatalar / quiz parçaları
+     zaten aynı bilgiyi taşıyor. */
 
   /* ======================================================= NOTLAR ==== */
 
@@ -247,6 +183,6 @@
 
   SAP.action('print', function () { window.print(); });
 
-  SAP.learn = { quizHTML: quizHTML, flashHTML: flashHTML, notesHTML: notesHTML };
+  SAP.learn = { quizHTML: quizHTML, notesHTML: notesHTML };
 
 })(window.SAP);

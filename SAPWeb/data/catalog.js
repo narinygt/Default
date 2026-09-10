@@ -24,22 +24,25 @@ SAP.registerModule({ id:'FI', name:'Finansal Muhasebe', short:'FI', icon:'💰',
    birlikte tek bir aile gibi okunur — gökkuşağı gibi değil.
 
    Renk burada bir SINIFLANDIRMA aracıdır: aynı renk = aynı grup.  */
+/* Dokuz açı renk çemberine EŞİT aralıkla (33°) yerleştirilmiştir ve
+   hiçbiri marka açısına (38 — yumuşak kiremit) yakın düşmez; en yakını
+   66 ile 28° uzakta. Böylece marka rengi bir gruba ait sanılmaz.  */
 SAP.GROUPS = [
-  { id:'temeller',    ad:'Temeller',              ic:'🧱', hue:162 },
-  { id:'surecler',    ad:'Ana Süreçler',          ic:'🏛️', hue:232 },
-  { id:'islemler',    ad:'Günlük İşlemler',       ic:'⚙️', hue:266 },
-  { id:'donem-sonu',  ad:'Dönem Sonu',            ic:'📅', hue:52  },
-  { id:'mimari',      ad:'Muhasebe Mimarisi',     ic:'🧭', hue:312 },
-  { id:'entegrasyon', ad:'Entegrasyon',           ic:'🔗', hue:196 },
-  { id:'teknik',      ad:'Teknik & Raporlama',    ic:'🛠️', hue:28  },
-  { id:'veri',        ad:'Veri & Geçiş',          ic:'📦', hue:118 },
-  { id:'ileri',       ad:'İleri Seviye',          ic:'🚀', hue:348 },
+  { id:'temeller',    ad:'Temeller',              ic:'🧱', hue:165 },
+  { id:'surecler',    ad:'Ana Süreçler',          ic:'🏛️', hue:231 },
+  { id:'islemler',    ad:'Günlük İşlemler',       ic:'⚙️', hue:264 },
+  { id:'donem-sonu',  ad:'Dönem Sonu',            ic:'📅', hue:66  },
+  { id:'mimari',      ad:'Muhasebe Mimarisi',     ic:'🧭', hue:297 },
+  { id:'entegrasyon', ad:'Entegrasyon',           ic:'🔗', hue:198 },
+  { id:'teknik',      ad:'Teknik & Raporlama',    ic:'🛠️', hue:99  },
+  { id:'veri',        ad:'Veri & Geçiş',          ic:'📦', hue:132 },
+  { id:'ileri',       ad:'İleri Seviye',          ic:'🚀', hue:330 },
 ];
 
-/** Bir grubun rengini (hue) döndürür; bilinmeyen grup için nötr ton. */
+/** Bir grubun rengini (hue) döndürür; bilinmeyen grup için marka tonu. */
 SAP.grupHue = function (grupId) {
   var g = SAP.GROUPS.find(function (x) { return x.id === grupId; });
-  return g && g.hue != null ? g.hue : 240;
+  return g && g.hue != null ? g.hue : 38;
 };
 
 [

@@ -8,6 +8,11 @@
 **36 konunun 36'sı** derin içerikle dolduruldu — katalog **tamamlandı**.
 **Sözlükler:** 262 işlem kodu · 92 tablo · 164 terim (üçünde de çift kayıt yok — bkz. Ders #26).
 
+> ⚠️ **Son turda iki değişiklik + bir hata düzeltmesi:** marka rengi maviden
+> **yumuşak kiremite** (açı 38) geçti, **soru kartı bölümü kaldırıldı**, ve
+> grup renklerinin **hiç uygulanmadığı** ortaya çıktı — dokuz rengin dokuzu da
+> 240 mavi hesaplanıyordu (bkz. **Ders #29**, 6. doğrulama ekseni).
+
 ## ⚠️ Uygulamayı nasıl açarsın
 - **Doğru yol:** Windows Gezgini'nden `index.html`'e (veya `tek-dosya.html`'e) **çift tıkla**.
 - **Çalışmayan yol:** Claude'un önizleme paneli. Panel, ana proje klasörü dışındaki dosyaları
@@ -247,7 +252,7 @@ SAP.registerTopic({ id:'gl-accounting', sections: {
 
   ogrenme:   { ozet:[], onemliNoktalar:[], sikHatalar:[{hata,dogru}], ipuclari:[],
                quiz:[{soru,secenekler:[],dogru:index,aciklama}],
-               flashcards:[{on,arka}] },
+               flashcards:[{on,arka}] },   // ⚠️ ARTIK ÇİZİLMİYOR — bkz. §6
 }});
 ```
 
@@ -306,7 +311,15 @@ Bu bölüm **iki turda** oturdu ve ikisi de kayda değer:
 platformunda sadelik **tek başına** hedef değildir — kullanıcı orada
 saatlerce **okuyacaktır**.
 
-**2. tur — bugünkü hâli.** Renk ve yumuşaklık geri geldi, ama kontrollü.
+**2. tur — renk geri geldi ama görünmedi.** Grup rengi sistemi yazıldı, dokuz
+açı verildi… ve **hiç çalışmadı**. `--accent` `:root`ta tanımlıydı, `var(--h)`
+orada çözülüyordu; alt elemanda `--h:162` yazmak hiçbir şeyi değiştirmiyordu.
+Ekranda dokuz grubun dokuzu da aynı maviydi. Kullanıcı *"mavi çok standart
+duruyor"* dediğinde asıl sebep buydu (bkz. Ders #29).
+
+**3. tur — bugünkü hâli.** Hata düzeltildi (formül `*` üzerinde), marka rengi
+maviden **yumuşak kiremite** geçti, dokuz grup açısı yeniden dağıtıldı,
+soru kartı bölümü kaldırıldı.
 
 ### Beş ilke
 
@@ -318,6 +331,9 @@ saatlerce **okuyacaktır**.
    açı) — yan yana geldiklerinde gökkuşağı değil tek palet gibi okunurlar.
    ⚠️ Konu stub'larındaki eski `hue` alanı **artık kullanılmıyor**;
    `--h` her yerde gruptan geliyor.
+   ⚠️⚠️ **Türetilmiş `--accent*` tokenleri `:root`ta DEĞİL, `*` üzerinde
+   tanımlanır.** Bu bir stil tercihi değil **zorunluluktur** — gerekçesi
+   Ders #29'da. Koyu tema ve `print.css` de aynı seviyede geçersiz kılar.
 2. **Yumuşak yüzey, yumuşak köşe.** Her şeyi çizgiyle bölmek yorar;
    ayrım önce **yüzey ve boşlukla** yapılır. Yarıçap 6–20px, kapsül yalnızca
    rozet ve süzgeç çipinde.
@@ -329,6 +345,25 @@ saatlerce **okuyacaktır**.
 5. **Ritim.** Katalog dokuz **renkli grup bölümüne** ayrıldı; her bölümün
    ikonu, başlığı ve "kaç konu / kaç tamamlandı" rozeti var. Sayfa aynı
    kalıbı 36 kez tekrarlamıyor.
+
+### Renk paleti
+
+| Rol | Değer | Nerede |
+|---|---|---|
+| **Marka** | `oklch(50% 0.088 38)` — yumuşak kiremit | Logo kutusu, butonlar, bağlantı, arama odağı, genel ilerleme, aktif gezinme satırı |
+| Grup açıları | 66 · 99 · 132 · 165 · 198 · 231 · 264 · 297 · 330 | Kart üst şeridi, ikon kutusu, grup başlığı, konu başlığı paneli |
+| Anlamsal | ok 158 · uyarı 68 · hata 27 · bilgi 245 | Uyarı kutuları, fiş denklik uyarısı |
+
+**Marka neden kiremit?** Kullanıcı isteği: *"pastel bir renk seç, mavi çok
+standart duruyor."* Doygunluk bilerek düşük (0.088) — pastel karakter
+buradan gelir. Açıklık %50'de tutuldu; daha açık bir ton beyaz yazıyla
+4.5:1 kontrastın altına düşerdi. Sıcak kırık beyaz zeminle (açı 95) aynı
+sıcaklık ailesinde olduğu için zemine oturuyor, üstünde yüzmüyor.
+
+**Dokuz grup açısı neden yeniden dağıtıldı?** Eski dağılım düzensizdi
+(aralar 24°–66°) ve `teknik` (28) yeni marka açısına (38) **10° uzaktaydı** —
+marka rengi bir gruba ait sanılırdı. Yenisi çembere **eşit 33° aralıkla**
+yerleşiyor ve en yakın grup markadan 28° uzakta.
 
 ### Tipografi notu
 
@@ -349,7 +384,8 @@ konursa yalnızca `--font` / `--font-display` satırı değişir.
 | Süreç şeması | Adım **sıra numarası** (emoji değil), yuvarlak rozet | `diagram.js` `flow()` |
 | Uyarı kutusu | Yumuşak dolgu + ikon + tür etiketi (İpucu/Dikkat/Hata/Not) | `sections.js` `note()` |
 | Ana sayfa eylemi | **"Kaldığın yerden devam et"** + 🎲 rastgele konu | `views.js` `heroCta()` |
-| Baskı | Dokuz grup rengi **tek nötr tona sabitlenir** (gri yazıcıda ayırt edilemez, mürekkep yakar) | `print.css` |
+| Soru kartları | **KALDIRILDI** — yüksek boş kutunun ortasında tek satır, sayfanın yoğunluğu yanında boşluk gibi okunuyordu. ⚠️ Veri silinmedi | `learn.js`, `sections.js` |
+| Baskı | Dokuz grup rengi **tek nötr tona sabitlenir** (gri yazıcıda ayırt edilemez, mürekkep yakar) — ⚠️ sabitleme `*` seviyesinde yapılır, `:root` yetmez | `print.css` |
 
 ### Responsive — mobil, masaüstünün küçültülmüşü değildir
 
@@ -383,7 +419,7 @@ konursa yalnızca `--font` / `--font-display` satırı değişir.
 | T hesapları | ✅ | Borç/alacak sütunlu, bakiye hesaplı |
 | Muhasebe fişi | ✅ | Borç/alacak toplamı + **denklik kontrolü** (denk değilse uyarır) |
 | Mini quiz | ✅ | Anında geri bildirim + açıklama, puan kalıcı |
-| Flash kartlar | ✅ | 3D çevirme, Space/←/→ klavye |
+| ~~Flash kartlar~~ | ❌ Kaldırıldı | Kullanıcı talebi (Eylül 2026). `ogrenme.flashcards` **verisi duruyor** (~430 kart, 36 dosya) — özellik geri istenirse `learn.js` bloğu + `sections.js`'te iki satır yeter, içerik yeniden yazılmaz |
 | PDF olarak dışa aktarma | ✅ | `window.print()` + `print.css` (harici kütüphane yok) |
 | Responsive | ✅ | Sidebar mobilde çekmece; 1180px'de içindekiler gizlenir |
 | Diğer modüller (CO/MM/SD…) | Mimari hazır | Motor değişmeden yeni modül eklenebilir |
@@ -412,6 +448,22 @@ konursa yalnızca `--font` / `--font-display` satırı değişir.
 
   Bu eksen ilk çalıştırmasında **86 bozuk yer** buldu ve üç ayrı motor kusurunu
   ortaya çıkardı (Ders #28).
+- ⭐ **6. eksen — grup rengi gerçekten uygulanıyor mu?** (bkz. Ders #29)
+  Dokuz `.grp` bölümünün `--accent` **hesaplanmış** değeri okunur;
+  **dokuzu da farklı olmalıdır**.
+
+  ```js
+  const a = [...document.querySelectorAll('.grp')]
+    .map(g => getComputedStyle(g).getPropertyValue('--accent'));
+  new Set(a).size === a.length   // true olmalı
+  ```
+
+  ⚠️ **`--h` doğru basılmış olması yetmez.** Hata tam olarak buydu: her grubun
+  `style="--h:162"` niteliği **doğruydu**, ama `--accent` `:root`ta
+  hesaplandığı için dokuzu da `oklch(53% 0.115 240)` dönüyordu.
+  Ölçüm **niteliği değil, hesaplanmış değeri** okumak zorundadır.
+- **Soru kartı kalıntısı:** çizilmiş DOM'da `.fc-scene` / `.fc-wrap` sayısı
+  36 konuda **0** — bölüm kaldırıldı, veri duruyor.
 - 33 hazır konuda **yalnızca 2 dengesiz fiş** (`.jr-bad`) var, **ikisi de kasıtlı**:
   1. `document-posting` — kullanıcının girdiği eksik belge (50.000 ≠ 60.000);
      simülasyonun vergi satırını nasıl tamamladığını gösterir.
@@ -421,12 +473,11 @@ konursa yalnızca `--font` / `--font-display` satırı değişir.
   Motor ikisini de doğru şekilde "DENK DEĞİL" olarak işaretliyor.
   **Üçüncü bir dengesiz fiş gerçek hatadır** (bkz. Ders #15 ve #22).
 - Her hazır konu 11 bölümün tamamını içeriyor (genel-muhasebe 10 — teorik konu olduğu için `sapSurec` yok)
-- Her hazır konuda **2 diyagram** (1 `flow` + 1 `er`), **8 quiz sorusu** (ilk üç konuda 6–7),
-  **12 flash kart** çiziliyor — 27 konu için tek tek ölçüldü
+- Her hazır konuda **2 diyagram** (1 `flow` + 1 `er`) ve **8 quiz sorusu**
+  (ilk üç konuda 6–7) çiziliyor — tek tek ölçüldü
 - Tüm rotalar + geçersiz rota (`notfound`) doğru çalışıyor
 - Çapraz link tıklama → doğru sayfaya gidiyor, tarayıcı geri tuşu çalışıyor
 - Quiz: 8/8 doğru puanlanıyor, açıklamalar açılıyor, sonuç kalıcı
-- Flash kart: çeviriyor, ileri/geri geziniyor, geçişte çevirme sıfırlanıyor
 - Notlar: yazılıyor, gecikmeli kaydediliyor, `#/notlar`'da listeleniyor
 - İlerleme: bölüm işareti %10, "tümünü işaretle" %100
 - Favori ekleme/çıkarma, tema geçişi
@@ -1367,3 +1418,72 @@ FI kataloğu bittiği için sıradaki iş **içerik değil**. İki yön:
     (`RFFO*`, `320*`) meşrudur ve Ders #15/#22'deki kasıtlı dengesiz fişlerle
     aynı mantıkla **belgelenmiş istisnadır**. Bir kontrolün beklenen değeri
     sıfır olmak zorunda değildir; **bilinen ve yazılı** olmak zorundadır.
+
+29. **⭐ CSS özel özelliği `:root`ta tanımlanırsa `var()` ORADA çözülür — alt
+    elemanda değiştirmek hiçbir şeyi değiştirmez.** Bu projedeki en uzun
+    yaşamış sessiz hata. Tasarım sisteminin **1. ilkesi** ("renk gruba ait,
+    konuya değil") yazıldığı günden beri **hiç çalışmamıştı**.
+
+    **Belirti yoktu.** Sayfa açılıyordu, konsol temizdi, dokuz grup bölümü
+    doğru başlıklarla çiziliyordu, beş doğrulama ekseninin beşi de yeşildi.
+    Sadece her şey maviydi — ve mavi *geçerli bir tasarım tercihi* gibi
+    göründüğü için kimse (ben dahil) sorgulamadı.
+
+    **Nasıl bulundu:** kullanıcı *"mavi çok standart duruyor, pastel bir renk
+    seç"* dedi. Yeni rengi seçmeden önce dört adayı sayfaya enjekte edip
+    ekran görüntüsü aldım. Adaylardan birinde `--h`'yi değiştirdim ve
+    **grup başlıkları da onunla birlikte değişti** — oysa onların kendi
+    `--h`'si olmalıydı. Renk seçmek için yapılan bir deneme, seçilecek
+    rengin zaten bozuk olan sistemini ortaya çıkardı.
+
+    **Sebep:**
+
+    ```css
+    :root {
+      --h: 240;
+      --accent: oklch(53% 0.115 var(--h));   /* ⚠️ BURADA çözülür */
+    }
+    ```
+
+    `--accent`'in değeri `:root`ta hesaplanır ve **hesaplanmış hâliyle**
+    miras alınır. `<section class="grp" style="--h:162">` yazmak `--h`'yi
+    doğru şekilde değiştirir ama `--accent` zaten `oklch(53% 0.115 240)`
+    olarak donmuştur. `--h` doğru, sonuç yanlış.
+
+    **Çözüm — türetilmiş tokenleri `*` üzerinde tanımla:**
+
+    ```css
+    *, *::before, *::after {
+      --accent: oklch(54% 0.098 var(--h));
+    }
+    ```
+
+    Böylece her eleman kendi `--h`'siyle **yeniden hesaplar**.
+    `:root` özgüllüğü `*`'ı yendiği için `html` yine kendi değerini alır.
+    ⚠️ Koyu tema (`:root[data-theme="dark"] *`) ve `print.css`'teki nötr
+    sabitleme de **aynı seviyede** yazılmalıdır — yoksa `*` kuralı onları
+    ezer. Bu, düzeltmenin en kolay atlanan yarısıdır.
+
+    ⭐ **Neden beş eksenin beşi de göremedi:** hepsi *içerik* soruları
+    soruyordu — referans çözülüyor mu, çip bozuk mu, ham işaret kaldı mı,
+    çift kayıt var mı, biçim işareti sızdı mı. **Hiçbiri "bu kural ekranda
+    gerçekten uygulandı mı?" diye sormuyordu.** Ders #19/#23/#26/#28'in
+    aynı kalıbı, bu kez **CSS katmanında**: *bir denetim ne sorduğunu bilir,
+    sormadığını göremez.*
+
+    **6. eksen eklendi** ve kritik inceliği şudur: **niteliği değil,
+    `getComputedStyle` ile hesaplanmış değeri okur.** `style="--h:162"`
+    kontrolü bu hatayı **yakalayamazdı** — nitelik zaten doğruydu.
+
+    ```js
+    const a = [...document.querySelectorAll('.grp')]
+      .map(g => getComputedStyle(g).getPropertyValue('--accent'));
+    new Set(a).size === a.length   // dokuz grup, dokuz farklı renk
+    ```
+
+    **Genel ders — ikisi birden:**
+    (a) *Bir tasarım ilkesini yazmak, uygulandığı anlamına gelmez.*
+    Beş ilke `theme.css`'in başında yazılıydı, biri fiilen yoktu.
+    İlkeler de doğrulanmalıdır — kod gibi.
+    (b) *Makul görünen çıktı, doğrulanmamış çıktıdır.* Tek renkli bir arayüz
+    bir kusur değil bir tercih gibi okunur; hatayı gizleyen şey buydu.

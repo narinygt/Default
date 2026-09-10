@@ -87,28 +87,32 @@
   --text-3:      oklch(63% 0.014 265);
   --text-inv:    oklch(99% 0.003 95);
 
-  /* --------------------------------------------- GRUP RENGİ FORMÜLÜ ---
-     Her kart / bölüm `--h` değişkenini GRUBUNDAN alır; alttaki dört
-     token ondan hesaplanır. Yeni bir grup rengi eklemek için CSS
-     yazılmaz, catalog.js'te bir `hue` sayısı verilir.
+  /* --------------------------------------------- GRUP RENGİ AÇISI ---
+     Her kart / bölüm `--h` değişkenini GRUBUNDAN alır (catalog.js →
+     SAP.GROUPS[].hue). Buradaki değer yalnızca VARSAYILAN: gruba ait
+     olmayan yerlerde (ana sayfa künyesi, arama, favoriler) geçerlidir
+     ve marka açısıyla aynıdır.
 
-     Açıklık ve doygunluk SABİT tutulur — dokuz rengin bir arada
-     dağınık değil, tek palet gibi görünmesinin sebebi budur. */
-  --h: 240;
-  --accent:      oklch(53% 0.115 var(--h));   /* metin ve ikon rengi */
-  --accent-text: oklch(45% 0.115 var(--h));   /* küçük metinde okunur ton */
-  --accent-soft: oklch(95.5% 0.032 var(--h)); /* yumuşak dolgu */
-  --accent-mid:  oklch(90%   0.050 var(--h)); /* dolgu üstü ayrım */
-  --accent-br:   oklch(84%   0.062 var(--h)); /* kenarlık */
+     ⚠️ Türetilmiş --accent* tokenleri BURADA DEĞİL, aşağıdaki `*`
+     kuralında tanımlanır. Sebebi Ders #29'da: `:root`ta tanımlanırsa
+     var(--h) orada çözülür ve alt elemanda --h değiştirmek hiçbir
+     şeyi değiştirmez. */
+  --h: 38;
 
   /* --------------------------------------------------------- MARKA ---
      Gruplara ait olmayan yerlerde (arama, butonlar, bağlantılar,
-     genel ilerleme) kullanılan nötr marka tonu. */
-  --brand:      oklch(52% 0.105 245);
-  --brand-deep: oklch(43% 0.100 245);
-  --brand-weak: oklch(95.5% 0.030 245);
-  --brand-line: oklch(84% 0.055 245);
-  --brand-fg:   oklch(99% 0.003 95);
+     genel ilerleme) kullanılan marka tonu.
+
+     Yumuşak kiremit. Doygunluk bilerek düşük (0.088) — pastel karakteri
+     buradan gelir; mavi ve mor gibi "her yazılım arayüzünde olan"
+     tonlardan uzak durur ve sıcak kırık beyaz zeminle aynı ailedendir.
+     Açıklık %50'de tutuldu: beyaz yazıyla 4.5:1 kontrastın altına
+     düşmesin. */
+  --brand:      oklch(50%   0.088 38);
+  --brand-deep: oklch(41%   0.084 38);
+  --brand-weak: oklch(96.2% 0.026 38);
+  --brand-line: oklch(85%   0.052 38);
+  --brand-fg:   oklch(99%   0.004 60);
 
   /* --------------------------------------------- ANLAMSAL RENKLER ---
      Muhasebe ve durum anlamı taşırlar; grup renklerinden bağımsızdır. */
@@ -187,6 +191,27 @@
   --ease-out: cubic-bezier(.16, 1, .3, 1);
 }
 
+/* ------------------------------------------- GRUP RENGİ FORMÜLÜ ---
+   Dokuz grup rengi TEK formülden üretilir: aynı açıklık, aynı
+   doygunluk, farklı açı. Yan yana geldiklerinde gökkuşağı değil tek
+   palet gibi okunmalarının sebebi budur.
+
+   ⚠️ KURAL: bu tokenler `:root`ta DEĞİL, `*` üzerinde tanımlanır.
+   Özel bir özellik `:root`ta tanımlanırsa içindeki var(--h) ORADA
+   çözülür ve alt elemanda --h değiştirmek sonucu değiştirmez —
+   token zaten hesaplanmış hâlde miras alınır. `*` her elemanda
+   yeniden hesaplattırır. (Ders #29)
+
+   Doygunluk 0.098: dokuz renk aynı anda ekranda olduğu için pastel
+   tarafta tutuldu. Daha doygun bir değer katalog sayfasını yoruyor. */
+*, *::before, *::after {
+  --accent:      oklch(54%   0.098 var(--h));  /* metin ve ikon rengi */
+  --accent-text: oklch(46%   0.100 var(--h));  /* küçük metinde okunur ton */
+  --accent-soft: oklch(96.4% 0.026 var(--h));  /* yumuşak dolgu */
+  --accent-mid:  oklch(92%   0.042 var(--h));  /* dolgu üstü ayrım */
+  --accent-br:   oklch(86%   0.052 var(--h));  /* kenarlık */
+}
+
 :root[data-theme="dark"] {
   color-scheme: dark;
 
@@ -204,17 +229,14 @@
   --text-3:      oklch(62% 0.014 265);
   --text-inv:    oklch(20% 0.012 265);
 
-  --accent:      oklch(78% 0.105 var(--h));
-  --accent-text: oklch(84% 0.090 var(--h));
-  --accent-soft: oklch(30% 0.048 var(--h));
-  --accent-mid:  oklch(36% 0.060 var(--h));
-  --accent-br:   oklch(44% 0.070 var(--h));
+  /* ⚠️ --accent* burada DEĞİL — aşağıdaki `[data-theme="dark"] *`
+     kuralında. Gerekçe yukarıdaki formül bloğunda (Ders #29). */
 
-  --brand:      oklch(79% 0.100 245);
-  --brand-deep: oklch(86% 0.085 245);
-  --brand-weak: oklch(30% 0.048 245);
-  --brand-line: oklch(44% 0.068 245);
-  --brand-fg:   oklch(19% 0.020 245);
+  --brand:      oklch(80% 0.090 38);
+  --brand-deep: oklch(87% 0.075 38);
+  --brand-weak: oklch(31% 0.045 38);
+  --brand-line: oklch(45% 0.062 38);
+  --brand-fg:   oklch(19% 0.022 38);
 
   --ok:        oklch(79% 0.115 158);
   --ok-soft:   oklch(29% 0.045 158);
@@ -241,6 +263,18 @@
   --sh-2: 0 2px 6px oklch(0% 0 0 / .34), 0 8px 22px oklch(0% 0 0 / .28);
   --sh-3: 0 8px 24px oklch(0% 0 0 / .45);
   --sh-pop: 0 24px 64px oklch(0% 0 0 / .66);
+}
+
+/* Koyu temada grup formülünün ters hâli — yine `*` üzerinde, aynı
+   sebeple (bkz. yukarıdaki formül bloğu). */
+:root[data-theme="dark"] *,
+:root[data-theme="dark"] *::before,
+:root[data-theme="dark"] *::after {
+  --accent:      oklch(80% 0.090 var(--h));
+  --accent-text: oklch(86% 0.078 var(--h));
+  --accent-soft: oklch(30% 0.044 var(--h));
+  --accent-mid:  oklch(36% 0.055 var(--h));
+  --accent-br:   oklch(45% 0.064 var(--h));
 }
 
 /* --------------------------------------------------------------- reset --- */
@@ -1587,46 +1621,6 @@ table.tbl .mono { font-family: var(--font-mono); font-size: 13px; }
 }
 .quiz-f { padding: var(--s4) var(--s5); background: var(--surface-2); display: flex; align-items: center; gap: var(--s3); flex-wrap: wrap; }
 
-/* --- Flash kart --- */
-.fc-wrap { max-width: 480px; margin: 0 auto; }
-.fc-scene { perspective: 1400px; cursor: pointer; }
-.fc-inner {
-  position: relative;
-  width: 100%;
-  height: 240px;
-  transition: transform .55s var(--ease);
-  transform-style: preserve-3d;
-}
-.fc-inner.flip { transform: rotateY(180deg); }
-.fc-face {
-  position: absolute;
-  inset: 0;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  border-radius: var(--r-lg);
-  border: 1px solid var(--border-soft);
-  background: var(--surface);
-  box-shadow: var(--sh-2);
-  display: flex;
-  flex-direction: column;
-  padding: var(--s5);
-}
-.fc-face.back { transform: rotateY(180deg); background: var(--accent-soft); border-color: var(--accent-br); }
-.fc-lb { font-size: var(--t-xs); font-weight: 660; color: var(--text-3); margin-bottom: var(--s3); flex: 0 0 auto; }
-.fc-tx {
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
-  display: flex;
-  align-items: center;
-  font-size: var(--t-sm);
-  line-height: 1.68;
-}
-.fc-face.front .fc-tx { font-size: 19px; font-weight: 640; line-height: 1.45; }
-.fc-hint { flex: 0 0 auto; margin-top: var(--s2); font-size: var(--t-xs); color: var(--text-3); text-align: center; }
-.fc-nav { display: flex; align-items: center; gap: var(--s3); margin-top: var(--s4); }
-.fc-nav .pos { flex: 1; text-align: center; font-size: var(--t-sm); color: var(--text-3); font-weight: 600; }
-
 /* --- Notlar --- */
 .notes textarea {
   width: 100%;
@@ -1892,7 +1886,6 @@ table.tbl .mono { font-family: var(--font-mono); font-size: 13px; }
   .pager .pg.next { text-align: left; }
 
   .topbar-crumb .hidesm { display: none; }
-  .fc-inner { height: 264px; }
   .dia { padding: var(--s4) var(--s3); }
   .quiz-q { padding: var(--s4); }
   .tc-b { padding: var(--s4); }
@@ -1922,10 +1915,8 @@ table.tbl .mono { font-family: var(--font-mono); font-size: 13px; }
     --surface: #fff; --surface-2: #f4f5f6; --surface-3: #e8eaec;
     --border: #b3b8bd; --border-soft: #dcdfe2;
     --text: #16191d; --text-2: #3d434a; --text-3: #666d75; --text-inv: #fff;
-    --brand: #1d4a75; --brand-deep: #14375a; --brand-weak: #eef2f7;
-    --brand-line: #aac1d7; --brand-fg: #fff;
-    --accent: #1d4a75; --accent-text: #1d4a75; --accent-soft: #eef2f7;
-    --accent-mid: #cfdcea; --accent-br: #aac1d7;
+    --brand: #8a4a30; --brand-deep: #6b3823; --brand-weak: #f7f0eb;
+    --brand-line: #d8bcac; --brand-fg: #fff;
     --ok: #1d6b46; --ok-soft: #eef5f1; --ok-br: #a7cbb7;
     --warn: #7d5410; --warn-soft: #f9f4e8; --warn-br: #ddc79b;
     --err: #a32d20; --err-soft: #faeeec; --err-br: #e0b2ab;
@@ -1935,17 +1926,29 @@ table.tbl .mono { font-family: var(--font-mono); font-size: 13px; }
     --sh-1: none; --sh-2: none; --sh-3: none; --sh-pop: none;
   }
 
+  /* ⚠️ Grup renkleri `*` üzerinde hesaplanıyor (theme.css, Ders #29);
+     yalnızca `:root`ta sabitlemek YETMEZ — alt elemanlar `*` kuralından
+     kendi hue'larını hesaplamaya devam eder. Bu yüzden nötr tona
+     sabitleme de aynı seviyede yapılır. */
+  *, *::before, *::after,
+  :root[data-theme="dark"] *,
+  :root[data-theme="dark"] *::before,
+  :root[data-theme="dark"] *::after {
+    --accent: #8a4a30; --accent-text: #6b3823; --accent-soft: #f7f0eb;
+    --accent-mid: #ecdcd2; --accent-br: #d8bcac;
+  }
+
   /* Konu başlığı paneli kağıtta dolgusuz — üstte ince bir kural yeter. */
   .thead { background: #fff !important; padding: 0 0 8pt !important; border-bottom: 1pt solid var(--border); }
   .thead-ic, .hero-cta { display: none !important; }
-  .card, .ledger, .toc, .quiz, .fc-face { box-shadow: none !important; }
+  .card, .ledger, .toc, .quiz { box-shadow: none !important; }
 
   body { background: #fff; font-size: 10.5pt; line-height: 1.5; }
 
   /* Ekran kabuğu çıktıya girmez */
   .sidebar, .topbar, .scrim, .toc, .pager, .filters,
   .palette-bg, .toast, .card-fav, .readbtn, .menubtn,
-  .thead-acts, .quiz-f, .fc-nav, .notes-f, .kicker,
+  .thead-acts, .quiz-f, .notes-f, .kicker,
   [data-noprint] { display: none !important; }
 
   .shell { display: block; }
@@ -1973,12 +1976,6 @@ table.tbl .mono { font-family: var(--font-mono); font-size: 13px; }
   .ref { border: 1px solid var(--border); background: transparent !important; color: var(--text) !important; }
   .ref-tcode, .ref-table { font-family: var(--font-mono); font-weight: 700; }
   .ref-term { border: none; border-bottom: 1px dotted var(--text-3); }
-
-  /* Flashcard'ın iki yüzü de basılsın (3D dönüş yazdırılamaz) */
-  .fc-scene { perspective: none; }
-  .fc-inner { height: auto !important; transform: none !important; display: grid; gap: 8pt; }
-  .fc-face { position: static; transform: none !important; backface-visibility: visible; }
-  .fc-tx { overflow: visible; display: block; }
 
   /* Quiz cevapları çıktıda görünür olsun */
   .opt { border: 1px solid var(--border); }
@@ -5725,22 +5722,25 @@ SAP.registerModule({ id:'FI', name:'Finansal Muhasebe', short:'FI', icon:'💰',
    birlikte tek bir aile gibi okunur — gökkuşağı gibi değil.
 
    Renk burada bir SINIFLANDIRMA aracıdır: aynı renk = aynı grup.  */
+/* Dokuz açı renk çemberine EŞİT aralıkla (33°) yerleştirilmiştir ve
+   hiçbiri marka açısına (38 — yumuşak kiremit) yakın düşmez; en yakını
+   66 ile 28° uzakta. Böylece marka rengi bir gruba ait sanılmaz.  */
 SAP.GROUPS = [
-  { id:'temeller',    ad:'Temeller',              ic:'🧱', hue:162 },
-  { id:'surecler',    ad:'Ana Süreçler',          ic:'🏛️', hue:232 },
-  { id:'islemler',    ad:'Günlük İşlemler',       ic:'⚙️', hue:266 },
-  { id:'donem-sonu',  ad:'Dönem Sonu',            ic:'📅', hue:52  },
-  { id:'mimari',      ad:'Muhasebe Mimarisi',     ic:'🧭', hue:312 },
-  { id:'entegrasyon', ad:'Entegrasyon',           ic:'🔗', hue:196 },
-  { id:'teknik',      ad:'Teknik & Raporlama',    ic:'🛠️', hue:28  },
-  { id:'veri',        ad:'Veri & Geçiş',          ic:'📦', hue:118 },
-  { id:'ileri',       ad:'İleri Seviye',          ic:'🚀', hue:348 },
+  { id:'temeller',    ad:'Temeller',              ic:'🧱', hue:165 },
+  { id:'surecler',    ad:'Ana Süreçler',          ic:'🏛️', hue:231 },
+  { id:'islemler',    ad:'Günlük İşlemler',       ic:'⚙️', hue:264 },
+  { id:'donem-sonu',  ad:'Dönem Sonu',            ic:'📅', hue:66  },
+  { id:'mimari',      ad:'Muhasebe Mimarisi',     ic:'🧭', hue:297 },
+  { id:'entegrasyon', ad:'Entegrasyon',           ic:'🔗', hue:198 },
+  { id:'teknik',      ad:'Teknik & Raporlama',    ic:'🛠️', hue:99  },
+  { id:'veri',        ad:'Veri & Geçiş',          ic:'📦', hue:132 },
+  { id:'ileri',       ad:'İleri Seviye',          ic:'🚀', hue:330 },
 ];
 
-/** Bir grubun rengini (hue) döndürür; bilinmeyen grup için nötr ton. */
+/** Bir grubun rengini (hue) döndürür; bilinmeyen grup için marka tonu. */
 SAP.grupHue = function (grupId) {
   var g = SAP.GROUPS.find(function (x) { return x.id === grupId; });
-  return g && g.hue != null ? g.hue : 240;
+  return g && g.hue != null ? g.hue : 38;
 };
 
 [
@@ -50190,10 +50190,8 @@ SAP.registerTopic({
       out += SAP.learn.quizHTML(topic.id, d.quiz);
     }
 
-    if (d.flashcards && d.flashcards.length) {
-      out += subH('🃏', 'Flash kartlar');
-      out += SAP.learn.flashHTML(topic.id, d.flashcards);
-    }
+    /* `d.flashcards` bilerek ÇİZİLMİYOR — soru kartı bölümü kaldırıldı
+       (kullanıcı talebi). Veri duruyor; gerekçe learn.js'te yazılı. */
 
     out += subH('📝', 'Notlarım');
     out += SAP.learn.notesHTML(topic.id);
@@ -50748,11 +50746,11 @@ SAP.registerTopic({
 
 /* ================= js/learn.js ================= */
 /* ==========================================================================
-   learn.js — Öğrenme katmanı: quiz, flash kartlar, notlar, ilerleme, favori
+   learn.js — Öğrenme katmanı: quiz, notlar, ilerleme, favori
    --------------------------------------------------------------------------
    Bu bileşenler tam sayfa yeniden çizim YAPMAZ; DOM'u noktasal günceller.
    Sebep: quiz cevabında sayfa yeniden çizilirse kaydırma konumu ve
-   flash kartın 3D dönüş animasyonu kaybolur.
+   açılmış açıklamalar kaybolur.
    ========================================================================== */
 
 (function (SAP) {
@@ -50857,82 +50855,18 @@ SAP.registerTopic({
     if (sc) sc.textContent = '0 / ' + quiz.dataset.toplam;
   });
 
-  /* =================================================== FLASH KART ==== */
+  /* ================================================= SORU KARTLARI ====
+     KALDIRILDI (kullanıcı talebi, Eylül 2026).
 
-  /**
-   * Tüm kartlar DOM'a basılır, yalnızca güncel olan görünür. Böylece ileri-geri
-   * gezinirken içerik yeniden üretilmez ve 3D dönüş animasyonu bozulmaz.
-   */
-  function flashHTML(topicId, kartlar) {
-    var faces = kartlar.map(function (k, i) {
-      return '<div class="fc-scene" data-fc-card="' + i + '"' + (i ? ' hidden' : '') + ' ' +
-             'data-action="flash-flip" role="button" tabindex="0" aria-label="Kartı çevir">' +
-        '<div class="fc-inner">' +
-          '<div class="fc-face front">' +
-            '<div class="fc-lb">Soru</div>' +
-            '<div class="fc-tx">' + mk(k.on) + '</div>' +
-            '<div class="fc-hint">Cevap için tıkla · Space</div>' +
-          '</div>' +
-          '<div class="fc-face back">' +
-            '<div class="fc-lb">Cevap</div>' +
-            '<div class="fc-tx">' + mk(k.arka) + '</div>' +
-            '<div class="fc-hint">← / → ile gezin</div>' +
-          '</div>' +
-        '</div>' +
-      '</div>';
-    }).join('');
+     Gerekçe: kart, içeriği yüksek boş bir kutunun ortasında tek satır
+     olarak gösteriyordu; sayfanın geri kalanının yoğunluğu yanında
+     boşluk olarak okunuyordu.
 
-    return '<div class="fc-wrap" data-fc="' + esc(topicId) + '" data-i="0" data-n="' + kartlar.length + '">' +
-      faces +
-      '<div class="fc-nav">' +
-        '<button class="btn sm" type="button" data-action="flash-prev">← Önceki</button>' +
-        '<span class="pos" data-fc-pos>1 / ' + kartlar.length + '</span>' +
-        '<button class="btn sm" type="button" data-action="flash-next">Sonraki →</button>' +
-      '</div>' +
-    '</div>';
-  }
-
-  function flashShow(wrap, i) {
-    var n = Number(wrap.dataset.n);
-    i = (i + n) % n;
-    wrap.dataset.i = String(i);
-    wrap.querySelectorAll('[data-fc-card]').forEach(function (c) {
-      var on = Number(c.dataset.fcCard) === i;
-      c.hidden = !on;
-      if (!on) c.querySelector('.fc-inner').classList.remove('flip');
-    });
-    var pos = wrap.querySelector('[data-fc-pos]');
-    if (pos) pos.textContent = (i + 1) + ' / ' + n;
-  }
-
-  SAP.action('flash-flip', function (scene) {
-    var inner = scene.querySelector('.fc-inner');
-    if (inner) inner.classList.toggle('flip');
-  });
-  SAP.action('flash-next', function (btn) {
-    var w = btn.closest('.fc-wrap'); if (w) flashShow(w, Number(w.dataset.i) + 1);
-  });
-  SAP.action('flash-prev', function (btn) {
-    var w = btn.closest('.fc-wrap'); if (w) flashShow(w, Number(w.dataset.i) - 1);
-  });
-
-  /* Flash kart klavye kısayolları — yalnızca kart ekranda görünürken. */
-  document.addEventListener('keydown', function (e) {
-    var w = document.querySelector('.fc-wrap');
-    if (!w) return;
-    var t = e.target;
-    if (t && typeof t.closest === 'function' && t.closest('input, textarea, select')) return;
-    if (document.querySelector('.palette-bg')) return;
-
-    if (e.key === ' ' || e.key === 'Enter') {
-      var cur = w.querySelector('[data-fc-card]:not([hidden]) .fc-inner');
-      if (cur) { e.preventDefault(); cur.classList.toggle('flip'); }
-    } else if (e.key === 'ArrowRight') {
-      e.preventDefault(); flashShow(w, Number(w.dataset.i) + 1);
-    } else if (e.key === 'ArrowLeft') {
-      e.preventDefault(); flashShow(w, Number(w.dataset.i) - 1);
-    }
-  });
+     ⚠️ İçerik SİLİNMEDİ: `ogrenme.flashcards` verisi 36 konu dosyasında
+     duruyor (yaklaşık 430 kart). Özellik geri istenirse bu blok ve
+     sections.js'teki iki satır geri konur; içerik yeniden yazılmaz.
+     Bölümün özet / önemli noktalar / sık hatalar / quiz parçaları
+     zaten aynı bilgiyi taşıyor. */
 
   /* ======================================================= NOTLAR ==== */
 
@@ -50996,7 +50930,7 @@ SAP.registerTopic({
 
   SAP.action('print', function () { window.print(); });
 
-  SAP.learn = { quizHTML: quizHTML, flashHTML: flashHTML, notesHTML: notesHTML };
+  SAP.learn = { quizHTML: quizHTML, notesHTML: notesHTML };
 
 })(window.SAP);
 

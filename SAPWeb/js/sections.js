@@ -493,10 +493,8 @@
       out += SAP.learn.quizHTML(topic.id, d.quiz);
     }
 
-    if (d.flashcards && d.flashcards.length) {
-      out += subH('🃏', 'Flash kartlar');
-      out += SAP.learn.flashHTML(topic.id, d.flashcards);
-    }
+    /* `d.flashcards` bilerek ÇİZİLMİYOR — soru kartı bölümü kaldırıldı
+       (kullanıcı talebi). Veri duruyor; gerekçe learn.js'te yazılı. */
 
     out += subH('📝', 'Notlarım');
     out += SAP.learn.notesHTML(topic.id);

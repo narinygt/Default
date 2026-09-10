@@ -21,10 +21,8 @@
     --surface: #fff; --surface-2: #f4f5f6; --surface-3: #e8eaec;
     --border: #b3b8bd; --border-soft: #dcdfe2;
     --text: #16191d; --text-2: #3d434a; --text-3: #666d75; --text-inv: #fff;
-    --brand: #1d4a75; --brand-deep: #14375a; --brand-weak: #eef2f7;
-    --brand-line: #aac1d7; --brand-fg: #fff;
-    --accent: #1d4a75; --accent-text: #1d4a75; --accent-soft: #eef2f7;
-    --accent-mid: #cfdcea; --accent-br: #aac1d7;
+    --brand: #8a4a30; --brand-deep: #6b3823; --brand-weak: #f7f0eb;
+    --brand-line: #d8bcac; --brand-fg: #fff;
     --ok: #1d6b46; --ok-soft: #eef5f1; --ok-br: #a7cbb7;
     --warn: #7d5410; --warn-soft: #f9f4e8; --warn-br: #ddc79b;
     --err: #a32d20; --err-soft: #faeeec; --err-br: #e0b2ab;
@@ -34,17 +32,29 @@
     --sh-1: none; --sh-2: none; --sh-3: none; --sh-pop: none;
   }
 
+  /* ⚠️ Grup renkleri `*` üzerinde hesaplanıyor (theme.css, Ders #29);
+     yalnızca `:root`ta sabitlemek YETMEZ — alt elemanlar `*` kuralından
+     kendi hue'larını hesaplamaya devam eder. Bu yüzden nötr tona
+     sabitleme de aynı seviyede yapılır. */
+  *, *::before, *::after,
+  :root[data-theme="dark"] *,
+  :root[data-theme="dark"] *::before,
+  :root[data-theme="dark"] *::after {
+    --accent: #8a4a30; --accent-text: #6b3823; --accent-soft: #f7f0eb;
+    --accent-mid: #ecdcd2; --accent-br: #d8bcac;
+  }
+
   /* Konu başlığı paneli kağıtta dolgusuz — üstte ince bir kural yeter. */
   .thead { background: #fff !important; padding: 0 0 8pt !important; border-bottom: 1pt solid var(--border); }
   .thead-ic, .hero-cta { display: none !important; }
-  .card, .ledger, .toc, .quiz, .fc-face { box-shadow: none !important; }
+  .card, .ledger, .toc, .quiz { box-shadow: none !important; }
 
   body { background: #fff; font-size: 10.5pt; line-height: 1.5; }
 
   /* Ekran kabuğu çıktıya girmez */
   .sidebar, .topbar, .scrim, .toc, .pager, .filters,
   .palette-bg, .toast, .card-fav, .readbtn, .menubtn,
-  .thead-acts, .quiz-f, .fc-nav, .notes-f, .kicker,
+  .thead-acts, .quiz-f, .notes-f, .kicker,
   [data-noprint] { display: none !important; }
 
   .shell { display: block; }
@@ -72,12 +82,6 @@
   .ref { border: 1px solid var(--border); background: transparent !important; color: var(--text) !important; }
   .ref-tcode, .ref-table { font-family: var(--font-mono); font-weight: 700; }
   .ref-term { border: none; border-bottom: 1px dotted var(--text-3); }
-
-  /* Flashcard'ın iki yüzü de basılsın (3D dönüş yazdırılamaz) */
-  .fc-scene { perspective: none; }
-  .fc-inner { height: auto !important; transform: none !important; display: grid; gap: 8pt; }
-  .fc-face { position: static; transform: none !important; backface-visibility: visible; }
-  .fc-tx { overflow: visible; display: block; }
 
   /* Quiz cevapları çıktıda görünür olsun */
   .opt { border: 1px solid var(--border); }

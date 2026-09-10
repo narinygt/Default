@@ -60,28 +60,32 @@
   --text-3:      oklch(63% 0.014 265);
   --text-inv:    oklch(99% 0.003 95);
 
-  /* --------------------------------------------- GRUP RENGİ FORMÜLÜ ---
-     Her kart / bölüm `--h` değişkenini GRUBUNDAN alır; alttaki dört
-     token ondan hesaplanır. Yeni bir grup rengi eklemek için CSS
-     yazılmaz, catalog.js'te bir `hue` sayısı verilir.
+  /* --------------------------------------------- GRUP RENGİ AÇISI ---
+     Her kart / bölüm `--h` değişkenini GRUBUNDAN alır (catalog.js →
+     SAP.GROUPS[].hue). Buradaki değer yalnızca VARSAYILAN: gruba ait
+     olmayan yerlerde (ana sayfa künyesi, arama, favoriler) geçerlidir
+     ve marka açısıyla aynıdır.
 
-     Açıklık ve doygunluk SABİT tutulur — dokuz rengin bir arada
-     dağınık değil, tek palet gibi görünmesinin sebebi budur. */
-  --h: 240;
-  --accent:      oklch(53% 0.115 var(--h));   /* metin ve ikon rengi */
-  --accent-text: oklch(45% 0.115 var(--h));   /* küçük metinde okunur ton */
-  --accent-soft: oklch(95.5% 0.032 var(--h)); /* yumuşak dolgu */
-  --accent-mid:  oklch(90%   0.050 var(--h)); /* dolgu üstü ayrım */
-  --accent-br:   oklch(84%   0.062 var(--h)); /* kenarlık */
+     ⚠️ Türetilmiş --accent* tokenleri BURADA DEĞİL, aşağıdaki `*`
+     kuralında tanımlanır. Sebebi Ders #29'da: `:root`ta tanımlanırsa
+     var(--h) orada çözülür ve alt elemanda --h değiştirmek hiçbir
+     şeyi değiştirmez. */
+  --h: 38;
 
   /* --------------------------------------------------------- MARKA ---
      Gruplara ait olmayan yerlerde (arama, butonlar, bağlantılar,
-     genel ilerleme) kullanılan nötr marka tonu. */
-  --brand:      oklch(52% 0.105 245);
-  --brand-deep: oklch(43% 0.100 245);
-  --brand-weak: oklch(95.5% 0.030 245);
-  --brand-line: oklch(84% 0.055 245);
-  --brand-fg:   oklch(99% 0.003 95);
+     genel ilerleme) kullanılan marka tonu.
+
+     Yumuşak kiremit. Doygunluk bilerek düşük (0.088) — pastel karakteri
+     buradan gelir; mavi ve mor gibi "her yazılım arayüzünde olan"
+     tonlardan uzak durur ve sıcak kırık beyaz zeminle aynı ailedendir.
+     Açıklık %50'de tutuldu: beyaz yazıyla 4.5:1 kontrastın altına
+     düşmesin. */
+  --brand:      oklch(50%   0.088 38);
+  --brand-deep: oklch(41%   0.084 38);
+  --brand-weak: oklch(96.2% 0.026 38);
+  --brand-line: oklch(85%   0.052 38);
+  --brand-fg:   oklch(99%   0.004 60);
 
   /* --------------------------------------------- ANLAMSAL RENKLER ---
      Muhasebe ve durum anlamı taşırlar; grup renklerinden bağımsızdır. */
@@ -160,6 +164,27 @@
   --ease-out: cubic-bezier(.16, 1, .3, 1);
 }
 
+/* ------------------------------------------- GRUP RENGİ FORMÜLÜ ---
+   Dokuz grup rengi TEK formülden üretilir: aynı açıklık, aynı
+   doygunluk, farklı açı. Yan yana geldiklerinde gökkuşağı değil tek
+   palet gibi okunmalarının sebebi budur.
+
+   ⚠️ KURAL: bu tokenler `:root`ta DEĞİL, `*` üzerinde tanımlanır.
+   Özel bir özellik `:root`ta tanımlanırsa içindeki var(--h) ORADA
+   çözülür ve alt elemanda --h değiştirmek sonucu değiştirmez —
+   token zaten hesaplanmış hâlde miras alınır. `*` her elemanda
+   yeniden hesaplattırır. (Ders #29)
+
+   Doygunluk 0.098: dokuz renk aynı anda ekranda olduğu için pastel
+   tarafta tutuldu. Daha doygun bir değer katalog sayfasını yoruyor. */
+*, *::before, *::after {
+  --accent:      oklch(54%   0.098 var(--h));  /* metin ve ikon rengi */
+  --accent-text: oklch(46%   0.100 var(--h));  /* küçük metinde okunur ton */
+  --accent-soft: oklch(96.4% 0.026 var(--h));  /* yumuşak dolgu */
+  --accent-mid:  oklch(92%   0.042 var(--h));  /* dolgu üstü ayrım */
+  --accent-br:   oklch(86%   0.052 var(--h));  /* kenarlık */
+}
+
 :root[data-theme="dark"] {
   color-scheme: dark;
 
@@ -177,17 +202,14 @@
   --text-3:      oklch(62% 0.014 265);
   --text-inv:    oklch(20% 0.012 265);
 
-  --accent:      oklch(78% 0.105 var(--h));
-  --accent-text: oklch(84% 0.090 var(--h));
-  --accent-soft: oklch(30% 0.048 var(--h));
-  --accent-mid:  oklch(36% 0.060 var(--h));
-  --accent-br:   oklch(44% 0.070 var(--h));
+  /* ⚠️ --accent* burada DEĞİL — aşağıdaki `[data-theme="dark"] *`
+     kuralında. Gerekçe yukarıdaki formül bloğunda (Ders #29). */
 
-  --brand:      oklch(79% 0.100 245);
-  --brand-deep: oklch(86% 0.085 245);
-  --brand-weak: oklch(30% 0.048 245);
-  --brand-line: oklch(44% 0.068 245);
-  --brand-fg:   oklch(19% 0.020 245);
+  --brand:      oklch(80% 0.090 38);
+  --brand-deep: oklch(87% 0.075 38);
+  --brand-weak: oklch(31% 0.045 38);
+  --brand-line: oklch(45% 0.062 38);
+  --brand-fg:   oklch(19% 0.022 38);
 
   --ok:        oklch(79% 0.115 158);
   --ok-soft:   oklch(29% 0.045 158);
@@ -214,6 +236,18 @@
   --sh-2: 0 2px 6px oklch(0% 0 0 / .34), 0 8px 22px oklch(0% 0 0 / .28);
   --sh-3: 0 8px 24px oklch(0% 0 0 / .45);
   --sh-pop: 0 24px 64px oklch(0% 0 0 / .66);
+}
+
+/* Koyu temada grup formülünün ters hâli — yine `*` üzerinde, aynı
+   sebeple (bkz. yukarıdaki formül bloğu). */
+:root[data-theme="dark"] *,
+:root[data-theme="dark"] *::before,
+:root[data-theme="dark"] *::after {
+  --accent:      oklch(80% 0.090 var(--h));
+  --accent-text: oklch(86% 0.078 var(--h));
+  --accent-soft: oklch(30% 0.044 var(--h));
+  --accent-mid:  oklch(36% 0.055 var(--h));
+  --accent-br:   oklch(45% 0.064 var(--h));
 }
 
 /* --------------------------------------------------------------- reset --- */

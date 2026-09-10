@@ -127,13 +127,9 @@ function vhair(s, x, y, h, color, width = 0.75, transparency = 0) {
 {
   const d = T.s2;
   const s = slide({ eb: d.eyebrow, title: d.title, titleSize: d.titleSize, titleW: d.titleW });
-  s.addText(d.body, {
-    isTextBox: true, margin: 0, x: ML, y: 3.05, w: 5.35, h: 1.5, valign: 'top',
-    fontFace: F.b, fontSize: 13, color: C.muted, lineSpacing: 21
-  });
-  vhair(s, ML, 4.60, 1.15, C.teal, 2);
+  vhair(s, ML, 4.05, 1.15, C.teal, 2);
   s.addText(d.quote, {
-    isTextBox: true, margin: 0, x: ML + 0.28, y: 4.60, w: 5.05, h: 1.15, valign: 'top',
+    isTextBox: true, margin: 0, x: ML + 0.28, y: 4.05, w: 5.05, h: 1.15, valign: 'top',
     fontFace: F.d, fontSize: 16, bold: true, color: C.teal, lineSpacing: 24
   });
 
@@ -167,7 +163,7 @@ function vhair(s, x, y, h, color, width = 0.75, transparency = 0) {
     x: dx, y: top2 + 0.42, w: 1.32, h: 3.05, fill: { color: C.teal }, line: { type: 'none' }
   });
   d.rungs.forEach((r, i) => {
-    const yy = top2 + 0.72 + i * 0.55;
+    const yy = top2 + 0.95 + i * 0.95;
     hair(s, dx + 1.32, yy, 0.22, C.teal, 1);
     node(s, dx + 1.32, yy, 0.045, C.teal);
     s.addText(r, {
@@ -186,12 +182,12 @@ function vhair(s, x, y, h, color, width = 0.75, transparency = 0) {
     title: d.title, titleSize: d.titleSize, titleW: d.titleW
   });
   s.addText(d.body, {
-    isTextBox: true, margin: 0, x: ML, y: 3.28, w: 5.5, h: 1.0, valign: 'top',
-    fontFace: F.b, fontSize: 13, color: C.onDark, lineSpacing: 21
+    isTextBox: true, margin: 0, x: ML, y: 3.05, w: 5.5, h: 1.15, valign: 'top',
+    fontFace: F.d, fontSize: 16, bold: true, color: C.white, lineSpacing: 25
   });
-  vhair(s, ML, 4.32, 1.15, C.amber, 2);
+  vhair(s, ML, 4.52, 1.15, C.amber, 2);
   s.addText(d.quote, {
-    isTextBox: true, margin: 0, x: ML + 0.28, y: 4.32, w: 5.2, h: 1.15, valign: 'top',
+    isTextBox: true, margin: 0, x: ML + 0.28, y: 4.52, w: 5.2, h: 1.15, valign: 'top',
     fontFace: F.d, fontSize: 15, bold: true, color: C.amberL, lineSpacing: 22
   });
 
@@ -232,11 +228,7 @@ function vhair(s, x, y, h, color, width = 0.75, transparency = 0) {
 {
   const d = T.s4;
   const s = slide({ eb: d.eyebrow, title: d.title, titleSize: d.titleSize, titleW: d.titleW });
-  s.addText(d.kicker, {
-    isTextBox: true, margin: 0, x: ML, y: 2.36, w: 10.6, h: 0.32, valign: 'middle',
-    fontFace: F.b, fontSize: 12.5, italic: true, color: C.muted
-  });
-  const cw = 3.42, cgap = 0.68, cy = 2.92;
+  const cw = 3.42, cgap = 0.68, cy = 2.55;
   d.cols.forEach((c, i) => {
     const x = ML + i * (cw + cgap);
     node(s, x + 0.075, cy + 0.075, 0.075, C.teal);
@@ -249,8 +241,8 @@ function vhair(s, x, y, h, color, width = 0.75, transparency = 0) {
       fontFace: F.d, fontSize: 15, bold: true, color: C.ink, lineSpacing: 20
     });
     s.addText(c.b, {
-      isTextBox: true, margin: 0, x, y: cy + 1.20, w: cw - 0.15, h: 0.95, valign: 'top',
-      fontFace: F.b, fontSize: 11, color: C.muted, lineSpacing: 17
+      isTextBox: true, margin: 0, x, y: cy + 1.20, w: cw - 0.15, h: 0.62, valign: 'top',
+      fontFace: F.m, fontSize: 10.5, color: C.teal, lineSpacing: 17
     });
     vhair(s, x + 0.075, cy + 2.34, 0.30, C.line, 1);
   });
@@ -270,7 +262,7 @@ function vhair(s, x, y, h, color, width = 0.75, transparency = 0) {
 {
   const d = T.s5;
   const s = slide({ eb: d.eyebrow, title: d.title, titleSize: d.titleSize, titleW: d.titleW });
-  const gx = ML, gy = 3.0, gw = 6.4;
+  const gx = ML, gy = 3.55, gw = 6.4;
   s.addText(d.described, {
     isTextBox: true, margin: 0, x: gx, y: gy - 0.42, w: gw, h: 0.24,
     fontFace: F.m, fontSize: 8.5, charSpacing: 1.6, color: C.muted, valign: 'middle'
@@ -303,20 +295,16 @@ function vhair(s, x, y, h, color, width = 0.75, transparency = 0) {
 
   const rx = 8.05;
   s.addText(d.rightBold, {
-    isTextBox: true, margin: 0, x: rx, y: 2.62, w: 4.4, h: 0.95, valign: 'top',
+    isTextBox: true, margin: 0, x: rx, y: 3.15, w: 4.4, h: 0.95, valign: 'top',
     fontFace: F.d, fontSize: 15, bold: true, color: C.ink, lineSpacing: 21
   });
-  s.addText(d.rightBody, {
-    isTextBox: true, margin: 0, x: rx, y: 3.72, w: 4.4, h: 1.2, valign: 'top',
-    fontFace: F.b, fontSize: 11.5, color: C.muted, lineSpacing: 18.5
-  });
-  hair(s, rx, 5.28, 4.4, C.line, 1);
+  hair(s, rx, 4.65, 4.4, C.line, 1);
   s.addText(d.metaText, {
-    isTextBox: true, margin: 0, x: rx, y: 5.44, w: 3.2, h: 0.5, valign: 'top',
+    isTextBox: true, margin: 0, x: rx, y: 4.81, w: 3.2, h: 0.5, valign: 'top',
     fontFace: F.b, fontSize: 10.5, color: C.muted, lineSpacing: 15
   });
   s.addText(d.metaNum, {
-    isTextBox: true, margin: 0, x: rx + 3.3, y: 5.40, w: 1.1, h: 0.62, align: 'right', valign: 'top',
+    isTextBox: true, margin: 0, x: rx + 3.3, y: 4.77, w: 1.1, h: 0.62, align: 'right', valign: 'top',
     fontFace: F.m, fontSize: 12, color: C.teal, lineSpacing: 15
   });
   s.addNotes(d.notes);
@@ -349,10 +337,6 @@ function vhair(s, x, y, h, color, width = 0.75, transparency = 0) {
       isTextBox: true, margin: 0, x, y: cy + 2.14, w: cw, h: 0.32, valign: 'middle',
       fontFace: F.m, fontSize: 13, color: C.amberL
     });
-    s.addText(c.ml, {
-      isTextBox: true, margin: 0, x, y: cy + 2.50, w: cw, h: 0.24, valign: 'middle',
-      fontFace: F.b, fontSize: 9.5, italic: true, color: C.onDarkDim
-    });
   });
   vhair(s, W / 2, cy - 0.05, 3.0, 'FFFFFF', 1, 62);
   s.addText(d.bottom, {
@@ -366,11 +350,7 @@ function vhair(s, x, y, h, color, width = 0.75, transparency = 0) {
 {
   const d = T.s7;
   const s = slide({ eb: d.eyebrow, title: d.title, titleSize: d.titleSize, titleW: d.titleW });
-  s.addText(d.note, {
-    isTextBox: true, margin: 0, x: 8.2, y: 1.18, w: 4.25, h: 1.2, valign: 'top',
-    fontFace: F.b, fontSize: 11.5, color: C.muted, lineSpacing: 18
-  });
-  const sy = 3.05, cw = 2.62, cgap = 0.38;
+  const sy = 3.25, cw = 2.62, cgap = 0.38;
   hair(s, ML, sy, CW, C.line, 1);
   d.stages.forEach((st, i) => {
     const x = ML + i * (cw + cgap);
@@ -387,9 +367,9 @@ function vhair(s, x, y, h, color, width = 0.75, transparency = 0) {
       isTextBox: true, margin: 0, x, y: sy + 1.36, w: cw - 0.12, h: 0.95, valign: 'top',
       fontFace: F.b, fontSize: 10.5, color: C.muted, lineSpacing: 16.5
     });
-    hair(s, x, sy + 2.44, cw - 0.3, C.line, 1);
+    hair(s, x, sy + 1.92, cw - 0.3, C.line, 1);
     s.addText(st.w, {
-      isTextBox: true, margin: 0, x, y: sy + 2.56, w: cw, h: 0.26,
+      isTextBox: true, margin: 0, x, y: sy + 2.04, w: cw, h: 0.26,
       fontFace: F.m, fontSize: 10, color: C.ink, valign: 'middle'
     });
     if (i < d.stages.length - 1) {
@@ -408,7 +388,7 @@ function vhair(s, x, y, h, color, width = 0.75, transparency = 0) {
 {
   const d = T.s8;
   const s = slide({ eb: d.eyebrow, title: d.title, titleSize: d.titleSize, titleW: d.titleW });
-  const colX = [ML, ML + 4.05, ML + 8.1], colW = [3.55, 3.55, 3.5], hy = 2.88;
+  const colX = [ML, ML + 4.05, ML + 8.1], colW = [3.55, 3.55, 3.5], hy = 3.05;
   d.heads.forEach((h, i) => {
     s.addText(h, {
       isTextBox: true, margin: 0, x: colX[i], y: hy, w: colW[i], h: 0.24,
@@ -417,17 +397,17 @@ function vhair(s, x, y, h, color, width = 0.75, transparency = 0) {
   });
   hair(s, ML, hy + 0.34, CW, C.line, 1);
   d.rows.forEach((r, ri) => {
-    const y = hy + 0.62 + ri * 1.16;
+    const y = hy + 0.60 + ri * 0.86;
     r.forEach((cell, ci) => {
       s.addText(cell, {
-        isTextBox: true, margin: 0, x: colX[ci], y, w: colW[ci] - 0.15, h: 0.86, valign: 'top',
+        isTextBox: true, margin: 0, x: colX[ci], y, w: colW[ci] - 0.15, h: 0.56, valign: 'top',
         fontFace: ci === 2 ? F.d : F.b, fontSize: ci === 2 ? 13 : 11.5,
         bold: ci === 2, color: ci === 2 ? C.ink : C.muted, lineSpacing: ci === 2 ? 19 : 18
       });
     });
     node(s, colX[1] - 0.26, y + 0.16, 0.045, C.line);
     node(s, colX[2] - 0.26, y + 0.16, 0.045, C.teal);
-    if (ri < d.rows.length - 1) hair(s, ML, y + 1.02, CW, C.soft, 1);
+    if (ri < d.rows.length - 1) hair(s, ML, y + 0.72, CW, C.soft, 1);
   });
   s.addNotes(d.notes);
 }
@@ -494,29 +474,25 @@ function vhair(s, x, y, h, color, width = 0.75, transparency = 0) {
 {
   const d = T.s11;
   const s = slide({ eb: d.eyebrow, title: d.title, titleSize: d.titleSize, titleW: d.titleW });
-  s.addText(d.body, {
-    isTextBox: true, margin: 0, x: ML, y: 2.96, w: 5.0, h: 0.8, valign: 'top',
-    fontFace: F.b, fontSize: 12.5, color: C.muted, lineSpacing: 20
-  });
-  vhair(s, ML, 3.94, 1.15, C.teal, 2);
+  vhair(s, ML, 3.10, 1.15, C.teal, 2);
   s.addText(d.quote, {
-    isTextBox: true, margin: 0, x: ML + 0.28, y: 3.94, w: 4.9, h: 1.15, valign: 'top',
+    isTextBox: true, margin: 0, x: ML + 0.28, y: 3.10, w: 4.9, h: 1.15, valign: 'top',
     fontFace: F.d, fontSize: 15, bold: true, color: C.teal, lineSpacing: 22
   });
   const ix = 6.6, iw = W - ML - ix;
   d.items.forEach((it, i) => {
-    const y = 2.05 + i * 1.12;
+    const y = 2.60 + i * 0.86;
     hair(s, ix, y, iw, C.line, 1);
     s.addText(String(i + 1).padStart(2, '0'), {
       isTextBox: true, margin: 0, x: ix, y: y + 0.16, w: 0.5, h: 0.26,
       fontFace: F.m, fontSize: 10, color: C.muted, valign: 'middle'
     });
     s.addText(it, {
-      isTextBox: true, margin: 0, x: ix + 0.62, y: y + 0.14, w: iw - 0.62, h: 0.74, valign: 'top',
+      isTextBox: true, margin: 0, x: ix + 0.62, y: y + 0.14, w: iw - 0.62, h: 0.52, valign: 'top',
       fontFace: F.b, fontSize: 12, color: C.muted, lineSpacing: 19
     });
   });
-  hair(s, ix, 2.05 + 4 * 1.12, iw, C.line, 1);
+  hair(s, ix, 2.60 + 4 * 0.86, iw, C.line, 1);
   s.addNotes(d.notes);
 }
 
@@ -524,35 +500,27 @@ function vhair(s, x, y, h, color, width = 0.75, transparency = 0) {
 {
   const d = T.s12;
   const s = slide({ eb: d.eyebrow, title: d.title, titleSize: d.titleSize, titleW: d.titleW });
-  const cw = 3.62, cgap = 0.42, cy = 2.72, ch = 3.06;
+  const cw = 3.62, cgap = 0.42, cy = 2.85, ch = 3.00;
   d.models.forEach((m, i) => {
     const x = ML + i * (cw + cgap);
     s.addShape(pres.ShapeType.rect, {
       x, y: cy, w: cw, h: ch, fill: { color: C.white }, line: { color: C.line, width: 0.75 },
       shadow: { type: 'outer', color: '0E1620', blur: 14, offset: 3, angle: 90, opacity: 0.07 }
     });
-    node(s, x + 0.46, cy + 0.52, 0.075, C.teal);
+    node(s, x + 0.46, cy + 0.60, 0.075, C.teal);
     s.addText(m.t, {
-      isTextBox: true, margin: 0, x: x + 0.46, y: cy + 0.74, w: cw - 0.92, h: 0.42, valign: 'middle',
+      isTextBox: true, margin: 0, x: x + 0.46, y: cy + 0.86, w: cw - 0.92, h: 0.42, valign: 'middle',
       fontFace: F.d, fontSize: 18, bold: true, color: C.ink
     });
     s.addText(m.w, {
-      isTextBox: true, margin: 0, x: x + 0.46, y: cy + 1.26, w: cw - 0.92, h: 0.80, valign: 'top',
+      isTextBox: true, margin: 0, x: x + 0.46, y: cy + 1.44, w: cw - 0.92, h: 0.44, valign: 'top',
       fontFace: F.b, fontSize: 11, color: C.muted, lineSpacing: 17.5
     });
-    hair(s, x + 0.46, cy + 2.10, cw - 0.92, C.soft, 1);
-    s.addText(m.o, {
-      isTextBox: true, margin: 0, x: x + 0.46, y: cy + 2.22, w: cw - 0.92, h: 0.50, valign: 'top',
-      fontFace: F.b, fontSize: 10.5, italic: true, color: C.ink, lineSpacing: 16
-    });
+    hair(s, x + 0.46, cy + 2.20, cw - 0.92, C.soft, 1);
     s.addText(m.d, {
-      isTextBox: true, margin: 0, x: x + 0.46, y: cy + 2.76, w: cw - 0.92, h: 0.26, align: 'right',
+      isTextBox: true, margin: 0, x: x + 0.46, y: cy + 2.36, w: cw - 0.92, h: 0.26, align: 'right',
       fontFace: F.m, fontSize: 10.5, color: C.teal, valign: 'middle'
     });
-  });
-  s.addText(d.kicker, {
-    isTextBox: true, margin: 0, x: ML, y: 6.20, w: 11.4, h: 0.3, valign: 'middle',
-    fontFace: F.b, fontSize: 12, italic: true, color: C.muted
   });
   s.addNotes(d.notes);
 }

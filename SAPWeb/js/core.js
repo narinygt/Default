@@ -114,7 +114,7 @@ window.SAP = (function () {
       lastRoute: '',
       lang: 'tr',          // arayüz dili — bkz. i18n.js
       railKapali: false,   // geniş ekranda gezinme sütunu katlı mı
-      kapaliGrup: {},      // { grupId: 1 } — kenar çubuğunda katlanmış gruplar
+      acikGrup: {},        // { grupId: 1 } — kenar çubuğunda AÇILMIŞ gruplar
       kapaliBolum: {},     // { 'tid:sid': 1 } — konu sayfasında katlanmış bölümler
       acikDizin: {},       // { topicId: 1 } — içindekilerde açıklaması açık satırlar
     },
@@ -141,17 +141,20 @@ window.SAP = (function () {
       try { localStorage.removeItem(KEY); } catch (e) {}
       store.d = { theme: store.d.theme, progress: {}, favorites: [], notes: {}, quiz: {},
                   lastRoute: '', lang: store.d.lang, railKapali: false,
-                  kapaliGrup: {}, kapaliBolum: {}, acikDizin: {} };
+                  acikGrup: {}, kapaliBolum: {}, acikDizin: {} };
     },
 
     /* --- katlama durumu ---
        Açık/kapalı değil KAPALI olan saklanır: varsayılan açıktır, bu yüzden
        kayıt yalnızca kullanıcı bir şeyi kapattığında büyür. */
-    isGroupClosed: function (gid) { return !!store.d.kapaliGrup[gid]; },
+    /* ⚠️ VARSAYILAN KAPALI. Eskiden tersiydi (kapalı olanlar saklanıyordu)
+       ve dokuz grup açık gelince kenar çubuğunda 36 satır birden
+       görünüyordu. Artık AÇIK olanlar saklanır: sütun dokuz satırla
+       başlar, kullanıcı bastıkça derinleşir. */
+    isGroupOpen: function (gid) { return !!store.d.acikGrup[gid]; },
     toggleGroup: function (gid) {
-      if (store.d.kapaliGrup[gid]) delete store.d.kapaliGrup[gid];
-      else store.d.kapaliGrup[gid] = 1;
-      store.save();
+      if (store.d.acikGrup[gid]) { delete store.d.acikGrup[gid]; store.save(); return false; }
+      store.d.acikGrup[gid] = 1; store.save(); return true;
     },
     /* İçindekilerde açıklaması AÇIK olan satırlar. Varsayılan kapalıdır
        (dizin taranabilir kalsın), bu yüzden açık olanlar saklanır. */

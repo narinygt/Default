@@ -76,10 +76,13 @@
     var gruplar = SAP.GROUPS.map(function (g) {
       var list = all.filter(function (t) { return t.grup === g.id; });
       if (!list.length) return '';
-      var kapali = SAP.store.isGroupClosed(g.id);
-      return '<div class="side-group' + (kapali ? ' closed' : '') + '" data-grp="' + esc(g.id) + '">' +
+      /* Okunmakta olan konunun grubu KENDİLİĞİNDEN açılır — kullanıcı
+         "neredeyim?" diye aramasın diye. Elle açılanlar zaten saklı. */
+      var acik = SAP.store.isGroupOpen(g.id) ||
+                 list.some(function (t) { return t.id === aktifKonu; });
+      return '<div class="side-group' + (acik ? '' : ' closed') + '" data-grp="' + esc(g.id) + '">' +
         '<button class="side-label" type="button" data-action="toggle-group" data-g="' + esc(g.id) + '" ' +
-          'aria-expanded="' + (kapali ? 'false' : 'true') + '">' +
+          'aria-expanded="' + (acik ? 'true' : 'false') + '">' +
           '<span class="tx">' + esc(SAP.i18n.grup(g)) + '</span>' +
           '<span class="chev">' + I('chevron-down') + '</span>' +
         '</button>' +
@@ -306,11 +309,11 @@
   SAP.action('close-menu', function () { setMenu(false); });
 
   SAP.action('toggle-group', function (btn) {
-    SAP.store.toggleGroup(btn.dataset.g);
+    var acik = SAP.store.toggleGroup(btn.dataset.g);
     var box = btn.closest('.side-group');
     if (!box) return;
-    var kapali = box.classList.toggle('closed');
-    btn.setAttribute('aria-expanded', kapali ? 'false' : 'true');
+    box.classList.toggle('closed', !acik);
+    btn.setAttribute('aria-expanded', acik ? 'true' : 'false');
   });
 
   applyCollapse();

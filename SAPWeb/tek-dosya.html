@@ -669,9 +669,8 @@ svg { display: block; }
    Tek eylem üstte durur; gerisi numaralı bir dizindir. */
 
 .toc-head {
-  padding-bottom: var(--sp-5);
-  margin-bottom: var(--sp-5);
-  border-bottom: 1px solid var(--rule-firm);
+  padding-bottom: var(--sp-4);
+  margin-bottom: var(--sp-2);
 }
 .toc-head h1 {
   font-size: var(--t-title);
@@ -737,7 +736,7 @@ svg { display: block; }
   gap: var(--sp-4);
   padding-bottom: var(--sp-3);
   margin-bottom: var(--sp-2);
-  border-bottom: 1px solid var(--rule-firm);
+  border-bottom: 1px solid var(--rule);
 }
 .part-n {
   font-family: var(--font-mono);
@@ -755,7 +754,11 @@ svg { display: block; }
 }
 
 /* --- İçindekiler satırı --- */
-.idx { border-bottom: 1px solid var(--rule-soft); }
+/* ⚠️ Liste içinde ÇİZGİ YOK — ne satır arası ne de altında.
+   36 satırın her birinde yatay + dikey kural vardı ve sayfa bir
+   merdivene dönüşüyordu. T-hesap ayrımı bölüm başlığında (9 kez)
+   duruyor; listede tekrar etmesi gerekmiyor. Ayrım boşlukla. */
+.idx { padding-top: var(--sp-2); }
 
 .idx-row {
   display: grid;
@@ -765,14 +768,12 @@ svg { display: block; }
   width: 100%;
   padding: var(--sp-3) 0;
   border: 0;
-  border-top: 1px solid var(--rule-soft);
   background: transparent;
   text-align: left;
   cursor: pointer;
   color: var(--ink);
   transition: color .13s var(--ease);
 }
-.idx:first-child .idx-row:first-of-type { border-top: 0; }
 .idx-row:hover { color: var(--accent); }
 .idx-row[aria-expanded="true"] { color: var(--accent); }
 
@@ -780,9 +781,7 @@ svg { display: block; }
   font-family: var(--font-mono);
   font-size: var(--t-num);
   color: var(--ink-3);
-  border-right: 1px solid var(--rule-soft);
   padding-right: var(--sp-4);
-  align-self: stretch;
 }
 .idx-row:hover .idx-n, .idx-row[aria-expanded="true"] .idx-n { color: var(--accent); }
 
@@ -1013,6 +1012,9 @@ svg { display: block; }
 .pager .pg {
   flex: 1;
   min-width: 0;
+  border: 0;
+  background: none;
+  padding: 0;
   color: inherit;
   text-decoration: none;
 }
@@ -1035,14 +1037,13 @@ svg { display: block; }
 .pager .pg:hover .tt { color: var(--accent); }
 
 /* İlgili konular — düz liste */
-.rel-list { border-top: 1px solid var(--rule-soft); }
+.rel-list { }
 .rel-item {
   display: grid;
   grid-template-columns: 1fr auto;
   gap: var(--sp-4);
   align-items: baseline;
-  padding: var(--sp-3) 0;
-  border-bottom: 1px solid var(--rule-soft);
+  padding: 6px 0;
   color: inherit;
   text-decoration: none;
 }
@@ -1158,47 +1159,45 @@ svg { display: block; }
 .step-m { display: flex; flex-wrap: wrap; gap: 6px; margin-top: var(--sp-2); }
 
 /* --- Anahtar/değer tablosu --- */
+/* Anahtar-değer bloğu kutu DEĞİL: T-hesap gibi iki sütun, arada tek
+   dikey kural. Sayfanın ana motifiyle aynı — yeni bir çerçeve eklemez. */
 .kv {
-  border: 1px solid var(--rule-soft);
-  border-radius: 2px;
-  overflow: hidden;
   margin: var(--sp-4) 0;
-  background: var(--paper);
 }
 .kv-row {
   display: grid;
-  grid-template-columns: 200px 1fr;
+  /* ⚠️ minmax(0, …): sabit `200px` yazılınca sütun içeriğinden daha
+     dar OLAMAZ ve uzun bir çip satırı taşırır. Eskiden .kv'nin
+     overflow:hidden'ı bunu gizliyordu; kutu kalkınca ortaya çıktı. */
+  grid-template-columns: minmax(0, 190px) minmax(0, 1fr);
   gap: 0;
 }
-.kv-row + .kv-row { border-top: 1px solid var(--rule-soft); }
+.kv-row + .kv-row { }
 .kv-k {
-  padding: var(--sp-3) var(--sp-4);
-  background: var(--paper-2);
+  padding: var(--sp-2) var(--sp-4) var(--sp-2) 0;
+  border-right: 1px solid var(--rule);
   font-size: var(--t-sm);
   font-weight: 640;
   color: var(--ink-2);
 }
-.kv-v { padding: var(--sp-3) var(--sp-4); font-size: var(--t-sm); line-height: 1.68; min-width: 0; }
+.kv-v { padding: var(--sp-2) 0 var(--sp-2) var(--sp-4); font-size: var(--t-sm); line-height: 1.68; min-width: 0; }
 
 /* --- Veri tablosu --- */
 .tbl-wrap {
   overflow-x: auto;
   margin: var(--sp-4) 0;
-  border: 1px solid var(--rule-soft);
-  border-radius: 2px;
-  background: var(--paper);
 }
 table.tbl { width: 100%; border-collapse: collapse; font-size: var(--t-sm); }
 table.tbl th {
   text-align: left;
-  padding: var(--sp-3) var(--sp-4);
-  background: var(--paper-2);
+  padding: var(--sp-2) var(--sp-4) var(--sp-2) 0;
+  border-bottom: 1px solid var(--rule-firm);
   font-size: var(--t-xs);
   font-weight: 660;
   color: var(--ink-2);
   white-space: nowrap;
 }
-table.tbl td { padding: var(--sp-3) var(--sp-4); border-top: 1px solid var(--rule-soft); vertical-align: top; line-height: 1.62; }
+table.tbl td { padding: var(--sp-3) var(--sp-4) var(--sp-3) 0; border-top: 1px solid var(--rule-soft); vertical-align: top; line-height: 1.62; }
 table.tbl tbody tr:hover { background: var(--paper-2); }
 table.tbl td.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
 table.tbl .mono { font-family: var(--font-mono); font-size: 13px; }
@@ -1213,11 +1212,12 @@ table.tbl .mono { font-family: var(--font-mono); font-size: 13px; }
   font-size: .92em;
   font-weight: 620;
   line-height: 1.5;
-  white-space: nowrap;
+  white-space: normal;
   border: 1px solid transparent;
   cursor: pointer;
   transition: background .14s var(--ease), color .14s var(--ease);
   vertical-align: baseline;
+  max-width: 100%;
 }
 .ref:hover { text-decoration: none; }
 .ref-tcode {
@@ -1252,42 +1252,7 @@ table.tbl .mono { font-family: var(--font-mono); font-size: 13px; }
 .chiprow { display: flex; flex-wrap: wrap; gap: 6px; margin: var(--sp-3) 0; }
 
 /* --- İlgili konular --- */
-.rel-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 236px), 1fr));
-  gap: var(--sp-3);
-}
-.rel {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-3);
-  padding: var(--sp-3) var(--sp-4);
-  border-radius: 2px;
-  border: 1px solid var(--rule-soft);
-  background: var(--paper);
-  cursor: pointer;
-  text-align: left;
-  transition: border-color .16s var(--ease), background .16s var(--ease);
-}
-.rel:hover { border-color: var(--accent-line); background: var(--accent-tint); text-decoration: none; }
-.rel .ic {
-  flex: 0 0 auto;
-  width: 32px; height: 32px;
-  border-radius: 2px;
-  background: var(--accent-tint);
-  font-size: 15px;
-  display: flex; align-items: center; justify-content: center;
-}
 .rel:hover .ic { background: var(--paper); }
-.rel .tx { min-width: 0; }
-.rel .tx b {
-  display: block;
-  font-size: var(--t-sm);
-  font-weight: 640;
-  color: var(--ink);
-  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-}
-.rel .tx span { display: block; font-size: var(--t-xs); color: var(--ink-3); }
 
 /* --- Sayfa altı gezinme --- */
 .pager { display: flex; gap: var(--sp-3); margin-top: var(--sp-8); }
@@ -1368,13 +1333,31 @@ table.tbl .mono { font-family: var(--font-mono); font-size: 13px; }
   padding: 2px 9px;
   border-radius: 99px;
 }
+/* Ok satırı: ortada 2px dikey çizgi, yanında etiket.
+   ⚠️ ESKİDEN ok 2px GENİŞLİĞİNDE bir kutuydu ve etiket onun içine
+   `position:absolute; max-width:calc(100% - 24px)` ile konuyordu —
+   yani 2px'in yüzdesi. Değer negatife düşüyor, tarayıcı 0'a kırpıyor
+   ve etiket HER HARFTE sarıyordu. Taşma testi yeşil görünüyordu çünkü
+   etiket fiilen sıfır genişlikteydi: doğru sonuç, yanlış sebep.
+   Şimdi ok TAM GENİŞLİKTE bir satır; çizgi ::before ile ortada,
+   etiket normal akışta ve satırın genişliğine göre sarıyor. */
 .flow-arrow {
-  align-self: center;
-  height: 22px;
-  width: 2px;
-  background: var(--accent-tint);
   position: relative;
-  flex: 0 0 auto;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 26px;
+  padding: var(--sp-1) 0;
+}
+.flow-arrow::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0; bottom: 0;
+  width: 2px;
+  margin-left: -1px;
+  background: var(--accent-tint);
 }
 .flow-arrow::after {
   content: '';
@@ -1386,18 +1369,15 @@ table.tbl .mono { font-family: var(--font-mono); font-size: 13px; }
   border-top: 6px solid var(--accent-tint);
 }
 .flow-arrow .lb {
-  position: absolute;
-  left: 12px; top: 50%;
-  transform: translateY(-50%);
+  position: relative;
+  z-index: 1;
+  max-width: min(100%, 40ch);
   font-size: var(--t-xs);
+  line-height: 1.45;
   color: var(--ink-3);
-  /* Mutlak konumlu ve nowrap olduğu için uzun bir koşul etiketi
-     ("tamamen tahsil edilemezse") dar ekranda kabın dışına taşıyordu.
-     Kısa etiketler zaten tek satıra sığdığı için görünüm değişmiyor. */
-  white-space: normal;
-  max-width: calc(100% - 24px);
   background: var(--paper-2);
-  padding: 0 6px;
+  padding: 0 8px;
+  text-align: center;
 }
 
 /* --- ER diyagramı --- */
@@ -1889,6 +1869,12 @@ table.tbl .mono { font-family: var(--font-mono); font-size: 13px; }
   .idx-m { gap: var(--sp-2); }
   .idx-lv { display: none; }   /* dar ekranda seviye düşer, süre kalır */
 
+  /* Anahtar-değer bloğu dar ekranda tek sütuna iner: 190px etiket
+     sütunu 390px'te metne yer bırakmıyor. Dikey kural yatay olur. */
+  .kv-row { grid-template-columns: minmax(0, 1fr); }
+  .kv-k { border-right: 0; border-bottom: 1px solid var(--rule); padding-right: 0; }
+  .kv-v { padding-left: 0; padding-top: var(--sp-1); }
+
   .thead h1 { max-width: none; }
   .thead-acts { margin-left: 0; width: 100%; }
   .pager { flex-direction: column; gap: var(--sp-4); }
@@ -2202,7 +2188,7 @@ window.SAP = (function () {
       lastRoute: '',
       lang: 'tr',          // arayüz dili — bkz. i18n.js
       railKapali: false,   // geniş ekranda gezinme sütunu katlı mı
-      kapaliGrup: {},      // { grupId: 1 } — kenar çubuğunda katlanmış gruplar
+      acikGrup: {},        // { grupId: 1 } — kenar çubuğunda AÇILMIŞ gruplar
       kapaliBolum: {},     // { 'tid:sid': 1 } — konu sayfasında katlanmış bölümler
       acikDizin: {},       // { topicId: 1 } — içindekilerde açıklaması açık satırlar
     },
@@ -2229,17 +2215,20 @@ window.SAP = (function () {
       try { localStorage.removeItem(KEY); } catch (e) {}
       store.d = { theme: store.d.theme, progress: {}, favorites: [], notes: {}, quiz: {},
                   lastRoute: '', lang: store.d.lang, railKapali: false,
-                  kapaliGrup: {}, kapaliBolum: {}, acikDizin: {} };
+                  acikGrup: {}, kapaliBolum: {}, acikDizin: {} };
     },
 
     /* --- katlama durumu ---
        Açık/kapalı değil KAPALI olan saklanır: varsayılan açıktır, bu yüzden
        kayıt yalnızca kullanıcı bir şeyi kapattığında büyür. */
-    isGroupClosed: function (gid) { return !!store.d.kapaliGrup[gid]; },
+    /* ⚠️ VARSAYILAN KAPALI. Eskiden tersiydi (kapalı olanlar saklanıyordu)
+       ve dokuz grup açık gelince kenar çubuğunda 36 satır birden
+       görünüyordu. Artık AÇIK olanlar saklanır: sütun dokuz satırla
+       başlar, kullanıcı bastıkça derinleşir. */
+    isGroupOpen: function (gid) { return !!store.d.acikGrup[gid]; },
     toggleGroup: function (gid) {
-      if (store.d.kapaliGrup[gid]) delete store.d.kapaliGrup[gid];
-      else store.d.kapaliGrup[gid] = 1;
-      store.save();
+      if (store.d.acikGrup[gid]) { delete store.d.acikGrup[gid]; store.save(); return false; }
+      store.d.acikGrup[gid] = 1; store.save(); return true;
     },
     /* İçindekilerde açıklaması AÇIK olan satırlar. Varsayılan kapalıdır
        (dizin taranabilir kalsın), bu yüzden açık olanlar saklanır. */
@@ -51505,10 +51494,13 @@ SAP.registerTopic({
     var gruplar = SAP.GROUPS.map(function (g) {
       var list = all.filter(function (t) { return t.grup === g.id; });
       if (!list.length) return '';
-      var kapali = SAP.store.isGroupClosed(g.id);
-      return '<div class="side-group' + (kapali ? ' closed' : '') + '" data-grp="' + esc(g.id) + '">' +
+      /* Okunmakta olan konunun grubu KENDİLİĞİNDEN açılır — kullanıcı
+         "neredeyim?" diye aramasın diye. Elle açılanlar zaten saklı. */
+      var acik = SAP.store.isGroupOpen(g.id) ||
+                 list.some(function (t) { return t.id === aktifKonu; });
+      return '<div class="side-group' + (acik ? '' : ' closed') + '" data-grp="' + esc(g.id) + '">' +
         '<button class="side-label" type="button" data-action="toggle-group" data-g="' + esc(g.id) + '" ' +
-          'aria-expanded="' + (kapali ? 'false' : 'true') + '">' +
+          'aria-expanded="' + (acik ? 'true' : 'false') + '">' +
           '<span class="tx">' + esc(SAP.i18n.grup(g)) + '</span>' +
           '<span class="chev">' + I('chevron-down') + '</span>' +
         '</button>' +
@@ -51735,11 +51727,11 @@ SAP.registerTopic({
   SAP.action('close-menu', function () { setMenu(false); });
 
   SAP.action('toggle-group', function (btn) {
-    SAP.store.toggleGroup(btn.dataset.g);
+    var acik = SAP.store.toggleGroup(btn.dataset.g);
     var box = btn.closest('.side-group');
     if (!box) return;
-    var kapali = box.classList.toggle('closed');
-    btn.setAttribute('aria-expanded', kapali ? 'false' : 'true');
+    box.classList.toggle('closed', !acik);
+    btn.setAttribute('aria-expanded', acik ? 'true' : 'false');
   });
 
   applyCollapse();

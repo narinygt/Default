@@ -324,7 +324,9 @@ Kullanıcı burada *gezinmez*, **okur**. Bütün kararlar bu cümleden çıkar.
    gürültü yapar.
 3. **T-hesap ritmi.** Borç/alacak motifi süs değil sayfanın iskeleti:
    solda dar numara/etiket sütunu, sağda geniş içerik, arada tek dikey
-   kural. Üç yerde tekrarlanır: **dizin satırı · bölüm başlığı · kv bloğu**.
+   kural. ⚠️ **Ama az tekrarlanır:** bölüm başlığı (9×) ve anahtar-değer
+   bloğu. Dizin satırlarında **yoktur** — 36 satırın her birinde yatay +
+   dikey kural sayfayı merdivene çeviriyordu. Ayrım orada boşlukla.
 4. **Üç font, üç iş.** Fraunces → başlık · Inter → gövde ·
    **IBM Plex Mono → rakamlar** (`tabular-nums`; muhasebede rakam hizalanır).
 5. **İkon neredeyse yok, emoji hiç yok.** Kalanlar Lucide çizgi ikonu:
@@ -348,7 +350,7 @@ Kapsam **latin + latin-ext** ile sınırlı: latin-ext Türkçe için
 | Açıklama | Satır **tıklanınca** açılır; dizin taranabilir kalır | `.idx-sum`, `store.acikDizin` |
 | Tek eylem | Üstte **"Kaldığın yerden devam et"** + 2px ilerleme çubuğu | `.resume` |
 | Gezinme | **TEK YERDE**: sol sütun. Ana sayfadaki üst süzgeç şeridi kaldırıldı | `ui.js` |
-| Sol sütun | ☰ ile katlanır; grup başlıkları chevron ile katlanır; konular 01…36 numaralı | `ui.js`, `.side-*` |
+| Sol sütun | ☰ ile katlanır. **Gruplar VARSAYILAN KAPALI** — sütun dokuz satırla başlar, kullanıcı bastıkça derinleşir. Okunmakta olan konunun grubu kendiliğinden açılır | `ui.js`, `core.js` `acikGrup` |
 | Bölüm başlığı | `01 │ Ad … Okundu ⌄` — T-hesap ayrımının ikinci tekrarı | `.section-h` |
 | Uyarı kutusu | İkon yok; **sol renkli şerit + tür etiketi** | `sections.js` `note()` |
 | Baskı | Aynı palet, zemin beyaz; katlanmış bölümler **tam basılır** | `print.css` |

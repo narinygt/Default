@@ -44,8 +44,10 @@
       <nav class="topbar-crumb" id="crumb" aria-label="Konum"></nav>
       <span class="topbar-spacer"></span>
       <button class="searchbtn" id="search-btn" type="button" data-action="open-search"></button>
-      <!-- Dil anahtarı — ekranın sağ üst köşesi, istendiği gibi. -->
-      <div class="langsw" id="langsw" role="group" aria-label="Language"></div>
+      <!-- Dil anahtarı — sağ üst köşe. ŞU AN GİZLİ: EN çevirisi
+           tamamlanmadığı için js/i18n.js içindeki ANAHTAR_ACIK false.
+           Kutu DOM'da duruyor ki açmak tek satırlık iş olsun. -->
+      <div class="langsw" id="langsw" role="group" aria-label="Language" hidden></div>
       <button class="iconbtn" type="button" id="theme-btn" data-action="toggle-theme"></button>
     </header>
 

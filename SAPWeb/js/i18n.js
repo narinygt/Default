@@ -25,6 +25,21 @@
 
   var DILLER = ['tr', 'en'];
 
+  /* ------------------------------------------- DİL ANAHTARI: KAPALI ---
+     EN çeviri katmanı EKSİK olduğu için (arayüz ve başlıklar çevrildi,
+     konu gövdeleri Türkçe kaldı) dil anahtarı şimdilik GİZLİ. Yarım
+     çevrilmiş bir arayüz, tek dilli olandan daha kötü görünür.
+
+     Kapalıyken:
+       • sağ üstteki TR/EN düğmeleri hiç basılmaz (ui.js),
+       • normalize() her değeri 'tr'ye çeker — daha önce EN seçmiş bir
+         kullanıcı localStorage yüzünden İngilizce kilitli kalmaz,
+       • EN sözlükleri DOSYADA KALIR: arama indeksi hâlâ iki dili birden
+         tarar, yani "Accounts Payable" yazınca konu bulunur.
+
+     AÇMAK İÇİN: aşağıdaki satırı true yap. Başka hiçbir yer değişmez. */
+  var ANAHTAR_ACIK = false;
+
   /* ------------------------------------------------------- ARAYÜZ --- */
 
   var DICT = {
@@ -377,10 +392,16 @@
 
   var dil = 'tr';
 
-  function normalize(x) { return DILLER.indexOf(x) !== -1 ? x : 'tr'; }
+  function normalize(x) {
+    if (!ANAHTAR_ACIK) return 'tr';
+    return DILLER.indexOf(x) !== -1 ? x : 'tr';
+  }
 
   var i18n = {
     diller: DILLER,
+
+    /* Arayüzde dil seçimi gösterilsin mi? ui.js buna bakar. */
+    anahtarAcik: ANAHTAR_ACIK,
 
     get: function () { return dil; },
 

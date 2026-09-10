@@ -128,7 +128,10 @@
    yoksa svg{max-width:100%} yüksekliği serbest bırakır ve ikon şişer. */
 .ic { width: 16px; height: 16px; flex: 0 0 auto; }
 
-/* --- TR / EN anahtarı — sağ üst köşe --- */
+/* --- TR / EN anahtarı — sağ üst köşe ---
+   Şu an gizli (js/i18n.js → ANAHTAR_ACIK). display:flex, [hidden]
+   niteliğini ezeceği için aşağıdaki kural gerekli. */
+.langsw[hidden] { display: none; }
 .langsw {
   display: flex;
   align-items: center;

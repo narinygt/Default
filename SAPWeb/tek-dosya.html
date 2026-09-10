@@ -497,7 +497,10 @@ svg { display: block; }
    yoksa svg{max-width:100%} yüksekliği serbest bırakır ve ikon şişer. */
 .ic { width: 16px; height: 16px; flex: 0 0 auto; }
 
-/* --- TR / EN anahtarı — sağ üst köşe --- */
+/* --- TR / EN anahtarı — sağ üst köşe ---
+   Şu an gizli (js/i18n.js → ANAHTAR_ACIK). display:flex, [hidden]
+   niteliğini ezeceği için aşağıdaki kural gerekli. */
+.langsw[hidden] { display: none; }
 .langsw {
   display: flex;
   align-items: center;
@@ -1991,8 +1994,10 @@ table.tbl .mono { font-family: var(--font-mono); font-size: 13px; }
       <nav class="topbar-crumb" id="crumb" aria-label="Konum"></nav>
       <span class="topbar-spacer"></span>
       <button class="searchbtn" id="search-btn" type="button" data-action="open-search"></button>
-      <!-- Dil anahtarı — ekranın sağ üst köşesi, istendiği gibi. -->
-      <div class="langsw" id="langsw" role="group" aria-label="Language"></div>
+      <!-- Dil anahtarı — sağ üst köşe. ŞU AN GİZLİ: EN çevirisi
+           tamamlanmadığı için js/i18n.js içindeki ANAHTAR_ACIK false.
+           Kutu DOM'da duruyor ki açmak tek satırlık iş olsun. -->
+      <div class="langsw" id="langsw" role="group" aria-label="Language" hidden></div>
       <button class="iconbtn" type="button" id="theme-btn" data-action="toggle-theme"></button>
     </header>
 
@@ -2442,6 +2447,21 @@ window.SAP = (function () {
 
   var DILLER = ['tr', 'en'];
 
+  /* ------------------------------------------- DİL ANAHTARI: KAPALI ---
+     EN çeviri katmanı EKSİK olduğu için (arayüz ve başlıklar çevrildi,
+     konu gövdeleri Türkçe kaldı) dil anahtarı şimdilik GİZLİ. Yarım
+     çevrilmiş bir arayüz, tek dilli olandan daha kötü görünür.
+
+     Kapalıyken:
+       • sağ üstteki TR/EN düğmeleri hiç basılmaz (ui.js),
+       • normalize() her değeri 'tr'ye çeker — daha önce EN seçmiş bir
+         kullanıcı localStorage yüzünden İngilizce kilitli kalmaz,
+       • EN sözlükleri DOSYADA KALIR: arama indeksi hâlâ iki dili birden
+         tarar, yani "Accounts Payable" yazınca konu bulunur.
+
+     AÇMAK İÇİN: aşağıdaki satırı true yap. Başka hiçbir yer değişmez. */
+  var ANAHTAR_ACIK = false;
+
   /* ------------------------------------------------------- ARAYÜZ --- */
 
   var DICT = {
@@ -2794,10 +2814,16 @@ window.SAP = (function () {
 
   var dil = 'tr';
 
-  function normalize(x) { return DILLER.indexOf(x) !== -1 ? x : 'tr'; }
+  function normalize(x) {
+    if (!ANAHTAR_ACIK) return 'tr';
+    return DILLER.indexOf(x) !== -1 ? x : 'tr';
+  }
 
   var i18n = {
     diller: DILLER,
+
+    /* Arayüzde dil seçimi gösterilsin mi? ui.js buna bakar. */
+    anahtarAcik: ANAHTAR_ACIK,
 
     get: function () { return dil; },
 
@@ -51532,7 +51558,10 @@ SAP.registerTopic({
   /* ================================================== DİL ANAHTARI ==== */
   /* Sağ üst köşe. İki düğme, mono punto, aktif olan dolgulu.
      Dil değişince TAM ÇİZİM yapılır — başlıklar, kenar çubuğu, üst çubuk
-     ve içerik aynı anda değişmeli; parça güncelleme burada yanlış olurdu. */
+     ve içerik aynı anda değişmeli; parça güncelleme burada yanlış olurdu.
+
+     ŞU AN GİZLİ: i18n.anahtarAcik === false. EN çevirisi tamamlanınca
+     tek satırla geri gelir; buradaki kod olduğu gibi çalışmaya hazır. */
 
   function langHTML() {
     var cur = SAP.i18n.get();
@@ -51747,7 +51776,13 @@ SAP.registerTopic({
     }
 
     var ls = document.getElementById('langsw');
-    if (ls) { ls.innerHTML = langHTML(); ls.setAttribute('aria-label', T('nav.lang')); }
+    if (ls) {
+      /* Kapalıyken kutu tamamen kalkar: boş bir <div> üst çubukta
+         boşluk bırakır, tema düğmesi kenardan içeri kayardı. */
+      ls.hidden = !SAP.i18n.anahtarAcik;
+      ls.innerHTML = SAP.i18n.anahtarAcik ? langHTML() : '';
+      ls.setAttribute('aria-label', T('nav.lang'));
+    }
   }
 
   /* ============================================= RENDER KANCALARI ==== */

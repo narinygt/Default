@@ -116,7 +116,10 @@
   /* ================================================== DİL ANAHTARI ==== */
   /* Sağ üst köşe. İki düğme, mono punto, aktif olan dolgulu.
      Dil değişince TAM ÇİZİM yapılır — başlıklar, kenar çubuğu, üst çubuk
-     ve içerik aynı anda değişmeli; parça güncelleme burada yanlış olurdu. */
+     ve içerik aynı anda değişmeli; parça güncelleme burada yanlış olurdu.
+
+     ŞU AN GİZLİ: i18n.anahtarAcik === false. EN çevirisi tamamlanınca
+     tek satırla geri gelir; buradaki kod olduğu gibi çalışmaya hazır. */
 
   function langHTML() {
     var cur = SAP.i18n.get();
@@ -331,7 +334,13 @@
     }
 
     var ls = document.getElementById('langsw');
-    if (ls) { ls.innerHTML = langHTML(); ls.setAttribute('aria-label', T('nav.lang')); }
+    if (ls) {
+      /* Kapalıyken kutu tamamen kalkar: boş bir <div> üst çubukta
+         boşluk bırakır, tema düğmesi kenardan içeri kayardı. */
+      ls.hidden = !SAP.i18n.anahtarAcik;
+      ls.innerHTML = SAP.i18n.anahtarAcik ? langHTML() : '';
+      ls.setAttribute('aria-label', T('nav.lang'));
+    }
   }
 
   /* ============================================= RENDER KANCALARI ==== */

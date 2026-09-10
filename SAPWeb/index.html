@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="SAP S/4HANA Financial Accounting (FI) interaktif eğitim platformu — iş süreci, muhasebe mantığı, işlem kodları, tablolar ve S/4HANA yenilikleri.">
+<title>SAP S/4HANA FI Eğitim Platformu</title>
+
+<!-- Tema, kabuk ve yazdırma stilleri. Harici font/CDN yok: internetsiz de aynı görünür. -->
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/app.css">
+<link rel="stylesheet" href="css/print.css">
+
+<!-- Sayfa boyanmadan temayı uygula: karanlık modda beyaz parlama olmasın. -->
+<script>
+(function () {
+  try {
+    var s = JSON.parse(localStorage.getItem('sapfi_v1') || '{}');
+    var t = s.theme || (window.matchMedia &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', t);
+  } catch (e) { /* özel sekme — varsayılan aydınlık tema ile devam */ }
+})();
+</script>
+</head>
+
+<body>
+
+<div class="shell">
+  <!-- Kenar çubuğu içeriğini ui.js her render'da tazeler -->
+  <aside class="sidebar" id="sidebar"></aside>
+  <div class="scrim" id="scrim" data-action="close-menu"></div>
+
+  <div class="main">
+    <header class="topbar">
+      <button class="iconbtn menubtn" type="button" data-action="toggle-menu" aria-label="Menü">☰</button>
+      <nav class="topbar-crumb" id="crumb" aria-label="Konum"></nav>
+      <span class="topbar-spacer"></span>
+      <!-- Arayüzdeki TEK iki ikon bunlar ve ikisi de tek renk çizgi
+           ikondur; emoji kullanılmaz (bkz. theme.css ilke 4). -->
+      <button class="searchbtn" type="button" data-action="open-search" aria-label="Ara">
+        <svg class="ic-search" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <circle cx="7" cy="7" r="4.25" fill="none" stroke="currentColor" stroke-width="1.4"/>
+          <path d="M10.2 10.2 L14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+        <span class="lb">Ara…</span><kbd>Ctrl K</kbd>
+      </button>
+      <button class="iconbtn" type="button" id="theme-btn" data-action="toggle-theme" aria-label="Tema"></button>
+    </header>
+
+    <main class="view" id="view"></main>
+  </div>
+</div>
+
+<!-- ==========================================================================
+     Yükleme sırası önemlidir ve ES module DEĞİLDİR.
+     file:// altında import/export CORS'a takıldığı için tüm dosyalar klasik
+     <script src> ile yüklenir ve global SAP nesnesine kayıt olur.
+
+       1) çekirdek      core → markup → diagram
+       2) veri          sözlükler → katalog (33+ konu stub'ı)
+       3) içerik        content/fi/*.js — stub'ları derin bölümlerle doldurur
+       4) arayüz        sections → views → learn → search → ui (ui boot() çağırır)
+
+     YENİ KONU EKLEMEK: content/fi/ altına dosya + aşağıya tek satır <script>.
+     Başka hiçbir yeri değiştirmek gerekmez.
+     ========================================================================== -->
+
+<!-- 1) çekirdek -->
+<script src="js/core.js"></script>
+<script src="js/markup.js"></script>
+<script src="js/diagram.js"></script>
+
+<!-- 2) veri sözlükleri ve katalog -->
+<script src="data/tcodes.js"></script>
+<script src="data/tables.js"></script>
+<script src="data/glossary.js"></script>
+<script src="data/catalog.js"></script>
+
+<!-- 3) konu içerikleri -->
+<script src="content/fi/genel-muhasebe.js"></script>
+<script src="content/fi/fi-temelleri.js"></script>
+<script src="content/fi/master-data.js"></script>
+<script src="content/fi/gl-accounting.js"></script>
+<script src="content/fi/accounts-payable.js"></script>
+<script src="content/fi/accounts-receivable.js"></script>
+<script src="content/fi/f110.js"></script>
+<script src="content/fi/clearing.js"></script>
+<script src="content/fi/asset-accounting.js"></script>
+<script src="content/fi/document-posting.js"></script>
+<script src="content/fi/bank-accounting.js"></script>
+<script src="content/fi/ebs.js"></script>
+<script src="content/fi/closing.js"></script>
+<script src="content/fi/foreign-currency.js"></script>
+<script src="content/fi/mm-integration.js"></script>
+<script src="content/fi/sd-integration.js"></script>
+<script src="content/fi/taxes.js"></script>
+<script src="content/fi/new-gl.js"></script>
+<script src="content/fi/parallel-ledger.js"></script>
+<script src="content/fi/special-gl.js"></script>
+<script src="content/fi/dunning.js"></script>
+<script src="content/fi/document-parking.js"></script>
+<script src="content/fi/cost-center.js"></script>
+<script src="content/fi/co-integration.js"></script>
+<script src="content/fi/org-yapisi.js"></script>
+<script src="content/fi/reporting.js"></script>
+<script src="content/fi/sap-tables.js"></script>
+<script src="content/fi/dogrulama-ikame.js"></script>
+<script src="content/fi/tcodes.js"></script>
+<script src="content/fi/error-handling.js"></script>
+<script src="content/fi/e-donusum.js"></script>
+<script src="content/fi/lsmw.js"></script>
+<script src="content/fi/data-upload.js"></script>
+
+<!-- 4) arayüz -->
+<script src="js/sections.js"></script>
+<script src="js/views.js"></script>
+<script src="js/learn.js"></script>
+<script src="js/search.js"></script>
+<script src="js/ui.js"></script>
+
+</body>
+</html>

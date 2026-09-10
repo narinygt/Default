@@ -1,0 +1,86 @@
+/* ==========================================================================
+   print.css — "PDF olarak dışa aktar" çıktısı
+   Kullanıcı butona basınca window.print() çağrılır; tarayıcının "PDF olarak
+   kaydet" hedefi kullanılır. Harici kütüphane yok, çevrimdışı çalışır.
+   ========================================================================== */
+
+@media print {
+  @page { margin: 16mm 14mm; }
+
+  /* Yazdırırken her zaman aydınlık palet. Ekrandaki kırık beyaz zemin
+     kağıtta beyaza döner: kağıt zaten kağıttır, zemini ayrıca boyamak
+     mürekkep israfıdır. Marka rengi baskıda da tek renk olarak kalır. */
+  :root, :root[data-theme="dark"] {
+    color-scheme: light;
+    --bg: #fff; --bg-alt: #fff;
+    --surface: #fff; --surface-2: #f4f5f6; --surface-3: #e8eaec;
+    --border: #b3b8bd; --border-soft: #dcdfe2;
+    --text: #16191d; --text-2: #3d434a; --text-3: #666d75; --text-inv: #fff;
+    --brand: #10506b; --brand-deep: #0a3a4e; --brand-weak: #eef3f6;
+    --brand-line: #a6bfcb; --brand-fg: #fff;
+    --accent: #10506b; --accent-text: #10506b; --accent-soft: #eef3f6; --accent-br: #a6bfcb;
+    --ok: #1d6b46; --ok-soft: #eef5f1; --ok-br: #a7cbb7;
+    --warn: #7d5410; --warn-soft: #f9f4e8; --warn-br: #ddc79b;
+    --err: #a32d20; --err-soft: #faeeec; --err-br: #e0b2ab;
+    --info: #1d4a75; --info-soft: #eef2f7; --info-br: #aac1d7;
+    --rail: #fff; --rail-2: #fff; --rail-line: #dcdfe2; --rail-mark: #10506b;
+    --rail-tx: #16191d; --rail-tx-2: #3d434a; --rail-tx-3: #666d75; --rail-on: #16191d;
+    --sh-1: none; --sh-2: none; --sh-3: none; --sh-pop: none;
+  }
+
+  body { background: #fff; font-size: 10.5pt; line-height: 1.5; }
+
+  /* Ekran kabuğu çıktıya girmez */
+  .sidebar, .topbar, .scrim, .toc, .pager, .filters,
+  .palette-bg, .toast, .card-fav, .readbtn, .menubtn,
+  .thead-acts, .quiz-f, .fc-nav, .notes-f, .kicker,
+  [data-noprint] { display: none !important; }
+
+  .shell { display: block; }
+  .view { padding: 0; max-width: none; animation: none; }
+  .topic-layout { display: block; }
+  .wrap { max-width: none; }
+
+  /* Bölümler sayfa içinde bölünmesin */
+  .section { break-inside: avoid-page; margin-bottom: 20pt; }
+  .section-h { break-after: avoid-page; border-bottom: 1pt solid var(--border); }
+  .sub-h, .qa-q { break-after: avoid-page; }
+  .jr, .tacc, .dia, .note, .tc-card, .er-ent, .quiz-q, .step {
+    break-inside: avoid;
+  }
+  .tbl-wrap { overflow: visible; }
+  table.tbl { break-inside: auto; }
+  table.tbl tr { break-inside: avoid; }
+  thead { display: table-header-group; }
+
+  .dia { background: #fff !important; border: 1pt solid var(--border); }
+  .card::after, .card::before { display: none !important; }
+
+  /* Bağlantılar düz metin gibi görünsün, ama T-code/tablo çipleri belli olsun */
+  a { color: inherit; text-decoration: none; }
+  .ref { border: 1px solid var(--border); background: transparent !important; color: var(--text) !important; }
+  .ref-tcode, .ref-table { font-family: var(--font-mono); font-weight: 700; }
+  .ref-term { border: none; border-bottom: 1px dotted var(--text-3); }
+
+  /* Flashcard'ın iki yüzü de basılsın (3D dönüş yazdırılamaz) */
+  .fc-scene { perspective: none; }
+  .fc-inner { height: auto !important; transform: none !important; display: grid; gap: 8pt; }
+  .fc-face { position: static; transform: none !important; backface-visibility: visible; }
+  .fc-tx { overflow: visible; display: block; }
+
+  /* Quiz cevapları çıktıda görünür olsun */
+  .opt { border: 1px solid var(--border); }
+  .quiz-ex { display: block !important; }
+
+  .print-head {
+    display: block !important;
+    margin-bottom: 14pt;
+    padding-bottom: 8pt;
+    border-bottom: 2pt solid var(--text);
+    font-size: 9pt;
+    color: var(--text-3);
+  }
+}
+
+/* Ekranda yazdırma başlığı görünmez */
+.print-head { display: none; }

@@ -275,6 +275,12 @@
         '<section class="section"><div class="section-h plain">' +
           '<span class="num"></span><h2>' + esc(T('topic.related')) + '</h2></div>' +
           relatedGrid(t.related) + '</section>' +
+        /* Notlar numaralı bir bölüm DEĞİL: ilerleme yüzdesine girmez,
+           içindekilerde görünmez. Sayfanın sonunda duran bir defter
+           kenarıdır — okuyucunun kendi yazdığı yer. */
+        '<section class="section"><div class="section-h plain">' +
+          '<span class="num"></span><h2>' + esc(T('notes.mine')) + '</h2></div>' +
+          SAP.learn.notesHTML(t.id) + '</section>' +
         pager +
       '</div>' + toc +
     '</div>';

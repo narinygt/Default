@@ -499,43 +499,23 @@
 
   /* ============================================ 11 — Öğrenme Bölümü === */
 
-  function renderOgrenme(d, topic) {
-    var out = '';
+  /* ================================================ ÖĞRENME BÖLÜMÜ ====
+     KALDIRILDI (kullanıcı talebi, Eylül 2026).
 
-    if (d.ozet && d.ozet.length) {
-      out += subH('📌', 'Konu özeti');
-      out += '<div class="prose">' + mkul(d.ozet) + '</div>';
-    }
+     Bölüm şunları çiziyordu: konu özeti · mülakat notları · sık yapılan
+     hatalar tablosu · ipuçları · mini quiz. Gerekçe: "profesyonel
+     durmuyor" — ve haklı. Bir el kitabında bölüm sonunda quiz olmaz;
+     bu, konuyu bir *ders modülüne* çeviriyordu. Aynı bilgi zaten
+     bölümlerin içinde (notlar, uyarı kutuları, senaryo) duruyor.
 
-    if (d.onemliNoktalar && d.onemliNoktalar.length) {
-      out += subH('⭐', 'Mülakatta sorulan önemli noktalar');
-      out += '<div class="prose">' + mkul(d.onemliNoktalar) + '</div>';
-    }
+     ⚠️ İÇERİK SİLİNMEDİ: `ogrenme` verisi 36 konu dosyasında olduğu gibi
+     duruyor (özet, önemli noktalar, sık hatalar, ipuçları, 8 quiz sorusu
+     ve flash kartlar). Geri istenirse renderer ve SECTIONS satırı geri
+     konur; içerik yeniden yazılmaz.
 
-    if (d.sikHatalar && d.sikHatalar.length) {
-      out += subH('⚠️', 'Sık yapılan hatalar');
-      out += tbl([{ ad:'Yanlış yaklaşım', w:'45%' }, { ad:'Doğrusu' }],
-        d.sikHatalar.map(function (h) { return ['✕ ' + h.hata, '✓ ' + h.dogru]; }));
-    }
-
-    if (d.ipuclari && d.ipuclari.length) {
-      out += subH('💡', 'İpuçları');
-      out += '<div class="prose">' + mkul(d.ipuclari) + '</div>';
-    }
-
-    if (d.quiz && d.quiz.length) {
-      out += subH('🎯', 'Mini quiz');
-      out += SAP.learn.quizHTML(topic.id, d.quiz);
-    }
-
-    /* `d.flashcards` bilerek ÇİZİLMİYOR — soru kartı bölümü kaldırıldı
-       (kullanıcı talebi). Veri duruyor; gerekçe learn.js'te yazılı. */
-
-    out += subH('📝', 'Notlarım');
-    out += SAP.learn.notesHTML(topic.id);
-
-    return out;
-  }
+     ⚠️ NOTLAR bu bölümün içindeydi ve KAYBOLMADI: konu sayfasının
+     sonuna, numarasız kendi bloğuna taşındı (views.js). Notlar ayrı bir
+     özelliktir — kenar çubuğunda kendi sayfası var. */
 
   /* ==================================================== bölüm listesi === */
 
@@ -550,7 +530,6 @@
     { id:'teknik',    ad:'Teknik Bilgiler',   ic:'🔩', render:renderTeknik },
     { id:'s4hana',    ad:'S/4HANA Yenilikleri', ic:'🚀', render:renderS4 },
     { id:'senaryo',   ad:'Gerçek Senaryo',    ic:'🏢', render:renderSenaryo },
-    { id:'ogrenme',   ad:'Öğrenme Bölümü',    ic:'🎓', render:renderOgrenme },
   ];
 
   /** Konunun gerçekten içeriği olan bölümlerinin id listesi. */

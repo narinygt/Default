@@ -91,11 +91,6 @@
       'nf.title':        'Sayfa bulunamadı',
       'nf.back':         'İçindekilere dön',
 
-      'quiz.title':      'Mini sınav',
-      'quiz.reset':      'Baştan çöz',
-      'quiz.hint':       'Bir şıkka tıklayınca doğru cevap ve açıklaması görünür.',
-      'quiz.prev':       'Önceki sonuç',
-      'quiz.done':       'Sınav bitti',
 
       'jr.debit':        'Borç',
       'jr.credit':       'Alacak',
@@ -176,11 +171,6 @@
       'nf.title':        'Page not found',
       'nf.back':         'Back to contents',
 
-      'quiz.title':      'Quick quiz',
-      'quiz.reset':      'Start over',
-      'quiz.hint':       'Pick an option to reveal the correct answer and the reasoning.',
-      'quiz.prev':       'Previous score',
-      'quiz.done':       'Quiz finished',
 
       'jr.debit':        'Debit',
       'jr.credit':       'Credit',
@@ -382,7 +372,6 @@
     teknik:   'Technical Detail',
     s4hana:   'S/4HANA',
     senaryo:  'Real Scenario',
-    ogrenme:  'Review',
   };
 
   /* ----------------------------------------------------- MOTOR --- */

@@ -1,9 +1,8 @@
 /* ==========================================================================
-   learn.js — Öğrenme katmanı: quiz, notlar, ilerleme, favori
+   learn.js — Notlar, ilerleme, favori ve yazdırma
    --------------------------------------------------------------------------
-   Bu bileşenler tam sayfa yeniden çizim YAPMAZ; DOM'u noktasal günceller.
-   Sebep: quiz cevabında sayfa yeniden çizilirse kaydırma konumu ve
-   açılmış açıklamalar kaybolur.
+   Notlar tam sayfa yeniden çizim YAPMAZ; DOM'u noktasal günceller —
+   yazarken sayfa yeniden çizilirse imleç ve kaydırma konumu kaybolur.
    ========================================================================== */
 
 (function (SAP) {
@@ -11,104 +10,12 @@
 
   var esc = SAP.esc, mk = SAP.mk;
   var T = function (k) { return SAP.i18n.t(k); };
-  var HARF = ['A', 'B', 'C', 'D', 'E', 'F'];
 
-  /* Oturum içi quiz durumu: { topicId: { qIndex: seciliIndex } } */
-  var quizState = {};
 
-  /* ======================================================== QUIZ ==== */
-
-  function quizHTML(topicId, sorular) {
-    var kayit = SAP.store.d.quiz[topicId];
-    var body = sorular.map(function (q, qi) {
-      var opts = q.secenekler.map(function (o, oi) {
-        return '<button class="opt" type="button" data-action="quiz-answer" ' +
-          'data-t="' + esc(topicId) + '" data-q="' + qi + '" data-o="' + oi + '">' +
-          '<span class="mk">' + HARF[oi] + '</span><span>' + mk(o) + '</span></button>';
-      }).join('');
-
-      return '<div class="quiz-q" data-qi="' + qi + '" data-dogru="' + q.dogru + '">' +
-        '<div class="q"><span class="n">' + (qi + 1) + '</span><span>' + mk(q.soru) + '</span></div>' +
-        '<div class="opts">' + opts + '</div>' +
-        '<div class="quiz-ex" hidden>' + mk(q.aciklama || '') + '</div>' +
-      '</div>';
-    }).join('');
-
-    return '<div class="quiz" data-quiz="' + esc(topicId) + '" data-toplam="' + sorular.length + '">' +
-      '<div class="quiz-h"><b>' + esc(T('quiz.title')) + '</b>' +
-        '<span class="sc tnum" data-quiz-score>' +
-          (kayit ? kayit.dogru + ' / ' + kayit.toplam : '0 / ' + sorular.length) +
-        '</span>' +
-      '</div>' + body +
-      '<div class="quiz-f">' +
-        '<button class="btn sm" type="button" data-action="quiz-reset" data-t="' + esc(topicId) + '">' +
-          esc(T('quiz.reset')) + '</button>' +
-        '<span class="quiz-hint">' + esc(T('quiz.hint')) + '</span>' +
-      '</div>' +
-    '</div>';
-  }
-
-  SAP.action('quiz-answer', function (btn) {
-    var box = btn.closest('.quiz-q');
-    var quiz = btn.closest('.quiz');
-    if (!box || !quiz || box.dataset.cevaplandi) return;
-
-    var topicId = btn.dataset.t;
-    var qi = Number(btn.dataset.q);
-    var secilen = Number(btn.dataset.o);
-    var dogru = Number(box.dataset.dogru);
-
-    box.dataset.cevaplandi = '1';
-    (quizState[topicId] || (quizState[topicId] = {}))[qi] = secilen;
-
-    box.querySelectorAll('.opt').forEach(function (o, i) {
-      o.disabled = true;
-      if (i === dogru) o.classList.add('ok');
-      else if (i === secilen) o.classList.add('bad');
-    });
-
-    var ex = box.querySelector('.quiz-ex');
-    if (ex && ex.textContent.trim()) ex.hidden = false;
-
-    /* Skoru tazele ve tüm sorular cevaplandıysa kalıcı olarak sakla. */
-    var toplam = Number(quiz.dataset.toplam);
-    var cevaplar = quizState[topicId] || {};
-    var dogruSayisi = 0, cevaplanan = 0;
-    quiz.querySelectorAll('.quiz-q').forEach(function (q, i) {
-      if (cevaplar[i] == null) return;
-      cevaplanan++;
-      if (cevaplar[i] === Number(q.dataset.dogru)) dogruSayisi++;
-    });
-
-    var sc = quiz.querySelector('[data-quiz-score]');
-    if (sc) sc.textContent = dogruSayisi + ' / ' + toplam;
-
-    if (cevaplanan === toplam) {
-      SAP.store.d.quiz[topicId] = { dogru: dogruSayisi, toplam: toplam, ts: Date.now() };
-      SAP.store.save();
-      var yuzde = Math.round((dogruSayisi / toplam) * 100);
-      SAP.toast(T('quiz.done') + ': ' + dogruSayisi + ' / ' + toplam +
-                ' (' + SAP.i18n.yuzde(yuzde) + ')');
-    }
-  });
-
-  SAP.action('quiz-reset', function (btn) {
-    var topicId = btn.dataset.t;
-    delete quizState[topicId];
-    var quiz = btn.closest('.quiz');
-    if (!quiz) return;
-    quiz.querySelectorAll('.quiz-q').forEach(function (q) {
-      delete q.dataset.cevaplandi;
-      q.querySelectorAll('.opt').forEach(function (o) {
-        o.disabled = false;
-        o.classList.remove('ok', 'bad');
-      });
-      var ex = q.querySelector('.quiz-ex');
-      if (ex) ex.hidden = true;
-    });
-    var sc = quiz.querySelector('[data-quiz-score]');
-    if (sc) sc.textContent = '0 / ' + quiz.dataset.toplam;
-  });
+  /* ============================================== MİNİ SINAV ====
+     KALDIRILDI (kullanıcı talebi) — öğrenme bölümüyle birlikte.
+     Gerekçesi sections.js'te yazılı. Quiz verisi ve `store.d.quiz`
+     puanları duruyor; geri istenirse quizHTML yeniden yazılır. */
 
   /* ================================================= SORU KARTLARI ====
      KALDIRILDI (kullanıcı talebi, Eylül 2026).
@@ -185,6 +92,6 @@
 
   SAP.action('print', function () { window.print(); });
 
-  SAP.learn = { quizHTML: quizHTML, notesHTML: notesHTML };
+  SAP.learn = { notesHTML: notesHTML };
 
 })(window.SAP);

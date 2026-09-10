@@ -2525,11 +2525,6 @@ window.SAP = (function () {
       'nf.title':        'Sayfa bulunamadı',
       'nf.back':         'İçindekilere dön',
 
-      'quiz.title':      'Mini sınav',
-      'quiz.reset':      'Baştan çöz',
-      'quiz.hint':       'Bir şıkka tıklayınca doğru cevap ve açıklaması görünür.',
-      'quiz.prev':       'Önceki sonuç',
-      'quiz.done':       'Sınav bitti',
 
       'jr.debit':        'Borç',
       'jr.credit':       'Alacak',
@@ -2610,11 +2605,6 @@ window.SAP = (function () {
       'nf.title':        'Page not found',
       'nf.back':         'Back to contents',
 
-      'quiz.title':      'Quick quiz',
-      'quiz.reset':      'Start over',
-      'quiz.hint':       'Pick an option to reveal the correct answer and the reasoning.',
-      'quiz.prev':       'Previous score',
-      'quiz.done':       'Quiz finished',
 
       'jr.debit':        'Debit',
       'jr.credit':       'Credit',
@@ -2816,7 +2806,6 @@ window.SAP = (function () {
     teknik:   'Technical Detail',
     s4hana:   'S/4HANA',
     senaryo:  'Real Scenario',
-    ogrenme:  'Review',
   };
 
   /* ----------------------------------------------------- MOTOR --- */
@@ -50695,43 +50684,23 @@ SAP.registerTopic({
 
   /* ============================================ 11 — Öğrenme Bölümü === */
 
-  function renderOgrenme(d, topic) {
-    var out = '';
+  /* ================================================ ÖĞRENME BÖLÜMÜ ====
+     KALDIRILDI (kullanıcı talebi, Eylül 2026).
 
-    if (d.ozet && d.ozet.length) {
-      out += subH('📌', 'Konu özeti');
-      out += '<div class="prose">' + mkul(d.ozet) + '</div>';
-    }
+     Bölüm şunları çiziyordu: konu özeti · mülakat notları · sık yapılan
+     hatalar tablosu · ipuçları · mini quiz. Gerekçe: "profesyonel
+     durmuyor" — ve haklı. Bir el kitabında bölüm sonunda quiz olmaz;
+     bu, konuyu bir *ders modülüne* çeviriyordu. Aynı bilgi zaten
+     bölümlerin içinde (notlar, uyarı kutuları, senaryo) duruyor.
 
-    if (d.onemliNoktalar && d.onemliNoktalar.length) {
-      out += subH('⭐', 'Mülakatta sorulan önemli noktalar');
-      out += '<div class="prose">' + mkul(d.onemliNoktalar) + '</div>';
-    }
+     ⚠️ İÇERİK SİLİNMEDİ: `ogrenme` verisi 36 konu dosyasında olduğu gibi
+     duruyor (özet, önemli noktalar, sık hatalar, ipuçları, 8 quiz sorusu
+     ve flash kartlar). Geri istenirse renderer ve SECTIONS satırı geri
+     konur; içerik yeniden yazılmaz.
 
-    if (d.sikHatalar && d.sikHatalar.length) {
-      out += subH('⚠️', 'Sık yapılan hatalar');
-      out += tbl([{ ad:'Yanlış yaklaşım', w:'45%' }, { ad:'Doğrusu' }],
-        d.sikHatalar.map(function (h) { return ['✕ ' + h.hata, '✓ ' + h.dogru]; }));
-    }
-
-    if (d.ipuclari && d.ipuclari.length) {
-      out += subH('💡', 'İpuçları');
-      out += '<div class="prose">' + mkul(d.ipuclari) + '</div>';
-    }
-
-    if (d.quiz && d.quiz.length) {
-      out += subH('🎯', 'Mini quiz');
-      out += SAP.learn.quizHTML(topic.id, d.quiz);
-    }
-
-    /* `d.flashcards` bilerek ÇİZİLMİYOR — soru kartı bölümü kaldırıldı
-       (kullanıcı talebi). Veri duruyor; gerekçe learn.js'te yazılı. */
-
-    out += subH('📝', 'Notlarım');
-    out += SAP.learn.notesHTML(topic.id);
-
-    return out;
-  }
+     ⚠️ NOTLAR bu bölümün içindeydi ve KAYBOLMADI: konu sayfasının
+     sonuna, numarasız kendi bloğuna taşındı (views.js). Notlar ayrı bir
+     özelliktir — kenar çubuğunda kendi sayfası var. */
 
   /* ==================================================== bölüm listesi === */
 
@@ -50746,7 +50715,6 @@ SAP.registerTopic({
     { id:'teknik',    ad:'Teknik Bilgiler',   ic:'🔩', render:renderTeknik },
     { id:'s4hana',    ad:'S/4HANA Yenilikleri', ic:'🚀', render:renderS4 },
     { id:'senaryo',   ad:'Gerçek Senaryo',    ic:'🏢', render:renderSenaryo },
-    { id:'ogrenme',   ad:'Öğrenme Bölümü',    ic:'🎓', render:renderOgrenme },
   ];
 
   /** Konunun gerçekten içeriği olan bölümlerinin id listesi. */
@@ -51051,6 +51019,12 @@ SAP.registerTopic({
         '<section class="section"><div class="section-h plain">' +
           '<span class="num"></span><h2>' + esc(T('topic.related')) + '</h2></div>' +
           relatedGrid(t.related) + '</section>' +
+        /* Notlar numaralı bir bölüm DEĞİL: ilerleme yüzdesine girmez,
+           içindekilerde görünmez. Sayfanın sonunda duran bir defter
+           kenarıdır — okuyucunun kendi yazdığı yer. */
+        '<section class="section"><div class="section-h plain">' +
+          '<span class="num"></span><h2>' + esc(T('notes.mine')) + '</h2></div>' +
+          SAP.learn.notesHTML(t.id) + '</section>' +
         pager +
       '</div>' + toc +
     '</div>';
@@ -51239,11 +51213,10 @@ SAP.registerTopic({
 
 /* ================= js/learn.js ================= */
 /* ==========================================================================
-   learn.js — Öğrenme katmanı: quiz, notlar, ilerleme, favori
+   learn.js — Notlar, ilerleme, favori ve yazdırma
    --------------------------------------------------------------------------
-   Bu bileşenler tam sayfa yeniden çizim YAPMAZ; DOM'u noktasal günceller.
-   Sebep: quiz cevabında sayfa yeniden çizilirse kaydırma konumu ve
-   açılmış açıklamalar kaybolur.
+   Notlar tam sayfa yeniden çizim YAPMAZ; DOM'u noktasal günceller —
+   yazarken sayfa yeniden çizilirse imleç ve kaydırma konumu kaybolur.
    ========================================================================== */
 
 (function (SAP) {
@@ -51251,104 +51224,12 @@ SAP.registerTopic({
 
   var esc = SAP.esc, mk = SAP.mk;
   var T = function (k) { return SAP.i18n.t(k); };
-  var HARF = ['A', 'B', 'C', 'D', 'E', 'F'];
 
-  /* Oturum içi quiz durumu: { topicId: { qIndex: seciliIndex } } */
-  var quizState = {};
 
-  /* ======================================================== QUIZ ==== */
-
-  function quizHTML(topicId, sorular) {
-    var kayit = SAP.store.d.quiz[topicId];
-    var body = sorular.map(function (q, qi) {
-      var opts = q.secenekler.map(function (o, oi) {
-        return '<button class="opt" type="button" data-action="quiz-answer" ' +
-          'data-t="' + esc(topicId) + '" data-q="' + qi + '" data-o="' + oi + '">' +
-          '<span class="mk">' + HARF[oi] + '</span><span>' + mk(o) + '</span></button>';
-      }).join('');
-
-      return '<div class="quiz-q" data-qi="' + qi + '" data-dogru="' + q.dogru + '">' +
-        '<div class="q"><span class="n">' + (qi + 1) + '</span><span>' + mk(q.soru) + '</span></div>' +
-        '<div class="opts">' + opts + '</div>' +
-        '<div class="quiz-ex" hidden>' + mk(q.aciklama || '') + '</div>' +
-      '</div>';
-    }).join('');
-
-    return '<div class="quiz" data-quiz="' + esc(topicId) + '" data-toplam="' + sorular.length + '">' +
-      '<div class="quiz-h"><b>' + esc(T('quiz.title')) + '</b>' +
-        '<span class="sc tnum" data-quiz-score>' +
-          (kayit ? kayit.dogru + ' / ' + kayit.toplam : '0 / ' + sorular.length) +
-        '</span>' +
-      '</div>' + body +
-      '<div class="quiz-f">' +
-        '<button class="btn sm" type="button" data-action="quiz-reset" data-t="' + esc(topicId) + '">' +
-          esc(T('quiz.reset')) + '</button>' +
-        '<span class="quiz-hint">' + esc(T('quiz.hint')) + '</span>' +
-      '</div>' +
-    '</div>';
-  }
-
-  SAP.action('quiz-answer', function (btn) {
-    var box = btn.closest('.quiz-q');
-    var quiz = btn.closest('.quiz');
-    if (!box || !quiz || box.dataset.cevaplandi) return;
-
-    var topicId = btn.dataset.t;
-    var qi = Number(btn.dataset.q);
-    var secilen = Number(btn.dataset.o);
-    var dogru = Number(box.dataset.dogru);
-
-    box.dataset.cevaplandi = '1';
-    (quizState[topicId] || (quizState[topicId] = {}))[qi] = secilen;
-
-    box.querySelectorAll('.opt').forEach(function (o, i) {
-      o.disabled = true;
-      if (i === dogru) o.classList.add('ok');
-      else if (i === secilen) o.classList.add('bad');
-    });
-
-    var ex = box.querySelector('.quiz-ex');
-    if (ex && ex.textContent.trim()) ex.hidden = false;
-
-    /* Skoru tazele ve tüm sorular cevaplandıysa kalıcı olarak sakla. */
-    var toplam = Number(quiz.dataset.toplam);
-    var cevaplar = quizState[topicId] || {};
-    var dogruSayisi = 0, cevaplanan = 0;
-    quiz.querySelectorAll('.quiz-q').forEach(function (q, i) {
-      if (cevaplar[i] == null) return;
-      cevaplanan++;
-      if (cevaplar[i] === Number(q.dataset.dogru)) dogruSayisi++;
-    });
-
-    var sc = quiz.querySelector('[data-quiz-score]');
-    if (sc) sc.textContent = dogruSayisi + ' / ' + toplam;
-
-    if (cevaplanan === toplam) {
-      SAP.store.d.quiz[topicId] = { dogru: dogruSayisi, toplam: toplam, ts: Date.now() };
-      SAP.store.save();
-      var yuzde = Math.round((dogruSayisi / toplam) * 100);
-      SAP.toast(T('quiz.done') + ': ' + dogruSayisi + ' / ' + toplam +
-                ' (' + SAP.i18n.yuzde(yuzde) + ')');
-    }
-  });
-
-  SAP.action('quiz-reset', function (btn) {
-    var topicId = btn.dataset.t;
-    delete quizState[topicId];
-    var quiz = btn.closest('.quiz');
-    if (!quiz) return;
-    quiz.querySelectorAll('.quiz-q').forEach(function (q) {
-      delete q.dataset.cevaplandi;
-      q.querySelectorAll('.opt').forEach(function (o) {
-        o.disabled = false;
-        o.classList.remove('ok', 'bad');
-      });
-      var ex = q.querySelector('.quiz-ex');
-      if (ex) ex.hidden = true;
-    });
-    var sc = quiz.querySelector('[data-quiz-score]');
-    if (sc) sc.textContent = '0 / ' + quiz.dataset.toplam;
-  });
+  /* ============================================== MİNİ SINAV ====
+     KALDIRILDI (kullanıcı talebi) — öğrenme bölümüyle birlikte.
+     Gerekçesi sections.js'te yazılı. Quiz verisi ve `store.d.quiz`
+     puanları duruyor; geri istenirse quizHTML yeniden yazılır. */
 
   /* ================================================= SORU KARTLARI ====
      KALDIRILDI (kullanıcı talebi, Eylül 2026).
@@ -51425,7 +51306,7 @@ SAP.registerTopic({
 
   SAP.action('print', function () { window.print(); });
 
-  SAP.learn = { quizHTML: quizHTML, notesHTML: notesHTML };
+  SAP.learn = { notesHTML: notesHTML };
 
 })(window.SAP);
 

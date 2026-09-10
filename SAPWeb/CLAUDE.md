@@ -255,7 +255,9 @@ SAP.registerTopic({ id:'gl-accounting', sections: {
 
   ogrenme:   { ozet:[], onemliNoktalar:[], sikHatalar:[{hata,dogru}], ipuclari:[],
                quiz:[{soru,secenekler:[],dogru:index,aciklama}],
-               flashcards:[{on,arka}] },   // ⚠️ ARTIK ÇİZİLMİYOR — bkz. §6
+               flashcards:[{on,arka}] },
+  /* ⚠️ `ogrenme` BÖLÜMÜNÜN TAMAMI ARTIK ÇİZİLMİYOR — bkz. §6.
+     Veri 36 dosyada duruyor; renderer ve SECTIONS satırı kaldırıldı. */
 }});
 ```
 
@@ -379,6 +381,7 @@ sol sütun çekmeceye iner.
 | T hesapları | ✅ | Borç/alacak sütunlu, bakiye hesaplı |
 | Muhasebe fişi | ✅ | Borç/alacak toplamı + **denklik kontrolü** (denk değilse uyarır) |
 | Mini quiz | ✅ | Anında geri bildirim + açıklama, puan kalıcı |
+| ~~Öğrenme bölümü~~ (özet · mülakat notları · sık hatalar · ipuçları · mini sınav) | ❌ Kaldırıldı | Kullanıcı talebi: *"profesyonel durmuyor"*. Bir el kitabında bölüm sonu sınavı olmaz — konuyu ders modülüne çeviriyordu. ⚠️ **Veri 36 dosyada duruyor.** ⚠️ **Notlar bu bölümün içindeydi; kaybolmadı** — konu sayfasının sonuna numarasız bloğa taşındı |
 | ~~Flash kartlar~~ | ❌ Kaldırıldı | Kullanıcı talebi (Eylül 2026). `ogrenme.flashcards` **verisi duruyor** (~430 kart, 36 dosya) — özellik geri istenirse `learn.js` bloğu + `sections.js`'te iki satır yeter, içerik yeniden yazılmaz |
 | PDF olarak dışa aktarma | ✅ | `window.print()` + `print.css` (harici kütüphane yok) |
 | Responsive | ✅ | Sidebar mobilde çekmece; 1180px'de içindekiler gizlenir |
@@ -440,12 +443,10 @@ sol sütun çekmeceye iner.
 
   Motor ikisini de doğru şekilde "DENK DEĞİL" olarak işaretliyor.
   **Üçüncü bir dengesiz fiş gerçek hatadır** (bkz. Ders #15 ve #22).
-- Her hazır konu 11 bölümün tamamını içeriyor (genel-muhasebe 10 — teorik konu olduğu için `sapSurec` yok)
-- Her hazır konuda **2 diyagram** (1 `flow` + 1 `er`) ve **8 quiz sorusu**
-  (ilk üç konuda 6–7) çiziliyor — tek tek ölçüldü
+- Her hazır konu **10 numaralı bölüm** içeriyor (öğrenme bölümü kaldırıldıktan sonra; genel-muhasebe 9 — teorik konu olduğu için `sapSurec` yok). Notlar numaralı bölüm DEĞİLDİR: ilerleme yüzdesine girmez, içindekilerde görünmez.
+- Her hazır konuda **2 diyagram** (1 `flow` + 1 `er`) çiziliyor — tek tek ölçüldü
 - Tüm rotalar + geçersiz rota (`notfound`) doğru çalışıyor
 - Çapraz link tıklama → doğru sayfaya gidiyor, tarayıcı geri tuşu çalışıyor
-- Quiz: 8/8 doğru puanlanıyor, açıklamalar açılıyor, sonuç kalıcı
 - Notlar: yazılıyor, gecikmeli kaydediliyor, `#/notlar`'da listeleniyor
 - İlerleme: bölüm işareti %10, "tümünü işaretle" %100
 - Favori ekleme/çıkarma, tema geçişi

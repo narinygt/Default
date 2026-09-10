@@ -171,20 +171,26 @@
     if (!q) {
       var oneri = SAP.allTopics().filter(function (t) { return t.status === 'ready'; }).slice(0, 6);
       palRes = oneri.map(function (t) {
-        return { tur:'Konu', ic:t.icon, baslik:t.title, alt:t.summary, href:'#/konu/' + t.id };
+        return { tur:'topic', baslik:SAP.i18n.baslik(t), alt:SAP.i18n.ozet(t),
+                 href:'#/konu/' + t.id };
       });
-      return '<div class="palette-sec">İçeriği hazır konular</div>' + rows();
+      return rows();
     }
     palRes = SAP.search(q, 24);
-    if (!palRes.length) return '<div class="palette-sec">Sonuç yok</div>';
+    if (!palRes.length)
+      return '<div class="palette-sec">' + esc(SAP.i18n.t('search.empty')) + '</div>';
     return rows();
   }
+
+  /* İndeksteki tür kodları -> i18n anahtarı. Kod saklanır, etiket
+     çizim anında dilden gelir; indeksin dil bilmesi gerekmez. */
+  var TUR = { topic: 'nav.home', tcode: 'ref.tcode', table: 'ref.table', term: 'ref.term' };
 
   function rows() {
     return palRes.map(function (r, i) {
       return '<button class="pres' + (i === palSel ? ' sel' : '') + '" type="button" data-pi="' + i + '">' +
         '<span class="bd"><b>' + esc(r.baslik) + '</b><span>' + esc(r.alt || '') + '</span></span>' +
-        '<span class="kind">' + esc(r.tur) + '</span></button>';
+        '<span class="kind">' + esc(TUR[r.tur] ? SAP.i18n.t(TUR[r.tur]) : r.tur) + '</span></button>';
     }).join('');
   }
 
@@ -193,9 +199,10 @@
     palSel = 0;
     pal = document.createElement('div');
     pal.className = 'palette-bg';
-    pal.innerHTML = '<div class="palette" role="dialog" aria-label="Ara">' +
+    pal.innerHTML = '<div class="palette" role="dialog" aria-label="' + esc(SAP.i18n.t('nav.search')) + '">' +
       '<div class="palette-in">' +
-        '<input type="text" placeholder="Konu, işlem kodu, tablo veya terim ara…" aria-label="Arama">' +
+        '<input type="text" placeholder="' + esc(SAP.i18n.t('nav.searchHint')) +
+          '" aria-label="' + esc(SAP.i18n.t('nav.search')) + '">' +
       '</div>' +
       '<div class="palette-list">' + palResultsHTML('') + '</div>' +
       '<div class="palette-f"><span><kbd>↑</kbd><kbd>↓</kbd> gez</span>' +

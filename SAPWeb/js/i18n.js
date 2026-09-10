@@ -351,15 +351,20 @@
       return g.ad;
     },
 
-    /** Konu başlığı. */
-    baslik: function (t) {
-      var e = dil === 'en' && TOPICS_EN[t.id];
+    /** Konu başlığı — seçili dilde. */
+    baslik: function (t) { return i18n.baslikDil(t, dil); },
+
+    /** Konu özeti — seçili dilde. */
+    ozet: function (t) { return i18n.ozetDil(t, dil); },
+
+    /* Belirli bir dildeki karşılık. Arama indeksi bunu kullanır: görünen
+       etiket seçili dilden gelir ama ARANAN metin iki dili de içerir. */
+    baslikDil: function (t, d) {
+      var e = d === 'en' && TOPICS_EN[t.id];
       return e && e.title ? e.title : t.title;
     },
-
-    /** Konu özeti. */
-    ozet: function (t) {
-      var e = dil === 'en' && TOPICS_EN[t.id];
+    ozetDil: function (t, d) {
+      var e = d === 'en' && TOPICS_EN[t.id];
       return e && e.summary ? e.summary : (t.summary || '');
     },
 

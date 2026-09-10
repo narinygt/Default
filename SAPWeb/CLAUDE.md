@@ -1511,6 +1511,23 @@ FI kataloğu bittiği için sıradaki iş **içerik değil**. İki yön:
 
 `js/i18n.js`. Anahtar sağ üst köşede; seçim `localStorage`'a yazılır.
 
+⭐ **Kaynak dil kuralı:** `catalog.js`'teki `title` alanı artık **Türkçedir**.
+Önceden 30 başlık `Accounts Payable (Satıcılar)` biçimindeydi — İngilizce
+ad, parantezde Türkçesi; altısı ise düz Türkçeydi. Aynı listede iki farklı
+kalıp vardı ve Türkçe arayüzde başlıkların çoğu İngilizce görünüyordu.
+Şimdi **TR alanda Türkçe, EN alanda İngilizce**; İngilizce karşılıklar
+`TOPICS_EN`'de duruyor.
+
+⚠️ **Parantez yalnızca İŞLEM KODU için kalır** — `Otomatik Ödeme Programı
+(F110)` gibi. F110 bir çeviri değil, sistemde birebir aranan bir
+literaldir (bkz. §2 Dil kuralı).
+
+⚠️ **Arama indeksi İKİ DİLİ birden taşır.** Başlıklar Türkçeleşince
+`"Accounts Payable"` araması sonuçsuz kalıyordu; oysa danışman kavramı
+çoğu zaman İngilizce adıyla arar. Görünen etiket seçili dilden gelir,
+**aranan metin her iki dili de içerir** (`search.js` → `baslikDil`).
+İndeks dile bağlı olduğu için dil değişince **yeniden kurulur**.
+
 **Çevrilir:** bütün arayüz metinleri · dokuz grup adı · 36 konunun
 **başlığı ve özeti** · seviye adları (Başlangıç → Beginner) · 11 bölüm adı ·
 boş durum metinleri. Ayrıca **yüzde biçimi** dile göre değişir:

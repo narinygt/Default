@@ -11,24 +11,33 @@
   'use strict';
 
   var index = null;
+  var indexDil = null;   // indeks hangi dilde kuruldu (bkz. build())
 
   function build() {
     var ix = [];
 
+    /* Konu indeksi İKİ DİLİ birden taşır.
+       Başlıklar Türkçeleştirildikten sonra "Accounts Payable" araması
+       sonuçsuz kalıyordu — oysa danışman kavramı çoğu zaman İngilizce
+       adıyla arar. Görünen etiket seçili dilden gelir; ARANAN metin
+       her iki dili de içerir. */
     SAP.allTopics().forEach(function (t) {
+      var trAd = t.title;
+      var enAd = SAP.i18n.baslikDil(t, 'en');
       ix.push({
-        tur: 'Konu', ic: t.icon, baslik: t.title,
-        alt: t.summary,
+        tur: 'topic', baslik: SAP.i18n.baslik(t),
+        alt: SAP.i18n.ozet(t),
         href: '#/konu/' + encodeURIComponent(t.id),
-        anahtar: SAP.norm(t.title + ' ' + t.summary + ' ' + t.id + ' ' + (t.level || '')),
-        ad: SAP.norm(t.title),
+        anahtar: SAP.norm([trAd, enAd, t.summary, SAP.i18n.ozetDil(t, 'en'),
+                           t.id, t.level || ''].join(' ')),
+        ad: SAP.norm(SAP.i18n.baslik(t)),
         agirlik: t.status === 'ready' ? 3 : 1,
       });
     });
 
     SAP.tcodeMap.forEach(function (x) {
       ix.push({
-        tur: 'İşlem kodu', ic: '⌨️', baslik: x.kod,
+        tur: 'tcode', baslik: x.kod,
         alt: x.ad + ' — ' + (x.modul || ''),
         href: '#/tcode/' + encodeURIComponent(SAP.upper(x.kod)),
         anahtar: SAP.norm(x.kod + ' ' + x.ad + ' ' + (x.aciklama || '') + ' ' + (x.modul || '')),
@@ -39,7 +48,7 @@
 
     SAP.tableMap.forEach(function (x) {
       ix.push({
-        tur: 'Tablo', ic: '🗃️', baslik: x.ad,
+        tur: 'table', baslik: x.ad,
         alt: x.baslik + ' — ' + (x.modul || ''),
         href: '#/tablo/' + encodeURIComponent(SAP.upper(x.ad)),
         anahtar: SAP.norm(x.ad + ' ' + x.baslik + ' ' + (x.aciklama || '')),
@@ -50,7 +59,7 @@
 
     SAP.termMap.forEach(function (x, k) {
       ix.push({
-        tur: 'Terim', ic: '📖', baslik: x.ad,
+        tur: 'term', baslik: x.ad,
         alt: x.en + ' — ' + x.aciklama,
         href: '#/terim/' + encodeURIComponent(k),
         anahtar: SAP.norm(x.ad + ' ' + x.en + ' ' + x.aciklama),
@@ -63,7 +72,10 @@
   }
 
   function search(q, limit) {
-    if (!index) index = build();
+    /* ⚠️ İndeks DİLE BAĞLI: görünen başlık seçili dilden geliyor.
+       Dil değiştiğinde yeniden kurulmazsa palet eski dilde kalırdı. */
+    var d = SAP.i18n.get();
+    if (!index || indexDil !== d) { index = build(); indexDil = d; }
     var n = SAP.norm(q);
     if (!n) return [];
 

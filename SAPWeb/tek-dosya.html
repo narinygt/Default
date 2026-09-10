@@ -4,8 +4,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="SAP S/4HANA Financial Accounting (FI) interaktif eğitim platformu — iş süreci, muhasebe mantığı, işlem kodları, tablolar ve S/4HANA yenilikleri.">
-<title>SAP S/4HANA FI Eğitim Platformu</title>
+<meta name="description" content="SAP FI Compass — S/4HANA Finansal Muhasebe: iş süreci, muhasebe mantığı, işlem kodları, tablolar ve S/4HANA yenilikleri.">
+<title>SAP FI Compass</title>
 
 <!-- Tema, kabuk ve yazdırma stilleri. Harici font/CDN yok: internetsiz de aynı görünür. -->
 
@@ -535,8 +535,9 @@ svg { display: block; }
 }
 
 .brand {
-  display: block;
-  padding: var(--sp-4) var(--sp-5);
+  display: flex;
+  align-items: center;
+  padding: 0 var(--sp-5);
   height: var(--topbar-h);
   border-bottom: 1px solid var(--rule);
   color: inherit;
@@ -544,19 +545,11 @@ svg { display: block; }
 }
 .brand:hover { text-decoration: none; }
 .brand b {
-  display: block;
   font-family: var(--font-serif);
-  font-size: 15.5px;
+  font-size: 17px;
   font-weight: 600;
-  letter-spacing: -.01em;
+  letter-spacing: -.012em;
   line-height: 1.2;
-}
-.brand span {
-  display: block;
-  font-size: 11.5px;
-  color: var(--ink-3);
-  line-height: 1.3;
-  margin-top: 1px;
 }
 
 .side-scroll { flex: 1; overflow-y: auto; padding: var(--sp-3) 0 var(--sp-5); }
@@ -2463,8 +2456,10 @@ window.SAP = (function () {
 
   var DICT = {
     tr: {
-      'app.name':        'SAP S/4HANA FI',
-      'app.tagline':     'Finansal Muhasebe El Kitabı',
+      /* Ürün adı — her iki dilde AYNI. Özel isim çevrilmez.
+         Alt başlık kaldırıldı: "el kitabı" gibi bir sıfat, adın kendisi
+         zaten yeterince açıkken sayfaya ağırlık ekliyordu. */
+      'app.name':        'SAP FI Compass',
       'nav.home':        'İçindekiler',
       'nav.fav':         'Favorilerim',
       'nav.notes':       'Notlarım',
@@ -2543,8 +2538,7 @@ window.SAP = (function () {
     },
 
     en: {
-      'app.name':        'SAP S/4HANA FI',
-      'app.tagline':     'A Financial Accounting Handbook',
+      'app.name':        'SAP FI Compass',
       'nav.home':        'Contents',
       'nav.fav':         'Bookmarks',
       'nav.notes':       'Notes',
@@ -50950,7 +50944,7 @@ SAP.registerTopic({
     /* --- içerik hazır değilse --- */
     if (!ids.length) {
       return '<div class="topic-layout"><div>' + head +
-        '<div class="print-head">SAP S/4HANA FI — ' + esc(bas(t)) + '</div>' +
+        '<div class="print-head">' + esc(T('app.name')) + ' — ' + esc(bas(t)) + '</div>' +
         U.note('warn', '', T('topic.soon')) +
         (t.tcodes && t.tcodes.length ? U.subH('', T('ref.tcode')) + U.chips(t.tcodes) : '') +
         (t.tables && t.tables.length ? U.subH('', T('ref.table')) + U.chips(t.tables) : '') +
@@ -51014,7 +51008,7 @@ SAP.registerTopic({
 
     return '<div class="topic-layout">' +
       '<div>' +
-        '<div class="print-head">SAP S/4HANA FI — ' + esc(bas(t)) + '</div>' +
+        '<div class="print-head">' + esc(T('app.name')) + ' — ' + esc(bas(t)) + '</div>' +
         head + govde +
         '<section class="section"><div class="section-h plain">' +
           '<span class="num"></span><h2>' + esc(T('topic.related')) + '</h2></div>' +
@@ -51523,7 +51517,7 @@ SAP.registerTopic({
     }).join('');
 
     return '<a class="brand" data-go="#/" href="#/">' +
-        '<b>' + esc(T('app.name')) + '</b><span>' + esc(T('app.tagline')) + '</span>' +
+        '<b>' + esc(T('app.name')) + '</b>' +
       '</a>' +
       '<div class="side-scroll">' + nav + gruplar + '</div>' +
       '<div class="side-foot">' +
@@ -51766,7 +51760,7 @@ SAP.registerTopic({
     applyCollapse();
 
     var t = SAP.route.name === 'konu' ? SAP.topic(SAP.route.parts[0]) : null;
-    document.title = (t ? t.title + ' — ' : '') + 'SAP S/4HANA FI Eğitim Platformu';
+    document.title = (t ? SAP.i18n.baslik(t) + ' — ' : '') + SAP.i18n.t('app.name');
   });
 
   /* İçindekiler listesinde okunmakta olan bölümü işaretle. */

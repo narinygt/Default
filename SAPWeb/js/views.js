@@ -206,7 +206,7 @@
     /* --- içerik hazır değilse --- */
     if (!ids.length) {
       return '<div class="topic-layout"><div>' + head +
-        '<div class="print-head">SAP S/4HANA FI — ' + esc(bas(t)) + '</div>' +
+        '<div class="print-head">' + esc(T('app.name')) + ' — ' + esc(bas(t)) + '</div>' +
         U.note('warn', '', T('topic.soon')) +
         (t.tcodes && t.tcodes.length ? U.subH('', T('ref.tcode')) + U.chips(t.tcodes) : '') +
         (t.tables && t.tables.length ? U.subH('', T('ref.table')) + U.chips(t.tables) : '') +
@@ -270,7 +270,7 @@
 
     return '<div class="topic-layout">' +
       '<div>' +
-        '<div class="print-head">SAP S/4HANA FI — ' + esc(bas(t)) + '</div>' +
+        '<div class="print-head">' + esc(T('app.name')) + ' — ' + esc(bas(t)) + '</div>' +
         head + govde +
         '<section class="section"><div class="section-h plain">' +
           '<span class="num"></span><h2>' + esc(T('topic.related')) + '</h2></div>' +

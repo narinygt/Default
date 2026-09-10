@@ -29,8 +29,10 @@
 
   var DICT = {
     tr: {
-      'app.name':        'SAP S/4HANA FI',
-      'app.tagline':     'Finansal Muhasebe El Kitabı',
+      /* Ürün adı — her iki dilde AYNI. Özel isim çevrilmez.
+         Alt başlık kaldırıldı: "el kitabı" gibi bir sıfat, adın kendisi
+         zaten yeterince açıkken sayfaya ağırlık ekliyordu. */
+      'app.name':        'SAP FI Compass',
       'nav.home':        'İçindekiler',
       'nav.fav':         'Favorilerim',
       'nav.notes':       'Notlarım',
@@ -109,8 +111,7 @@
     },
 
     en: {
-      'app.name':        'SAP S/4HANA FI',
-      'app.tagline':     'A Financial Accounting Handbook',
+      'app.name':        'SAP FI Compass',
       'nav.home':        'Contents',
       'nav.fav':         'Bookmarks',
       'nav.notes':       'Notes',

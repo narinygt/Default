@@ -100,7 +100,7 @@
     }).join('');
 
     return '<a class="brand" data-go="#/" href="#/">' +
-        '<b>' + esc(T('app.name')) + '</b><span>' + esc(T('app.tagline')) + '</span>' +
+        '<b>' + esc(T('app.name')) + '</b>' +
       '</a>' +
       '<div class="side-scroll">' + nav + gruplar + '</div>' +
       '<div class="side-foot">' +
@@ -343,7 +343,7 @@
     applyCollapse();
 
     var t = SAP.route.name === 'konu' ? SAP.topic(SAP.route.parts[0]) : null;
-    document.title = (t ? t.title + ' — ' : '') + 'SAP S/4HANA FI Eğitim Platformu';
+    document.title = (t ? SAP.i18n.baslik(t) + ' — ' : '') + SAP.i18n.t('app.name');
   });
 
   /* İçindekiler listesinde okunmakta olan bölümü işaretle. */

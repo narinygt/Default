@@ -1,4 +1,4 @@
-# SAP S/4HANA FI — İnteraktif Eğitim Platformu
+# SAP FI Compass — S/4HANA Finansal Muhasebe
 
 > Bu dosya projenin **tek kaynağıdır**: plan, mimari, veri şeması, içerik durumu ve
 > çıkarılan dersler burada tutulur. **Her güncellemede yenilenir.**
@@ -342,6 +342,7 @@ Kapsam **latin + latin-ext** ile sınırlı: latin-ext Türkçe için
 
 | Bileşen | Karar | Dosya |
 |---|---|---|
+| Ürün adı | **SAP FI Compass** — kenar çubuğunun üstünde tek satır, alt başlık **yok**. Ad her iki dilde aynıdır (özel isim çevrilmez) | `i18n.js` `app.name` |
 | Ana sayfa | **Numaralı içindekiler dizini** (01…36), dokuz bölüm. Kart ızgarası, rozet, istatistik kutusu, hero **yok** | `views.js` `home` |
 | Satır meta | Yalnızca **seviye** + okundu noktası. ⚠️ **Süre ("40 dk") ve sayaçlar kaldırıldı** — bir kitabın içindekiler sayfasında ne okuma süresi ne bölüm adedi yazar; okuma hızı okuyucunun işidir | `views.js`, `ui.js` |
 | Açıklama | Satır **tıklanınca** açılır; dizin taranabilir kalır | `.idx-sum`, `store.acikDizin` |

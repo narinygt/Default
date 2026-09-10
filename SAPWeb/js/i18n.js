@@ -44,7 +44,6 @@
       'nav.lang':        'Dil',
 
       'home.title':      'İçindekiler',
-      'home.subtitle':   'Otuz altı konu, dokuz bölüm.',
       'home.resume':     'Kaldığın yerden devam et',
       'home.start':      'Okumaya başla',
       'home.progress':   'Genel ilerleme',
@@ -123,7 +122,6 @@
       'nav.lang':        'Language',
 
       'home.title':      'Contents',
-      'home.subtitle':   'Thirty-six topics in nine parts.',
       'home.resume':     'Continue where you left off',
       'home.start':      'Start reading',
       'home.progress':   'Overall progress',

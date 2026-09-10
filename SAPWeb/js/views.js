@@ -131,10 +131,9 @@
     }).join('');
 
     return '<div class="wrap-full">' +
-      '<header class="toc-head">' +
-        '<h1>' + esc(T('home.title')) + '</h1>' +
-        '<p>' + esc(T('home.subtitle')) + '</p>' +
-      '</header>' +
+      /* Alt başlık YOK: "Otuz altı konu, dokuz bölüm" bilgisi zaten
+         dizinin kendisinde duruyor — sayarak değil bakarak görülür. */
+      '<header class="toc-head"><h1>' + esc(T('home.title')) + '</h1></header>' +
       resume +
       bolumler +
     '</div>';

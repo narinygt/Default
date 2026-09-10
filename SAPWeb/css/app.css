@@ -309,9 +309,7 @@
 .toc-head h1 {
   font-size: var(--t-title);
   font-weight: 600;
-  margin-bottom: 6px;
 }
-.toc-head p { color: var(--ink-3); font-size: var(--t-sm); margin: 0; }
 
 /* --- Tek eylem: kaldığın yerden devam et --- */
 .resume {

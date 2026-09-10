@@ -678,9 +678,7 @@ svg { display: block; }
 .toc-head h1 {
   font-size: var(--t-title);
   font-weight: 600;
-  margin-bottom: 6px;
 }
-.toc-head p { color: var(--ink-3); font-size: var(--t-sm); margin: 0; }
 
 /* --- Tek eylem: kaldığın yerden devam et --- */
 .resume {
@@ -2463,7 +2461,6 @@ window.SAP = (function () {
       'nav.lang':        'Dil',
 
       'home.title':      'İçindekiler',
-      'home.subtitle':   'Otuz altı konu, dokuz bölüm.',
       'home.resume':     'Kaldığın yerden devam et',
       'home.start':      'Okumaya başla',
       'home.progress':   'Genel ilerleme',
@@ -2542,7 +2539,6 @@ window.SAP = (function () {
       'nav.lang':        'Language',
 
       'home.title':      'Contents',
-      'home.subtitle':   'Thirty-six topics in nine parts.',
       'home.resume':     'Continue where you left off',
       'home.start':      'Start reading',
       'home.progress':   'Overall progress',
@@ -50873,10 +50869,9 @@ SAP.registerTopic({
     }).join('');
 
     return '<div class="wrap-full">' +
-      '<header class="toc-head">' +
-        '<h1>' + esc(T('home.title')) + '</h1>' +
-        '<p>' + esc(T('home.subtitle')) + '</p>' +
-      '</header>' +
+      /* Alt başlık YOK: "Otuz altı konu, dokuz bölüm" bilgisi zaten
+         dizinin kendisinde duruyor — sayarak değil bakarak görülür. */
+      '<header class="toc-head"><h1>' + esc(T('home.title')) + '</h1></header>' +
       resume +
       bolumler +
     '</div>';

@@ -57,7 +57,7 @@
      üstünde kontrast verir; okunaklıdır ama sert değildir. */
   --text:        oklch(30% 0.018 265);
   --text-2:      oklch(48% 0.016 265);
-  --text-3:      oklch(63% 0.014 265);
+  --text-3:      oklch(54% 0.014 265);  /* AA: 4.79 — 63% iken 3.33'tü */
   --text-inv:    oklch(99% 0.003 95);
 
   /* --------------------------------------------- GRUP RENGİ AÇISI ---
@@ -111,7 +111,7 @@
   --rail-line:  oklch(90% 0.010 95);
   --rail-tx:    oklch(34% 0.018 265);
   --rail-tx-2:  oklch(46% 0.016 265);
-  --rail-tx-3:  oklch(62% 0.014 265);
+  --rail-tx-3:  oklch(53% 0.014 265);  /* aynı sebep — açık zeminli gezinme sütunu */
   --rail-on:    oklch(26% 0.020 265);
 
   /* --------------------------------------------------------- GÖLGE ---

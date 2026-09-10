@@ -560,6 +560,7 @@
   background: var(--surface-2);
   color: var(--text-2);
   white-space: nowrap;
+  max-width: 100%;   /* uzun etiket sayfayı yatay taşırmasın */
 }
 .tag.lv-baslangic { background: var(--ok-soft); color: var(--ok); }
 .tag.lv-orta      { background: var(--info-soft); color: var(--info); }
@@ -1016,7 +1017,11 @@ table.tbl .mono { font-family: var(--font-mono); font-size: 13px; }
   transform: translateY(-50%);
   font-size: var(--t-xs);
   color: var(--text-3);
-  white-space: nowrap;
+  /* Mutlak konumlu ve nowrap olduğu için uzun bir koşul etiketi
+     ("tamamen tahsil edilemezse") dar ekranda kabın dışına taşıyordu.
+     Kısa etiketler zaten tek satıra sığdığı için görünüm değişmiyor. */
+  white-space: normal;
+  max-width: calc(100% - 24px);
   background: var(--surface-2);
   padding: 0 6px;
 }
@@ -1441,6 +1446,10 @@ table.tbl .mono { font-family: var(--font-mono); font-size: 13px; }
   display: flex;
   align-items: center;
   gap: 7px;
+  /* Başlıkta uzun bir .tag olabilir ("Residual Value — IFRS (IAS 16)").
+     Sarmalanmazsa 390px'de sayfayı yatay kaydırılır hâle getiriyordu. */
+  flex-wrap: wrap;
+  min-width: 0;
 }
 
 /* ===================================================== 11. RESPONSIVE ===

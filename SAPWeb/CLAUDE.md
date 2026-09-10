@@ -354,6 +354,12 @@ soru kartı bölümü kaldırıldı.
 | Grup açıları | 66 · 99 · 132 · 165 · 198 · 231 · 264 · 297 · 330 | Kart üst şeridi, ikon kutusu, grup başlığı, konu başlığı paneli |
 | Anlamsal | ok 158 · uyarı 68 · hata 27 · bilgi 245 | Uyarı kutuları, fiş denklik uyarısı |
 
+**Kontrast — ölçülmüş değerler** (canvas piksel probu, WCAG AA eşiği 4.5):
+buton beyaz/marka **6.06** · bağlantı **5.92** · gövde metin **12.94** ·
+ikincil **6.19** · üçüncül **4.79** · dokuz grubun etiketi **5.97–6.67**,
+ikonu **4.57–5.05**. ⚠️ `--text-3` bu turda **3.33'ten** 4.79'a çıkarıldı
+(açık temada 63% → 54%); koyu tema zaten geçiyordu.
+
 **Marka neden kiremit?** Kullanıcı isteği: *"pastel bir renk seç, mavi çok
 standart duruyor."* Doygunluk bilerek düşük (0.088) — pastel karakter
 buradan gelir. Açıklık %50'de tutuldu; daha açık bir ton beyaz yazıyla
@@ -394,7 +400,9 @@ konursa yalnızca `--font` / `--font-display` satırı değişir.
 - Kartlar tek sütuna iner; künye paneli **iki sütuna** bölünür (dikey
   liste gereksiz uzuyordu).
 - 62rem altında gezinme çekmeceye iner, içindekiler sütunu gizlenir.
-- 390px'de yatay taşma yok — headless Chromium'da ölçüldü.
+- **Taşma taraması kapsamlı yapılır:** 36 konu + 6 rota, **390 ve 360px**
+  (84 ölçüm). ⚠️ Tek sayfada ölçmek yetmez — ana sayfa temizken üç konu
+  sayfası taşıyordu (bkz. Ders #30).
 
 ---
 
@@ -1487,3 +1495,53 @@ FI kataloğu bittiği için sıradaki iş **içerik değil**. İki yön:
     İlkeler de doğrulanmalıdır — kod gibi.
     (b) *Makul görünen çıktı, doğrulanmamış çıktıdır.* Tek renkli bir arayüz
     bir kusur değil bir tercih gibi okunur; hatayı gizleyen şey buydu.
+
+30. **Bir ölçümü tek örnek üzerinde yapmak, o ölçümü yapmamaktır.**
+    Ders #29'u düzelttikten sonra *"eksik kaldı mı?"* sorusu üzerine
+    kapsamlı bir tarama yapıldı ve **üç ayrı kusur** çıktı — üçü de
+    daha önce "doğrulandı" denmiş alanlardaydı.
+
+    **① Responsive taraması tek sayfada yapılmıştı.** CLAUDE.md
+    *"390px'de yatay taşma yok"* diyordu ve doğruydu — **ana sayfa için**.
+    36 konu taranınca `asset-accounting` **561px**, `migration` 403px
+    çıktı. Sebep: `.panel > h3` bir flex kutusuydu, `flex-wrap` yoktu ve
+    içindeki uzun bir `.tag` ("Residual Value — IFRS (IAS 16)")
+    `white-space: nowrap` olduğu için satırı zorluyordu.
+    Şimdi tarama **36 konu + 6 rota × iki genişlik = 84 ölçüm**.
+
+    **② Kontrast hiç ölçülmemişti.** `--text-3` açık temada **3.33** ile
+    AA eşiğinin altındaydı — kart alt bilgisi ("Orta · 55 dk"), ipuçları
+    ve gezinme sütunu sayaçları bu tonda. 63% → 54% yapıldı (4.79).
+    Kullanıcının önceki turdaki *"göz yorucu"* geri bildirimiyle aynı
+    aileden bir kusur; renk **eklemek** yetmiyor, okunabilirliği
+    **ölçmek** gerekiyor.
+
+    **③ ⭐ Kontrast ölçümünün kendisi bozuktu** — ve bu, Ders #17'nin
+    en temiz tekrarı. İlk deneme şunu yapıyordu:
+
+    ```js
+    d.style.color = 'oklch(54% 0.014 265)';
+    getComputedStyle(d).color.match(/[\d.]+/g)   // ["54","0.014","265"]
+    ```
+
+    Modern Chromium `getComputedStyle().color` değerini **oklch olarak
+    döndürür**, `rgb()`'ye çevirmez. Regex `54`'ü kırmızı kanal sanıyordu.
+    Sonuç: siyah metin / beyaz zemin **2.21** çıkıyordu (gerçeği 21) ve
+    ölçüm **her şeyi kırmızı bayrakla** işaretliyordu.
+
+    Doğru yöntem — gerçek sRGB baytları için canvas'a boyayıp piksel oku:
+
+    ```js
+    cx.fillStyle = col; cx.fillRect(0,0,1,1);
+    const [r,g,b] = cx.getImageData(0,0,1,1).data;
+    ```
+
+    ⭐ **Ve ölçüme bir sağlama eklendi:** `kontrast('#000','#fff') === 21`.
+    Bu satır olmasaydı ikinci ölçüme de güvenilebilirdi. Ders #17 *"sıfırın
+    anlamlı olması için sorgunun sıfırdan farklı dönebildiğini gör"*
+    diyordu; buradaki hâli: **bilinen cevabı olan bir girdiyle ölç.**
+    Siyah/beyaz 21'dir — evrensel bir kontrol numunesi.
+
+    **Genel ders:** *"doğrulandı" bir kapsam belirtmeden yazılmamalıdır.*
+    ①'de kapsam bir sayfaydı ama "site" diye yazılmıştı. Bu yüzden §7'deki
+    her madde artık **kaç örnek üzerinde** ölçüldüğünü söylüyor.

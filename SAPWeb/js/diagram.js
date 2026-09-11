@@ -33,7 +33,7 @@
       if (n.rol) out += '<div class="fn-r">' + mk(n.rol) + '</div>';
       out += '<div class="fn-t">' + mk(n.baslik) + '</div>';
       if (n.aciklama) out += '<div class="fn-d">' + mk(n.aciklama) + '</div>';
-      if (n.cikti) out += '<div class="fn-o"><span class="fn-o-k">Çıktı</span>' + mk(n.cikti) + '</div>';
+      if (n.cikti) out += '<div class="fn-o"><span class="fn-o-k">' + esc(SAP.i18n.etiket('Çıktı')) + '</span>' + mk(n.cikti) + '</div>';
       out += '</div></div>';
       if (i < d.adimlar.length - 1) {
         out += '<div class="flow-arrow">' + (n.ok ? '<span class="lb">' + mk(n.ok) + '</span>' : '') + '</div>';
@@ -183,17 +183,20 @@
     };
     var db = sum(d.borc), cr = sum(d.alacak);
     var bal = db - cr;
+    var T = SAP.i18n.t;
 
+    /* Aynı bulgu (bkz. fis() üstündeki not, Ders #33): 'Borç'/'Alacak'/
+       'Kalan' vb. hiç i18n'den geçmiyordu. */
     return '<div class="tacc">' +
       '<div class="tacc-h"><b>' + mk(d.hesap) + '</b>' +
         (d.kod ? '<span>' + mk(d.kod) + '</span>' : '') + '</div>' +
       '<div class="tacc-body">' +
-        '<div class="tacc-col"><div class="lb">Borç</div>' + side(d.borc) + '</div>' +
-        '<div class="tacc-col"><div class="lb">Alacak</div>' + side(d.alacak) + '</div>' +
+        '<div class="tacc-col"><div class="lb">' + esc(T('jr.debit')) + '</div>' + side(d.borc) + '</div>' +
+        '<div class="tacc-col"><div class="lb">' + esc(T('jr.credit')) + '</div>' + side(d.alacak) + '</div>' +
       '</div>' +
       '<div class="tacc-foot"><div>' + SAP.num(db) + '</div><div>' + SAP.num(cr) + '</div></div>' +
-      '<div class="tacc-bal">Kalan: <b>' + SAP.num(Math.abs(bal)) + '</b> ' +
-        (bal === 0 ? '(kapalı)' : bal > 0 ? 'borç bakiyesi' : 'alacak bakiyesi') +
+      '<div class="tacc-bal">' + esc(T('th.balance')) + ': <b>' + SAP.num(Math.abs(bal)) + '</b> ' +
+        (bal === 0 ? '(' + esc(T('th.closed')) + ')' : bal > 0 ? esc(T('th.debitBalance')) : esc(T('th.creditBalance'))) +
         (d.not ? ' · ' + mk(d.not) : '') +
       '</div>' +
     '</div>';
@@ -229,20 +232,26 @@
     }).join('');
 
     var denk = Math.abs(db - cr) < 0.005;
+    var T = SAP.i18n.t, E = SAP.i18n.etiket;
 
+    /* ⚠️ Bu fonksiyon Ders #33'e kadar HİÇ i18n'den geçmiyordu — 'Hesap',
+       'Borç', 'Alacak', 'Toplam' vb. sabit Türkçeydi. jr.* sözlük anahtarları
+       DICT'te tanımlıydı ama hiçbir yerden ÇAĞRILMIYORDU (ölü sözlük girdisi).
+       İngilizce gövdede her muhasebe fişi Türkçe başlıklarla çıkıyordu. */
     return '<div class="jr">' +
-      '<div class="jr-h"><b>' + mk(d.baslik || 'Muhasebe Fişi') + '</b>' +
-        (d.belgeTuru ? '<span class="tag">Belge türü: ' + esc(d.belgeTuru) + '</span>' : '') +
+      '<div class="jr-h"><b>' + mk(d.baslik || T('jr.title')) + '</b>' +
+        (d.belgeTuru ? '<span class="tag">' + esc(T('jr.docType')) + ': ' + esc(d.belgeTuru) + '</span>' : '') +
         (d.tarih ? '<span class="mt">' + esc(d.tarih) + '</span>' : '') +
         '<span class="mt" style="margin-left:auto">' + esc(cur) + '</span>' +
       '</div>' +
       '<table><thead><tr>' +
-        '<th style="width:112px">Hesap</th><th>Açıklama</th>' +
-        '<th class="num" style="width:118px">Borç</th>' +
-        '<th class="num" style="width:118px">Alacak</th>' +
+        '<th style="width:112px">' + esc(E('Hesap')) + '</th><th>' + esc(E('Açıklama')) + '</th>' +
+        '<th class="num" style="width:118px">' + esc(T('jr.debit')) + '</th>' +
+        '<th class="num" style="width:118px">' + esc(T('jr.credit')) + '</th>' +
       '</tr></thead><tbody>' + rows + '</tbody>' +
       '<tfoot><tr><td></td><td>' +
-        (denk ? 'Toplam (denk ✓)' : '<span class="jr-bad">Toplam — DENK DEĞİL ✕</span>') +
+        (denk ? esc(T('jr.totalOk'))
+              : '<span class="jr-bad">' + esc(T('jr.total')) + ' — ' + esc(T('jr.unbalanced')) + ' ✕</span>') +
       '</td>' +
         '<td class="num">' + SAP.num(db) + '</td>' +
         '<td class="num">' + SAP.num(cr) + '</td>' +

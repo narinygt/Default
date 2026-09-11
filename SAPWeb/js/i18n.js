@@ -25,20 +25,18 @@
 
   var DILLER = ['tr', 'en'];
 
-  /* ------------------------------------------- DİL ANAHTARI: KAPALI ---
-     EN çeviri katmanı EKSİK olduğu için (arayüz ve başlıklar çevrildi,
-     konu gövdeleri Türkçe kaldı) dil anahtarı şimdilik GİZLİ. Yarım
-     çevrilmiş bir arayüz, tek dilli olandan daha kötü görünür.
+  /* ------------------------------------------- DİL ANAHTARI: AÇIK ---
+     Eylül 2026'da yeniden açıldı. Gerekçe: gövde çevirisi artık KISMEN
+     var (content/fi-en/*.js) ve views.js bunu KONU BAZINDA kontrol
+     ediyor — bir konunun bütün bölümleri sections_en'de varsa uyarı
+     çıkmaz, eksikse `.lang-notice` uyarısı görünür kalır. Yani "yarım
+     çevrili arayüz" riski artık konu düzeyinde yönetiliyor, anahtarın
+     kendisinde değil.
 
-     Kapalıyken:
-       • sağ üstteki TR/EN düğmeleri hiç basılmaz (ui.js),
-       • normalize() her değeri 'tr'ye çeker — daha önce EN seçmiş bir
-         kullanıcı localStorage yüzünden İngilizce kilitli kalmaz,
-       • EN sözlükleri DOSYADA KALIR: arama indeksi hâlâ iki dili birden
-         tarar, yani "Accounts Payable" yazınca konu bulunur.
-
-     AÇMAK İÇİN: aşağıdaki satırı true yap. Başka hiçbir yer değişmez. */
-  var ANAHTAR_ACIK = false;
+     KAPATMAK GEREKİRSE: aşağıdaki satırı false yap. Başka hiçbir yer
+     değişmez — bu satır tek başına anahtarı gizler (bkz. Ders #33'ten
+     önceki not: normalize() her değeri 'tr'ye çeker). */
+  var ANAHTAR_ACIK = true;
 
   /* ------------------------------------------------------- ARAYÜZ --- */
 
@@ -113,6 +111,14 @@
       'jr.total':        'Toplam',
       'jr.balanced':     'DENK',
       'jr.unbalanced':   'DENK DEĞİL',
+      'jr.title':        'Muhasebe Fişi',
+      'jr.docType':      'Belge türü',
+      'jr.totalOk':      'Toplam (denk ✓)',
+
+      'th.balance':        'Kalan',
+      'th.closed':         'kapalı',
+      'th.debitBalance':   'borç bakiyesi',
+      'th.creditBalance':  'alacak bakiyesi',
 
       'note.tip':        'İpucu',
       'note.warn':       'Dikkat',
@@ -191,6 +197,14 @@
       'jr.total':        'Total',
       'jr.balanced':     'BALANCED',
       'jr.unbalanced':   'NOT BALANCED',
+      'jr.title':        'Accounting Voucher',
+      'jr.docType':      'Document type',
+      'jr.totalOk':      'Total (balanced ✓)',
+
+      'th.balance':        'Balance',
+      'th.closed':         'closed',
+      'th.debitBalance':   'debit balance',
+      'th.creditBalance':  'credit balance',
 
       'note.tip':        'Tip',
       'note.warn':       'Caution',
@@ -371,6 +385,45 @@
     'Değer': 'Value',
     'Girdi': 'Input',
     'Etki': 'Effect',
+
+    /* qa() soru etiketleri ve note() başlıkları — bkz. Ders #33.
+       subH() zaten etiket() üzerinden geçiyordu; qa()/note() geçmiyordu,
+       bu yüzden gövde ilk kez İngilizceye çevrilene kadar fark edilmedi:
+       "Bu nedir?" gibi sorular İngilizce bir cümlenin ortasında Türkçe
+       kalıyordu. */
+    'Bu nedir?': 'What is it?',
+    'Neden kullanılır?': 'Why it’s used',
+    'Şirket açısından önemi nedir?': 'Why it matters to the company',
+    'Ne işe yarar?': 'What it’s for',
+    'Hangi durumda kullanılır?': 'When to use it',
+    'Gerçek hayattan örnek': 'Real-world example',
+    'Ne zaman tercih edilir?': 'When to choose it',
+    'Örnek': 'Example',
+    'İpucu': 'Tip',
+    'S/4HANA’daki durumu': 'Status in S/4HANA',
+    'S/4HANA’daki yapısı': 'Structure in S/4HANA',
+    'Fiori karşılığı': 'Fiori equivalent',
+    'Senaryo': 'Scenario',
+    'Universal Journal (ACDOCA) etkisi': 'Universal Journal (ACDOCA) impact',
+    'Bu bölüm çizilemedi': 'This section could not be rendered',
+    'Adım': 'Step',
+    'Değişiklik': 'Change',
+    'Çıktı': 'Output',
+
+    /* Eksiksiz tarama: sections.js'teki HER subH/qa/note/tbl-başlığı
+       LABELS_EN'e karşı script ile kontrol edildi, kalan 12 eksik
+       burada. Artık kaynakta kalan literal etiket yok (bkz. Ders #33). */
+    'Durum': 'Status',
+    'ECC (klasik)': 'ECC (classic)',
+    'Girilen / yapılan': 'What you enter / do',
+    'IMG yolu': 'IMG path',
+    'Kriter': 'Criterion',
+    'Ne işe yarar': 'What it’s for',
+    'Ne yapılır': 'What to do',
+    'Ne yazılır': 'What to enter',
+    'Neden etkilenir': 'Why it’s affected',
+    'Tür': 'Type',
+    'Yerine': 'Replaced by',
   };
 
   /* ------------------------------------------ BÖLÜM ADLARI (11) --- */

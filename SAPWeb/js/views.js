@@ -177,8 +177,14 @@
     var fav = SAP.store.isFav(t.id);
     var tamam = ids.length && SAP.store.readCount(t.id) >= ids.length;
 
-    /* --- başlık — kutu değil, kural çizgisiyle biten bir künye --- */
-    var uyari = SAP.i18n.govdeUyarisi();
+    /* --- başlık — kutu değil, kural çizgisiyle biten bir künye ---
+       Uyarı yalnızca EKSİK olan konularda çıkar: bu konunun TR'de var olan
+       her bölümü sections_en'de de varsa (tam çeviri), uyarı gösterilmez.
+       Kısmen çevrilmiş bir konuda uyarı kalır — okuyucu bazı bölümlerin
+       Türkçe kaldığını bilmeli. */
+    var enBolumler = t.sections_en ? Object.keys(t.sections_en) : [];
+    var tamCevrili = ids.length > 0 && ids.every(function (id) { return enBolumler.indexOf(id) !== -1; });
+    var uyari = tamCevrili ? '' : SAP.i18n.govdeUyarisi();
     var head = '<header class="thead">' +
       '<div class="thead-k">' + esc(SAP.i18n.grup(grup(t.grup))) + '</div>' +
       '<h1>' + esc(bas(t)) + '</h1>' +
@@ -219,10 +225,10 @@
         var okundu = SAP.store.isRead(t.id, s.id);
         var icerik;
         try {
-          icerik = s.render(t.sections[s.id], t);
+          icerik = s.render(SAP.sectionData(t, s.id), t);
         } catch (err) {
           console.error('[SAP] bölüm çizim hatası:', t.id, s.id, err);
-          icerik = U.note('err', 'Bu bölüm çizilemedi', esc(err && err.message));
+          icerik = U.note('err', SAP.i18n.etiket('Bu bölüm çizilemedi'), esc(err && err.message));
         }
         var kapali = SAP.store.isSectionClosed(t.id, s.id);
         /* Başlığın kendisi katlama düğmesidir; "Okundu işaretle" onun
@@ -315,8 +321,8 @@
         '<span class="tag ready">' + esc(x.tur) + '</span>' +
       '</div>' +
 
-      (x.s4 ? U.note('warn', 'S/4HANA’daki durumu', x.s4) : '') +
-      (x.fiori ? U.note('info', 'Fiori karşılığı', x.fiori) : '') +
+      (x.s4 ? U.note('warn', SAP.i18n.etiket('S/4HANA’daki durumu'), x.s4) : '') +
+      (x.fiori ? U.note('info', SAP.i18n.etiket('Fiori karşılığı'), x.fiori) : '') +
 
       (konular.length
         ? '<div class="panel"><h3>' + esc(T('ref.usedIn')) + '</h3>' + relatedGrid(konular.map(function (t) { return t.id; })) + '</div>'
@@ -363,7 +369,7 @@
             })) + '</div>'
         : '') +
 
-      (x.s4 ? U.note('warn', 'S/4HANA’daki yapısı', x.s4) : '') +
+      (x.s4 ? U.note('warn', SAP.i18n.etiket('S/4HANA’daki yapısı'), x.s4) : '') +
 
       (konular.length
         ? '<div class="panel"><h3>Bu tablo şu konularda anlatılıyor</h3>' + relatedGrid(konular.map(function (t) { return t.id; })) + '</div>'

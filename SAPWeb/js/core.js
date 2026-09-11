@@ -100,6 +100,18 @@ window.SAP = (function () {
   function table(k)   { return tables.get(upper(k)) || null; }
   function term(k)    { return terms.get(slug(k)) || null; }
 
+  /* Bölüm verisi — DİL FARKINA VARIR. content/fi-en/<id>.js aynı id ile
+     `sections_en` gönderirse registerTopic bunu `t.sections_en`'e MERGE eder
+     (bkz. registerTopic yorumu). EN seçiliyken önce oraya bakılır; o bölüm
+     için EN veri yoksa TR'ye SESSİZCE düşülür — böylece kısmi çeviri (bazı
+     konular EN, bazıları henüz değil; bir konuda bazı bölümler EN, bazıları
+     değil) sayfayı KIRMAZ, sadece o parça Türkçe kalır. */
+  function sectionData(t, id) {
+    if (SAP.i18n && SAP.i18n.get() === 'en' && t.sections_en && t.sections_en[id] != null)
+      return t.sections_en[id];
+    return t.sections ? t.sections[id] : null;
+  }
+
   /* ================================================= kalıcı durum === */
 
   var KEY = 'sapfi_v1';
@@ -324,7 +336,7 @@ window.SAP = (function () {
     registerTerms: registerTerms,
     // sorgu
     modules: modules, topic: topic, allTopics: allTopics,
-    tcode: tcode, table: table, term: term,
+    tcode: tcode, table: table, term: term, sectionData: sectionData,
     tcodeMap: tcodes, tableMap: tables, termMap: terms,
     // durum
     store: store,

@@ -44,9 +44,9 @@
       <nav class="topbar-crumb" id="crumb" aria-label="Konum"></nav>
       <span class="topbar-spacer"></span>
       <button class="searchbtn" id="search-btn" type="button" data-action="open-search"></button>
-      <!-- Dil anahtarı — sağ üst köşe. ŞU AN GİZLİ: EN çevirisi
-           tamamlanmadığı için js/i18n.js içindeki ANAHTAR_ACIK false.
-           Kutu DOM'da duruyor ki açmak tek satırlık iş olsun. -->
+      <!-- Dil anahtarı — sağ üst köşe. `hidden` niteliği burada yalnızca
+           İLK BOYAMADA yanıp sönmeyi önler; ui.js her render'da
+           SAP.i18n.anahtarAcik'e göre gerçek durumu yazar (js/i18n.js). -->
       <div class="langsw" id="langsw" role="group" aria-label="Language" hidden></div>
       <button class="iconbtn" type="button" id="theme-btn" data-action="toggle-theme"></button>
     </header>
@@ -118,6 +118,15 @@
 <script src="content/fi/migration.js"></script>
 <script src="content/fi/best-practices.js"></script>
 <script src="content/fi/s4-yenilikleri.js"></script>
+
+<!-- 3b) İngilizce gövde çevirisi (kısmi) — bkz. CLAUDE.md §10.
+     Her dosya content/fi/'daki aynı id'li konuya `sections_en` olarak
+     MERGE olur (js/core.js registerTopic). Henüz çevrilmemiş konular
+     bu listede yer almaz ve gövdeleri Türkçe kalır — sayfa kırılmaz. -->
+<script src="content/fi-en/genel-muhasebe.js"></script>
+<script src="content/fi-en/fi-temelleri.js"></script>
+<script src="content/fi-en/org-yapisi.js"></script>
+<script src="content/fi-en/master-data.js"></script>
 
 <!-- 4) arayüz -->
 <script src="js/sections.js"></script>

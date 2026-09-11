@@ -57,9 +57,13 @@
   function subH(ic, t) { return '<div class="sub-h">' + mk(SAP.i18n.etiket(t)) + '</div>'; }
 
   /** Soru-cevap bloğu: küçük soru etiketi + paragraf gövdesi. */
+  /* ⚠️ `q` renderer'ın KENDİ etiketidir (yazar prozası değil) — subH()
+     gibi SAP.i18n.etiket() üzerinden geçer. Bu satır eklenene kadar EN
+     gövde içinde "Bu nedir?" gibi sorular Türkçe kalıyordu; gövde hiç
+     çevrilmediği için fark edilmemişti (bkz. Ders #33). */
   function qa(q, body) {
     if (!body) return '';
-    return '<div class="qa"><div class="qa-q">' + esc(q) + '</div><div class="prose">' + mkp(body) + '</div></div>';
+    return '<div class="qa"><div class="qa-q">' + esc(SAP.i18n.etiket(q)) + '</div><div class="prose">' + mkp(body) + '</div></div>';
   }
 
   /* Uyarı kutusu. Türü emoji ile değil, RENKLİ SOL KURAL + seyreltilmiş
@@ -70,6 +74,17 @@
 
   /* Uyarı kutusunda İKON YOK: kutu zaten üç şeyle kendini anlatıyor —
      renk, sol kenar şeridi ve tür etiketi. Etiket i18n'den gelir. */
+  /* ⚠️ `title` İKİ YERDEN gelir ve DAVRANIŞLARI FARKLIDIR:
+       ① renderer'ın kendi sabit etiketi (örn. 'Senaryo') — bunlar
+         çağrı yerinde SAP.i18n.etiket() ile ÖNCEDEN çevrilip buraya
+         hazır gelir (bkz. altta not('info', SAP.i18n.etiket('Senaryo'), …)).
+       ② yazar içeriği (`notlar[].baslik`) — düz metin DEĞİLDİR, içinde
+         {{FB08}} gibi çapraz link ve **kalın** biçim geçebilir; bu yüzden
+         mk() ile çözülmesi ZORUNLUDUR.
+     `title` burada etiket() ÇAĞIRMAZ: ② durumunda içerik metnini
+     LABELS_EN sözlüğünde aramak (zararsız da olsa) anlamsızdır ve
+     eskiden mk() ile çözülen {{...}} işaretlerini kaçırırdı — tam
+     olarak bu satır yüzünden 3 konuda ham `{{` belirdi (bkz. Ders #33). */
   function note(kind, title, body) {
     if (!body) return '';
     return '<div class="note ' + kind + '">' +
@@ -164,7 +179,7 @@
       qa('Bu nedir?', d.nedir) +
       qa('Neden kullanılır?', d.neden) +
       qa('Şirket açısından önemi nedir?', d.sirketOnemi) +
-      (d.gercekHayat ? note('info', 'Gerçek hayattan örnek', d.gercekHayat) : '') +
+      (d.gercekHayat ? note('info', SAP.i18n.etiket('Gerçek hayattan örnek'), d.gercekHayat) : '') +
       (d.muhasebeMantigi ? subH('⚖️', 'Muhasebe mantığı') + '<div class="prose">' + mkp(d.muhasebeMantigi) + '</div>' : '') +
       (d.kavramlar && d.kavramlar.length
         ? subH('🔑', 'Bu konuda geçen anahtar kavramlar') + chips(d.kavramlar, 'terim') : '');
@@ -239,8 +254,8 @@
       return '<div class="panel">' +
         '<h3>' + mk(c.ad) + (c.en ? ' <span class="tag">' + mk(c.en) + '</span>' : '') + '</h3>' +
         (c.aciklama ? '<div class="prose">' + mkp(c.aciklama) + '</div>' : '') +
-        (c.neZaman ? note('tip', 'Ne zaman tercih edilir?', c.neZaman) : '') +
-        (c.ornek ? note('info', 'Örnek', c.ornek) : '') +
+        (c.neZaman ? note('tip', SAP.i18n.etiket('Ne zaman tercih edilir?'), c.neZaman) : '') +
+        (c.ornek ? note('info', SAP.i18n.etiket('Örnek'), c.ornek) : '') +
         (c.tcodes && c.tcodes.length ? chips(c.tcodes) : '') +
       '</div>';
     }).join('');
@@ -290,7 +305,7 @@
         b += errTable(t.hatalar);
       }
 
-      if (t.ipucu) b += note('tip', 'İpucu', t.ipucu);
+      if (t.ipucu) b += note('tip', SAP.i18n.etiket('İpucu'), t.ipucu);
 
       if (t.ilgili && t.ilgili.length) {
         b += subH('🔗', 'İlgili işlem kodları');
@@ -357,7 +372,7 @@
 
     (d.ekranlar || []).forEach(function (e, i) {
       out += '<div class="panel">' +
-        '<h3><span class="tag ready">Ekran ' + (i + 1) + '</span> ' + mk(e.ad) + '</h3>' +
+        '<h3><span class="tag ready">' + esc(SAP.i18n.etiket('Ekran')) + ' ' + (i + 1) + '</span> ' + mk(e.ad) + '</h3>' +
         (e.aciklama ? '<div class="prose">' + mkp(e.aciklama) + '</div>' : '') +
         (e.alanlar && e.alanlar.length
           ? tbl([{ ad:'Alan', w:'26%' }, { ad:'Durum', w:'16%' }, { ad:'Açıklama' }],
@@ -438,7 +453,7 @@
         d.eccFarklari.map(function (f) { return [f.konu, f.ecc, f.s4]; }));
     }
 
-    if (d.universalJournal) out += note('info', 'Universal Journal (ACDOCA) etkisi', d.universalJournal);
+    if (d.universalJournal) out += note('info', SAP.i18n.etiket('Universal Journal (ACDOCA) etkisi'), d.universalJournal);
 
     if (d.kalkanTcodes && d.kalkanTcodes.length) {
       out += subH('🚫', 'Kalkan / değişen işlem kodları');
@@ -473,14 +488,14 @@
   function renderSenaryo(d) {
     var out = '';
     if (d.baslik) out += '<div class="sub-h">' + mk(d.baslik) + '</div>';
-    if (d.hikaye) out += note('info', 'Senaryo', d.hikaye);
+    if (d.hikaye) out += note('info', SAP.i18n.etiket('Senaryo'), d.hikaye);
     if (d.veriler && d.veriler.length) {
       out += kv(d.veriler.map(function (v) { return [v.k, v.v]; }));
     }
 
     (d.adimlar || []).forEach(function (a, i) {
       out += '<div class="panel">' +
-        '<h3><span class="tag ready">Adım ' + (i + 1) + '</span> ' + mk(a.baslik) + '</h3>' +
+        '<h3><span class="tag ready">' + esc(SAP.i18n.etiket('Adım')) + ' ' + (i + 1) + '</span> ' + mk(a.baslik) + '</h3>' +
         (a.tcode ? '<div class="chiprow">' + mk('{{' + a.tcode + '}}') + '</div>' : '') +
         (a.aciklama ? '<div class="prose">' + mkp(a.aciklama) + '</div>' : '') +
         (a.girdi && a.girdi.length

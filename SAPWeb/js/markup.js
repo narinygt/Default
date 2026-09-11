@@ -50,15 +50,24 @@
 
     if (!kind || kind === 'terim' || kind === 'term') {
       x = SAP.term(key);
+      /* Etiket dile göre: glossary.js her terimde `ad` (TR) + `en` (EN)
+         taşır. Gövde İngilizce çevrilene kadar bu hiç fark edilmedi —
+         Türkçe gövdenin içindeki bir çip zaten Türkçe göstermeliydi.
+         Artık İngilizce bir cümlenin ortasında Türkçe kalan tek şey bu
+         çipin metniydi; şimdi düzeltildi (bkz. Ders #33). */
+      var terimAd = (SAP.i18n && SAP.i18n.get() === 'en' && x && x.en) ? x.en : (x && x.ad);
       if (x) return chip('ref-term', '#/terim/' + encodeURIComponent(SAP.slug(x.anahtar || x.ad)),
-                         label || x.ad, x.aciklama);
+                         label || terimAd, x.aciklama);
       if (kind) return null;
     }
 
     if (!kind || kind === 'konu' || kind === 'topic') {
       x = SAP.topic(key) || SAP.topic(SAP.slug(key));
+      /* Konu başlığı da aynı sebeple i18n'den: SAP.i18n.baslik/ozet zaten
+         TOPICS_EN'e bakıyor, doğrudan x.title/x.summary Türkçeye sabitti. */
       if (x) return chip('ref-topic', '#/konu/' + encodeURIComponent(x.id),
-                         label || x.title, x.summary);
+                         label || (SAP.i18n ? SAP.i18n.baslik(x) : x.title),
+                         SAP.i18n ? SAP.i18n.ozet(x) : x.summary);
     }
 
     return null;

@@ -4,9 +4,12 @@
 > çıkarılan dersler burada tutulur. **Her güncellemede yenilenir.**
 > Amaç: projeyi başka bir yapay zeka sohbetine aktarırken tek dosya vererek tüm bağlamı taşımak.
 
-**Son güncelleme:** 10 Eylül 2026 · **Tasarım sistemi baştan yazıldı** (bkz. §5b) ve
+**Son güncelleme:** 11 Eylül 2026 · **Tasarım sistemi baştan yazıldı** (bkz. §5b) ve
 **36 konunun 36'sı** derin içerikle dolduruldu — katalog **tamamlandı**.
 **Sözlükler:** 262 işlem kodu · 92 tablo · 164 terim (üçünde de çift kayıt yok — bkz. Ders #26).
+**Dil anahtarı yeniden açıldı, gövde çevirisi başladı:** 4/36 konu
+(Temeller grubu) tam İngilizce; mekanizma konu bazında kısmi çeviriye
+izin veriyor — bkz. §10.
 
 > ⭐ **ARAYÜZ BAŞTAN TASARLANDI — "Dijital muhasebe defteri".**
 > İçerik ve işlevler aynı; değişen görsel dil ve yerleşim (bkz. §5b).
@@ -158,6 +161,13 @@ SAPWeb/
 │   ├── migration.js
 │   ├── best-practices.js
 │   └── s4-yenilikleri.js
+├── content/fi-en/        # gövde çevirisi (KISMİ — bkz. §10). Aynı id ile
+│   │                       sections_en gönderip content/fi/'daki konuya
+│   │                       MERGE olur. Şu an 4/36 konu burada.
+│   ├── genel-muhasebe.js
+│   ├── fi-temelleri.js
+│   ├── org-yapisi.js
+│   └── master-data.js
 ├── derle.ps1             # tek-dosya.html üretir (Windows / PowerShell)
 ├── derle.mjs             # aynı çıktının Node karşılığı — `node derle.mjs`
 ├── tek-dosya.html        # ÜRETİLMİŞ tek dosyalık sürüm — taşımak/paylaşmak için
@@ -188,9 +198,10 @@ gerekmez. `</script>` dizisi içeriyorsa hata verip durur.
 
 ### Yükleme sırası (index.html'de sabit)
 ```
-1) çekirdek   core → markup → diagram
+1) çekirdek   core → i18n → markup → diagram
 2) veri       tcodes → tables → glossary → catalog     (catalog stub'ları kaydeder)
 3) içerik     content/fi/*.js                          (stub'ları derin bölümlerle doldurur)
+3b) EN gövde  content/fi-en/*.js                        (KISMİ — bkz. §10; sections_en merge eder)
 4) arayüz     sections → views → learn → search → ui   (ui.js boot() çağırır)
 ```
 > `sections.js`, `views.js`'ten **önce** yüklenmelidir: views.js yükleme anında `SAP.ui`'yi okur.
@@ -199,6 +210,8 @@ gerekmez. `</script>` dizisi içeriyorsa hata verip durur.
 ```js
 SAP.registerModule({id, name, icon, order})
 SAP.registerTopic({id, sections, ...})   // aynı id ile MERGE eder (stub + derin içerik)
+SAP.registerTopic({id, sections_en})     // aynı mekanizma — EN gövde (bkz. §10), sections'a dokunmaz
+SAP.sectionData(t, id)                   // render anında hangi dilden okunacağını seçer (TR'ye düşer)
 SAP.registerTcodes([...]) / registerTables([...]) / registerTerms([...])
 SAP.topic(id) / SAP.tcode(kod) / SAP.table(ad) / SAP.term(anahtar)
 SAP.store          // localStorage sarmalayıcı, anahtar: 'sapfi_v1'
@@ -424,7 +437,7 @@ sol sütun çekmeceye iner.
 |---|---|---|
 | Numaralı içindekiler dizini (01…36) | ✅ | Kitap dizini; açıklama tıklayınca açılır (bkz. §5b) |
 | "Kaldığın yerden devam et" + rastgele konu | ✅ | Yarım kalan konuyu sistem bulur |
-| **Arayüz dili TR / EN** | ✅ | Sağ üst köşede anahtar; arayüz + 36 başlık + 36 özet + grup/bölüm adları çevrili. ⚠️ Konu **gövdesi Türkçe kalır** — bkz. §10 |
+| **Arayüz dili TR / EN** | ✅ | Sağ üst köşede anahtar; arayüz + 36 başlık + 36 özet + grup/bölüm adları çevrili. **Gövde 4/36 konuda tam çevrili** (Temeller grubu), kalan 32 konuda Türkçe kalır — konu bazında `.lang-notice` ile belirtilir, bkz. §10 |
 | Karanlık / Aydınlık mod | ✅ | Sistem tercihi + manuel geçiş, localStorage'a yazılır |
 | İlerleme çubuğu (bölüm/konu/genel) | ✅ | Bölüm bazında "okundu", karta halka, sidebar'a nokta |
 | Tamamlanan konu işaretleme | ✅ | Tek tıkla tüm bölümler |
@@ -1711,45 +1724,141 @@ FI kataloğu bittiği için sıradaki iş **içerik değil**. İki yön:
 
 ## 10. Dil Katmanı (TR / EN) — ve sınırının gerekçesi
 
-`js/i18n.js`. Anahtar sağ üst köşede; seçim `localStorage`'a yazılır.
+`js/i18n.js`. Anahtar sağ üst köşede (`ANAHTAR_ACIK = true`); seçim
+`localStorage`'a yazılır.
 
-⭐ **Kaynak dil kuralı:** `catalog.js`'teki `title` alanı artık **Türkçedir**.
-Önceden 30 başlık `Accounts Payable (Satıcılar)` biçimindeydi — İngilizce
-ad, parantezde Türkçesi; altısı ise düz Türkçeydi. Aynı listede iki farklı
-kalıp vardı ve Türkçe arayüzde başlıkların çoğu İngilizce görünüyordu.
-Şimdi **TR alanda Türkçe, EN alanda İngilizce**; İngilizce karşılıklar
-`TOPICS_EN`'de duruyor.
+⭐ **Kaynak dil kuralı:** `catalog.js`'teki `title` alanı **Türkçedir**.
+İngilizce karşılıklar `TOPICS_EN`'de duruyor.
 
 ⚠️ **Parantez yalnızca İŞLEM KODU için kalır** — `Otomatik Ödeme Programı
 (F110)` gibi. F110 bir çeviri değil, sistemde birebir aranan bir
 literaldir (bkz. §2 Dil kuralı).
 
-⚠️ **Arama indeksi İKİ DİLİ birden taşır.** Başlıklar Türkçeleşince
-`"Accounts Payable"` araması sonuçsuz kalıyordu; oysa danışman kavramı
-çoğu zaman İngilizce adıyla arar. Görünen etiket seçili dilden gelir,
-**aranan metin her iki dili de içerir** (`search.js` → `baslikDil`).
-İndeks dile bağlı olduğu için dil değişince **yeniden kurulur**.
+⚠️ **Arama indeksi İKİ DİLİ birden taşır.** Görünen etiket seçili dilden
+gelir, **aranan metin her iki dili de içerir** (`search.js` →
+`baslikDil`). İndeks dile bağlı olduğu için dil değişince **yeniden
+kurulur**.
 
-**Çevrilir:** bütün arayüz metinleri · dokuz grup adı · 36 konunun
-**başlığı ve özeti** · seviye adları (Başlangıç → Beginner) · 11 bölüm adı ·
-boş durum metinleri. Ayrıca **yüzde biçimi** dile göre değişir:
-TR `%40`, EN `40%` — küçük ama bir arayüzün dil bilip bilmediğini
-ele veren ilk yerlerden biri.
+**Her zaman çevrilir:** bütün arayüz metinleri · dokuz grup adı · 36
+konunun **başlığı ve özeti** · seviye adları · 11 bölüm adı · boş durum
+metinleri · **renderer'ın kendi etiketleri** (bkz. aşağıdaki alt bölüm).
+Ayrıca **yüzde biçimi** dile göre değişir: TR `%40`, EN `40%`.
 
-**⚠️ Çevrilmez ve bu bilinçli bir karardır:** konuların **derin gövdesi**
-(11 bölümün metni, senaryolar, fişler, quiz soruları). İki sebep:
+### ⭐ Gövde çevirisi — KISMİ ve KONU BAZINDA (Eylül 2026, Ders #33)
 
-1. **Hacim:** yaklaşık 2 milyon karakter.
-2. ⭐ **Terminoloji riski:** muhasebe metni makine çevirisinden sağ çıkmaz.
-   *"Kapatma"* bu projede hem **closing** (dönem) hem **clearing** (kalem)
-   demektir ve ayrım bağlamdadır. *"Mutabakat hesabı"* → *reconciliation
-   account*, ama *"mutabakat"* tek başına *reconciliation* değil bazen
-   *agreement*'tır. **Yarım çevrilmiş bir muhasebe metni, çevrilmemiş
-   olandan daha tehlikelidir** — çünkü okuyucu doğru sanır.
+Konuların **derin gövdesi** (11 bölümün metni, senaryolar, fişler) başta
+bilinçli olarak çevrilmemişti — hacim (~2 milyon karakter) ve terminoloji
+riski yüzünden (*"kapatma"* hem **closing** hem **clearing** demek,
+ayrım bağlamdan çıkar; yarım çevrilmiş muhasebe metni çevrilmemiş
+olandan tehlikelidir, çünkü okuyucu doğru sanır).
 
-EN seçiliyken konu sayfasının başında bunu söyleyen tek satırlık bir
-uyarı çıkar (`.lang-notice`). Bu bir eksiklik değil, **açıklanmış bir
-karardır**; gizlenmesi yanlış olurdu.
+Kullanıcı isteğiyle bu sınır **kaldırılmadı, konu bazında delinebilir**
+hâle getirildi:
+
+```
+content/fi/<id>.js      → SAP.registerTopic({ id, sections:    {...} })  (TR, zorunlu)
+content/fi-en/<id>.js   → SAP.registerTopic({ id, sections_en: {...} })  (EN, opsiyonel)
+```
+
+`registerTopic` her iki çağrıyı da aynı `id` üzerinde **merge** eder
+(bkz. §3 Çekirdek API); `sections_en` `cur`'a ayrı bir alan olarak
+eklenir, `sections`'a dokunmaz. `js/core.js` → `SAP.sectionData(t, id)`
+render anında hangi kaynağın okunacağına karar verir:
+
+```js
+function sectionData(t, id) {
+  if (SAP.i18n.get() === 'en' && t.sections_en && t.sections_en[id] != null)
+    return t.sections_en[id];
+  return t.sections ? t.sections[id] : null;
+}
+```
+
+**Üç kademeli düşme (fallback) mekanizması:**
+1. Konu hiç `sections_en` içermiyorsa → tamamı Türkçe, `.lang-notice`
+   uyarısı çıkar (eskisi gibi).
+2. Konu `sections_en` içeriyor ama TR'deki bölümlerin hepsini
+   kapsamıyorsa → çevrilmiş bölümler İngilizce, kalanlar **o bölüm
+   bazında** Türkçeye düşer, uyarı yine çıkar (`views.js`: TR bölüm
+   sayısı ile `sections_en` anahtar sayısı karşılaştırılır).
+3. Konu bütün TR bölümlerini kapsıyorsa → uyarı **çıkmaz**.
+
+Bu üç kademe sayesinde eksik/yarım bir çeviri **sayfayı hiçbir zaman
+kırmaz** — sadece o kısım Türkçe kalır ve okuyucu bunu bilir.
+
+**Şu an tam çevrilmiş (4/36):** `genel-muhasebe`, `fi-temelleri`,
+`org-yapisi`, `master-data` — Temeller grubunun tamamı. Kalan 32 konu
+Türkçe kalmaya devam ediyor; kapsam bilerek küçük tutuldu, aynı üsluple
+devam etmek isteyen biri `content/fi-en/` altına aynı desende yeni
+dosyalar ekleyebilir. **`ogrenme` bölümü çevrilmez** — zaten hiçbir
+yerde çizilmiyor (§6), çevirmek boşa emek olur.
+
+⚠️ **`{{terim:...}}` ve `{{konu:...}}` çipleri de dile göre etiket
+gösterir** (`js/markup.js`). Bu, gövde hiç İngilizce olmadığı sürece
+**hiç fark edilmeyen** bir eksiklikti: `resolve()` bir terim/konu çipi
+üretirken doğrudan `x.ad`/`x.title` (Türkçe) kullanıyordu. İlk İngilizce
+paragraf yazılınca ortasında Türkçe bir çip görünüyordu. Artık
+`SAP.i18n.baslik()`/`.ozet()` (konu) ve terimin kendi `en` alanı
+(`data/glossary.js` her terimde zaten `ad` + `en` taşıyor) kullanılıyor.
+
+### ⭐ Ders #33 — Renderer'ın KENDİ etiketleri de i18n'den geçmeli,
+### içerik metniyle karıştırılmadan
+
+Gövdeyi ilk kez gerçek İngilizceye çevirince üç ayrı yerde **sabit
+Türkçe** ortaya çıktı — hiçbiri içerik değildi, hepsi `sections.js` /
+`diagram.js`'in kendi ürettiği etiketlerdi:
+
+1. **`qa()`** — "Bu nedir?", "Neden kullanılır?" gibi soru başlıkları
+   literal string'ti, hiç `i18n`'den geçmiyordu. `subH()` zaten
+   `SAP.i18n.etiket()` kullanıyordu; `qa()` unutulmuştu.
+2. **`note()`** — literal `title` verilen çağrılarda (`'Senaryo'`,
+   `'İpucu'`, `'Örnek'`…) `mk(title)` doğrudan basıyordu. ⚠️ Burada
+   **iki farklı `title` kaynağı** olduğu fark edilmeden düzeltme
+   yapılırsa ikinci bir hata doğar (aşağıya bak).
+3. **`diagram.js`'teki `fis()` ve `tHesap()`** — muhasebe fişi ve
+   T-hesap renderer'ları **hiç i18n'den geçmiyordu**: "Hesap", "Borç",
+   "Alacak", "Toplam", "Kalan" hep sabit Türkçe basılıyordu. `i18n.js`
+   içinde `jr.debit`/`jr.credit`/`jr.total`/`jr.balanced`/`jr.unbalanced`
+   anahtarları **tanımlıydı ama hiçbir yerden çağrılmıyordu** — ölü
+   sözlük girdisi, tıpkı Ders #31'deki ölü CSS token gibi.
+
+**Düzeltirken yapılan gerçek hata (ve dersi):** `note()`'un `title`
+parametresi ikisi de "başlık" görünen ama **davranışı taban tabana zıt
+iki farklı kaynaktan** gelir:
+- **renderer literal'i** (örn. `'Senaryo'`) → **etiket**, `SAP.i18n.etiket()`
+  ile çevrilmeli.
+- **yazar içeriği** (`notlar[].baslik`, örn. `'{{FB08}} e-faturayı iptal
+  etmez'`) → **proza**, `{{...}}` ve `**kalın**` içerebilir, `mk()`
+  ile çözülmesi ZORUNLU.
+
+İlk düzeltme `note()`'un içini `title ? esc(SAP.i18n.etiket(title)) : …`
+yaptı — bu, renderer literal'lerini doğru çevirdi ama **yazar
+içeriğindeki `{{...}}` işaretlerini artık çözmüyordu**. Sonuç: doğrulama
+`ham {{` eksenini **3 konuda** (mülakat/üslup taramasıyla hiç ilgisi
+olmayan `e-donusum`, `sap-tables`) kırmızıya çevirdi — çünkü oradaki
+`notlar[].baslik` alanları `{{FB08}}` gibi gerçek referanslar taşıyordu.
+
+**Doğru çözüm iki katmanlı:** `note()`'un kendisi **eskisi gibi
+`mk(title)` kalır** (yazar içeriği için doğru); renderer'daki **literal
+çağrı yerleri** kendi etiketlerini `note('info', SAP.i18n.etiket('Senaryo'), …)`
+şeklinde **önceden çevirip** gönderir. Bu, "hangi metin yazar prozası,
+hangisi motor etiketi" ayrımının kod içinde de görünür kalmasını sağlar.
+
+**Genel ders (Ders #19/#23/#25/#26/#28/#29/#31'in aynı kalıbı, bu kez
+i18n katmanında):** bir düzeltme, düzelttiği sınıfın **dışındaki** bir
+sınıfı bozabilir. Fix'ten hemen sonra **tüm doğrulama takımı** yeniden
+çalıştırılmalı — yalnızca hedeflenen eksen değil, `ham {{`, `ref-miss`,
+kontrast, mobil — hepsi. Bu oturumda tam olarak böyle yapıldığı için
+regresyon aynı turda yakalandı ve düzeltildi.
+
+**Kalıcı kontrol:** `en-tumtara.mjs` deseni — çevrilmiş bir konuyu EN
+modda çizip **yapısal** elemanları (`.qa-q`, `.note .t`, `.sub-h`, `th`,
+`.tag`, `.fn-o-k` vb.) Türkçeye özgü harf (`çğışöüÇĞİŞÖÜ`) için tarar,
+yazar prozasının olduğu konteynerleri (`.prose`, `td`, `li`…) hariç
+tutar. Kaynaktan tarama (Ders #25 yöntemi) tamamlayıcıdır: `grep -n
+"qa(\|note('"` ile her literal çağrı yerinin `SAP.i18n.etiket()`'ten
+geçip geçmediği elle doğrulanır.
 
 **Yeni dil eklemek:** `DICT`'e bir anahtar seti + `TOPICS_EN` benzeri bir
-konu sözlüğü + `DILLER` dizisine bir kod. Motorda değişiklik gerekmez.
+konu sözlüğü + `DILLER` dizisine bir kod + (isteğe bağlı)
+`content/<dil>-en/` benzeri bir gövde çeviri klasörü. Motorda değişiklik
+gerekmez.

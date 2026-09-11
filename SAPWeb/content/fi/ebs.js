@@ -32,8 +32,8 @@ SAP.registerTopic({
       'Danışmanlık açısından EBS, "yapılandırması zor ama mantığı basit" bir konudur. ' +
       'Zorluk {{OT83}}’ün çok katmanlı yapısındadır: hesap sembolleri → sembol hesap ataması → ' +
       'kayıt kuralları → işlem kodu ataması. Bu dört katman doğru kurulmadan hiçbir satır otomatik kaydedilmez.\n\n' +
-      'Mülakatta ayırt edici soru: **"Hesap sembolü (account symbol) nedir, neden kullanılır?"** — ' +
-      'bu soru adayın EBS’i gerçekten kurup kurmadığını ölçer.',
+      'Ayırt edici soru şudur: **"Hesap sembolü (account symbol) nedir, neden kullanılır?"** — ' +
+      'cevabı, EBS’in gerçekten kurulup kurulmadığını ele verir.',
 
     gercekHayat:
       'Bir perakende zinciri 4 bankada 11 hesap kullanıyor ve günde ortalama 340 ekstre satırı alıyor.\n\n' +
@@ -684,7 +684,7 @@ SAP.registerTopic({
         'olduğunu bilir ve {{T012K}}’den o hesabın G/L numarasını alıp maskeye yerleştirir.\n\n' +
         'Sonuç: **8 kural, 11 hesap.** Yeni bir banka hesabı eklendiğinde tek bir kural bile ' +
         'değiştirmek gerekmez.\n\n' +
-        'Mülakatta "hesap sembolü nedir?" sorusuna bu cevap verilirse EBS’i gerçekten kurmuş olduğun anlaşılır.' },
+        '"Hesap sembolü nedir?" sorusuna bu cevabı verebiliyorsan EBS’i gerçekten kurmuşsun demektir.' },
 
       { ic:'🔍', baslik:'Yorumlama algoritması — eşleşme oranının anahtarı', metin:
         'Yorumlama algoritması (interpretation algorithm), açıklama metninde **ne aranacağını** belirler. ' +

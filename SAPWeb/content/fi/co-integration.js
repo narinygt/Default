@@ -48,7 +48,7 @@ SAP.registerTopic({
       'aktarım hataları düzeltilirdi. ' +
       '{{ACDOCA}} bu işi tamamen ortadan kaldırdı — ' +
       've bu, S/4HANA’nın FI tarafındaki **en somut faydasıdır**.\n\n' +
-      'Mülakatta ayırt edici soru: **"CO içi bir dağıtım FI’ı etkiler mi?"** ' +
+      'Ayırt edici soru şudur: **"CO içi bir dağıtım FI’ı etkiler mi?"** ' +
       'Doğru cevap: **normalde hayır**. Ama şirket kodu, kâr merkezi, bölüm veya ' +
       'fonksiyonel alan **değişiyorsa evet** — çünkü bunlar FI’ın da raporladığı ' +
       'boyutlardır ve tutarsız kalamazlar.',

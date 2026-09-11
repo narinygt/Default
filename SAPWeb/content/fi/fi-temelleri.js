@@ -29,7 +29,7 @@ SAP.registerTopic({
       'MM canlıya alınıp FI hazır değilse mal girişi kaydedilemez.\n\n' +
       'Danışmanlık açısından sonucu şudur: FI danışmanı yalnızca FI bilmez. MM’den gelen mal girişinin hangi hesaba ' +
       'gittiğini ({{OBYC}}), SD faturasının gelirini nereye yazdığını ({{VKOA}}) ve CO’nun gideri nasıl aldığını da bilir. ' +
-      'Mülakatlarda ayırt edici soru tam olarak buradan gelir.',
+      'İyi bir FI danışmanını ayıran sınır tam olarak buradadır.',
 
     gercekHayat:
       'Bir market zinciri düşün. Sabah depoya 500 koli süt geliyor ({{MIGO}}), akşam kasadan 480 koli satılıyor ({{VF01}}), ' +
@@ -538,7 +538,7 @@ SAP.registerTopic({
   s4hana: {
     ozet:
       'FI’ın **kuralları** S/4HANA ile değişmedi; değişen, verinin nerede durduğu ve ana verinin nasıl yönetildiğidir. ' +
-      'Mülakatta "S/4HANA’da FI’da ne değişti?" sorusunun tam cevabı üç başlıktır: ' +
+      '"S/4HANA’da FI’da ne değişti?" sorusunun tam cevabı üç başlıktır: ' +
       '**Evrensel Kayıt Defteri**, **İş Ortağı zorunluluğu** ve **tablo sadeleşmesi**.',
 
     eccFarklari:[

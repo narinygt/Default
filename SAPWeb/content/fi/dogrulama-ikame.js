@@ -44,7 +44,7 @@ SAP.registerTopic({
       'Belgelenmemiş bir ikame, yıllar sonra ' +
       '*"bu alan neden hep böyle doluyor?"* sorusuyla ortaya çıkar ve ' +
       'kimse sebebini bilmez.\n\n' +
-      'Mülakatta ayırt edici soru: **"Doğrulama ile ikame arasındaki fark nedir?"** ' +
+      'Ayırt edici soru şudur: **"Doğrulama ile ikame arasındaki fark nedir?"** ' +
       'Doğru cevap: **doğrulama engeller, ikame değiştirir.** ' +
       'Doğrulama veriye dokunmaz; ikame kullanıcının girdiğini ' +
       '**sessizce** değiştirebilir. Bu yüzden ikame belgelenmek zorundadır.',

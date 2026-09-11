@@ -34,7 +34,7 @@ SAP.registerTopic({
       'Danışmanlık açısından bu konu, FI danışmanının **en sık müdahale ettiği entegrasyon noktasıdır**: ' +
       '"SD faturası kesildi ama muhasebeye düşmedi" şikâyeti neredeyse her projede yaşanır ve ' +
       'çözümü FI tarafındadır ({{VKOA}}).\n\n' +
-      'Mülakatta ayırt edici soru: **"SD faturası kesildi ama FI belgesi oluşmadı. Ne yaparsın?"** ' +
+      'Ayırt edici soru şudur: **"SD faturası kesildi ama FI belgesi oluşmadı. Ne yaparsın?"** ' +
       'Doğru cevap: {{VBRK}} `RFBSK` alanını kontrol et, {{VKOA}}’yı tamamla, {{VF02}} ile yeniden aktar — ' +
       '**faturayı iptal etme**.',
 

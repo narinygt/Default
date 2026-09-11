@@ -34,7 +34,7 @@ SAP.registerTopic({
       'Danışmanlık açısından bu konu **iki modülün kesişimidir** ve sorumluluk sınırı bulanıktır. ' +
       'MM danışmanı "hesap belirleme FI’ın işi" der, FI danışmanı "hareket türü MM’in işi" der. ' +
       'Gerçekte {{OBYC}}’yi kuran kişi **her ikisini de** bilmek zorundadır.\n\n' +
-      'Mülakatta ayırt edici soru: **"OBYC’de BSX, WRX ve PRD işlem anahtarları ne yapar?"**',
+      'Ayırt edici soru şudur: **"OBYC’de BSX, WRX ve PRD işlem anahtarları ne yapar?"**',
 
     gercekHayat:
       'Bir üretim şirketinde yeni bir hammadde grubu tanımlandı ve ilk mal girişi yapılmak isteniyor. ' +

@@ -55,7 +55,7 @@ SAP.registerTopic({
       'GİB tarafında karşılığı yoktur.\n\n' +
       '**Berat gecikirse ceza doğar.** {{e-defter}} yükleme süreleri kesindir.\n\n' +
       '━━━━━━━━━━\n\n' +
-      '**Mülakat sorusu:** *"Fatura SAP’ta başarıyla kaydedildi. E-fatura süreci ' +
+      '**Sık karşılaşılan soru:** *"Fatura SAP’ta başarıyla kaydedildi. E-fatura süreci ' +
       'de başarılı mıdır?"*\n\n' +
       'Doğru cevap: **Hayır, bu iki ayrı sorudur.** ' +
       '{{BKPF}}’te belge oluşması, {{EDOCUMENT}} statüsü hakkında ' +

@@ -39,7 +39,7 @@ SAP.registerTopic({
       'Danışman açısından bu konu **{{new-gl}} ile {{asset-accounting}} arasındaki köprüdür**: ' +
       'paralel defterin gerçek hayattaki en yoğun kullanım alanı duran varlıklardır, ' +
       'çünkü amortisman farkları her ay ve her varlık için tekrarlanır.\n\n' +
-      'Mülakatta ayırt edici soru: **"Defter grubu boş bırakılırsa ne olur?"** ' +
+      'Ayırt edici soru şudur: **"Defter grubu boş bırakılırsa ne olur?"** ' +
       'Doğru cevap: kayıt **tüm defterlere** gider. Bu, paralel defterin en temel davranışıdır ' +
       've yanlış bilinirse tüm mimari yanlış kurulur.',
 

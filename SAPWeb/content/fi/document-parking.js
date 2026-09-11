@@ -42,7 +42,7 @@ SAP.registerTopic({
       'Aynı kullanıcı hem park edip hem muhasebeleştirebiliyorsa, ' +
       'mekanizma yalnızca bir gecikmeye dönüşür. ' +
       'Ayrım **yetkilendirmeyle** sağlanır, park özelliğiyle değil.\n\n' +
-      'Mülakatta ayırt edici soru: **"Park ile hold arasındaki fark nedir?"** ' +
+      'Ayırt edici soru şudur: **"Park ile hold arasındaki fark nedir?"** ' +
       'Doğru cevap: park edilen belge **numara alır, başkaları görebilir, ' +
       'raporlanabilir ve denetim izi bırakır**; tutulan belge kişiseldir, ' +
       'numara almaz ve iz bırakmaz. Bu yüzden **hold iç kontrol aracı değildir**.',

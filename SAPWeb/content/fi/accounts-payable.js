@@ -28,7 +28,7 @@ SAP.registerTopic({
       'iç içe çalışır. Satın alma siparişi açar, depo malı kabul eder, AP faturayı işler ve öder.\n\n' +
       'Danışmanlık açısından kritik nokta: **AP faturalarının çoğu FI’da elle girilmez, MM’den gelir.** ' +
       'Bir AP danışmanı {{MIRO}}’yu, {{uc-yonlu-eslestirme}}yi ve {{OBYC}} hesap belirlemesini bilmek zorundadır. ' +
-      'Mülakatta "FB60 ile MIRO farkı nedir?" sorusu tam olarak bunu ölçer.',
+      '"FB60 ile MIRO farkı nedir?" sorusu tam olarak bu ayrımı yoklar.',
 
     gercekHayat:
       'Bir üretim şirketi ayda 1.200 satıcı faturası alıyor. Bunların 900’ü siparişe bağlı ' +
@@ -243,7 +243,7 @@ SAP.registerTopic({
   cesitler: {
     anlatim:
       'AP’de dört ayrı eksende çeşitlenme vardır: faturanın **geliş yolu**, ödemenin **yapılış biçimi**, ' +
-      'kapatmanın **türü** ve işlemin **özel ana muhasebe** kategorisi. Mülakatta bu ayrımlar sıkça sorulur.',
+      'kapatmanın **türü** ve işlemin **özel ana muhasebe** kategorisi. Pratikte bu ayrımlar sıkça karıştırılır.',
 
     liste:[
       { ad:'FI faturası (siparişsiz)', en:'Non-PO Invoice — FB60',

@@ -34,7 +34,7 @@ SAP.registerTopic({
       'Danışman açısından kritik nokta şu: vergi hataları **muhasebe hatası gibi görünmez**. ' +
       'Fiş dengelidir, mizan tutar, hiçbir alarm çalmaz. Yalnızca beyanname hazırlanırken ' +
       'ya da denetimde ortaya çıkar.\n\n' +
-      'Mülakatta ayırt edici soru: **"İndirilemeyen KDV nereye kaydedilir?"** ' +
+      'Ayırt edici soru şudur: **"İndirilemeyen KDV nereye kaydedilir?"** ' +
       'Doğru cevap: ayrı bir vergi hesabına **değil**, **giderin veya varlığın maliyetine** — ' +
       'çünkü indirilemiyorsa o bir vergi alacağı değil, gerçek bir maliyettir.',
 
@@ -250,7 +250,7 @@ SAP.registerTopic({
 
     notlar:[
       { tip:'tip', baslik:'"KDV gider midir?" — üç farklı cevap', metin:
-        'Bu soru mülakatta sıklıkla sorulur ve cevabı duruma göre değişir:\n\n' +
+        'Bu sorunun tek bir cevabı yoktur; duruma göre değişir:\n\n' +
         '**1. İndirilebiliyorsa → hayır, varlıktır.** Devletten geri alınacaktır (191).\n\n' +
         '**2. İndirilemiyorsa → evet, ama ayrı bir gider değil.** ' +
         'İlgili giderin veya varlığın **maliyetine eklenir**. Ayrı bir "KDV gideri" hesabı açmak ' +

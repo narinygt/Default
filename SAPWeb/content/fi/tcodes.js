@@ -40,7 +40,7 @@ SAP.registerTopic({
       'Ama gerçek değer başka yerde: **kalıbı bilen, bilmediği kodu bulabilir.** ' +
       'SAP\'ta on binlerce işlem kodu vardır; hiç kimse hepsini bilmez. ' +
       'Fark, arama stratejisindedir.\n\n' +
-      'Mülakatta ayırt edici soru: **"F-02 ile FB50 arasındaki fark nedir?"** ' +
+      'Ayırt edici soru şudur: **"F-02 ile FB50 arasındaki fark nedir?"** ' +
       'Yüzeysel cevap *"ikisi de G/L kaydı yapar"*. ' +
       'Doğru cevap: **`F-02` eski nesil, {{kayit-anahtari}} girmeyi gerektirir; ' +
       '`FB50` yeni nesil (Enjoy), kayıt anahtarını borç/alacak seçiminden kendisi türetir.** ' +

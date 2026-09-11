@@ -32,8 +32,8 @@ SAP.registerTopic({
       'Danışmanlık açısından FI-BL, {{F110}} ile **ayrılmaz biçimde bağlıdır**: ' +
       'ödeme programının hangi bankadan ödeyeceğini {{FBZP}} banka belirleme kuralları söyler ve ' +
       'bu kurallar {{ev-bankasi}} tanımlarına dayanır. FI-BL doğru kurulmadan F110 çalışmaz.\n\n' +
-      'Mülakatta ayırt edici soru: **"Neden banka ara hesabı kullanılır?"** ' +
-      'Bu soru, adayın mutabakat mantığını anlayıp anlamadığını ölçer.',
+      'Ayırt edici soru şudur: **"Neden banka ara hesabı kullanılır?"** ' +
+      'Cevap, mutabakat mantığının anlaşılıp anlaşılmadığını ele verir.',
 
     gercekHayat:
       'Bir şirketin 4 bankada 11 hesabı var. Ay sonunda hazine uzmanı her hesap için şu soruyu ' +

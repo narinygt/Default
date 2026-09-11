@@ -6,7 +6,7 @@
      anahtar   Bağlantı anahtarı (Türkçe, kebab-case)
      ad        Türkçe terim (çipte bu görünür)
      en        İngilizce orijinali (SAP ekranında bu yazar)
-     aciklama  Tanım — kısa ve mülakatta söylenebilecek netlikte
+     aciklama  Tanım — kısa ve tek cümlede söylenebilecek netlikte
      detay     Ek açıklama / örnek (opsiyonel)
      konu      İlgili konu id'si
      ilgili    İlişkili terim anahtarları

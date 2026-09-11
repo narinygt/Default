@@ -38,7 +38,7 @@ SAP.registerTopic({
       'En sık karşılaşılan sorun teknik değil, kavramsaldır: ' +
       'kullanıcı bakiye raporunda göremediği bir detayı arar ve ' +
       '"sistem çalışmıyor" der. Oysa aradığı şey **kalem dökümündedir**.\n\n' +
-      'Mülakatta ayırt edici soru: **"{{FBL3N}} boş dönüyor ama hesapta bakiye var. Neden?"** ' +
+      'Ayırt edici soru şudur: **"{{FBL3N}} boş dönüyor ama hesapta bakiye var. Neden?"** ' +
       'Doğru cevap: hesapta **kalem yönetimi** açık değildir ({{SKB1}}). ' +
       'Bakiye vardır ama kalemler saklanmamıştır. ' +
       'Ayar sonradan açılırsa **geçmiş kalemler görünmez** — yalnızca sonraki kayıtlar.',

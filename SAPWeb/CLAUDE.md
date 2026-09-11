@@ -58,6 +58,34 @@ seviyesinde** öğreten interaktif eğitim platformu.
   *"Kapatma (Clearing)"*, *"Evrensel Kayıt Defteri (Universal Journal)"*. Sonra sadece Türkçesi.
 - Sözlük (`#/terim/...`) her terimin Türkçe + İngilizce karşılığını birlikte tutar.
 
+### ⭐ Üslup kuralı: mülakat/sınav dili YASAK (Eylül 2026)
+Metin bir **başvuru kaynağıdır**, sınava hazırlık notu değil. Görünen içerikte
+şu ifadeler **geçmez**:
+
+| ❌ Yazma | ✅ Yerine |
+|---|---|
+| "Mülakatta ayırt edici soru: …" | "Ayırt edici soru şudur: …" |
+| "Mülakat sorusu:" | "Sık karşılaşılan soru:" |
+| "Mülakatta çok sorulur" | "Pratikte en sık karıştırılan ayrımdır" |
+| "…**adayın** X bilip bilmediğini ölçer" | "Cevap, X'in anlaşılıp anlaşılmadığını ele verir" |
+| "…mülakatı geçebilirsin" | "…ilk gerçek hatada tıkanırsın" |
+
+⚠️ **Sorunun kendisi silinmez, çerçevesi değişir.** Bu sorular gerçekten
+ayırt edicidir ve cevapları konunun özüdür; sorun *"bunu sana sorabilirler"*
+diyen çerçevedir — metni bir kaynak olmaktan çıkarıp kopya kâğıdına çevirir.
+
+**Kontrol:**
+```bash
+grep -rn "ülakat\|adayın" content/ data/ js/     # boş dönmeli
+```
+⚠️ Kaynakta aramak yetmez: `ogrenme` bölümü **çizilmiyor** (§6), oradaki
+geçişler ekranda yoktur. Ölçüm **çizilmiş metinde** yapılır — 36 konu
+tek tek gezilip `#view` içindeki metin taranır.
+
+> Bu dosyanın kendisi bir geliştirici belgesidir; §1'deki *"danışman/mülakat
+> seviyesinde"* ifadesi **içeriğin derinliğini** tarif eder ve kullanıcıya
+> görünmez — kural yalnızca ekrana çıkan metin içindir.
+
 ---
 
 ## 3. Mimari

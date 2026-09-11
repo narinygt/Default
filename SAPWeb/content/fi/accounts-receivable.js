@@ -30,7 +30,7 @@ SAP.registerTopic({
       'Faturaların büyük çoğunluğu FI’da elle girilmez; SD’de kesilir ve FI’a **otomatik** düşer.\n\n' +
       'Danışmanlık açısından kritik nokta budur: bir AR danışmanı {{VKOA}} gelir hesabı belirlemesini ' +
       've SD faturasının muhasebeye aktarım mekanizmasını bilmek zorundadır. ' +
-      'Mülakatta "SD faturası kesildi ama FI belgesi oluşmadı, ne yaparsın?" sorusu tam olarak bunu ölçer.',
+      '"SD faturası kesildi ama FI belgesi oluşmadı, ne yaparsın?" sorusu tam olarak bu zinciri yoklar.',
 
     gercekHayat:
       'Bir toptancı 400 bayiye vadeli satış yapıyor. Ay sonunda 12 milyon TL alacak görünüyor ' +

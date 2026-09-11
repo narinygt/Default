@@ -31,8 +31,8 @@ SAP.registerTopic({
       'hem de **en çok yapılandırma isteyen** FI işlemidir.\n\n' +
       'Danışmanlık açısından: F110’un kendisi basittir, zor olan {{FBZP}} yapılandırmasıdır. ' +
       '"F110 hiçbir kalem seçmiyor" veya "yanlış bankadan ödüyor" şikâyetlerinin cevabı ' +
-      'neredeyse her zaman FBZP’dedir. Mülakatta "FBZP’de kaç adım vardır ve ne yaparlar?" ' +
-      'sorusu, adayın gerçekten F110 kurup kurmadığını ölçer.',
+      'neredeyse her zaman FBZP’dedir. "FBZP’de kaç adım vardır ve ne yaparlar?" ' +
+      'sorusunun cevabı, F110’un gerçekten kurulup kurulmadığını ele verir.',
 
     gercekHayat:
       'Bir üretim şirketi ayın 10’u ve 25’inde ödeme koşusu yapıyor. 25 Eylül sabahı hazine uzmanı ' +

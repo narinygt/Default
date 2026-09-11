@@ -39,7 +39,7 @@ SAP.registerTopic({
       'operasyonel köprüdür ve **yapılandırmanın davranışa doğrudan çevrildiği** ' +
       'ender konulardan biridir: {{FBMP}}’de girilen bir gün sayısı, ' +
       'ertesi gün müşterinin postasına düşer.\n\n' +
-      'Mülakatta ayırt edici soru: **"İhtar çalıştırması muhasebe kaydı üretir mi?"** ' +
+      'Ayırt edici soru şudur: **"İhtar çalıştırması muhasebe kaydı üretir mi?"** ' +
       'Doğru cevap: **normalde hayır**. Yalnızca ihtar ücreti veya gecikme faizi ' +
       'tanımlanmışsa ayrı bir kayıt oluşur — o da ihtarın kendisinden değil, ' +
       'faiz hesaplamasından doğar.',

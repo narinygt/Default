@@ -39,7 +39,7 @@ SAP.registerTopic({
       'Danışman açısından bu konu **avans süreçlerinin tamamını** kapsar: ' +
       'talep → ödeme → fatura → mahsup zinciri. Zincirin bir halkası atlanırsa ' +
       'avans bilançoda **asılı kalır** ve yıllarca kimse fark etmez.\n\n' +
-      'Mülakatta ayırt edici soru: **"Avans mahsup edilmezse ne olur?"** ' +
+      'Ayırt edici soru şudur: **"Avans mahsup edilmezse ne olur?"** ' +
       'Doğru cevap: satıcı borcu **ve** verilen avans **aynı anda** bilançoda görünür — ' +
       'yani hem varlık hem yükümlülük şişer. Fiş dengelidir, mizan tutar, ' +
       'hiçbir alarm çalmaz. Bu, en sık rastlanan bilanço şişmesi sebebidir.',

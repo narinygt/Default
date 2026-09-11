@@ -36,8 +36,8 @@ SAP.registerTopic({
       '{{degerleme-plani}}, {{amortisman-alani}}, {{varlik-sinifi}}, hesap belirleme ({{AO90}}), ' +
       '{{amortisman-anahtari}} — bunların hepsi canlıya geçmeden doğru kurulmalıdır. ' +
       'Sonradan düzeltmek, açılmış binlerce varlığın yeniden değerlenmesi anlamına gelir.\n\n' +
-      'Mülakatta ayırt edici soru: **"Amortisman alanı ile defter (ledger) arasındaki ilişki nedir?"** ' +
-      'Bu soru, adayın paralel muhasebeyi gerçekten anlayıp anlamadığını ölçer.',
+      'Ayırt edici soru şudur: **"Amortisman alanı ile defter (ledger) arasındaki ilişki nedir?"** ' +
+      'Cevap, paralel muhasebenin gerçekten anlaşılıp anlaşılmadığını ele verir.',
 
     gercekHayat:
       'Bir tekstil fabrikası 2.400.000 TL’ye dokuma makinesi alıyor. Muhasebe müdürü üç farklı ' +

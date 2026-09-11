@@ -325,7 +325,7 @@
     'Konu özeti': 'Topic summary',
     'Mini quiz': 'Quick quiz',
     'Muhasebe mantığı': 'The accounting logic',
-    'Mülakatta sorulan önemli noktalar': 'Points that come up in interviews',
+    'Önemli noktalar': 'Key points',
     'Notlarım': 'My notes',
     'Performans farkı': 'Performance difference',
     'SAP Best Practices': 'SAP Best Practices',

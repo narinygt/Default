@@ -2747,7 +2747,7 @@ window.SAP = (function () {
     'Konu özeti': 'Topic summary',
     'Mini quiz': 'Quick quiz',
     'Muhasebe mantığı': 'The accounting logic',
-    'Mülakatta sorulan önemli noktalar': 'Points that come up in interviews',
+    'Önemli noktalar': 'Key points',
     'Notlarım': 'My notes',
     'Performans farkı': 'Performance difference',
     'SAP Best Practices': 'SAP Best Practices',
@@ -4846,7 +4846,7 @@ SAP.registerTables([
      anahtar   Bağlantı anahtarı (Türkçe, kebab-case)
      ad        Türkçe terim (çipte bu görünür)
      en        İngilizce orijinali (SAP ekranında bu yazar)
-     aciklama  Tanım — kısa ve mülakatta söylenebilecek netlikte
+     aciklama  Tanım — kısa ve tek cümlede söylenebilecek netlikte
      detay     Ek açıklama / örnek (opsiyonel)
      konu      İlgili konu id'si
      ilgili    İlişkili terim anahtarları
@@ -6506,7 +6506,7 @@ SAP.registerTopic({
       'sınıflayan, özetleyen ve raporlayan sistemdir. SAP FI bu sistemin yazılıma dökülmüş hâlidir — ' +
       'yani SAP yeni bir muhasebe icat etmez, yüzlerce yıllık muhasebe kurallarını uygular.\n\n' +
       'Bu konuyu atlayıp doğrudan işlem kodlarına geçmek, en sık yapılan hatadır. {{FB50}} ekranını ezberleyebilirsin ' +
-      'ama "bu satır neden borç?" sorusuna cevap veremezsen ne hatayı çözebilirsin ne de mülakatı geçebilirsin.',
+      'ama "bu satır neden borç?" sorusuna cevap veremezsen ilk gerçek hatada tıkanırsın.',
 
     neden:
       'Üç ayrı ihtiyaç aynı sistemi zorunlu kılar:\n\n' +
@@ -6898,7 +6898,7 @@ SAP.registerTopic({
 
     universalJournal:
       'Bu konu açısından en önemli sonuç şudur: eskiden "muhasebe kaydı FI’a, maliyet kaydı CO’ya gider" derdik. ' +
-      'S/4HANA’da tek bir satır hem FI hem CO satırıdır. Mülakatta bu farkı anlatabilmek, S/4HANA bildiğinin en net göstergesidir.',
+      'S/4HANA’da tek bir satır hem FI hem CO satırıdır. Bu farkı anlatabilmek, S/4HANA’yı gerçekten bilmenin en net göstergesidir.',
 
     performans:
       'Toplamlar önceden hesaplanmadığı için bakiye raporu artık milyonlarca kalemi anlık toplar. ' +
@@ -7056,7 +7056,7 @@ SAP.registerTopic({
 
     onemliNoktalar: [
       '**"Borç ne demek?"** Sorunun cevabı "borçlanmak" değildir. Borç = hesabın **sol tarafı**. Anlamı hesabın tipine göre değişir.',
-      '**Kayıt tarihi (`BUDAT`) ile belge tarihi (`BLDAT`) farkı.** Dönemi belirleyen kayıt tarihidir. Mülakatta çok sorulur.',
+      '**Kayıt tarihi (`BUDAT`) ile belge tarihi (`BLDAT`) farkı.** Dönemi belirleyen kayıt tarihidir. Pratikte en sık karıştırılan ayrımdır.',
       '**Neden muhasebede kayıt silinmez?** İzlenebilirlik için. Yanlış kayıt {{ters-kayit}} ile düzeltilir ({{FB08}}).',
       '**Gelir ile tahsilat farkı.** Fatura kesildiğinde gelir doğar; para geldiğinde sadece bir varlık başka bir varlığa dönüşür.',
       '**Amortisman neden gider?** Varlığın faydası tükendiği için. Nakit çıkışı olmayan tek büyük gider kalemidir.',
@@ -7183,7 +7183,7 @@ SAP.registerTopic({
       'MM canlıya alınıp FI hazır değilse mal girişi kaydedilemez.\n\n' +
       'Danışmanlık açısından sonucu şudur: FI danışmanı yalnızca FI bilmez. MM’den gelen mal girişinin hangi hesaba ' +
       'gittiğini ({{OBYC}}), SD faturasının gelirini nereye yazdığını ({{VKOA}}) ve CO’nun gideri nasıl aldığını da bilir. ' +
-      'Mülakatlarda ayırt edici soru tam olarak buradan gelir.',
+      'İyi bir FI danışmanını ayıran sınır tam olarak buradadır.',
 
     gercekHayat:
       'Bir market zinciri düşün. Sabah depoya 500 koli süt geliyor ({{MIGO}}), akşam kasadan 480 koli satılıyor ({{VF01}}), ' +
@@ -7692,7 +7692,7 @@ SAP.registerTopic({
   s4hana: {
     ozet:
       'FI’ın **kuralları** S/4HANA ile değişmedi; değişen, verinin nerede durduğu ve ana verinin nasıl yönetildiğidir. ' +
-      'Mülakatta "S/4HANA’da FI’da ne değişti?" sorusunun tam cevabı üç başlıktır: ' +
+      '"S/4HANA’da FI’da ne değişti?" sorusunun tam cevabı üç başlıktır: ' +
       '**Evrensel Kayıt Defteri**, **İş Ortağı zorunluluğu** ve **tablo sadeleşmesi**.',
 
     eccFarklari:[
@@ -9854,7 +9854,7 @@ SAP.registerTopic({
       'iç içe çalışır. Satın alma siparişi açar, depo malı kabul eder, AP faturayı işler ve öder.\n\n' +
       'Danışmanlık açısından kritik nokta: **AP faturalarının çoğu FI’da elle girilmez, MM’den gelir.** ' +
       'Bir AP danışmanı {{MIRO}}’yu, {{uc-yonlu-eslestirme}}yi ve {{OBYC}} hesap belirlemesini bilmek zorundadır. ' +
-      'Mülakatta "FB60 ile MIRO farkı nedir?" sorusu tam olarak bunu ölçer.',
+      '"FB60 ile MIRO farkı nedir?" sorusu tam olarak bu ayrımı yoklar.',
 
     gercekHayat:
       'Bir üretim şirketi ayda 1.200 satıcı faturası alıyor. Bunların 900’ü siparişe bağlı ' +
@@ -10069,7 +10069,7 @@ SAP.registerTopic({
   cesitler: {
     anlatim:
       'AP’de dört ayrı eksende çeşitlenme vardır: faturanın **geliş yolu**, ödemenin **yapılış biçimi**, ' +
-      'kapatmanın **türü** ve işlemin **özel ana muhasebe** kategorisi. Mülakatta bu ayrımlar sıkça sorulur.',
+      'kapatmanın **türü** ve işlemin **özel ana muhasebe** kategorisi. Pratikte bu ayrımlar sıkça karıştırılır.',
 
     liste:[
       { ad:'FI faturası (siparişsiz)', en:'Non-PO Invoice — FB60',
@@ -11025,7 +11025,7 @@ SAP.registerTopic({
       'Faturaların büyük çoğunluğu FI’da elle girilmez; SD’de kesilir ve FI’a **otomatik** düşer.\n\n' +
       'Danışmanlık açısından kritik nokta budur: bir AR danışmanı {{VKOA}} gelir hesabı belirlemesini ' +
       've SD faturasının muhasebeye aktarım mekanizmasını bilmek zorundadır. ' +
-      'Mülakatta "SD faturası kesildi ama FI belgesi oluşmadı, ne yaparsın?" sorusu tam olarak bunu ölçer.',
+      '"SD faturası kesildi ama FI belgesi oluşmadı, ne yaparsın?" sorusu tam olarak bu zinciri yoklar.',
 
     gercekHayat:
       'Bir toptancı 400 bayiye vadeli satış yapıyor. Ay sonunda 12 milyon TL alacak görünüyor ' +
@@ -12155,8 +12155,8 @@ SAP.registerTopic({
       'hem de **en çok yapılandırma isteyen** FI işlemidir.\n\n' +
       'Danışmanlık açısından: F110’un kendisi basittir, zor olan {{FBZP}} yapılandırmasıdır. ' +
       '"F110 hiçbir kalem seçmiyor" veya "yanlış bankadan ödüyor" şikâyetlerinin cevabı ' +
-      'neredeyse her zaman FBZP’dedir. Mülakatta "FBZP’de kaç adım vardır ve ne yaparlar?" ' +
-      'sorusu, adayın gerçekten F110 kurup kurmadığını ölçer.',
+      'neredeyse her zaman FBZP’dedir. "FBZP’de kaç adım vardır ve ne yaparlar?" ' +
+      'sorusunun cevabı, F110’un gerçekten kurulup kurulmadığını ele verir.',
 
     gercekHayat:
       'Bir üretim şirketi ayın 10’u ve 25’inde ödeme koşusu yapıyor. 25 Eylül sabahı hazine uzmanı ' +
@@ -14385,8 +14385,8 @@ SAP.registerTopic({
       '{{degerleme-plani}}, {{amortisman-alani}}, {{varlik-sinifi}}, hesap belirleme ({{AO90}}), ' +
       '{{amortisman-anahtari}} — bunların hepsi canlıya geçmeden doğru kurulmalıdır. ' +
       'Sonradan düzeltmek, açılmış binlerce varlığın yeniden değerlenmesi anlamına gelir.\n\n' +
-      'Mülakatta ayırt edici soru: **"Amortisman alanı ile defter (ledger) arasındaki ilişki nedir?"** ' +
-      'Bu soru, adayın paralel muhasebeyi gerçekten anlayıp anlamadığını ölçer.',
+      'Ayırt edici soru şudur: **"Amortisman alanı ile defter (ledger) arasındaki ilişki nedir?"** ' +
+      'Cevap, paralel muhasebenin gerçekten anlaşılıp anlaşılmadığını ele verir.',
 
     gercekHayat:
       'Bir tekstil fabrikası 2.400.000 TL’ye dokuma makinesi alıyor. Muhasebe müdürü üç farklı ' +
@@ -17640,8 +17640,8 @@ SAP.registerTopic({
       'Danışmanlık açısından FI-BL, {{F110}} ile **ayrılmaz biçimde bağlıdır**: ' +
       'ödeme programının hangi bankadan ödeyeceğini {{FBZP}} banka belirleme kuralları söyler ve ' +
       'bu kurallar {{ev-bankasi}} tanımlarına dayanır. FI-BL doğru kurulmadan F110 çalışmaz.\n\n' +
-      'Mülakatta ayırt edici soru: **"Neden banka ara hesabı kullanılır?"** ' +
-      'Bu soru, adayın mutabakat mantığını anlayıp anlamadığını ölçer.',
+      'Ayırt edici soru şudur: **"Neden banka ara hesabı kullanılır?"** ' +
+      'Cevap, mutabakat mantığının anlaşılıp anlaşılmadığını ele verir.',
 
     gercekHayat:
       'Bir şirketin 4 bankada 11 hesabı var. Ay sonunda hazine uzmanı her hesap için şu soruyu ' +
@@ -18754,8 +18754,8 @@ SAP.registerTopic({
       'Danışmanlık açısından EBS, "yapılandırması zor ama mantığı basit" bir konudur. ' +
       'Zorluk {{OT83}}’ün çok katmanlı yapısındadır: hesap sembolleri → sembol hesap ataması → ' +
       'kayıt kuralları → işlem kodu ataması. Bu dört katman doğru kurulmadan hiçbir satır otomatik kaydedilmez.\n\n' +
-      'Mülakatta ayırt edici soru: **"Hesap sembolü (account symbol) nedir, neden kullanılır?"** — ' +
-      'bu soru adayın EBS’i gerçekten kurup kurmadığını ölçer.',
+      'Ayırt edici soru şudur: **"Hesap sembolü (account symbol) nedir, neden kullanılır?"** — ' +
+      'cevabı, EBS’in gerçekten kurulup kurulmadığını ele verir.',
 
     gercekHayat:
       'Bir perakende zinciri 4 bankada 11 hesap kullanıyor ve günde ortalama 340 ekstre satırı alıyor.\n\n' +
@@ -19406,7 +19406,7 @@ SAP.registerTopic({
         'olduğunu bilir ve {{T012K}}’den o hesabın G/L numarasını alıp maskeye yerleştirir.\n\n' +
         'Sonuç: **8 kural, 11 hesap.** Yeni bir banka hesabı eklendiğinde tek bir kural bile ' +
         'değiştirmek gerekmez.\n\n' +
-        'Mülakatta "hesap sembolü nedir?" sorusuna bu cevap verilirse EBS’i gerçekten kurmuş olduğun anlaşılır.' },
+        '"Hesap sembolü nedir?" sorusuna bu cevabı verebiliyorsan EBS’i gerçekten kurmuşsun demektir.' },
 
       { ic:'🔍', baslik:'Yorumlama algoritması — eşleşme oranının anahtarı', metin:
         'Yorumlama algoritması (interpretation algorithm), açıklama metninde **ne aranacağını** belirler. ' +
@@ -19836,8 +19836,8 @@ SAP.registerTopic({
       'AA amortismanı, AP/AR yaşlandırması, MM’in {{gr-ir}} hesabı, banka mutabakatı, ' +
       'kur değerlemesi — hepsi burada bir araya gelir. Bu yüzden kapanış sorunlarını çözebilmek ' +
       'tüm modülleri bilmeyi gerektirir.\n\n' +
-      'Mülakatta ayırt edici soru: **"Ay sonu kapanış adımlarını sırayla anlat."** ' +
-      'Sıranın neden o sıra olduğunu açıklayabilmek, adayın gerçekten kapanış yapmış olduğunu gösterir.',
+      'Ayırt edici soru şudur: **"Ay sonu kapanış adımlarını sırayla anlat."** ' +
+      'Sıranın neden o sıra olduğunu açıklayabilmek, kapanışın gerçekten yapılmış olduğunu gösterir.',
 
     gercekHayat:
       'Bir üretim şirketinde Ocak kapanışı. Muhasebe müdürünün kontrol listesinde 23 madde var ve ' +
@@ -21039,7 +21039,7 @@ SAP.registerTopic({
       'Danışmanlık açısından bu konu, kapanışın en çok hata alınan adımıdır. ' +
       'Sebep: yapılandırma çok katmanlıdır ({{OB08}} kurlar, {{OB59}} değerleme yöntemi, ' +
       '{{OBA1}} hesap belirleme) ve herhangi bir katmandaki eksik, koşuyu durdurur.\n\n' +
-      'Mülakatta ayırt edici soru: **"Gerçekleşmiş ve gerçekleşmemiş kur farkı arasındaki fark nedir, ' +
+      'Ayırt edici soru şudur: **"Gerçekleşmiş ve gerçekleşmemiş kur farkı arasındaki fark nedir, ' +
       'muhasebede nasıl ele alınır?"**',
 
     gercekHayat:
@@ -22292,7 +22292,7 @@ SAP.registerTopic({
       'Danışmanlık açısından bu konu **iki modülün kesişimidir** ve sorumluluk sınırı bulanıktır. ' +
       'MM danışmanı "hesap belirleme FI’ın işi" der, FI danışmanı "hareket türü MM’in işi" der. ' +
       'Gerçekte {{OBYC}}’yi kuran kişi **her ikisini de** bilmek zorundadır.\n\n' +
-      'Mülakatta ayırt edici soru: **"OBYC’de BSX, WRX ve PRD işlem anahtarları ne yapar?"**',
+      'Ayırt edici soru şudur: **"OBYC’de BSX, WRX ve PRD işlem anahtarları ne yapar?"**',
 
     gercekHayat:
       'Bir üretim şirketinde yeni bir hammadde grubu tanımlandı ve ilk mal girişi yapılmak isteniyor. ' +
@@ -23488,7 +23488,7 @@ SAP.registerTopic({
       'Danışmanlık açısından bu konu, FI danışmanının **en sık müdahale ettiği entegrasyon noktasıdır**: ' +
       '"SD faturası kesildi ama muhasebeye düşmedi" şikâyeti neredeyse her projede yaşanır ve ' +
       'çözümü FI tarafındadır ({{VKOA}}).\n\n' +
-      'Mülakatta ayırt edici soru: **"SD faturası kesildi ama FI belgesi oluşmadı. Ne yaparsın?"** ' +
+      'Ayırt edici soru şudur: **"SD faturası kesildi ama FI belgesi oluşmadı. Ne yaparsın?"** ' +
       'Doğru cevap: {{VBRK}} `RFBSK` alanını kontrol et, {{VKOA}}’yı tamamla, {{VF02}} ile yeniden aktar — ' +
       '**faturayı iptal etme**.',
 
@@ -24610,7 +24610,7 @@ SAP.registerTopic({
       'Danışman açısından kritik nokta şu: vergi hataları **muhasebe hatası gibi görünmez**. ' +
       'Fiş dengelidir, mizan tutar, hiçbir alarm çalmaz. Yalnızca beyanname hazırlanırken ' +
       'ya da denetimde ortaya çıkar.\n\n' +
-      'Mülakatta ayırt edici soru: **"İndirilemeyen KDV nereye kaydedilir?"** ' +
+      'Ayırt edici soru şudur: **"İndirilemeyen KDV nereye kaydedilir?"** ' +
       'Doğru cevap: ayrı bir vergi hesabına **değil**, **giderin veya varlığın maliyetine** — ' +
       'çünkü indirilemiyorsa o bir vergi alacağı değil, gerçek bir maliyettir.',
 
@@ -24826,7 +24826,7 @@ SAP.registerTopic({
 
     notlar:[
       { tip:'tip', baslik:'"KDV gider midir?" — üç farklı cevap', metin:
-        'Bu soru mülakatta sıklıkla sorulur ve cevabı duruma göre değişir:\n\n' +
+        'Bu sorunun tek bir cevabı yoktur; duruma göre değişir:\n\n' +
         '**1. İndirilebiliyorsa → hayır, varlıktır.** Devletten geri alınacaktır (191).\n\n' +
         '**2. İndirilemiyorsa → evet, ama ayrı bir gider değil.** ' +
         'İlgili giderin veya varlığın **maliyetine eklenir**. Ayrı bir "KDV gideri" hesabı açmak ' +
@@ -25706,7 +25706,7 @@ SAP.registerTopic({
       'Danışman açısından New G/L, FI’ın "temel işlemler" seviyesinden ' +
       '"mimari tasarım" seviyesine geçiş noktasıdır. Bu konuyu bilmeden ' +
       'paralel defter, segment raporlaması veya S/4HANA geçiş projesi yönetilemez.\n\n' +
-      'Mülakatta ayırt edici soru: **"Belge bölme ne işe yarar?"** ' +
+      'Ayırt edici soru şudur: **"Belge bölme ne işe yarar?"** ' +
       'Yüzeysel cevap "kalemleri böler" der. Doğru cevap: ' +
       '**satıcı/müşteri ve vergi satırlarına kâr merkezi/segment atayarak ' +
       'o boyutlarda tam bilanço üretilmesini sağlar** — bu olmadan segment bilançosu çıkarılamaz.',
@@ -26803,7 +26803,7 @@ SAP.registerTopic({
       'Danışman açısından bu konu **{{new-gl}} ile {{asset-accounting}} arasındaki köprüdür**: ' +
       'paralel defterin gerçek hayattaki en yoğun kullanım alanı duran varlıklardır, ' +
       'çünkü amortisman farkları her ay ve her varlık için tekrarlanır.\n\n' +
-      'Mülakatta ayırt edici soru: **"Defter grubu boş bırakılırsa ne olur?"** ' +
+      'Ayırt edici soru şudur: **"Defter grubu boş bırakılırsa ne olur?"** ' +
       'Doğru cevap: kayıt **tüm defterlere** gider. Bu, paralel defterin en temel davranışıdır ' +
       've yanlış bilinirse tüm mimari yanlış kurulur.',
 
@@ -27932,7 +27932,7 @@ SAP.registerTopic({
       'Danışman açısından bu konu **avans süreçlerinin tamamını** kapsar: ' +
       'talep → ödeme → fatura → mahsup zinciri. Zincirin bir halkası atlanırsa ' +
       'avans bilançoda **asılı kalır** ve yıllarca kimse fark etmez.\n\n' +
-      'Mülakatta ayırt edici soru: **"Avans mahsup edilmezse ne olur?"** ' +
+      'Ayırt edici soru şudur: **"Avans mahsup edilmezse ne olur?"** ' +
       'Doğru cevap: satıcı borcu **ve** verilen avans **aynı anda** bilançoda görünür — ' +
       'yani hem varlık hem yükümlülük şişer. Fiş dengelidir, mizan tutar, ' +
       'hiçbir alarm çalmaz. Bu, en sık rastlanan bilanço şişmesi sebebidir.',
@@ -29182,7 +29182,7 @@ SAP.registerTopic({
       'operasyonel köprüdür ve **yapılandırmanın davranışa doğrudan çevrildiği** ' +
       'ender konulardan biridir: {{FBMP}}’de girilen bir gün sayısı, ' +
       'ertesi gün müşterinin postasına düşer.\n\n' +
-      'Mülakatta ayırt edici soru: **"İhtar çalıştırması muhasebe kaydı üretir mi?"** ' +
+      'Ayırt edici soru şudur: **"İhtar çalıştırması muhasebe kaydı üretir mi?"** ' +
       'Doğru cevap: **normalde hayır**. Yalnızca ihtar ücreti veya gecikme faizi ' +
       'tanımlanmışsa ayrı bir kayıt oluşur — o da ihtarın kendisinden değil, ' +
       'faiz hesaplamasından doğar.',
@@ -30368,7 +30368,7 @@ SAP.registerTopic({
       'Aynı kullanıcı hem park edip hem muhasebeleştirebiliyorsa, ' +
       'mekanizma yalnızca bir gecikmeye dönüşür. ' +
       'Ayrım **yetkilendirmeyle** sağlanır, park özelliğiyle değil.\n\n' +
-      'Mülakatta ayırt edici soru: **"Park ile hold arasındaki fark nedir?"** ' +
+      'Ayırt edici soru şudur: **"Park ile hold arasındaki fark nedir?"** ' +
       'Doğru cevap: park edilen belge **numara alır, başkaları görebilir, ' +
       'raporlanabilir ve denetim izi bırakır**; tutulan belge kişiseldir, ' +
       'numara almaz ve iz bırakmaz. Bu yüzden **hold iç kontrol aracı değildir**.',
@@ -31530,7 +31530,7 @@ SAP.registerTopic({
       'Mizan doğrudur, gelir tablosu doğrudur — ama yönetim raporu yanlıştır. ' +
       'Pazarlama\'nın gideri Üretim’e yazılmıştır ve kimse fark etmez, ' +
       'çünkü **toplam aynıdır**.\n\n' +
-      'Mülakatta ayırt edici soru: **"Yanlış maliyet yerine düşen gider nasıl düzeltilir?"** ' +
+      'Ayırt edici soru şudur: **"Yanlış maliyet yerine düşen gider nasıl düzeltilir?"** ' +
       'Doğru cevap: **{{KB11N}} ile CO içinde taşınır**, FI belgesi ters kaydedilmez. ' +
       'Çünkü FI tarafı doğrudur — yalnızca CO nesnesi yanlıştır. ' +
       'Ters kayıt gereksiz iki belge yaratır ve mizanı kirletir.',
@@ -31965,7 +31965,7 @@ SAP.registerTopic({
               '{{FB08}} ile ters kaydetmek mizanda **üç belge** (asıl + ters + yeni) yaratır, ' +
               'satıcı hesabını kirletir ve KDV beyanında gereksiz satırlar üretir.\n\n' +
               '{{KB11N}} tek CO belgesiyle, **FI’a hiç dokunmadan** çözer. ' +
-              'Mülakatta bu ayrımı bilmek belirleyicidir.',
+              'Bu ayrımı bilmek, FI hatası ile CO hatasını birbirine karıştırmamanın anahtarıdır.',
         ilgili:['KSB1','KA03','FB08'] },
 
       { kod:'OKB9', ad:'Varsayılan hesap ataması',
@@ -32856,7 +32856,7 @@ SAP.registerTopic({
       'aktarım hataları düzeltilirdi. ' +
       '{{ACDOCA}} bu işi tamamen ortadan kaldırdı — ' +
       've bu, S/4HANA’nın FI tarafındaki **en somut faydasıdır**.\n\n' +
-      'Mülakatta ayırt edici soru: **"CO içi bir dağıtım FI’ı etkiler mi?"** ' +
+      'Ayırt edici soru şudur: **"CO içi bir dağıtım FI’ı etkiler mi?"** ' +
       'Doğru cevap: **normalde hayır**. Ama şirket kodu, kâr merkezi, bölüm veya ' +
       'fonksiyonel alan **değişiyorsa evet** — çünkü bunlar FI’ın da raporladığı ' +
       'boyutlardır ve tutarsız kalamazlar.',
@@ -34222,7 +34222,7 @@ SAP.registerTopic({
       'Tipik pahalı hata: her ülke için ayrı hesap planı kurmak. ' +
       'Kısa vadede kolaydır, uzun vadede konsolidasyonu imkânsızlaştırır ve ' +
       'ortak {{kontrol-alani}} kurulamaz.\n\n' +
-      'Mülakatta ayırt edici soru: **"Şirket ile şirket kodu arasındaki fark nedir?"** ' +
+      'Ayırt edici soru şudur: **"Şirket ile şirket kodu arasındaki fark nedir?"** ' +
       'Doğru cevap: **şirket kodu** yasal muhasebe birimidir (bilanço üretir); ' +
       '**şirket** konsolidasyon çatısıdır. Bir şirkete birden çok şirket kodu bağlanabilir. ' +
       'İkisi karıştırıldığında konsolidasyon yapısı yanlış kurulur.',
@@ -34964,7 +34964,7 @@ SAP.registerTopic({
         'Şirket kodunun hesap planını değiştirmek, ' +
         'yeni şirket kodu kurup tüm veriyi taşımak demektir.' },
 
-      { ic:'🏢', baslik:'Şirket ile şirket kodu — mülakatın klasik sorusu', metin:
+      { ic:'🏢', baslik:'Şirket ile şirket kodu — en sık karıştırılan ayrım', metin:
         'İkisi de "şirket" kelimesini taşır ve sık karıştırılır. ' +
         'Ama farklı sorulara cevap verirler:\n\n' +
         '**{{sirket-kodu}} → "kim bilanço üretiyor?"**\n\n' +
@@ -35425,7 +35425,7 @@ SAP.registerTopic({
       'En sık karşılaşılan sorun teknik değil, kavramsaldır: ' +
       'kullanıcı bakiye raporunda göremediği bir detayı arar ve ' +
       '"sistem çalışmıyor" der. Oysa aradığı şey **kalem dökümündedir**.\n\n' +
-      'Mülakatta ayırt edici soru: **"{{FBL3N}} boş dönüyor ama hesapta bakiye var. Neden?"** ' +
+      'Ayırt edici soru şudur: **"{{FBL3N}} boş dönüyor ama hesapta bakiye var. Neden?"** ' +
       'Doğru cevap: hesapta **kalem yönetimi** açık değildir ({{SKB1}}). ' +
       'Bakiye vardır ama kalemler saklanmamıştır. ' +
       'Ayar sonradan açılırsa **geçmiş kalemler görünmez** — yalnızca sonraki kayıtlar.',
@@ -36620,7 +36620,7 @@ SAP.registerTopic({
       '{{SE16N}} ile tabloya bakılır ve **gerçek değer** görülür. ' +
       'Bu, "SD faturası muhasebeye düşmedi" ({{VBRK}} `RFBSK`) veya ' +
       '"vergi hesabı tutmuyor" ({{BSET}}) gibi teşhislerin temelidir.\n\n' +
-      'Mülakatta ayırt edici soru: **"{{BSIK}} ve {{BSAK}} neden ayrı tablolar?"** ' +
+      'Ayırt edici soru şudur: **"{{BSIK}} ve {{BSAK}} neden ayrı tablolar?"** ' +
       'Doğru cevap: **{{BSIK}} açık, {{BSAK}} kapatılmış** satıcı kalemlerini tutar. ' +
       'Kapatma yapıldığında kayıt birinden diğerine **taşınır**. ' +
       'Sebep performanstı — açık kalem sorgusu küçük tabloda çalışsın diye. ' +
@@ -37820,7 +37820,7 @@ SAP.registerTopic({
       'Belgelenmemiş bir ikame, yıllar sonra ' +
       '*"bu alan neden hep böyle doluyor?"* sorusuyla ortaya çıkar ve ' +
       'kimse sebebini bilmez.\n\n' +
-      'Mülakatta ayırt edici soru: **"Doğrulama ile ikame arasındaki fark nedir?"** ' +
+      'Ayırt edici soru şudur: **"Doğrulama ile ikame arasındaki fark nedir?"** ' +
       'Doğru cevap: **doğrulama engeller, ikame değiştirir.** ' +
       'Doğrulama veriye dokunmaz; ikame kullanıcının girdiğini ' +
       '**sessizce** değiştirebilir. Bu yüzden ikame belgelenmek zorundadır.',
@@ -39068,7 +39068,7 @@ SAP.registerTopic({
       'Ama gerçek değer başka yerde: **kalıbı bilen, bilmediği kodu bulabilir.** ' +
       'SAP\'ta on binlerce işlem kodu vardır; hiç kimse hepsini bilmez. ' +
       'Fark, arama stratejisindedir.\n\n' +
-      'Mülakatta ayırt edici soru: **"F-02 ile FB50 arasındaki fark nedir?"** ' +
+      'Ayırt edici soru şudur: **"F-02 ile FB50 arasındaki fark nedir?"** ' +
       'Yüzeysel cevap *"ikisi de G/L kaydı yapar"*. ' +
       'Doğru cevap: **`F-02` eski nesil, {{kayit-anahtari}} girmeyi gerektirir; ' +
       '`FB50` yeni nesil (Enjoy), kayıt anahtarını borç/alacak seçiminden kendisi türetir.** ' +
@@ -40346,7 +40346,7 @@ SAP.registerTopic({
       've düzeltme **başka bir döneme** düşerse karşılaştırmalı raporları bozar.\n\n' +
       'Bu yüzden hata yönetimi bir **teşhis** konusu olduğu kadar bir ' +
       '**önleme** konusudur — ve önlemenin aracı {{konu:dogrulama-ikame}}’dir.\n\n' +
-      '**Mülakat sorusu:** *"Kullanıcı bir rapor açıyor, liste boş geliyor, ' +
+      '**Sık karşılaşılan soru:** *"Kullanıcı bir rapor açıyor, liste boş geliyor, ' +
       'hata da vermiyor. Nereden başlarsın?"* ' +
       'Bu soru, ② sınıfını tanıyıp tanımadığını ölçer.',
 
@@ -41835,7 +41835,7 @@ SAP.registerTopic({
       'GİB tarafında karşılığı yoktur.\n\n' +
       '**Berat gecikirse ceza doğar.** {{e-defter}} yükleme süreleri kesindir.\n\n' +
       '━━━━━━━━━━\n\n' +
-      '**Mülakat sorusu:** *"Fatura SAP’ta başarıyla kaydedildi. E-fatura süreci ' +
+      '**Sık karşılaşılan soru:** *"Fatura SAP’ta başarıyla kaydedildi. E-fatura süreci ' +
       'de başarılı mıdır?"*\n\n' +
       'Doğru cevap: **Hayır, bu iki ayrı sorudur.** ' +
       '{{BKPF}}’te belge oluşması, {{EDOCUMENT}} statüsü hakkında ' +

@@ -37,7 +37,7 @@ SAP.registerTopic({
       'Tipik pahalı hata: her ülke için ayrı hesap planı kurmak. ' +
       'Kısa vadede kolaydır, uzun vadede konsolidasyonu imkânsızlaştırır ve ' +
       'ortak {{kontrol-alani}} kurulamaz.\n\n' +
-      'Mülakatta ayırt edici soru: **"Şirket ile şirket kodu arasındaki fark nedir?"** ' +
+      'Ayırt edici soru şudur: **"Şirket ile şirket kodu arasındaki fark nedir?"** ' +
       'Doğru cevap: **şirket kodu** yasal muhasebe birimidir (bilanço üretir); ' +
       '**şirket** konsolidasyon çatısıdır. Bir şirkete birden çok şirket kodu bağlanabilir. ' +
       'İkisi karıştırıldığında konsolidasyon yapısı yanlış kurulur.',
@@ -779,7 +779,7 @@ SAP.registerTopic({
         'Şirket kodunun hesap planını değiştirmek, ' +
         'yeni şirket kodu kurup tüm veriyi taşımak demektir.' },
 
-      { ic:'🏢', baslik:'Şirket ile şirket kodu — mülakatın klasik sorusu', metin:
+      { ic:'🏢', baslik:'Şirket ile şirket kodu — en sık karıştırılan ayrım', metin:
         'İkisi de "şirket" kelimesini taşır ve sık karıştırılır. ' +
         'Ama farklı sorulara cevap verirler:\n\n' +
         '**{{sirket-kodu}} → "kim bilanço üretiyor?"**\n\n' +

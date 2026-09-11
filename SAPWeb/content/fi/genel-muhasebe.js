@@ -17,7 +17,7 @@ SAP.registerTopic({
       'sınıflayan, özetleyen ve raporlayan sistemdir. SAP FI bu sistemin yazılıma dökülmüş hâlidir — ' +
       'yani SAP yeni bir muhasebe icat etmez, yüzlerce yıllık muhasebe kurallarını uygular.\n\n' +
       'Bu konuyu atlayıp doğrudan işlem kodlarına geçmek, en sık yapılan hatadır. {{FB50}} ekranını ezberleyebilirsin ' +
-      'ama "bu satır neden borç?" sorusuna cevap veremezsen ne hatayı çözebilirsin ne de mülakatı geçebilirsin.',
+      'ama "bu satır neden borç?" sorusuna cevap veremezsen ilk gerçek hatada tıkanırsın.',
 
     neden:
       'Üç ayrı ihtiyaç aynı sistemi zorunlu kılar:\n\n' +
@@ -409,7 +409,7 @@ SAP.registerTopic({
 
     universalJournal:
       'Bu konu açısından en önemli sonuç şudur: eskiden "muhasebe kaydı FI’a, maliyet kaydı CO’ya gider" derdik. ' +
-      'S/4HANA’da tek bir satır hem FI hem CO satırıdır. Mülakatta bu farkı anlatabilmek, S/4HANA bildiğinin en net göstergesidir.',
+      'S/4HANA’da tek bir satır hem FI hem CO satırıdır. Bu farkı anlatabilmek, S/4HANA’yı gerçekten bilmenin en net göstergesidir.',
 
     performans:
       'Toplamlar önceden hesaplanmadığı için bakiye raporu artık milyonlarca kalemi anlık toplar. ' +
@@ -567,7 +567,7 @@ SAP.registerTopic({
 
     onemliNoktalar: [
       '**"Borç ne demek?"** Sorunun cevabı "borçlanmak" değildir. Borç = hesabın **sol tarafı**. Anlamı hesabın tipine göre değişir.',
-      '**Kayıt tarihi (`BUDAT`) ile belge tarihi (`BLDAT`) farkı.** Dönemi belirleyen kayıt tarihidir. Mülakatta çok sorulur.',
+      '**Kayıt tarihi (`BUDAT`) ile belge tarihi (`BLDAT`) farkı.** Dönemi belirleyen kayıt tarihidir. Pratikte en sık karıştırılan ayrımdır.',
       '**Neden muhasebede kayıt silinmez?** İzlenebilirlik için. Yanlış kayıt {{ters-kayit}} ile düzeltilir ({{FB08}}).',
       '**Gelir ile tahsilat farkı.** Fatura kesildiğinde gelir doğar; para geldiğinde sadece bir varlık başka bir varlığa dönüşür.',
       '**Amortisman neden gider?** Varlığın faydası tükendiği için. Nakit çıkışı olmayan tek büyük gider kalemidir.',

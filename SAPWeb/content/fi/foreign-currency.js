@@ -34,7 +34,7 @@ SAP.registerTopic({
       'Danışmanlık açısından bu konu, kapanışın en çok hata alınan adımıdır. ' +
       'Sebep: yapılandırma çok katmanlıdır ({{OB08}} kurlar, {{OB59}} değerleme yöntemi, ' +
       '{{OBA1}} hesap belirleme) ve herhangi bir katmandaki eksik, koşuyu durdurur.\n\n' +
-      'Mülakatta ayırt edici soru: **"Gerçekleşmiş ve gerçekleşmemiş kur farkı arasındaki fark nedir, ' +
+      'Ayırt edici soru şudur: **"Gerçekleşmiş ve gerçekleşmemiş kur farkı arasındaki fark nedir, ' +
       'muhasebede nasıl ele alınır?"**',
 
     gercekHayat:

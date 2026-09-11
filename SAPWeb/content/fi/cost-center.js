@@ -42,7 +42,7 @@ SAP.registerTopic({
       'Mizan doğrudur, gelir tablosu doğrudur — ama yönetim raporu yanlıştır. ' +
       'Pazarlama\'nın gideri Üretim’e yazılmıştır ve kimse fark etmez, ' +
       'çünkü **toplam aynıdır**.\n\n' +
-      'Mülakatta ayırt edici soru: **"Yanlış maliyet yerine düşen gider nasıl düzeltilir?"** ' +
+      'Ayırt edici soru şudur: **"Yanlış maliyet yerine düşen gider nasıl düzeltilir?"** ' +
       'Doğru cevap: **{{KB11N}} ile CO içinde taşınır**, FI belgesi ters kaydedilmez. ' +
       'Çünkü FI tarafı doğrudur — yalnızca CO nesnesi yanlıştır. ' +
       'Ters kayıt gereksiz iki belge yaratır ve mizanı kirletir.',
@@ -477,7 +477,7 @@ SAP.registerTopic({
               '{{FB08}} ile ters kaydetmek mizanda **üç belge** (asıl + ters + yeni) yaratır, ' +
               'satıcı hesabını kirletir ve KDV beyanında gereksiz satırlar üretir.\n\n' +
               '{{KB11N}} tek CO belgesiyle, **FI’a hiç dokunmadan** çözer. ' +
-              'Mülakatta bu ayrımı bilmek belirleyicidir.',
+              'Bu ayrımı bilmek, FI hatası ile CO hatasını birbirine karıştırmamanın anahtarıdır.',
         ilgili:['KSB1','KA03','FB08'] },
 
       { kod:'OKB9', ad:'Varsayılan hesap ataması',

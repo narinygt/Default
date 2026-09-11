@@ -38,7 +38,7 @@ SAP.registerTopic({
       '{{SE16N}} ile tabloya bakılır ve **gerçek değer** görülür. ' +
       'Bu, "SD faturası muhasebeye düşmedi" ({{VBRK}} `RFBSK`) veya ' +
       '"vergi hesabı tutmuyor" ({{BSET}}) gibi teşhislerin temelidir.\n\n' +
-      'Mülakatta ayırt edici soru: **"{{BSIK}} ve {{BSAK}} neden ayrı tablolar?"** ' +
+      'Ayırt edici soru şudur: **"{{BSIK}} ve {{BSAK}} neden ayrı tablolar?"** ' +
       'Doğru cevap: **{{BSIK}} açık, {{BSAK}} kapatılmış** satıcı kalemlerini tutar. ' +
       'Kapatma yapıldığında kayıt birinden diğerine **taşınır**. ' +
       'Sebep performanstı — açık kalem sorgusu küçük tabloda çalışsın diye. ' +

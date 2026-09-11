@@ -49,7 +49,7 @@ SAP.registerTopic({
       've düzeltme **başka bir döneme** düşerse karşılaştırmalı raporları bozar.\n\n' +
       'Bu yüzden hata yönetimi bir **teşhis** konusu olduğu kadar bir ' +
       '**önleme** konusudur — ve önlemenin aracı {{konu:dogrulama-ikame}}’dir.\n\n' +
-      '**Mülakat sorusu:** *"Kullanıcı bir rapor açıyor, liste boş geliyor, ' +
+      '**Sık karşılaşılan soru:** *"Kullanıcı bir rapor açıyor, liste boş geliyor, ' +
       'hata da vermiyor. Nereden başlarsın?"* ' +
       'Bu soru, ② sınıfını tanıyıp tanımadığını ölçer.',
 

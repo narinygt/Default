@@ -35,7 +35,7 @@ SAP.registerTopic({
       'Danışman açısından New G/L, FI’ın "temel işlemler" seviyesinden ' +
       '"mimari tasarım" seviyesine geçiş noktasıdır. Bu konuyu bilmeden ' +
       'paralel defter, segment raporlaması veya S/4HANA geçiş projesi yönetilemez.\n\n' +
-      'Mülakatta ayırt edici soru: **"Belge bölme ne işe yarar?"** ' +
+      'Ayırt edici soru şudur: **"Belge bölme ne işe yarar?"** ' +
       'Yüzeysel cevap "kalemleri böler" der. Doğru cevap: ' +
       '**satıcı/müşteri ve vergi satırlarına kâr merkezi/segment atayarak ' +
       'o boyutlarda tam bilanço üretilmesini sağlar** — bu olmadan segment bilançosu çıkarılamaz.',

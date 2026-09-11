@@ -34,8 +34,8 @@ SAP.registerTopic({
       'AA amortismanı, AP/AR yaşlandırması, MM’in {{gr-ir}} hesabı, banka mutabakatı, ' +
       'kur değerlemesi — hepsi burada bir araya gelir. Bu yüzden kapanış sorunlarını çözebilmek ' +
       'tüm modülleri bilmeyi gerektirir.\n\n' +
-      'Mülakatta ayırt edici soru: **"Ay sonu kapanış adımlarını sırayla anlat."** ' +
-      'Sıranın neden o sıra olduğunu açıklayabilmek, adayın gerçekten kapanış yapmış olduğunu gösterir.',
+      'Ayırt edici soru şudur: **"Ay sonu kapanış adımlarını sırayla anlat."** ' +
+      'Sıranın neden o sıra olduğunu açıklayabilmek, kapanışın gerçekten yapılmış olduğunu gösterir.',
 
     gercekHayat:
       'Bir üretim şirketinde Ocak kapanışı. Muhasebe müdürünün kontrol listesinde 23 madde var ve ' +

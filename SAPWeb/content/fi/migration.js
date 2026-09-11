@@ -17,7 +17,7 @@ SAP.registerTopic({
       'Bu tanım doğrudur ama **işin nerede zorlaştığını** söylemez. ' +
       '{{konu:lsmw}} ve {{konu:data-upload}} *nasıl* taşınacağını anlattı; ' +
       'bu konu **neyin taşınacağına** dair kararı anlatıyor.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Bu konunun tezi:**\n\n' +
       '**Geçiş bir veri taşıma işi değil, hangi *geçmişin* taşınacağına ' +
       'dair bir muhasebe kararıdır.**\n\n' +
@@ -27,7 +27,7 @@ SAP.registerTopic({
       'Bu sorunun cevabı **araçla değil yaklaşımla** verilir ve ' +
       'yanlış cevaplandığında geri dönüşü yoktur: canlıya geçtikten ' +
       'sonra "geçmişi de taşıyalım" denemez.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       'Üç yaklaşım vardır ve üçü de **geçmiş** sorusuna farklı cevap verir:\n\n' +
       '**{{greenfield}}** — sistem sıfırdan kurulur, yalnızca bakiye ve ' +
       'açık kalem taşınır. *Geçmiş eski sistemde kalır.*\n\n' +
@@ -58,7 +58,7 @@ SAP.registerTopic({
       '**3.** *"Kaç yıl geriye gidelim?"* → Cevap "mümkün olduğunca" değildir. ' +
       'Her ek yıl, o yılın **tüm hareketlerini** ve o dönemin ' +
       'yapılandırmasını (vergi oranları, hesap planı, kur) taşımayı gerektirir.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Danışman için asıl ders:** bu soruların hiçbirini veri geçişi ' +
       'ekibi tek başına cevaplayamaz. Cevaplar **mali işler direktöründen** ' +
       've **denetçiden** gelir. Danışmanın işi soruyu doğru zamanda ' +
@@ -75,7 +75,7 @@ SAP.registerTopic({
       '**İkinci hata — "Ağustos’ta başlıyorlar".** Veri temizliği ' +
       'projenin **ilk günü** başlar. Ağustos’ta başlayan şey yüklemedir; ' +
       'temizlik o zamana kadar bitmiş olmalıdır.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Doğru sıra tersinden kurulur:**\n\n' +
       '**1.** Canlıya geçiş tarihi belirlenir.\n' +
       '**2.** Geriye doğru sayılır: son {{deneme-gecisi}} ne zaman?\n' +
@@ -94,7 +94,7 @@ SAP.registerTopic({
       'Muhasebe kaydı **üretir**. Yanlışsa {{FB08}} gerekir ve iz kalır.\n\n' +
       '**③ Tarihçe** — geçmiş yılların hareketleri.\n' +
       'Yalnızca {{brownfield}} veya {{secici-gecis}}te gelir.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**İkinci sınıfın içindeki kritik ayrım:**\n\n' +
       '**Bilanço hesapları** devreder — bakiyeleri taşınır.\n' +
       '**Gelir tablosu hesapları devretmez** — dönem sonunda sıfırlanıp ' +
@@ -212,7 +212,7 @@ SAP.registerTopic({
       { tip:'warn', baslik:'Yaklaşım kararı geri alınamaz — üç seçeneğin gerçek bedeli', metin:
         'Üç yaklaşım genelde "maliyet" üzerinden tartışılır. Asıl fark **maliyette değil, ' +
         'sonradan pişman olunacak yerdedir**.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**{{greenfield}} — temiz başlangıç**\n\n' +
         'Eski sistemin birikmiş hataları, ölü {{z-gelistirme}}leri ve bozuk verisi **gelmez**. ' +
         'Süreçler {{standarda-yakin}} kurulabilir.\n' +
@@ -229,7 +229,7 @@ SAP.registerTopic({
         'Süreçler yenilenir **ve** seçilmiş tarihçe gelir.\n' +
         'En pahalısı; üçüncü taraf araç ve uzmanlık ister.\n' +
         '→ *Pişmanlık noktası:* bütçe.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Karar kuralı:** süreçlerinizden memnunsanız ve tarihçeye ihtiyacınız varsa ' +
         '**brownfield**; süreçlerinizi yenilemek istiyorsanız ve tarihçeyi eski sistemde ' +
         'tutabiliyorsanız **greenfield**. İkisi de olmuyorsa **seçici** — ve bunun bedeli vardır.' },
@@ -375,7 +375,7 @@ SAP.registerTopic({
         '{{konu:lsmw}}’de tek bir kontrol yeterliydi: geçiş hesabı sıfır mı? ' +
         'Geçişte **ölçek değişir** ve üç ayrı seviye gerekir. ' +
         'Üçü **farklı soruları** cevaplar:\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**① Teknik mutabakat — "yüklendi mi?"**\n\n' +
         'Gönderilen adet = oluşan adet · kaynak tutar toplamı = sistem tutar toplamı.\n' +
         'Adet tutup tutar tutmuyorsa → {{donusum-kurali}} hatası (ondalık ayracı, kur).\n' +
@@ -391,7 +391,7 @@ SAP.registerTopic({
         'Dolu ise mizan doğru olsa bile **sunum yanlıştır** ' +
         '(bkz. {{konu:reporting}}).\n' +
         '*Bunu denetçi sorar — o sormadan siz sorun.*\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Neden üçü de gerekli:** ① geçse de ② geçmeyebilir (doğru sayıda ' +
         'yanlış hesaba yüklenmiştir). ② geçse de ③ geçmeyebilir (bakiyeler doğru ' +
         'ama {{mali-tablo-yapisi}} eksiktir). ' +
@@ -759,7 +759,7 @@ SAP.registerTopic({
       'Veri temizliğinin iş planı **ilk simülasyonun hata listesidir** — erken çalıştır.',
       'Gelir tablosu hesaplarını **taşıma**; bakiyeleri yoktur.',
       'Açık kalem hesapları **tek tek**, vade ve ödeme koşuluyla.',
-      '{{AS91}} muhasebe kaydı üretmez — G/L fişini **unutma**.',
+      '{{AS91}} muhasebe kaydı üretmez — G/L fişi **ayrıca girilir**.',
       '{{deneme-gecisi}}nde **süreleri ölç**; kesme penceresi ölçümle planlanır.',
       'Geçiş için **ayrı {{belge-turu}}** ve **ayrı numara aralığı** tanımla.',
       'Üç seviyeli mutabakat yap: teknik → muhasebe → **yasal**.',
@@ -877,7 +877,7 @@ SAP.registerTopic({
         'Geçmişi canlıya geçtikten sonra eklemek teknik olarak mümkündür. ' +
         'Pratikte yapılamamasının **dört ayrı sebebi** vardır ve ' +
         'her biri tek başına yeterlidir:\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**1. Numara aralıkları tükenmiştir.**\n' +
         'Canlı sistem geçişten beri belge üretiyor. Geçmiş belgeleri ' +
         'yüklemek için gereken aralık ya kullanılmıştır ya da ' +
@@ -897,7 +897,7 @@ SAP.registerTopic({
         '{{berat}} alınmış bir döneme geriye dönük belge eklemek ' +
         'teknik bir işlem değil, **mevzuat sorunudur** ' +
         '(bkz. {{konu:e-donusum}}).\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Sonuç:** geçmiş kararı bir {{tek-yonlu-kapi}}dır. ' +
         'Proje başında, yazılı olarak, mali işlerin imzasıyla verilir.' },
 
@@ -905,7 +905,7 @@ SAP.registerTopic({
         'Geçişten sonra en sık sorulan soru: *"eski sistemi ne zaman kapatabiliriz?"*\n\n' +
         'Cevap genelde beklenenden **çok daha geçtir** ve sebebi ' +
         'lisans maliyeti değil **yasal saklamadır**.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Üç seçenek ve gerçek maliyetleri:**\n\n' +
         '**① Sistemi ayakta tut** — en kolay, en pahalı. ' +
         'Lisans, donanım, yedekleme ve **bilgi** maliyeti: ' +
@@ -916,7 +916,7 @@ SAP.registerTopic({
         'sorgulanabilir biçimde saklanır. En ucuzu ama **kurulumu ' +
         'geçiş projesinin parçası olmalıdır**; sonradan yapılırsa ' +
         'eski sistemi yeniden ayağa kaldırmak gerekir.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Türkiye’ye özgü ek yük:** {{e-defter}} ve {{berat}} kayıtları ' +
         'saklama süresi boyunca **kanıtlanabilir** olmalıdır. ' +
         'Bu, ekran görüntüsü veya Excel dökümüyle karşılanmaz.\n\n' +
@@ -926,7 +926,7 @@ SAP.registerTopic({
       { ic:'📐', baslik:'n:1 ve 1:n — eşleme matematiği', metin:
         'Hesap planı eşlemesi bir **fonksiyondur**: her eski hesap ' +
         'bir yeni hesaba gider. Fonksiyonun yönü, işin yapılabilirliğini belirler.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**n:1 — birleştirme. ✓ Otomatik.**\n\n' +
         '`320.01` (yurtiçi satıcılar) + `320.02` (yurtdışı satıcılar) → `320`\n\n' +
         'Bakiyeler toplanır, iş biter. Bilgi **kaybolur** ama ' +
@@ -936,7 +936,7 @@ SAP.registerTopic({
         'Eski bakiye tek bir sayıdır: **3.240.000**. ' +
         'Bu sayı, hangi bankada ne kadar olduğunu **taşımaz**. ' +
         'Eşleme tablosu bunu çözemez çünkü çözecek bilgi ortada yoktur.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Üç çözüm yolu, üçü de ek iş:**\n\n' +
         '**a)** Bölme eski sistemde, **geçişten önce** yapılır. ' +
         'En temizi — kaynak veri hâlâ oradadır.\n' +
@@ -961,7 +961,7 @@ SAP.registerTopic({
         'veri çekimi · yükleme · mutabakat · **düzeltme** · onay · açılış hazırlığı\n\n' +
         '**"Düzeltme" satırı en kritik olandır** ve tahmin edilemez — ' +
         'yalnızca provada ölçülür. Bir şey ters giderse ne kadar zaman kalıyor?\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Üç turun üç ayrı amacı:**\n\n' +
         '**① Teknik prova** — akış çalışıyor mu? Hatalar beklenir ve normaldir.\n' +
         '**② İş provası** — veri doğru mu? Muhasebe mutabakatı burada yapılır.\n' +
@@ -1080,7 +1080,7 @@ SAP.registerTopic({
       '• {{FBL1N}} satıcı bakiyesi = `320` bakiyesi ✓\n' +
       '• {{AR01}} varlık toplamı = `253` − `257` ✓\n\n' +
       'Dört kontrol de geçti. **Geçiş gerçekten başarılıydı.**\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       'Mart 2028’de bağımsız denetim başladı.\n\n' +
       'Denetçi ilk istediği belgeyi istedi: **2027 karşılaştırmalı gelir tablosu.**\n\n' +
       'SAP’ta yoktu. Ve bulunabilecek bir yerde de değildi.',
@@ -1178,7 +1178,7 @@ SAP.registerTopic({
       'Mutabakat dört koldan yapıldı ve dördü de geçti. ' +
       'Lisansı yenilemeyen kişi maliyet tasarrufu sağladı.\n\n' +
       'Sorun **kararların arasındaki boşluktaydı**.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Üç kalıcı ders:**\n\n' +
       '**1. Geçiş kararı iki yarımdan oluşur.**\n' +
       '*"Geçmişi taşımıyoruz"* eksik bir cümledir. ' +
@@ -1195,7 +1195,7 @@ SAP.registerTopic({
       'Bilanço hesapları devreder, gelir tablosu hesapları devretmez. ' +
       'Geçişten sonra bilançonun dolu görünmesi doğal ve doğrudur — ' +
       've bu, gelir tablosunun boş olduğunu **gizler**.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       'Bu, {{konu:error-handling}}’deki **② sessiz hata** sınıfının ' +
       'proje ölçeğindeki hâlidir: sistem doğru davrandı, ' +
       'her kontrol geçti, hiçbir hata mesajı çıkmadı — ' +

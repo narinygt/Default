@@ -1090,6 +1090,15 @@ svg { display: block; }
 
 .prose { font-size: var(--t-body); line-height: 1.78; color: var(--ink); max-width: 70ch; }
 .prose + .prose { margin-top: var(--sp-3); }
+/* Yazarın koyduğu bölüm arası (içerikte kendi başına duran `---` satırı,
+   markup.js). Bölüm sonu değil paragraf öbeği arası olduğu için kural
+   çizgisi en hafif tonda ve tam genişlikte değil. */
+.prose hr.brk {
+  width: 64px;
+  margin: var(--sp-5) 0;
+  border: 0;
+  border-top: 1px solid var(--rule-firm);
+}
 
 .sub-h {
   font-size: var(--t-h3);
@@ -1446,7 +1455,9 @@ table.tbl .mono { font-family: var(--font-mono); font-size: 13px; }
   background: var(--paper);
   font-size: var(--t-xs);
 }
-.er-rel .ar { color: var(--accent); font-weight: 700; }
+/* Ok artık bir SVG ikonu — metin satırının ortasına hizalanması için
+   satır kutusundan çıkarılıp flex öğesi olarak ortalanır. */
+.er-rel .ar { color: var(--accent); display: inline-flex; align-items: center; }
 .er-rel .lb { color: var(--ink-3); }
 .er-rel code { background: var(--paper-2); padding: 2px 7px; border-radius: 2px; color: var(--ink-2); }
 
@@ -3037,11 +3048,21 @@ window.SAP = (function () {
     return applyRefs(inline(SAP.esc(s))).replace(/\n/g, '<br>');
   }
 
+  /* Yazarın koyduğu bölüm arası ayracı: kendi başına duran `---` satırı.
+     Eskiden içerikte `━━━━━━━━━━` yazıyordu — metnin İÇİNE karakterle
+     çizilmiş bir çizgi. Tasarım dili ayrımı 1px kural çizgisiyle yapar
+     (theme.css ilke 1), karakterle değil; o yüzden bu işaret gerçek bir
+     <hr>'a dönüşür. Escape'ten ÖNCE yakalanır: inline() `--` dizisini
+     em dash'e çevirdiği için sonra bakmak güvenilmez olurdu. */
+  var AYRAC = /^-{3,}$/;
+
   /** Blok metin: boş satırlar paragrafa dönüşür. */
   function mkp(s) {
     if (s == null || s === '') return '';
     return String(s).split(/\n\s*\n/).map(function (par) {
-      return '<p>' + applyRefs(inline(SAP.esc(par.trim()))).replace(/\n/g, '<br>') + '</p>';
+      var t = par.trim();
+      if (AYRAC.test(t)) return '<hr class="brk">';
+      return '<p>' + applyRefs(inline(SAP.esc(t))).replace(/\n/g, '<br>') + '</p>';
     }).join('');
   }
 
@@ -3239,7 +3260,7 @@ window.SAP = (function () {
         var badge = f.tip === 'pk' ? '<span class="pk">PK</span>'
                   : f.tip === 'fk' ? '<span class="pk fk">FK</span>' : '';
         return '<li>' + badge + '<span>' + esc(f.ad) + '</span>' +
-               (f.not ? '<span style="font-family:var(--font);color:var(--text-3);font-size:10.5px">' +
+               (f.not ? '<span style="font-family:var(--font-sans);color:var(--ink-3);font-size:10.5px">' +
                         mk(f.not) + '</span>' : '') + '</li>';
       }).join('');
       return '<div class="er-ent' + (v.hub ? ' hub' : '') + '" data-ent="' + esc(v.ad) + '">' +
@@ -3253,7 +3274,15 @@ window.SAP = (function () {
     var rels = (d.iliskiler || []).map(function (r) {
       return '<div class="er-rel">' +
         '<code>' + esc(r.from) + '</code>' +
-        '<span class="ar">──▶</span>' +
+        /* Ok, karakterle ÇİZİLMEZ. Eskiden `──▶` yazıyordu — kutu çizim
+           karakterlerinden yapılmış bir ok, fontu değişince hizası bozulan
+           ve baskıda dağılan bir çözüm. Artık Lucide `arrow-right` (16px,
+           currentColor — theme.css ilke 5).
+           SAP.ui, diagram.js'ten SONRA yüklenir ama er() yalnızca çizim
+           anında çağrılır; yine de eksikse tipografik ok'a düşer. */
+        '<span class="ar">' +
+          (SAP.ui && SAP.ui.icon ? SAP.ui.icon('arrow-right') : '→') +
+        '</span>' +
         '<code>' + esc(r.to) + '</code>' +
         (r.alanlar ? '<span class="lb">' + esc(r.alanlar) + '</span>' : '') +
         (r.not ? '<span class="lb">· ' + mk(r.not) + '</span>' : '') +
@@ -3326,13 +3355,13 @@ window.SAP = (function () {
                  ' C ' + c1x.toFixed(1) + ' ' + c1y.toFixed(1) + ', ' +
                  c2x.toFixed(1) + ' ' + c2y.toFixed(1) + ', ' +
                  bx.toFixed(1) + ' ' + by.toFixed(1) + '" ' +
-                 'fill="none" stroke="var(--border)" stroke-width="1.5" ' +
+                 'fill="none" stroke="var(--rule-firm)" stroke-width="1.5" ' +
                  'stroke-dasharray="4 4" marker-end="url(#erhead)"/>';
       });
 
       svg.innerHTML =
         '<defs><marker id="erhead" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" ' +
-        'markerHeight="7" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="var(--text-3)"/>' +
+        'markerHeight="7" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="var(--rule-firm)"/>' +
         '</marker></defs>' + paths;
     });
   }
@@ -3390,7 +3419,7 @@ window.SAP = (function () {
       cr += Number(r.alacak) || 0;
       return '<tr>' +
         '<td class="acc">' + esc(r.hesap || '') + '</td>' +
-        '<td>' + mk(r.ad || '') + (r.not ? '<br><span style="font-size:11.5px;color:var(--text-3)">' + mk(r.not) + '</span>' : '') + '</td>' +
+        '<td>' + mk(r.ad || '') + (r.not ? '<br><span style="font-size:11.5px;color:var(--ink-3)">' + mk(r.not) + '</span>' : '') + '</td>' +
         '<td class="num dr">' + (r.borc ? '<b>' + SAP.num(r.borc) + '</b>' : '') + '</td>' +
         '<td class="num cr">' + (r.alacak ? '<b>' + SAP.num(r.alacak) + '</b>' : '') + '</td>' +
       '</tr>';
@@ -7035,7 +7064,7 @@ SAP.registerTopic({
     sonuc:
       '**Mart 2026 sonucu:**\n\n' +
       'Gelir 40.000 − Satılan malın maliyeti 18.000 − Amortisman 1.000 = **21.000 TL kâr**.\n\n' +
-      'Dikkat et: kasadaki nakit değişimi bambaşkadır. 200.000 girdi, 72.000 makineye çıktı, 48.000 satıştan girdi, ' +
+      'Kasadaki nakit değişimi ise bambaşkadır. 200.000 girdi, 72.000 makineye çıktı, 48.000 satıştan girdi, ' +
       'çekirdeğin 30.000 TL’si ise **henüz ödenmedi**. Yani banka + kasa = 176.000 TL, kâr ise 21.000 TL. ' +
       'İkisinin farklı olması bir hata değil, muhasebenin doğru çalıştığının kanıtıdır.\n\n' +
       'Bilanço kontrolü: Varlıklar (176.000 nakit + 7.000 stok + 59.000 net makine + 17.000 KDV alacağı) = ' +
@@ -7683,7 +7712,7 @@ SAP.registerTopic({
     notlar:[
       { tip:'warn', baslik:'BSEG doğrudan sorgulanmaz', metin:
         '{{BSEG}} bir cluster tablodur; `HKONT` veya `KOSTL` gibi anahtar olmayan alanlara göre ' +
-        'SELECT çekmek felaket derecede yavaştır. Bu yüzden indeks tabloları ({{BSIK}}, {{BSID}}, {{BSIS}}) icat edilmiştir. ' +
+        'SELECT çekmek kabul edilemez ölçüde yavaştır. Bu yüzden indeks tabloları ({{BSIK}}, {{BSID}}, {{BSIS}}) icat edilmiştir. ' +
         'S/4HANA’da doğru adres {{ACDOCA}}’dır.' },
     ],
   },
@@ -13944,7 +13973,7 @@ SAP.registerTopic({
     ],
 
     ekstra:[
-      { ic:'🔑', baslik:'Sıralama anahtarı — kapatmanın gizli kahramanı', metin:
+      { ic:'🔑', baslik:'Sıralama anahtarı — otomatik kapatmanın belirleyici ayarı', metin:
         '{{F.13}} otomatik kapatmanın çalışıp çalışmaması neredeyse tamamen hesabın ' +
         '**sıralama anahtarına** ({{SKB1}} `ZUAWA`) bağlıdır.\n\n' +
         'Sıralama anahtarı, kayıt sırasında **atama alanını** ({{BSEG}} `ZUONR`) otomatik doldurur. ' +
@@ -14747,7 +14776,7 @@ SAP.registerTopic({
       '** Varlık hareketleri** — varlığa ne oluyor? *(edinim, transfer, çıkış, AuC)*\n' +
       '** Hesaplama yöntemleri** — tutar nasıl bulunuyor? *(doğrusal, azalan, YST, üretim, kalıntılı)*\n' +
       '** VUK uygulamaları** — mevzuatın özel kuralları *(kıst, fevkalade, özel maliyet…)*\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '### Hesaplama yöntemleri — aynı varlık, beş sonuç\n\n' +
       'Yöntemleri anlamanın en hızlı yolu **aynı varlığı beş kez hesaplamaktır**.\n\n' +
       '**Varlık:** 600.000 TL · faydalı ömür **5 yıl**\n\n' +
@@ -18503,7 +18532,7 @@ SAP.registerTopic({
           { alan:'Gerçek ekstre bakiyesi', deger:'4.250.000 TL' },
           { alan:'**Açıklanamayan fark**', deger:'**179.500 TL**' },
         ],
-        not:'Hesap tutmuyor! Ama sebep basit: ekstredeki 4 satır **henüz işlenmedi**. ' +
+        not:'Hesap tutmuyor. Sebep basit: ekstredeki 4 satır **henüz işlenmedi**. ' +
              'Onlar işlendiğinde muhasebe bakiyesi 179.500 TL artacak ve fark kapanacak.' },
 
       { baslik:'Bekleyen ekstre satırları işlenir', tcode:'FEBAN',
@@ -19960,7 +19989,7 @@ SAP.registerTopic({
         '• **Kur değerlemesi tüm kalemler kaydedilmeden yapılırsa** sonradan gelen dövizli kalemler ' +
         'değerlenmemiş olur.\n\n' +
         '• **Yeniden sınıflama değerlemeden önce yapılırsa** yanlış tutarlar sınıflanır.' },
-      { tip:'tip', baslik:'İki dönem aralığı hilesi', metin:
+      { tip:'tip', baslik:'İki dönem aralığının kullanımı', metin:
         '{{OB52}}’de iki dönem aralığı vardır. **1. aralık** normal kullanıcılar, ' +
         '**2. aralık** yetki grubu olan kullanıcılar içindir.\n\n' +
         'Kapanış sırasında 1. aralık kapatılır (kullanıcılar kayıt yapamaz) ama 2. aralık açık bırakılır ' +
@@ -19973,7 +20002,7 @@ SAP.registerTopic({
   muhasebe: {
     anlatim:
       'Kapanış kayıtlarının ayırt edici özelliği **geçici mi kalıcı mı** olduklarıdır. ' +
-      'Aşağıda dört tipin örnekleri var; her birinin sonraki dönemde ne olacağına dikkat et.',
+      'Aşağıda dört tipin örnekleri ve her birinin sonraki dönemde ne olduğu veriliyor.',
 
     etkilenenHesaplar:[
       { hesap:'381 Gider tahakkukları', tur:'Bilanço — Kaynak', neden:'Doğmuş ama faturası gelmemiş giderler. Sonraki dönemde **ters kaydedilir**.' },
@@ -21745,7 +21774,7 @@ SAP.registerTopic({
         '`656` **Kambiyo zararları** — kur aleyhte hareket etti\n\n' +
         'Döviz tutarı **hiç değişmez**; değişen yalnızca yerel para karşılığıdır. ' +
         '320 hesabındaki 100.000 EUR, kur ne olursa olsun 100.000 EUR kalır.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Neden alt hesap ayrımı önerilir?**\n\n' +
         '`646.01 / 656.01` **gerçekleşmemiş** — {{F.05}} değerlemesinden doğar, ' +
         '**ertesi gün ters kaydedilir**\n' +
@@ -21756,7 +21785,7 @@ SAP.registerTopic({
         '**2. Kontrol.** Dönem başında gerçekleşmemiş hesapların **sıfırlanmış** olması gerekir ' +
         '(ters kayıt çalıştıysa). Sıfır değilse ters kayıt atlanmıştır — ' +
         'dönem sonu kontrol listesinin basit ve etkili bir maddesidir.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**SAP tarafında hesaplar nereye bağlanır?**\n\n' +
         '{{OBA1}} ile iki anahtar kullanılır:\n\n' +
         '**KDF** — açık kalem değerlemesi (satıcı, müşteri, dövizli krediler)\n' +
@@ -21777,7 +21806,7 @@ SAP.registerTopic({
         '**Değerlenmez — parasal olmayanlar:**\n\n' +
         '`153` stoklar · `253` duran varlıklar · `159` verilen avanslar · `340` alınan avanslar\n\n' +
         'Ortak özellik: karşılığında **mal veya hizmet** alınacak/verilecek, para değil.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Avans neden değerlenmez? — kavramın kilit noktası**\n\n' +
         'Satıcıya 50.000 EUR avans verdin. Kur 35’ten 40’a çıktı. Kâr ettin mi?\n\n' +
         '**Hayır.** Çünkü sana geri **para** gelmeyecek — 50.000 EUR’luk **mal** gelecek. ' +
@@ -21802,7 +21831,7 @@ SAP.registerTopic({
         '• Kur **yükseldi** → satıcı lehine → **satıcı** düzenler\n' +
         '• Kur **düştü** → alıcı lehine → **alıcı** düzenler\n\n' +
         '**KDV oranı** asıl işleme uygulanan oranla aynıdır.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Danışmanlık açısından kritik nokta**\n\n' +
         '{{F110}} ödemeyi yapar, SAP kur farkını `656`’ya yazar, muhasebe kaydı **tamamdır**. ' +
         'Ama kur farkı faturası **düzenlenmemiştir** — çünkü SAP bunu üretmez.\n\n' +
@@ -21825,7 +21854,7 @@ SAP.registerTopic({
         'Gider yazılırsa → tamamı o yıl gider olur.\n\n' +
         'İkisi de mevzuata uygun olabilir ama **sonuçları farklıdır** ve ' +
         'seçim tutarlı uygulanmalıdır.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**SAP bunu otomatik ayırmaz.**\n\n' +
         '{{F.05}} tüm açık kalemleri değerler ve farkı `656`’ya yazar — ' +
         'yatırıma ait olanla normal ticari borcu **ayırt etmez**.\n\n' +
@@ -22403,7 +22432,7 @@ SAP.registerTopic({
     anlatim:
       'MM kayıtlarının tamamı **otomatiktir** ve hesapları {{OBYC}} belirler. ' +
       'Aşağıda en sık karşılaşılan beş senaryonun kayıtları var; her birinde hangi ' +
-      '**işlem anahtarının** devreye girdiğine dikkat et.',
+      '**işlem anahtarının** devreye girdiği ayrıca gösteriliyor.',
 
     etkilenenHesaplar:[
       { hesap:'153 Ticari mallar / 150 Hammadde (stok)', tur:'Bilanço — Varlık', neden:'{{OBYC}} → **BSX**. {{degerleme-sinifi}}na göre farklı stok hesabı seçilir.' },
@@ -25251,7 +25280,7 @@ SAP.registerTopic({
         '`KTOPL` **hesap planı** — hangi hesap planında çalışıyoruz\n' +
         '`KTOSL` **işlem anahtarı** — verginin türü\n' +
         '`MWSKZ` **vergi kodu** — *(opsiyonel, aşağıya bakın)*\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**İşlem anahtarları ne anlama gelir?**\n\n' +
         '`MWS` **hesaplanan (çıkış) KDV** → 391. Satış faturalarında oluşur.\n\n' +
         '`VST` **indirilecek (giriş) KDV** → 191. Alış faturalarında oluşur.\n\n' +
@@ -25259,7 +25288,7 @@ SAP.registerTopic({
         'Sistem tutarı ilgili gider/varlık satırına **ekler**. ' +
         '(Bu davranış ayrı bir bloğun konusudur.)\n\n' +
         '`NVV` indirilemeyen, hesap atamasına dağıtılan varyant.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Üçüncü alanın (`MWSKZ`) püf noktası**\n\n' +
         '{{OB40}}’ta **"vergi koduna göre ayrım"** diye bir işaret vardır ve ' +
         'davranışı köklü biçimde değiştirir:\n\n' +
@@ -25272,7 +25301,7 @@ SAP.registerTopic({
         'veya indirilemeyen KDV’nin ayrı hesapta tutulması gerektiğinde.\n\n' +
         '**Sonradan işaretlemek risklidir:** geçmiş kayıtlar eski hesapta, ' +
         'yeniler yeni hesapta kalır ve hesap bakiyeleri anlamsızlaşır.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**En sık hata: eksik satır**\n\n' +
         '*"Error in account determination: table T030K key TR MWS"*\n\n' +
         'Mesaj tam olarak eksik anahtarı verir: hesap planı **TR**, işlem anahtarı **MWS**. ' +
@@ -32234,7 +32263,7 @@ SAP.registerTopic({
       'dağıtımın doğru çalıştığının en basit kontrolüdür.',
       'Maliyet yeri sorumlularına aylık {{KSB1}} gözden geçirmesini rutinleştir — ' +
       'yanlış atamaları yakalamanın tek pratik yolu.',
-      'CO dönem kilidinin FI’dan **ayrı** olduğunu unutma; kapanışta ikisi de yönetilir.',
+      'CO dönem kilidi FI’dan **ayrıdır**; kapanışta ikisi de yönetilir.',
     ],
   },
 
@@ -34953,7 +34982,7 @@ SAP.registerTopic({
         'İki plan = iki kat yapılandırma = iki kat bakım.\n\n' +
         '**3. Konsolidasyon elle eşleştirme ister.** Her hesabın karşılığı ' +
         'tablo tutularak eşleştirilir; hesap eklendikçe tablo bakımı büyür.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Doğru çözüm: tek operasyonel plan + ülke hesap planı**\n\n' +
         'Kayıt **grup planında** yapılır (400100). ' +
         'G/L hesap ana verisinde **alternatif hesap numarası** tanımlanır (770). ' +
@@ -37221,7 +37250,7 @@ SAP.registerTopic({
     ipuclari:[
       '**Anahtar alanlarla süz.** {{SE11}} ile anahtarı öğren, sorguyu ona göre kur.',
       'Satıcı/müşteri bazlı arama için {{BSEG}} değil **{{BSIK}}/{{BSID}}** kullan.',
-      '{{BSEG}} ham verisi okurken **`SHKZG`** göstergesini unutma — tutarlar hep pozitiftir.',
+      '{{BSEG}} ham verisi okurken **`SHKZG`** göstergesi hesaba katılır — tutarlar hep pozitiftir.',
       'Belge bulunamıyorsa sırayla: {{FBV3}} (park) → {{SM13}} (güncelleme hatası) → {{BKPF}}.',
       '{{SE16N}}’i **kullanıcıya verme** — yetki zayıf, ham veri yanıltıcı.',
       'Yeni geliştirmede **{{ACDOCA}}** oku; uyumluluk görünümü yavaştır.',
@@ -37328,7 +37357,7 @@ SAP.registerTopic({
         'Aynı bilgi, farklı sırayla saklanır ve sorgu hızlanır.\n\n' +
         '**Aynı mantık toplam tablolarında:** "770 hesabının Ekim bakiyesi" sorgusu ' +
         'binlerce kalemi toplamayı gerektirirdi. {{GLT0}} bu toplamı **önceden** tutar.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Bedeli neydi?**\n\n' +
         '**1.** Her kayıt **birden çok tabloya** yazılır → yavaş, kilit çakışması.\n' +
         '**2.** Tablolar **tutarsız olabilir** → *"toplam tutmuyor"* klasik sorunu.\n' +
@@ -37355,7 +37384,7 @@ SAP.registerTopic({
         '**H** = Haben (Almanca "alacak")\n\n' +
         'Doğru hesaplama: S olanların toplamı ile H olanların toplamı ' +
         '**ayrı ayrı alınır ve karşılaştırılır**.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**{{ACDOCA}}’da bu değişti**\n\n' +
         'Tutarlar **işaretlidir**: borç pozitif, alacak **negatif**. ' +
         'Toplam doğrudan alınabilir ve dengeli bir belgede **sıfır** çıkar.\n\n' +
@@ -37834,7 +37863,7 @@ SAP.registerTopic({
       '**Kontrol:** tutar ≤ 50.000\n' +
       '**Mesaj:** hata — *"Kasa hesabına 50.000 TL üstü kayıt yapılamaz"*\n\n' +
       'Artık kural sistemde. Kullanıcı 60.000 TL girmeye çalışırsa kayıt **geçmez**.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       'Aynı şirkette ikinci bir istek: *"Banka kayıtlarında atama alanı boş kalmasın, ' +
       'otomatik olarak belge tarihi yazılsın."*\n\n' +
       '**İkame çözüyor:** önkoşul hesap = 102, kural `ZUONR` = belge tarihi.\n\n' +
@@ -38553,7 +38582,7 @@ SAP.registerTopic({
         '**Hayır → doğrulama.** Kayıt engellenir, kullanıcı hata mesajı alır ve ' +
         'düzeltmek zorunda kalır.\n\n' +
         '**Evet, ama alan şöyle olsun → ikame.** Kayıt geçer, alan otomatik düzeltilir.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Aynı ihtiyaç iki farklı çözümle karşılanabilir — ve sonuçları farklıdır:**\n\n' +
         '*İhtiyaç: "banka kayıtlarında atama alanı boş kalmasın."*\n\n' +
         '**Doğrulama çözümü:** alan boşsa **hata** ver. ' +
@@ -38573,7 +38602,7 @@ SAP.registerTopic({
         'sistemde bir kural olduğunu bilir.\n\n' +
         'İkame **görünmezdir**: kullanıcı bir şey girer veya boş bırakır, ' +
         'sistem başka bir şey kaydeder ve **hiçbir mesaj çıkmaz**.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Bunun üç sonucu vardır:**\n\n' +
         '**1. Kullanıcı güveni.** Kullanıcı {{FB03}} ile belgeyi açıp ' +
         'girdiğinden farklı bir değer görürse *"ben öyle girmedim"* der — ' +
@@ -38585,7 +38614,7 @@ SAP.registerTopic({
         '**3. Teşhis zorluğu.** Bir alan beklenmedik değer taşıyorsa ' +
         'ikame ihtimali **akla en son gelen** şeydir. ' +
         'Saatler yanlış yerde aranır.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Üç kural bu riski yönetir:**\n\n' +
         '**a)** İkame yalnızca **boş alanları** doldursun — ' +
         'önkoşula *"alan boşsa"* koşulu ekle.\n\n' +
@@ -38733,7 +38762,7 @@ SAP.registerTopic({
         girdi:[
           { alan:'Şirket kodu', deger:'1000' },
           { alan:'Çağrı noktası', deger:'**Kalem**' },
-          { alan:'Atanmış ikame', deger:'**`Z_PRCTR_DERIVE`** — var!' },
+          { alan:'Atanmış ikame', deger:'**`Z_PRCTR_DERIVE`** — atanmış' },
           { alan:'Etkinlik seviyesi', deger:'**1** (aktif)' },
         ],
         not:'**İkame bulundu.** Şirket koduna atanmış ve aktif.\n\n' +
@@ -39082,7 +39111,7 @@ SAP.registerTopic({
       '**1.** Bu bir **özelleştirme** ayarı → FI özelleştirme kodları **`OB`** ile başlar.\n' +
       '**2.** {{SE16N}} → {{TSTCT}} → `TCODE` = `OB*` ve `TTEXT` içinde *belge*\n' +
       '**3.** Sonuç: **{{OBA7}}** — Belge Türlerini Tanımla.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Daha da hızlısı:** {{SPRO}} açılır, IMG ağacında *Belge Türü* aranır ve ' +
       'düğüme tıklanınca **kod zaten oradadır**.\n\n' +
       'İkisi de aynı yere çıkar. Fark, **ezber gerektirmemesidir**.',
@@ -39189,7 +39218,7 @@ SAP.registerTopic({
         '**`/i`** — bulunulan oturumu **kapatır**.\n\n' +
         '**`/nex`** — sistemden **onay sormadan** çıkar. ' +
         'Kaydedilmemiş veri **sorulmadan gider**.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**`/$sync`** — tüm **{{tampon}}ları** temizler.\n\n' +
         'Bu sonuncusu bir danışman aracıdır ve şu soruyu çözer: ' +
         '*"Özelleştirmeyi değiştirdim ama etkisi görünmüyor."* ' +
@@ -39306,7 +39335,7 @@ SAP.registerTopic({
     anlatim:
       'Aşağıdaki **on iki kalıp**, FI’da karşılaşacağın kodların neredeyse tamamını açıklar. ' +
       'Ezberlenecek olan kodlar değil, **bu kalıplardır**.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Üç harfin anahtarı — Almanca kökler**\n\n' +
       'SAP Almanca geliştirildi. Üç harf hem işlem kodlarında hem tablo adlarında ' +
       '**aynı anlamı** taşır:\n\n' +
@@ -39319,7 +39348,7 @@ SAP.registerTopic({
       '**I** = *offen* (açık kalem) · **A** = *ausgeglichen* (kapatılmış)\n\n' +
       'Yani {{BSAK}} = kapatılmış satıcı kalemleri, {{BSID}} = açık müşteri kalemleri. ' +
       'Sekiz tablo adı, **iki kuralla** çözülür.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Sayı ekleri**\n\n' +
       '**01** oluştur · **02** değiştir · **03** görüntüle\n\n' +
       '`AS01/02/03` varlık · `FK01/02/03` satıcı · `KS01/02/03` maliyet yeri\n\n' +
@@ -39821,7 +39850,7 @@ SAP.registerTopic({
         '**S** = *Sachkonto* → G/L hesabı\n\n' +
         'Bu üç harf **hem işlem kodlarında hem tablo adlarında** aynıdır:\n\n' +
         '`FK01` satıcı açar · `FD01` müşteri açar · `FS00` G/L açar\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Tablo adları: BS + I/A + K/D/S**\n\n' +
         '**I** = *offen* (açık kalem) · **A** = *ausgeglichen* (kapatılmış)\n\n' +
         '| | Satıcı (K) | Müşteri (D) | G/L (S) |\n' +
@@ -39830,7 +39859,7 @@ SAP.registerTopic({
         '| **Kapalı (A)** | {{BSAK}} | {{BSAD}} | {{BSAS}} |\n\n' +
         '**Sekiz tablo adı, iki kuralla çözüldü.** ' +
         'Bunları ayrı ayrı ezberlemeye çalışmak, kuralı görmemektir.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Diğer sık görülen Almanca izler:**\n\n' +
         '**`SHKZG`** — *Soll/Haben-Kennzeichen* → **S** borç, **H** alacak ' +
         '(bkz. {{konu:sap-tables}})\n' +
@@ -39852,7 +39881,7 @@ SAP.registerTopic({
         '*"You are not authorized to use transaction ..."*\n\n' +
         '**Katman 2 — nesne yetkileri:** *"Hangi veriyi görebilir?"*\n' +
         '`F_BKPF_BUK` şirket kodu · `F_BKPF_KOA` hesap türü · `F_BKPF_BLA` belge türü\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Tehlikeli olan durum: birinci var, ikinci yok.**\n\n' +
         'İşlem **açılır**, kullanıcı seçim ekranını görür, çalıştırır ve ' +
         '**boş liste** gelir. Hiçbir hata mesajı çıkmaz.\n\n' +
@@ -40311,7 +40340,7 @@ SAP.registerTopic({
       'hepsini ezberlemek mümkün değildir ve gerekmez.\n\n' +
       'Öğretilen şey **teşhis yöntemidir**: bir hatayı gördüğünde ' +
       'hangi sırayla, nereye bakacağın.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Tüm FI hataları üç sınıfa girer** ve sınıfı bilmek çözümün yerini söyler:\n\n' +
       '**① Konuşan hata** — sistem sana ne olduğunu **söyler**.\n' +
       '*"Dönem 10 şirket kodu 1000 için kapalı"* · *"Hesap belirleme yapılamadı"*\n' +
@@ -40321,7 +40350,7 @@ SAP.registerTopic({
       '→ **En tehlikeli sınıf.** Kullanıcı çoğu zaman fark etmez.\n\n' +
       '**③ Çöken hata** — program durur, teknik ekran gelir (dump).\n' +
       '→ Nadir ama gürültülü. {{ST22}} ile analiz edilir.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Danışmanı ayıran şey ① değil ②’dir.** ' +
       'Konuşan hatayı herkes çözer — mesajı okur, ayarı düzeltir. ' +
       'Sessiz hatayı **fark edebilmek** deneyim ister.',
@@ -40359,7 +40388,7 @@ SAP.registerTopic({
       '**2.** Mesajın **tam metni** ve numarası? → *F5 201*\n' +
       '**3.** Hangi kullanıcı, hangi şirket kodu? → *MUHASEBE07, 1000*\n' +
       '**4.** **Daha önce çalışıyor muydu?** → *Dün çalışıyordu*\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Dördüncü soru en değerlisidir** ve en çok atlanan sorudur.\n\n' +
       '*"Hiç çalışmadı"* → **yapılandırma** eksik. Yeni bir hesap, yeni bir vergi kodu, ' +
       'yeni bir şirket kodu olabilir.\n\n' +
@@ -40379,7 +40408,7 @@ SAP.registerTopic({
       'Sistem hesabı **tahmin etmez** — tanımlanmamışsa durur. Doğru davranış budur.\n\n' +
       '**"Hesap kilitli / kayda kapalı"** → *Kullanılmayan hesaba kayıt yanlıştır.*\n\n' +
       '**"Alan zorunlu"** → *Maliyet gideri bir maliyet nesnesine düşmelidir.*\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Bu bakış açısının pratik faydası büyüktür:** hatayı *"sistem izin vermiyor"* ' +
       'diye değil, *"muhasebe kuralı ne diyor?"* diye okursun.\n\n' +
       'O zaman çözüm de değişir: **engeli kaldırmak** yerine ' +
@@ -40565,7 +40594,7 @@ SAP.registerTopic({
         '**Dönem kapandıktan sonra** → 3 belge + **yanlış döneme düşen düzeltme** + ' +
         'karşılaştırmalı rapor bozulması\n' +
         '**Beyan verildikten sonra** → yukarıdakiler + **düzeltme beyannamesi**\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Bu tablo, hata yönetiminin neden bir önleme konusu olduğunu gösterir.**\n\n' +
         'Danışmanlıkta doğru refleks, hatayı hızlı çözmek **değil**, ' +
         'aynı hatanın tekrar edip edemeyeceğini sormaktır:\n\n' +
@@ -40580,7 +40609,7 @@ SAP.registerTopic({
     anlatim:
       'Aşağıda FI’da **en sık karşılaşılan hatalar** üç sınıfa ayrılmış hâlde. ' +
       'Her biri için: **ne demek · neden oluyor · nasıl çözülür · kalıcı önlem**.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '** Konuşan hatalar (①)** — mesaj var, çözümü işaret ediyor. ' +
       'Sıkıcı ama kolay; mesajın uzun metnini okumak çoğunu bitirir.\n\n' +
       '** Sessiz hatalar (②)** — mesaj yok, sonuç yanlış. ' +
@@ -41268,7 +41297,7 @@ SAP.registerTopic({
         '**Belirtiyi düzeltmek:** dönemi aç, kaydı yaptır, dönemi kapat. ' +
         'Bugün çözülür, **yarın tekrar eder**.\n\n' +
         '**Kök sebebi bulmak:** *"dönem neden kapalıydı?"* diye sormak.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Örnek — üç kez "neden":**\n\n' +
         '*Fatura kaydedilemiyor.* **Neden?**\n' +
         '→ Dönem kapalı. **Neden?**\n' +
@@ -41277,7 +41306,7 @@ SAP.registerTopic({
         '**Gerçek sorun bulundu:** dönem değil, **fatura akışı**.\n\n' +
         'Belirtiyi düzeltmek her ay tekrar eden bir iş yaratır; ' +
         'kök sebebi düzeltmek sorunu **bitirir**.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Danışmanın kapanış refleksi iki soru olmalı:**\n\n' +
         '**1.** *"Bu neden mümkün oldu?"* → kök sebep\n' +
         '**2.** *"Başka kimde var?"* → aynı sınıfı tara\n\n' +
@@ -41407,7 +41436,7 @@ SAP.registerTopic({
       '{{AFAB}} amortisman çalıştırmasını arka planda başlatıyor.\n\n' +
       '{{SM37}}’de iş **yeşil**: *"Başarıyla tamamlandı."*\n\n' +
       'Kapanış tamamlanıyor, mizan alınıyor, yönetime rapor gidiyor.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Üç hafta sonra**, Aralık kapanışında bir kontrol sırasında ' +
       'birikmiş amortisman hesabının beklenenden **düşük** olduğu fark ediliyor.\n\n' +
       'Fark: **1.847.000 TRY**.',
@@ -41536,7 +41565,7 @@ SAP.registerTopic({
              'henüz varlık açılmamıştı, yani sorun **patlamadan** önlendi.\n\n' +
              'Bu, teşhisin son adımının neden *"başka kimde var?"* ' +
              'olması gerektiğini gösteriyor.\n\n' +
-             '━━━━━━━━━━\n\n' +
+             '---\n\n' +
              '**İkinci önlem en değerlisi.** Kontrol adımı ({{SLG1}}) hatayı ' +
              '**bir ay sonra** yakalar; doğrulama kuralı ise ' +
              '**hiç oluşmasına izin vermez**.\n\n' +
@@ -41795,7 +41824,7 @@ SAP.registerTopic({
       'E-dönüşüm, kâğıt belgelerin elektronik belgelerle değiştirilmesidir — ' +
       'ama bu tanım yanıltıcıdır ve **en büyük yanlış anlamanın kaynağıdır**.\n\n' +
       'E-fatura, *"faturayı yazıcı yerine e-posta ile göndermek"* değildir.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Bu konunun tek cümlelik tezi:**\n\n' +
       '**Muhasebe belgesi ile e-belge, iki ayrı nesnedir ve iki ayrı yaşam döngüsü vardır.**\n\n' +
       'Kâğıt dünyada fatura **tek bir şeydi**: kaydettin, yazdırdın, gönderdin. ' +
@@ -41804,7 +41833,7 @@ SAP.registerTopic({
       'cari hesabı borçlandırır · mizana girer\n\n' +
       '**② E-belge** → {{EDOCUMENT}} · {{ubl-tr}} XML üretilir · imzalanır · ' +
       '{{gib}}’e gider · **kabul veya red** alır\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**İkisi birbirinden bağımsız başarısız olabilir.**\n\n' +
       'Fatura FI’da sorunsuz muhasebeleşmiş, cari hesapta borç doğmuş, ' +
       'mizanda görünüyor olabilir — ve aynı anda e-belge **reddedilmiş** ' +
@@ -41834,7 +41863,7 @@ SAP.registerTopic({
       '**Gönderilemeyen fatura KDV beyanını bozar.** Muhasebede hesaplanan KDV vardır, ' +
       'GİB tarafında karşılığı yoktur.\n\n' +
       '**Berat gecikirse ceza doğar.** {{e-defter}} yükleme süreleri kesindir.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Sık karşılaşılan soru:** *"Fatura SAP’ta başarıyla kaydedildi. E-fatura süreci ' +
       'de başarılı mıdır?"*\n\n' +
       'Doğru cevap: **Hayır, bu iki ayrı sorudur.** ' +
@@ -41847,13 +41876,13 @@ SAP.registerTopic({
       'Muhasebeci {{FB03}}’te belgeyi açıyor — **fatura orada**. ' +
       '{{FBL5N}}’de cari hesapta **borç görünüyor**. Mizan doğru.\n\n' +
       'Herkes müşterinin oyaladığını düşünüyor.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       'Danışman {{EDOC_COCKPIT}}’i açıyor. Aynı faturanın e-belge statüsü:\n\n' +
       '**RED — "Alıcı e-fatura mükellefi değil"**\n\n' +
       'Fatura {{e-arsiv}} olarak kesilmesi gerekirken {{e-fatura}} olarak gönderilmiş ' +
       '(veya tersi). {{gib}} reddetmiş. Müşteriye **hiç ulaşmamış**.\n\n' +
       'Müşteri doğru söylüyordu.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Bu vakanın öğrettiği:** muhasebe tarafına bakarak ' +
       'e-belge hakkında hüküm verilemez. ' +
       '{{FB03}} *"kaydettik mi?"* sorusunu, {{EDOC_COCKPIT}} ise ' +
@@ -41873,7 +41902,7 @@ SAP.registerTopic({
       'alıcı reddedebilir; aksi hâlde **iade faturası** kesilir.\n\n' +
       '**Dönem kesinleşmesi.** {{berat}} alınan dönem yasal olarak kapanır. ' +
       'Muhasebede {{OB52}} ile açabilirsin — ama **yapmamalısın**.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Kritik sonuç:** muhasebe ile e-belge arasındaki **iptal asimetrisi**, ' +
       'e-dönüşümdeki hataların neden bu kadar pahalı olduğunu açıklar.\n\n' +
       '{{FB08}} ile SAP’ta belgeyi ters kaydedersin — ama GİB tarafındaki ' +
@@ -42065,7 +42094,7 @@ SAP.registerTopic({
         'yalnızca **iade faturası**\n' +
         '**{{e-fatura}} / {{ticari-fatura}}** → alıcı süresi içinde **reddedebilir**; ' +
         'süre geçtiyse yine iade faturası\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Tehlike şurada:** kullanıcı SAP’ta {{FB08}} yapar, ' +
         'muhasebe düzelir, **rahatlar**. GİB tarafında fatura **hâlâ geçerlidir**.\n\n' +
         'Bu ayrışma genelde **KDV beyanında** ortaya çıkar: ' +
@@ -42081,7 +42110,7 @@ SAP.registerTopic({
     anlatim:
       'E-dönüşüm tek bir belge değil, bir **belge ailesidir**. ' +
       'Her birinin kendi tetikleyicisi, kendi zamanlaması ve kendi iptal kuralı vardır.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Önce en sık karıştırılan ayrım: e-Fatura mı, e-Arşiv mi?**\n\n' +
       'Bu **kullanıcının tercihi değildir**. Tek bir soruya bağlıdır:\n\n' +
       '**"Alıcı e-fatura sistemine kayıtlı mı?"**\n\n' +
@@ -42603,7 +42632,7 @@ SAP.registerTopic({
       { ic:'🔀', baslik:'"Hata SAP’ta mı, entegratörde mi?" — tek soruyla ayrım', metin:
         'E-dönüşüm teşhisinde **en değerli tek soru** budur, çünkü ' +
         'cevabı aramanın yarısını eler.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Ayrım noktası: {{EDOCUMENT}} kaydı oluştu mu?**\n\n' +
         '**Oluşmadıysa → SAP tarafı**\n' +
         'Tetikleyici çalışmamış. Sebepler:\n' +
@@ -42615,7 +42644,7 @@ SAP.registerTopic({
         '**Oluştu ve red geldi → veri/mevzuat**\n' +
         'İletişim çalışıyor, **içerik** yanlış. Red sebebi ' +
         '`EDOCUMENTFILE`’daki yanıt XML’inde.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Belirtiyi tanımak:**\n\n' +
         '{{EDOC_COCKPIT}}’te belge **hiç yok** → SAP\n' +
         'Belge var, statü **hata/takılı** → entegratör\n' +
@@ -42628,7 +42657,7 @@ SAP.registerTopic({
         '*"Madem e-belge zorunlu, neden SAP fatura kaydını e-belge başarılı olana ' +
         'kadar bekletmiyor?"*\n\n' +
         'Cevap, **bilinçli bir tasarım tercihidir**.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Eğer bağlı olsaydı:** entegratör kesintisi, GİB bakımı veya ' +
         'ağ sorunu **tüm faturalamayı durdururdu**. ' +
         'Şirket satış yapamaz, mal sevk edemez hâle gelirdi.\n\n' +
@@ -42636,7 +42665,7 @@ SAP.registerTopic({
         'yeteneğini** belirlemiş olurdu. Bu kabul edilemez.\n\n' +
         '**Ayrık olduğu için:** fatura kaydedilir, e-belge sonra gönderilir, ' +
         'kesinti geçince yeniden denenir. İş **durmaz**.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Ama bu esnekliğin bedeli vardır:** iki taraf ayrışabilir ve ' +
         'sistem bunu hata olarak bildirmez.\n\n' +
         '**Bedeli ödemenin yolu izlemedir.** Tasarım ayrık olduğu için ' +
@@ -42661,7 +42690,7 @@ SAP.registerTopic({
         '**{{e-fatura}}** → iptal edilemez → **iade faturası** kesilir ' +
         '(bu da bir e-belgedir ve GİB’e gider)\n' +
         '**{{ticari-fatura}} senaryosu** → alıcı süresi içinde reddedebilir\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Ayrışma nerede ortaya çıkar?** Genelde **KDV beyanında**: ' +
         'muhasebedeki hesaplanan KDV ile GİB’deki e-fatura toplamı **tutmaz**.\n\n' +
         'O noktada geriye dönük düzeltme çok daha pahalıdır — ' +
@@ -42743,7 +42772,7 @@ SAP.registerTopic({
       '*"e-belge eşlemesi yapıldı mı?"* adımı ekle.',
       'Yıl geçişinde **e-fatura serisini** de kontrol et — {{FBN1}} yanında.',
       '{{berat}} alınan dönemi {{OB52}}’de **kapat ve kapalı tut**.',
-      'Geçişte **entegratör ayarlarının ayrı taşındığını** unutma — ' +
+      'Geçişte **entegratör ayarlarını ayrıca taşı** — ' +
       'SAP tarafı doğru görünürken gönderim çalışmayabilir.',
       'Aylık **mutabakat**: muhasebedeki hesaplanan KDV ile ' +
       'GİB’e giden e-fatura toplamı karşılaştırılır.',
@@ -42761,7 +42790,7 @@ SAP.registerTopic({
       'Oyalıyorlar herhâlde."*\n\n' +
       'Muhasebe müdürü {{FB03}}’te faturaları açıyor — **hepsi yerinde**. ' +
       '{{FBL5N}}’de cari hesap **doğru**. Mizan **denk**.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       'Danışman tek soru soruyor: **"E-belge statüsüne baktınız mı?"**\n\n' +
       'Bakılmamış. Kimsenin aklına gelmemiş — çünkü muhasebe tarafında ' +
       '**hiçbir sorun yok**.',
@@ -42892,7 +42921,7 @@ SAP.registerTopic({
              'Yeni kural basit: ihtar veya tahsilat görüşmesinde ' +
              '*"böyle bir fatura yok"* cevabı gelirse, ' +
              'satış temsilcisi bunu **e-belge kontrolü talebi** olarak iletir.\n\n' +
-             '━━━━━━━━━━\n\n' +
+             '---\n\n' +
              '**Beşinci önlem en güvenilir olanıdır.** ' +
              'Diğerleri insan disiplinine bağlı; mutabakat ise ' +
              '**sayısal ve kaçınılmazdır**: muhasebedeki hesaplanan KDV ile ' +
@@ -43160,7 +43189,7 @@ SAP.registerTopic({
     nedir:
       'LSMW, eski sistemlerden SAP’a veri aktarmak için kullanılan **14 adımlı** klasik araçtır.\n\n' +
       'Ama bu tanım aracın **ne olduğunu** söyler, **neden böyle tasarlandığını** söylemez.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Bu konunun tezi:**\n\n' +
       '**LSMW bir yükleme aracı değil, bir *tarif defteridir*.**\n\n' +
       'Veriyi yüklemek kolaydır — bir kez. Zor olan **aynı yüklemeyi ' +
@@ -43200,7 +43229,7 @@ SAP.registerTopic({
       '• 45’inde ödeme koşulu SAP’ta **tanımlı değil**\n\n' +
       'Bunların hiçbiri LSMW’nin hatası değildir — ama hepsi ' +
       '**LSMW çalıştırılınca** ortaya çıkar.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Danışman için asıl ders:** LSMW’nin en değerli çıktısı ' +
       'yüklenen veri değil, **ilk deneme çalıştırmasının hata listesidir**. ' +
       'O liste, veri temizliği projesinin **iş planıdır**.\n\n' +
@@ -43211,7 +43240,7 @@ SAP.registerTopic({
       'Proje yöneticisi: *"Satıcı verilerini yükleyin, dosya hazır."*\n\n' +
       'Deneyimsiz yaklaşım: dosyayı al, LSMW kur, çalıştır, hataları düzelt, ' +
       'tekrar çalıştır. Hatalar bitmez; her turda yenisi çıkar.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       'Deneyimli yaklaşım **ters sıradan** başlar:\n\n' +
       '**1.** Önce SAP’ta **elle bir satıcı aç** ({{XK01}}).\n' +
       '**2.** Hangi alanlar **zorunlu**, not al.\n' +
@@ -43229,7 +43258,7 @@ SAP.registerTopic({
       'Muhasebe kaydı **üretmez**. Yanlışsa düzeltilir, iz kalmaz.\n\n' +
       '**② Hareket verisi** — açık kalemler, bakiyeler.\n' +
       '**Muhasebe kaydı üretir.** Yanlışsa {{FB08}} gerekir ve **iz kalır**.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       'İkinci grup çok daha risklidir ve **ayrı bir kural** ister: ' +
       'açılış bakiyeleri **karşı hesap** üzerinden atılır.\n\n' +
       'Her satıcı borcunun bir karşılığı olmalıdır; ' +
@@ -43349,7 +43378,7 @@ SAP.registerTopic({
         '{{bapi}} → hedef alanlar **yapı alanlarıdır**\n' +
         '**Standart nesne** → hedef alanlar SAP’ın tanımladığı **nesne alanlarıdır**\n\n' +
         'Yani eşleme adımında yazdığın her satır, seçtiğin yönteme **bağlıdır**.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Doğru seçim sırası:**\n\n' +
         '**1. Standart nesne var mı?** → varsa **onu kullan**. ' +
         'SAP bakımını üstlenir, sürüm değişiminde bozulmaz.\n' +
@@ -43464,7 +43493,7 @@ SAP.registerTopic({
     anlatim:
       '14 adımın **dört öbeği** ve **dört aktarım yöntemi** — ' +
       'LSMW’yi anlamak bu iki listeyi bilmekten ibarettir.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Yöntem seçimi sıralı bir karardır**, tercih değil:\n\n' +
       '**1.** Standart nesne var mı? → **kullan**\n' +
       '**2.** Yoksa {{bapi}} var mı? → **kullan**\n' +
@@ -43947,7 +43976,7 @@ SAP.registerTopic({
     ekstra:[
       { ic:'🎯', baslik:'Neden "önce elle bir kayıt aç"? — sıranın matematiği', metin:
         'Bu, konunun en pratik tavsiyesidir ve sebebi **sayısaldır**.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Yanlış sıra — dosyadan başlamak:**\n\n' +
         'Dosyayı eşle → çalıştır → *"X alanı zorunlu"* → düzelt → ' +
         'çalıştır → *"Y alanı zorunlu"* → düzelt → çalıştır → …\n\n' +
@@ -43957,7 +43986,7 @@ SAP.registerTopic({
         '{{XK01}} ile elle bir satıcı aç → zorunlu alanları **bir kerede** gör → ' +
         'kaynak dosyayla karşılaştır → eksikleri **toplu** çöz → eşle → çalıştır.\n\n' +
         '**1 tur.**\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Genel ilke:** hata mesajları **seri** gelir (bir seferde bir tane), ' +
         'ekranlar ise bilgiyi **paralel** verir (hepsi bir arada).\n\n' +
         'Seri bir kaynaktan öğrenmeye çalışmak, paralel bir kaynak varken ' +
@@ -43972,7 +44001,7 @@ SAP.registerTopic({
         'Ayrıca LSMW’nin S/4HANA’da bilinen bir kısıtı var: ' +
         '**toplu giriş kaydı (recording) yöntemi**, {{BP}} gibi ' +
         'yeni işlemlerde güvenilir çalışmaz — ekran akışı çok karmaşıktır.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Peki neden hâlâ öğreniliyor?**\n\n' +
         '**1. Mevcut sistemlerde yaşıyor.** ECC üzerinde çalışan ' +
         'binlerce şirkette LSMW projeleri **hâlâ çalışıyor** ve ' +
@@ -43997,7 +44026,7 @@ SAP.registerTopic({
         'yüklemeyi *"veri hazır olunca"* yapmayı planlamak.\n\n' +
         'Veri asla kendiliğinden hazır olmaz. ' +
         'Neyin eksik olduğunu **ilk deneme çalıştırması** söyler.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Doğru yaklaşım:** LSMW’yi veri hazır olduğunda değil, ' +
         'veri **hazırlanırken** kur ve çalıştır.\n\n' +
         'İlk deneme 50 satırla, projenin **çok erken** bir aşamasında yapılır. ' +
@@ -44094,7 +44123,7 @@ SAP.registerTopic({
       'Veri geçişi ekibi raporunu verdi: ' +
       '*"12.000 satıcı, 8.400 açık kalem yüklendi. Mutabakat tamam, ' +
       'geçiş hesabı sıfır."*\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       'İlk {{F110}} ödeme koşusu **perşembe** çalıştırıldı.\n\n' +
       'Öneri listesi geldi: **6.553 kalem** ödenecek.\n\n' +
       'Ama açık kalem sayısı **8.400**’dü. ' +
@@ -44216,7 +44245,7 @@ SAP.registerTopic({
              '**taranarak** seçilir: her ödeme yöntemi, her ülke, her hesap grubu.\n\n' +
              '50 rastgele satır, 12.000 satırlık bir kümenin ' +
              '**çeşitliliğini temsil etmez**.\n\n' +
-             '━━━━━━━━━━\n\n' +
+             '---\n\n' +
              '**Dördüncü önlem asıl kök sebebi hedefler.**\n\n' +
              'Eşleme sırasında verilen *"karşılığı yok, boş bırak"* kararı ' +
              'teknik olarak makuldü ve **kimse itiraz etmedi** — ' +
@@ -44487,7 +44516,7 @@ SAP.registerTopic({
       'Veri yükleme, SAP’a **elle girilmeyecek kadar çok** kaydı toplu olarak ' +
       'aktarma işidir. {{konu:lsmw}} bunu yapan bir **araçtır**; ' +
       'bu konu ise **altındaki dört yöntemi** karşılaştırır.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Bu konunun tezi:**\n\n' +
       '**Yöntem seçimi bir hız kararı değil, bir *hata yönetimi* kararıdır.**\n\n' +
       'Yeni danışman şunu sorar: *"Hangisi daha hızlı?"*\n' +
@@ -44517,7 +44546,7 @@ SAP.registerTopic({
       '500 kayıt gönderilir, ekranda *"işlem tamamlandı"* yazar, ' +
       '**486’sı oluşur**. 14’ü sessizce kaybolur.\n\n' +
       'Kimse saymadığı için kimse fark etmez.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Bu yüzden bu konunun tek zorunlu kuralı vardır:**\n\n' +
       '**{{sayi-mutabakati}} — gönderilen = oluşan.**\n\n' +
       'Ve iki seviyede yapılır:\n\n' +
@@ -44531,7 +44560,7 @@ SAP.registerTopic({
     gercekHayat:
       'Kullanıcı: *"3.000 satırlık bir Excel var, sisteme girebilir misiniz?"*\n\n' +
       'Deneyimsiz cevap: *"Tabii, {{toplu-giris}} ile yaparız."*\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       'Deneyimli cevap **üç soruyla** başlar:\n\n' +
       '**1. Bu bir kez mi olacak, tekrarlanacak mı?**\n' +
       'Tek seferlik → {{toplu-giris}} yeter.\n' +
@@ -44541,7 +44570,7 @@ SAP.registerTopic({
       'Varsa {{bapi}}; yoksa {{kayit-recording}}.\n\n' +
       '**3. Hatalı satırlarla ne olacak?**\n' +
       'Bu soru **en kritik olanıdır** ve genelde hiç sorulmaz.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       'Üçüncü sorunun cevabı yöntemi belirler:\n\n' +
       '**{{toplu-giris}}** → hatalı satırlar **oturumda bekler**, ' +
       'düzeltilip yeniden işlenir. ✓ **Hazır gelir.**\n\n' +
@@ -44554,7 +44583,7 @@ SAP.registerTopic({
       'Yükleme yöntemi muhasebe kaydını **değiştirmez** — ' +
       '{{FB50}} ile elle atılan kayıtla toplu yüklenen kayıt **aynıdır**.\n\n' +
       'Ama iki muhasebe riski yöntemle **doğrudan ilgilidir**:\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Risk 1 — Mükerrer kayıt.**\n\n' +
       'Bir yükleme yarıda kesilir ve baştan çalıştırılır. ' +
       'İlk turda başarılı olanlar **ikinci kez** yazılır.\n\n' +
@@ -44563,7 +44592,7 @@ SAP.registerTopic({
       '**{{toplu-giris}} bunu yapısal olarak önler** — ' +
       'yalnızca işlenmemiş satırları tekrarlar. ' +
       '{{bapi}} ile yazılan programda ise **sen önlemelisin**.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Risk 2 — Yarım kalmış yükleme.**\n\n' +
       'Çok satırlı bir belge (başlık + kalemler) yüklenirken ' +
       'yarısı yazılır, yarısı yazılmaz.\n\n' +
@@ -44666,7 +44695,7 @@ SAP.registerTopic({
         'Yöntem karşılaştırmaları genelde **hız** üzerinden yapılır. ' +
         'Bu yanlış eksendir — çünkü hız farkı bir defalık bir maliyettir, ' +
         '**hata yönetimi ise her çalıştırmada** karşına çıkar.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Üç yöntem, üç farklı cevap:**\n\n' +
         '**{{toplu-giris}}** ✓ Hatalı satırlar {{SM35}} oturumunda **bekler**. ' +
         'Sebep düzeltilir, oturum **yeniden işlenir**, başarılılar **tekrarlanmaz**. ' +
@@ -44677,7 +44706,7 @@ SAP.registerTopic({
         '**{{idoc}}** ✓ Her mesaj **kendi statüsünü** tutar. ' +
         'Hatalılar sistemde **kalır** ve {{BD87}} ile tek tek yeniden işlenir. ' +
         '**En iyi izlenebilirlik.**\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Sonuç:** BAPI teknik olarak en temiz yöntemdir ' +
         '(hızlı, ekrandan bağımsız, doğrulamalar çalışır) — ' +
         'ama **tekrar çalıştırılabilirliği hazır getirmez**.\n\n' +
@@ -44726,7 +44755,7 @@ SAP.registerTopic({
              'İlk turda başarılı olan satırlar **ikinci kez** yazıldı.\n\n' +
              'Sonuç: gider **iki katı**, mizan yanlış, ' +
              'düzeltmek için 500 kadar {{FB08}} gerekir.\n\n' +
-             '━━━━━━━━━━\n\n' +
+             '---\n\n' +
              '**Bu, yöntem seçiminin muhasebe sonucudur:**\n\n' +
              '{{toplu-giris}} olsaydı **imkânsızdı** — oturum yalnızca ' +
              'işlenmemiş satırları tekrarlar.\n\n' +
@@ -44744,7 +44773,7 @@ SAP.registerTopic({
              'Ekranda *"işlem tamamlandı"* yazdı, hata mesajı **çıkmadı**.\n\n' +
              'Muhasebe açısından belge **denk** — sorun yok gibi görünüyor. ' +
              'Eksiklik yalnızca **kaynak dosyayla karşılaştırılınca** ortaya çıkar.\n\n' +
-             '━━━━━━━━━━\n\n' +
+             '---\n\n' +
              '**İki kontrol bunu yakalar:**\n\n' +
              '**{{sayi-mutabakati}}** — 500 ≠ 486\n' +
              '**{{SM13}}** — 14 güncelleme hatası kaydı\n\n' +
@@ -44771,7 +44800,7 @@ SAP.registerTopic({
         'tek {{bapi}} çağrısı, tek commit.\n\n' +
         '**Yanlış:** her satır ayrı işlemde — ' +
         'başlık yazılır, ikinci kalem çöker, belge **yarım kalır**.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         'Pratik sonucu **kaynak dosya tasarımını** etkiler: ' +
         'çok satırlı veri için dosyada bir **belge anahtarı** sütunu olmalı ' +
         've yükleme bu anahtara göre **gruplamalıdır**.\n\n' +
@@ -44786,7 +44815,7 @@ SAP.registerTopic({
       'Dört yöntem var ve her biri **farklı bir soruya** iyi cevap veriyor. ' +
       '*"Hangisi en iyi?"* sorusunun cevabı yok; ' +
       '*"hangi durumda hangisi?"* sorusunun cevabı var.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Üç soruyla karar:**\n\n' +
       '**1. Tek seferlik mi, sürekli mi?**\n' +
       'Tek seferlik → {{toplu-giris}} veya {{bapi}}\n' +
@@ -45207,7 +45236,7 @@ SAP.registerTopic({
       'Ne zaman commit edileceği **programın kararıdır**: ' +
       'her kayıtta mı, her 100 kayıtta mı, sonda mı?\n\n' +
       '**{{idoc}}** — her IDoc ayrı LUW; statü **tabloda** tutulur.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Commit sıklığı bir denge kararıdır:**\n\n' +
       '**Her kayıtta commit** → yavaş ama **güvenli**; hata tek kaydı etkiler\n' +
       '**Toplu commit (her 1000’de)** → hızlı ama **çökerse 1000 kayıt gider**\n\n' +
@@ -45303,7 +45332,7 @@ SAP.registerTopic({
         'BAPI teknik olarak en temiz yöntemdir ama ' +
         '**tekrar çalıştırılabilirliği hazır getirmez**. ' +
         '{{arayuz-tablosu}} deseni bu boşluğu doldurur.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Üç adımlı desen:**\n\n' +
         '**1. Yükle** — kaynak veri ara tabloya **ham hâliyle** yazılır. ' +
         'Bu adımda hiçbir doğrulama yapılmaz; amaç veriyi **sisteme almaktır**.\n\n' +
@@ -45312,7 +45341,7 @@ SAP.registerTopic({
         'başarılı / hatalı + **hata mesajı** + oluşan belge numarası.\n\n' +
         '**3. Tekrarla** — yeniden çalıştırmada yalnızca ' +
         '**damgalanmamış veya hatalı** satırlar işlenir.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Ne kazandırır:**\n\n' +
         '• **Mükerrer kayıt imkânsız** — damgalı satır tekrar işlenmez\n' +
         '• Hatalı satırlar ve **sebepleri saklı** — ' +
@@ -45321,7 +45350,7 @@ SAP.registerTopic({
         'toplam satır = başarılı + hatalı\n' +
         '• **Denetim izi** kalır — ne geldi, ne oldu\n' +
         '• Hata düzeltme **tabloda** yapılabilir; dosyayı yeniden yüklemeye gerek yok\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Bu desen aslında {{toplu-giris}}’in hazır verdiği şeyi ' +
         'BAPI için elle inşa etmektir.**\n\n' +
         '{{SM35}} oturumu tam olarak bunu yapar: hatalı satırları saklar, ' +
@@ -45333,14 +45362,14 @@ SAP.registerTopic({
         'Yöntem karşılaştırmaları genelde şöyle yapılır: ' +
         '*"BAPI hızlıdır, batch input yavaştır."*\n\n' +
         'Bu doğru ama **yanlış eksendir**.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Hız bir defalık maliyettir.** 12.000 kayıt ' +
         '{{toplu-giris}} ile 4 saat, {{bapi}} ile 20 dakika sürebilir. ' +
         'Fark 3,5 saattir — ve bu **bir gecede** kapanır.\n\n' +
         '**Hata yönetimi ise her çalıştırmada** karşına çıkar.\n\n' +
         'Ve her çalıştırmada bir kısmı **başarısız olur** — ' +
         'veri kalitesi hiç mükemmel değildir.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Somut karşılaştırma:**\n\n' +
         '**Senaryo:** 12.000 kayıt, 340’ı hatalı.\n\n' +
         '**{{toplu-giris}} ile:** 4 saat sürer. 340 hatalı satır ' +
@@ -45359,7 +45388,7 @@ SAP.registerTopic({
       { tip:'warn', baslik:'Sayı mutabakatı — tek zorunlu kural', metin:
         'Bu konunun **tek pazarlıksız kuralı** budur:\n\n' +
         '**Her toplu yüklemeden sonra gönderilen ile oluşan karşılaştırılır.**\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**İki seviyede yapılır ve ikisi farklı hataları yakalar:**\n\n' +
         '**Adet** — kaynak satır sayısı = oluşan belge sayısı ({{BKPF}})\n' +
         '→ Yakaladığı: {{guncelleme-hatasi}}, eksik commit, atlanan satır\n\n' +
@@ -45369,7 +45398,7 @@ SAP.registerTopic({
         '**Adet tutup tutar tutmuyorsa** dönüşüm hatası vardır. ' +
         'Bu, yalnızca adet sayan bir kontrolün **hiç göremeyeceği** ' +
         'bir hata sınıfıdır.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Neden bu kadar önemli:** yükleme hatalarının çoğu **sessizdir**. ' +
         'Ekranda *"tamamlandı"* yazar, günlükte hata görünmez, ' +
         've kayıtların bir kısmı yoktur.\n\n' +
@@ -45466,7 +45495,7 @@ SAP.registerTopic({
       '*"{{toplu-giris}} ile 3 saat sürer, BAPI ile 20 dakikada biter."*\n\n' +
       'Program çalıştırıldı. **18 dakikada** bitti. ' +
       'Ekranda: *"İşlem tamamlandı."*\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       'Muhasebe müdürü kapanışa geçti. ' +
       'Mizan alındı — **denk**. Geçiş hesabına bakılmadı.\n\n' +
       '**Üç gün sonra** yan şirket mutabakatı geldi: ' +
@@ -45869,7 +45898,7 @@ SAP.registerTopic({
       'Bu tanım doğrudur ama **işin nerede zorlaştığını** söylemez. ' +
       '{{konu:lsmw}} ve {{konu:data-upload}} *nasıl* taşınacağını anlattı; ' +
       'bu konu **neyin taşınacağına** dair kararı anlatıyor.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Bu konunun tezi:**\n\n' +
       '**Geçiş bir veri taşıma işi değil, hangi *geçmişin* taşınacağına ' +
       'dair bir muhasebe kararıdır.**\n\n' +
@@ -45879,7 +45908,7 @@ SAP.registerTopic({
       'Bu sorunun cevabı **araçla değil yaklaşımla** verilir ve ' +
       'yanlış cevaplandığında geri dönüşü yoktur: canlıya geçtikten ' +
       'sonra "geçmişi de taşıyalım" denemez.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       'Üç yaklaşım vardır ve üçü de **geçmiş** sorusuna farklı cevap verir:\n\n' +
       '**{{greenfield}}** — sistem sıfırdan kurulur, yalnızca bakiye ve ' +
       'açık kalem taşınır. *Geçmiş eski sistemde kalır.*\n\n' +
@@ -45910,7 +45939,7 @@ SAP.registerTopic({
       '**3.** *"Kaç yıl geriye gidelim?"* → Cevap "mümkün olduğunca" değildir. ' +
       'Her ek yıl, o yılın **tüm hareketlerini** ve o dönemin ' +
       'yapılandırmasını (vergi oranları, hesap planı, kur) taşımayı gerektirir.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Danışman için asıl ders:** bu soruların hiçbirini veri geçişi ' +
       'ekibi tek başına cevaplayamaz. Cevaplar **mali işler direktöründen** ' +
       've **denetçiden** gelir. Danışmanın işi soruyu doğru zamanda ' +
@@ -45927,7 +45956,7 @@ SAP.registerTopic({
       '**İkinci hata — "Ağustos’ta başlıyorlar".** Veri temizliği ' +
       'projenin **ilk günü** başlar. Ağustos’ta başlayan şey yüklemedir; ' +
       'temizlik o zamana kadar bitmiş olmalıdır.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Doğru sıra tersinden kurulur:**\n\n' +
       '**1.** Canlıya geçiş tarihi belirlenir.\n' +
       '**2.** Geriye doğru sayılır: son {{deneme-gecisi}} ne zaman?\n' +
@@ -45946,7 +45975,7 @@ SAP.registerTopic({
       'Muhasebe kaydı **üretir**. Yanlışsa {{FB08}} gerekir ve iz kalır.\n\n' +
       '**③ Tarihçe** — geçmiş yılların hareketleri.\n' +
       'Yalnızca {{brownfield}} veya {{secici-gecis}}te gelir.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**İkinci sınıfın içindeki kritik ayrım:**\n\n' +
       '**Bilanço hesapları** devreder — bakiyeleri taşınır.\n' +
       '**Gelir tablosu hesapları devretmez** — dönem sonunda sıfırlanıp ' +
@@ -46064,7 +46093,7 @@ SAP.registerTopic({
       { tip:'warn', baslik:'Yaklaşım kararı geri alınamaz — üç seçeneğin gerçek bedeli', metin:
         'Üç yaklaşım genelde "maliyet" üzerinden tartışılır. Asıl fark **maliyette değil, ' +
         'sonradan pişman olunacak yerdedir**.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**{{greenfield}} — temiz başlangıç**\n\n' +
         'Eski sistemin birikmiş hataları, ölü {{z-gelistirme}}leri ve bozuk verisi **gelmez**. ' +
         'Süreçler {{standarda-yakin}} kurulabilir.\n' +
@@ -46081,7 +46110,7 @@ SAP.registerTopic({
         'Süreçler yenilenir **ve** seçilmiş tarihçe gelir.\n' +
         'En pahalısı; üçüncü taraf araç ve uzmanlık ister.\n' +
         '→ *Pişmanlık noktası:* bütçe.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Karar kuralı:** süreçlerinizden memnunsanız ve tarihçeye ihtiyacınız varsa ' +
         '**brownfield**; süreçlerinizi yenilemek istiyorsanız ve tarihçeyi eski sistemde ' +
         'tutabiliyorsanız **greenfield**. İkisi de olmuyorsa **seçici** — ve bunun bedeli vardır.' },
@@ -46227,7 +46256,7 @@ SAP.registerTopic({
         '{{konu:lsmw}}’de tek bir kontrol yeterliydi: geçiş hesabı sıfır mı? ' +
         'Geçişte **ölçek değişir** ve üç ayrı seviye gerekir. ' +
         'Üçü **farklı soruları** cevaplar:\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**① Teknik mutabakat — "yüklendi mi?"**\n\n' +
         'Gönderilen adet = oluşan adet · kaynak tutar toplamı = sistem tutar toplamı.\n' +
         'Adet tutup tutar tutmuyorsa → {{donusum-kurali}} hatası (ondalık ayracı, kur).\n' +
@@ -46243,7 +46272,7 @@ SAP.registerTopic({
         'Dolu ise mizan doğru olsa bile **sunum yanlıştır** ' +
         '(bkz. {{konu:reporting}}).\n' +
         '*Bunu denetçi sorar — o sormadan siz sorun.*\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Neden üçü de gerekli:** ① geçse de ② geçmeyebilir (doğru sayıda ' +
         'yanlış hesaba yüklenmiştir). ② geçse de ③ geçmeyebilir (bakiyeler doğru ' +
         'ama {{mali-tablo-yapisi}} eksiktir). ' +
@@ -46611,7 +46640,7 @@ SAP.registerTopic({
       'Veri temizliğinin iş planı **ilk simülasyonun hata listesidir** — erken çalıştır.',
       'Gelir tablosu hesaplarını **taşıma**; bakiyeleri yoktur.',
       'Açık kalem hesapları **tek tek**, vade ve ödeme koşuluyla.',
-      '{{AS91}} muhasebe kaydı üretmez — G/L fişini **unutma**.',
+      '{{AS91}} muhasebe kaydı üretmez — G/L fişi **ayrıca girilir**.',
       '{{deneme-gecisi}}nde **süreleri ölç**; kesme penceresi ölçümle planlanır.',
       'Geçiş için **ayrı {{belge-turu}}** ve **ayrı numara aralığı** tanımla.',
       'Üç seviyeli mutabakat yap: teknik → muhasebe → **yasal**.',
@@ -46729,7 +46758,7 @@ SAP.registerTopic({
         'Geçmişi canlıya geçtikten sonra eklemek teknik olarak mümkündür. ' +
         'Pratikte yapılamamasının **dört ayrı sebebi** vardır ve ' +
         'her biri tek başına yeterlidir:\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**1. Numara aralıkları tükenmiştir.**\n' +
         'Canlı sistem geçişten beri belge üretiyor. Geçmiş belgeleri ' +
         'yüklemek için gereken aralık ya kullanılmıştır ya da ' +
@@ -46749,7 +46778,7 @@ SAP.registerTopic({
         '{{berat}} alınmış bir döneme geriye dönük belge eklemek ' +
         'teknik bir işlem değil, **mevzuat sorunudur** ' +
         '(bkz. {{konu:e-donusum}}).\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Sonuç:** geçmiş kararı bir {{tek-yonlu-kapi}}dır. ' +
         'Proje başında, yazılı olarak, mali işlerin imzasıyla verilir.' },
 
@@ -46757,7 +46786,7 @@ SAP.registerTopic({
         'Geçişten sonra en sık sorulan soru: *"eski sistemi ne zaman kapatabiliriz?"*\n\n' +
         'Cevap genelde beklenenden **çok daha geçtir** ve sebebi ' +
         'lisans maliyeti değil **yasal saklamadır**.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Üç seçenek ve gerçek maliyetleri:**\n\n' +
         '**① Sistemi ayakta tut** — en kolay, en pahalı. ' +
         'Lisans, donanım, yedekleme ve **bilgi** maliyeti: ' +
@@ -46768,7 +46797,7 @@ SAP.registerTopic({
         'sorgulanabilir biçimde saklanır. En ucuzu ama **kurulumu ' +
         'geçiş projesinin parçası olmalıdır**; sonradan yapılırsa ' +
         'eski sistemi yeniden ayağa kaldırmak gerekir.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Türkiye’ye özgü ek yük:** {{e-defter}} ve {{berat}} kayıtları ' +
         'saklama süresi boyunca **kanıtlanabilir** olmalıdır. ' +
         'Bu, ekran görüntüsü veya Excel dökümüyle karşılanmaz.\n\n' +
@@ -46778,7 +46807,7 @@ SAP.registerTopic({
       { ic:'📐', baslik:'n:1 ve 1:n — eşleme matematiği', metin:
         'Hesap planı eşlemesi bir **fonksiyondur**: her eski hesap ' +
         'bir yeni hesaba gider. Fonksiyonun yönü, işin yapılabilirliğini belirler.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**n:1 — birleştirme. ✓ Otomatik.**\n\n' +
         '`320.01` (yurtiçi satıcılar) + `320.02` (yurtdışı satıcılar) → `320`\n\n' +
         'Bakiyeler toplanır, iş biter. Bilgi **kaybolur** ama ' +
@@ -46788,7 +46817,7 @@ SAP.registerTopic({
         'Eski bakiye tek bir sayıdır: **3.240.000**. ' +
         'Bu sayı, hangi bankada ne kadar olduğunu **taşımaz**. ' +
         'Eşleme tablosu bunu çözemez çünkü çözecek bilgi ortada yoktur.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Üç çözüm yolu, üçü de ek iş:**\n\n' +
         '**a)** Bölme eski sistemde, **geçişten önce** yapılır. ' +
         'En temizi — kaynak veri hâlâ oradadır.\n' +
@@ -46813,7 +46842,7 @@ SAP.registerTopic({
         'veri çekimi · yükleme · mutabakat · **düzeltme** · onay · açılış hazırlığı\n\n' +
         '**"Düzeltme" satırı en kritik olandır** ve tahmin edilemez — ' +
         'yalnızca provada ölçülür. Bir şey ters giderse ne kadar zaman kalıyor?\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Üç turun üç ayrı amacı:**\n\n' +
         '**① Teknik prova** — akış çalışıyor mu? Hatalar beklenir ve normaldir.\n' +
         '**② İş provası** — veri doğru mu? Muhasebe mutabakatı burada yapılır.\n' +
@@ -46932,7 +46961,7 @@ SAP.registerTopic({
       '• {{FBL1N}} satıcı bakiyesi = `320` bakiyesi ✓\n' +
       '• {{AR01}} varlık toplamı = `253` − `257` ✓\n\n' +
       'Dört kontrol de geçti. **Geçiş gerçekten başarılıydı.**\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       'Mart 2028’de bağımsız denetim başladı.\n\n' +
       'Denetçi ilk istediği belgeyi istedi: **2027 karşılaştırmalı gelir tablosu.**\n\n' +
       'SAP’ta yoktu. Ve bulunabilecek bir yerde de değildi.',
@@ -47030,7 +47059,7 @@ SAP.registerTopic({
       'Mutabakat dört koldan yapıldı ve dördü de geçti. ' +
       'Lisansı yenilemeyen kişi maliyet tasarrufu sağladı.\n\n' +
       'Sorun **kararların arasındaki boşluktaydı**.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Üç kalıcı ders:**\n\n' +
       '**1. Geçiş kararı iki yarımdan oluşur.**\n' +
       '*"Geçmişi taşımıyoruz"* eksik bir cümledir. ' +
@@ -47047,7 +47076,7 @@ SAP.registerTopic({
       'Bilanço hesapları devreder, gelir tablosu hesapları devretmez. ' +
       'Geçişten sonra bilançonun dolu görünmesi doğal ve doğrudur — ' +
       've bu, gelir tablosunun boş olduğunu **gizler**.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       'Bu, {{konu:error-handling}}’deki **② sessiz hata** sınıfının ' +
       'proje ölçeğindeki hâlidir: sistem doğru davrandı, ' +
       'her kontrol geçti, hiçbir hata mesajı çıkmadı — ' +
@@ -47303,7 +47332,7 @@ SAP.registerTopic({
       'test et, taşıma isteklerini küçük tut.\n\n' +
       'Bu listeler doğrudur ve **işe yaramaz** — çünkü hepsi aynı şeyi söyler: ' +
       '*"dikkatli ol"*. Dikkatli olmak bir yöntem değildir.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Bu konunun tezi:**\n\n' +
       '**Yapılandırma kararları ikiye ayrılır: geri alınabilenler ve ' +
       '*veriyle mühürlenenler*. Proje riskinin tamamı, ikincisinin ' +
@@ -47315,7 +47344,7 @@ SAP.registerTopic({
       '• {{belge-bolme}} kapalı kurulmuşsa → **sonradan açılamaz.**\n\n' +
       'İkisi de bir onay kutusudur. İkisi de aynı ekranda durur. ' +
       'Aralarındaki fark **beş dakika ile bir sonraki projedir**.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       'Bu ayrımı taşıyan kavram: {{tek-yonlu-kapi}}.',
 
     neden:
@@ -47339,7 +47368,7 @@ SAP.registerTopic({
       '*"neden böyle kurulmuş?"* sorusunu cevaplayamaz — ' +
       'çünkü SAP **ne yapıldığını** tutar ({{degisiklik-belgesi}}), ' +
       '**neden yapıldığını** tutmaz.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Danışmanın asıl kattığı değer üç yerdedir:**\n\n' +
       '**1.** Hangi kararın geri alınamaz olduğunu **karar anında** bilmek.\n' +
       '**2.** O kararı doğru soruyla sormak: *"bugün istiyor muyuz?"* değil, ' +
@@ -47358,7 +47387,7 @@ SAP.registerTopic({
       'veya bir yatırımcı raporlaması ihtimali varsa, bugün açık kurup ' +
       'kullanmamak — kapatıp sonra pişman olmaktan **çok daha ucuz**. ' +
       'Kararı böyle bir tutanağa yazalım mı?"*\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       'Bu cevabın üç özelliği var ve üçü de bilinçli:\n\n' +
       '**Kararı almıyor** — müşteriye ait bir karardır.\n' +
       '**Bilgiyi ekliyor** — "geri alınamaz" bilgisi masada yoktu.\n' +
@@ -47377,7 +47406,7 @@ SAP.registerTopic({
       '**③ Kayıt geçer ama sonradan düzeltilemez.** {{belge-bolme}} kapalı ' +
       'kurulmuştur; geçmiş kayıtlarda bölme bilgisi **hiç oluşmamıştır**. ' +
       'Ayarı sonradan açsanız bile geçmiş veri o bilgiyi kazanmaz.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Üçüncü sınıfın tanımı budur:** ayar geri alınabilir olsa bile ' +
       '**veri geri alınamaz**. Bir ayarın "tek yönlü kapı" olmasının ' +
       'sebebi ayarın kendisi değil, **onun üretmediği veridir**.\n\n' +
@@ -47486,7 +47515,7 @@ SAP.registerTopic({
       { tip:'warn', baslik:'"Test sisteminde çalışıyordu" — üç sebep', metin:
         'Bu cümle bir danışmanın en sık duyduğu şikâyettir ve neredeyse ' +
         'her zaman **üç sebepten birine** dayanır:\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**1. {{akim-verisi}} — ayar taşınmamıştır çünkü taşınmaz.**\n\n' +
         'Bazı yapılandırma tabloları taşıma isteğine **hiç girmez**: ' +
         '{{OB52}} dönem açma, {{TCURR}} kurlar, ihtar tarihleri. ' +
@@ -47501,7 +47530,7 @@ SAP.registerTopic({
         'Ayar taşındı ama dayandığı G/L hesabı, vergi kodu veya ' +
         '{{odeme-kosulu}} taşınmadı. Test sisteminde elle açılmıştı ' +
         've kimse fark etmemişti.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Teşhis sırası:** önce *"bu tablo akım verisi mi?"* ' +
         '(en sık sebep, en hızlı kontrol) → sonra {{E071}} çakışması → ' +
         'sonra bağımlılık.' },
@@ -47602,7 +47631,7 @@ SAP.registerTopic({
         '**sistem tarafından kabul edilmiştir** — hata mesajı yok\n' +
         '**mizanı bozmaz** — toplamlar tutar\n' +
         've **üçü de yanlıştır**\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         'Bu, {{konu:error-handling}}’deki **② sessiz hata** sınıfının ' +
         '**yapılandırma kaynaklı** hâlidir. Fark şudur:\n\n' +
         'Sessiz hataların çoğu **kullanıcı** hatasıdır ve tek belgeyi etkiler.\n' +
@@ -48142,7 +48171,7 @@ SAP.registerTopic({
       '**eski hâl yeniyi ezer** ve hata mesajı çıkmaz.\n\n' +
       '**3. Kuyruğu bütün olarak aktar.** Seçmeli aktarım sırayı bozar; ' +
       '"şu ikisini alalım, diğerleri sonra" cümlesi klasik bir tuzaktır.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Ve taşınmayan üç şey:** {{akim-verisi}} tabloları · ' +
       'numara aralıkları (çoğu durumda) · {{LSMW}} projeleri ' +
       '(kendi dışa/içe aktarması var — bkz. {{konu:lsmw}}).',
@@ -48158,7 +48187,7 @@ SAP.registerTopic({
       { ic:'🚪', baslik:'Tek yönlü kapı testi — dört soru', metin:
         'Bir ayarın hangi sınıfa ait olduğunu anlamak için ' +
         'listeyi ezberlemek gerekmez. **Dört soru** yeterlidir:\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**1. Bu ayar veriye yazılıyor mu?**\n' +
         'Belgeye, kaleme veya ana veriye bir değer olarak giriyorsa ' +
         '(hesap numarası, para birimi, dönem, vergi kodu) ' +
@@ -48178,7 +48207,7 @@ SAP.registerTopic({
         'SAP çoğu kritik ayarın belgesinde ' +
         '*"bu ayar üretimde değiştirilmemelidir"* benzeri bir uyarı yazar. ' +
         'Okunmadığı için görülmez.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Şüphedeyken kural:** ayarı **açık kur, kullanma**. ' +
         'Kullanılmayan bir defter, boş bir para birimi alanı veya ' +
         'çalışan ama kimsenin bakmadığı bir bölme bilgisi ' +
@@ -48193,7 +48222,7 @@ SAP.registerTopic({
         '• {{SPRO}} — ayarın şu anki hâli zaten orada\n\n' +
         'Bunları bir Word belgesine kopyalamak **çift kayıt** üretir ve ' +
         'ikisi zamanla ayrışır — ayrışınca da ikisi de güvenilmez olur.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Tutulması gereken tek şey: NEDEN.**\n\n' +
         'Üç satır yeter ve bir karar için şunları içerir:\n\n' +
         '**① Neyi çözüyor.** *"Yurtdışı satıcı ödemelerinde iki ayrı ' +
@@ -48213,7 +48242,7 @@ SAP.registerTopic({
         'FI test senaryolarının çoğu şöyle yazılır: ' +
         '*"{{FB60}} ile satıcı faturası gir, kaydet, belge oluştuğunu doğrula."*\n\n' +
         'Bu senaryo neredeyse hiçbir şey test etmez.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Kural 1 — Sonucu değil, DOĞRU sonucu doğrula.**\n\n' +
         '*"Belge oluştu"* yetmez. *"`320` hesabına gitti mi?"*, ' +
         '*"KDV `191`’e mi düştü?"*, *"vade doğru hesaplandı mı?"* ' +
@@ -48244,7 +48273,7 @@ SAP.registerTopic({
         '• Her sürüm yükseltmesinde {{SPAU}} ile elle uyarlama\n' +
         '• Her yeni danışmana devir\n' +
         '• Ve en pahalısı: **{{konu:migration}}’da taşınma yükü**\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Üç seviye, üç farklı faiz oranı:**\n\n' +
         '**① Özel rapor** — standardı değiştirmez, sürüm yükseltmede ' +
         'genelde sorunsuzdur. **Faiz düşük.**\n' +
@@ -48252,7 +48281,7 @@ SAP.registerTopic({
         '**Faiz orta.**\n' +
         '**③ Modifikasyon** — standart kod değiştirilir. ' +
         'Her yükseltmede {{SPAU}} ile elle ele alınır. **Faiz yüksek.**\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Asıl sorun yazmak değil, envanteri kaybetmektir.** ' +
         'Beş yıl sonra hangi geliştirmenin hâlâ kullanıldığı bilinmez ve ' +
         '**hepsi** yükseltmeye taşınır — kullanılmayanlar dahil.\n\n' +
@@ -48263,14 +48292,14 @@ SAP.registerTopic({
         'Proje baskısı altında en sık kurulan cümle budur ve ' +
         '**çift yönlü kapılarda tamamen doğrudur**.\n\n' +
         'Tehlike, cümlenin **yanlış kapıda** kullanılmasıdır.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**"Sonra bakarız" demenin güvenli olduğu yerler:**\n' +
         '{{odeme-kosulu}} · tolerans · alan durumu · rapor düzeni · ' +
         'ihtar prosedürü · kullanıcı yetkileri\n\n' +
-        '**Asla denemeyeceğin yerler:**\n' +
+        '**Hiçbir koşulda sonradan değiştirilmeyecek yerler:**\n' +
         '{{hesap-plani}} · {{belge-bolme}} · para birimi · ' +
         '{{mali-yil-varyanti}} · defter yapısı · {{amortisman-alani}}\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Ayrımı yapmanın maliyeti çok düşüktür:** bir soru sormak ' +
         've cevabı yazmak. Yapmamanın maliyeti bir sonraki projedir.\n\n' +
         'Bu yüzden konunun tezi bir liste değil, bir **refleks** öneriyor: ' +
@@ -48374,7 +48403,7 @@ SAP.registerTopic({
       'Talep makuldü. Belge bölme kurulumu gerçekten karmaşıktır, ' +
       'ek yapılandırma ve test ister.\n\n' +
       'Danışman kabul etti ve bölme **kapalı** kuruldu.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       'Canlıya geçiş: **01.01.2028**.\n\n' +
       'Eylül 2028: şirket kimya iş kolu için **yatırımcı görüşmelerine** başladı.\n\n' +
       'Yatırımcının ilk isteği: *"kimya iş kolunun son iki yıllık ' +
@@ -48476,7 +48505,7 @@ SAP.registerTopic({
       'söylüyordu — o gün gerçekten istemiyorlardı. ' +
       'Danışman da makul davrandı: gereksiz karmaşıklıktan kaçındı.\n\n' +
       'Masada olmayan tek şey şuydu: **bu kararın geri alınamaz olduğu.**\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Üç kalıcı ders:**\n\n' +
       '**1. Tek yönlü kapılarda soru değişir.**\n' +
       'Çift yönlü bir kararda doğru soru *"bugün ne lazım?"*tır.\n' +
@@ -48495,7 +48524,7 @@ SAP.registerTopic({
       '**biraz ek yapılandırma ve test** olurdu. ' +
       'Kapalı kurulmasının maliyeti **bir yıl ve ertelenmiş bir ' +
       'yatırımcı görüşmesi** oldu.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       'Bu asimetri, konunun tamamının özetidir: ' +
       '**tek yönlü kapılarda fazladan hazırlık ucuz, eksik hazırlık pahalıdır.** ' +
       'Ve hangi kapının tek yönlü olduğunu bilmek, ' +
@@ -48777,7 +48806,7 @@ SAP.registerTopic({
       'bazı işlem kodları kalktı, {{fiori}} çıktı… ' +
       'Bunlar birbirinden bağımsız değişiklikler gibi görünür.\n\n' +
       'Değildir.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Bu konunun tezi:**\n\n' +
       '**Değişikliklerin neredeyse tamamı tek bir cümlenin sonucudur:**\n\n' +
       '**"Toplamı saklamak yerine, her seferinde yeniden hesapla."**\n\n' +
@@ -48811,7 +48840,7 @@ SAP.registerTopic({
       'Somut örnek: ECC’de *"geçen çarşamba itibarıyla satıcı yaşlandırması"* ' +
       'sorusu, o günün toplam tablosu saklanmadığı için ' +
       '**pratikte cevaplanamazdı**. S/4HANA’da kalemlerden hesaplanır.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Ama en yaygın yanılgı da tam burada:**\n\n' +
       '*"S/4HANA hızlı, o hâlde raporlarımız hızlanacak."*\n\n' +
       '**Hayır.** Eski tabloları okuyan özel raporlarınız ' +
@@ -48828,7 +48857,7 @@ SAP.registerTopic({
       '{{ACDOCA}} tek tablo."*\n\n' +
       'Bu cevap teknik ve ikna edici değildir; üstelik ilk maddesi ' +
       '**koşullu olarak doğrudur**.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Güçlü cevap üç somut değişikliktir:**\n\n' +
       '**1.** *"Ay sonu mutabakat adımlarınızın bir kısmı **ortadan kalkacak** — ' +
       'FI ile CO’nun ayrışması artık mümkün değil."*\n\n' +
@@ -48845,14 +48874,14 @@ SAP.registerTopic({
       'borç–alacak dengesi, {{mutabakat-hesabi}} mantığı, ' +
       'dönem kapanışı — hepsi aynı.\n\n' +
       'Değişen, **bu kayıtların nerede saklandığıdır**.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**ECC’de bir satıcı faturası kaydedildiğinde:**\n\n' +
       '{{BKPF}} başlık · {{BSEG}} kalemler · {{BSIK}} açık kalem kopyası · ' +
       '{{LFC1}} satıcı bakiyesi · {{GLT0}}/{{FAGLFLEXT}} G/L toplamları · ' +
       '`COEP` CO satırı\n\n' +
       '**Aynı fatura S/4HANA’da:**\n\n' +
       '{{BKPF}} başlık · {{ACDOCA}} kalemler — **hepsi bu.**\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Muhasebeci için pratik sonucu:** *"mizan ile döküm tutmuyor"* ' +
       'sorunu **kalktı**. Çünkü mizan artık ayrı bir tablodan değil, ' +
       '**dökümün kendisinden** hesaplanıyor.\n\n' +
@@ -48956,7 +48985,7 @@ SAP.registerTopic({
       { tip:'tip', baslik:'Bir mimari ders: kısıt kalkınca çözüm gereksizleşir', metin:
         'S/4HANA’yı anlamanın en kısa yolu, **ne eklendiğine değil ' +
         'ne kaldırıldığına** bakmaktır.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Kaldırılanların ortak özelliği:** hepsi bir **performans çözümüydü**.\n\n' +
         '| Yapı | Neden vardı | Neden gereksizleşti |\n' +
         '|---|---|---|\n' +
@@ -48964,7 +48993,7 @@ SAP.registerTopic({
         '| İndeks tabloları | Farklı anahtarla tarama pahalıydı | Artık ucuz |\n' +
         '| Mutabakat defteri | İki kopya ayrışabilirdi | Tek kopya var |\n' +
         '| Gecelik toplu işler | Rapor için hazırlık gerekirdi | Anında hesaplanır |\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Genel ilke — yalnızca SAP için değil:** bir sistemdeki ' +
         'karmaşıklığın önemli bir kısmı, artık geçerli olmayan bir ' +
         'kısıtın kalıntısıdır.\n\n' +
@@ -49081,7 +49110,7 @@ SAP.registerTopic({
       { tip:'err', baslik:'SHKZG tuzağı — konunun en pahalı ayrıntısı', metin:
         'Muhasebe mantığı değişmedi ama **tutarın saklanma biçimi** değişti. ' +
         'Bu tek fark, taşınan her sorguyu etkiler.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**{{BSEG}} — eski dünya**\n\n' +
         'Tutarlar **her zaman pozitiftir** (`DMBTR`). ' +
         'Yön ayrı bir alanda saklanır: `SHKZG` = **S** (borç) veya **H** (alacak).\n\n' +
@@ -49090,7 +49119,7 @@ SAP.registerTopic({
         '**{{ACDOCA}} — yeni dünya**\n\n' +
         'Tutarlar **işaretlidir** (`HSL`): alacak **negatif** saklanır. ' +
         'Toplamak için ek mantık gerekmez — doğrudan toplanır.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Tehlike:** eski bir sorgu yeni tabloya taşınırken ' +
         '`SHKZG` mantığı **kaldırılmazsa**, işaret **iki kez** uygulanır. ' +
         'Alacak satırları pozitife döner ve toplamlar anlamsızlaşır — ' +
@@ -49636,7 +49665,7 @@ SAP.registerTopic({
     ekstra:[
       { ic:'⚖️', baslik:'SHKZG → HSL: tek alanın maliyeti', metin:
         'Bu, S/4HANA geçişinin **en ucuz görünen, en pahalı** ayrıntısıdır.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Eski dünya — {{BSEG}}.`DMBTR`**\n\n' +
         'Tutar **her zaman pozitif**. Yön ayrı alanda: `SHKZG` = S / H.\n\n' +
         'Bir satıcı bakiyesi hesaplamak için ABAP kodu şöyle yazılırdı:\n\n' +
@@ -49645,7 +49674,7 @@ SAP.registerTopic({
         '**Yeni dünya — {{ACDOCA}}.`HSL`**\n\n' +
         'Tutar **işaretli**. Alacak zaten negatif. Toplam:\n\n' +
         '`SELECT SUM( HSL ) FROM ACDOCA WHERE ...`\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Şimdi tuzağa bakın:** eski program {{ACDOCA}}’ya taşınır ' +
         'ama `SHKZG` bloğu **silinmez**. Ne olur?\n\n' +
         'Alacak satırı zaten −60.000’dir. Program *"alacak, o hâlde çıkar"* ' +
@@ -49668,7 +49697,7 @@ SAP.registerTopic({
         'binlerce özel program eski tabloları okuduğu hâlde ' +
         'geçişten sonra çalışmaya devam eder.\n\n' +
         'Ama iki şey **söylenmez** ve ikisi de önemlidir:\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**1. Ücretsiz değildir.**\n\n' +
         'ECC’de {{BSIS}} **fiziksel bir tabloydu** ve kendi indeksi vardı. ' +
         'S/4HANA’da aynı isim bir **görünümdür** ve her çağrıda ' +
@@ -49682,7 +49711,7 @@ SAP.registerTopic({
         'ama tek örneği değildir — defter boyutu (`RLDNR`) de ' +
         'eski sorgularda **hiç yoktu** ve dikkate alınmazsa ' +
         'tutarlar **defter sayısı kadar katlanır**.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Doğru kullanım:** görünümler geçişin **ilk gününde** ' +
         'her şeyin çalışmasını sağlar. Sonrasında kritik programlar ' +
         '(kapanış, mutabakat, yasal rapor) **ölçülür** ve ' +
@@ -49696,7 +49725,7 @@ SAP.registerTopic({
         '**sekize kadar** taşır.\n\n' +
         'Bu, teknik bir kapasite artışı gibi görünür. Aslında ' +
         'bir **karar kolaylığıdır**.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Neden önemli:** para birimi bir {{tek-yonlu-kapi}}dır. ' +
         'Sonradan eklenen bir para birimi **geçmiş kayıtlarda boş kalır** — ' +
         'yani raporlama açısından işe yaramaz.\n\n' +
@@ -49716,7 +49745,7 @@ SAP.registerTopic({
       { tip:'tip', baslik:'S/4HANA neyi DEĞİŞTİRMEDİ — ve bu neden iyi haber', metin:
         'Geçiş projelerinde en çok zaman kaybettiren şey, ' +
         '**değişmeyen şeylerin de değiştiğini sanmaktır**.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Aynen duran her şey:**\n\n' +
         '• Çift taraflı kayıt ve borç–alacak dengesi\n' +
         '• {{mutabakat-hesabi}} mantığı ve `AKONT` ({{LFB1}}’de)\n' +
@@ -49728,7 +49757,7 @@ SAP.registerTopic({
         '• {{BKPF}}, belge türleri, numara aralıkları\n' +
         '• Taşıma disiplini ({{SE09}}, {{STMS}}, {{akim-verisi}})\n' +
         '• {{acik-kalem}} yönetimi ve kapatma mantığı\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Yani FI bilginizin büyük kısmı doğrudan taşınır.** ' +
         'Öğrenilmesi gereken şey yeni bir muhasebe değil, ' +
         '**verinin nerede durduğu** ve bunun sorgulara etkisidir.\n\n' +
@@ -49824,7 +49853,7 @@ SAP.registerTopic({
       'tanıdı, muhasebe aynı şekilde çalıştı.\n\n' +
       'Yönetime verilen gerekçelerden biri şuydu: ' +
       '*"ay sonu kapanış kısalacak."*\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       'İlk üç ay sonunda ölçüm alındı:\n\n' +
       '**Geçiş öncesi kapanış: 3 gün**\n' +
       '**Geçiş sonrası kapanış: 4,5 gün**\n\n' +
@@ -49928,7 +49957,7 @@ SAP.registerTopic({
       'Görünmeyen hata **yanlış rapordu** ve sekiz ay boyunca ' +
       'kimse şikâyet etmedi — çünkü rapor bir sayı üretiyordu ve ' +
       'sayı makul görünüyordu.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Üç kalıcı ders:**\n\n' +
       '**1. Kaldırılan tablo geri getirilmedi — taklit edildi.**\n' +
       'Ve taklit iki şeyi vaat etmez: **ücretsiz olmayı** ve ' +
@@ -49948,7 +49977,7 @@ SAP.registerTopic({
       'dokuz yanlış raporun sekizini ilk ayda yakalardı.\n\n' +
       'Bu, {{konu:best-practices}}’teki ilkenin somut hâlidir: ' +
       '**her sessiz hata sınıfı bir kontrol sorgusuna çevrilir.**\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       'Ve dikkat: bu senaryodaki hiçbir bulgu **yeni bir SAP bilgisi** ' +
       'gerektirmedi. Gereken tek şey konunun tezini bilmekti — ' +
       '**"toplam artık saklanmıyor, hesaplanıyor"** — ve bunun ' +
@@ -50524,7 +50553,11 @@ SAP.registerTopic({
     (d.liste || []).forEach(function (t) {
       out += '<div class="tc-card">' +
         '<div class="tc-h">' +
-          '<span class="tc-code" style="background:var(--info);color:var(--text-inv)">' + esc(t.ad) + '</span>' +
+          /* Satır içi renk ezmesi KALDIRILDI: `--info`/`--text-inv` eski
+             temadan kalmış, artık tanımsız tokenlerdi. Zaten kaldırılmaları
+             gerekirdi — tablo çipini işlem kodu çipinden ayrı renge boyamak
+             "tek vurgu rengi" kuralına aykırı (theme.css ilke 2). */
+          '<span class="tc-code">' + esc(t.ad) + '</span>' +
           '<span class="nm">' + mk(t.baslik || '') + '</span>' +
           '<a class="go btn sm" data-go="#/tablo/' + encodeURIComponent(SAP.upper(t.ad)) + '" ' +
              'href="#/tablo/' + encodeURIComponent(SAP.upper(t.ad)) + '">Detay →</a>' +

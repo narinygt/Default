@@ -708,7 +708,7 @@ SAP.registerTopic({
     ],
 
     ekstra:[
-      { ic:'🔑', baslik:'Sıralama anahtarı — kapatmanın gizli kahramanı', metin:
+      { ic:'🔑', baslik:'Sıralama anahtarı — otomatik kapatmanın belirleyici ayarı', metin:
         '{{F.13}} otomatik kapatmanın çalışıp çalışmaması neredeyse tamamen hesabın ' +
         '**sıralama anahtarına** ({{SKB1}} `ZUAWA`) bağlıdır.\n\n' +
         'Sıralama anahtarı, kayıt sırasında **atama alanını** ({{BSEG}} `ZUONR`) otomatik doldurur. ' +

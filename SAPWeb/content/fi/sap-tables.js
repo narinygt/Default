@@ -639,7 +639,7 @@ SAP.registerTopic({
     ipuclari:[
       '**Anahtar alanlarla süz.** {{SE11}} ile anahtarı öğren, sorguyu ona göre kur.',
       'Satıcı/müşteri bazlı arama için {{BSEG}} değil **{{BSIK}}/{{BSID}}** kullan.',
-      '{{BSEG}} ham verisi okurken **`SHKZG`** göstergesini unutma — tutarlar hep pozitiftir.',
+      '{{BSEG}} ham verisi okurken **`SHKZG`** göstergesi hesaba katılır — tutarlar hep pozitiftir.',
       'Belge bulunamıyorsa sırayla: {{FBV3}} (park) → {{SM13}} (güncelleme hatası) → {{BKPF}}.',
       '{{SE16N}}’i **kullanıcıya verme** — yetki zayıf, ham veri yanıltıcı.',
       'Yeni geliştirmede **{{ACDOCA}}** oku; uyumluluk görünümü yavaştır.',
@@ -746,7 +746,7 @@ SAP.registerTopic({
         'Aynı bilgi, farklı sırayla saklanır ve sorgu hızlanır.\n\n' +
         '**Aynı mantık toplam tablolarında:** "770 hesabının Ekim bakiyesi" sorgusu ' +
         'binlerce kalemi toplamayı gerektirirdi. {{GLT0}} bu toplamı **önceden** tutar.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Bedeli neydi?**\n\n' +
         '**1.** Her kayıt **birden çok tabloya** yazılır → yavaş, kilit çakışması.\n' +
         '**2.** Tablolar **tutarsız olabilir** → *"toplam tutmuyor"* klasik sorunu.\n' +
@@ -773,7 +773,7 @@ SAP.registerTopic({
         '**H** = Haben (Almanca "alacak")\n\n' +
         'Doğru hesaplama: S olanların toplamı ile H olanların toplamı ' +
         '**ayrı ayrı alınır ve karşılaştırılır**.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**{{ACDOCA}}’da bu değişti**\n\n' +
         'Tutarlar **işaretlidir**: borç pozitif, alacak **negatif**. ' +
         'Toplam doğrudan alınabilir ve dengeli bir belgede **sıfır** çıkar.\n\n' +

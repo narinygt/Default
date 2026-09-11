@@ -14,7 +14,7 @@ SAP.registerTopic({
       'hepsini ezberlemek mümkün değildir ve gerekmez.\n\n' +
       'Öğretilen şey **teşhis yöntemidir**: bir hatayı gördüğünde ' +
       'hangi sırayla, nereye bakacağın.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Tüm FI hataları üç sınıfa girer** ve sınıfı bilmek çözümün yerini söyler:\n\n' +
       '**① Konuşan hata** — sistem sana ne olduğunu **söyler**.\n' +
       '*"Dönem 10 şirket kodu 1000 için kapalı"* · *"Hesap belirleme yapılamadı"*\n' +
@@ -24,7 +24,7 @@ SAP.registerTopic({
       '→ **En tehlikeli sınıf.** Kullanıcı çoğu zaman fark etmez.\n\n' +
       '**③ Çöken hata** — program durur, teknik ekran gelir (dump).\n' +
       '→ Nadir ama gürültülü. {{ST22}} ile analiz edilir.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Danışmanı ayıran şey ① değil ②’dir.** ' +
       'Konuşan hatayı herkes çözer — mesajı okur, ayarı düzeltir. ' +
       'Sessiz hatayı **fark edebilmek** deneyim ister.',
@@ -62,7 +62,7 @@ SAP.registerTopic({
       '**2.** Mesajın **tam metni** ve numarası? → *F5 201*\n' +
       '**3.** Hangi kullanıcı, hangi şirket kodu? → *MUHASEBE07, 1000*\n' +
       '**4.** **Daha önce çalışıyor muydu?** → *Dün çalışıyordu*\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Dördüncü soru en değerlisidir** ve en çok atlanan sorudur.\n\n' +
       '*"Hiç çalışmadı"* → **yapılandırma** eksik. Yeni bir hesap, yeni bir vergi kodu, ' +
       'yeni bir şirket kodu olabilir.\n\n' +
@@ -82,7 +82,7 @@ SAP.registerTopic({
       'Sistem hesabı **tahmin etmez** — tanımlanmamışsa durur. Doğru davranış budur.\n\n' +
       '**"Hesap kilitli / kayda kapalı"** → *Kullanılmayan hesaba kayıt yanlıştır.*\n\n' +
       '**"Alan zorunlu"** → *Maliyet gideri bir maliyet nesnesine düşmelidir.*\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Bu bakış açısının pratik faydası büyüktür:** hatayı *"sistem izin vermiyor"* ' +
       'diye değil, *"muhasebe kuralı ne diyor?"* diye okursun.\n\n' +
       'O zaman çözüm de değişir: **engeli kaldırmak** yerine ' +
@@ -268,7 +268,7 @@ SAP.registerTopic({
         '**Dönem kapandıktan sonra** → 3 belge + **yanlış döneme düşen düzeltme** + ' +
         'karşılaştırmalı rapor bozulması\n' +
         '**Beyan verildikten sonra** → yukarıdakiler + **düzeltme beyannamesi**\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Bu tablo, hata yönetiminin neden bir önleme konusu olduğunu gösterir.**\n\n' +
         'Danışmanlıkta doğru refleks, hatayı hızlı çözmek **değil**, ' +
         'aynı hatanın tekrar edip edemeyeceğini sormaktır:\n\n' +
@@ -283,7 +283,7 @@ SAP.registerTopic({
     anlatim:
       'Aşağıda FI’da **en sık karşılaşılan hatalar** üç sınıfa ayrılmış hâlde. ' +
       'Her biri için: **ne demek · neden oluyor · nasıl çözülür · kalıcı önlem**.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '** Konuşan hatalar (①)** — mesaj var, çözümü işaret ediyor. ' +
       'Sıkıcı ama kolay; mesajın uzun metnini okumak çoğunu bitirir.\n\n' +
       '** Sessiz hatalar (②)** — mesaj yok, sonuç yanlış. ' +
@@ -971,7 +971,7 @@ SAP.registerTopic({
         '**Belirtiyi düzeltmek:** dönemi aç, kaydı yaptır, dönemi kapat. ' +
         'Bugün çözülür, **yarın tekrar eder**.\n\n' +
         '**Kök sebebi bulmak:** *"dönem neden kapalıydı?"* diye sormak.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Örnek — üç kez "neden":**\n\n' +
         '*Fatura kaydedilemiyor.* **Neden?**\n' +
         '→ Dönem kapalı. **Neden?**\n' +
@@ -980,7 +980,7 @@ SAP.registerTopic({
         '**Gerçek sorun bulundu:** dönem değil, **fatura akışı**.\n\n' +
         'Belirtiyi düzeltmek her ay tekrar eden bir iş yaratır; ' +
         'kök sebebi düzeltmek sorunu **bitirir**.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Danışmanın kapanış refleksi iki soru olmalı:**\n\n' +
         '**1.** *"Bu neden mümkün oldu?"* → kök sebep\n' +
         '**2.** *"Başka kimde var?"* → aynı sınıfı tara\n\n' +
@@ -1110,7 +1110,7 @@ SAP.registerTopic({
       '{{AFAB}} amortisman çalıştırmasını arka planda başlatıyor.\n\n' +
       '{{SM37}}’de iş **yeşil**: *"Başarıyla tamamlandı."*\n\n' +
       'Kapanış tamamlanıyor, mizan alınıyor, yönetime rapor gidiyor.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Üç hafta sonra**, Aralık kapanışında bir kontrol sırasında ' +
       'birikmiş amortisman hesabının beklenenden **düşük** olduğu fark ediliyor.\n\n' +
       'Fark: **1.847.000 TRY**.',
@@ -1239,7 +1239,7 @@ SAP.registerTopic({
              'henüz varlık açılmamıştı, yani sorun **patlamadan** önlendi.\n\n' +
              'Bu, teşhisin son adımının neden *"başka kimde var?"* ' +
              'olması gerektiğini gösteriyor.\n\n' +
-             '━━━━━━━━━━\n\n' +
+             '---\n\n' +
              '**İkinci önlem en değerlisi.** Kontrol adımı ({{SLG1}}) hatayı ' +
              '**bir ay sonra** yakalar; doğrulama kuralı ise ' +
              '**hiç oluşmasına izin vermez**.\n\n' +

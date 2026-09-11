@@ -529,7 +529,7 @@ SAP.registerTopic({
     notlar:[
       { tip:'warn', baslik:'BSEG doğrudan sorgulanmaz', metin:
         '{{BSEG}} bir cluster tablodur; `HKONT` veya `KOSTL` gibi anahtar olmayan alanlara göre ' +
-        'SELECT çekmek felaket derecede yavaştır. Bu yüzden indeks tabloları ({{BSIK}}, {{BSID}}, {{BSIS}}) icat edilmiştir. ' +
+        'SELECT çekmek kabul edilemez ölçüde yavaştır. Bu yüzden indeks tabloları ({{BSIK}}, {{BSID}}, {{BSIS}}) icat edilmiştir. ' +
         'S/4HANA’da doğru adres {{ACDOCA}}’dır.' },
     ],
   },

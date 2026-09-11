@@ -675,7 +675,7 @@ SAP.registerTopic({
         '`KTOPL` **hesap planı** — hangi hesap planında çalışıyoruz\n' +
         '`KTOSL` **işlem anahtarı** — verginin türü\n' +
         '`MWSKZ` **vergi kodu** — *(opsiyonel, aşağıya bakın)*\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**İşlem anahtarları ne anlama gelir?**\n\n' +
         '`MWS` **hesaplanan (çıkış) KDV** → 391. Satış faturalarında oluşur.\n\n' +
         '`VST` **indirilecek (giriş) KDV** → 191. Alış faturalarında oluşur.\n\n' +
@@ -683,7 +683,7 @@ SAP.registerTopic({
         'Sistem tutarı ilgili gider/varlık satırına **ekler**. ' +
         '(Bu davranış ayrı bir bloğun konusudur.)\n\n' +
         '`NVV` indirilemeyen, hesap atamasına dağıtılan varyant.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Üçüncü alanın (`MWSKZ`) püf noktası**\n\n' +
         '{{OB40}}’ta **"vergi koduna göre ayrım"** diye bir işaret vardır ve ' +
         'davranışı köklü biçimde değiştirir:\n\n' +
@@ -696,7 +696,7 @@ SAP.registerTopic({
         'veya indirilemeyen KDV’nin ayrı hesapta tutulması gerektiğinde.\n\n' +
         '**Sonradan işaretlemek risklidir:** geçmiş kayıtlar eski hesapta, ' +
         'yeniler yeni hesapta kalır ve hesap bakiyeleri anlamsızlaşır.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**En sık hata: eksik satır**\n\n' +
         '*"Error in account determination: table T030K key TR MWS"*\n\n' +
         'Mesaj tam olarak eksik anahtarı verir: hesap planı **TR**, işlem anahtarı **MWS**. ' +

@@ -74,6 +74,16 @@ Metin bir **başvuru kaynağıdır**, sınava hazırlık notu değil. Görünen 
 ayırt edicidir ve cevapları konunun özüdür; sorun *"bunu sana sorabilirler"*
 diyen çerçevedir — metni bir kaynak olmaktan çıkarıp kopya kâğıdına çevirir.
 
+Aynı tarama ⭐ **gündelik/abartılı dili** de kapsar. Ekrandan kaldırılanlar:
+*"gizli kahraman"*, *"hilesi"*, *"felaket derecede"*, *"Asla denemeyeceğin
+yerler"*, ünlem işaretleri, ve emir kipli hatırlatmalar (*"unutma"*,
+*"dikkat et"* → düz bilgi cümlesi).
+
+✅ **Kalanlar bilinçlidir:** *"unutma riski"* bir isimdir, *"asla/hiçbir
+zaman"* teknik bir mutlaklık bildirir, ikinci tekil şahıs anlatım
+(*"görürsün", "yaparsın"*) kitabın tutarlı sesidir — Stripe Docs'un
+*"you"* kullanımıyla aynı kayıt (bkz. §5b ilham).
+
 **Kontrol:**
 ```bash
 grep -rn "ülakat\|adayın" content/ data/ js/     # boş dönmeli
@@ -360,6 +370,24 @@ Kullanıcı burada *gezinmez*, **okur**. Bütün kararlar bu cümleden çıkar.
 5. **İkon neredeyse yok, emoji hiç yok.** Kalanlar Lucide çizgi ikonu:
    16px, currentColor, 13 adet. Yeni ikon eklemeden önceki soru:
    *"bu ikon olmasa cümle anlaşılmaz mıydı?"*
+
+6. ⭐ **KARAKTERLE ÇİZİM YASAK.** Çizgi, ok, kutu ve ayraç **karakterden
+   yapılmaz**. Kaldırılan üç örnek (Eylül 2026):
+
+   | Eskiden | Şimdi |
+   |---|---|
+   | `━━━━━━━━━━` metnin içinde ayraç (139 yerde) | içerikte `---` satırı → gerçek `<hr class="brk">` (64px, 1px kural) |
+   | `──▶` ER ilişki oku (201 yerde) | Lucide `arrow-right`, 16px, currentColor |
+   | `▼` SVG ok başı (siyah) | `--rule-firm` dolgulu SVG marker (bkz. Ders #31) |
+
+   **Gerekçe:** kutu çizim karakterleri fonta bağımlıdır — font değişince
+   hizası kayar, baskıda dağılır, ekran okuyucuda anlamsız okunur ve
+   yakınlaştırmada metinle birlikte büyümez. 1px kural çizgisi ve SVG
+   ikon üçünde de doğru davranır.
+
+   ✅ **Tipografik işaretler kalır** çünkü karakter *taklidi* değil,
+   karakterin *kendisidir*: `→ ↔ ≠ ≤ −` ve `①②③④⑤` (bilinçli sıralama
+   aygıtı), `✓ ✕` (tek renkli metin glifi).
 
 ### Fontlar — çevrimdışı kuralı bozulmadı
 
@@ -1537,6 +1565,66 @@ FI kataloğu bittiği için sıradaki iş **içerik değil**. İki yön:
     **Genel ders:** *"doğrulandı" bir kapsam belirtmeden yazılmamalıdır.*
     ①'de kapsam bir sayfaydı ama "site" diye yazılmıştı. Bu yüzden §7'deki
     her madde artık **kaç örnek üzerinde** ölçüldüğünü söylüyor.
+
+31. **⭐ Yeniden adlandırılan tasarım tokeni arkasında SESSİZ atıflar bırakır —
+    ve SVG'de sessizlik "çizgi kayboldu" demektir.**
+
+    Üslup taraması için alınan bir ekran görüntüsünde ER diyagramının
+    bağlantı okları **dolu siyah üçgen** olarak duruyordu; çizgiler ise
+    hiç yoktu. Aranan şey bu değildi — **bakmak bulmayı sağladı.**
+
+    Sebep: tasarım sistemi yeniden yazılırken tokenler
+    (`--text-3` → `--ink-3`, `--border` → `--rule-firm`) değişti ama
+    `js/` içindeki **beş atıf** eski adlarda kaldı:
+
+    | Yer | Eski token | Görünen sonuç |
+    |---|---|---|
+    | `diagram.js` bağlantı çizgisi | `--border` | `stroke` geçersiz → **çizgi hiç çizilmedi** |
+    | `diagram.js` ok başı | `--text-3` | `fill` geçersiz → **siyah üçgen** |
+    | `diagram.js` ER alan notu | `--font`, `--text-3` | siyah metin, yanlış font |
+    | `diagram.js` T hesap notu | `--text-3` | siyah metin |
+    | `sections.js` tablo çipi | `--info`, `--text-inv` | bildirim düştü, CSS kuralı kurtardı |
+
+    ⭐ **Asıl incelik — CSS ile SVG niteliği aynı davranmaz:**
+    tanımsız `var()` **CSS bildiriminde** "geçersiz değer" sayılır,
+    bildirim atılır ve **miras/varsayılan devreye girer** (çoğu zaman
+    makul bir sonuç). Aynı şey bir **SVG sunum niteliğinde** olursa
+    nitelik yok sayılır ve **SVG varsayılanı** uygulanır:
+    `stroke` varsayılanı `none`, `fill` varsayılanı **siyah**.
+    Yani CSS'te kusur *idare eder*, SVG'de **öğeyi yok eder**.
+
+    Konsola hiçbir hata düşmez. Altı eksenin altısı da yeşildi:
+    hepsi *içerik* ve *renk çeşitliliği* soruyordu, hiçbiri
+    *"başvurulan token var mı?"* diye sormuyordu — Ders
+    #19/#23/#26/#28/#29'un aynı kalıbı, bu kez **token katmanında**.
+
+    **7. eksen eklendi:** tanımsız `var()` atıfları. Hem stil sayfalarını
+    hem satır içi `style`'ı hem de `fill`/`stroke`/`color` **niteliklerini**
+    tarar.
+
+    ⚠️ **Eksenin ilk yazımı da yanlıştı ve neredeyse hiçbir şey ölçmüyordu:**
+
+    ```js
+    if (k.cssRules) { gez(k.cssRules); continue; }   // ⚠️ YANLIŞ
+    ```
+
+    CSS Nesting'ten beri `CSSStyleRule` da `CSSGroupingRule` uygular —
+    yani **her stil kuralının `cssRules`'u vardır**: boş, ama **truthy**.
+    Döngü bütün kuralları atlayıp yalnızca satır içi nitelikleri taradı;
+    "tanımlı token" kümesi boş kaldı ve ölçüm **canlı** bir tokeni
+    (`--ink-3`) ölü diye raporladı. Yanlış alarm olmasa fark edilmeyecekti.
+
+    Doğrusu: önce `k.style` okunur, `cssRules`'a yalnızca **doluysa** inilir.
+
+    ⭐ **Ve eksen artık kendi kendini sınıyor** (Ders #17 / #30'un kuralı):
+    ölçüm sırasında sayfaya bilinen bir **ölü** token ile bilinen bir
+    **canlı** token enjekte edilir; ölü yakalanmalı, canlı yakalanmamalıdır.
+    Ayrıca "tanımlı token sayısı > 20" koşulu, kümenin boş kalmasını
+    (yani bu hatanın tekrarını) yapısal olarak imkânsız kılar.
+
+    **Genel ders:** bir token'ı yeniden adlandırmak bir **arama-değiştirme
+    işi değil**, bir **göç işidir** — ve göçün tamamlandığını söyleyen tek
+    şey, eski adların artık hiçbir yerde geçmediğini **ölçen** bir kontroldür.
 
 ---
 

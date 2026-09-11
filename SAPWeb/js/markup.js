@@ -136,11 +136,21 @@
     return applyRefs(inline(SAP.esc(s))).replace(/\n/g, '<br>');
   }
 
+  /* Yazarın koyduğu bölüm arası ayracı: kendi başına duran `---` satırı.
+     Eskiden içerikte `━━━━━━━━━━` yazıyordu — metnin İÇİNE karakterle
+     çizilmiş bir çizgi. Tasarım dili ayrımı 1px kural çizgisiyle yapar
+     (theme.css ilke 1), karakterle değil; o yüzden bu işaret gerçek bir
+     <hr>'a dönüşür. Escape'ten ÖNCE yakalanır: inline() `--` dizisini
+     em dash'e çevirdiği için sonra bakmak güvenilmez olurdu. */
+  var AYRAC = /^-{3,}$/;
+
   /** Blok metin: boş satırlar paragrafa dönüşür. */
   function mkp(s) {
     if (s == null || s === '') return '';
     return String(s).split(/\n\s*\n/).map(function (par) {
-      return '<p>' + applyRefs(inline(SAP.esc(par.trim()))).replace(/\n/g, '<br>') + '</p>';
+      var t = par.trim();
+      if (AYRAC.test(t)) return '<hr class="brk">';
+      return '<p>' + applyRefs(inline(SAP.esc(t))).replace(/\n/g, '<br>') + '</p>';
     }).join('');
   }
 

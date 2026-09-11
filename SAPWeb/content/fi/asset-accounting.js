@@ -398,7 +398,7 @@ SAP.registerTopic({
       '** Varlık hareketleri** — varlığa ne oluyor? *(edinim, transfer, çıkış, AuC)*\n' +
       '** Hesaplama yöntemleri** — tutar nasıl bulunuyor? *(doğrusal, azalan, YST, üretim, kalıntılı)*\n' +
       '** VUK uygulamaları** — mevzuatın özel kuralları *(kıst, fevkalade, özel maliyet…)*\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '### Hesaplama yöntemleri — aynı varlık, beş sonuç\n\n' +
       'Yöntemleri anlamanın en hızlı yolu **aynı varlığı beş kez hesaplamaktır**.\n\n' +
       '**Varlık:** 600.000 TL · faydalı ömür **5 yıl**\n\n' +

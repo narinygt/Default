@@ -145,7 +145,7 @@ SAP.registerTopic({
     anlatim:
       'MM kayıtlarının tamamı **otomatiktir** ve hesapları {{OBYC}} belirler. ' +
       'Aşağıda en sık karşılaşılan beş senaryonun kayıtları var; her birinde hangi ' +
-      '**işlem anahtarının** devreye girdiğine dikkat et.',
+      '**işlem anahtarının** devreye girdiği ayrıca gösteriliyor.',
 
     etkilenenHesaplar:[
       { hesap:'153 Ticari mallar / 150 Hammadde (stok)', tur:'Bilanço — Varlık', neden:'{{OBYC}} → **BSX**. {{degerleme-sinifi}}na göre farklı stok hesabı seçilir.' },

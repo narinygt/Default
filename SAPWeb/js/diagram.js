@@ -63,7 +63,7 @@
         var badge = f.tip === 'pk' ? '<span class="pk">PK</span>'
                   : f.tip === 'fk' ? '<span class="pk fk">FK</span>' : '';
         return '<li>' + badge + '<span>' + esc(f.ad) + '</span>' +
-               (f.not ? '<span style="font-family:var(--font);color:var(--text-3);font-size:10.5px">' +
+               (f.not ? '<span style="font-family:var(--font-sans);color:var(--ink-3);font-size:10.5px">' +
                         mk(f.not) + '</span>' : '') + '</li>';
       }).join('');
       return '<div class="er-ent' + (v.hub ? ' hub' : '') + '" data-ent="' + esc(v.ad) + '">' +
@@ -77,7 +77,15 @@
     var rels = (d.iliskiler || []).map(function (r) {
       return '<div class="er-rel">' +
         '<code>' + esc(r.from) + '</code>' +
-        '<span class="ar">──▶</span>' +
+        /* Ok, karakterle ÇİZİLMEZ. Eskiden `──▶` yazıyordu — kutu çizim
+           karakterlerinden yapılmış bir ok, fontu değişince hizası bozulan
+           ve baskıda dağılan bir çözüm. Artık Lucide `arrow-right` (16px,
+           currentColor — theme.css ilke 5).
+           SAP.ui, diagram.js'ten SONRA yüklenir ama er() yalnızca çizim
+           anında çağrılır; yine de eksikse tipografik ok'a düşer. */
+        '<span class="ar">' +
+          (SAP.ui && SAP.ui.icon ? SAP.ui.icon('arrow-right') : '→') +
+        '</span>' +
         '<code>' + esc(r.to) + '</code>' +
         (r.alanlar ? '<span class="lb">' + esc(r.alanlar) + '</span>' : '') +
         (r.not ? '<span class="lb">· ' + mk(r.not) + '</span>' : '') +
@@ -150,13 +158,13 @@
                  ' C ' + c1x.toFixed(1) + ' ' + c1y.toFixed(1) + ', ' +
                  c2x.toFixed(1) + ' ' + c2y.toFixed(1) + ', ' +
                  bx.toFixed(1) + ' ' + by.toFixed(1) + '" ' +
-                 'fill="none" stroke="var(--border)" stroke-width="1.5" ' +
+                 'fill="none" stroke="var(--rule-firm)" stroke-width="1.5" ' +
                  'stroke-dasharray="4 4" marker-end="url(#erhead)"/>';
       });
 
       svg.innerHTML =
         '<defs><marker id="erhead" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" ' +
-        'markerHeight="7" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="var(--text-3)"/>' +
+        'markerHeight="7" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="var(--rule-firm)"/>' +
         '</marker></defs>' + paths;
     });
   }
@@ -214,7 +222,7 @@
       cr += Number(r.alacak) || 0;
       return '<tr>' +
         '<td class="acc">' + esc(r.hesap || '') + '</td>' +
-        '<td>' + mk(r.ad || '') + (r.not ? '<br><span style="font-size:11.5px;color:var(--text-3)">' + mk(r.not) + '</span>' : '') + '</td>' +
+        '<td>' + mk(r.ad || '') + (r.not ? '<br><span style="font-size:11.5px;color:var(--ink-3)">' + mk(r.not) + '</span>' : '') + '</td>' +
         '<td class="num dr">' + (r.borc ? '<b>' + SAP.num(r.borc) + '</b>' : '') + '</td>' +
         '<td class="num cr">' + (r.alacak ? '<b>' + SAP.num(r.alacak) + '</b>' : '') + '</td>' +
       '</tr>';

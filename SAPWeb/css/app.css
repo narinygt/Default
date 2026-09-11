@@ -721,6 +721,15 @@
 
 .prose { font-size: var(--t-body); line-height: 1.78; color: var(--ink); max-width: 70ch; }
 .prose + .prose { margin-top: var(--sp-3); }
+/* Yazarın koyduğu bölüm arası (içerikte kendi başına duran `---` satırı,
+   markup.js). Bölüm sonu değil paragraf öbeği arası olduğu için kural
+   çizgisi en hafif tonda ve tam genişlikte değil. */
+.prose hr.brk {
+  width: 64px;
+  margin: var(--sp-5) 0;
+  border: 0;
+  border-top: 1px solid var(--rule-firm);
+}
 
 .sub-h {
   font-size: var(--t-h3);
@@ -1077,7 +1086,9 @@ table.tbl .mono { font-family: var(--font-mono); font-size: 13px; }
   background: var(--paper);
   font-size: var(--t-xs);
 }
-.er-rel .ar { color: var(--accent); font-weight: 700; }
+/* Ok artık bir SVG ikonu — metin satırının ortasına hizalanması için
+   satır kutusundan çıkarılıp flex öğesi olarak ortalanır. */
+.er-rel .ar { color: var(--accent); display: inline-flex; align-items: center; }
 .er-rel .lb { color: var(--ink-3); }
 .er-rel code { background: var(--paper-2); padding: 2px 7px; border-radius: 2px; color: var(--ink-2); }
 

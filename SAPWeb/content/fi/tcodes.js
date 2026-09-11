@@ -54,7 +54,7 @@ SAP.registerTopic({
       '**1.** Bu bir **özelleştirme** ayarı → FI özelleştirme kodları **`OB`** ile başlar.\n' +
       '**2.** {{SE16N}} → {{TSTCT}} → `TCODE` = `OB*` ve `TTEXT` içinde *belge*\n' +
       '**3.** Sonuç: **{{OBA7}}** — Belge Türlerini Tanımla.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Daha da hızlısı:** {{SPRO}} açılır, IMG ağacında *Belge Türü* aranır ve ' +
       'düğüme tıklanınca **kod zaten oradadır**.\n\n' +
       'İkisi de aynı yere çıkar. Fark, **ezber gerektirmemesidir**.',
@@ -161,7 +161,7 @@ SAP.registerTopic({
         '**`/i`** — bulunulan oturumu **kapatır**.\n\n' +
         '**`/nex`** — sistemden **onay sormadan** çıkar. ' +
         'Kaydedilmemiş veri **sorulmadan gider**.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**`/$sync`** — tüm **{{tampon}}ları** temizler.\n\n' +
         'Bu sonuncusu bir danışman aracıdır ve şu soruyu çözer: ' +
         '*"Özelleştirmeyi değiştirdim ama etkisi görünmüyor."* ' +
@@ -278,7 +278,7 @@ SAP.registerTopic({
     anlatim:
       'Aşağıdaki **on iki kalıp**, FI’da karşılaşacağın kodların neredeyse tamamını açıklar. ' +
       'Ezberlenecek olan kodlar değil, **bu kalıplardır**.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Üç harfin anahtarı — Almanca kökler**\n\n' +
       'SAP Almanca geliştirildi. Üç harf hem işlem kodlarında hem tablo adlarında ' +
       '**aynı anlamı** taşır:\n\n' +
@@ -291,7 +291,7 @@ SAP.registerTopic({
       '**I** = *offen* (açık kalem) · **A** = *ausgeglichen* (kapatılmış)\n\n' +
       'Yani {{BSAK}} = kapatılmış satıcı kalemleri, {{BSID}} = açık müşteri kalemleri. ' +
       'Sekiz tablo adı, **iki kuralla** çözülür.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Sayı ekleri**\n\n' +
       '**01** oluştur · **02** değiştir · **03** görüntüle\n\n' +
       '`AS01/02/03` varlık · `FK01/02/03` satıcı · `KS01/02/03` maliyet yeri\n\n' +
@@ -793,7 +793,7 @@ SAP.registerTopic({
         '**S** = *Sachkonto* → G/L hesabı\n\n' +
         'Bu üç harf **hem işlem kodlarında hem tablo adlarında** aynıdır:\n\n' +
         '`FK01` satıcı açar · `FD01` müşteri açar · `FS00` G/L açar\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Tablo adları: BS + I/A + K/D/S**\n\n' +
         '**I** = *offen* (açık kalem) · **A** = *ausgeglichen* (kapatılmış)\n\n' +
         '| | Satıcı (K) | Müşteri (D) | G/L (S) |\n' +
@@ -802,7 +802,7 @@ SAP.registerTopic({
         '| **Kapalı (A)** | {{BSAK}} | {{BSAD}} | {{BSAS}} |\n\n' +
         '**Sekiz tablo adı, iki kuralla çözüldü.** ' +
         'Bunları ayrı ayrı ezberlemeye çalışmak, kuralı görmemektir.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Diğer sık görülen Almanca izler:**\n\n' +
         '**`SHKZG`** — *Soll/Haben-Kennzeichen* → **S** borç, **H** alacak ' +
         '(bkz. {{konu:sap-tables}})\n' +
@@ -824,7 +824,7 @@ SAP.registerTopic({
         '*"You are not authorized to use transaction ..."*\n\n' +
         '**Katman 2 — nesne yetkileri:** *"Hangi veriyi görebilir?"*\n' +
         '`F_BKPF_BUK` şirket kodu · `F_BKPF_KOA` hesap türü · `F_BKPF_BLA` belge türü\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Tehlikeli olan durum: birinci var, ikinci yok.**\n\n' +
         'İşlem **açılır**, kullanıcı seçim ekranını görür, çalıştırır ve ' +
         '**boş liste** gelir. Hiçbir hata mesajı çıkmaz.\n\n' +

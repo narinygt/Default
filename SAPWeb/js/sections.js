@@ -319,7 +319,11 @@
     (d.liste || []).forEach(function (t) {
       out += '<div class="tc-card">' +
         '<div class="tc-h">' +
-          '<span class="tc-code" style="background:var(--info);color:var(--text-inv)">' + esc(t.ad) + '</span>' +
+          /* Satır içi renk ezmesi KALDIRILDI: `--info`/`--text-inv` eski
+             temadan kalmış, artık tanımsız tokenlerdi. Zaten kaldırılmaları
+             gerekirdi — tablo çipini işlem kodu çipinden ayrı renge boyamak
+             "tek vurgu rengi" kuralına aykırı (theme.css ilke 2). */
+          '<span class="tc-code">' + esc(t.ad) + '</span>' +
           '<span class="nm">' + mk(t.baslik || '') + '</span>' +
           '<a class="go btn sm" data-go="#/tablo/' + encodeURIComponent(SAP.upper(t.ad)) + '" ' +
              'href="#/tablo/' + encodeURIComponent(SAP.upper(t.ad)) + '">Detay →</a>' +

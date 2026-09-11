@@ -768,7 +768,7 @@ SAP.registerTopic({
         'İki plan = iki kat yapılandırma = iki kat bakım.\n\n' +
         '**3. Konsolidasyon elle eşleştirme ister.** Her hesabın karşılığı ' +
         'tablo tutularak eşleştirilir; hesap eklendikçe tablo bakımı büyür.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Doğru çözüm: tek operasyonel plan + ülke hesap planı**\n\n' +
         'Kayıt **grup planında** yapılır (400100). ' +
         'G/L hesap ana verisinde **alternatif hesap numarası** tanımlanır (770). ' +

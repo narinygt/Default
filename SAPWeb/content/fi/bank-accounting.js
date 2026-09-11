@@ -895,7 +895,7 @@ SAP.registerTopic({
           { alan:'Gerçek ekstre bakiyesi', deger:'4.250.000 TL' },
           { alan:'**Açıklanamayan fark**', deger:'**179.500 TL**' },
         ],
-        not:'Hesap tutmuyor! Ama sebep basit: ekstredeki 4 satır **henüz işlenmedi**. ' +
+        not:'Hesap tutmuyor. Sebep basit: ekstredeki 4 satır **henüz işlenmedi**. ' +
              'Onlar işlendiğinde muhasebe bakiyesi 179.500 TL artacak ve fark kapanacak.' },
 
       { baslik:'Bekleyen ekstre satırları işlenir', tcode:'FEBAN',

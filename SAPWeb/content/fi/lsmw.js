@@ -14,7 +14,7 @@ SAP.registerTopic({
     nedir:
       'LSMW, eski sistemlerden SAP’a veri aktarmak için kullanılan **14 adımlı** klasik araçtır.\n\n' +
       'Ama bu tanım aracın **ne olduğunu** söyler, **neden böyle tasarlandığını** söylemez.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Bu konunun tezi:**\n\n' +
       '**LSMW bir yükleme aracı değil, bir *tarif defteridir*.**\n\n' +
       'Veriyi yüklemek kolaydır — bir kez. Zor olan **aynı yüklemeyi ' +
@@ -54,7 +54,7 @@ SAP.registerTopic({
       '• 45’inde ödeme koşulu SAP’ta **tanımlı değil**\n\n' +
       'Bunların hiçbiri LSMW’nin hatası değildir — ama hepsi ' +
       '**LSMW çalıştırılınca** ortaya çıkar.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Danışman için asıl ders:** LSMW’nin en değerli çıktısı ' +
       'yüklenen veri değil, **ilk deneme çalıştırmasının hata listesidir**. ' +
       'O liste, veri temizliği projesinin **iş planıdır**.\n\n' +
@@ -65,7 +65,7 @@ SAP.registerTopic({
       'Proje yöneticisi: *"Satıcı verilerini yükleyin, dosya hazır."*\n\n' +
       'Deneyimsiz yaklaşım: dosyayı al, LSMW kur, çalıştır, hataları düzelt, ' +
       'tekrar çalıştır. Hatalar bitmez; her turda yenisi çıkar.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       'Deneyimli yaklaşım **ters sıradan** başlar:\n\n' +
       '**1.** Önce SAP’ta **elle bir satıcı aç** ({{XK01}}).\n' +
       '**2.** Hangi alanlar **zorunlu**, not al.\n' +
@@ -83,7 +83,7 @@ SAP.registerTopic({
       'Muhasebe kaydı **üretmez**. Yanlışsa düzeltilir, iz kalmaz.\n\n' +
       '**② Hareket verisi** — açık kalemler, bakiyeler.\n' +
       '**Muhasebe kaydı üretir.** Yanlışsa {{FB08}} gerekir ve **iz kalır**.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       'İkinci grup çok daha risklidir ve **ayrı bir kural** ister: ' +
       'açılış bakiyeleri **karşı hesap** üzerinden atılır.\n\n' +
       'Her satıcı borcunun bir karşılığı olmalıdır; ' +
@@ -203,7 +203,7 @@ SAP.registerTopic({
         '{{bapi}} → hedef alanlar **yapı alanlarıdır**\n' +
         '**Standart nesne** → hedef alanlar SAP’ın tanımladığı **nesne alanlarıdır**\n\n' +
         'Yani eşleme adımında yazdığın her satır, seçtiğin yönteme **bağlıdır**.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Doğru seçim sırası:**\n\n' +
         '**1. Standart nesne var mı?** → varsa **onu kullan**. ' +
         'SAP bakımını üstlenir, sürüm değişiminde bozulmaz.\n' +
@@ -318,7 +318,7 @@ SAP.registerTopic({
     anlatim:
       '14 adımın **dört öbeği** ve **dört aktarım yöntemi** — ' +
       'LSMW’yi anlamak bu iki listeyi bilmekten ibarettir.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Yöntem seçimi sıralı bir karardır**, tercih değil:\n\n' +
       '**1.** Standart nesne var mı? → **kullan**\n' +
       '**2.** Yoksa {{bapi}} var mı? → **kullan**\n' +
@@ -801,7 +801,7 @@ SAP.registerTopic({
     ekstra:[
       { ic:'🎯', baslik:'Neden "önce elle bir kayıt aç"? — sıranın matematiği', metin:
         'Bu, konunun en pratik tavsiyesidir ve sebebi **sayısaldır**.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Yanlış sıra — dosyadan başlamak:**\n\n' +
         'Dosyayı eşle → çalıştır → *"X alanı zorunlu"* → düzelt → ' +
         'çalıştır → *"Y alanı zorunlu"* → düzelt → çalıştır → …\n\n' +
@@ -811,7 +811,7 @@ SAP.registerTopic({
         '{{XK01}} ile elle bir satıcı aç → zorunlu alanları **bir kerede** gör → ' +
         'kaynak dosyayla karşılaştır → eksikleri **toplu** çöz → eşle → çalıştır.\n\n' +
         '**1 tur.**\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Genel ilke:** hata mesajları **seri** gelir (bir seferde bir tane), ' +
         'ekranlar ise bilgiyi **paralel** verir (hepsi bir arada).\n\n' +
         'Seri bir kaynaktan öğrenmeye çalışmak, paralel bir kaynak varken ' +
@@ -826,7 +826,7 @@ SAP.registerTopic({
         'Ayrıca LSMW’nin S/4HANA’da bilinen bir kısıtı var: ' +
         '**toplu giriş kaydı (recording) yöntemi**, {{BP}} gibi ' +
         'yeni işlemlerde güvenilir çalışmaz — ekran akışı çok karmaşıktır.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Peki neden hâlâ öğreniliyor?**\n\n' +
         '**1. Mevcut sistemlerde yaşıyor.** ECC üzerinde çalışan ' +
         'binlerce şirkette LSMW projeleri **hâlâ çalışıyor** ve ' +
@@ -851,7 +851,7 @@ SAP.registerTopic({
         'yüklemeyi *"veri hazır olunca"* yapmayı planlamak.\n\n' +
         'Veri asla kendiliğinden hazır olmaz. ' +
         'Neyin eksik olduğunu **ilk deneme çalıştırması** söyler.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Doğru yaklaşım:** LSMW’yi veri hazır olduğunda değil, ' +
         'veri **hazırlanırken** kur ve çalıştır.\n\n' +
         'İlk deneme 50 satırla, projenin **çok erken** bir aşamasında yapılır. ' +
@@ -948,7 +948,7 @@ SAP.registerTopic({
       'Veri geçişi ekibi raporunu verdi: ' +
       '*"12.000 satıcı, 8.400 açık kalem yüklendi. Mutabakat tamam, ' +
       'geçiş hesabı sıfır."*\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       'İlk {{F110}} ödeme koşusu **perşembe** çalıştırıldı.\n\n' +
       'Öneri listesi geldi: **6.553 kalem** ödenecek.\n\n' +
       'Ama açık kalem sayısı **8.400**’dü. ' +
@@ -1070,7 +1070,7 @@ SAP.registerTopic({
              '**taranarak** seçilir: her ödeme yöntemi, her ülke, her hesap grubu.\n\n' +
              '50 rastgele satır, 12.000 satırlık bir kümenin ' +
              '**çeşitliliğini temsil etmez**.\n\n' +
-             '━━━━━━━━━━\n\n' +
+             '---\n\n' +
              '**Dördüncü önlem asıl kök sebebi hedefler.**\n\n' +
              'Eşleme sırasında verilen *"karşılığı yok, boş bırak"* kararı ' +
              'teknik olarak makuldü ve **kimse itiraz etmedi** — ' +

@@ -21,7 +21,7 @@ SAP.registerTopic({
       'bazı işlem kodları kalktı, {{fiori}} çıktı… ' +
       'Bunlar birbirinden bağımsız değişiklikler gibi görünür.\n\n' +
       'Değildir.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Bu konunun tezi:**\n\n' +
       '**Değişikliklerin neredeyse tamamı tek bir cümlenin sonucudur:**\n\n' +
       '**"Toplamı saklamak yerine, her seferinde yeniden hesapla."**\n\n' +
@@ -55,7 +55,7 @@ SAP.registerTopic({
       'Somut örnek: ECC’de *"geçen çarşamba itibarıyla satıcı yaşlandırması"* ' +
       'sorusu, o günün toplam tablosu saklanmadığı için ' +
       '**pratikte cevaplanamazdı**. S/4HANA’da kalemlerden hesaplanır.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Ama en yaygın yanılgı da tam burada:**\n\n' +
       '*"S/4HANA hızlı, o hâlde raporlarımız hızlanacak."*\n\n' +
       '**Hayır.** Eski tabloları okuyan özel raporlarınız ' +
@@ -72,7 +72,7 @@ SAP.registerTopic({
       '{{ACDOCA}} tek tablo."*\n\n' +
       'Bu cevap teknik ve ikna edici değildir; üstelik ilk maddesi ' +
       '**koşullu olarak doğrudur**.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Güçlü cevap üç somut değişikliktir:**\n\n' +
       '**1.** *"Ay sonu mutabakat adımlarınızın bir kısmı **ortadan kalkacak** — ' +
       'FI ile CO’nun ayrışması artık mümkün değil."*\n\n' +
@@ -89,14 +89,14 @@ SAP.registerTopic({
       'borç–alacak dengesi, {{mutabakat-hesabi}} mantığı, ' +
       'dönem kapanışı — hepsi aynı.\n\n' +
       'Değişen, **bu kayıtların nerede saklandığıdır**.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**ECC’de bir satıcı faturası kaydedildiğinde:**\n\n' +
       '{{BKPF}} başlık · {{BSEG}} kalemler · {{BSIK}} açık kalem kopyası · ' +
       '{{LFC1}} satıcı bakiyesi · {{GLT0}}/{{FAGLFLEXT}} G/L toplamları · ' +
       '`COEP` CO satırı\n\n' +
       '**Aynı fatura S/4HANA’da:**\n\n' +
       '{{BKPF}} başlık · {{ACDOCA}} kalemler — **hepsi bu.**\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Muhasebeci için pratik sonucu:** *"mizan ile döküm tutmuyor"* ' +
       'sorunu **kalktı**. Çünkü mizan artık ayrı bir tablodan değil, ' +
       '**dökümün kendisinden** hesaplanıyor.\n\n' +
@@ -200,7 +200,7 @@ SAP.registerTopic({
       { tip:'tip', baslik:'Bir mimari ders: kısıt kalkınca çözüm gereksizleşir', metin:
         'S/4HANA’yı anlamanın en kısa yolu, **ne eklendiğine değil ' +
         'ne kaldırıldığına** bakmaktır.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Kaldırılanların ortak özelliği:** hepsi bir **performans çözümüydü**.\n\n' +
         '| Yapı | Neden vardı | Neden gereksizleşti |\n' +
         '|---|---|---|\n' +
@@ -208,7 +208,7 @@ SAP.registerTopic({
         '| İndeks tabloları | Farklı anahtarla tarama pahalıydı | Artık ucuz |\n' +
         '| Mutabakat defteri | İki kopya ayrışabilirdi | Tek kopya var |\n' +
         '| Gecelik toplu işler | Rapor için hazırlık gerekirdi | Anında hesaplanır |\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Genel ilke — yalnızca SAP için değil:** bir sistemdeki ' +
         'karmaşıklığın önemli bir kısmı, artık geçerli olmayan bir ' +
         'kısıtın kalıntısıdır.\n\n' +
@@ -325,7 +325,7 @@ SAP.registerTopic({
       { tip:'err', baslik:'SHKZG tuzağı — konunun en pahalı ayrıntısı', metin:
         'Muhasebe mantığı değişmedi ama **tutarın saklanma biçimi** değişti. ' +
         'Bu tek fark, taşınan her sorguyu etkiler.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**{{BSEG}} — eski dünya**\n\n' +
         'Tutarlar **her zaman pozitiftir** (`DMBTR`). ' +
         'Yön ayrı bir alanda saklanır: `SHKZG` = **S** (borç) veya **H** (alacak).\n\n' +
@@ -334,7 +334,7 @@ SAP.registerTopic({
         '**{{ACDOCA}} — yeni dünya**\n\n' +
         'Tutarlar **işaretlidir** (`HSL`): alacak **negatif** saklanır. ' +
         'Toplamak için ek mantık gerekmez — doğrudan toplanır.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Tehlike:** eski bir sorgu yeni tabloya taşınırken ' +
         '`SHKZG` mantığı **kaldırılmazsa**, işaret **iki kez** uygulanır. ' +
         'Alacak satırları pozitife döner ve toplamlar anlamsızlaşır — ' +
@@ -880,7 +880,7 @@ SAP.registerTopic({
     ekstra:[
       { ic:'⚖️', baslik:'SHKZG → HSL: tek alanın maliyeti', metin:
         'Bu, S/4HANA geçişinin **en ucuz görünen, en pahalı** ayrıntısıdır.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Eski dünya — {{BSEG}}.`DMBTR`**\n\n' +
         'Tutar **her zaman pozitif**. Yön ayrı alanda: `SHKZG` = S / H.\n\n' +
         'Bir satıcı bakiyesi hesaplamak için ABAP kodu şöyle yazılırdı:\n\n' +
@@ -889,7 +889,7 @@ SAP.registerTopic({
         '**Yeni dünya — {{ACDOCA}}.`HSL`**\n\n' +
         'Tutar **işaretli**. Alacak zaten negatif. Toplam:\n\n' +
         '`SELECT SUM( HSL ) FROM ACDOCA WHERE ...`\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Şimdi tuzağa bakın:** eski program {{ACDOCA}}’ya taşınır ' +
         'ama `SHKZG` bloğu **silinmez**. Ne olur?\n\n' +
         'Alacak satırı zaten −60.000’dir. Program *"alacak, o hâlde çıkar"* ' +
@@ -912,7 +912,7 @@ SAP.registerTopic({
         'binlerce özel program eski tabloları okuduğu hâlde ' +
         'geçişten sonra çalışmaya devam eder.\n\n' +
         'Ama iki şey **söylenmez** ve ikisi de önemlidir:\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**1. Ücretsiz değildir.**\n\n' +
         'ECC’de {{BSIS}} **fiziksel bir tabloydu** ve kendi indeksi vardı. ' +
         'S/4HANA’da aynı isim bir **görünümdür** ve her çağrıda ' +
@@ -926,7 +926,7 @@ SAP.registerTopic({
         'ama tek örneği değildir — defter boyutu (`RLDNR`) de ' +
         'eski sorgularda **hiç yoktu** ve dikkate alınmazsa ' +
         'tutarlar **defter sayısı kadar katlanır**.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Doğru kullanım:** görünümler geçişin **ilk gününde** ' +
         'her şeyin çalışmasını sağlar. Sonrasında kritik programlar ' +
         '(kapanış, mutabakat, yasal rapor) **ölçülür** ve ' +
@@ -940,7 +940,7 @@ SAP.registerTopic({
         '**sekize kadar** taşır.\n\n' +
         'Bu, teknik bir kapasite artışı gibi görünür. Aslında ' +
         'bir **karar kolaylığıdır**.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Neden önemli:** para birimi bir {{tek-yonlu-kapi}}dır. ' +
         'Sonradan eklenen bir para birimi **geçmiş kayıtlarda boş kalır** — ' +
         'yani raporlama açısından işe yaramaz.\n\n' +
@@ -960,7 +960,7 @@ SAP.registerTopic({
       { tip:'tip', baslik:'S/4HANA neyi DEĞİŞTİRMEDİ — ve bu neden iyi haber', metin:
         'Geçiş projelerinde en çok zaman kaybettiren şey, ' +
         '**değişmeyen şeylerin de değiştiğini sanmaktır**.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Aynen duran her şey:**\n\n' +
         '• Çift taraflı kayıt ve borç–alacak dengesi\n' +
         '• {{mutabakat-hesabi}} mantığı ve `AKONT` ({{LFB1}}’de)\n' +
@@ -972,7 +972,7 @@ SAP.registerTopic({
         '• {{BKPF}}, belge türleri, numara aralıkları\n' +
         '• Taşıma disiplini ({{SE09}}, {{STMS}}, {{akim-verisi}})\n' +
         '• {{acik-kalem}} yönetimi ve kapatma mantığı\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Yani FI bilginizin büyük kısmı doğrudan taşınır.** ' +
         'Öğrenilmesi gereken şey yeni bir muhasebe değil, ' +
         '**verinin nerede durduğu** ve bunun sorgulara etkisidir.\n\n' +
@@ -1068,7 +1068,7 @@ SAP.registerTopic({
       'tanıdı, muhasebe aynı şekilde çalıştı.\n\n' +
       'Yönetime verilen gerekçelerden biri şuydu: ' +
       '*"ay sonu kapanış kısalacak."*\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       'İlk üç ay sonunda ölçüm alındı:\n\n' +
       '**Geçiş öncesi kapanış: 3 gün**\n' +
       '**Geçiş sonrası kapanış: 4,5 gün**\n\n' +
@@ -1172,7 +1172,7 @@ SAP.registerTopic({
       'Görünmeyen hata **yanlış rapordu** ve sekiz ay boyunca ' +
       'kimse şikâyet etmedi — çünkü rapor bir sayı üretiyordu ve ' +
       'sayı makul görünüyordu.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Üç kalıcı ders:**\n\n' +
       '**1. Kaldırılan tablo geri getirilmedi — taklit edildi.**\n' +
       'Ve taklit iki şeyi vaat etmez: **ücretsiz olmayı** ve ' +
@@ -1192,7 +1192,7 @@ SAP.registerTopic({
       'dokuz yanlış raporun sekizini ilk ayda yakalardı.\n\n' +
       'Bu, {{konu:best-practices}}’teki ilkenin somut hâlidir: ' +
       '**her sessiz hata sınıfı bir kontrol sorgusuna çevrilir.**\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       'Ve dikkat: bu senaryodaki hiçbir bulgu **yeni bir SAP bilgisi** ' +
       'gerektirmedi. Gereken tek şey konunun tezini bilmekti — ' +
       '**"toplam artık saklanmıyor, hesaplanıyor"** — ve bunun ' +

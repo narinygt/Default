@@ -158,7 +158,7 @@ SAP.registerTopic({
         '• **Kur değerlemesi tüm kalemler kaydedilmeden yapılırsa** sonradan gelen dövizli kalemler ' +
         'değerlenmemiş olur.\n\n' +
         '• **Yeniden sınıflama değerlemeden önce yapılırsa** yanlış tutarlar sınıflanır.' },
-      { tip:'tip', baslik:'İki dönem aralığı hilesi', metin:
+      { tip:'tip', baslik:'İki dönem aralığının kullanımı', metin:
         '{{OB52}}’de iki dönem aralığı vardır. **1. aralık** normal kullanıcılar, ' +
         '**2. aralık** yetki grubu olan kullanıcılar içindir.\n\n' +
         'Kapanış sırasında 1. aralık kapatılır (kullanıcılar kayıt yapamaz) ama 2. aralık açık bırakılır ' +
@@ -171,7 +171,7 @@ SAP.registerTopic({
   muhasebe: {
     anlatim:
       'Kapanış kayıtlarının ayırt edici özelliği **geçici mi kalıcı mı** olduklarıdır. ' +
-      'Aşağıda dört tipin örnekleri var; her birinin sonraki dönemde ne olacağına dikkat et.',
+      'Aşağıda dört tipin örnekleri ve her birinin sonraki dönemde ne olduğu veriliyor.',
 
     etkilenenHesaplar:[
       { hesap:'381 Gider tahakkukları', tur:'Bilanço — Kaynak', neden:'Doğmuş ama faturası gelmemiş giderler. Sonraki dönemde **ters kaydedilir**.' },

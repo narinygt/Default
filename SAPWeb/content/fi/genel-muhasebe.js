@@ -546,7 +546,7 @@ SAP.registerTopic({
     sonuc:
       '**Mart 2026 sonucu:**\n\n' +
       'Gelir 40.000 − Satılan malın maliyeti 18.000 − Amortisman 1.000 = **21.000 TL kâr**.\n\n' +
-      'Dikkat et: kasadaki nakit değişimi bambaşkadır. 200.000 girdi, 72.000 makineye çıktı, 48.000 satıştan girdi, ' +
+      'Kasadaki nakit değişimi ise bambaşkadır. 200.000 girdi, 72.000 makineye çıktı, 48.000 satıştan girdi, ' +
       'çekirdeğin 30.000 TL’si ise **henüz ödenmedi**. Yani banka + kasa = 176.000 TL, kâr ise 21.000 TL. ' +
       'İkisinin farklı olması bir hata değil, muhasebenin doğru çalıştığının kanıtıdır.\n\n' +
       'Bilanço kontrolü: Varlıklar (176.000 nakit + 7.000 stok + 59.000 net makine + 17.000 KDV alacağı) = ' +

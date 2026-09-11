@@ -15,7 +15,7 @@ SAP.registerTopic({
       'E-dönüşüm, kâğıt belgelerin elektronik belgelerle değiştirilmesidir — ' +
       'ama bu tanım yanıltıcıdır ve **en büyük yanlış anlamanın kaynağıdır**.\n\n' +
       'E-fatura, *"faturayı yazıcı yerine e-posta ile göndermek"* değildir.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Bu konunun tek cümlelik tezi:**\n\n' +
       '**Muhasebe belgesi ile e-belge, iki ayrı nesnedir ve iki ayrı yaşam döngüsü vardır.**\n\n' +
       'Kâğıt dünyada fatura **tek bir şeydi**: kaydettin, yazdırdın, gönderdin. ' +
@@ -24,7 +24,7 @@ SAP.registerTopic({
       'cari hesabı borçlandırır · mizana girer\n\n' +
       '**② E-belge** → {{EDOCUMENT}} · {{ubl-tr}} XML üretilir · imzalanır · ' +
       '{{gib}}’e gider · **kabul veya red** alır\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**İkisi birbirinden bağımsız başarısız olabilir.**\n\n' +
       'Fatura FI’da sorunsuz muhasebeleşmiş, cari hesapta borç doğmuş, ' +
       'mizanda görünüyor olabilir — ve aynı anda e-belge **reddedilmiş** ' +
@@ -54,7 +54,7 @@ SAP.registerTopic({
       '**Gönderilemeyen fatura KDV beyanını bozar.** Muhasebede hesaplanan KDV vardır, ' +
       'GİB tarafında karşılığı yoktur.\n\n' +
       '**Berat gecikirse ceza doğar.** {{e-defter}} yükleme süreleri kesindir.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Sık karşılaşılan soru:** *"Fatura SAP’ta başarıyla kaydedildi. E-fatura süreci ' +
       'de başarılı mıdır?"*\n\n' +
       'Doğru cevap: **Hayır, bu iki ayrı sorudur.** ' +
@@ -67,13 +67,13 @@ SAP.registerTopic({
       'Muhasebeci {{FB03}}’te belgeyi açıyor — **fatura orada**. ' +
       '{{FBL5N}}’de cari hesapta **borç görünüyor**. Mizan doğru.\n\n' +
       'Herkes müşterinin oyaladığını düşünüyor.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       'Danışman {{EDOC_COCKPIT}}’i açıyor. Aynı faturanın e-belge statüsü:\n\n' +
       '**RED — "Alıcı e-fatura mükellefi değil"**\n\n' +
       'Fatura {{e-arsiv}} olarak kesilmesi gerekirken {{e-fatura}} olarak gönderilmiş ' +
       '(veya tersi). {{gib}} reddetmiş. Müşteriye **hiç ulaşmamış**.\n\n' +
       'Müşteri doğru söylüyordu.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Bu vakanın öğrettiği:** muhasebe tarafına bakarak ' +
       'e-belge hakkında hüküm verilemez. ' +
       '{{FB03}} *"kaydettik mi?"* sorusunu, {{EDOC_COCKPIT}} ise ' +
@@ -93,7 +93,7 @@ SAP.registerTopic({
       'alıcı reddedebilir; aksi hâlde **iade faturası** kesilir.\n\n' +
       '**Dönem kesinleşmesi.** {{berat}} alınan dönem yasal olarak kapanır. ' +
       'Muhasebede {{OB52}} ile açabilirsin — ama **yapmamalısın**.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Kritik sonuç:** muhasebe ile e-belge arasındaki **iptal asimetrisi**, ' +
       'e-dönüşümdeki hataların neden bu kadar pahalı olduğunu açıklar.\n\n' +
       '{{FB08}} ile SAP’ta belgeyi ters kaydedersin — ama GİB tarafındaki ' +
@@ -285,7 +285,7 @@ SAP.registerTopic({
         'yalnızca **iade faturası**\n' +
         '**{{e-fatura}} / {{ticari-fatura}}** → alıcı süresi içinde **reddedebilir**; ' +
         'süre geçtiyse yine iade faturası\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Tehlike şurada:** kullanıcı SAP’ta {{FB08}} yapar, ' +
         'muhasebe düzelir, **rahatlar**. GİB tarafında fatura **hâlâ geçerlidir**.\n\n' +
         'Bu ayrışma genelde **KDV beyanında** ortaya çıkar: ' +
@@ -301,7 +301,7 @@ SAP.registerTopic({
     anlatim:
       'E-dönüşüm tek bir belge değil, bir **belge ailesidir**. ' +
       'Her birinin kendi tetikleyicisi, kendi zamanlaması ve kendi iptal kuralı vardır.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Önce en sık karıştırılan ayrım: e-Fatura mı, e-Arşiv mi?**\n\n' +
       'Bu **kullanıcının tercihi değildir**. Tek bir soruya bağlıdır:\n\n' +
       '**"Alıcı e-fatura sistemine kayıtlı mı?"**\n\n' +
@@ -823,7 +823,7 @@ SAP.registerTopic({
       { ic:'🔀', baslik:'"Hata SAP’ta mı, entegratörde mi?" — tek soruyla ayrım', metin:
         'E-dönüşüm teşhisinde **en değerli tek soru** budur, çünkü ' +
         'cevabı aramanın yarısını eler.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Ayrım noktası: {{EDOCUMENT}} kaydı oluştu mu?**\n\n' +
         '**Oluşmadıysa → SAP tarafı**\n' +
         'Tetikleyici çalışmamış. Sebepler:\n' +
@@ -835,7 +835,7 @@ SAP.registerTopic({
         '**Oluştu ve red geldi → veri/mevzuat**\n' +
         'İletişim çalışıyor, **içerik** yanlış. Red sebebi ' +
         '`EDOCUMENTFILE`’daki yanıt XML’inde.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Belirtiyi tanımak:**\n\n' +
         '{{EDOC_COCKPIT}}’te belge **hiç yok** → SAP\n' +
         'Belge var, statü **hata/takılı** → entegratör\n' +
@@ -848,7 +848,7 @@ SAP.registerTopic({
         '*"Madem e-belge zorunlu, neden SAP fatura kaydını e-belge başarılı olana ' +
         'kadar bekletmiyor?"*\n\n' +
         'Cevap, **bilinçli bir tasarım tercihidir**.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Eğer bağlı olsaydı:** entegratör kesintisi, GİB bakımı veya ' +
         'ağ sorunu **tüm faturalamayı durdururdu**. ' +
         'Şirket satış yapamaz, mal sevk edemez hâle gelirdi.\n\n' +
@@ -856,7 +856,7 @@ SAP.registerTopic({
         'yeteneğini** belirlemiş olurdu. Bu kabul edilemez.\n\n' +
         '**Ayrık olduğu için:** fatura kaydedilir, e-belge sonra gönderilir, ' +
         'kesinti geçince yeniden denenir. İş **durmaz**.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Ama bu esnekliğin bedeli vardır:** iki taraf ayrışabilir ve ' +
         'sistem bunu hata olarak bildirmez.\n\n' +
         '**Bedeli ödemenin yolu izlemedir.** Tasarım ayrık olduğu için ' +
@@ -881,7 +881,7 @@ SAP.registerTopic({
         '**{{e-fatura}}** → iptal edilemez → **iade faturası** kesilir ' +
         '(bu da bir e-belgedir ve GİB’e gider)\n' +
         '**{{ticari-fatura}} senaryosu** → alıcı süresi içinde reddedebilir\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Ayrışma nerede ortaya çıkar?** Genelde **KDV beyanında**: ' +
         'muhasebedeki hesaplanan KDV ile GİB’deki e-fatura toplamı **tutmaz**.\n\n' +
         'O noktada geriye dönük düzeltme çok daha pahalıdır — ' +
@@ -963,7 +963,7 @@ SAP.registerTopic({
       '*"e-belge eşlemesi yapıldı mı?"* adımı ekle.',
       'Yıl geçişinde **e-fatura serisini** de kontrol et — {{FBN1}} yanında.',
       '{{berat}} alınan dönemi {{OB52}}’de **kapat ve kapalı tut**.',
-      'Geçişte **entegratör ayarlarının ayrı taşındığını** unutma — ' +
+      'Geçişte **entegratör ayarlarını ayrıca taşı** — ' +
       'SAP tarafı doğru görünürken gönderim çalışmayabilir.',
       'Aylık **mutabakat**: muhasebedeki hesaplanan KDV ile ' +
       'GİB’e giden e-fatura toplamı karşılaştırılır.',
@@ -981,7 +981,7 @@ SAP.registerTopic({
       'Oyalıyorlar herhâlde."*\n\n' +
       'Muhasebe müdürü {{FB03}}’te faturaları açıyor — **hepsi yerinde**. ' +
       '{{FBL5N}}’de cari hesap **doğru**. Mizan **denk**.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       'Danışman tek soru soruyor: **"E-belge statüsüne baktınız mı?"**\n\n' +
       'Bakılmamış. Kimsenin aklına gelmemiş — çünkü muhasebe tarafında ' +
       '**hiçbir sorun yok**.',
@@ -1112,7 +1112,7 @@ SAP.registerTopic({
              'Yeni kural basit: ihtar veya tahsilat görüşmesinde ' +
              '*"böyle bir fatura yok"* cevabı gelirse, ' +
              'satış temsilcisi bunu **e-belge kontrolü talebi** olarak iletir.\n\n' +
-             '━━━━━━━━━━\n\n' +
+             '---\n\n' +
              '**Beşinci önlem en güvenilir olanıdır.** ' +
              'Diğerleri insan disiplinine bağlı; mutabakat ise ' +
              '**sayısal ve kaçınılmazdır**: muhasebedeki hesaplanan KDV ile ' +

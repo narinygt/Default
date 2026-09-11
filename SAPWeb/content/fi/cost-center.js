@@ -746,7 +746,7 @@ SAP.registerTopic({
       'dağıtımın doğru çalıştığının en basit kontrolüdür.',
       'Maliyet yeri sorumlularına aylık {{KSB1}} gözden geçirmesini rutinleştir — ' +
       'yanlış atamaları yakalamanın tek pratik yolu.',
-      'CO dönem kilidinin FI’dan **ayrı** olduğunu unutma; kapanışta ikisi de yönetilir.',
+      'CO dönem kilidi FI’dan **ayrıdır**; kapanışta ikisi de yönetilir.',
     ],
   },
 

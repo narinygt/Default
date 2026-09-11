@@ -15,7 +15,7 @@ SAP.registerTopic({
       'Veri yükleme, SAP’a **elle girilmeyecek kadar çok** kaydı toplu olarak ' +
       'aktarma işidir. {{konu:lsmw}} bunu yapan bir **araçtır**; ' +
       'bu konu ise **altındaki dört yöntemi** karşılaştırır.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Bu konunun tezi:**\n\n' +
       '**Yöntem seçimi bir hız kararı değil, bir *hata yönetimi* kararıdır.**\n\n' +
       'Yeni danışman şunu sorar: *"Hangisi daha hızlı?"*\n' +
@@ -45,7 +45,7 @@ SAP.registerTopic({
       '500 kayıt gönderilir, ekranda *"işlem tamamlandı"* yazar, ' +
       '**486’sı oluşur**. 14’ü sessizce kaybolur.\n\n' +
       'Kimse saymadığı için kimse fark etmez.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Bu yüzden bu konunun tek zorunlu kuralı vardır:**\n\n' +
       '**{{sayi-mutabakati}} — gönderilen = oluşan.**\n\n' +
       'Ve iki seviyede yapılır:\n\n' +
@@ -59,7 +59,7 @@ SAP.registerTopic({
     gercekHayat:
       'Kullanıcı: *"3.000 satırlık bir Excel var, sisteme girebilir misiniz?"*\n\n' +
       'Deneyimsiz cevap: *"Tabii, {{toplu-giris}} ile yaparız."*\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       'Deneyimli cevap **üç soruyla** başlar:\n\n' +
       '**1. Bu bir kez mi olacak, tekrarlanacak mı?**\n' +
       'Tek seferlik → {{toplu-giris}} yeter.\n' +
@@ -69,7 +69,7 @@ SAP.registerTopic({
       'Varsa {{bapi}}; yoksa {{kayit-recording}}.\n\n' +
       '**3. Hatalı satırlarla ne olacak?**\n' +
       'Bu soru **en kritik olanıdır** ve genelde hiç sorulmaz.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       'Üçüncü sorunun cevabı yöntemi belirler:\n\n' +
       '**{{toplu-giris}}** → hatalı satırlar **oturumda bekler**, ' +
       'düzeltilip yeniden işlenir. ✓ **Hazır gelir.**\n\n' +
@@ -82,7 +82,7 @@ SAP.registerTopic({
       'Yükleme yöntemi muhasebe kaydını **değiştirmez** — ' +
       '{{FB50}} ile elle atılan kayıtla toplu yüklenen kayıt **aynıdır**.\n\n' +
       'Ama iki muhasebe riski yöntemle **doğrudan ilgilidir**:\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Risk 1 — Mükerrer kayıt.**\n\n' +
       'Bir yükleme yarıda kesilir ve baştan çalıştırılır. ' +
       'İlk turda başarılı olanlar **ikinci kez** yazılır.\n\n' +
@@ -91,7 +91,7 @@ SAP.registerTopic({
       '**{{toplu-giris}} bunu yapısal olarak önler** — ' +
       'yalnızca işlenmemiş satırları tekrarlar. ' +
       '{{bapi}} ile yazılan programda ise **sen önlemelisin**.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Risk 2 — Yarım kalmış yükleme.**\n\n' +
       'Çok satırlı bir belge (başlık + kalemler) yüklenirken ' +
       'yarısı yazılır, yarısı yazılmaz.\n\n' +
@@ -194,7 +194,7 @@ SAP.registerTopic({
         'Yöntem karşılaştırmaları genelde **hız** üzerinden yapılır. ' +
         'Bu yanlış eksendir — çünkü hız farkı bir defalık bir maliyettir, ' +
         '**hata yönetimi ise her çalıştırmada** karşına çıkar.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Üç yöntem, üç farklı cevap:**\n\n' +
         '**{{toplu-giris}}** ✓ Hatalı satırlar {{SM35}} oturumunda **bekler**. ' +
         'Sebep düzeltilir, oturum **yeniden işlenir**, başarılılar **tekrarlanmaz**. ' +
@@ -205,7 +205,7 @@ SAP.registerTopic({
         '**{{idoc}}** ✓ Her mesaj **kendi statüsünü** tutar. ' +
         'Hatalılar sistemde **kalır** ve {{BD87}} ile tek tek yeniden işlenir. ' +
         '**En iyi izlenebilirlik.**\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Sonuç:** BAPI teknik olarak en temiz yöntemdir ' +
         '(hızlı, ekrandan bağımsız, doğrulamalar çalışır) — ' +
         'ama **tekrar çalıştırılabilirliği hazır getirmez**.\n\n' +
@@ -254,7 +254,7 @@ SAP.registerTopic({
              'İlk turda başarılı olan satırlar **ikinci kez** yazıldı.\n\n' +
              'Sonuç: gider **iki katı**, mizan yanlış, ' +
              'düzeltmek için 500 kadar {{FB08}} gerekir.\n\n' +
-             '━━━━━━━━━━\n\n' +
+             '---\n\n' +
              '**Bu, yöntem seçiminin muhasebe sonucudur:**\n\n' +
              '{{toplu-giris}} olsaydı **imkânsızdı** — oturum yalnızca ' +
              'işlenmemiş satırları tekrarlar.\n\n' +
@@ -272,7 +272,7 @@ SAP.registerTopic({
              'Ekranda *"işlem tamamlandı"* yazdı, hata mesajı **çıkmadı**.\n\n' +
              'Muhasebe açısından belge **denk** — sorun yok gibi görünüyor. ' +
              'Eksiklik yalnızca **kaynak dosyayla karşılaştırılınca** ortaya çıkar.\n\n' +
-             '━━━━━━━━━━\n\n' +
+             '---\n\n' +
              '**İki kontrol bunu yakalar:**\n\n' +
              '**{{sayi-mutabakati}}** — 500 ≠ 486\n' +
              '**{{SM13}}** — 14 güncelleme hatası kaydı\n\n' +
@@ -299,7 +299,7 @@ SAP.registerTopic({
         'tek {{bapi}} çağrısı, tek commit.\n\n' +
         '**Yanlış:** her satır ayrı işlemde — ' +
         'başlık yazılır, ikinci kalem çöker, belge **yarım kalır**.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         'Pratik sonucu **kaynak dosya tasarımını** etkiler: ' +
         'çok satırlı veri için dosyada bir **belge anahtarı** sütunu olmalı ' +
         've yükleme bu anahtara göre **gruplamalıdır**.\n\n' +
@@ -314,7 +314,7 @@ SAP.registerTopic({
       'Dört yöntem var ve her biri **farklı bir soruya** iyi cevap veriyor. ' +
       '*"Hangisi en iyi?"* sorusunun cevabı yok; ' +
       '*"hangi durumda hangisi?"* sorusunun cevabı var.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Üç soruyla karar:**\n\n' +
       '**1. Tek seferlik mi, sürekli mi?**\n' +
       'Tek seferlik → {{toplu-giris}} veya {{bapi}}\n' +
@@ -735,7 +735,7 @@ SAP.registerTopic({
       'Ne zaman commit edileceği **programın kararıdır**: ' +
       'her kayıtta mı, her 100 kayıtta mı, sonda mı?\n\n' +
       '**{{idoc}}** — her IDoc ayrı LUW; statü **tabloda** tutulur.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       '**Commit sıklığı bir denge kararıdır:**\n\n' +
       '**Her kayıtta commit** → yavaş ama **güvenli**; hata tek kaydı etkiler\n' +
       '**Toplu commit (her 1000’de)** → hızlı ama **çökerse 1000 kayıt gider**\n\n' +
@@ -831,7 +831,7 @@ SAP.registerTopic({
         'BAPI teknik olarak en temiz yöntemdir ama ' +
         '**tekrar çalıştırılabilirliği hazır getirmez**. ' +
         '{{arayuz-tablosu}} deseni bu boşluğu doldurur.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Üç adımlı desen:**\n\n' +
         '**1. Yükle** — kaynak veri ara tabloya **ham hâliyle** yazılır. ' +
         'Bu adımda hiçbir doğrulama yapılmaz; amaç veriyi **sisteme almaktır**.\n\n' +
@@ -840,7 +840,7 @@ SAP.registerTopic({
         'başarılı / hatalı + **hata mesajı** + oluşan belge numarası.\n\n' +
         '**3. Tekrarla** — yeniden çalıştırmada yalnızca ' +
         '**damgalanmamış veya hatalı** satırlar işlenir.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Ne kazandırır:**\n\n' +
         '• **Mükerrer kayıt imkânsız** — damgalı satır tekrar işlenmez\n' +
         '• Hatalı satırlar ve **sebepleri saklı** — ' +
@@ -849,7 +849,7 @@ SAP.registerTopic({
         'toplam satır = başarılı + hatalı\n' +
         '• **Denetim izi** kalır — ne geldi, ne oldu\n' +
         '• Hata düzeltme **tabloda** yapılabilir; dosyayı yeniden yüklemeye gerek yok\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Bu desen aslında {{toplu-giris}}’in hazır verdiği şeyi ' +
         'BAPI için elle inşa etmektir.**\n\n' +
         '{{SM35}} oturumu tam olarak bunu yapar: hatalı satırları saklar, ' +
@@ -861,14 +861,14 @@ SAP.registerTopic({
         'Yöntem karşılaştırmaları genelde şöyle yapılır: ' +
         '*"BAPI hızlıdır, batch input yavaştır."*\n\n' +
         'Bu doğru ama **yanlış eksendir**.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Hız bir defalık maliyettir.** 12.000 kayıt ' +
         '{{toplu-giris}} ile 4 saat, {{bapi}} ile 20 dakika sürebilir. ' +
         'Fark 3,5 saattir — ve bu **bir gecede** kapanır.\n\n' +
         '**Hata yönetimi ise her çalıştırmada** karşına çıkar.\n\n' +
         'Ve her çalıştırmada bir kısmı **başarısız olur** — ' +
         'veri kalitesi hiç mükemmel değildir.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Somut karşılaştırma:**\n\n' +
         '**Senaryo:** 12.000 kayıt, 340’ı hatalı.\n\n' +
         '**{{toplu-giris}} ile:** 4 saat sürer. 340 hatalı satır ' +
@@ -887,7 +887,7 @@ SAP.registerTopic({
       { tip:'warn', baslik:'Sayı mutabakatı — tek zorunlu kural', metin:
         'Bu konunun **tek pazarlıksız kuralı** budur:\n\n' +
         '**Her toplu yüklemeden sonra gönderilen ile oluşan karşılaştırılır.**\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**İki seviyede yapılır ve ikisi farklı hataları yakalar:**\n\n' +
         '**Adet** — kaynak satır sayısı = oluşan belge sayısı ({{BKPF}})\n' +
         '→ Yakaladığı: {{guncelleme-hatasi}}, eksik commit, atlanan satır\n\n' +
@@ -897,7 +897,7 @@ SAP.registerTopic({
         '**Adet tutup tutar tutmuyorsa** dönüşüm hatası vardır. ' +
         'Bu, yalnızca adet sayan bir kontrolün **hiç göremeyeceği** ' +
         'bir hata sınıfıdır.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Neden bu kadar önemli:** yükleme hatalarının çoğu **sessizdir**. ' +
         'Ekranda *"tamamlandı"* yazar, günlükte hata görünmez, ' +
         've kayıtların bir kısmı yoktur.\n\n' +
@@ -994,7 +994,7 @@ SAP.registerTopic({
       '*"{{toplu-giris}} ile 3 saat sürer, BAPI ile 20 dakikada biter."*\n\n' +
       'Program çalıştırıldı. **18 dakikada** bitti. ' +
       'Ekranda: *"İşlem tamamlandı."*\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       'Muhasebe müdürü kapanışa geçti. ' +
       'Mizan alındı — **denk**. Geçiş hesabına bakılmadı.\n\n' +
       '**Üç gün sonra** yan şirket mutabakatı geldi: ' +

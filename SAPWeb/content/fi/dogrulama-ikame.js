@@ -58,7 +58,7 @@ SAP.registerTopic({
       '**Kontrol:** tutar ≤ 50.000\n' +
       '**Mesaj:** hata — *"Kasa hesabına 50.000 TL üstü kayıt yapılamaz"*\n\n' +
       'Artık kural sistemde. Kullanıcı 60.000 TL girmeye çalışırsa kayıt **geçmez**.\n\n' +
-      '━━━━━━━━━━\n\n' +
+      '---\n\n' +
       'Aynı şirkette ikinci bir istek: *"Banka kayıtlarında atama alanı boş kalmasın, ' +
       'otomatik olarak belge tarihi yazılsın."*\n\n' +
       '**İkame çözüyor:** önkoşul hesap = 102, kural `ZUONR` = belge tarihi.\n\n' +
@@ -777,7 +777,7 @@ SAP.registerTopic({
         '**Hayır → doğrulama.** Kayıt engellenir, kullanıcı hata mesajı alır ve ' +
         'düzeltmek zorunda kalır.\n\n' +
         '**Evet, ama alan şöyle olsun → ikame.** Kayıt geçer, alan otomatik düzeltilir.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Aynı ihtiyaç iki farklı çözümle karşılanabilir — ve sonuçları farklıdır:**\n\n' +
         '*İhtiyaç: "banka kayıtlarında atama alanı boş kalmasın."*\n\n' +
         '**Doğrulama çözümü:** alan boşsa **hata** ver. ' +
@@ -797,7 +797,7 @@ SAP.registerTopic({
         'sistemde bir kural olduğunu bilir.\n\n' +
         'İkame **görünmezdir**: kullanıcı bir şey girer veya boş bırakır, ' +
         'sistem başka bir şey kaydeder ve **hiçbir mesaj çıkmaz**.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Bunun üç sonucu vardır:**\n\n' +
         '**1. Kullanıcı güveni.** Kullanıcı {{FB03}} ile belgeyi açıp ' +
         'girdiğinden farklı bir değer görürse *"ben öyle girmedim"* der — ' +
@@ -809,7 +809,7 @@ SAP.registerTopic({
         '**3. Teşhis zorluğu.** Bir alan beklenmedik değer taşıyorsa ' +
         'ikame ihtimali **akla en son gelen** şeydir. ' +
         'Saatler yanlış yerde aranır.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Üç kural bu riski yönetir:**\n\n' +
         '**a)** İkame yalnızca **boş alanları** doldursun — ' +
         'önkoşula *"alan boşsa"* koşulu ekle.\n\n' +
@@ -957,7 +957,7 @@ SAP.registerTopic({
         girdi:[
           { alan:'Şirket kodu', deger:'1000' },
           { alan:'Çağrı noktası', deger:'**Kalem**' },
-          { alan:'Atanmış ikame', deger:'**`Z_PRCTR_DERIVE`** — var!' },
+          { alan:'Atanmış ikame', deger:'**`Z_PRCTR_DERIVE`** — atanmış' },
           { alan:'Etkinlik seviyesi', deger:'**1** (aktif)' },
         ],
         not:'**İkame bulundu.** Şirket koduna atanmış ve aktif.\n\n' +

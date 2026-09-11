@@ -740,7 +740,7 @@ SAP.registerTopic({
         '`656` **Kambiyo zararları** — kur aleyhte hareket etti\n\n' +
         'Döviz tutarı **hiç değişmez**; değişen yalnızca yerel para karşılığıdır. ' +
         '320 hesabındaki 100.000 EUR, kur ne olursa olsun 100.000 EUR kalır.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Neden alt hesap ayrımı önerilir?**\n\n' +
         '`646.01 / 656.01` **gerçekleşmemiş** — {{F.05}} değerlemesinden doğar, ' +
         '**ertesi gün ters kaydedilir**\n' +
@@ -751,7 +751,7 @@ SAP.registerTopic({
         '**2. Kontrol.** Dönem başında gerçekleşmemiş hesapların **sıfırlanmış** olması gerekir ' +
         '(ters kayıt çalıştıysa). Sıfır değilse ters kayıt atlanmıştır — ' +
         'dönem sonu kontrol listesinin basit ve etkili bir maddesidir.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**SAP tarafında hesaplar nereye bağlanır?**\n\n' +
         '{{OBA1}} ile iki anahtar kullanılır:\n\n' +
         '**KDF** — açık kalem değerlemesi (satıcı, müşteri, dövizli krediler)\n' +
@@ -772,7 +772,7 @@ SAP.registerTopic({
         '**Değerlenmez — parasal olmayanlar:**\n\n' +
         '`153` stoklar · `253` duran varlıklar · `159` verilen avanslar · `340` alınan avanslar\n\n' +
         'Ortak özellik: karşılığında **mal veya hizmet** alınacak/verilecek, para değil.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Avans neden değerlenmez? — kavramın kilit noktası**\n\n' +
         'Satıcıya 50.000 EUR avans verdin. Kur 35’ten 40’a çıktı. Kâr ettin mi?\n\n' +
         '**Hayır.** Çünkü sana geri **para** gelmeyecek — 50.000 EUR’luk **mal** gelecek. ' +
@@ -797,7 +797,7 @@ SAP.registerTopic({
         '• Kur **yükseldi** → satıcı lehine → **satıcı** düzenler\n' +
         '• Kur **düştü** → alıcı lehine → **alıcı** düzenler\n\n' +
         '**KDV oranı** asıl işleme uygulanan oranla aynıdır.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**Danışmanlık açısından kritik nokta**\n\n' +
         '{{F110}} ödemeyi yapar, SAP kur farkını `656`’ya yazar, muhasebe kaydı **tamamdır**. ' +
         'Ama kur farkı faturası **düzenlenmemiştir** — çünkü SAP bunu üretmez.\n\n' +
@@ -820,7 +820,7 @@ SAP.registerTopic({
         'Gider yazılırsa → tamamı o yıl gider olur.\n\n' +
         'İkisi de mevzuata uygun olabilir ama **sonuçları farklıdır** ve ' +
         'seçim tutarlı uygulanmalıdır.\n\n' +
-        '━━━━━━━━━━\n\n' +
+        '---\n\n' +
         '**SAP bunu otomatik ayırmaz.**\n\n' +
         '{{F.05}} tüm açık kalemleri değerler ve farkı `656`’ya yazar — ' +
         'yatırıma ait olanla normal ticari borcu **ayırt etmez**.\n\n' +

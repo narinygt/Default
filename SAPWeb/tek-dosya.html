@@ -183,11 +183,25 @@
      Koyu lacivert — siyah değil. Kağıt tonuyla birlikte "basılı" görünür. */
   --ink:       #14213A;
   --ink-2:     #46506B;
-  --ink-3:     #68708A;   /* meta: süre, seviye, sayaç — AA 4.71 */
-  /* ⚠️ En zayıf ton AA eşiğini GEÇMEZ ve bu bilinçlidir: yalnızca
-     dekoratif ayraç ve yer tutucu içindir. ANLAM TAŞIYAN hiçbir
-     metin buna bağlanmaz — dizin numaraları --ink-3 kullanır. */
-  --ink-4:     #9AA0B4;
+  --ink-3:     #606880;   /* METİN için en zayıf ton. ⚠️ Değeri KÂĞIDA göre
+                             değil, EN KOYU YÜZEYE (--paper-3) göre seçildi:
+                             #68708A kâğıtta 4.71 ile geçiyordu ama diyagram
+                             zemininde 4.09'a düşüyordu. Token tek başına
+                             "geçiyor" denemez — çift ölçülür (Ders #32).
+                             Şimdi üçünde de AA: 5.31 / 4.95 / 4.61. */
+  /* ⚠️ --ink-4 METİN İÇİN DEĞİLDİR. Yalnızca METİN OLMAYAN öğeler:
+     chevron, ilerleme noktası, ayraç çizgisi, etiket yanındaki ikon.
+     WCAG 1.4.11 bunlar için 3:1 ister; ölçülen 3.62 (aydınlık) /
+     3.85 (karanlık).
+
+     ⚠️ Bu kural bir kez YAZILIP UYGULANMADI: sekiz METİN kuralı
+     (kenar çubuğu grup adı, "Okumaya başla", "Okundu işaretle",
+     "Bu sayfada", Ctrl K, seviye, grup etiketi, sayfalayıcı)
+     buna bağlıydı ve aydınlık temada kontrast 2.5 idi — AA'nın
+     çok altında. Hepsi --ink-3'e taşındı (bkz. Ders #32).
+     Yeni bir kural buraya bağlanmadan önce tek soru:
+     "bu bir METİN mi?" Cevap evetse --ink-3 kullanılır. */
+  --ink-4:     #7C8399;
   --ink-inv:   #FBFAF7;
 
   /* ----------------------------------------------------- VURGU (TEK) ---
@@ -262,7 +276,7 @@
   --ink:       #E8E6DF;
   --ink-2:     #AFB4C2;
   --ink-3:     #838A9C;
-  --ink-4:     #5C6377;
+  --ink-4:     #6B7387;
   --ink-inv:   #12151C;
 
   --accent:      #6FBFA3;
@@ -442,7 +456,8 @@ svg { display: block; }
   color: var(--ink-3);
 }
 .topbar-crumb b { font-weight: 500; color: var(--ink-3); }
-.topbar-crumb .sep { color: var(--ink-4); }
+/* Ayraç da bir METİN düğümüdür — --ink-4 metin için kullanılmaz. */
+.topbar-crumb .sep { color: var(--ink-3); }
 .topbar-crumb .cur {
   color: var(--ink);
   font-weight: 500;
@@ -471,7 +486,7 @@ svg { display: block; }
 .searchbtn .lb { flex: 1; text-align: left; }
 .searchbtn kbd {
   font-size: 11px;
-  color: var(--ink-4);
+  color: var(--ink-3);
   border: 1px solid var(--rule);
   border-radius: 2px;
   padding: 1px 5px;
@@ -600,7 +615,7 @@ svg { display: block; }
   font-weight: 600;
   letter-spacing: .07em;
   text-transform: uppercase;
-  color: var(--ink-4);
+  color: var(--ink-3);
   text-align: left;
   cursor: pointer;
 }
@@ -698,7 +713,7 @@ svg { display: block; }
   font-weight: 600;
   letter-spacing: .07em;
   text-transform: uppercase;
-  color: var(--ink-4);
+  color: var(--ink-3);
   margin-bottom: 5px;
 }
 .resume-t {
@@ -802,7 +817,7 @@ svg { display: block; }
   align-items: center;
   gap: var(--sp-3);
   font-size: var(--t-xs);
-  color: var(--ink-4);
+  color: var(--ink-3);
   white-space: nowrap;
 }
 .idx-lv { letter-spacing: .01em; }
@@ -874,7 +889,7 @@ svg { display: block; }
   font-weight: 600;
   letter-spacing: .07em;
   text-transform: uppercase;
-  color: var(--ink-4);
+  color: var(--ink-3);
   margin-bottom: var(--sp-3);
 }
 .thead h1 {
@@ -959,7 +974,7 @@ svg { display: block; }
   background: none;
   padding: 0;
   font-size: var(--t-xs);
-  color: var(--ink-4);
+  color: var(--ink-3);
   cursor: pointer;
   white-space: nowrap;
   align-self: center;
@@ -981,7 +996,7 @@ svg { display: block; }
   font-weight: 600;
   letter-spacing: .07em;
   text-transform: uppercase;
-  color: var(--ink-4);
+  color: var(--ink-3);
   margin-bottom: var(--sp-3);
 }
 .toc-item {
@@ -1030,7 +1045,7 @@ svg { display: block; }
   font-weight: 600;
   letter-spacing: .07em;
   text-transform: uppercase;
-  color: var(--ink-4);
+  color: var(--ink-3);
   margin-bottom: 3px;
 }
 .pager .tt {
@@ -1052,7 +1067,7 @@ svg { display: block; }
   text-decoration: none;
 }
 .rel-item:hover { color: var(--accent); text-decoration: none; }
-.rel-item .m { font-size: var(--t-xs); color: var(--ink-4); white-space: nowrap; }
+.rel-item .m { font-size: var(--t-xs); color: var(--ink-3); white-space: nowrap; }
 
 /* Genel buton — çerçeveli, dolgusuz */
 .btn {
@@ -51565,8 +51580,12 @@ SAP.registerTopic({
         list.map(function (t) {
           var n = (++sira < 10 ? '0' : '') + sira;
           var p = SAP.store.percent(t.id);
+          /* aria-current: okunmakta olan konu SADECE renkle işaretlenirse
+             ekran okuyucu kullanıcısı listede nerede olduğunu bilemez.
+             `.active` sınıfı görsel, bu nitelik anlamsaldır. */
           return '<a class="side-topic' + (aktifKonu === t.id ? ' active' : '') +
               (p >= 100 ? ' done' : '') + '" ' +
+            (aktifKonu === t.id ? 'aria-current="page" ' : '') +
             'data-go="#/konu/' + esc(t.id) + '" href="#/konu/' + esc(t.id) + '" ' +
             'title="' + esc(SAP.i18n.baslik(t)) + '">' +
             '<span class="st">' + n + '</span>' +

@@ -492,6 +492,33 @@ sol sütun çekmeceye iner.
   `style="--h:162"` niteliği **doğruydu**, ama `--accent` `:root`ta
   hesaplandığı için dokuzu da `oklch(53% 0.115 240)` dönüyordu.
   Ölçüm **niteliği değil, hesaplanmış değeri** okumak zorundadır.
+- ⭐ **7. eksen — ÖLÜ CSS TOKEN.** Tanımlanmamış bir `var()` atıfı
+  **sessizdir**: CSS'te bildirim düşer ve miras devreye girer, ama SVG
+  sunum niteliğinde **SVG varsayılanı** uygulanır (`stroke:none` → çizgi
+  kaybolur, `fill` → siyah). Stil sayfaları + satır içi `style` +
+  `fill`/`stroke`/`color` nitelikleri taranır. **Beklenen: 0.**
+  İlk çalıştırmasında 5 ölü token buldu (bkz. Ders #31).
+  Eksen kendi kendini sınar: enjekte edilen ölü token yakalanmalı,
+  canlı token yakalanmamalı, tanımlı token sayısı > 20 olmalı.
+
+- ⭐ **8. eksen — GERÇEK KONTRAST (iki tema).** 36 konu + 3 rota × 2 tema;
+  **her metin düğümü** kendi hesaplanmış zeminine karşı ölçülür (saydam
+  zeminlerde ata zinciri yürünür). Eşik: normal metin 4.5, büyük punto 3.0.
+  **Ölçülen düğüm: 64.938. Beklenen: 0 ihlal.**
+  İlk çalıştırmasında **144 ihlal** buldu — palet ölçümü yedi çiftin
+  yedisinde de yeşilken (bkz. Ders #32).
+  Sınama: siyah/beyaz **21**, bilinen kötü çift **AA altı**.
+
+- **Erişilebilirlik temelleri:** isimsiz düğme 0 · metinsiz bağlantı 0 ·
+  `html lang` dolu · tek `<h1>` · `<main>` bölgesi var ·
+  okunmakta olan konu `aria-current="page"` taşıyor.
+
+- **Bağlantı bütünlüğü:** 36 konu sayfasındaki **her** `data-go`/`href`
+  hedefi sözlükte gerçekten var mı — **0 kırık iç bağlantı**.
+
+- **320px yatay taşma:** 36 konu + 4 rota, en dar yaygın telefon
+  genişliğinde **0 taşma** (mobil sweep ayrıca 390/360'ta 84 ölçüm).
+
 - **Soru kartı kalıntısı:** çizilmiş DOM'da `.fc-scene` / `.fc-wrap` sayısı
   36 konuda **0** — bölüm kaldırıldı, veri duruyor.
 - 33 hazır konuda **yalnızca 2 dengesiz fiş** (`.jr-bad`) var, **ikisi de kasıtlı**:
@@ -1625,6 +1652,60 @@ FI kataloğu bittiği için sıradaki iş **içerik değil**. İki yön:
     **Genel ders:** bir token'ı yeniden adlandırmak bir **arama-değiştirme
     işi değil**, bir **göç işidir** — ve göçün tamamlandığını söyleyen tek
     şey, eski adların artık hiçbir yerde geçmediğini **ölçen** bir kontroldür.
+
+32. **⭐ Token "AA geçiyor" demek, o tokeni KULLANAN metin geçiyor demek
+    değildir — ölçülmesi gereken çifttir.**
+
+    *"Başka hata var mı?"* sorusu üzerine karanlık tema ilk kez baştan
+    tarandı. Palet ölçümü **yedi üzerinden yedi yeşil** verdi. Ama aynı
+    temada 36 konu gezilip her metin düğümü **arkasındaki gerçek zemine**
+    karşı ölçülünce **144 öğe AA'nın altında** çıktı.
+
+    İki ayrı kusur vardı ve ikisi de token seviyesinde görünmezdi:
+
+    **① `--ink-4` metin için kullanılıyordu — üstelik yazılı kural bunu
+    yasaklıyordu.** `theme.css` şunu diyordu: *"ANLAM TAŞIYAN hiçbir metin
+    buna bağlanmaz."* Gerçekte 13 kullanımın **9'u metindi**: kenar çubuğu
+    **grup adları**, ana sayfadaki tek eylem (**"Okumaya başla"**),
+    **"Okundu işaretle"** düğmesi, **"Bu sayfada"**, `Ctrl K`, seviye
+    etiketi, grup etiketi, sayfalayıcı ve ilgili konu seviyesi.
+    Aydınlık temada kontrastları **2.5** idi — AA'nın (4.5) çok altında,
+    metin olmayan öğeler için bile geçersiz (3.0).
+    → 9'u da `--ink-3`'e taşındı; `--ink-4` yalnızca ikon/nokta/chevron
+    için kaldı ve 3:1 eşiğini geçecek şekilde koyulaştırıldı
+    (2.5 → **3.62** aydınlık, 3.05 → **3.85** karanlık).
+
+    **② ⭐ `--ink-3` "AA geçiyor" sanılıyordu ama yalnızca KÂĞIT üstünde.**
+    Palet ölçümü `--ink-3` / `--paper` çiftini okuyup **4.71** diyordu.
+    Oysa aynı ton diyagram zemininde (`--paper-2`) **4.39**, en koyu
+    yüzeyde (`--paper-3`) **4.09** ediyordu — yani diyagram başlıkları,
+    "Çıktı" etiketleri ve ok etiketleri AA'yı geçmiyordu.
+    → `--ink-3` artık **kâğıda göre değil, EN KOYU YÜZEYE göre** seçiliyor:
+    `#68708A` → `#606880` (5.31 / 4.95 / 4.61 — üçünde de AA).
+
+    ⭐ **Neden palet ölçümü yetmedi:** o ölçüm **elle seçilmiş 7 çifti**
+    kontrol ediyordu — yani *"hangi çiftlerin sorunlu olabileceğini zaten
+    biliyorum"* varsayımına dayanıyordu. Gerçek kusurlar tam olarak
+    **listeye yazılmamış** çiftlerdeydi. Ders #30 *"tek örnek üzerinde
+    ölçmek ölçmemektir"* diyordu; bunun bir üst hâli: **elle seçilmiş
+    bir örnek kümesi üzerinde ölçmek de ölçmemektir.**
+
+    **8. eksen eklendi:** iki temada, 36 konu + 3 rota üzerinde
+    **her metin düğümü** kendi hesaplanmış zeminine karşı ölçülür
+    (saydam zeminlerde ata zinciri yürünür), büyük punto için 3.0 /
+    normal için 4.5 eşiğiyle. Ölçülen düğüm sayısı: **64.938**.
+    Eksen yine kendi kendini sınar: siyah/beyaz **21** çıkmalı ve
+    bilinen kötü bir çift (#161A22 üstüne #12151C) **AA altı** raporlanmalı.
+
+    **Aynı turda bulunan iki küçük kusur daha:**
+    - Kenar çubuğunda okunmakta olan konu **yalnızca renkle** işaretliydi;
+      `aria-current="page"` eklendi (ekran okuyucu artık konumu bildiriyor).
+    - `etkilesim.mjs`'teki grup testi **eski sözleşmeyi** ölçüyordu
+      (gruplar varsayılan açık sanılıyordu) ve bu yüzden kırmızıydı.
+      Test, davranış değiştiğinde güncellenmemişti — **kırmızı bir test
+      "bilinen arıza" hâline gelirse ölçüm aracı olmaktan çıkar.**
+      Yeni sözleşme yazıldı: kapalı başla → aç → kapat → yenilemeyi aş →
+      aktif konunun grubu kendiliğinden açılsın.
 
 ---
 

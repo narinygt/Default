@@ -58,11 +58,25 @@
      Koyu lacivert — siyah değil. Kağıt tonuyla birlikte "basılı" görünür. */
   --ink:       #14213A;
   --ink-2:     #46506B;
-  --ink-3:     #68708A;   /* meta: süre, seviye, sayaç — AA 4.71 */
-  /* ⚠️ En zayıf ton AA eşiğini GEÇMEZ ve bu bilinçlidir: yalnızca
-     dekoratif ayraç ve yer tutucu içindir. ANLAM TAŞIYAN hiçbir
-     metin buna bağlanmaz — dizin numaraları --ink-3 kullanır. */
-  --ink-4:     #9AA0B4;
+  --ink-3:     #606880;   /* METİN için en zayıf ton. ⚠️ Değeri KÂĞIDA göre
+                             değil, EN KOYU YÜZEYE (--paper-3) göre seçildi:
+                             #68708A kâğıtta 4.71 ile geçiyordu ama diyagram
+                             zemininde 4.09'a düşüyordu. Token tek başına
+                             "geçiyor" denemez — çift ölçülür (Ders #32).
+                             Şimdi üçünde de AA: 5.31 / 4.95 / 4.61. */
+  /* ⚠️ --ink-4 METİN İÇİN DEĞİLDİR. Yalnızca METİN OLMAYAN öğeler:
+     chevron, ilerleme noktası, ayraç çizgisi, etiket yanındaki ikon.
+     WCAG 1.4.11 bunlar için 3:1 ister; ölçülen 3.62 (aydınlık) /
+     3.85 (karanlık).
+
+     ⚠️ Bu kural bir kez YAZILIP UYGULANMADI: sekiz METİN kuralı
+     (kenar çubuğu grup adı, "Okumaya başla", "Okundu işaretle",
+     "Bu sayfada", Ctrl K, seviye, grup etiketi, sayfalayıcı)
+     buna bağlıydı ve aydınlık temada kontrast 2.5 idi — AA'nın
+     çok altında. Hepsi --ink-3'e taşındı (bkz. Ders #32).
+     Yeni bir kural buraya bağlanmadan önce tek soru:
+     "bu bir METİN mi?" Cevap evetse --ink-3 kullanılır. */
+  --ink-4:     #7C8399;
   --ink-inv:   #FBFAF7;
 
   /* ----------------------------------------------------- VURGU (TEK) ---
@@ -137,7 +151,7 @@
   --ink:       #E8E6DF;
   --ink-2:     #AFB4C2;
   --ink-3:     #838A9C;
-  --ink-4:     #5C6377;
+  --ink-4:     #6B7387;
   --ink-inv:   #12151C;
 
   --accent:      #6FBFA3;

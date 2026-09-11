@@ -90,8 +90,12 @@
         list.map(function (t) {
           var n = (++sira < 10 ? '0' : '') + sira;
           var p = SAP.store.percent(t.id);
+          /* aria-current: okunmakta olan konu SADECE renkle işaretlenirse
+             ekran okuyucu kullanıcısı listede nerede olduğunu bilemez.
+             `.active` sınıfı görsel, bu nitelik anlamsaldır. */
           return '<a class="side-topic' + (aktifKonu === t.id ? ' active' : '') +
               (p >= 100 ? ' done' : '') + '" ' +
+            (aktifKonu === t.id ? 'aria-current="page" ' : '') +
             'data-go="#/konu/' + esc(t.id) + '" href="#/konu/' + esc(t.id) + '" ' +
             'title="' + esc(SAP.i18n.baslik(t)) + '">' +
             '<span class="st">' + n + '</span>' +

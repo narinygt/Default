@@ -4,14 +4,16 @@
 > çıkarılan dersler burada tutulur. **Her güncellemede yenilenir.**
 > Amaç: projeyi başka bir yapay zeka sohbetine aktarırken tek dosya vererek tüm bağlamı taşımak.
 
-**Son güncelleme:** 11 Eylül 2026 · **Tasarım sistemi baştan yazıldı** (bkz. §5b) ve
+**Son güncelleme:** 12 Eylül 2026 · **Tasarım sistemi baştan yazıldı** (bkz. §5b) ve
 **36 konunun 36'sı** derin içerikle dolduruldu — katalog **tamamlandı**.
 **Sözlükler:** 262 işlem kodu · 92 tablo · 164 terim (üçünde de çift kayıt yok — bkz. Ders #26).
-**Dil anahtarı yeniden açıldı, gövde çevirisi sürüyor:** 9/36 konu tam
+**Dil anahtarı yeniden açıldı, gövde çevirisi sürüyor:** 19/36 konu tam
 İngilizce — Temeller grubu (genel-muhasebe, fi-temelleri, org-yapisi,
 master-data) + Ana Süreçler grubu (gl-accounting, accounts-payable,
-accounts-receivable, asset-accounting, bank-accounting); mekanizma konu
-bazında kısmi çeviriye izin veriyor — bkz. §10.
+accounts-receivable, asset-accounting, bank-accounting) + Günlük
+İşlemler grubu (dogrulama-ikame, document-posting, document-parking,
+clearing, special-gl, f110, ebs, dunning, taxes, e-donusum);
+mekanizma konu bazında kısmi çeviriye izin veriyor — bkz. §10.
 
 > ⭐ **ARAYÜZ BAŞTAN TASARLANDI — "Dijital muhasebe defteri".**
 > İçerik ve işlevler aynı; değişen görsel dil ve yerleşim (bkz. §5b).
@@ -165,7 +167,7 @@ SAPWeb/
 │   └── s4-yenilikleri.js
 ├── content/fi-en/        # gövde çevirisi (KISMİ — bkz. §10). Aynı id ile
 │   │                       sections_en gönderip content/fi/'daki konuya
-│   │                       MERGE olur. Şu an 9/36 konu burada.
+│   │                       MERGE olur. Şu an 19/36 konu burada.
 │   ├── genel-muhasebe.js
 │   ├── fi-temelleri.js
 │   ├── org-yapisi.js
@@ -174,7 +176,17 @@ SAPWeb/
 │   ├── accounts-payable.js
 │   ├── accounts-receivable.js
 │   ├── asset-accounting.js
-│   └── bank-accounting.js
+│   ├── bank-accounting.js
+│   ├── dogrulama-ikame.js
+│   ├── document-posting.js
+│   ├── document-parking.js
+│   ├── clearing.js
+│   ├── special-gl.js
+│   ├── f110.js
+│   ├── ebs.js
+│   ├── dunning.js
+│   ├── taxes.js
+│   └── e-donusum.js
 ├── derle.ps1             # tek-dosya.html üretir (Windows / PowerShell)
 ├── derle.mjs             # aynı çıktının Node karşılığı — `node derle.mjs`
 ├── tek-dosya.html        # ÜRETİLMİŞ tek dosyalık sürüm — taşımak/paylaşmak için
@@ -444,7 +456,7 @@ sol sütun çekmeceye iner.
 |---|---|---|
 | Numaralı içindekiler dizini (01…36) | ✅ | Kitap dizini; açıklama tıklayınca açılır (bkz. §5b) |
 | "Kaldığın yerden devam et" + rastgele konu | ✅ | Yarım kalan konuyu sistem bulur |
-| **Arayüz dili TR / EN** | ✅ | Sağ üst köşede anahtar; arayüz + 36 başlık + 36 özet + grup/bölüm adları çevrili. **Gövde 9/36 konuda tam çevrili** (Temeller + Ana Süreçler grupları), kalan 27 konuda Türkçe kalır — konu bazında `.lang-notice` ile belirtilir, bkz. §10 |
+| **Arayüz dili TR / EN** | ✅ | Sağ üst köşede anahtar; arayüz + 36 başlık + 36 özet + grup/bölüm adları çevrili. **Gövde 19/36 konuda tam çevrili** (Temeller + Ana Süreçler + Günlük İşlemler grupları), kalan 17 konuda Türkçe kalır — konu bazında `.lang-notice` ile belirtilir, bkz. §10 |
 | Karanlık / Aydınlık mod | ✅ | Sistem tercihi + manuel geçiş, localStorage'a yazılır |
 | İlerleme çubuğu (bölüm/konu/genel) | ✅ | Bölüm bazında "okundu", karta halka, sidebar'a nokta |
 | Tamamlanan konu işaretleme | ✅ | Tek tıkla tüm bölümler |
@@ -1792,28 +1804,42 @@ function sectionData(t, id) {
 Bu üç kademe sayesinde eksik/yarım bir çeviri **sayfayı hiçbir zaman
 kırmaz** — sadece o kısım Türkçe kalır ve okuyucu bunu bilir.
 
-**Şu an tam çevrilmiş (9/36):** Temeller grubu — `genel-muhasebe`,
-`fi-temelleri`, `org-yapisi`, `master-data` — ve Ana Süreçler grubu —
+**Şu an tam çevrilmiş (19/36):** Temeller grubu — `genel-muhasebe`,
+`fi-temelleri`, `org-yapisi`, `master-data` — Ana Süreçler grubu —
 `gl-accounting`, `accounts-payable`, `accounts-receivable`,
-`asset-accounting`, `bank-accounting`. Kalan 27 konu Türkçe kalmaya
-devam ediyor; kapsam bilerek kademeli tutuldu, aynı üsluple devam etmek
-isteyen biri `content/fi-en/` altına aynı desende yeni dosyalar
-ekleyebilir. **`ogrenme` bölümü çevrilmez** — zaten hiçbir yerde
-çizilmiyor (§6), çevirmek boşa emek olur.
+`asset-accounting`, `bank-accounting` — ve Günlük İşlemler grubu —
+`dogrulama-ikame`, `document-posting`, `document-parking`, `clearing`,
+`special-gl`, `f110`, `ebs`, `dunning`, `taxes`, `e-donusum`. Kalan 17
+konu Türkçe kalmaya devam ediyor; kapsam bilerek kademeli tutuldu, aynı
+üsluple devam etmek isteyen biri `content/fi-en/` altına aynı desende
+yeni dosyalar ekleyebilir. **`ogrenme` bölümü çevrilmez** — zaten hiçbir
+yerde çizilmiyor (§6), çevirmek boşa emek olur.
 
-**Ana Süreçler partisinde çıkan tek yeni bulgu — bilinçli iki dilli
-kalıntı, hata değil:** `en-full.mjs`'in yapısal-Türkçe-kalıntı taraması
-`asset-accounting`'de 1, `bank-accounting`'de 2 "kalıntı" buldu. İkisi
-de gerçek çeviri eksikliği değil: (1) `asset-accounting`'in amortisman
-yöntemi başlıklarında VUK (Vergi Usul Kanunu) madde atıfları —
-`'Declining Balance — VUK mük. md. 315'` gibi — kasıtlı olarak Türkçe
-bırakıldı, çünkü bu bir yasal atıftır ve İngilizceye çevrilmesi hukuki
-kesinliği bozar; (2) `bank-accounting`'in senaryo metninde geçen
-`'İş Bankası'` gerçek bir banka adı (özel isim), diğer örneklerde
-`'Anadolu Holding'`in çevrilmeden bırakılmasıyla aynı ilke. Tarama
-scripti bu iki istisnayı `BEKLENEN_KALINTI = { 'asset-accounting': 1,
-'bank-accounting': 2 }` haritasıyla belgeleyip bekliyor — `check.mjs`'in
-"ham *" ekseninin belgelenmiş 11 istisnasıyla birebir aynı desen.
+**Bilinçli iki dilli kalıntılar — hata değil, `en-full.mjs`'te
+belgelenmiş istisnalar:** `en-full.mjs`'in yapısal-Türkçe-kalıntı
+taraması bazı konularda "kalıntı" buluyor; hiçbiri gerçek çeviri
+eksikliği değil, hepsi kasıtlı özel isim / resmî terim / yasal atıf:
+- `asset-accounting` (1): amortisman yöntemi başlıklarında VUK (Vergi
+  Usul Kanunu) madde atıfları — `'Declining Balance — VUK mük. md. 315'`
+  gibi — çevrilirse hukuki kesinlik bozulur.
+- `bank-accounting` (2), `ebs` (1): senaryo metninde geçen `'İş
+  Bankası'` gerçek banka adı (özel isim), `'Anadolu Holding'`in
+  çevrilmeden bırakılmasıyla aynı ilke.
+- `dogrulama-ikame` (1), `special-gl` (1), `dunning` (1): senaryo şirket
+  adları kısmen Türkçe bırakıldı (`'Batı Gıda Inc.'`, `'Akdeniz Gıda
+  Inc.'`, `'Doğu Trading Inc.'`) — Türkçe kısım özel isim, `Inc.` eki
+  şirket türünü İngilizceleştiriyor.
+- `e-donusum` (26): GİB (Gelir İdaresi Başkanlığı) resmî kurum adı ve
+  e-Fatura / e-Arşiv / e-İrsaliye / e-Müstahsil Makbuzu gibi Türkiye'ye
+  özgü resmî e-devlet sistem adları — SAP işlem kodu gibi muamele
+  görüyor, çevrilmiyor (yoğun tekrar ettiği için sayı yüksek).
+
+Tarama scripti bunların hepsini `BEKLENEN_KALINTI` haritasıyla
+belgeleyip bekliyor — `check.mjs`'in "ham *" ekseninin belgelenmiş 11
+istisnasıyla birebir aynı desen: her yeni partide bu tür kalıntılar
+çıkarsa, önce gerçekten kasıtlı mı diye kaynağı kontrol et (özel isim/
+resmî terim/yasal atıf mı?), öyleyse haritaya say olarak ekle — asla
+sessizce yok sayma veya check'i gevşetme.
 
 ⚠️ **`{{terim:...}}` ve `{{konu:...}}` çipleri de dile göre etiket
 gösterir** (`js/markup.js`). Bu, gövde hiç İngilizce olmadığı sürece

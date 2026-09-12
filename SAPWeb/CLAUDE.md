@@ -7,13 +7,14 @@
 **Son güncelleme:** 12 Eylül 2026 · **Tasarım sistemi baştan yazıldı** (bkz. §5b) ve
 **36 konunun 36'sı** derin içerikle dolduruldu — katalog **tamamlandı**.
 **Sözlükler:** 262 işlem kodu · 92 tablo · 164 terim (üçünde de çift kayıt yok — bkz. Ders #26).
-**Dil anahtarı yeniden açıldı, gövde çevirisi sürüyor:** 19/36 konu tam
-İngilizce — Temeller grubu (genel-muhasebe, fi-temelleri, org-yapisi,
-master-data) + Ana Süreçler grubu (gl-accounting, accounts-payable,
-accounts-receivable, asset-accounting, bank-accounting) + Günlük
-İşlemler grubu (dogrulama-ikame, document-posting, document-parking,
-clearing, special-gl, f110, ebs, dunning, taxes, e-donusum);
-mekanizma konu bazında kısmi çeviriye izin veriyor — bkz. §10.
+**Dil anahtarı yeniden açıldı, gövde çevirisi sürüyor:** 26/36 konu tam
+İngilizce — Temeller (4) + Ana Süreçler (5) + Günlük İşlemler (10) +
+Dönem Sonu (2: foreign-currency, closing) + Muhasebe Mimarisi (2:
+new-gl, parallel-ledger) + Entegrasyon'un 3'ü (cost-center,
+co-integration, mm-integration). **Kalan 10 konu:** sd-integration,
+sap-tables, tcodes, reporting, lsmw, migration, data-upload,
+error-handling, best-practices, s4-yenilikleri. Mekanizma konu bazında
+kısmi çeviriye izin veriyor — bkz. §10.
 
 > ⭐ **ARAYÜZ BAŞTAN TASARLANDI — "Dijital muhasebe defteri".**
 > İçerik ve işlevler aynı; değişen görsel dil ve yerleşim (bkz. §5b).
@@ -167,7 +168,7 @@ SAPWeb/
 │   └── s4-yenilikleri.js
 ├── content/fi-en/        # gövde çevirisi (KISMİ — bkz. §10). Aynı id ile
 │   │                       sections_en gönderip content/fi/'daki konuya
-│   │                       MERGE olur. Şu an 19/36 konu burada.
+│   │                       MERGE olur. Şu an 26/36 konu burada.
 │   ├── genel-muhasebe.js
 │   ├── fi-temelleri.js
 │   ├── org-yapisi.js
@@ -456,7 +457,7 @@ sol sütun çekmeceye iner.
 |---|---|---|
 | Numaralı içindekiler dizini (01…36) | ✅ | Kitap dizini; açıklama tıklayınca açılır (bkz. §5b) |
 | "Kaldığın yerden devam et" + rastgele konu | ✅ | Yarım kalan konuyu sistem bulur |
-| **Arayüz dili TR / EN** | ✅ | Sağ üst köşede anahtar; arayüz + 36 başlık + 36 özet + grup/bölüm adları çevrili. **Gövde 19/36 konuda tam çevrili** (Temeller + Ana Süreçler + Günlük İşlemler grupları), kalan 17 konuda Türkçe kalır — konu bazında `.lang-notice` ile belirtilir, bkz. §10 |
+| **Arayüz dili TR / EN** | ✅ | Sağ üst köşede anahtar; arayüz + 36 başlık + 36 özet + grup/bölüm adları çevrili. **Gövde 26/36 konuda tam çevrili** (Temeller + Ana Süreçler + Günlük İşlemler + Dönem Sonu + Muhasebe Mimarisi grupları ve Entegrasyon'un 3'ü), kalan 10 konuda Türkçe kalır — konu bazında `.lang-notice` ile belirtilir, bkz. §10 |
 | Karanlık / Aydınlık mod | ✅ | Sistem tercihi + manuel geçiş, localStorage'a yazılır |
 | İlerleme çubuğu (bölüm/konu/genel) | ✅ | Bölüm bazında "okundu", karta halka, sidebar'a nokta |
 | Tamamlanan konu işaretleme | ✅ | Tek tıkla tüm bölümler |
@@ -1804,16 +1805,33 @@ function sectionData(t, id) {
 Bu üç kademe sayesinde eksik/yarım bir çeviri **sayfayı hiçbir zaman
 kırmaz** — sadece o kısım Türkçe kalır ve okuyucu bunu bilir.
 
-**Şu an tam çevrilmiş (19/36):** Temeller grubu — `genel-muhasebe`,
-`fi-temelleri`, `org-yapisi`, `master-data` — Ana Süreçler grubu —
+**Şu an tam çevrilmiş (26/36):** Temeller — `genel-muhasebe`,
+`fi-temelleri`, `org-yapisi`, `master-data`; Ana Süreçler —
 `gl-accounting`, `accounts-payable`, `accounts-receivable`,
-`asset-accounting`, `bank-accounting` — ve Günlük İşlemler grubu —
+`asset-accounting`, `bank-accounting`; Günlük İşlemler —
 `dogrulama-ikame`, `document-posting`, `document-parking`, `clearing`,
-`special-gl`, `f110`, `ebs`, `dunning`, `taxes`, `e-donusum`. Kalan 17
-konu Türkçe kalmaya devam ediyor; kapsam bilerek kademeli tutuldu, aynı
-üsluple devam etmek isteyen biri `content/fi-en/` altına aynı desende
-yeni dosyalar ekleyebilir. **`ogrenme` bölümü çevrilmez** — zaten hiçbir
-yerde çizilmiyor (§6), çevirmek boşa emek olur.
+`special-gl`, `f110`, `ebs`, `dunning`, `taxes`, `e-donusum`; Dönem
+Sonu — `foreign-currency`, `closing`; Muhasebe Mimarisi — `new-gl`,
+`parallel-ledger`; Entegrasyon'un 3'ü — `cost-center`, `co-integration`,
+`mm-integration`.
+
+**Kalan 10 konu** (aynı desenle devam edilecek): `sd-integration`,
+`sap-tables`, `tcodes`, `reporting`, `lsmw`, `migration`, `data-upload`,
+`error-handling`, `best-practices`, `s4-yenilikleri`. Bunlar Türkçe
+kalmaya devam ediyor ve konu başında `.lang-notice` uyarısı çıkıyor.
+**`ogrenme` bölümü çevrilmez** — zaten hiçbir yerde çizilmiyor (§6),
+çevirmek boşa emek olur.
+
+⚙️ **Toplu çeviri yöntemi (işe yarayan akış):** her konu ayrı bir alt
+ajana veriliyor; ajana (a) `content/fi-en/gl-accounting.js`'i kanonik
+örnek olarak okutuluyor, (b) kaynak dosyanın bölüm satır numaraları
+veriliyor (büyük dosyalar tek Read'e sığmıyor), (c) aşağıdaki kurallar
+madde madde aktarılıyor, (d) bitirmeden önce `node -c`, 10 bölüm sayımı
+ve **TR/EN `{{` sayısı karşılaştırması** yaptırılıyor. Paralellik 4-5
+ajanı geçmesin: 9-10 paralel ajan kullanım sınırını (session limit)
+anında doldurup hepsini birden düşürüyor. Ajan sınıra takılıp raporunu
+veremeden ölse bile dosyayı yazmayı bitirmiş olabilir — silmeden önce
+`node -c` + bölüm sayısı + `{{`/`}}` dengesi ile kontrol et.
 
 **Bilinçli iki dilli kalıntılar — hata değil, `en-full.mjs`'te
 belgelenmiş istisnalar:** `en-full.mjs`'in yapısal-Türkçe-kalıntı

@@ -440,6 +440,8 @@
     'Tablo': 'Table',
     'Ne güncellenir': 'What is updated',
     'Alan': 'Field',
+    'Birincil anahtar': 'Primary key',
+    'Nasıl oluşur / kim doldurur': 'How it is created / what fills it',
     'Açıklama': 'Description',
     'Zorunlu': 'Required',
     'Ekran': 'Screen',

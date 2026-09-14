@@ -94,6 +94,37 @@ window.SAP = (function () {
   function registerTables(list)  { list.forEach(function (x) { tables.set(upper(x.ad), x); }); }
   function registerTerms(list)   { list.forEach(function (x) { terms.set(slug(x.anahtar || x.ad), x); }); }
 
+  /* --- SÖZLÜK GÖVDELERİNİN İNGİLİZCESİ ---------------------------------
+     content/fi-en/*.js'in `sections_en` deseniyle AYNI mantık: ayrı bir
+     dosya aynı anahtarla gelir ve alanları TR kaydın üstüne `_en` ekiyle
+     MERGE olur (`aciklama` → `aciklama_en`). Okuma tarafı `SAP.alan()`
+     üzerinden yapılır; çevrilmemiş alan Türkçe kalır, sayfa kırılmaz.
+     Ayrı dosya tutulmasının sebebi TR kaynağın tek doğruluk kaynağı
+     olarak sade kalması (bkz. §10). */
+  function mergeEn(map, anahtarAlan, normalize, list) {
+    list.forEach(function (e) {
+      var hedef = map.get(normalize(e[anahtarAlan]));
+      if (!hedef) return;                 // sözlükte olmayan anahtar: sessizce atla
+      Object.keys(e).forEach(function (k) {
+        if (k === anahtarAlan) return;
+        /* alanlar[] gibi dizi alanlar olduğu gibi taşınır; okuyucu
+           (views.js) içindeki `aciklama_en`'i kendi çözer. */
+        hedef[k + '_en'] = e[k];
+      });
+    });
+  }
+  function registerTcodesEn(list) { mergeEn(tcodes, 'kod', upper, list); }
+  function registerTablesEn(list) { mergeEn(tables, 'ad', upper, list); }
+  function registerTermsEn(list)  { mergeEn(terms, 'anahtar', slug, list); }
+
+  /** Dile duyarlı alan okuma: EN modda `<alan>_en` varsa onu, yoksa
+      Türkçesini döndürür. Sözlük detay sayfaları ve arama bunu kullanır. */
+  function alan(x, ad) {
+    if (!x) return '';
+    if (SAP.i18n && SAP.i18n.get() === 'en' && x[ad + '_en'] != null) return x[ad + '_en'];
+    return x[ad];
+  }
+
   function topic(id)  { return topics.get(id) || null; }
   function allTopics() { return order.map(function (id) { return topics.get(id); }); }
   function tcode(k)   { return tcodes.get(upper(k)) || null; }
@@ -340,6 +371,9 @@ window.SAP = (function () {
     registerModule: registerModule, registerTopic: registerTopic,
     registerTcodes: registerTcodes, registerTables: registerTables,
     registerTerms: registerTerms,
+    registerTcodesEn: registerTcodesEn, registerTablesEn: registerTablesEn,
+    registerTermsEn: registerTermsEn,
+    alan: alan,
     // sorgu
     modules: modules, topic: topic, allTopics: allTopics,
     tcode: tcode, table: table, term: term, sectionData: sectionData,

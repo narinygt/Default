@@ -35,12 +35,16 @@
       });
     });
 
+    /* Görünen ad/açıklama DİLE GÖRE (SAP.alan), ARANAN metin iki dili de
+       taşır — konu indeksindeki kuralın aynısı: kullanıcı "vendor invoice"
+       da arayabilir, "satıcı faturası" da. */
     SAP.tcodeMap.forEach(function (x) {
       ix.push({
         tur: 'tcode', baslik: x.kod,
-        alt: x.ad + ' — ' + (x.modul || ''),
+        alt: SAP.alan(x, 'ad') + ' — ' + (x.modul || ''),
         href: '#/tcode/' + encodeURIComponent(SAP.upper(x.kod)),
-        anahtar: SAP.norm(x.kod + ' ' + x.ad + ' ' + (x.aciklama || '') + ' ' + (x.modul || '')),
+        anahtar: SAP.norm([x.kod, x.ad, x.ad_en || '', x.aciklama || '',
+                           x.aciklama_en || '', x.modul || ''].join(' ')),
         ad: SAP.norm(x.kod),
         agirlik: 2,
       });
@@ -49,9 +53,10 @@
     SAP.tableMap.forEach(function (x) {
       ix.push({
         tur: 'table', baslik: x.ad,
-        alt: x.baslik + ' — ' + (x.modul || ''),
+        alt: SAP.alan(x, 'baslik') + ' — ' + (x.modul || ''),
         href: '#/tablo/' + encodeURIComponent(SAP.upper(x.ad)),
-        anahtar: SAP.norm(x.ad + ' ' + x.baslik + ' ' + (x.aciklama || '')),
+        anahtar: SAP.norm([x.ad, x.baslik, x.baslik_en || '', x.aciklama || '',
+                           x.aciklama_en || ''].join(' ')),
         ad: SAP.norm(x.ad),
         agirlik: 2,
       });
@@ -64,12 +69,13 @@
     SAP.termMap.forEach(function (x, k) {
       var en = SAP.i18n.get() === 'en' && x.en;
       var ad = en ? x.en : x.ad;
-      var aciklama = SAP.mkDuz(x.aciklama);
+      var aciklama = SAP.mkDuz(SAP.alan(x, 'aciklama'));
       ix.push({
         tur: 'term', baslik: ad,
         alt: (en ? '' : x.en + ' — ') + aciklama,
         href: '#/terim/' + encodeURIComponent(k),
-        anahtar: SAP.norm(x.ad + ' ' + x.en + ' ' + aciklama),
+        anahtar: SAP.norm([x.ad, x.en, SAP.mkDuz(x.aciklama),
+                           SAP.mkDuz(x.aciklama_en || '')].join(' ')),
         ad: SAP.norm(ad),
         agirlik: 1,
       });

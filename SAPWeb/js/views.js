@@ -12,6 +12,8 @@
   'use strict';
 
   var esc = SAP.esc, mk = SAP.mk, mkp = SAP.mkp, mkul = SAP.mkul;
+  /** Sözlük alanını DİLE GÖRE oku (`aciklama` → EN modda `aciklama_en`). */
+  var A = SAP.alan;
   var U = SAP.ui;
   var T = function (k) { return SAP.i18n.t(k); };
 
@@ -312,8 +314,8 @@
     return '<div class="wrap">' +
       '<div class="dt-head">' +
         '<div class="dt-badge">' + esc(x.kod) + '</div>' +
-        '<div class="bd"><h1>' + esc(x.ad) + '</h1>' +
-          '<div class="lede">' + mk(x.aciklama) + '</div></div>' +
+        '<div class="bd"><h1>' + esc(A(x, 'ad')) + '</h1>' +
+          '<div class="lede">' + mk(A(x, 'aciklama')) + '</div></div>' +
       '</div>' +
 
       '<div class="chiprow">' +
@@ -321,7 +323,7 @@
         '<span class="tag ready">' + esc(SAP.i18n.tur(x.tur)) + '</span>' +
       '</div>' +
 
-      (x.s4 ? U.note('warn', SAP.i18n.etiket('S/4HANA’daki durumu'), x.s4) : '') +
+      (x.s4 ? U.note('warn', SAP.i18n.etiket('S/4HANA’daki durumu'), A(x, 's4')) : '') +
       (x.fiori ? U.note('info', SAP.i18n.etiket('Fiori karşılığı'), x.fiori) : '') +
 
       (konular.length
@@ -347,8 +349,8 @@
     return '<div class="wrap">' +
       '<div class="dt-head">' +
         '<div class="dt-badge tbl-b">' + esc(x.ad) + '</div>' +
-        '<div class="bd"><h1>' + esc(x.baslik) + '</h1>' +
-          '<div class="lede">' + mk(x.aciklama) + '</div></div>' +
+        '<div class="bd"><h1>' + esc(A(x, 'baslik')) + '</h1>' +
+          '<div class="lede">' + mk(A(x, 'aciklama')) + '</div></div>' +
       '</div>' +
 
       '<div class="chiprow">' +
@@ -357,19 +359,25 @@
       '</div>' +
 
       U.kv([
-        ['Birincil anahtar', x.anahtar],
-        ['Nasıl oluşur / kim doldurur', x.olusturan],
+        [SAP.i18n.etiket('Birincil anahtar'), x.anahtar],
+        [SAP.i18n.etiket('Nasıl oluşur / kim doldurur'), A(x, 'olusturan')],
       ]) +
 
+      /* Alan açıklamaları da dile duyarlı: EN üst-katmanı `alanlar_en`
+         olarak gelir ve aynı SIRADA olduğu varsayılır (aynı tablo, aynı
+         alan listesi). Eksikse Türkçesine düşer. */
       (x.alanlar && x.alanlar.length
         ? '<div class="panel"><h3>' + esc(T('ref.keyFields')) + '</h3>' +
-          U.tbl([{ ad:'Alan', w:'22%', mono:true }, { ad:'Ne işe yarar' }],
-            x.alanlar.map(function (a) {
-              return [a.ad + (a.tip === 'pk' ? '  · PK' : a.tip === 'fk' ? '  · FK' : ''), a.aciklama];
+          U.tbl([{ ad:SAP.i18n.etiket('Alan'), w:'22%', mono:true },
+                 { ad:SAP.i18n.etiket('Ne işe yarar') }],
+            x.alanlar.map(function (a, i) {
+              var en = SAP.i18n.get() === 'en' && x.alanlar_en && x.alanlar_en[i];
+              return [a.ad + (a.tip === 'pk' ? '  · PK' : a.tip === 'fk' ? '  · FK' : ''),
+                      (en && en.aciklama) || a.aciklama];
             })) + '</div>'
         : '') +
 
-      (x.s4 ? U.note('warn', SAP.i18n.etiket('S/4HANA’daki yapısı'), x.s4) : '') +
+      (x.s4 ? U.note('warn', SAP.i18n.etiket('S/4HANA’daki yapısı'), A(x, 's4')) : '') +
 
       (konular.length
         ? '<div class="panel"><h3>' + esc(T('ref.tableInTopics')) + '</h3>' + relatedGrid(konular.map(function (t) { return t.id; })) + '</div>'
@@ -410,8 +418,8 @@
       '</div>' +
 
       '<div class="panel"><h3>' + esc(T('ref.definition')) + '</h3>' +
-        '<div class="prose">' + mkp(x.aciklama) + '</div>' +
-        (x.detay ? '<div class="prose" style="margin-top:12px">' + mkp(x.detay) + '</div>' : '') +
+        '<div class="prose">' + mkp(A(x, 'aciklama')) + '</div>' +
+        (x.detay ? '<div class="prose" style="margin-top:12px">' + mkp(A(x, 'detay')) + '</div>' : '') +
       '</div>' +
 
       (iliskili.length

@@ -1,20 +1,21 @@
 /* ==========================================================================
    i18n.js — Arayüz dili (TR / EN)
    --------------------------------------------------------------------------
-   KAPSAM — ve sınırı açıkça yazılmıştır:
+   KAPSAM (Eylül 2026 itibarıyla TAM):
 
-   ✔ Çevrilir: bütün arayüz metinleri, dokuz grup adı, 36 konunun BAŞLIĞI
-     ve ÖZETİ, seviye adları, bölüm adları, boş durum metinleri.
+   ✔ Arayüz metinleri, dokuz grup adı, 36 konunun başlığı ve özeti,
+     seviye adları, bölüm adları, boş durum metinleri — bu dosyada.
+   ✔ Konuların DERİN İÇERİĞİ — 36/36 konu, content/fi-en/*.js
+     (`sections_en`, bkz. core.js sectionData).
+   ✔ Sözlük gövdeleri — data/tcodes-en.js, tables-en.js, glossary-en.js
+     (`_en` ekiyle merge, bkz. core.js registerTcodesEn / SAP.alan).
 
-   ✘ Çevrilmez (bilinçli): konuların DERİN İÇERİĞİ — 11 bölümün gövdesi,
-     senaryolar, fişler, quiz soruları. Sebep tek: bu içerik ~2 milyon
-     karakter ve makine çevirisi muhasebe metninde yanlış terim üretir
-     ("kapatma" → closing / clearing ayrımı gibi). Yarım çevrilmiş bir
-     muhasebe metni, çevrilmemiş olandan daha tehlikelidir.
+   ⚠️ Bu dosyanın başlığı bir dönem "derin içerik ÇEVRİLMEZ" diyordu ve
+   gerekçesi yazılıydı (~2 milyon karakter, terim riski). Karar sonradan
+   değişti; not güncellenmezse sonraki okuyucu yanlış bilgilenir.
 
-   EN seçiliyken konu sayfasının gövdesi Türkçe kalır ve sayfanın başında
-   bunu söyleyen bir satır çıkar. Bu bir eksiklik değil, açıklanmış bir
-   karardır — bkz. notice() ve CLAUDE.md §10.
+   Çeviri eksik kalan bir konu olursa `.lang-notice` uyarısı KONU BAZINDA
+   çıkar — mekanizma duruyor, şu an tetiklenmiyor (bkz. CLAUDE.md §10).
 
    Yeni dil eklemek: DICT'e bir anahtar seti + TOPICS_EN benzeri bir konu
    sözlüğü. Motorda değişiklik gerekmez.
@@ -301,7 +302,7 @@
       summary: 'The accounting language you need before touching SAP: debit and credit, double entry, balance sheet and income statement, accrual basis.' },
     'fi-temelleri': { title: 'SAP FI Fundamentals',
       summary: 'What the FI module covers, its components (GL, AP, AR, AA, BL), how it relates to other modules, and the anatomy of an FI document.' },
-    'org-yapisi': { title: 'Organisational Structure',
+    'org-yapisi': { title: 'Organizational Structure',
       summary: 'Company, company code, business area, chart of accounts, fiscal year variant, credit control area — the skeleton FI is built on.' },
     'master-data': { title: 'Master Data',
       summary: 'G/L account, vendor, customer and bank master data; account group, field status, reconciliation account and the Business Partner in S/4HANA.' },
@@ -320,7 +321,7 @@
     'document-posting': { title: 'Document Posting',
       summary: 'How an FI document is born: document type, posting key, field status, number range, posting date vs document date, and reversal.' },
     'document-parking': { title: 'Document Parking',
-      summary: 'Parking versus holding, the four-eyes principle built through authorisation, and why parked documents silently leave a period incomplete.' },
+      summary: 'Parking versus holding, the four-eyes principle built through authorization, and why parked documents silently leave a period incomplete.' },
     'clearing': { title: 'Clearing',
       summary: 'Matching open items: automatic and manual clearing, tolerances, residual versus partial payment, and resetting a clearing.' },
     'special-gl': { title: 'Special G/L',
@@ -339,17 +340,17 @@
       summary: 'Turkey-specific: the accounting document and the e-document are two separate objects with independent lifecycles — and either can fail alone.' },
 
     'foreign-currency': { title: 'Foreign Currency Valuation',
-      summary: 'Translation, valuation and realisation kept apart; monetary versus non-monetary items; why a down payment is never valued.' },
+      summary: 'Translation, valuation and realization kept apart; monetary versus non-monetary items; why a down payment is never valued.' },
     'closing': { title: 'Closing Operations',
       summary: 'The ten steps of a month-end close, why they run in that order, provisional versus permanent postings, and special periods 13–16.' },
 
     'new-gl': { title: 'New G/L',
-      summary: 'What document splitting is really for: expense lines already carry a profit centre — the problem is the balance sheet lines.' },
+      summary: 'What document splitting is really for: expense lines already carry a profit center — the problem is the balance sheet lines.' },
     'parallel-ledger': { title: 'Parallel Ledger',
       summary: 'An empty ledger group means all ledgers. Record the fact in every ledger; record the valuation judgement per ledger.' },
 
-    'cost-center': { title: 'Cost Centre Integration',
-      summary: 'Why a wrong cost centre triggers no accounting control at all, and why the fix is KB11N rather than a reversal.' },
+    'cost-center': { title: 'Cost Center Integration',
+      summary: 'Why a wrong cost center triggers no accounting control at all, and why the fix is KB11N rather than a reversal.' },
     'co-integration': { title: 'CO Integration',
       summary: 'FI and CO share one LUW: a missing CO number range stops the FI posting too — the error surfaces in FI, the cause sits in CO.' },
     'mm-integration': { title: 'MM Integration',

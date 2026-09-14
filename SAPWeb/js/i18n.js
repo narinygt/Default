@@ -35,8 +35,16 @@
 
      KAPATMAK GEREKİRSE: aşağıdaki satırı false yap. Başka hiçbir yer
      değişmez — bu satır tek başına anahtarı gizler (bkz. Ders #33'ten
-     önceki not: normalize() her değeri 'tr'ye çeker). */
+     önceki not: normalize() her değeri 'tr'ye çeker). Anahtar kapalıyken
+     dil 'tr'ye sabitlenir: kaynak dil odur, kullanıcı da geri
+     dönemeyeceği için İngilizcede kilitli kalmamalı. */
   var ANAHTAR_ACIK = true;
+
+  /* ------------------------------------------ VARSAYILAN DİL: EN ---
+     Eylül 2026: 36/36 konu çevrildi, site İngilizce açılıyor. Kullanıcı
+     anahtara basarsa seçimi `store.d.langSecildi` ile işaretlenir ve
+     sonraki açılışlarda korunur (bkz. core.js ve ui.js boot). */
+  var VARSAYILAN = 'en';
 
   /* ------------------------------------------------------- ARAYÜZ --- */
 
@@ -82,6 +90,22 @@
       'level.Orta':      'Orta',
       'level.İleri':     'İleri',
 
+      /* İşlem kodu ve tablo TÜRÜ — data/tcodes.js ve data/tables.js'teki
+         `tur` alanının kapalı sözlüğü (level gibi). Detay sayfasındaki
+         etiket bunlardan basılır; eskiden ham veri basılıyordu ve
+         İngilizce sitede "İşlem", "Özelleştirme" görünüyordu. */
+      'tur.Ana Veri':     'Ana Veri',
+      'tur.Rapor':        'Rapor',
+      'tur.Teknik':       'Teknik',
+      'tur.Toplu İşlem':  'Toplu İşlem',
+      'tur.Özelleştirme': 'Özelleştirme',
+      'tur.İşlem':        'İşlem',
+      'tur.Hareket':      'Hareket',
+      'tur.Kayıt':        'Kayıt',
+      'tur.Sistem':       'Sistem',
+      'tur.Toplam':       'Toplam',
+      'tur.İndeks':       'İndeks',
+
       'ref.tcode':       'İşlem kodu',
       'ref.table':       'Tablo',
       'ref.term':        'Sözlük',
@@ -89,6 +113,11 @@
       'ref.siblings':    'Aynı alandaki diğerleri',
       'ref.fields':      'Alanlar',
       'ref.related':     'İlgili terimler',
+      /* Detay sayfası panel başlıkları — eskiden views.js'e gömülüydü. */
+      'ref.keyFields':   'En önemli alanlar',
+      'ref.tableInTopics': 'Bu tablo şu konularda anlatılıyor',
+      'ref.definition':  'Tanım',
+      'ref.termInTopic': 'Bu terimin anlatıldığı konu',
 
       'fav.title':       'Favorilerim',
       'fav.empty':       'Henüz favori yok. Bir konunun yanındaki yıldıza bas.',
@@ -102,8 +131,17 @@
       'search.title':    'Arama sonuçları',
       'search.topic':    'Konu',
       'search.empty':    'Sonuç bulunamadı.',
+      /* Sonuç satırındaki tür rozeti — search.js'teki `tur` alanı. */
+      'search.kind.topic': 'Konu',
+      'search.kind.tcode': 'İşlem kodu',
+      'search.kind.table': 'Tablo',
+      'search.kind.term':  'Terim',
       'nf.title':        'Sayfa bulunamadı',
       'nf.back':         'İçindekilere dön',
+      'nf.topic':        'Konu bulunamadı: ',
+      'nf.tcode':        'İşlem kodu sözlükte yok: ',
+      'nf.table':        'Tablo sözlükte yok: ',
+      'nf.term':         'Terim sözlükte yok: ',
 
 
       'jr.debit':        'Borç',
@@ -168,6 +206,18 @@
       'level.Orta':      'Intermediate',
       'level.İleri':     'Advanced',
 
+      'tur.Ana Veri':     'Master Data',
+      'tur.Rapor':        'Report',
+      'tur.Teknik':       'Technical',
+      'tur.Toplu İşlem':  'Mass Processing',
+      'tur.Özelleştirme': 'Customizing',
+      'tur.İşlem':        'Transaction',
+      'tur.Hareket':      'Transactional',
+      'tur.Kayıt':        'Document',
+      'tur.Sistem':       'System',
+      'tur.Toplam':       'Totals',
+      'tur.İndeks':       'Index',
+
       'ref.tcode':       'Transaction code',
       'ref.table':       'Table',
       'ref.term':        'Glossary',
@@ -175,6 +225,10 @@
       'ref.siblings':    'Others in the same area',
       'ref.fields':      'Fields',
       'ref.related':     'Related terms',
+      'ref.keyFields':   'Key fields',
+      'ref.tableInTopics': 'This table is covered in these topics',
+      'ref.definition':  'Definition',
+      'ref.termInTopic': 'Topic where this term is explained',
 
       'fav.title':       'Bookmarks',
       'fav.empty':       'No bookmarks yet. Use the star next to a topic.',
@@ -188,8 +242,16 @@
       'search.title':    'Search results',
       'search.topic':    'Topic',
       'search.empty':    'Nothing found.',
+      'search.kind.topic': 'Topic',
+      'search.kind.tcode': 'Transaction',
+      'search.kind.table': 'Table',
+      'search.kind.term':  'Term',
       'nf.title':        'Page not found',
       'nf.back':         'Back to contents',
+      'nf.topic':        'Topic not found: ',
+      'nf.tcode':        'Transaction code not in the dictionary: ',
+      'nf.table':        'Table not in the dictionary: ',
+      'nf.term':         'Term not in the glossary: ',
 
 
       'jr.debit':        'Debit',
@@ -443,11 +505,11 @@
 
   /* ----------------------------------------------------- MOTOR --- */
 
-  var dil = 'tr';
+  var dil = VARSAYILAN;
 
   function normalize(x) {
     if (!ANAHTAR_ACIK) return 'tr';
-    return DILLER.indexOf(x) !== -1 ? x : 'tr';
+    return DILLER.indexOf(x) !== -1 ? x : VARSAYILAN;
   }
 
   var i18n = {
@@ -458,12 +520,22 @@
 
     get: function () { return dil; },
 
-    set: function (x) {
+    /* `kullaniciSecti` YALNIZCA dil anahtarına basıldığında true gelir
+       (ui.js set-lang). Açılıştaki çağrı bu bayrağı KURMAZ, yoksa
+       varsayılan ilk açılışta "kullanıcı tercihi" gibi diske yazılır ve
+       varsayılanı sonradan değiştirmek imkânsızlaşır. */
+    set: function (x, kullaniciSecti) {
       dil = normalize(x);
       SAP.store.d.lang = dil;
+      if (kullaniciSecti) SAP.store.d.langSecildi = true;
       SAP.store.save();
       document.documentElement.setAttribute('lang', dil);
       return dil;
+    },
+
+    /** Açılışta uygulanacak dil: kullanıcı seçtiyse onunki, yoksa varsayılan. */
+    baslangicDili: function () {
+      return SAP.store.d.langSecildi ? (SAP.store.d.lang || VARSAYILAN) : VARSAYILAN;
     },
 
     /** Arayüz metni. Anahtar yoksa anahtarın kendisi döner — sessiz
@@ -500,6 +572,9 @@
 
     /** Seviye adı (Başlangıç / Orta / İleri). */
     seviye: function (lv) { return i18n.t('level.' + lv); },
+
+    /** İşlem kodu / tablo türü — kapalı sözlük, bkz. `tur.*`. */
+    tur: function (x) { return x ? i18n.t('tur.' + x) : ''; },
 
     /** Renderer etiketi (alt başlık, tablo sütunu). Karşılığı yoksa
         Türkçesi döner — eksik çeviri sayfayı kırmaz, sadece görünür. */

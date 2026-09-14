@@ -33,7 +33,7 @@
     var next = cur === 'dark' ? 'light' : 'dark';
     SAP.store.d.theme = next;
     SAP.store.save();
-    SAP.i18n.set(SAP.store.d.lang || 'tr');
+    SAP.i18n.set(SAP.i18n.get());
     applyTheme(next);
     /* ER diyagram çizgileri renk değişkeni kullandığı için yeniden çizilir. */
     if (SAP.diagram) SAP.diagram.drawER(document);
@@ -135,7 +135,7 @@
 
   SAP.action('set-lang', function (btn) {
     if (btn.dataset.l === SAP.i18n.get()) return;
-    SAP.i18n.set(btn.dataset.l);
+    SAP.i18n.set(btn.dataset.l, true);   /* true = kullanıcı bilinçli seçti */
     SAP.render();
     applyTheme(document.documentElement.getAttribute('data-theme') || 'light');
   });
@@ -383,8 +383,10 @@
 
   function boot() {
     SAP.store.load();
-    /* Dil temadan ÖNCE kurulur: applyTheme düğme etiketini i18n'den okur. */
-    SAP.i18n.set(SAP.store.d.lang || 'tr');
+    /* Dil temadan ÖNCE kurulur: applyTheme düğme etiketini i18n'den okur.
+       baslangicDili(): kullanıcı anahtara bastıysa onun seçimi, yoksa
+       varsayılan (en) — bkz. i18n.js VARSAYILAN. */
+    SAP.i18n.set(SAP.i18n.baslangicDili());
     applyTheme(SAP.store.d.theme || sysTheme());
 
     /* Kullanıcı sistem temasını değiştirirse ve elle seçim yapılmadıysa uy. */

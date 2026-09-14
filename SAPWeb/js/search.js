@@ -57,13 +57,20 @@
       });
     });
 
+    /* Terimde görünen ad DİLE BAĞLI (markup.js'teki terim çipiyle aynı
+       kural: EN modda x.en). Açıklama SAP.mkDuz'dan geçer: sonuç satırı
+       esc() ile basıldığı için içindeki {{...}} işaretleri çipe
+       dönüşmez, ham görünürdü — sözlük tanımları işaret taşıyor. */
     SAP.termMap.forEach(function (x, k) {
+      var en = SAP.i18n.get() === 'en' && x.en;
+      var ad = en ? x.en : x.ad;
+      var aciklama = SAP.mkDuz(x.aciklama);
       ix.push({
-        tur: 'term', baslik: x.ad,
-        alt: x.en + ' — ' + x.aciklama,
+        tur: 'term', baslik: ad,
+        alt: (en ? '' : x.en + ' — ') + aciklama,
         href: '#/terim/' + encodeURIComponent(k),
-        anahtar: SAP.norm(x.ad + ' ' + x.en + ' ' + x.aciklama),
-        ad: SAP.norm(x.ad),
+        anahtar: SAP.norm(x.ad + ' ' + x.en + ' ' + aciklama),
+        ad: SAP.norm(ad),
         agirlik: 1,
       });
     });

@@ -1,10 +1,13 @@
 <!-- OTOMATIK URETILDI - ELLE DUZENLEME. Kaynak: index.html + css/ + js/ + data/ + content/  ·  Yeniden uretmek icin: .\derle.ps1  veya  node derle.mjs -->
 <!DOCTYPE html>
-<html lang="tr" data-theme="light">
+<!-- lang="en": site VARSAYILAN olarak İngilizce açılır (js/i18n.js
+     VARSAYILAN). Kullanıcı anahtardan TR seçerse i18n.set() bu niteliği
+     anında günceller; buradaki değer yalnızca JS çalışana kadar geçerli. -->
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="SAP FI Compass — S/4HANA Finansal Muhasebe: iş süreci, muhasebe mantığı, işlem kodları, tablolar ve S/4HANA yenilikleri.">
+<meta name="description" content="SAP FI Compass — S/4HANA Financial Accounting: business process, accounting logic, transaction codes, tables and S/4HANA innovations.">
 <title>SAP FI Compass</title>
 <!-- Sekme simgesi: T-hesap. Gömülü SVG — harici dosya yok,
      çevrimdışı kuralı korunuyor (Kural #5). -->
@@ -2271,7 +2274,12 @@ window.SAP = (function () {
       notes: {},        // { topicId: 'metin' }
       quiz: {},         // { topicId: { dogru, toplam, ts } }
       lastRoute: '',
-      lang: 'tr',          // arayüz dili — bkz. i18n.js
+      lang: 'en',          // arayüz dili — VARSAYILAN İNGİLİZCE, bkz. i18n.js
+      langSecildi: false,  /* Kullanıcı dil anahtarına BASTI mı?
+         Ayrı tutulur çünkü i18n.set() her açılışta `lang`i diske yazar:
+         o alana bakıp "kullanıcı tercihi" diyemeyiz, herkeste dolu olur.
+         false ise açılışta varsayılan (en) uygulanır — eski ziyaretçiler
+         de İngilizce açılır. true ise kullanıcının seçimi korunur. */
       railKapali: false,   // geniş ekranda gezinme sütunu katlı mı
       acikGrup: {},        // { grupId: 1 } — kenar çubuğunda AÇILMIŞ gruplar
       kapaliBolum: {},     // { 'tid:sid': 1 } — konu sayfasında katlanmış bölümler
@@ -2299,7 +2307,8 @@ window.SAP = (function () {
     reset: function () {
       try { localStorage.removeItem(KEY); } catch (e) {}
       store.d = { theme: store.d.theme, progress: {}, favorites: [], notes: {}, quiz: {},
-                  lastRoute: '', lang: store.d.lang, railKapali: false,
+                  lastRoute: '', lang: store.d.lang, langSecildi: store.d.langSecildi,
+                  railKapali: false,
                   acikGrup: {}, kapaliBolum: {}, acikDizin: {} };
     },
 
@@ -2536,8 +2545,16 @@ window.SAP = (function () {
 
      KAPATMAK GEREKİRSE: aşağıdaki satırı false yap. Başka hiçbir yer
      değişmez — bu satır tek başına anahtarı gizler (bkz. Ders #33'ten
-     önceki not: normalize() her değeri 'tr'ye çeker). */
+     önceki not: normalize() her değeri 'tr'ye çeker). Anahtar kapalıyken
+     dil 'tr'ye sabitlenir: kaynak dil odur, kullanıcı da geri
+     dönemeyeceği için İngilizcede kilitli kalmamalı. */
   var ANAHTAR_ACIK = true;
+
+  /* ------------------------------------------ VARSAYILAN DİL: EN ---
+     Eylül 2026: 36/36 konu çevrildi, site İngilizce açılıyor. Kullanıcı
+     anahtara basarsa seçimi `store.d.langSecildi` ile işaretlenir ve
+     sonraki açılışlarda korunur (bkz. core.js ve ui.js boot). */
+  var VARSAYILAN = 'en';
 
   /* ------------------------------------------------------- ARAYÜZ --- */
 
@@ -2583,6 +2600,22 @@ window.SAP = (function () {
       'level.Orta':      'Orta',
       'level.İleri':     'İleri',
 
+      /* İşlem kodu ve tablo TÜRÜ — data/tcodes.js ve data/tables.js'teki
+         `tur` alanının kapalı sözlüğü (level gibi). Detay sayfasındaki
+         etiket bunlardan basılır; eskiden ham veri basılıyordu ve
+         İngilizce sitede "İşlem", "Özelleştirme" görünüyordu. */
+      'tur.Ana Veri':     'Ana Veri',
+      'tur.Rapor':        'Rapor',
+      'tur.Teknik':       'Teknik',
+      'tur.Toplu İşlem':  'Toplu İşlem',
+      'tur.Özelleştirme': 'Özelleştirme',
+      'tur.İşlem':        'İşlem',
+      'tur.Hareket':      'Hareket',
+      'tur.Kayıt':        'Kayıt',
+      'tur.Sistem':       'Sistem',
+      'tur.Toplam':       'Toplam',
+      'tur.İndeks':       'İndeks',
+
       'ref.tcode':       'İşlem kodu',
       'ref.table':       'Tablo',
       'ref.term':        'Sözlük',
@@ -2590,6 +2623,11 @@ window.SAP = (function () {
       'ref.siblings':    'Aynı alandaki diğerleri',
       'ref.fields':      'Alanlar',
       'ref.related':     'İlgili terimler',
+      /* Detay sayfası panel başlıkları — eskiden views.js'e gömülüydü. */
+      'ref.keyFields':   'En önemli alanlar',
+      'ref.tableInTopics': 'Bu tablo şu konularda anlatılıyor',
+      'ref.definition':  'Tanım',
+      'ref.termInTopic': 'Bu terimin anlatıldığı konu',
 
       'fav.title':       'Favorilerim',
       'fav.empty':       'Henüz favori yok. Bir konunun yanındaki yıldıza bas.',
@@ -2603,8 +2641,17 @@ window.SAP = (function () {
       'search.title':    'Arama sonuçları',
       'search.topic':    'Konu',
       'search.empty':    'Sonuç bulunamadı.',
+      /* Sonuç satırındaki tür rozeti — search.js'teki `tur` alanı. */
+      'search.kind.topic': 'Konu',
+      'search.kind.tcode': 'İşlem kodu',
+      'search.kind.table': 'Tablo',
+      'search.kind.term':  'Terim',
       'nf.title':        'Sayfa bulunamadı',
       'nf.back':         'İçindekilere dön',
+      'nf.topic':        'Konu bulunamadı: ',
+      'nf.tcode':        'İşlem kodu sözlükte yok: ',
+      'nf.table':        'Tablo sözlükte yok: ',
+      'nf.term':         'Terim sözlükte yok: ',
 
 
       'jr.debit':        'Borç',
@@ -2669,6 +2716,18 @@ window.SAP = (function () {
       'level.Orta':      'Intermediate',
       'level.İleri':     'Advanced',
 
+      'tur.Ana Veri':     'Master Data',
+      'tur.Rapor':        'Report',
+      'tur.Teknik':       'Technical',
+      'tur.Toplu İşlem':  'Mass Processing',
+      'tur.Özelleştirme': 'Customizing',
+      'tur.İşlem':        'Transaction',
+      'tur.Hareket':      'Transactional',
+      'tur.Kayıt':        'Document',
+      'tur.Sistem':       'System',
+      'tur.Toplam':       'Totals',
+      'tur.İndeks':       'Index',
+
       'ref.tcode':       'Transaction code',
       'ref.table':       'Table',
       'ref.term':        'Glossary',
@@ -2676,6 +2735,10 @@ window.SAP = (function () {
       'ref.siblings':    'Others in the same area',
       'ref.fields':      'Fields',
       'ref.related':     'Related terms',
+      'ref.keyFields':   'Key fields',
+      'ref.tableInTopics': 'This table is covered in these topics',
+      'ref.definition':  'Definition',
+      'ref.termInTopic': 'Topic where this term is explained',
 
       'fav.title':       'Bookmarks',
       'fav.empty':       'No bookmarks yet. Use the star next to a topic.',
@@ -2689,8 +2752,16 @@ window.SAP = (function () {
       'search.title':    'Search results',
       'search.topic':    'Topic',
       'search.empty':    'Nothing found.',
+      'search.kind.topic': 'Topic',
+      'search.kind.tcode': 'Transaction',
+      'search.kind.table': 'Table',
+      'search.kind.term':  'Term',
       'nf.title':        'Page not found',
       'nf.back':         'Back to contents',
+      'nf.topic':        'Topic not found: ',
+      'nf.tcode':        'Transaction code not in the dictionary: ',
+      'nf.table':        'Table not in the dictionary: ',
+      'nf.term':         'Term not in the glossary: ',
 
 
       'jr.debit':        'Debit',
@@ -2944,11 +3015,11 @@ window.SAP = (function () {
 
   /* ----------------------------------------------------- MOTOR --- */
 
-  var dil = 'tr';
+  var dil = VARSAYILAN;
 
   function normalize(x) {
     if (!ANAHTAR_ACIK) return 'tr';
-    return DILLER.indexOf(x) !== -1 ? x : 'tr';
+    return DILLER.indexOf(x) !== -1 ? x : VARSAYILAN;
   }
 
   var i18n = {
@@ -2959,12 +3030,22 @@ window.SAP = (function () {
 
     get: function () { return dil; },
 
-    set: function (x) {
+    /* `kullaniciSecti` YALNIZCA dil anahtarına basıldığında true gelir
+       (ui.js set-lang). Açılıştaki çağrı bu bayrağı KURMAZ, yoksa
+       varsayılan ilk açılışta "kullanıcı tercihi" gibi diske yazılır ve
+       varsayılanı sonradan değiştirmek imkânsızlaşır. */
+    set: function (x, kullaniciSecti) {
       dil = normalize(x);
       SAP.store.d.lang = dil;
+      if (kullaniciSecti) SAP.store.d.langSecildi = true;
       SAP.store.save();
       document.documentElement.setAttribute('lang', dil);
       return dil;
+    },
+
+    /** Açılışta uygulanacak dil: kullanıcı seçtiyse onunki, yoksa varsayılan. */
+    baslangicDili: function () {
+      return SAP.store.d.langSecildi ? (SAP.store.d.lang || VARSAYILAN) : VARSAYILAN;
     },
 
     /** Arayüz metni. Anahtar yoksa anahtarın kendisi döner — sessiz
@@ -3001,6 +3082,9 @@ window.SAP = (function () {
 
     /** Seviye adı (Başlangıç / Orta / İleri). */
     seviye: function (lv) { return i18n.t('level.' + lv); },
+
+    /** İşlem kodu / tablo türü — kapalı sözlük, bkz. `tur.*`. */
+    tur: function (x) { return x ? i18n.t('tur.' + x) : ''; },
 
     /** Renderer etiketi (alt başlık, tablo sütunu). Karşılığı yoksa
         Türkçesi döner — eksik çeviri sayfayı kırmaz, sadece görünür. */
@@ -3314,6 +3398,21 @@ window.SAP = (function () {
     return out;
   }
 
+  /** {{...}} işaretlerini DÜZ METNE indirger — çip üretmeden.
+      Arama sonucu gibi HTML değil düz metin basan yerler için: orada
+      `esc()` kullanıldığı için işaret çipe dönüşmez, ekranda ham
+      `{{LFA1}}` olarak görünürdü. Etiket varsa etiket, yoksa önekten
+      arındırılmış anahtar yazılır: {{tablo:BSEG}} → BSEG. */
+  function duz(s) {
+    return String(s == null ? '' : s)
+      .replace(/\{\{([^}|]+)(?:\|([^}]*))?\}\}/g, function (_, anahtar, etiket) {
+        if (etiket) return etiket;
+        var i = anahtar.indexOf(':');
+        return i === -1 ? anahtar : anahtar.slice(i + 1);
+      });
+  }
+
+  SAP.mkDuz = duz;
   SAP.mk = mk;
   SAP.mkp = mkp;
   SAP.mkul = mkul;
@@ -88699,7 +88798,7 @@ SAP.registerTopic({
 
   SAP.view('konu', function (route) {
     var t = SAP.topic(route.parts[0]);
-    if (!t) return notFound('Konu bulunamadı: ' + esc(route.parts[0] || ''));
+    if (!t) return notFound(esc(T('nf.topic')) + esc(route.parts[0] || ''));
 
     var ids = SAP.sectionIds(t);
     var yuzde = SAP.store.percent(t.id);
@@ -88830,7 +88929,7 @@ SAP.registerTopic({
   SAP.view('tcode', function (route) {
     var kod = route.parts[0] || '';
     var x = SAP.tcode(kod);
-    if (!x) return notFound('İşlem kodu sözlükte yok: ' + esc(kod));
+    if (!x) return notFound(esc(T('nf.tcode')) + esc(kod));
 
     var konular = backlinks('tcode', x.kod);
     var ayniKonu = [];
@@ -88847,7 +88946,7 @@ SAP.registerTopic({
 
       '<div class="chiprow">' +
         '<span class="tag">' + esc(x.modul) + '</span>' +
-        '<span class="tag ready">' + esc(x.tur) + '</span>' +
+        '<span class="tag ready">' + esc(SAP.i18n.tur(x.tur)) + '</span>' +
       '</div>' +
 
       (x.s4 ? U.note('warn', SAP.i18n.etiket('S/4HANA’daki durumu'), x.s4) : '') +
@@ -88869,7 +88968,7 @@ SAP.registerTopic({
   SAP.view('tablo', function (route) {
     var ad = route.parts[0] || '';
     var x = SAP.table(ad);
-    if (!x) return notFound('Tablo sözlükte yok: ' + esc(ad));
+    if (!x) return notFound(esc(T('nf.table')) + esc(ad));
 
     var konular = backlinks('table', x.ad);
 
@@ -88882,7 +88981,7 @@ SAP.registerTopic({
 
       '<div class="chiprow">' +
         '<span class="tag">' + esc(x.modul) + '</span>' +
-        '<span class="tag ready">' + esc(x.tur) + '</span>' +
+        '<span class="tag ready">' + esc(SAP.i18n.tur(x.tur)) + '</span>' +
       '</div>' +
 
       U.kv([
@@ -88891,7 +88990,7 @@ SAP.registerTopic({
       ]) +
 
       (x.alanlar && x.alanlar.length
-        ? '<div class="panel"><h3>En önemli alanlar</h3>' +
+        ? '<div class="panel"><h3>' + esc(T('ref.keyFields')) + '</h3>' +
           U.tbl([{ ad:'Alan', w:'22%', mono:true }, { ad:'Ne işe yarar' }],
             x.alanlar.map(function (a) {
               return [a.ad + (a.tip === 'pk' ? '  · PK' : a.tip === 'fk' ? '  · FK' : ''), a.aciklama];
@@ -88901,7 +89000,7 @@ SAP.registerTopic({
       (x.s4 ? U.note('warn', SAP.i18n.etiket('S/4HANA’daki yapısı'), x.s4) : '') +
 
       (konular.length
-        ? '<div class="panel"><h3>Bu tablo şu konularda anlatılıyor</h3>' + relatedGrid(konular.map(function (t) { return t.id; })) + '</div>'
+        ? '<div class="panel"><h3>' + esc(T('ref.tableInTopics')) + '</h3>' + relatedGrid(konular.map(function (t) { return t.id; })) + '</div>'
         : (x.konu && SAP.topic(x.konu)
             ? '<div class="panel"><h3>' + esc(T('ref.usedIn')) + '</h3>' + relatedGrid([x.konu]) + '</div>' : '')) +
     '</div>';
@@ -88912,39 +89011,62 @@ SAP.registerTopic({
   SAP.view('terim', function (route) {
     var k = route.parts[0] || '';
     var x = SAP.term(k);
-    if (!x) return notFound('Terim sözlükte yok: ' + esc(k));
+    if (!x) return notFound(esc(T('nf.term')) + esc(k));
+
+    /* Başlık ve alt başlık DİLE GÖRE yer değiştirir: EN modda İngilizce
+       ad başa geçer, Türkçesi altta kalır (markup.js'teki terim çipiyle
+       aynı kural). Eskiden her iki modda da Türkçe ad başlıktaydı. */
+    var enMod = SAP.i18n.get() === 'en' && x.en;
+    var ust = enMod ? x.en : x.ad;
+    var alt = enMod ? x.ad : x.en;
+
+    /* `ilgili` listesi KARIŞIK: çoğu sözlük anahtarı ama bazıları konu
+       id'si ('lsmw', 'data-upload', 'error-handling'). Hepsine `terim:`
+       öneki basılınca altı terim sayfasında kırık çip (.ref-miss)
+       oluşuyordu — konu denetimi bunu görmüyor çünkü hata sözlük
+       verisinde, konu gövdesinde değil. Artık her giriş kendi türüne
+       çözülüyor. */
+    var iliskili = (x.ilgili || []).map(function (id) {
+      return (SAP.term(id) ? 'terim:' : SAP.topic(id) ? 'konu:' : 'terim:') + id;
+    });
 
     return '<div class="wrap">' +
       '<div class="dt-head">' +
         '<div class="dt-badge">' + esc(T('ref.term')) + '</div>' +
-        '<div class="bd"><h1>' + esc(x.ad) + '</h1>' +
-          '<div class="lede">' + esc(x.en) + '</div></div>' +
+        '<div class="bd"><h1>' + esc(ust) + '</h1>' +
+          '<div class="lede">' + esc(alt) + '</div></div>' +
       '</div>' +
 
-      '<div class="panel"><h3>Tanım</h3><div class="prose">' + mkp(x.aciklama) + '</div>' +
+      '<div class="panel"><h3>' + esc(T('ref.definition')) + '</h3>' +
+        '<div class="prose">' + mkp(x.aciklama) + '</div>' +
         (x.detay ? '<div class="prose" style="margin-top:12px">' + mkp(x.detay) + '</div>' : '') +
       '</div>' +
 
-      (x.ilgili && x.ilgili.length
-        ? '<div class="panel"><h3>İlişkili terimler</h3>' + U.chips(x.ilgili, 'terim') + '</div>'
+      (iliskili.length
+        ? '<div class="panel"><h3>' + esc(T('ref.related')) + '</h3>' + U.chips(iliskili) + '</div>'
         : '') +
 
       (x.konu && SAP.topic(x.konu)
-        ? '<div class="panel"><h3>Bu terimin anlatıldığı konu</h3>' + relatedGrid([x.konu]) + '</div>'
+        ? '<div class="panel"><h3>' + esc(T('ref.termInTopic')) + '</h3>' + relatedGrid([x.konu]) + '</div>'
         : '') +
     '</div>';
   });
 
   /* ================================================ FAVORİLER ==== */
 
+  /* ⚠️ Burası bir zamanlar `topicCard` ile kart ızgarası basıyordu. Kart
+     ızgarası tasarım yenilemesinde kaldırıldı (§5b) ama bu satır
+     güncellenmedi: favori VARKEN sayfa `topicCard is not defined` ile
+     çöküyordu. Boş durumda çökmediği için de gözden kaçmıştı — denetim
+     setinde favori dolu senaryosu yoktu (bkz. son-kontrol-genel.mjs).
+     Artık ilgili konular listesiyle aynı bileşen kullanılıyor. */
   SAP.view('favoriler', function () {
-    var list = SAP.store.d.favorites.map(SAP.topic).filter(Boolean);
-    return '<div class="wrap-full">' +
+    var list = SAP.store.d.favorites.filter(function (id) { return SAP.topic(id); });
+    return '<div class="wrap">' +
       '<header class="toc-head"><h1>' + esc(T('fav.title')) + '</h1></header>' +
       (list.length
-        ? '<div class="cards">' + list.map(topicCard).join('') + '</div>'
-        : '<div class="empty">Henüz favori konu yok.<br>' +
-          'Bir konu kartındaki yıldıza tıklayarak ekleyebilirsin.</div>') +
+        ? relatedGrid(list)
+        : '<div class="empty">' + esc(T('fav.empty')) + '</div>') +
     '</div>';
   });
 
@@ -88959,15 +89081,18 @@ SAP.registerTopic({
       (ids.length
         ? ids.map(function (id) {
             var t = SAP.topic(id);
+            /* Başlık i18n'den gelir (eskiden ham `t.title` idi: İngilizce
+               sitede Türkçe başlık görünüyordu) ve `t.icon` BASILMAZ —
+               katalogdaki ikonlar emoji, arayüzde emoji yok (theme.css
+               ilke 5). Bu sayfa denetlenmediği için ikisi de kaçmıştı. */
             return '<div class="panel" style="--h:' + (t.hue || 274) + '">' +
-              '<h3>' + esc(t.icon) + ' ' + esc(t.title) +
+              '<h3>' + esc(bas(t)) +
                 '<a class="btn sm" style="margin-left:auto" data-go="#/konu/' + esc(id) + '" ' +
                 'href="#/konu/' + esc(id) + '">' + esc(T('home.start')) + '</a></h3>' +
               '<div class="prose" style="white-space:pre-wrap">' + esc(notes[id]) + '</div>' +
             '</div>';
           }).join('')
-        : '<div class="empty">Henüz not yok.<br>' +
-          'Bir konunun "Öğrenme Bölümü" kısmındaki not alanını kullanabilirsin.</div>') +
+        : '<div class="empty">' + esc(T('notes.empty')) + '</div>') +
     '</div>';
   });
 
@@ -88982,20 +89107,22 @@ SAP.registerTopic({
       '<p>“' + esc(q) + '” · <span class="tnum">' + res.length + '</span></p></header>' +
       (res.length
         ? '<div class="panel">' + res.map(function (r) {
+            /* `r.ic` KALDIRILDI: search.js böyle bir alan üretmiyor (emoji
+               döneminden kalma), esc(undefined) boş span basıyordu. */
             return '<a class="pres" data-go="' + esc(r.href) + '" href="' + esc(r.href) + '">' +
-              '<span class="ic">' + esc(r.ic) + '</span>' +
               '<span class="bd"><b>' + esc(r.baslik) + '</b><span>' + esc(r.alt) + '</span></span>' +
-              '<span class="kind">' + esc(r.tur) + '</span></a>';
+              '<span class="kind">' + esc(T('search.kind.' + r.tur)) + '</span></a>';
           }).join('') + '</div>'
-        : '<div class="empty">Sonuç yok. Farklı bir terim dene.</div>') +
+        : '<div class="empty">' + esc(T('search.empty')) + '</div>') +
     '</div>';
   });
 
   /* ================================================ BULUNAMADI ==== */
 
   function notFound(msg) {
-    return '<div class="empty">' + (msg || 'Sayfa bulunamadı.') +
-      '<br><button class="btn sm" style="margin-top:12px" data-go="#/">Ana sayfaya dön</button></div>';
+    return '<div class="empty">' + (msg || esc(T('nf.title'))) +
+      '<br><button class="btn sm" style="margin-top:12px" data-go="#/">' +
+      esc(T('nf.back')) + '</button></div>';
   }
   SAP.view('notfound', function () { return notFound(); });
 
@@ -89160,13 +89287,20 @@ SAP.registerTopic({
       });
     });
 
+    /* Terimde görünen ad DİLE BAĞLI (markup.js'teki terim çipiyle aynı
+       kural: EN modda x.en). Açıklama SAP.mkDuz'dan geçer: sonuç satırı
+       esc() ile basıldığı için içindeki {{...}} işaretleri çipe
+       dönüşmez, ham görünürdü — sözlük tanımları işaret taşıyor. */
     SAP.termMap.forEach(function (x, k) {
+      var en = SAP.i18n.get() === 'en' && x.en;
+      var ad = en ? x.en : x.ad;
+      var aciklama = SAP.mkDuz(x.aciklama);
       ix.push({
-        tur: 'term', baslik: x.ad,
-        alt: x.en + ' — ' + x.aciklama,
+        tur: 'term', baslik: ad,
+        alt: (en ? '' : x.en + ' — ') + aciklama,
         href: '#/terim/' + encodeURIComponent(k),
-        anahtar: SAP.norm(x.ad + ' ' + x.en + ' ' + x.aciklama),
-        ad: SAP.norm(x.ad),
+        anahtar: SAP.norm(x.ad + ' ' + x.en + ' ' + aciklama),
+        ad: SAP.norm(ad),
         agirlik: 1,
       });
     });
@@ -89246,7 +89380,7 @@ SAP.registerTopic({
     var next = cur === 'dark' ? 'light' : 'dark';
     SAP.store.d.theme = next;
     SAP.store.save();
-    SAP.i18n.set(SAP.store.d.lang || 'tr');
+    SAP.i18n.set(SAP.i18n.get());
     applyTheme(next);
     /* ER diyagram çizgileri renk değişkeni kullandığı için yeniden çizilir. */
     if (SAP.diagram) SAP.diagram.drawER(document);
@@ -89348,7 +89482,7 @@ SAP.registerTopic({
 
   SAP.action('set-lang', function (btn) {
     if (btn.dataset.l === SAP.i18n.get()) return;
-    SAP.i18n.set(btn.dataset.l);
+    SAP.i18n.set(btn.dataset.l, true);   /* true = kullanıcı bilinçli seçti */
     SAP.render();
     applyTheme(document.documentElement.getAttribute('data-theme') || 'light');
   });
@@ -89596,8 +89730,10 @@ SAP.registerTopic({
 
   function boot() {
     SAP.store.load();
-    /* Dil temadan ÖNCE kurulur: applyTheme düğme etiketini i18n'den okur. */
-    SAP.i18n.set(SAP.store.d.lang || 'tr');
+    /* Dil temadan ÖNCE kurulur: applyTheme düğme etiketini i18n'den okur.
+       baslangicDili(): kullanıcı anahtara bastıysa onun seçimi, yoksa
+       varsayılan (en) — bkz. i18n.js VARSAYILAN. */
+    SAP.i18n.set(SAP.i18n.baslangicDili());
     applyTheme(SAP.store.d.theme || sysTheme());
 
     /* Kullanıcı sistem temasını değiştirirse ve elle seçim yapılmadıysa uy. */

@@ -124,7 +124,12 @@ window.SAP = (function () {
       notes: {},        // { topicId: 'metin' }
       quiz: {},         // { topicId: { dogru, toplam, ts } }
       lastRoute: '',
-      lang: 'tr',          // arayüz dili — bkz. i18n.js
+      lang: 'en',          // arayüz dili — VARSAYILAN İNGİLİZCE, bkz. i18n.js
+      langSecildi: false,  /* Kullanıcı dil anahtarına BASTI mı?
+         Ayrı tutulur çünkü i18n.set() her açılışta `lang`i diske yazar:
+         o alana bakıp "kullanıcı tercihi" diyemeyiz, herkeste dolu olur.
+         false ise açılışta varsayılan (en) uygulanır — eski ziyaretçiler
+         de İngilizce açılır. true ise kullanıcının seçimi korunur. */
       railKapali: false,   // geniş ekranda gezinme sütunu katlı mı
       acikGrup: {},        // { grupId: 1 } — kenar çubuğunda AÇILMIŞ gruplar
       kapaliBolum: {},     // { 'tid:sid': 1 } — konu sayfasında katlanmış bölümler
@@ -152,7 +157,8 @@ window.SAP = (function () {
     reset: function () {
       try { localStorage.removeItem(KEY); } catch (e) {}
       store.d = { theme: store.d.theme, progress: {}, favorites: [], notes: {}, quiz: {},
-                  lastRoute: '', lang: store.d.lang, railKapali: false,
+                  lastRoute: '', lang: store.d.lang, langSecildi: store.d.langSecildi,
+                  railKapali: false,
                   acikGrup: {}, kapaliBolum: {}, acikDizin: {} };
     },
 

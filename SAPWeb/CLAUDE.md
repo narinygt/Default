@@ -12,6 +12,11 @@ tam İngilizce.** Dokuz grubun tamamı çevrildi; hiçbir konuda artık
 `.lang-notice` uyarısı çıkmıyor. Mekanizma (konu bazında kısmi çeviriye
 izin veren `sections_en` katmanı) yerinde duruyor — ileride konu
 eklenirse yalnız o konu Türkçe kalır, sayfa kırılmaz — bkz. §10.
+**Site artık VARSAYILAN olarak İNGİLİZCE açılıyor** (`js/i18n.js`
+`VARSAYILAN`); kullanıcı anahtara basarsa seçimi kalıcı olur — bkz. §10
+"Varsayılan dil". **Sözlük gövdeleri hâlâ Türkçe:** 262 işlem kodu, 92
+tablo ve 164 terimin AÇIKLAMALARI çevrilmedi (adlar çevrili). Sıradaki
+iş bu — bkz. §10 sonundaki not.
 
 > ⭐ **ARAYÜZ BAŞTAN TASARLANDI — "Dijital muhasebe defteri".**
 > İçerik ve işlevler aynı; değişen görsel dil ve yerleşim (bkz. §5b).
@@ -1744,6 +1749,29 @@ FI kataloğu bittiği için sıradaki iş **içerik değil**. İki yön:
 `js/i18n.js`. Anahtar sağ üst köşede (`ANAHTAR_ACIK = true`); seçim
 `localStorage`'a yazılır.
 
+### ⭐ Varsayılan dil: İNGİLİZCE — ve "seçildi mi" ayrımı
+
+`js/i18n.js` → `VARSAYILAN = 'en'`. Site ilk açılışta İngilizce gelir.
+
+⚠️ **Tuzak:** `i18n.set()` HER açılışta `store.d.lang`'i diske yazıyor.
+Yani "kayıtlı dil" alanına bakıp *"kullanıcı bunu seçmiş"* denemez —
+o alan herkeste dolu olur. Varsayılanı `'tr'`den `'en'`e çevirmek tek
+başına yetmezdi: daha önce siteye girmiş herkeste `lang:'tr'` yazılı
+olduğu için hepsi Türkçe açılmaya devam ederdi (ve değişiklik "çalışmadı"
+gibi görünürdü — geliştiricinin kendi tarayıcısı dahil).
+
+Çözüm **ayrı bir bayrak**: `store.d.langSecildi` YALNIZCA dil anahtarına
+basıldığında `true` olur (`ui.js` → `set-lang` → `i18n.set(x, true)`).
+Açılışta `i18n.baslangicDili()` çalışır: bayrak yoksa varsayılan,
+varsa kullanıcının seçimi. Böylece eski ziyaretçiler de İngilizce açılır
+ama ilerleme/favori/not kayıtları korunur (depo sıfırlanmaz).
+
+`ANAHTAR_ACIK = false` yapılırsa dil `'tr'`ye sabitlenir (varsayılana
+değil): kaynak dil odur ve anahtar gizliyken kullanıcı geri dönemez.
+
+`index.html`'de `<html lang="en">` ve İngilizce `meta description` —
+JS çalışana kadarki durum da varsayılanla tutarlı olsun diye.
+
 ⭐ **Kaynak dil kuralı:** `catalog.js`'teki `title` alanı **Türkçedir**.
 İngilizce karşılıklar `TOPICS_EN`'de duruyor.
 
@@ -1925,3 +1953,61 @@ geçip geçmediği elle doğrulanır.
 konu sözlüğü + `DILLER` dizisine bir kod + (isteğe bağlı)
 `content/<dil>-en/` benzeri bir gövde çeviri klasörü. Motorda değişiklik
 gerekmez.
+
+### ⭐ Ders #34 — Denetim yalnız KONU sayfalarını geziyordu; hata
+### konu-dışı yüzeylerde birikmişti
+
+Varsayılan dil EN'e çevrilirken tüm site tarandı (`son-kontrol-genel.mjs`:
+36 konu + 262 tcode + 92 tablo + 164 terim + ana sayfa/favoriler/notlar/
+arama, **iki dilde**). Çıkan hataların hiçbiri konu sayfalarında değildi
+— çünkü `check.mjs` ve `en-full.mjs` yalnız orayı geziyordu:
+
+1. **`#/favoriler` FAVORİ VARKEN ÇÖKÜYORDU.** `views.js` kaldırılmış
+   `topicCard()`'ı çağırıyordu (kart ızgarası §5b'de kaldırıldı, bu satır
+   güncellenmedi) → `ReferenceError`, sayfa hiç çizilmiyordu. **Boş
+   durumda çökmediği için** aylarca görünmedi: denetimde favori dolu
+   senaryosu yoktu. Artık `relatedGrid()` kullanılıyor.
+2. **Arama sonucunda ham `{{LFA1}}`.** Sözlük tanımları `{{...}}` işareti
+   taşıyor; arama satırı `esc()` ile basıldığı için işaret çipe
+   dönüşmüyor, ekranda ham görünüyordu. Çözüm: `SAP.mkDuz()` — işareti
+   düz metne indirger. `check.mjs`'in "ham {{" ekseni bunu görmezdi,
+   çünkü o eksen konu sayfalarına bakıyor.
+3. **Altı terimde kırık çip.** `glossary.js`'te `ilgili:[...]` listeleri
+   terim anahtarı bekliyor ama bazıları KONU id'si (`lsmw`,
+   `data-upload`, `error-handling`). Görünüm hepsine `terim:` öneki
+   basınca `.ref-miss` çıkıyordu. Artık her giriş kendi türüne çözülüyor
+   (`SAP.term(id) ? 'terim:' : SAP.topic(id) ? 'konu:' : …`).
+   `auditRefs()` bunu yakalamaz: hata konu gövdesinde değil, sözlük
+   verisinde.
+4. **Konu-dışı yüzeylerde gömülü Türkçe** (Ders #33'ün aynısı, başka
+   yerde): favoriler/notlar boş durum metinleri, "Sonuç yok…",
+   "Sayfa bulunamadı", "Tanım", "İlişkili terimler", tcode/tablo tür
+   rozeti (`İşlem`, `Özelleştirme`…). **Çoğunun i18n anahtarı zaten
+   vardı** (`fav.empty`, `notes.empty`, `search.empty`, `nf.*`) —
+   görünümler onları kullanmayıp Türkçeyi gömmüştü. Tür rozeti için
+   `tur.*` sözlüğü + `i18n.tur()` eklendi (kapalı küme, `level.*` gibi).
+5. **Notlar sayfası emoji basıyordu** (`t.icon`) ve konu başlığını ham
+   `t.title` ile yazıyordu → EN modda Türkçe başlık. "Sıfır emoji" ilkesi
+   (theme.css #5) bu sayfada delinmişti; emoji denetimi de yalnız konu
+   sayfalarına bakıyordu.
+
+**Ders:** bir denetim **gezmediği sayfada hata bulamaz** — ve hata tam
+olarak oraya birikir. Ekseni çoğaltmak yetmez, **yüzey listesini**
+genişletmek gerekir. Ayrıca **boş durum ≠ dolu durum**: favoriler/notlar
+gibi veriye bağlı sayfalar denetimde DOLU halde de açılmalı; bu oturumda
+çöken sayfa tam olarak buydu.
+
+### 📌 Sıradaki iş — sözlük gövdeleri hâlâ Türkçe
+
+Konu gövdeleri 36/36 çevrildi ama **sözlük AÇIKLAMALARI çevrilmedi**:
+- `data/tcodes.js` — 262 işlem kodu, `en:` alanı **yok** (0 adet).
+- `data/tables.js` — 92 tablo, yalnız 2 `en:` alanı var.
+- `data/glossary.js` — 164 terimin **adı** çevrili (`en:` var, 165 adet)
+  ama `aciklama`/`detay` Türkçe.
+
+Sonuç: İngilizce sitede bir tcode/tablo çipine tıklayınca açılan detay
+sayfasının gövdesi Türkçe geliyor. Ad/rozet/başlık çevrili olduğu için
+sayfa kırılmıyor, sadece iki dilli görünüyor. Çözüm deseni `sections_en`
+ile aynı olmalı: sözlük girdilerine `aciklama_en` / `detay_en` alanları
+ekleyip okuyucuyu dile duyarlı hale getirmek (tek yer: `views.js` detay
+görünümleri + `search.js` indeksi).

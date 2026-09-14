@@ -281,6 +281,21 @@
     return out;
   }
 
+  /** {{...}} işaretlerini DÜZ METNE indirger — çip üretmeden.
+      Arama sonucu gibi HTML değil düz metin basan yerler için: orada
+      `esc()` kullanıldığı için işaret çipe dönüşmez, ekranda ham
+      `{{LFA1}}` olarak görünürdü. Etiket varsa etiket, yoksa önekten
+      arındırılmış anahtar yazılır: {{tablo:BSEG}} → BSEG. */
+  function duz(s) {
+    return String(s == null ? '' : s)
+      .replace(/\{\{([^}|]+)(?:\|([^}]*))?\}\}/g, function (_, anahtar, etiket) {
+        if (etiket) return etiket;
+        var i = anahtar.indexOf(':');
+        return i === -1 ? anahtar : anahtar.slice(i + 1);
+      });
+  }
+
+  SAP.mkDuz = duz;
   SAP.mk = mk;
   SAP.mkp = mkp;
   SAP.mkul = mkul;

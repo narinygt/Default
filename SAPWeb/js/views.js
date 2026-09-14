@@ -170,7 +170,7 @@
 
   SAP.view('konu', function (route) {
     var t = SAP.topic(route.parts[0]);
-    if (!t) return notFound('Konu bulunamadı: ' + esc(route.parts[0] || ''));
+    if (!t) return notFound(esc(T('nf.topic')) + esc(route.parts[0] || ''));
 
     var ids = SAP.sectionIds(t);
     var yuzde = SAP.store.percent(t.id);
@@ -301,7 +301,7 @@
   SAP.view('tcode', function (route) {
     var kod = route.parts[0] || '';
     var x = SAP.tcode(kod);
-    if (!x) return notFound('İşlem kodu sözlükte yok: ' + esc(kod));
+    if (!x) return notFound(esc(T('nf.tcode')) + esc(kod));
 
     var konular = backlinks('tcode', x.kod);
     var ayniKonu = [];
@@ -318,7 +318,7 @@
 
       '<div class="chiprow">' +
         '<span class="tag">' + esc(x.modul) + '</span>' +
-        '<span class="tag ready">' + esc(x.tur) + '</span>' +
+        '<span class="tag ready">' + esc(SAP.i18n.tur(x.tur)) + '</span>' +
       '</div>' +
 
       (x.s4 ? U.note('warn', SAP.i18n.etiket('S/4HANA’daki durumu'), x.s4) : '') +
@@ -340,7 +340,7 @@
   SAP.view('tablo', function (route) {
     var ad = route.parts[0] || '';
     var x = SAP.table(ad);
-    if (!x) return notFound('Tablo sözlükte yok: ' + esc(ad));
+    if (!x) return notFound(esc(T('nf.table')) + esc(ad));
 
     var konular = backlinks('table', x.ad);
 
@@ -353,7 +353,7 @@
 
       '<div class="chiprow">' +
         '<span class="tag">' + esc(x.modul) + '</span>' +
-        '<span class="tag ready">' + esc(x.tur) + '</span>' +
+        '<span class="tag ready">' + esc(SAP.i18n.tur(x.tur)) + '</span>' +
       '</div>' +
 
       U.kv([
@@ -362,7 +362,7 @@
       ]) +
 
       (x.alanlar && x.alanlar.length
-        ? '<div class="panel"><h3>En önemli alanlar</h3>' +
+        ? '<div class="panel"><h3>' + esc(T('ref.keyFields')) + '</h3>' +
           U.tbl([{ ad:'Alan', w:'22%', mono:true }, { ad:'Ne işe yarar' }],
             x.alanlar.map(function (a) {
               return [a.ad + (a.tip === 'pk' ? '  · PK' : a.tip === 'fk' ? '  · FK' : ''), a.aciklama];
@@ -372,7 +372,7 @@
       (x.s4 ? U.note('warn', SAP.i18n.etiket('S/4HANA’daki yapısı'), x.s4) : '') +
 
       (konular.length
-        ? '<div class="panel"><h3>Bu tablo şu konularda anlatılıyor</h3>' + relatedGrid(konular.map(function (t) { return t.id; })) + '</div>'
+        ? '<div class="panel"><h3>' + esc(T('ref.tableInTopics')) + '</h3>' + relatedGrid(konular.map(function (t) { return t.id; })) + '</div>'
         : (x.konu && SAP.topic(x.konu)
             ? '<div class="panel"><h3>' + esc(T('ref.usedIn')) + '</h3>' + relatedGrid([x.konu]) + '</div>' : '')) +
     '</div>';
@@ -383,39 +383,62 @@
   SAP.view('terim', function (route) {
     var k = route.parts[0] || '';
     var x = SAP.term(k);
-    if (!x) return notFound('Terim sözlükte yok: ' + esc(k));
+    if (!x) return notFound(esc(T('nf.term')) + esc(k));
+
+    /* Başlık ve alt başlık DİLE GÖRE yer değiştirir: EN modda İngilizce
+       ad başa geçer, Türkçesi altta kalır (markup.js'teki terim çipiyle
+       aynı kural). Eskiden her iki modda da Türkçe ad başlıktaydı. */
+    var enMod = SAP.i18n.get() === 'en' && x.en;
+    var ust = enMod ? x.en : x.ad;
+    var alt = enMod ? x.ad : x.en;
+
+    /* `ilgili` listesi KARIŞIK: çoğu sözlük anahtarı ama bazıları konu
+       id'si ('lsmw', 'data-upload', 'error-handling'). Hepsine `terim:`
+       öneki basılınca altı terim sayfasında kırık çip (.ref-miss)
+       oluşuyordu — konu denetimi bunu görmüyor çünkü hata sözlük
+       verisinde, konu gövdesinde değil. Artık her giriş kendi türüne
+       çözülüyor. */
+    var iliskili = (x.ilgili || []).map(function (id) {
+      return (SAP.term(id) ? 'terim:' : SAP.topic(id) ? 'konu:' : 'terim:') + id;
+    });
 
     return '<div class="wrap">' +
       '<div class="dt-head">' +
         '<div class="dt-badge">' + esc(T('ref.term')) + '</div>' +
-        '<div class="bd"><h1>' + esc(x.ad) + '</h1>' +
-          '<div class="lede">' + esc(x.en) + '</div></div>' +
+        '<div class="bd"><h1>' + esc(ust) + '</h1>' +
+          '<div class="lede">' + esc(alt) + '</div></div>' +
       '</div>' +
 
-      '<div class="panel"><h3>Tanım</h3><div class="prose">' + mkp(x.aciklama) + '</div>' +
+      '<div class="panel"><h3>' + esc(T('ref.definition')) + '</h3>' +
+        '<div class="prose">' + mkp(x.aciklama) + '</div>' +
         (x.detay ? '<div class="prose" style="margin-top:12px">' + mkp(x.detay) + '</div>' : '') +
       '</div>' +
 
-      (x.ilgili && x.ilgili.length
-        ? '<div class="panel"><h3>İlişkili terimler</h3>' + U.chips(x.ilgili, 'terim') + '</div>'
+      (iliskili.length
+        ? '<div class="panel"><h3>' + esc(T('ref.related')) + '</h3>' + U.chips(iliskili) + '</div>'
         : '') +
 
       (x.konu && SAP.topic(x.konu)
-        ? '<div class="panel"><h3>Bu terimin anlatıldığı konu</h3>' + relatedGrid([x.konu]) + '</div>'
+        ? '<div class="panel"><h3>' + esc(T('ref.termInTopic')) + '</h3>' + relatedGrid([x.konu]) + '</div>'
         : '') +
     '</div>';
   });
 
   /* ================================================ FAVORİLER ==== */
 
+  /* ⚠️ Burası bir zamanlar `topicCard` ile kart ızgarası basıyordu. Kart
+     ızgarası tasarım yenilemesinde kaldırıldı (§5b) ama bu satır
+     güncellenmedi: favori VARKEN sayfa `topicCard is not defined` ile
+     çöküyordu. Boş durumda çökmediği için de gözden kaçmıştı — denetim
+     setinde favori dolu senaryosu yoktu (bkz. son-kontrol-genel.mjs).
+     Artık ilgili konular listesiyle aynı bileşen kullanılıyor. */
   SAP.view('favoriler', function () {
-    var list = SAP.store.d.favorites.map(SAP.topic).filter(Boolean);
-    return '<div class="wrap-full">' +
+    var list = SAP.store.d.favorites.filter(function (id) { return SAP.topic(id); });
+    return '<div class="wrap">' +
       '<header class="toc-head"><h1>' + esc(T('fav.title')) + '</h1></header>' +
       (list.length
-        ? '<div class="cards">' + list.map(topicCard).join('') + '</div>'
-        : '<div class="empty">Henüz favori konu yok.<br>' +
-          'Bir konu kartındaki yıldıza tıklayarak ekleyebilirsin.</div>') +
+        ? relatedGrid(list)
+        : '<div class="empty">' + esc(T('fav.empty')) + '</div>') +
     '</div>';
   });
 
@@ -430,15 +453,18 @@
       (ids.length
         ? ids.map(function (id) {
             var t = SAP.topic(id);
+            /* Başlık i18n'den gelir (eskiden ham `t.title` idi: İngilizce
+               sitede Türkçe başlık görünüyordu) ve `t.icon` BASILMAZ —
+               katalogdaki ikonlar emoji, arayüzde emoji yok (theme.css
+               ilke 5). Bu sayfa denetlenmediği için ikisi de kaçmıştı. */
             return '<div class="panel" style="--h:' + (t.hue || 274) + '">' +
-              '<h3>' + esc(t.icon) + ' ' + esc(t.title) +
+              '<h3>' + esc(bas(t)) +
                 '<a class="btn sm" style="margin-left:auto" data-go="#/konu/' + esc(id) + '" ' +
                 'href="#/konu/' + esc(id) + '">' + esc(T('home.start')) + '</a></h3>' +
               '<div class="prose" style="white-space:pre-wrap">' + esc(notes[id]) + '</div>' +
             '</div>';
           }).join('')
-        : '<div class="empty">Henüz not yok.<br>' +
-          'Bir konunun "Öğrenme Bölümü" kısmındaki not alanını kullanabilirsin.</div>') +
+        : '<div class="empty">' + esc(T('notes.empty')) + '</div>') +
     '</div>';
   });
 
@@ -453,20 +479,22 @@
       '<p>“' + esc(q) + '” · <span class="tnum">' + res.length + '</span></p></header>' +
       (res.length
         ? '<div class="panel">' + res.map(function (r) {
+            /* `r.ic` KALDIRILDI: search.js böyle bir alan üretmiyor (emoji
+               döneminden kalma), esc(undefined) boş span basıyordu. */
             return '<a class="pres" data-go="' + esc(r.href) + '" href="' + esc(r.href) + '">' +
-              '<span class="ic">' + esc(r.ic) + '</span>' +
               '<span class="bd"><b>' + esc(r.baslik) + '</b><span>' + esc(r.alt) + '</span></span>' +
-              '<span class="kind">' + esc(r.tur) + '</span></a>';
+              '<span class="kind">' + esc(T('search.kind.' + r.tur)) + '</span></a>';
           }).join('') + '</div>'
-        : '<div class="empty">Sonuç yok. Farklı bir terim dene.</div>') +
+        : '<div class="empty">' + esc(T('search.empty')) + '</div>') +
     '</div>';
   });
 
   /* ================================================ BULUNAMADI ==== */
 
   function notFound(msg) {
-    return '<div class="empty">' + (msg || 'Sayfa bulunamadı.') +
-      '<br><button class="btn sm" style="margin-top:12px" data-go="#/">Ana sayfaya dön</button></div>';
+    return '<div class="empty">' + (msg || esc(T('nf.title'))) +
+      '<br><button class="btn sm" style="margin-top:12px" data-go="#/">' +
+      esc(T('nf.back')) + '</button></div>';
   }
   SAP.view('notfound', function () { return notFound(); });
 

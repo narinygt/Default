@@ -237,6 +237,18 @@
   cursor: pointer;
 }
 .side-label .tx { flex: 1; min-width: 0; }
+/* Kenar çubuğunda grup işareti: adın SOLUNDA 3px'lik dikey şerit.
+   Metnin kendisi --ink-3 kalır (uzun listede dokuz renkli başlık
+   yorucu olurdu); renk yalnızca işarette. Çizgi olduğu için 3:1
+   yeterli — --grup-l-ln. */
+.side-label::before {
+  content: '';
+  flex: 0 0 3px;
+  align-self: stretch;
+  margin: 2px 0;
+  border-radius: 1px;
+  background: hsl(var(--h) var(--grup-s) var(--grup-l-ln));
+}
 .side-label .chev {
   display: flex;
   transition: transform .2s var(--ease);
@@ -307,6 +319,10 @@
    Tek eylem üstte durur; gerisi numaralı bir dizindir. */
 
 .toc-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--sp-4);
   padding-bottom: var(--sp-4);
   margin-bottom: var(--sp-2);
 }
@@ -314,6 +330,11 @@
   font-size: var(--t-title);
   font-weight: 600;
 }
+/* T-hesap motifi — künyenin sağ ucunda, soluk. Metin değil, bu yüzden
+   --ink-4 serbest (1.4.11 bile aranmaz: tamamen dekoratif, aria-hidden).
+   Dar ekranda GİZLENİR: 360px'te başlıkla yarışır. */
+.t-motif { flex: none; color: var(--ink-4); opacity: .55; }
+@media (max-width: 560px) { .t-motif { display: none; } }
 
 /* --- Tek eylem: kaldığın yerden devam et --- */
 .resume {
@@ -374,14 +395,28 @@
   margin-bottom: var(--sp-2);
   border-bottom: 1px solid var(--rule);
 }
+/* Bölüm numarası GRUBUN TONUNDA. Dizinin tek renk sinyali bu; dokuz
+   bölüm birbirinden bakışla ayrılır. Ton `--h` ile markup'tan gelir,
+   doygunluk/açıklık theme.css'te sabittir (kontrast oradan kontrol
+   edilir). `--h` yoksa marka yeşiline düşer. */
 .part-n {
   font-family: var(--font-mono);
   font-size: var(--t-num);
-  color: var(--ink-3);
+  color: hsl(var(--h) var(--grup-s) var(--grup-l));
   letter-spacing: .06em;
-  border-right: 1px solid var(--rule);
+  border-right: 2px solid hsl(var(--h) var(--grup-s) var(--grup-l-ln));
   padding-right: var(--sp-4);
   min-height: 1em;
+}
+/* Başlık altındaki kuralın SOL UCU renkli — kitapta bölüm şeridi.
+   Çizgi olduğu için 1.4.11 (3:1) yeterli, --grup-l-ln kullanılır. */
+.part-h { position: relative; }
+.part-h::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: -1px;
+  width: 56px; height: 2px;
+  background: hsl(var(--h) var(--grup-s) var(--grup-l-ln));
 }
 .part-h h2 {
   font-size: var(--t-h3);
@@ -501,13 +536,19 @@
   margin-bottom: var(--sp-6);
   border-bottom: 1px solid var(--rule-firm);
 }
+/* Konu künyesindeki grup etiketi de grubun tonunda — okuyucu hangi
+   bölümde olduğunu dizindekiyle AYNI renkten tanır. Üstünde kısa bir
+   şerit: kitapta bölüm ayracının karşılığı. */
 .thead-k {
   font-size: 11px;
   font-weight: 600;
   letter-spacing: .07em;
   text-transform: uppercase;
-  color: var(--ink-3);
+  color: hsl(var(--h) var(--grup-s) var(--grup-l));
   margin-bottom: var(--sp-3);
+  padding-top: var(--sp-3);
+  border-top: 2px solid hsl(var(--h) var(--grup-s) var(--grup-l-ln));
+  display: inline-block;
 }
 .thead h1 {
   font-size: var(--t-title);

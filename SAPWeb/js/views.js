@@ -123,7 +123,9 @@
         '</div>';
       }).join('');
 
-      return '<section class="part">' +
+      /* --h: grubun tonu (catalog.js). Renk yalnızca numara ve ince
+         şeritte görünür — dolgu yok, bkz. theme.css "GRUP RENGİ". */
+      return '<section class="part" style="--h:' + SAP.grupHue(g.id) + '">' +
         '<div class="part-h">' +
           '<span class="part-n">' + nn(gi) + '</span>' +
           '<h2>' + esc(SAP.i18n.grup(g)) + '</h2>' +
@@ -135,7 +137,15 @@
     return '<div class="wrap-full">' +
       /* Alt başlık YOK: "Otuz altı konu, dokuz bölüm" bilgisi zaten
          dizinin kendisinde duruyor — sayarak değil bakarak görülür. */
-      '<header class="toc-head"><h1>' + esc(T('home.title')) + '</h1></header>' +
+      /* Künye: başlık + T-hesap motifi. Motif süs değil, kitabın
+         konusunun resmi — borç solda, alacak sağda, arada tek dikey
+         kural. Gömülü SVG: harici dosya yok (çevrimdışı kuralı),
+         currentColor ile iki temada da doğru. aria-hidden çünkü
+         bilgi taşımıyor, ritim taşıyor. */
+      '<header class="toc-head">' +
+        '<h1>' + esc(T('home.title')) + '</h1>' +
+        U.tMotif() +
+      '</header>' +
       resume +
       bolumler +
     '</div>';
@@ -187,7 +197,7 @@
     var enBolumler = t.sections_en ? Object.keys(t.sections_en) : [];
     var tamCevrili = ids.length > 0 && ids.every(function (id) { return enBolumler.indexOf(id) !== -1; });
     var uyari = tamCevrili ? '' : SAP.i18n.govdeUyarisi();
-    var head = '<header class="thead">' +
+    var head = '<header class="thead" style="--h:' + SAP.grupHue(t.grup) + '">' +
       '<div class="thead-k">' + esc(SAP.i18n.grup(grup(t.grup))) + '</div>' +
       '<h1>' + esc(bas(t)) + '</h1>' +
       '<p>' + esc(SAP.i18n.ozet(t)) + '</p>' +

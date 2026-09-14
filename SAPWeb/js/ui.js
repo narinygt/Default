@@ -80,7 +80,8 @@
          "neredeyim?" diye aramasın diye. Elle açılanlar zaten saklı. */
       var acik = SAP.store.isGroupOpen(g.id) ||
                  list.some(function (t) { return t.id === aktifKonu; });
-      return '<div class="side-group' + (acik ? '' : ' closed') + '" data-grp="' + esc(g.id) + '">' +
+      return '<div class="side-group' + (acik ? '' : ' closed') + '" data-grp="' + esc(g.id) + '" ' +
+        'style="--h:' + SAP.grupHue(g.id) + '">' +
         '<button class="side-label" type="button" data-action="toggle-group" data-g="' + esc(g.id) + '" ' +
           'aria-expanded="' + (acik ? 'true' : 'false') + '">' +
           '<span class="tx">' + esc(SAP.i18n.grup(g)) + '</span>' +

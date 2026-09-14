@@ -562,8 +562,32 @@
     }).map(function (s) { return s.id; });
   }
 
+  /** İçindekiler künyesindeki T-hesap motifi.
+      Kitabın konusunun resmi: solda borç, sağda alacak, arada tek dikey
+      kural — theme.css ilke 3'ün birebir görselleştirilmesi. Gömülü SVG
+      (harici dosya yok), `currentColor` ile iki temada da doğru,
+      `aria-hidden` çünkü bilgi değil ritim taşır. Sağdaki satırlar
+      kasten eşit değil: gerçek bir defter sayfası gibi görünsün. */
+  function tMotif() {
+    var sol = [30, 22, 26], sag = [24, 30, 18, 27];
+    var satir = function (x, w, y) {
+      return '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="2" rx="1"/>';
+    };
+    var s = '';
+    sol.forEach(function (w, i) { s += satir(4, w, 20 + i * 9); });
+    sag.forEach(function (w, i) { s += satir(52, w, 20 + i * 9); });
+    return '<svg class="t-motif" viewBox="0 0 84 58" width="84" height="58" ' +
+      'aria-hidden="true" focusable="false" fill="currentColor">' +
+      '<rect x="4" y="8" width="76" height="2" rx="1"/>' +      /* üst kural */
+      '<rect x="41" y="8" width="2" height="48" rx="1"/>' +     /* dikey kural */
+      s +
+    '</svg>';
+  }
+
   SAP.SECTIONS = SECTIONS;
   SAP.sectionIds = sectionIds;
+  SAP.ui = SAP.ui || {};
+  SAP.ui.tMotif = tMotif;
   SAP.ui = SAP.ui || {};
   SAP.ui.note = note;
   SAP.ui.kv = kv;

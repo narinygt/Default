@@ -79,7 +79,9 @@
     var resume = hedef
       ? '<a class="resume" data-go="#/konu/' + esc(hedef.id) + '" href="#/konu/' + esc(hedef.id) + '">' +
           '<div class="resume-lb">' + esc(yarim ? T('home.resume') : T('home.start')) + '</div>' +
-          '<div class="resume-t">' + esc(bas(hedef)) + U.icon('arrow-right') + '</div>' +
+          /* Başlığın yanında ok YOK — blok zaten baştan sona bir
+             bağlantı, üstünde "Okumaya başla" etiketi duruyor. */
+          '<div class="resume-t">' + esc(bas(hedef)) + '</div>' +
           '<div class="resume-m">' +
             '<span>' + esc(T('home.progress')) + '</span>' +
             '<span class="resume-bar"><i style="width:' + genel + '%"></i></span>' +

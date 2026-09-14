@@ -364,7 +364,9 @@
   color: var(--ink);
 }
 .resume:hover .resume-t { color: var(--accent); }
-.resume-t svg { width: 15px; height: 15px; align-self: center; color: var(--ink-4); flex: 0 0 auto; }
+/* .resume-t içindeki ok kaldırıldı; kuralı da bıraktım ki ölü seçici
+   birikmesin (bkz. Ders #31'in mantığı: kullanılmayan stil sessizce
+   yanlış yere uygulanabilir). */
 .resume-m {
   margin-top: var(--sp-3);
   display: flex;
@@ -408,16 +410,8 @@
   padding-right: var(--sp-4);
   min-height: 1em;
 }
-/* Başlık altındaki kuralın SOL UCU renkli — kitapta bölüm şeridi.
-   Çizgi olduğu için 1.4.11 (3:1) yeterli, --grup-l-ln kullanılır. */
-.part-h { position: relative; }
-.part-h::after {
-  content: '';
-  position: absolute;
-  left: 0; bottom: -1px;
-  width: 56px; height: 2px;
-  background: hsl(var(--h) var(--grup-s) var(--grup-l-ln));
-}
+/* Başlık altında renkli şerit YOK: numaranın rengi ve yanındaki dikey
+   kural grubu zaten ayırıyordu, şerit üçüncü kez aynı şeyi söylüyordu. */
 .part-h h2 {
   font-size: var(--t-h3);
   font-weight: 600;

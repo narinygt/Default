@@ -42,8 +42,8 @@ SAP.registerTopic({
 
     muhasebeMantigi:
       'The point where master data connects to accounting is the {{mutabakat-hesabi}}. Whatever G/L account is ' +
-      'written on the vendor master ({{LFB1}} `AKONT`), every posting to that vendor reflects into general ledger ' +
-      'through that account.\n\n' +
+      'written on the vendor master ({{LFB1}} `AKONT`), every posting to that vendor is reflected in the general ' +
+      'ledger through that account.\n\n' +
       'This is why you see a single "320 Trade payables" line in general ledger, while the detail of 800 vendors ' +
       'sits behind it. This field is exactly the bridge between the {{muavin-defter}} and {{ana-muhasebe}}.\n\n' +
       'The same logic applies to a customer ({{KNB1}} `AKONT`) and to a fixed asset ({{varlik-sinifi}} → account ' +

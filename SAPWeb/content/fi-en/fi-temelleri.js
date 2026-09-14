@@ -86,8 +86,8 @@ SAP.registerTopic({
                    'assigned at this moment.',
           cikti:'FI document number', ok:'it spreads into the sub-ledgers' },
         { ic:'📚', rol:'System', baslik:'The sub-ledgers are updated',
-          aciklama:'A vendor line drops into {{BSIK}}, a customer line into {{BSID}}, as an open item. It reflects ' +
-                   'into general ledger through the {{mutabakat-hesabi}}.',
+          aciklama:'A vendor line drops into {{BSIK}}, a customer line into {{BSID}}, as an open item, and is ' +
+                   'reflected in the general ledger through the {{mutabakat-hesabi}}.',
           cikti:'Open items', ok:'they get checked' },
         { ic:'🔍', rol:'Accounting', baslik:'Verification and reconciliation',
           aciklama:'Line items via {{FBL1N}}, {{FBL5N}}, {{FBL3N}}; the document itself via {{FB03}}.',
@@ -203,7 +203,7 @@ SAP.registerTopic({
       'When a SAP FI consultant job posting says "FI-AP and FI-AA experience," this is the split it means.',
     liste: [
       { ad:'FI-GL — General Ledger',
-        aciklama:'The center where financial statements are produced. Every sub-component reflects here through a {{mutabakat-hesabi}}.',
+        aciklama:'The center where financial statements are produced. Every sub-component is reflected here through a {{mutabakat-hesabi}}.',
         neZaman:'Mandatory in every implementation. No other component works without it.',
         tcodes:['FS00','FB50','FBL3N','FAGLL03'] },
 

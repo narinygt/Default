@@ -251,7 +251,7 @@ SAP.registerTopic({
              '**W (warning)** — warns, the user **can go through**\n' +
              '**I (information)** — informational only\n\n' +
              'If the policy is genuinely meant to be enforced, **E** should be used. ' +
-             'A rule built with **W** gets passed by everyone the first busy day ' +
+             'A rule built with **W** gets bypassed by everyone on the first busy day ' +
              'and effectively stops working.' },
     ],
 

@@ -852,7 +852,7 @@ SAP.registerTopic({
     notlar:[
       { tip:'warn', baslik:'Don\'t make the alternative accounts "automatic postings only"', metin:
         'The practice that\'s correct on tax accounts is **wrong** here.\n\n' +
-        'If a "automatic postings only" flag is set in {{FS00}} on alternative reconciliation ' +
+        'If an "automatic postings only" flag is set in {{FS00}} on alternative reconciliation ' +
         'accounts like 159 or 340, special G/L transactions **won\'t work** — because these ' +
         'transactions post to those accounts as vendor/customer items.\n\n' +
         'The correct setting: flag the account as a **reconciliation account** ({{SKB1}} ' +

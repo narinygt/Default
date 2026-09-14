@@ -15,9 +15,9 @@ SAP.registerTopic({
       'Asset Accounting (FI-AA) is the FI sub-component that tracks a company\'s **multi-year assets** — ' +
       'machinery, buildings, vehicles, computers — from birth to disposal.\n\n' +
       'AA is a {{muavin-defter}}: the detail of every asset (acquisition value, accumulated depreciation, ' +
-      'useful life, cost center) is held here; it reflects into general ledger **as a summary** through a ' +
-      '{{mutabakat-hesabi}}. The balance sheet reads "253 Plant, machinery and equipment 12,400,000 TRY"; who ' +
-      'the 1,847 assets behind that figure are lives in AA.\n\n' +
+      'useful life, cost center) is held here; it is reflected in the general ledger **as a summary** through a ' +
+      '{{mutabakat-hesabi}}. The balance sheet reads "253 Plant, machinery and equipment 12,400,000 TRY"; ' +
+      'the identity of the 1,847 assets behind that figure lives in AA.\n\n' +
       'What sets AA apart from the other sub-components is its **time dimension**: an invoice ends in a single ' +
       'event, an asset produces a posting **every month for 5–40 years**.',
 

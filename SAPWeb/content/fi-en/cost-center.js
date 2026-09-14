@@ -14,12 +14,12 @@ SAP.registerTopic({
     nedir:
       'Cost center integration means **a single expense posting is written to an account in FI and to ' +
       'a cost center in CO at the same time**.\n\n' +
-      'The user enters a 50,000 TRY expense to account 770 with {{FB50}} and writes 4200 (Marketing) into the ' +
+      'The user enters a 50,000 TRY expense to account 770 with {{FB50}} and enters 4200 (Marketing) in the ' +
       '**cost center** field. One posting answers two questions:\n\n' +
       '**The FI question:** "What kind of expense?" → 770 General administrative expense\n' +
       '**The CO question:** "Who spent it?" → the Marketing department\n\n' +
-      'What creates the link is the **{{masraf-turu}}** (cost element) concept: a G/L account\'s counterpart ' +
-      'on the CO side. If there is no cost element, the account **never flows into CO at all**; if there is a ' +
+      'The link between the two is created by the **{{masraf-turu}}** (cost element) concept: a G/L account\'s ' +
+      'counterpart on the CO side. If there is no cost element, the account **never flows into CO at all**; if there is a ' +
       'cost element but no CO object is entered, **the document cannot be posted**.\n\n' +
       'In S/4HANA this split has largely disappeared: the cost element is now a **property** of the G/L ' +
       'account, and the data is held in a single line in {{ACDOCA}}.',

@@ -772,7 +772,7 @@ SAP.registerTopic({
       { konu:'Payment medium', ecc:'Classic RFFO* programs common', s4:'**PMW is standard** — SEPA/ISO20022 format trees' },
       { konu:'Vendor master data', ecc:'{{XK01}}/{{FK01}}', s4:'{{BP}} — payment method and bank details via BP' },
       { konu:'Open item selection', ecc:'The physical {{BSIK}} table is scanned', s4:'Via {{ACDOCA}} — noticeably faster' },
-      { konu:'Cash visibility', ecc:'A separate Cash Management module', s4:'Integrated Cash Management — the payment run reflects into the cash forecast instantly' },
+      { konu:'Cash visibility', ecc:'A separate Cash Management module', s4:'Integrated Cash Management — the payment run is reflected in the cash forecast instantly' },
     ],
 
     universalJournal:

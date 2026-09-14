@@ -37,7 +37,7 @@ SAP.registerTopic({
       'It sits at the top of any "irreversible decisions" list in consulting.\n\n' +
       'A classic expensive mistake: setting up a separate chart of accounts for every country. It\'s easy in the ' +
       'short term, but it makes consolidation impossible later and a shared {{kontrol-alani}} can never be built.\n\n' +
-      'The ayırt edici question is: **"What\'s the difference between a company and a company code?"** The correct ' +
+      'The distinguishing question is: **"What\'s the difference between a company and a company code?"** The correct ' +
       'answer: a **company code** is the legal accounting unit (it produces a balance sheet); a **company** is a ' +
       'consolidation umbrella. Multiple company codes can roll up into one company. Confuse the two, and the ' +
       'consolidation structure gets built wrong.',
@@ -162,7 +162,7 @@ SAP.registerTopic({
   muhasebe: {
     anlatim:
       'The organisational structure\'s accounting impact **doesn\'t directly produce a posting** — but it decides ' +
-      'which balance sheet every posting will end up on. The examples below show how the structure reflects into ' +
+      'which balance sheet every posting will end up on. The examples below show how the structure is reflected in ' +
       'postings.',
 
     etkilenenHesaplar:[

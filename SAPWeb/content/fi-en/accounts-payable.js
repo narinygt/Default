@@ -13,14 +13,14 @@ SAP.registerTopic({
   tanim: {
     nedir:
       "Accounts Payable (FI-AP) is the FI sub-component that manages the company's **debts to vendors**. " +
-      'It covers the whole chain from the invoice arriving, to the payment being made, to the debt being cleared.\n\n' +
-      "AP is a {{muavin-defter}}: every vendor's detail is held here, and it reflects into general ledger as a " +
+      'It covers the entire chain — from the invoice arriving, through payment, to the liability being cleared.\n\n' +
+      "AP is a {{muavin-defter}}: every vendor's detail is held here, and it is reflected in the general ledger as a " +
       'single line through a {{mutabakat-hesabi}}. The balance sheet shows "320 Trade payables 4,500,000 TRY"; ' +
-      'who the 800 vendors behind it are is in AP.',
+      'the identity of the 800 vendors behind that figure lives in AP.',
 
     neden:
-      "**To answer the question of how much we owe.** The company's cash planning rests on this figure.\n\n" +
-      '**To pay on time and correctly.** Pay early and you squeeze cash; pay late and you lose reputation and ' +
+      "**To answer the question: how much do we owe?** The company's cash planning rests on this figure.\n\n" +
+      '**To pay on time and correctly.** Pay early and you strain your cash position; pay late and you lose reputation and ' +
       '{{iskonto}}. AP strikes this balance through due-date tracking.\n\n' +
       "**To ensure control.** Almost all of the company's cash outflow goes through AP. That's why AP is the " +
       'area with the heaviest internal control and fraud risk.',
@@ -703,7 +703,7 @@ SAP.registerTopic({
       'resolve most "why was not it paid?" questions before payment.',
       'Add **due date, payment block, and discount date** columns to your {{FBL1N}} layout and make it the ' +
       'default. These are the three pieces of information looked at most often in AP.',
-      'For the duplicate invoice check to work, the reference field (`XBLNR`) must be filled disciplined. ' +
+      'For the duplicate invoice check to work, the reference field (`XBLNR`) must be filled in consistently. ' +
       'Which fields the check looks at is set in {{OBY6}} → company code global parameters.',
       'Review the {{gr-ir}} account by open item with {{FBL3N}} every month. Clean up small differences that ' +
       'will never match with {{MR11}} — do not let them accumulate for years.',

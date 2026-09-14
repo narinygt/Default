@@ -753,7 +753,7 @@ SAP.registerTopic({
       'The master data load doesn\'t **trigger** account determination — but the ' +
       'fields it **populates** get used afterward.\n\n' +
       'The most critical one is {{LFB1}}.`AKONT`, the **reconciliation account**: every ' +
-      'posting to the vendor reflects into this account.\n\n' +
+      'posting to the vendor is reflected in this account.\n\n' +
       'If loaded incorrectly, **every vendor posting** goes to the wrong account — and ' +
       'this is a very hard error to fix afterward: even if the reconciliation account is ' +
       'changed, **past entries** stay on the old account.\n\n' +

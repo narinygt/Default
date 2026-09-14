@@ -14,9 +14,9 @@ izin veren `sections_en` katmanı) yerinde duruyor — ileride konu
 eklenirse yalnız o konu Türkçe kalır, sayfa kırılmaz — bkz. §10.
 **Site artık VARSAYILAN olarak İNGİLİZCE açılıyor** (`js/i18n.js`
 `VARSAYILAN`); kullanıcı anahtara basarsa seçimi kalıcı olur — bkz. §10
-"Varsayılan dil". **Sözlük gövdeleri hâlâ Türkçe:** 262 işlem kodu, 92
-tablo ve 164 terimin AÇIKLAMALARI çevrilmedi (adlar çevrili). Sıradaki
-iş bu — bkz. §10 sonundaki not.
+"Varsayılan dil". **Sözlükler de tamamen çevrildi:** 262 işlem kodu, 92
+tablo, 164 terim — `data/*-en.js` üst katmanı (bkz. §10 "Sözlük
+gövdeleri"). Artık İngilizce tarafta çevrilmemiş metin kalmadı.
 
 > ⭐ **ARAYÜZ BAŞTAN TASARLANDI — "Dijital muhasebe defteri".**
 > İçerik ve işlevler aynı; değişen görsel dil ve yerleşim (bkz. §5b).
@@ -1997,17 +1997,35 @@ genişletmek gerekir. Ayrıca **boş durum ≠ dolu durum**: favoriler/notlar
 gibi veriye bağlı sayfalar denetimde DOLU halde de açılmalı; bu oturumda
 çöken sayfa tam olarak buydu.
 
-### 📌 Sıradaki iş — sözlük gövdeleri hâlâ Türkçe
+### ⭐ Sözlük gövdeleri — `_en` ÜST KATMANI (Eylül 2026, TAMAMLANDI)
 
-Konu gövdeleri 36/36 çevrildi ama **sözlük AÇIKLAMALARI çevrilmedi**:
-- `data/tcodes.js` — 262 işlem kodu, `en:` alanı **yok** (0 adet).
-- `data/tables.js` — 92 tablo, yalnız 2 `en:` alanı var.
-- `data/glossary.js` — 164 terimin **adı** çevrili (`en:` var, 165 adet)
-  ama `aciklama`/`detay` Türkçe.
+Konu gövdelerindeki `sections_en` deseninin sözlüklere uyarlanmışı.
+Kaynak dosyalar (`data/tcodes.js`, `tables.js`, `glossary.js`) Türkçe
+kalır ve TEK DOĞRULUK KAYNAĞIdır; İngilizcesi ayrı dosyada durur:
 
-Sonuç: İngilizce sitede bir tcode/tablo çipine tıklayınca açılan detay
-sayfasının gövdesi Türkçe geliyor. Ad/rozet/başlık çevrili olduğu için
-sayfa kırılmıyor, sadece iki dilli görünüyor. Çözüm deseni `sections_en`
-ile aynı olmalı: sözlük girdilerine `aciklama_en` / `detay_en` alanları
-ekleyip okuyucuyu dile duyarlı hale getirmek (tek yer: `views.js` detay
-görünümleri + `search.js` indeksi).
+| Üst katman | Eşleşme anahtarı | Çevrilen alanlar | Adet |
+|---|---|---|---|
+| `data/tcodes-en.js` | `kod` | `ad`, `aciklama`, `s4` | 262 |
+| `data/tables-en.js` | `ad` | `baslik`, `aciklama`, `olusturan`, `s4`, `alanlar[].aciklama` | 92 |
+| `data/glossary-en.js` | `anahtar` | `aciklama`, `detay` | 164 |
+
+**Mekanizma** (`js/core.js`): `registerTcodesEn` / `registerTablesEn` /
+`registerTermsEn` girdiyi anahtarla bulur ve alanları `_en` ekiyle TR
+kaydın ÜSTÜNE yazar (`aciklama` → `aciklama_en`). Okuma tek yerden:
+`SAP.alan(x, 'aciklama')` — EN modda `_en` varsa onu, yoksa Türkçesini
+döndürür. Yani eksik çeviri sayfayı kırmaz, o alan Türkçe kalır.
+Kullananlar: `views.js` tcode/tablo/terim detayları ve `search.js`.
+
+⚠️ **Yükleme sırası önemli:** `index.html`'de `-en.js` dosyaları TR
+dosyalarından SONRA gelmeli, yoksa merge edilecek kayıt henüz yoktur
+(`mergeEn` bulamadığı anahtarı sessizce atlar).
+
+⚠️ **`alanlar_en` İNDİSE göre eşleşir** (tablo alan açıklamaları): EN
+dizi, TR `alanlar` dizisiyle aynı sırada ve aynı uzunlukta olmalıdır.
+Kaysa yanlış alana yanlış açıklama düşer ve bunu hiçbir denetim
+yakalamaz — bu yüzden yazıldıktan sonra 92 tablonun tamamında sayı
+karşılaştırması yapıldı (uyuşmazlık 0).
+
+**Terim sayfasında ad DEĞİŞ TOKUŞ eder:** EN modda başlık İngilizce ad,
+altındaki `.lede` Türkçe ad; TR modda tersi. Sözlük terimi çipleri de
+(`markup.js`) aynı kuralı izler.

@@ -858,7 +858,7 @@ SAP.registerTopic({
     ],
 
     universalJournal:
-      'The fields substitution changes reflect into {{ACDOCA}} too — ' +
+      'The fields a substitution changes are carried into {{ACDOCA}} as well — ' +
       'because substitution runs **at the moment of posting**, before {{ACDOCA}} is written.\n\n' +
       'Practical consequence: a substitution that changes the {{kar-merkezi}} or segment field ' +
       'also **affects** the {{belge-bolme}} result. ' +

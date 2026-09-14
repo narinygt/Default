@@ -885,7 +885,7 @@ SAP.registerTopic({
       { k:'Material', v:'BOYA-450 · a new {{degerleme-sinifi}} **3020**' },
       { k:'Price control', v:'**S** (standard price) — 2,000 TRY/drum' },
       { k:'Order', v:'100 drums × 2,000 TRY = 200,000 TRY' },
-      { k:'Vendor', v:'V-4001 Ege Kimya A.Ş. · payment term 30 days' },
+      { k:'Vendor', v:'V-4001 Ege Kimya Inc. · payment term 30 days' },
     ],
 
     adimlar:[

@@ -231,7 +231,7 @@ SAP.registerTopic({
 
       { ad:'Reconciliation Account',
         aciklama:'General ledger\'s counterpart to a sub-ledger. Marked with the {{SKB1}} `MITKZ` field: **D** customer, **K** vendor, **A** fixed asset.',
-        neZaman:'Whenever vendor, customer, and fixed asset balances need to reflect into general ledger — which is to say, always.',
+        neZaman:'Whenever vendor, customer and fixed asset balances need to be reflected in the general ledger — which is to say, always.',
         ornek:'320 Trade payables. **Cannot be posted to directly**; postings go through the vendor number.',
         tcodes:['FS00','FBL1N'] },
 

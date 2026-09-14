@@ -884,7 +884,7 @@ SAP.registerTopic({
       'scenario walks through, step by step, the most common AP flow in real life, including variance handling.',
     veriler:[
       { k:'Company code', v:'1000 — Marmara Textiles Inc.' },
-      { k:'Vendor', v:'V-4001 Ege Kimya A.Ş. · reconciliation account 320000' },
+      { k:'Vendor', v:'V-4001 Ege Kimya Inc. · reconciliation account 320000' },
       { k:'Payment term', v:'ZB02 — 30 days net, 2% discount within 10 days' },
       { k:'Order', v:'100 drums × 1,000 TRY = 100,000 TRY' },
       { k:'Period', v:'September 2026' },
@@ -896,7 +896,7 @@ SAP.registerTopic({
         aciklama:'Purchasing opens an order for 100 drums of paint. This is a **commitment**, not a debt; so ' +
                  'no accounting entry occurs.',
         girdi:[
-          { alan:'Vendor', deger:'V-4001 Ege Kimya A.Ş.' },
+          { alan:'Vendor', deger:'V-4001 Ege Kimya Inc.' },
           { alan:'Material / Quantity', deger:'BOYA-001 · 100 drums' },
           { alan:'Net price', deger:'1,000 TRY / drum' },
           { alan:'Delivery date', deger:'05.09.2026' },

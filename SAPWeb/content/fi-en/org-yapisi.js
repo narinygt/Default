@@ -1,5 +1,5 @@
 /* ==========================================================================
-   content/fi-en/org-yapisi.js — English body for "Organisational Structure"
+   content/fi-en/org-yapisi.js — English body for "Organizational Structure"
    Same conventions as content/fi-en/genel-muhasebe.js — see that file's
    header comment.
    ========================================================================== */
@@ -12,7 +12,7 @@ SAP.registerTopic({
   /* ====================================================== 1. WHAT IT IS === */
   tanim: {
     nedir:
-      'The organisational structure is the **skeleton** FI is built on. Before a single posting is made, the system ' +
+      'The organizational structure is the **skeleton** FI is built on. Before a single posting is made, the system ' +
       'needs answers to these questions already defined:\n\n' +
       '**"Who is posting?"** → {{sirket-kodu}} (the legal accounting entity)\n' +
       '**"Which accounts does it use?"** → {{hesap-plani}}\n' +
@@ -20,7 +20,7 @@ SAP.registerTopic({
       '**"In which currency?"** → local currency\n\n' +
       'These four decisions are **linked to each other**, and almost none of them can be changed afterward. Changing ' +
       'a company code\'s chart of accounts after go-live is practically impossible — every posting references it.\n\n' +
-      'This is what sets the organisational structure apart: **the cost of a mistake here is proportional not to its ' +
+      'This is what sets the organizational structure apart: **the cost of a mistake here is proportional not to its ' +
       'size, but to how late it is noticed.**',
 
     neden:
@@ -33,7 +33,7 @@ SAP.registerTopic({
       '**Authorization.** Who can post in which company code — authorization rests on this structure.',
 
     sirketOnemi:
-      'Organisational structure decisions are made in the project\'s **first two weeks** and live for **ten years**. ' +
+      'Organizational structure decisions are made in the project\'s **first two weeks** and live for **ten years**. ' +
       'It sits at the top of any "irreversible decisions" list in consulting.\n\n' +
       'A classic expensive mistake: setting up a separate chart of accounts for every country. It\'s easy in the ' +
       'short term, but it makes consolidation impossible later and a shared {{kontrol-alani}} can never be built.\n\n' +
@@ -57,7 +57,7 @@ SAP.registerTopic({
       'The answers to all three questions are linked — **which is exactly why they\'re decided together**.',
 
     muhasebeMantigi:
-      'The organisational structure\'s accounting logic rests on **a single principle**: **a balance sheet is ' +
+      'The organizational structure\'s accounting logic rests on **a single principle**: **a balance sheet is ' +
       'produced for one legal entity.**\n\n' +
       'For a balance sheet to mean anything, its assets and liabilities must belong to **the same legal person**. ' +
       'That\'s why {{sirket-kodu}} is FI\'s most fundamental unit of separation: every document belongs to one ' +
@@ -77,7 +77,7 @@ SAP.registerTopic({
   /* ====================================================== 2. BUSINESS PROCESS === */
   surec: {
     anlatim:
-      'Building the organisational structure moves **top-down**: shared structures first (chart of accounts, fiscal ' +
+      'Building the organizational structure moves **top-down**: shared structures first (chart of accounts, fiscal ' +
       'year variant), then the company code, and assignments last. The order can\'t be reversed — the lower level ' +
       'references the higher one.',
 
@@ -113,11 +113,11 @@ SAP.registerTopic({
         { ic:'🎛️', rol:'CO consultant', baslik:'{{kontrol-alani}} is built ({{OKKP}})',
           aciklama:'Company codes are assigned. **Requirement: the same chart of accounts + the same fiscal year ' +
                    'variant.** That\'s why CO design can\'t be done independently of FI.',
-          cikti:'CO organisation', ok:'additional structures' },
-        { ic:'💳', rol:'FI consultant', baslik:'Additional organisational units',
+          cikti:'CO organization', ok:'additional structures' },
+        { ic:'💳', rol:'FI consultant', baslik:'Additional organizational units',
           aciklama:'{{kredi-kontrol-alani}} ({{OB45}}), {{is-alani}} ({{OX03}}), consolidation company ({{OX15}}), ' +
                    'the {{kar-merkezi}} structure.',
-          cikti:'Full organisation', ok:'it is transported' },
+          cikti:'Full organization', ok:'it is transported' },
         { ic:'🚚', rol:'Basis', baslik:'It goes live via a transport request',
           aciklama:'Configuration is verified in the test system and moved with {{tasima-istegi}}.',
           cikti:'Production system' },
@@ -161,7 +161,7 @@ SAP.registerTopic({
   /* =================================================== 3. ACCOUNTING LOGIC === */
   muhasebe: {
     anlatim:
-      'The organisational structure\'s accounting impact **doesn\'t directly produce a posting** — but it decides ' +
+      'The organizational structure\'s accounting impact **doesn\'t directly produce a posting** — but it decides ' +
       'which balance sheet every posting will end up on. The examples below show how the structure is reflected in ' +
       'postings.',
 
@@ -246,7 +246,7 @@ SAP.registerTopic({
   /* =================================================== 4. VARIANTS === */
   cesitler: {
     anlatim:
-      'Organisational units fall into **two groups**: **mandatory ones** (FI doesn\'t work without them) and ' +
+      'Organizational units fall into **two groups**: **mandatory ones** (FI doesn\'t work without them) and ' +
       '**optional ones** (built as needed). The list below follows that split.',
 
     liste:[
@@ -451,8 +451,8 @@ SAP.registerTopic({
         ilgili:['OB52','OBY6','closing'] },
 
       { kod:'OKKP', ad:'Controlling area — where FI and CO meet',
-        amac:'Builds the CO organisation and assigns company codes.',
-        neZaman:'After the FI organisational structure is complete.',
+        amac:'Builds the CO organization and assigns company codes.',
+        neZaman:'After the FI organizational structure is complete.',
         adimlar:[
           { baslik:'Define the controlling area', aciklama:'Currency, chart of accounts, fiscal year variant.' },
           { baslik:'**Assign the company codes**',
@@ -462,7 +462,7 @@ SAP.registerTopic({
           { baslik:'Define the number ranges ({{KANK}})',
             aciklama:'**If missing, expense postings can\'t happen at all** — it stops FI too.' },
         ],
-        ipucu:'**This screen is where organisational structure decisions get tested.** Company codes using different ' +
+        ipucu:'**This screen is where organizational structure decisions get tested.** Company codes using different ' +
               'charts of accounts **cannot** be assigned to the same controlling area — which shows exactly why the ' +
               'chart-of-accounts decision must be made before, and with, CO in mind.\n\n' +
               'The full detail lives in {{konu:co-integration}}.',
@@ -473,7 +473,7 @@ SAP.registerTopic({
   /* ================================================== 6. TABLES === */
   tablolar: {
     anlatim:
-      'The organisational structure\'s tables are small and simple, but **every FI document references them**. ' +
+      'The organizational structure\'s tables are small and simple, but **every FI document references them**. ' +
       '{{T001}} is one of the most-read configuration tables of all.',
 
     liste:[
@@ -538,7 +538,7 @@ SAP.registerTopic({
         s4:'Unchanged. Detailed in {{konu:closing}}.' },
 
       { ad:'TKA01', baslik:'Controlling area',
-        tutar:'The CO organisation; its chart of accounts and fiscal year variant **must match the company codes\'**.',
+        tutar:'The CO organization; its chart of accounts and fiscal year variant **must match the company codes\'**.',
         olusturan:'{{OKKP}}',
         anahtar:'KOKRS',
         s4:'Unchanged.' },
@@ -546,7 +546,7 @@ SAP.registerTopic({
 
     er:{
       type:'er',
-      baslik:'The organisational skeleton — everything links to T001',
+      baslik:'The organizational skeleton — everything links to T001',
       varliklar:[
         { ad:'T004', rol:'Configuration', aciklama:'Chart of accounts',
           alanlar:[{ ad:'KTOPL', tip:'pk' }, { ad:'KTPLT' }] },
@@ -554,11 +554,11 @@ SAP.registerTopic({
           alanlar:[{ ad:'PERIV', tip:'pk' }, { ad:'ANZBP' }, { ad:'ANZSP' }] },
         { ad:'T880', rol:'Configuration', aciklama:'Company (consolidation)',
           alanlar:[{ ad:'RCOMP', tip:'pk' }] },
-        { ad:'T001', rol:'Organisation', hub:true, aciklama:'**Company code — the hub**',
+        { ad:'T001', rol:'Organization', hub:true, aciklama:'**Company code — the hub**',
           alanlar:[{ ad:'BUKRS', tip:'pk' }, { ad:'KTOPL', tip:'fk' }, { ad:'PERIV', tip:'fk' }, { ad:'WAERS' }, { ad:'RCOMP', tip:'fk' }] },
         { ad:'TKA01', rol:'CO', aciklama:'Controlling area',
           alanlar:[{ ad:'KOKRS', tip:'pk' }, { ad:'KTOPL', tip:'fk' }] },
-        { ad:'T014', rol:'Organisation', aciklama:'Credit control area',
+        { ad:'T014', rol:'Organization', aciklama:'Credit control area',
           alanlar:[{ ad:'KKBER', tip:'pk' }] },
         { ad:'BKPF', rol:'Transaction', aciklama:'Every document belongs to a company code',
           alanlar:[{ ad:'BUKRS', tip:'fk' }, { ad:'BELNR', tip:'pk' }, { ad:'GJAHR', tip:'pk' }] },
@@ -579,7 +579,7 @@ SAP.registerTopic({
   /* ================================================= 7. IN THE SYSTEM === */
   sapSurec: {
     anlatim:
-      'The organisational structure has **no** end-user screen — it\'s all configuration. The three screens that ' +
+      'The organizational structure has **no** end-user screen — it\'s all configuration. The three screens that ' +
       'matter most to a consultant: {{OX02}}, {{OBY6}}, and {{OKKP}}.',
 
     ekranlar:[
@@ -659,7 +659,7 @@ SAP.registerTopic({
     ],
 
     commit:
-      'The organisational structure is **configuration**, not transaction data — LUW and commit logic doesn\'t apply ' +
+      'The organizational structure is **configuration**, not transaction data — LUW and commit logic doesn\'t apply ' +
       'the way it does to posting.\n\n' +
       'But there\'s an important technical consequence: {{T001}} **is read on every single posting**. The company ' +
       'code\'s chart of accounts, fiscal year variant and currency are used at every stage of a posting.\n\n' +
@@ -667,13 +667,13 @@ SAP.registerTopic({
       'sometimes be needed right after a configuration change.',
 
     belgeNo:
-      'The organisational structure doesn\'t generate document numbers. But **number ranges are keyed by company ' +
+      'The organizational structure doesn\'t generate document numbers. But **number ranges are keyed by company ' +
       'code** ({{FBN1}}): each company code uses its own ranges, and when a new company code is opened, the ranges ' +
       'need to be opened too.\n\n' +
       'Copying usually brings this along, but it **must be verified** — if it doesn\'t, the first posting attempt fails.',
 
     postingLogic:
-      'When a document is posted, the organisational structure kicks in, in this order:\n\n' +
+      'When a document is posted, the organizational structure kicks in, in this order:\n\n' +
       '**1.** The company code is entered → {{T001}} is read.\n' +
       '**2.** The chart of accounts is determined → the usable accounts are narrowed down.\n' +
       '**3.** The fiscal year variant → which period the posting date falls into is calculated.\n' +
@@ -682,7 +682,7 @@ SAP.registerTopic({
       '**6.** The local currency → the transaction currency is converted.\n' +
       '**7.** The country → tax codes and the calculation procedure are determined.\n\n' +
       'All seven steps derive from **a single field** (the company code). This is the technical explanation of why ' +
-      'the organisational structure matters so much.',
+      'the organizational structure matters so much.',
 
     belgeTuru:
       'Document types are defined **independently of company code** ({{OBA7}}), but number ranges are keyed by ' +
@@ -705,12 +705,12 @@ SAP.registerTopic({
       'This is one of the concrete benefits of using a single chart: account determination is built **once**.',
 
     tur:
-      '**All of it is configuration.** There is no master data or transaction data in the organisational structure.\n\n' +
+      '**All of it is configuration.** There is no master data or transaction data in the organizational structure.\n\n' +
       'This is an advantage for transport (everything moves via a transport request), but it\'s also a risk: it must ' +
       'never be changed manually in production.',
 
     transport:
-      'Organisational structure settings transport via {{tasima-istegi}}. **Three warnings:**\n\n' +
+      'Organizational structure settings transport via {{tasima-istegi}}. **Three warnings:**\n\n' +
       '**1.** Copying a company code **does not transport** — it\'s done separately in the target system. Copying ' +
       'is an *action*, not a configuration record.\n\n' +
       '**2.** Number ranges **usually don\'t transport**; they\'re defined by hand in production. This is the ' +
@@ -779,14 +779,14 @@ SAP.registerTopic({
         '• Which {{kontrol-alani}} will this company be assigned to? *(decides the chart of accounts + variant)*\n' +
         '• How will group reporting be done? *(decides the chart of accounts)*\n' +
         '• What numbers will the local statutory report print? *(is a country chart of accounts needed)*\n\n' +
-        '**Asking these three questions is the essence of organisational-structure consulting.**' },
+        '**Asking these three questions is the essence of organizational-structure consulting.**' },
     ],
   },
 
   /* ==================================================== 9. S/4HANA === */
   s4hana: {
     ozet:
-      'The organisational structure stayed **largely the same** in S/4HANA: the company code, chart of accounts, ' +
+      'The organizational structure stayed **largely the same** in S/4HANA: the company code, chart of accounts, ' +
       'and fiscal year variant didn\'t change. What changed: {{is-alani}} fell out of favor, {{kar-merkezi}}/segment ' +
       'came to the fore, and there\'s more support for parallel currencies.',
 
@@ -801,7 +801,7 @@ SAP.registerTopic({
     ],
 
     universalJournal:
-      '{{ACDOCA}} didn\'t directly change the organisational structure, but it changed **which organisational unit ' +
+      '{{ACDOCA}} didn\'t directly change the organizational structure, but it changed **which organizational unit ' +
       'matters**.\n\n' +
       'In ECC, {{is-alani}}, profit center and segment were separate mechanisms. In S/4HANA they\'re all just ' +
       '**fields on {{ACDOCA}}**, and reported with equal ease.\n\n' +
@@ -811,7 +811,7 @@ SAP.registerTopic({
 
     kalkanTcodes:[
       { eski:'—', yeni:'—', not:'{{OX02}}, {{OBY6}}, {{OB13}}, {{OB29}}, {{OKKP}} were **not removed**' },
-      { eski:'{{XK01}} / {{XD01}}', yeni:'{{BP}}', not:'It\'s the master-data side that changed, not the organisational structure' },
+      { eski:'{{XK01}} / {{XD01}}', yeni:'{{BP}}', not:'It\'s the master-data side that changed, not the organizational structure' },
     ],
 
     fiori:[
@@ -824,17 +824,17 @@ SAP.registerTopic({
 
     compatibilityViews:[
       '{{T001}}, {{T004}}, {{T009}}, {{T880}}, {{T014}} — **remain physical tables**.',
-      'The organisational structure is the area **least affected** by the S/4HANA move.',
+      'The organizational structure is the area **least affected** by the S/4HANA move.',
       'The work done during migration is **reviewing** the existing structure — not changing it.',
     ],
 
     performans:
-      'Because the organisational structure consists of small configuration tables, it has no performance impact.\n\n' +
+      'Because the organizational structure consists of small configuration tables, it has no performance impact.\n\n' +
       'An indirect gain: when profit center is used instead of {{is-alani}}, reporting runs as a single query through ' +
       '{{ACDOCA}}; business area reports in ECC needed separate mechanisms.',
 
     bestPractices:[
-      '**Don\'t change** the organisational structure during migration — review it. If a change is needed, that\'s ' +
+      '**Don\'t change** the organizational structure during migration — review it. If a change is needed, that\'s ' +
       'a separate transformation project.',
       'If {{is-alani}} is in use, evaluate **moving to profit center/segment** — business area has no technical edge ' +
       'left in S/4HANA.',
@@ -857,7 +857,7 @@ SAP.registerTopic({
       'The consultant says "let\'s just build a separate chart of accounts, no problem," and it gets built.\n\n' +
       'Three months later the CFO asks: *"How are we going to allocate the head-office IT cost between the two ' +
       'companies?"*\n\n' +
-      'This scenario shows why organisational-structure decisions have to be made **with CO in mind**.',
+      'This scenario shows why organizational-structure decisions have to be made **with CO in mind**.',
     veriler:[
       { k:'TR01', v:'Turkey · chart of accounts **TDHP** · fiscal year K4' },
       { k:'DE01', v:'Germany · chart of accounts **SKR** · fiscal year K4' },

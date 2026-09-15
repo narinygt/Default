@@ -358,6 +358,11 @@
     'sd-integration': { title: 'SD Integration',
       summary: 'VKOA criteria and the quiet failure mode: the invoice is issued and sent to the customer, only the FI document never appears.' },
 
+    'bapi': { title: 'BAPI (Business API)',
+      summary: 'The screen-independent standard interface: how a BAPI differs from batch input, the commit trap that makes data look saved when it is not, and the FI workhorses.' },
+    'badi': { title: 'BAdI (Enhancement Point)',
+      summary: 'Changing behaviour without touching standard code: definition versus implementation, the multiple-use and filter traps, and why the error never names the BAdI.' },
+
     'sap-tables': { title: 'FI Table Architecture',
       summary: 'Header and item, index and total tables as a performance fix that HANA made unnecessary, and the SHKZG sign trap.' },
     'tcodes': { title: 'Transaction Codes',

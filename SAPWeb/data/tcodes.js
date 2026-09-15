@@ -633,4 +633,28 @@ SAP.registerTcodes([
 
   { kod:'SCC4', ad:'İstemci ayarları ve koruma', modul:'Teknik', tur:'Teknik', konu:'best-practices',
     aciklama:'Her istemcinin özelleştirmeye açık olup olmadığını belirler. Canlı istemcide özelleştirme **kapalıdır** — bu bir hata değil, koruma. Tek istisna {{akim-verisi}} tablolarıdır; onlar canlıda da değiştirilir.' },
+
+  /* ------------------------------------------ Geliştirme / genişletme ---
+     BAPI ve BAdI konularının dayandığı kodlar. FI danışmanı bunları
+     genelde ABAP'çıyla ORTAK ekranda kullanır: kodu kendisi yazmaz ama
+     hangi genişletmenin nerede durduğunu okuyabilmelidir. */
+  { kod:'BAPI', ad:'BAPI Explorer', modul:'Teknik', tur:'Teknik', konu:'bapi',
+    aciklama:'Bütün {{bapi}}’leri iş nesnesine göre ağaç halinde gösterir: parametreler, dokümantasyon ve örnek kullanım tek ekranda. Hangi BAPI’nin var olduğunu aramanın doğru yeri burasıdır; {{SE37}} yalnızca adını bildiğin fonksiyonu açar.' },
+  /* SE37 zaten yukarıda (satır ~313) tanımlı — çift kayıt YOK (Ders #26). */
+  { kod:'SE80', ad:'Nesne gezgini (Object Navigator)', modul:'Teknik', tur:'Teknik', konu:'badi',
+    aciklama:'Paket, program, sınıf, fonksiyon grubu ve genişletmelerin tek ağaçta gezildiği geliştirme ortamı. Bir {{badi}} uygulamasının hangi pakete ait olduğunu ve kimin taşıdığını buradan görürsün.' },
+  { kod:'SE18', ad:'BAdI tanımı (definition)', modul:'Teknik', tur:'Teknik', konu:'badi',
+    aciklama:'SAP’ın bıraktığı **kancanın tanımını** gösterir: arayüz, metotlar, çoklu uygulamaya izin verip vermediği ve filtre desteği. Genişletme yazmadan önce bakılacak ilk ekran — "burada bir kanca var mı?" sorusunun cevabı.' },
+  { kod:'SE19', ad:'BAdI uygulaması (implementation)', modul:'Teknik', tur:'Teknik', konu:'badi',
+    aciklama:'Tanımlı bir {{badi}}’ye **kendi kodunu** bağlar ve aktif/pasif eder. Canlıda beklenmedik davranışın kaynağı sıklıkla burada duran, kimsenin haberdar olmadığı aktif bir uygulamadır.' },
+  { kod:'SE24', ad:'Sınıf oluşturucu (Class Builder)', modul:'Teknik', tur:'Teknik', konu:'badi',
+    aciklama:'ABAP OO sınıf ve arayüzlerini yönetir. Yeni nesil {{badi}}’ler arayüz tabanlı olduğu için uygulama sınıfının metot gövdesi buraya yazılır.' },
+  { kod:'SWO1', ad:'İş nesnesi oluşturucu (Business Object Builder)', modul:'Teknik', tur:'Teknik', konu:'bapi',
+    aciklama:'BOR (Business Object Repository) nesnelerini ve metotlarını gösterir. Klasik {{bapi}}’ler bir iş nesnesinin metodu olarak yayımlanır; adlandırma mantığı (BAPI_<NESNE>_<METOT>) buradan gelir.' },
+  { kod:'SM59', ad:'RFC bağlantı tanımları', modul:'Teknik', tur:'Teknik', konu:'bapi',
+    aciklama:'Dış sistemlerin SAP’a (veya SAP’ın dışarıya) hangi adres ve kullanıcıyla bağlandığını tutar. Uzaktan çağrılan bir {{bapi}} "yetki yok" derse sebep çoğu zaman koddaki değil, buradaki kullanıcıdadır.' },
+  { kod:'CMOD', ad:'Proje yönetimi (klasik genişletme)', modul:'Teknik', tur:'Teknik', konu:'badi',
+    aciklama:'Klasik müşteri çıkışlarını (customer exit) bir projeye bağlayıp aktive eder. {{badi}}’den önceki nesildir; eski sistemlerde hâlâ aktif projeler bulunur ve S/4HANA geçişinde tek tek gözden geçirilir.' },
+  { kod:'SMOD', ad:'Genişletme tanımları (klasik)', modul:'Teknik', tur:'Teknik', konu:'badi',
+    aciklama:'SAP’ın sunduğu klasik genişletmelerin (SAP enhancement) bileşenlerini listeler: fonksiyon çıkışı, ekran çıkışı, menü çıkışı. {{CMOD}} bunları projeye bağlar.' },
 ]);

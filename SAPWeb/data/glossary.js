@@ -899,7 +899,7 @@ SAP.registerTerms([
       '{{konu:migration}} konularının **ortak zorunlu adımıdır**.',
     ilgili:['guncelleme-hatasi','toplu-giris','bapi'] },
 
-  { anahtar:'bapi', ad:'BAPI', en:'Business API', konu:'data-upload',
+  { anahtar:'bapi', ad:'BAPI', en:'Business API', konu:'bapi',
     aciklama:'SAP’ın iş nesnelerine **ekrandan bağımsız** erişim sağlayan standart fonksiyon arayüzü.',
     detay:
       '**{{toplu-giris}}’ten farkı:** ekranları taklit etmez, iş mantığını **doğrudan** çağırır.\n\n' +
@@ -913,7 +913,7 @@ SAP.registerTerms([
       'yükleme programlarının klasik hatasıdır.\n\n' +
       'FI tarafında en çok kullanılanlar: G/L belge kaydı, satıcı/müşteri ana verisi, ' +
       'duran varlık oluşturma.',
-    ilgili:['toplu-giris','idoc','data-upload'] },
+    ilgili:['toplu-giris','idoc','badi','data-upload'] },
 
   { anahtar:'idoc', ad:'IDoc', en:'Intermediate Document', konu:'data-upload',
     aciklama:'Sistemler arası veri alışverişi için kullanılan **yapılandırılmış mesaj** formatı.',
@@ -1290,11 +1290,13 @@ SAP.registerTerms([
           'Asıl sorun yazmak değil **envanteri kaybetmektir**: beş yıl sonra hangi geliştirmenin hâlâ kullanıldığı bilinmez ve hepsi yükseltmeye taşınır. Geçiş öncesi kullanım analizi bu yüzden yapılır.',
     ilgili:['standarda-yakin','badi','brownfield'] },
 
-  { anahtar:'badi', ad:'BAdI (iş eklentisi)', en:'Business Add-In', konu:'best-practices',
+  { anahtar:'badi', ad:'BAdI (iş eklentisi)', en:'Business Add-In', konu:'badi',
     aciklama:'SAP’ın standart akış içinde **önceden tanımladığı** genişletme noktası; müşteri kodu standardı değiştirmeden buraya bağlanır.',
     detay:'Tercih sırası: standart ayar → {{badi}} veya genişletme → son çare **modifikasyon**. Aşağı inildikçe sürüm yükseltme maliyeti artar.\n\n' +
+          '**İki ekran:** {{SE18}} tanımı (SAP’ın bıraktığı kanca), {{SE19}} uygulaması (senin kodun). Tanımı SAP yazar, uygulamayı müşteri. Standart kod değişmediği için yükseltmede {{SPAU}}/{{SPDD}} listesinde görünmez.\n\n' +
+          '**Çoklu uygulama tuzağı:** tanım *multiple use* ise birden fazla aktif uygulama olabilir ve **çalışma sırası garanti değildir**. İkisi aynı alanı yazıyorsa sonuç öngörülemez olur — canlıda "bazen oluyor bazen olmuyor" şikâyetinin klasik sebebi budur. Tanım filtreliyse (örn. şirket kodu) uygulama yalnız o değerde çalışır; "genişletme çalışmıyor" ihbarında önce filtreye bakılır.\n\n' +
           'BAdI de bedava değildir: kayıt anında çalıştığı için hatalı bir uygulama **kaydı durdurur** ve hata mesajı çoğu zaman BAdI’yi işaret etmez. Bu yüzden aktif BAdI envanteri, {{konu:dogrulama-ikame}} konusundaki aktif ikame envanteriyle aynı disiplini ister.',
-    ilgili:['z-gelistirme','standarda-yakin'] },
+    ilgili:['bapi','z-gelistirme','standarda-yakin'] },
 
   { anahtar:'akim-verisi', ad:'Akım verisi (canlıda değişen ayar)', en:'Current Setting', konu:'best-practices',
     aciklama:'Taşıma isteğine girmeyen, **canlı sistemde doğrudan** değiştirilen yapılandırma tablosu.',

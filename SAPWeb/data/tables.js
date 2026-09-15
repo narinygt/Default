@@ -739,4 +739,53 @@ SAP.registerTables([
       {ad:'OBJECT', aciklama:'Nesne türü (TABU, PROG, VDAT…)'},
       {ad:'OBJ_NAME', aciklama:'Nesne adı — tablo veya program'},
     ]},
+
+  /* ============================ Geliştirme / genişletme kataloğu ===
+     BAPI ve BAdI konularının dayandığı kayıt defterleri. Bunlar iş
+     verisi DEĞİL, sistemin kendi envanteridir: hangi fonksiyon var,
+     hangi kanca tanımlı, kim uygulamış. */
+  { ad:'TFDIR', baslik:'Fonksiyon modülü kataloğu', modul:'Teknik', tur:'Sistem', konu:'bapi',
+    aciklama:'Sistemdeki her fonksiyon modülünün kaydı. Bir {{bapi}} aslında belirli kurallara uyan bir fonksiyon modülüdür; "bu isimde bir BAPI var mı?" sorusu teknik olarak burada aranır.',
+    anahtar:'FUNCNAME',
+    olusturan:'{{SE37}} ile fonksiyon modülü oluşturulduğunda',
+    s4:'Değişmedi.',
+    alanlar:[
+      {ad:'FUNCNAME', aciklama:'Fonksiyon modülü adı', tip:'pk'},
+      {ad:'PNAME', aciklama:'Ait olduğu fonksiyon grubu'},
+      {ad:'FMODE', aciklama:'Uzaktan çağrılabilir mi (RFC) — BAPI için dolu olması beklenir'},
+    ]},
+
+  { ad:'TADIR', baslik:'Depo nesnesi dizini', modul:'Teknik', tur:'Sistem', konu:'badi',
+    aciklama:'Sistemdeki her geliştirme nesnesinin (program, sınıf, {{badi}} uygulaması, tablo) sahibi, paketi ve özgün sistemi. "Bu genişletmeyi kim, hangi projede yazmış?" sorusunun başlangıç noktası.',
+    anahtar:'PGMID + OBJECT + OBJ_NAME',
+    olusturan:'Her geliştirme nesnesi yaratıldığında otomatik',
+    s4:'Değişmedi.',
+    alanlar:[
+      {ad:'OBJECT', aciklama:'Nesne türü (CLAS, FUGR, SXCI…)', tip:'pk'},
+      {ad:'OBJ_NAME', aciklama:'Nesne adı', tip:'pk'},
+      {ad:'DEVCLASS', aciklama:'Paket — Z/Y ile başlıyorsa müşteri geliştirmesi'},
+      {ad:'AUTHOR', aciklama:'Yaratan kullanıcı'},
+    ]},
+
+  { ad:'SXS_ATTR', baslik:'BAdI tanım öznitelikleri', modul:'Teknik', tur:'Sistem', konu:'badi',
+    aciklama:'Klasik (enhancement-spot öncesi) {{badi}} tanımlarının kaydı: çoklu uygulamaya izin var mı, filtreli mi, hangi arayüzü kullanıyor. {{SE18}} ekranının okuduğu tablodur.',
+    anahtar:'EXIT_NAME',
+    olusturan:'{{SE18}} ile BAdI tanımlandığında',
+    s4:'Klasik BAdI’ler için duruyor; yeni nesil genişletme noktaları ENH* tablolarında tutulur.',
+    alanlar:[
+      {ad:'EXIT_NAME', aciklama:'BAdI tanım adı', tip:'pk'},
+      {ad:'MULTIPLE_USE', aciklama:'Birden çok uygulama aktif olabilir mi — çakışma teşhisinde ilk bakılacak alan'},
+      {ad:'FILTER_TYPE', aciklama:'Filtre türü (örn. şirket kodu) — doluysa uygulama yalnız o değerde çalışır'},
+    ]},
+
+  { ad:'MODSAP', baslik:'SAP genişletme bileşenleri (klasik)', modul:'Teknik', tur:'Sistem', konu:'badi',
+    aciklama:'Klasik SAP genişletmelerinin (customer exit) hangi bileşenlerden oluştuğunu tutar: fonksiyon çıkışı, ekran çıkışı, menü çıkışı. {{SMOD}}/{{CMOD}} ikilisinin arkasındaki tablodur.',
+    anahtar:'NAME + TYP + MEMBER',
+    olusturan:'SAP standardı — müşteri yazmaz, yalnız kullanır',
+    s4:'Duruyor ama yeni geliştirmede {{badi}} tercih edilir.',
+    alanlar:[
+      {ad:'NAME', aciklama:'Genişletme adı (örn. SAPLF051)', tip:'pk'},
+      {ad:'TYP', aciklama:'Bileşen türü: E=fonksiyon çıkışı, S=ekran, M=menü'},
+      {ad:'MEMBER', aciklama:'Bileşen adı — çağrılacak fonksiyon veya ekran'},
+    ]},
 ]);

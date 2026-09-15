@@ -231,6 +231,22 @@ SAP.grupHue = function (grupId) {
     related:['fi-temelleri','s4-yenilikleri','reporting'],
     tcodes:['SE93','SU3','SMEN','SPRO','SE16N'], tables:['TSTC','TSTCT'] },
 
+  /* BAPI ve BAdI: FI danışmanının kod YAZMADAN bilmesi gereken iki
+     geliştirme arayüzü. Biri sisteme dışarıdan girer (BAPI), diğeri
+     sistemin içine girer (BAdI) — ikisi de kayıt anında devreye girdiği
+     için teşhiste sürekli karşılaşılır. */
+  { id:'bapi', grup:'teknik', title:'BAPI (İş Nesnesi Arayüzü)', icon:'🔌', hue:205,
+    level:'İleri', minutes:45,
+    summary:'Ekrandan bağımsız standart arayüz: BAPI nedir, toplu girişten farkı, commit tuzağı, hata yapısı ve FI’da en çok kullanılan BAPI’ler.',
+    related:['data-upload','lsmw','migration','badi'],
+    tcodes:['BAPI','SE37','SWO1','SM59','ST22'], tables:['TFDIR','TADIR'] },
+
+  { id:'badi', grup:'teknik', title:'BAdI (Genişletme Noktası)', icon:'🧩', hue:170,
+    level:'İleri', minutes:45,
+    summary:'Standardı değiştirmeden araya girmek: BAdI tanımı ve uygulaması, çoklu uygulama ve filtre tuzakları, modifikasyondan farkı ve teşhis yöntemi.',
+    related:['dogrulama-ikame','best-practices','error-handling','bapi'],
+    tcodes:['SE18','SE19','SE24','SE80','CMOD','SMOD'], tables:['SXS_ATTR','MODSAP','TADIR'] },
+
   { id:'reporting', grup:'teknik', title:'Raporlama', icon:'📈', hue:190,
     level:'Orta', minutes:45,
     summary:'Kalem ve bakiye raporları, mali tablo yapısı, ALV düzenleri, Report Painter ve S/4HANA’da Fiori/CDS tabanlı raporlama.',

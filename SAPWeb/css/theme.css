@@ -252,6 +252,12 @@ code, kbd, samp {
   font-family: var(--font-mono);
   font-size: .88em;
   font-variant-numeric: tabular-nums;
+  /* ⚠️ SATIR İÇİ KOD BÖLÜNEBİLMELİ. SAP adları uzun ve boşluksuzdur
+     (`BAPI_ACC_INVOICE_RECEIPT_POST`, `ACCOUNTRECEIVABLE`); bölünemeyen
+     tek bir parça 360px'te sayfayı yatay kaydırtıyordu. Kural: tablo,
+     diyagram ve kod BLOĞU kendi overflow-x kabında geniş olabilir —
+     satır içi kod olamaz, o metnin parçasıdır. */
+  overflow-wrap: anywhere;
 }
 
 /* RAKAMLAR — muhasebede rakam hizalanır. Numara, süre, sayaç ve tutar

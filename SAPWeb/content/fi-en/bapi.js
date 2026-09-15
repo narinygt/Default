@@ -241,7 +241,7 @@ SAP.registerTopic({
              'footprint left by {{guncelleme-hatasi}}, though the cause differs: there ' +
              'the write is attempted and **fails**, here the write is **never ' +
              'requested**.\n\n' +
-             '⚠️ The amounts in this posting show only **what should have happened** — ' +
+             'The amounts in this posting show only **what should have happened** — ' +
              'because no row was ever written to {{BKPF}}, this entry **does not exist** ' +
              'in the trial balance.' },
     ],
@@ -298,7 +298,7 @@ SAP.registerTopic({
       { ad: 'Vendor / customer master BAPIs', en: 'Vendor / Customer Master',
         aciklama: 'The classic `BAPI_VENDOR_*` / `BAPI_CUSTOMER_*` family — master data creation and change.',
         neZaman: 'For master data loads on ECC and early S/4HANA releases.',
-        ornek: '⚠️ **Watch out in S/4HANA:** because vendors and customers moved to the ' +
+        ornek: '**Watch out in S/4HANA:** because vendors and customers moved to the ' +
                '{{is-ortagi|Business Partner}} model, part of this classic family has been ' +
                'superseded by the `BAPI_BUPA_*` family. Which one applies on a given release ' +
                'must be **confirmed project by project** through {{BAPI}} (BAPI Explorer) — ' +
@@ -316,7 +316,7 @@ SAP.registerTopic({
       { ad: '`BAPI_GL_ACC_GETBALANCE` — Balance read (no commit needed)', en: 'Balance Read (no commit needed)',
         aciklama: '**Reads** a G/L account\'s period balance; it isn\'t a write operation.',
         neZaman: 'When a report or interface program needs to query a balance.',
-        ornek: '⚠️ **This is the exception:** read-only BAPIs need **no commit** — nothing ' +
+        ornek: '**This is the exception:** read-only BAPIs need **no commit** — nothing ' +
                'is ever changed. Commit is mandatory only for BAPIs that **write** data. ' +
                'Seeing `GET`/`READ` in a BAPI\'s name is the first sign of this distinction.',
         tcodes: ['SE37'] },
@@ -633,7 +633,7 @@ SAP.registerTopic({
       'called, one of two things happens: (a) the program ends and the data is ' +
       '**lost**, or (b) the next transaction opens a different LUW and the earlier ' +
       'data is lost the same way.\n\n' +
-      '⚠️ **The most dangerous part:** some BAPIs — `BAPI_ACC_DOCUMENT_POST` ' +
+      '**The most dangerous part:** some BAPIs — `BAPI_ACC_DOCUMENT_POST` ' +
       'included — hand back a document number **before** commit is even called, ' +
       'because number-range ({{NRIV}}) allocation is usually a separate step. The ' +
       'program logs the number and reports "success," but no row is ever written ' +

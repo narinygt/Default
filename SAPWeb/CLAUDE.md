@@ -4,10 +4,12 @@
 > çıkarılan dersler burada tutulur. **Her güncellemede yenilenir.**
 > Amaç: projeyi başka bir yapay zeka sohbetine aktarırken tek dosya vererek tüm bağlamı taşımak.
 
-**Son güncelleme:** 14 Eylül 2026 · **Tasarım sistemi baştan yazıldı** (bkz. §5b) ve
-**36 konunun 36'sı** derin içerikle dolduruldu — katalog **tamamlandı**.
-**Sözlükler:** 262 işlem kodu · 92 tablo · 164 terim (üçünde de çift kayıt yok — bkz. Ders #26).
-**Dil anahtarı yeniden açıldı ve gövde çevirisi TAMAMLANDI: 36/36 konu
+**Son güncelleme:** 15 Eylül 2026 · **Tasarım sistemi baştan yazıldı** (bkz. §5b) ve
+**38 konunun 38'i** derin içerikle dolduruldu — katalog **tamamlandı**.
+⭐ **Son eklenenler: `bapi` ve `badi`** (37. ve 38. konu, `teknik` grubu,
+ikisi de TR + EN — bkz. §5 ve "Yeni parti: bapi + badi").
+**Sözlükler:** 271 işlem kodu · 96 tablo · 164 terim (üçünde de çift kayıt yok — bkz. Ders #26).
+**Dil anahtarı yeniden açıldı ve gövde çevirisi TAMAMLANDI: 38/38 konu
 tam İngilizce.** Dokuz grubun tamamı çevrildi; hiçbir konuda artık
 `.lang-notice` uyarısı çıkmıyor. Mekanizma (konu bazında kısmi çeviriye
 izin veren `sections_en` katmanı) yerinde duruyor — ileride konu
@@ -99,7 +101,7 @@ zaman"* teknik bir mutlaklık bildirir, ikinci tekil şahıs anlatım
 grep -rn "ülakat\|adayın" content/ data/ js/     # boş dönmeli
 ```
 ⚠️ Kaynakta aramak yetmez: `ogrenme` bölümü **çizilmiyor** (§6), oradaki
-geçişler ekranda yoktur. Ölçüm **çizilmiş metinde** yapılır — 36 konu
+geçişler ekranda yoktur. Ölçüm **çizilmiş metinde** yapılır — 38 konu
 tek tek gezilip `#view` içindeki metin taranır.
 
 > Bu dosyanın kendisi bir geliştirici belgesidir; §1'deki *"danışman/mülakat
@@ -127,10 +129,10 @@ SAPWeb/
 │   ├── search.js         # arama indeksi (konu + tcode + tablo + terim)
 │   └── ui.js             # kabuk: sidebar, topbar, tema, Ctrl+K paleti, boot()
 ├── data/
-│   ├── tcodes.js         # 254 işlem kodu sözlüğü
-│   ├── tables.js         # 88 tablo sözlüğü
-│   ├── glossary.js       # 142 muhasebe/SAP terimi
-│   └── catalog.js        # modül + grup tanımı + 36 konunun kart meta verisi (stub)
+│   ├── tcodes.js         # 271 işlem kodu sözlüğü (+ tcodes-en.js üst katmanı)
+│   ├── tables.js         # 96 tablo sözlüğü (+ tables-en.js üst katmanı)
+│   ├── glossary.js       # 164 muhasebe/SAP terimi (+ glossary-en.js üst katmanı)
+│   └── catalog.js        # modül + grup tanımı + 38 konunun kart meta verisi (stub)
 ├── content/fi/           # her konu = bir dosya (derin içerik)
 │   ├── genel-muhasebe.js
 │   ├── fi-temelleri.js
@@ -157,6 +159,8 @@ SAPWeb/
 │   ├── cost-center.js
 │   ├── co-integration.js
 │   ├── org-yapisi.js
+│   ├── bapi.js
+│   ├── badi.js
 │   ├── reporting.js
 │   ├── sap-tables.js
 │   ├── dogrulama-ikame.js
@@ -170,7 +174,7 @@ SAPWeb/
 │   └── s4-yenilikleri.js
 ├── content/fi-en/        # gövde çevirisi (KISMİ — bkz. §10). Aynı id ile
 │   │                       sections_en gönderip content/fi/'daki konuya
-│   │                       MERGE olur. 36/36 konu burada — TAM ÇEVRİLİ.
+│   │                       MERGE olur. 38/38 konu burada — TAM ÇEVRİLİ.
 │   ├── genel-muhasebe.js
 │   ├── fi-temelleri.js
 │   ├── org-yapisi.js
@@ -221,7 +225,7 @@ gerekmez. `</script>` dizisi içeriyorsa hata verip durur.
 ### Yükleme sırası (index.html'de sabit)
 ```
 1) çekirdek   core → i18n → markup → diagram
-2) veri       tcodes → tables → glossary → catalog     (catalog stub'ları kaydeder)
+2) veri       tcodes → tables → glossary → catalog     (catalog 38 stub kaydeder)
 3) içerik     content/fi/*.js                          (stub'ları derin bölümlerle doldurur)
 3b) EN gövde  content/fi-en/*.js                        (KISMİ — bkz. §10; sections_en merge eder)
 4) arayüz     sections → views → learn → search → ui   (ui.js boot() çağırır)
@@ -354,7 +358,7 @@ SAP.registerTopic({ id:'gl-accounting', sections: {
 
 ---
 
-## 5. Konu Kataloğu — 36 konu, 9 grup
+## 5. Konu Kataloğu — 38 konu, 9 grup
 
 | Grup | Konular |
 |---|---|
@@ -364,13 +368,14 @@ SAP.registerTopic({ id:'gl-accounting', sections: {
 | 📅 Dönem Sonu | **foreign-currency** ✅ · **closing** ✅ |
 | 🧭 Muhasebe Mimarisi | **new-gl** ✅ · **parallel-ledger** ✅ |
 | 🔗 Entegrasyon | **cost-center** ✅ · **co-integration** ✅ · **mm-integration** ✅ · **sd-integration** ✅ |
-| 🛠️ Teknik & Raporlama | **sap-tables** ✅ · **tcodes** ✅ · **reporting** ✅ |
+| 🛠️ Teknik & Raporlama | **sap-tables** ✅ · **tcodes** ✅ · **reporting** ✅ · **bapi** ✅ · **badi** ✅ |
 | 📦 Veri & Geçiş | **lsmw** ✅ · **data-upload** ✅ · **migration** ✅ |
 | 🚀 İleri Seviye | **error-handling** ✅ · **best-practices** ✅ · **s4-yenilikleri** ✅ |
 
 ✅ = derin içerik yazıldı (11 bölümün tamamı).
 
-⭐ **Katalog 10 Eylül 2026'da tamamlandı: 36 konunun 36'sı hazır.**
+⭐ **Katalog 10 Eylül 2026'da tamamlandı (36 konu); 15 Eylül 2026'da
+`bapi` ve `badi` eklendi: 38 konunun 38'i hazır.**
 "Yakında" rozetli konu kalmadı; `status:'planned'` yolu motorda duruyor
 (yeni modül eklenirse yine çalışır) ama FI tarafında kullanılmıyor.
 
@@ -436,7 +441,7 @@ Kapsam **latin + latin-ext** ile sınırlı: latin-ext Türkçe için
 | Bileşen | Karar | Dosya |
 |---|---|---|
 | Ürün adı | **SAP FI Compass** — kenar çubuğunun üstünde tek satır, alt başlık **yok**. Ad her iki dilde aynıdır (özel isim çevrilmez) | `i18n.js` `app.name` |
-| Ana sayfa | **Numaralı içindekiler dizini** (01…36), dokuz bölüm. Kart ızgarası, rozet, istatistik kutusu, hero **yok** | `views.js` `home` |
+| Ana sayfa | **Numaralı içindekiler dizini** (01…38), dokuz bölüm. Kart ızgarası, rozet, istatistik kutusu, hero **yok** | `views.js` `home` |
 | Satır meta | Yalnızca **seviye** + okundu noktası. ⚠️ **Süre ("40 dk") ve sayaçlar kaldırıldı** — bir kitabın içindekiler sayfasında ne okuma süresi ne bölüm adedi yazar; okuma hızı okuyucunun işidir | `views.js`, `ui.js` |
 | Açıklama | Satır **tıklanınca** açılır; dizin taranabilir kalır | `.idx-sum`, `store.acikDizin` |
 | Tek eylem | Üstte **"Kaldığın yerden devam et"** + 2px ilerleme çubuğu | `.resume` |
@@ -457,9 +462,9 @@ sol sütun çekmeceye iner.
 
 | Özellik | Durum | Not |
 |---|---|---|
-| Numaralı içindekiler dizini (01…36) | ✅ | Kitap dizini; açıklama tıklayınca açılır (bkz. §5b) |
+| Numaralı içindekiler dizini (01…38) | ✅ | Kitap dizini; açıklama tıklayınca açılır (bkz. §5b) |
 | "Kaldığın yerden devam et" + rastgele konu | ✅ | Yarım kalan konuyu sistem bulur |
-| **Arayüz dili TR / EN** | ✅ | Sağ üst köşede anahtar; arayüz + 36 başlık + 36 özet + grup/bölüm adları çevrili. **Gövde 36/36 konuda tam çevrili** — dokuz grubun tamamı; `.lang-notice` uyarısı hiçbir konuda çıkmıyor, bkz. §10 |
+| **Arayüz dili TR / EN** | ✅ | Sağ üst köşede anahtar; arayüz + 38 başlık + 38 özet + grup/bölüm adları çevrili. **Gövde 38/38 konuda tam çevrili** — dokuz grubun tamamı; `.lang-notice` uyarısı hiçbir konuda çıkmıyor, bkz. §10 |
 | Karanlık / Aydınlık mod | ✅ | Sistem tercihi + manuel geçiş, localStorage'a yazılır |
 | İlerleme çubuğu (bölüm/konu/genel) | ✅ | Bölüm bazında "okundu", karta halka, sidebar'a nokta |
 | Tamamlanan konu işaretleme | ✅ | Tek tıkla tüm bölümler |
@@ -486,7 +491,7 @@ sol sütun çekmeceye iner.
 ## 7. Doğrulama Durumu
 
 ### ✅ Programatik olarak doğrulandı (tarayıcıda, gerçek DOM üzerinde)
-- 36 konu sayfası, 254 T-code, 88 tablo, 142 terim sayfası → **tamamı çiziliyor, konsol hatası yok**
+- 38 konu sayfası, 271 T-code, 96 tablo, 164 terim sayfası → **tamamı çiziliyor, konsol hatası yok**
 - Üç sözlükte de **çift anahtar yok** — programatik olarak doğrulandı (bkz. Ders #26)
 - Her ER diyagramının `data-er` **JSON niteliği ayrıştırılabiliyor** (0 bozuk) —
   `mk()` dönüşümünün niteliği bozmadığının kanıtı
@@ -505,7 +510,7 @@ sol sütun çekmeceye iner.
 
   Bu eksen ilk çalıştırmasında **86 bozuk yer** buldu ve üç ayrı motor kusurunu
   ortaya çıkardı (Ders #28).
-- ⭐ **6. eksen — EMOJİ.** Çizilmiş kabukta ve 36 konu sayfasında emoji
+- ⭐ **6. eksen — EMOJİ.** Çizilmiş kabukta ve 38 konu sayfasında emoji
   sayısı **0 olmalıdır**. Ölçüm `✓ ✕` gibi tipografik glifleri hariç tutar
   (onlar emoji değil, metin glifi). Bu eksen ilk çalıştırmasında **705**
   bulmuştu — tablo hücrelerindeki `✅/❌`; tek renkli `✓/✕`'e çevrildiler.
@@ -536,7 +541,7 @@ sol sütun çekmeceye iner.
   Eksen kendi kendini sınar: enjekte edilen ölü token yakalanmalı,
   canlı token yakalanmamalı, tanımlı token sayısı > 20 olmalı.
 
-- ⭐ **8. eksen — GERÇEK KONTRAST (iki tema).** 36 konu + 3 rota × 2 tema;
+- ⭐ **8. eksen — GERÇEK KONTRAST (iki tema).** 38 konu + 3 rota × 2 tema;
   **her metin düğümü** kendi hesaplanmış zeminine karşı ölçülür (saydam
   zeminlerde ata zinciri yürünür). Eşik: normal metin 4.5, büyük punto 3.0.
   **Ölçülen düğüm: 64.938. Beklenen: 0 ihlal.**
@@ -548,10 +553,10 @@ sol sütun çekmeceye iner.
   `html lang` dolu · tek `<h1>` · `<main>` bölgesi var ·
   okunmakta olan konu `aria-current="page"` taşıyor.
 
-- **Bağlantı bütünlüğü:** 36 konu sayfasındaki **her** `data-go`/`href`
+- **Bağlantı bütünlüğü:** 38 konu sayfasındaki **her** `data-go`/`href`
   hedefi sözlükte gerçekten var mı — **0 kırık iç bağlantı**.
 
-- **320px yatay taşma:** 36 konu + 4 rota, en dar yaygın telefon
+- **320px yatay taşma:** 38 konu + 4 rota, en dar yaygın telefon
   genişliğinde **0 taşma** (mobil sweep ayrıca 390/360'ta 84 ölçüm).
 
 - **Soru kartı kalıntısı:** çizilmiş DOM'da `.fc-scene` / `.fc-wrap` sayısı
@@ -1105,6 +1110,74 @@ karşılaştırılır.*
 `best-practices`'te **karar** ölçeğinde (ayar değişti ama veri değişmedi),
 `s4-yenilikleri`'nde **sorgu** ölçeğinde (kod çalıştı ama sonuç yanlıştı).
 Üçünde de sistem **doğru davrandı** ve hiçbir hata mesajı çıkmadı.
+
+### Yeni parti: `bapi` + `badi` (37. ve 38. konu — 15 Eylül 2026)
+
+Kullanıcı talebi: *"bapi ve badi konularını da detaylıca hem en hem tr olarak ekle."*
+İkisi de `teknik` grubunda, ikisi de **aynı turda TR + EN** yazıldı
+(`content/fi/` + `content/fi-en/`) — yani hiçbir aşamada `.lang-notice`
+uyarısı doğmadı.
+
+⭐ **İkisi birbirinin karşıtı olarak kurgulandı — tek cümlede ayrım:**
+**BAPI dışarıdan İÇERİ girer, BAdI içeride SAP'ın bıraktığı yerden konuşur.**
+Biri standart iş mantığını **çağırır** (ekranı taklit etmeden), diğeri
+standart akışın **içine** müşteri kodu yerleştirir (standart koda
+dokunmadan). Aynı ayrım {{konu:data-upload}} ve {{konu:dogrulama-ikame}}
+konularının teknik karşılığıdır ve iki konu da oralara bağlanıyor.
+
+#### `bapi` — ⭐ tez: **BAPI bir fonksiyon modülü değil, bir SÖZLEŞMEDİR**
+Sıradan fonksiyon modülünden üç şey ayırır: **ekrandan bağımsızdır**
+(iş mantığını doğrudan çağırır), **sürüm boyunca sabit kalır** (SAP
+arayüzü geriye dönük uyumlu tutmayı taahhüt eder), **uzaktan
+çağrılabilir** (`RFC`). Sözleşmenin karşılığı da vardır: çağıran taraf
+{{BAPI_TRANSACTION_COMMIT}}'i kendi çağırmak ve `RETURN` tablosunu
+okumak zorundadır.
+
+- ⚠️ **İki sessiz tuzak** (`data-upload`'da değinilmişti, burada
+  ayrıntılandırıldı): commit çağrılmazsa kayıt **yazılmaz** ama BAPI yine
+  *"başarılı"* döner · {{guncelleme-hatasi}} `RETURN` tablosuna
+  **yansımaz** (asenkron aşamada oluşur → {{SM13}} ayrı kontrol edilir).
+- **{{SWO1}} / {{SE37}} / {{SE80}}** ile BAPI bulma; {{SM59}} ile RFC
+  bağlantısı; {{TFDIR}} ve {{TADIR}} tabloları.
+- **Senaryo — "Gece arayüzü — 400 belgeden 137".** İş günlüğü üç ay
+  boyunca **yeşildi**; `RETURN` temizdi ama güncelleme aşamasında
+  düşen kayıtlar hiçbir yere yansımıyordu.
+  ⭐ **Kalıcı önlem tek cümle:** *iş günlüğünün "başarılı" demesi yeterli
+  değildir — her gece çalışan arayüz, ertesi sabah {{BKPF}} sayısıyla
+  kaynak sistemin kayıt sayısı karşılaştırılarak doğrulanır.*
+
+#### `badi` — ⭐ tez: **kanca SAP'ın, kod müşterinin — ve ikisini karıştırmak sorunun kendisidir**
+**Tanım (definition)** SAP'ın işidir ({{SE18}}): kancanın yeri, metotları,
+**çoklu kullanıma** izin verip vermediği, filtre destekleyip
+desteklemediği. **Uygulama (implementation)** müşterinin işidir
+({{SE19}} atar, gerçek kod {{SE24}}'te durur). Standart koda tek satır
+dokunulmaz — {{konu:best-practices}}'teki {{standarda-yakin}} ilkesinin
+teknik karşılığı budur.
+
+- ⭐ **Çoklu kullanım tuzağı, ikame tuzağından bir derece zordur.**
+  {{konu:dogrulama-ikame}}'deki bir ikame en azından **tek** kuraldır;
+  çoklu kullanıma açık bir BAdI'de iki bağımsız, birbirinden habersiz
+  uygulama aynı alanı hedefleyebilir ve sonuç **SAP'ın garanti etmediği**
+  bir çalışma sırasına bağlı kalır.
+- **Filtre tuzağı:** filtre değeri eşleşmeyen uygulama **sessizce
+  atlanır** — hata değil, tasarım; ama *"kural çalışmıyor"* vakalarının
+  bir kısmı buradadır.
+- Eski nesil {{CMOD}}/{{SMOD}} (müşteri çıkışları) ile ayrım; tablolar
+  {{SXS_ATTR}}, {{MODSAP}}, {{TADIR}}.
+- **Senaryo — "Kâr merkezi neden bazen böyle, bazen öyle oluyor?"**
+  Belgelenmemiş, çoklu kullanıma açık bir BAdI tanımı, iki bağımsız
+  uygulama yüzünden **bir yıl boyunca öngörülemez** sonuçlar üretti.
+  `cost-center`'daki {{OKB9}} eskimesi ve `dogrulama-ikame`'deki
+  belgelenmemiş ikame ile **aynı hata sınıfı**, bir derece daha karmaşığı.
+
+**Sözlüğe bu partide eklenenler**
+**İşlem kodları (9):** {{BAPI}}, {{SE80}}, {{SE18}}, {{SE19}}, {{SE24}},
+{{SWO1}}, {{SM59}}, {{CMOD}}, {{SMOD}} (⚠️ {{SE37}} zaten vardı — Ders #26).
+**Tablolar (4):** {{TFDIR}}, {{TADIR}}, {{SXS_ATTR}}, {{MODSAP}}.
+**Terimler:** yeni terim eklenmedi; mevcut {{bapi}} ve {{badi}} girdileri
+zenginleştirildi ve `konu` alanları yeni konulara yönlendirildi
+(⚠️ ilk denemede ikinci bir `badi` terimi oluşturuldu ve çift-anahtar
+kontrolü yakaladı — Ders #26 ikinci kez işe yaradı).
 
 ### Sözlüğe bu partide eklenenler
 **İşlem kodları (8):** {{AS91}}, {{SE09}}, {{STMS}}, {{SM30}}, {{SPDD}}, {{SPAU}},
@@ -1742,6 +1815,74 @@ FI kataloğu bittiği için sıradaki iş **içerik değil**. İki yön:
       Yeni sözleşme yazıldı: kapalı başla → aç → kapat → yenilemeyi aş →
       aktif konunun grubu kendiliğinden açılsın.
 
+35. **⭐ Satır içi `<code>` bir TAŞMA KAYNAĞIDIR — ve onu tetikleyen şey
+    içeriğin uzunluğu değil, BÖLÜNEMEZLİĞİdir.**
+
+    `bapi` konusu eklendikten sonra mobil tarama **360px'te taşma**
+    bildirdi: `#/konu/bapi → 394`. Tek konuda, tek genişlikte.
+    Sayfanın geri kalanı — 38 konu × iki genişlik × iki dil — temizdi.
+
+    Taşan öğe özel bir bileşen değildi; düz proza içindeki bir
+    `<code>ACCOUNTRECEIVABLE</code>` idi (130px). Tek başına dar bile
+    sayılır — ama **hiçbir yerinden bölünemiyordu**: tarayıcı varsayılan
+    olarak yalnızca boşluk ve tireden kırar, ve bu dizgede ikisi de yok.
+    Ne `.prose` ne de üstündeki hiçbir kap `overflow` taşıyordu, yani
+    kaydırılacak bir kutu da yoktu — satır doğrudan **sayfayı** genişletti.
+
+    ⚠️ **Yanlış düzeltme şu olurdu:** o cümleyi yeniden yazmak, kodu
+    kısaltmak veya `bapi` sayfasına özel bir kural koymak. Üçü de
+    **belirtiyi** kapatır (Ders #25'in tam olarak uyardığı hata):
+    aynı taşma, bölünemez bir teknik ad yazan **bir sonraki konuda**
+    yeniden doğar — ve BAPI/BAdI konularının tamamı bu tür adlarla
+    doludur (`BAPI_ACC_DOCUMENT_POST`, `IF_EX_AC_DOCUMENT`, `SXS_ATTR`).
+
+    **Doğru düzeltme kaynaktadır ve tek satırdır** (`theme.css`):
+
+    ```css
+    code, kbd, samp { overflow-wrap: anywhere; }
+    ```
+
+    Bu, sıradan metni etkilemez (orada zaten boşluk vardır); yalnızca
+    **başka türlü sığmayan** bir dizgenin kırılmasına izin verir.
+    Tek dosyalık bir kuralla, bugünkü tek örnek ve gelecekteki bütün
+    örnekler birlikte kapandı.
+
+    ⭐ **Asıl ders — ölçümün değeri kapsamındadır, hassasiyetinde değil.**
+    Bu taşma **yalnızca** 360px'te, **yalnızca** bir konuda, **yalnızca**
+    yeni içerik eklendikten sonra görünür oldu. Mobil tarama her partide
+    38 konuyu iki genişlikte gezdiği için yakalandı; "son değişiklik
+    nereye dokunduysa orayı ölç" yaklaşımı **asla** bulamazdı — çünkü
+    değişiklik bir içerik dosyasıydı, taşmanın sebebi ise CSS'te
+    eksik bir kuraldı.
+
+36. **"Sıfır emoji" bir CSS ilkesi değil, bir İÇERİK ilkesidir — ve
+    yalnızca ekrana çıkanı ölçen bir eksen onu koruyabilir.**
+
+    `bapi` içeriği yazıldıktan sonra emoji ekseni **4 ihlal** bildirdi:
+    `["⚠ @jr-note","⚠ @bd","⚠ @bd","⚠ @kv-v"]`. Kaynak alt ajandı;
+    talimatta kural yazılıydı ama proza içine `⚠️` yine de sızdı.
+    Bu beklenmelidir: **üslup kuralları talimatla değil, ölçümle tutulur.**
+
+    ⭐ **Eksenin doğru yerde ölçtüğünün kanıtı ise aynı dosyanın
+    ÖTEKİ emojileridir.** `badi.js` içinde 36 `⚠️` daha var ve eksen
+    onların hiçbirini bildirmedi — çünkü hepsi `diyagram.adimlar[].ic`
+    alanında, yani **akış şemasının kutu içeriğinde**, ve o alan
+    ekranda bu biçimde çizilmiyor. Aynı desen bütün eski konularda da
+    var (`grep` ile kaynakta arayan biri "yüzlerce emoji" bulur ve
+    yanlış alarma kapılır).
+
+    **Kural:** emoji sayımı **kaynakta değil, çizilmiş `#view` metninde**
+    yapılır. Kaynak taraması bu konuda Ders #24'ün tersi bir hata üretir:
+    orada yanlış araç **yanlış alarm** vermişti, burada yanlış **yer**
+    verir. İkisinin ortak dersi: *ölçümün yeri, ölçümün kendisi kadar
+    önemlidir.*
+
+    ⚠️ **Ve yeni içerik eklendiğinde tam takım çalıştırılır.** Bu turda
+    emoji ekseni ile mobil taşma ekseni (Ders #35) **aynı anda** kırmızı
+    döndü; ikisi de yalnızca yeni konulardaydı ve ikisi de yalnızca
+    tam battery çalıştırıldığı için görüldü. Ders #33'ün kapanış cümlesi
+    burada da geçerli: *fix'ten sonra hedeflenen ekseni değil, tümünü çalıştır.*
+
 ---
 
 ## 10. Dil Katmanı (TR / EN) — ve sınırının gerekçesi
@@ -1784,7 +1925,7 @@ gelir, **aranan metin her iki dili de içerir** (`search.js` →
 `baslikDil`). İndeks dile bağlı olduğu için dil değişince **yeniden
 kurulur**.
 
-**Her zaman çevrilir:** bütün arayüz metinleri · dokuz grup adı · 36
+**Her zaman çevrilir:** bütün arayüz metinleri · dokuz grup adı · 38
 konunun **başlığı ve özeti** · seviye adları · 11 bölüm adı · boş durum
 metinleri · **renderer'ın kendi etiketleri** (bkz. aşağıdaki alt bölüm).
 Ayrıca **yüzde biçimi** dile göre değişir: TR `%40`, EN `40%`.
@@ -1830,10 +1971,10 @@ function sectionData(t, id) {
 Bu üç kademe sayesinde eksik/yarım bir çeviri **sayfayı hiçbir zaman
 kırmaz** — sadece o kısım Türkçe kalır ve okuyucu bunu bilir.
 
-**TAM ÇEVRİLİ: 36/36 konu.** Dokuz grubun tamamı — Temeller (4), Ana
+**TAM ÇEVRİLİ: 38/38 konu.** Dokuz grubun tamamı — Temeller (4), Ana
 Süreçler (5), Günlük İşlemler (10), Dönem Sonu (2), Muhasebe Mimarisi
-(2), Entegrasyon (4), Teknik & Raporlama (3), Veri & Geçiş (3), İleri
-Seviye (3). `content/fi-en/` altında 36 dosya var ve `en-full.mjs`
+(2), Entegrasyon (4), Teknik & Raporlama (5 — `bapi` ve `badi` dahil),
+Veri & Geçiş (3), İleri Seviye (3). `content/fi-en/` altında 38 dosya var ve `en-full.mjs`
 taraması hiçbir konuda `.lang-notice` görmüyor (yukarıdaki 3. kademe).
 **`ogrenme` bölümü çevrilmez** — zaten hiçbir yerde çizilmiyor (§6),
 çevirmek boşa emek olur; `sections_en` bu bölümü hiçbir dosyada

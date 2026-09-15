@@ -222,7 +222,7 @@ SAP.registerTopic({
              '{{guncelleme-hatasi}}\'nın doğurduğu belirtiyle aynı görünür, ' +
              'ama sebebi farklıdır: orada yazım denenip **başarısız olur**, ' +
              'burada yazım **hiç istenmez**.\n\n' +
-             '⚠️ Bu fişteki tutarlar yalnızca **ne olması gerektiğini** gösterir — ' +
+             'Bu fişteki tutarlar yalnızca **ne olması gerektiğini** gösterir — ' +
              'gerçekte {{BKPF}}\'ye hiçbir satır yazılmadığı için mizanda bu kayıt **yoktur**.' },
     ],
 
@@ -277,7 +277,7 @@ SAP.registerTopic({
       { ad: 'Satıcı / müşteri ana verisi BAPI\'leri', en: 'Vendor / Customer Master',
         aciklama: 'Klasik `BAPI_VENDOR_*` / `BAPI_CUSTOMER_*` ailesi — ana veri oluşturma ve değiştirme.',
         neZaman: 'ECC ve S/4HANA\'nın erken sürümlerinde ana veri yüklemesinde.',
-        ornek: '⚠️ **S/4HANA\'da dikkat:** satıcı ve müşteri, {{is-ortagi|İş Ortağı (Business Partner)}} ' +
+        ornek: '**S/4HANA\'da dikkat:** satıcı ve müşteri, {{is-ortagi|İş Ortağı (Business Partner)}} ' +
                'modeline taşındığı için bu klasik BAPI\'lerin bir kısmı yerini ' +
                '`BAPI_BUPA_*` ailesine bırakmıştır. Hangi sürümde hangisinin geçerli olduğu ' +
                'proje bazında {{BAPI}} (BAPI Explorer) üzerinden **doğrulanmalıdır** — ' +
@@ -295,7 +295,7 @@ SAP.registerTopic({
       { ad: '`BAPI_GL_ACC_GETBALANCE` — Bakiye okuma', en: 'Balance Read (no commit needed)',
         aciklama: 'Bir G/L hesabının dönem bakiyesini **okur**; yazma işlemi değildir.',
         neZaman: 'Rapor ve arayüz programlarında bakiye sorgusu gerektiğinde.',
-        ornek: '⚠️ **İstisna budur:** okuma amaçlı BAPI\'lerde commit **gerekmez** — ' +
+        ornek: '**İstisna budur:** okuma amaçlı BAPI\'lerde commit **gerekmez** — ' +
                'çünkü hiçbir şey değiştirilmez. Commit yalnızca veri **yazan** BAPI\'lerde ' +
                'zorunludur. Bir BAPI\'nin isim ekinde `GET`/`READ` görmek bu ayrımın ' +
                'ilk işaretidir.',
@@ -607,7 +607,7 @@ SAP.registerTopic({
       '`BAPI_TRANSACTION_COMMIT` bu çalışma alanını **kalıcı hâle getirir**. ' +
       'Çağrılmazsa iki şey olabilir: (a) program sonlanır ve veri **kaybolur**, ' +
       'veya (b) bir sonraki işlem farklı bir LUW açar ve önceki veri yine kaybolur.\n\n' +
-      '⚠️ **En tehlikeli kısım:** bazı BAPI\'ler (`BAPI_ACC_DOCUMENT_POST` dahil) ' +
+      '**En tehlikeli kısım:** bazı BAPI\'ler (`BAPI_ACC_DOCUMENT_POST` dahil) ' +
       'commit çağrılmadan **önce** bir belge numarası döndürür — çünkü numara ' +
       'aralığı ({{NRIV}}) tahsisi genelde ayrı bir işlemdir. Program bu numarayı ' +
       'kaydedip "başarılı" der, ama {{BKPF}}\'ye hiçbir satır yazılmaz.\n\n' +

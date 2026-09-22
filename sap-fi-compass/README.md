@@ -10,6 +10,7 @@ tıklayarak açılır.
 | `2-high-end-visual-design/` | high-end-visual-design skill'i — hep beyaz, çift çerçeveli paneller, bento |
 | `3-design-taste-frontend/` | design-taste-frontend skill'i — 2. sürümün denetlenmiş hali: bölünmüş karşılama, tek görsel olarak SAP logosu, tek vurgu rengi, tek yarıçap kuralı, Phosphor ikonlar, hiç uzun tire yok (içerik dahil) |
 | `4-awwwards-animations/` | awwwards-animations skill'i — 3. sürümün üstüne hareket katmanı: Lenis yumuşak kaydırma, başlık satır açılımı, kaydırmayla kart girişleri, manyetik ana düğme, komut alanı yazı ipucu, konu sayfasında okuma çubuğu |
+| `5-ui-ux-pro-max/` | ui-ux-pro-max skill'i — 4. sürümün kullanılabilirlik ve erişilebilirlik denetimi: içeriğe atlama bağlantısı, dokunmatikte 44px dokunma alanları, 12px altında metin yok, başlık sırası, okundu durumu metinle, mobil menüde odak yönetimi ve Esc, klavyeyle gizli içeriğe erişim, daha sade hareket |
 
 CPeak projesine etkisi yoktur: Astro yalnızca `src/` ve `public/` okur; bu
 klasör `tsconfig.json`'da `exclude` listesindedir, bu yüzden `astro check`

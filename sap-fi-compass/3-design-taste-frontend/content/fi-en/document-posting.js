@@ -1,6 +1,6 @@
 /* ==========================================================================
-   content/fi-en/document-posting.js — English body for "Document Posting"
-   Same conventions as content/fi-en/gl-accounting.js — see that file's
+   content/fi-en/document-posting.js: English body for "Document Posting"
+   Same conventions as content/fi-en/gl-accounting.js: see that file's
    header comment.
    ========================================================================== */
 
@@ -13,8 +13,8 @@ SAP.registerTopic({
   tanim: {
     nedir:
       'Document posting is the process by which an economic event turns, in SAP, into an ' +
-      '**accounting document**. Wherever it comes from — entered by hand, dropped in from MM, flowed in ' +
-      'from SD — the result always has the same shape: one header ({{BKPF}}) + at least two balanced ' +
+      '**accounting document**. Wherever it comes from: entered by hand, dropped in from MM, flowed in ' +
+      'from SD: the result always has the same shape: one header ({{BKPF}}) + at least two balanced ' +
       'lines ({{BSEG}}).\n\n' +
       'This topic is FI\'s **mechanics**. The other topics describe "what gets posted"; this one describes ' +
       '"how it gets posted": which document type, which posting key, which field is mandatory, where the ' +
@@ -26,13 +26,13 @@ SAP.registerTopic({
       '**For consistency.** Every document goes through the same rules; company code, period, and ' +
       'account-type checks apply without exception.\n\n' +
       '**For control.** {{belge-turu}} limits which account types can be posted to; {{alan-durumu}} decides ' +
-      'which information is mandatory. These are structural controls — not left to user discipline.\n\n' +
+      'which information is mandatory. These are structural controls: not left to user discipline.\n\n' +
       '**For traceability.** Every document carries who posted it, when, and on what basis. A posting in ' +
       'accounting is **never deleted**; a wrong entry is corrected with a {{ters-kayit}} and the trail is preserved.',
 
     sirketOnemi:
       'If the document posting mechanism isn\'t set up correctly, two kinds of problems arise: either users ' +
-      'keep getting errors and work stops, or **wrong data gets into the system without any error** — the ' +
+      'keep getting errors and work stops, or **wrong data gets into the system without any error**: the ' +
       'second one is far more dangerous.\n\n' +
       'Example: if cost center isn\'t mandatory on an expense account, the user leaves it blank, the posting ' +
       'goes through cleanly, but that expense never gets charged to any department and the CO reports come ' +
@@ -52,11 +52,11 @@ SAP.registerTopic({
 
     muhasebeMantigi:
       'An FI document is made up of **two layers**:\n\n' +
-      '**Header ({{BKPF}}):** the document\'s identity — number, {{belge-turu}}, dates, currency, user, ' +
+      '**Header ({{BKPF}}):** the document\'s identity: number, {{belge-turu}}, dates, currency, user, ' +
       'source document reference. **One** line per document.\n\n' +
       '**Line items ({{BSEG}}):** account, amount, debit/credit direction, and additional dimensions, line ' +
       'by line. **At least two** lines per document, and total debit = total credit.\n\n' +
-      'In S/4HANA there\'s a third layer as well: **{{ACDOCA}}** — the same items in universal format, with ' +
+      'In S/4HANA there\'s a third layer as well: **{{ACDOCA}}**: the same items in universal format, with ' +
       'a separate set of lines for each active {{defter}}.\n\n' +
       'The {{belge-denkligi}} rule can\'t be softened: an unbalanced document can\'t be posted, it can only ' +
       'be set aside with {{park-etme}}.',
@@ -83,7 +83,7 @@ SAP.registerTopic({
 
     diyagram:{
       type:'flow',
-      baslik:'What happens when the Save button is pressed? — seven checks',
+      baslik:'What happens when the Save button is pressed? - seven checks',
       adimlar:[
         { ic:'📝', rol:'User', baslik:'Data is entered',
           aciklama:'Header fields (dates, company code, document type) and line items (account, amount, direction).',
@@ -119,13 +119,13 @@ SAP.registerTopic({
     },
 
     adimlar:[
-      { rol:'User', eylem:'Enters the document header', sistem:'{{FB50}}, {{FB60}}, {{F-02}} — dates, company code, type' },
+      { rol:'User', eylem:'Enters the document header', sistem:'{{FB50}}, {{FB60}}, {{F-02}}: dates, company code, type' },
       { rol:'User', eylem:'Enters the line items', sistem:'Account, debit/credit, amount, additional fields' },
-      { rol:'User', eylem:'Runs a simulation', sistem:'Document → Simulate — the lines the system will add become visible' },
+      { rol:'User', eylem:'Runs a simulation', sistem:'Document → Simulate: the lines the system will add become visible' },
       { rol:'System', eylem:'Applies the seven checks', sistem:'Period → type → key → field status → rules → balance → number' },
       { rol:'System', eylem:'Writes the tables', sistem:'{{BKPF}}, {{BSEG}}, {{ACDOCA}}, {{BSET}}, indexes' },
       { rol:'User', eylem:'Displays / checks the document', sistem:'{{FB03}}' },
-      { rol:'User', eylem:'Reverses it if wrong', sistem:'{{FB08}} — no deletion' },
+      { rol:'User', eylem:'Reverses it if wrong', sistem:'{{FB08}}: no deletion' },
       { rol:'User', eylem:'Updates the changeable fields', sistem:'{{FB02}}, {{FB09}}' },
     ],
 
@@ -139,7 +139,7 @@ SAP.registerTopic({
     },
 
     notlar:[
-      { tip:'tip', baslik:'Simulation — the least-used, most valuable feature', metin:
+      { tip:'tip', baslik:'Simulation: the least-used, most valuable feature', metin:
         '*Document → Simulate* shows, without posting, every line the system will produce **in addition to ' +
         'the lines you entered**: the tax line, {{belge-bolme}} lines, exchange difference, automatic ' +
         'difference accounts.\n\n' +
@@ -156,7 +156,7 @@ SAP.registerTopic({
       'how a reversal works.',
 
     etkilenenHesaplar:[
-      { hesap:'Accounts the user enters', tur:'Variable', neden:'Expense, income, asset — the user chooses. {{alan-durumu}} decides which additional information is requested.' },
+      { hesap:'Accounts the user enters', tur:'Variable', neden:'Expense, income, asset: the user chooses. {{alan-durumu}} decides which additional information is requested.' },
       { hesap:'Tax accounts (191 / 391)', tur:'Balance sheet', neden:'When a {{vergi-kodu}} is entered, SAP adds the line **automatically** and separately records it in {{BSET}}. Never typed by hand.' },
       { hesap:'{{mutabakat-hesabi}}', tur:'Balance sheet', neden:'When a vendor/customer number is entered, SAP looks it up from master data and writes it automatically.' },
       { hesap:'Document-splitting lines', tur:'Variable', neden:'If {{belge-bolme}} is on, shared lines (vendor, tax) are split according to the profit-center distribution of the expense lines.' },
@@ -164,50 +164,50 @@ SAP.registerTopic({
     ],
 
     fisler:[
-      { baslik:'What the user entered — 2 lines',
+      { baslik:'What the user entered: 2 lines',
         belgeTuru:'KR', tarih:'15.11.2026', paraBirimi:'TRY',
         satirlar:[
           { hesap:'770', ad:'General administrative expense', borc:50000, not:'Entered by the user' },
-          { hesap:'320', ad:'Trade payables — V-2001', alacak:60000, not:'Automatic from the vendor number' },
+          { hesap:'320', ad:'Trade payables: V-2001', alacak:60000, not:'Automatic from the vendor number' },
         ],
         not:'This **isn\'t balanced** (50,000 ≠ 60,000). The user entered a tax code but didn\'t write the ' +
              'tax line. The system will add the missing line in the simulation.' },
 
-      { baslik:'After simulation — the document the system completed',
+      { baslik:'After simulation: the document the system completed',
         belgeTuru:'KR', tarih:'15.11.2026', paraBirimi:'TRY',
         satirlar:[
           { hesap:'770', ad:'General administrative expense', borc:50000, not:'User · cost center 1200' },
-          { hesap:'191', ad:'Deductible VAT', borc:10000, not:'**Added by the system** — from the tax code' },
-          { hesap:'320', ad:'Trade payables — V-2001', alacak:60000, not:'{{mutabakat-hesabi}}' },
+          { hesap:'191', ad:'Deductible VAT', borc:10000, not:'**Added by the system**: from the tax code' },
+          { hesap:'320', ad:'Trade payables: V-2001', alacak:60000, not:'{{mutabakat-hesabi}}' },
         ],
         not:'The system added the tax line automatically and the document balanced. It also wrote a tax ' +
              'record into the {{BSET}} table (base 50,000, tax 10,000).' },
 
-      { baslik:'With document splitting on — the same document grows to 5 lines',
+      { baslik:'With document splitting on: the same document grows to 5 lines',
         belgeTuru:'KR', tarih:'15.11.2026', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'770', ad:'Expense — cost center 1000', borc:30000, not:'Entered by the user' },
-          { hesap:'770', ad:'Expense — cost center 2000', borc:20000, not:'Entered by the user' },
-          { hesap:'191', ad:'VAT — cost center 1000', borc:6000, not:'**Split** (in the ratio 30/50)' },
-          { hesap:'191', ad:'VAT — cost center 2000', borc:4000, not:'**Split** (in the ratio 20/50)' },
-          { hesap:'320', ad:'Trade payables — cost center 1000', alacak:36000, not:'**Split**' },
-          { hesap:'320', ad:'Trade payables — cost center 2000', alacak:24000, not:'**Split**' },
+          { hesap:'770', ad:'Expense: cost center 1000', borc:30000, not:'Entered by the user' },
+          { hesap:'770', ad:'Expense: cost center 2000', borc:20000, not:'Entered by the user' },
+          { hesap:'191', ad:'VAT: cost center 1000', borc:6000, not:'**Split** (in the ratio 30/50)' },
+          { hesap:'191', ad:'VAT: cost center 2000', borc:4000, not:'**Split** (in the ratio 20/50)' },
+          { hesap:'320', ad:'Trade payables: cost center 1000', alacak:36000, not:'**Split**' },
+          { hesap:'320', ad:'Trade payables: cost center 2000', alacak:24000, not:'**Split**' },
         ],
         not:'If {{belge-bolme}} is on, the tax and vendor lines are **automatically split** according to the ' +
              'profit-center distribution of the expense lines. The goal: balanced (balance-sheet-producible) ' +
-             'data for each profit center separately. The user entered 2 lines, the document became 6 — ' +
+             'data for each profit center separately. The user entered 2 lines, the document became 6: ' +
              'seeing this in the simulation matters.' },
 
-      { baslik:'Reversal ({{FB08}}) — the mirror image of the original',
+      { baslik:'Reversal ({{FB08}}): the mirror image of the original',
         belgeTuru:'KR', tarih:'20.11.2026', paraBirimi:'TRY',
         satirlar:[
           { hesap:'770', ad:'General administrative expense', alacak:50000, not:'Direction **flipped**' },
           { hesap:'191', ad:'Deductible VAT', alacak:10000, not:'Direction flipped' },
-          { hesap:'320', ad:'Trade payables — V-2001', borc:60000, not:'Direction flipped' },
+          { hesap:'320', ad:'Trade payables: V-2001', borc:60000, not:'Direction flipped' },
         ],
         not:'A reversal is a **new document**; the original isn\'t deleted. Both documents stay in the ' +
              'records and are linked to each other in {{BKPF}}: the reversal\'s number is written into the ' +
-             'original\'s `STBLG` field. Both documents show up on an audit — that\'s how the trail is ' +
+             'original\'s `STBLG` field. Both documents show up on an audit: that\'s how the trail is ' +
              'preserved in accounting.' },
     ],
 
@@ -215,7 +215,7 @@ SAP.registerTopic({
       { hesap:'General administrative expense', kod:'770',
         borc:[{ ad:'Original posting', tutar:50000 }],
         alacak:[{ ad:'Reversal (FB08)', tutar:50000 }],
-        not:'Net effect zero — but both entries are visible' },
+        not:'Net effect zero: but both entries are visible' },
       { hesap:'Trade payables', kod:'320',
         borc:[{ ad:'Reversal', tutar:60000 }],
         alacak:[{ ad:'Original posting', tutar:60000 }],
@@ -225,8 +225,8 @@ SAP.registerTopic({
     notlar:[
       { tip:'warn', baslik:'Which date does the reversal fall on?', metin:
         'In {{FB08}}, the **reversal reason** decides which date the reversal falls on:\n\n' +
-        '• **Reason 01** — falls on the original document\'s date (the same period).\n' +
-        '• **Reason 02** — falls on the entered alternative date (a different period).\n\n' +
+        '• **Reason 01**: falls on the original document\'s date (the same period).\n' +
+        '• **Reason 02**: falls on the entered alternative date (a different period).\n\n' +
         'If the original period is closed, reason 01 doesn\'t work; a reason that requires an alternative ' +
         'date must be chosen. This distinction is a common obstacle at month-end closes.' },
     ],
@@ -239,14 +239,14 @@ SAP.registerTopic({
       '**document status** (parked or permanent), **document type**, and **correction method**.',
 
     liste:[
-      { ad:'Classic Entry — F-02',
+      { ad:'Classic Entry: F-02',
         aciklama:'Proceeds line by line; the {{kayit-anahtari}} and account are entered **by hand** for each ' +
                  'line. The current line is completed before moving to the next.',
         neZaman:'On special G/L postings, complex multi-line documents, whenever the posting key needs to be chosen deliberately.',
         ornek:'Posting key 40 (G/L debit) → account → amount → Enter → posting key 50 (G/L credit) → …',
         tcodes:['F-02','F-43','FB01'] },
 
-      { ad:'Enter View — FB50 / FB60 / FB70',
+      { ad:'Enter View: FB50 / FB60 / FB70',
         aciklama:'All lines are entered on a single table-layout screen. The posting key **isn\'t asked ' +
                  'for**; debit/credit is chosen, and the system determines the key in the background.',
         neZaman:'On day-to-day routine postings. Noticeably faster than classic entry.',
@@ -272,14 +272,14 @@ SAP.registerTopic({
         ornek:'50,000 TRY monthly rent → the template is defined once, produced automatically for 12 months.',
         tcodes:['FBD1','F.14','FAGLGA35'] },
 
-      { ad:'Reversal — FB08',
+      { ad:'Reversal: FB08',
         aciklama:'**Doesn\'t delete** a posted document; zeroes out its effect by posting the opposite. Both ' +
                  'documents stay in the records and are linked to each other.',
         neZaman:'For every wrongly posted document. The one correct correction method in accounting.',
         ornek:'{{FB08}} for a single document, {{F.80}} for a mass reversal.',
         tcodes:['FB08','F.80'] },
 
-      { ad:'Change Document — FB02',
+      { ad:'Change Document: FB02',
         aciklama:'Updates **only the changeable fields** on a posted document: due date, {{odeme-blogu}}, ' +
                  'text, assignment. **The amount and the account can\'t be changed.**',
         neZaman:'A due-date correction, placing/removing a payment block, adding a description.',
@@ -289,10 +289,10 @@ SAP.registerTopic({
 
     karsilastirmaBasliklar:['Park', 'Hold'],
     karsilastirma:[
-      ['Document number', '**Assigned** — the number is consumed', 'Not assigned'],
-      ['Written to the table', 'Yes — into {{BKPF}}/{{BSEG}} with a parked status', 'No — temporary storage'],
-      ['Can someone else see it', '**Yes** — shows up in the worklist', 'No — only the owner'],
-      ['Balance required', 'No — can be parked unbalanced', 'No'],
+      ['Document number', '**Assigned**: the number is consumed', 'Not assigned'],
+      ['Written to the table', 'Yes, into {{BKPF}}/{{BSEG}} with a parked status', 'No, temporary storage'],
+      ['Can someone else see it', '**Yes**, shows up in the worklist', 'No, only the owner'],
+      ['Balance required', 'No: can be parked unbalanced', 'No'],
       ['Approval workflow', '**Supports it** ({{FBV4}})', 'Doesn\'t support it'],
       ['Shows up in reports', 'In parked-document reports', 'Nowhere'],
       ['When to use it', 'A genuine document awaiting approval', '"I\'m halfway through, I\'ll get back to it"'],
@@ -302,7 +302,7 @@ SAP.registerTopic({
   /* ===================================================== 5. TRANSACTION CODES === */
   tcodes: {
     liste:[
-      { kod:'FB03', ad:'Document display — FI\'s X-ray machine',
+      { kod:'FB03', ad:'Document display: FI\'s X-ray machine',
         amac:'Shows an FI document with its header, line items, tax lines, and linked documents.',
         neZaman:'In every error analysis, every reconciliation, every moment the question "where did this number come from?" is asked.',
         adimlar:[
@@ -314,7 +314,7 @@ SAP.registerTopic({
           { baslik:'*Environment → Document Flow / Related Documents*',
             aciklama:'Shows which MM/SD document the document came from, and which CO document it produced.' },
           { baslik:'*Environment → Change Documents*',
-            aciklama:'Who changed what and when — from the {{CDHDR}}/{{CDPOS}} tables.' },
+            aciklama:'Who changed what and when: from the {{CDHDR}}/{{CDPOS}} tables.' },
         ],
         ekranAkisi:[
           { ekran:'Entry', islem:'Company code 1000 · Document 1900000234 · Fiscal year 2026' },
@@ -337,7 +337,7 @@ SAP.registerTopic({
         neZaman:'For every wrongly posted document. The one correct correction method in accounting.',
         adimlar:[
           { baslik:'Enter the company code, document number, and fiscal year' },
-          { baslik:'Choose the **reversal reason** — the most critical field',
+          { baslik:'Choose the **reversal reason**: the most critical field',
             aciklama:'**01** falls on the original document\'s date (the same period). **02** falls on the ' +
                      'entered alternative date (a different period). If the original period is closed, 01 doesn\'t work.' },
           { baslik:'Enter the posting date and period if needed',
@@ -349,7 +349,7 @@ SAP.registerTopic({
           zorunlu:['Company code','Document number','Fiscal year','Reversal reason'],
           opsiyonel:['Posting date','Posting period'] },
         hatalar:[
-          { mesaj:'Reversal not possible — document contains cleared items', sebep:'The document\'s items have been cleared (paid).', cozum:'First undo the clearing with {{FBRA}}, then reverse it.' },
+          { mesaj:'Reversal not possible: document contains cleared items', sebep:'The document\'s items have been cleared (paid).', cozum:'First undo the clearing with {{FBRA}}, then reverse it.' },
           { mesaj:'Posting period ... is not open', sebep:'Reversal reason 01 was chosen but the original period is closed.', cozum:'Choose a reason that requires an alternative date and point it to an open period.' },
           { mesaj:'Document was already reversed with document ...', sebep:'The document has already been reversed.', cozum:'Check the `STBLG` field with {{FB03}}; no need to reverse it a second time.' },
           { mesaj:'Reversal of document from MM/SD not possible in FI', sebep:'The document originated from MM or SD.', cozum:'Cancel it from the source module: MR8M for a {{MIRO}} invoice, VF11 for an SD invoice. Reversing from FI leaves the source document inconsistent.' },
@@ -366,14 +366,14 @@ SAP.registerTopic({
           { baslik:'Enter the company code, document number, and fiscal year' },
           { baslik:'Double-click the item to be changed' },
           { baslik:'Update the open (changeable) fields',
-            aciklama:'**The amount, account, debit/credit direction, and company code can\'t be changed** — a reversal is needed for those.' },
-          { baslik:'Save — the change is written to {{CDHDR}}/{{CDPOS}}' },
+            aciklama:'**The amount, account, debit/credit direction, and company code can\'t be changed**: a reversal is needed for those.' },
+          { baslik:'Save: the change is written to {{CDHDR}}/{{CDPOS}}' },
         ],
         hatalar:[
           { mesaj:'Field ... cannot be changed', sebep:'The field isn\'t in the list of changeable fields.', cozum:'For an amount/account change, reverse with {{FB08}} and enter the correct one. Field rules are defined in IMG under "Document Change Rules."' },
           { mesaj:'Document is already cleared', sebep:'Some fields lock on a cleared item.', cozum:'If needed, undo the clearing with {{FBRA}}, make the change, and reclear.' },
         ],
-        ipucu:'For a quick change on a single item, {{FB09}} is more practical — it opens directly to the item screen.',
+        ipucu:'For a quick change on a single item, {{FB09}} is more practical: it opens directly to the item screen.',
         ilgili:['FB09','FB03','FB08'] },
 
       { kod:'OBA7', ad:'Document type definition',
@@ -385,14 +385,14 @@ SAP.registerTopic({
             aciklama:'Multiple types can share the same range; this is a deliberate choice for number continuity.' },
           { baslik:'Flag the allowed account types',
             aciklama:'**S** general ledger, **D** customer, **K** vendor, **A** fixed asset, **M** material. ' +
-                     'A type that isn\'t flagged can\'t be posted to — a structural control.' },
+                     'A type that isn\'t flagged can\'t be posted to: a structural control.' },
           { baslik:'Set the reversal document type',
             aciklama:'If left blank, the same type is used.' },
         ],
         ipucu:'Instead of changing the standard types (KR, DR, SA, AB…), copy them and create your own type ' +
               '**starting with Z**. This removes the risk of standard definitions being overwritten during upgrades.',
         hatalar:[
-          { mesaj:'Account type K is not allowed for document type SA', sebep:'The document type doesn\'t allow the vendor account type.', cozum:'Use the correct type (KR), or flag the account type in {{OBA7}} — the latter weakens the control, think carefully.' },
+          { mesaj:'Account type K is not allowed for document type SA', sebep:'The document type doesn\'t allow the vendor account type.', cozum:'Use the correct type (KR), or flag the account type in {{OBA7}}: the latter weakens the control, think carefully.' },
         ],
         ilgili:['FBN1','OB41','FB50'] },
 
@@ -406,10 +406,10 @@ SAP.registerTopic({
           { baslik:'Choose internal or external assignment',
             aciklama:'With internal assignment the system gives the number; with external, the user enters it and uniqueness is checked.' },
           { baslik:'Use {{OBH1}} for bulk copying',
-            aciklama:'Copies all of the current year\'s ranges into the new year in one operation — a standard step of year-start preparation.' },
+            aciklama:'Copies all of the current year\'s ranges into the new year in one operation: a standard step of year-start preparation.' },
         ],
         hatalar:[
-          { mesaj:'Document number ... was already assigned', sebep:'The counter ({{NRIV}} `NRLEVEL`) is below the highest existing document number — usually after a data migration.', cozum:'Use {{FBN1}} to move the range\'s current number above the highest existing document.' },
+          { mesaj:'Document number ... was already assigned', sebep:'The counter ({{NRIV}} `NRLEVEL`) is below the highest existing document number: usually after a data migration.', cozum:'Use {{FBN1}} to move the range\'s current number above the highest existing document.' },
           { mesaj:'Number range ... does not exist for fiscal year ...', sebep:'The range hasn\'t been opened for the new year.', cozum:'Copy it from the previous year with {{OBH1}}. **This is the number-one reason postings stop at year-start.**' },
         ],
         ipucu:'The number-range **definition** can be transported via a transport request, but the **current ' +
@@ -439,13 +439,13 @@ SAP.registerTopic({
             aciklama:'A company code is assigned to a period variant ({{OBY6}}); multiple companies can share the same variant.' },
           { baslik:'Set each account-type line separately',
             aciklama:'**+** every type, **S** general ledger, **D** customer, **K** vendor, **A** fixed asset, ' +
-                     '**M** material. Each line is independent — opening S doesn\'t open D.' },
+                     '**M** material. Each line is independent: opening S doesn\'t open D.' },
           { baslik:'Enter two period ranges',
             aciklama:'The **1st range** is for regular users, the **2nd range** is for users with the ' +
                      'authorization group (this is how the closing team\'s privileged access is granted).' },
         ],
         hatalar:[
-          { mesaj:'Posting period 011 2026 is not open for account type K', sebep:'Only the S line has been opened.', cozum:'Open the period on the **K** line too. Account types are managed **separately** — the most common mistake.' },
+          { mesaj:'Posting period 011 2026 is not open for account type K', sebep:'Only the S line has been opened.', cozum:'Open the period on the **K** line too. Account types are managed **separately**: the most common mistake.' },
         ],
         ipucu:'When closing the period at month-end, close **all account types**. If only S is closed, ' +
               'vendor and customer postings keep coming in and the closing figures change.',
@@ -459,8 +459,8 @@ SAP.registerTopic({
             aciklama:'Call point: **1** document header, **2** line item, **3** complete document. ' +
                      'The right point is chosen depending on what the rule is meant to check.' },
           { baslik:'Define the prerequisite',
-            aciklama:'Something like "if company code 1000 and account 770000" — when the rule should run.' },
-          { baslik:'Define the check', aciklama:'Something like "cost center must be in the range 1000–1999."' },
+            aciklama:'Something like "if company code 1000 and account 770000": when the rule should run.' },
+          { baslik:'Define the check', aciklama:'Something like "cost center must be in the range 1000-1999."' },
           { baslik:'Set the message type: error (E) or warning (W)' },
         ],
         ipucu:'Validation **blocks**, {{OBBH}} substitution **corrects**. If a field can be filled in ' +
@@ -486,12 +486,12 @@ SAP.registerTopic({
         s4:'Structure preserved; reporting moved to {{ACDOCA}}.',
         alanlar:[
           { ad:'BLART', aciklama:'{{belge-turu}}' },
-          { ad:'BUDAT', aciklama:'**Posting date — decides the period.** The most critical field.' },
-          { ad:'BLDAT', aciklama:'Document date — the date printed on the invoice' },
-          { ad:'MONAT', aciklama:'Posting period — derived from BUDAT' },
-          { ad:'STBLG', aciklama:'**Reversal document** — if filled, this document has been reversed' },
-          { ad:'AWTYP / AWKEY', aciklama:'Source document type and key — gives the integration trail' },
-          { ad:'USNAM / CPUDT', aciklama:'The user who posted it and the entry date — the audit trail' },
+          { ad:'BUDAT', aciklama:'**Posting date: decides the period.** The most critical field.' },
+          { ad:'BLDAT', aciklama:'Document date: the date printed on the invoice' },
+          { ad:'MONAT', aciklama:'Posting period: derived from BUDAT' },
+          { ad:'STBLG', aciklama:'**Reversal document**: if filled, this document has been reversed' },
+          { ad:'AWTYP / AWKEY', aciklama:'Source document type and key: gives the integration trail' },
+          { ad:'USNAM / CPUDT', aciklama:'The user who posted it and the entry date: the audit trail' },
         ] },
 
       { ad:'BSEG', baslik:'Document line items',
@@ -502,11 +502,11 @@ SAP.registerTopic({
         iliskiler:'The {{SKB1}} account, the {{LFA1}}/{{KNA1}} business partner, the {{ANLA}} asset link.',
         s4:'A cluster table (inside RFBLG); direct queries against it are slow. Reports read from {{ACDOCA}}.',
         alanlar:[
-          { ad:'BUZEI', aciklama:'Item number — **3 digits, a maximum of 999 items**' },
+          { ad:'BUZEI', aciklama:'Item number: **3 digits, a maximum of 999 items**' },
           { ad:'BSCHL', aciklama:'{{kayit-anahtari}}' },
           { ad:'SHKZG', aciklama:'S = debit (Soll), H = credit (Haben)' },
           { ad:'HKONT', aciklama:'General ledger account' },
-          { ad:'AUGBL', aciklama:'Clearing document — if blank, the item is open' },
+          { ad:'AUGBL', aciklama:'Clearing document: if blank, the item is open' },
         ] },
 
       { ad:'ACDOCA', baslik:'Universal Journal',
@@ -517,8 +517,8 @@ SAP.registerTopic({
         iliskiler:'Via the document number with {{BKPF}}.',
         s4:'S/4HANA\'s single source of truth.',
         alanlar:[
-          { ad:'DOCLN', aciklama:'**A 6-digit item number** — beyond {{BSEG}}\'s 999-item limit' },
-          { ad:'RLDNR', aciklama:'{{defter}} — the same document with separate lines in each ledger' },
+          { ad:'DOCLN', aciklama:'**A 6-digit item number**: beyond {{BSEG}}\'s 999-item limit' },
+          { ad:'RLDNR', aciklama:'{{defter}}: the same document with separate lines in each ledger' },
         ] },
 
       { ad:'T003', baslik:'Document type definition',
@@ -553,7 +553,7 @@ SAP.registerTopic({
         iliskiler:'{{T003}}.NUMKR links here.',
         s4:'Unchanged. **If the counter isn\'t updated after a data migration, a number collision results.**',
         alanlar:[
-          { ad:'NRLEVEL', aciklama:'**Current counter** — the next document is taken above this' },
+          { ad:'NRLEVEL', aciklama:'**Current counter**: the next document is taken above this' },
           { ad:'FROMNUMBER / TONUMBER', aciklama:'Range limits' },
         ] },
 
@@ -564,8 +564,8 @@ SAP.registerTopic({
         s4:'Unchanged.',
         alanlar:[
           { ad:'KOART', aciklama:'Account type (+, S, D, K, A, M)' },
-          { ad:'FRPE1 / TOPE1', aciklama:'1st period range — regular users' },
-          { ad:'FRPE2 / TOPE2', aciklama:'2nd period range — users with the authorization group' },
+          { ad:'FRPE1 / TOPE1', aciklama:'1st period range: regular users' },
+          { ad:'FRPE2 / TOPE2', aciklama:'2nd period range: users with the authorization group' },
         ] },
 
       { ad:'CDHDR', baslik:'Change document header',
@@ -614,11 +614,11 @@ SAP.registerTopic({
   sapSurec: {
     anlatim:
       'Document posting screens are made of two blocks: **header** and **line item table**. Once you grasp ' +
-      'the field logic once, {{FB50}}, {{FB60}}, {{FB70}}, and the others feel familiar — they\'re all the ' +
+      'the field logic once, {{FB50}}, {{FB60}}, {{FB70}}, and the others feel familiar: they\'re all the ' +
       'same skeleton.',
 
     ekranlar:[
-      { ad:'Header block — where the dates are critical',
+      { ad:'Header block: where the dates are critical',
         aciklama:'The top part of the screen. The two dates here are the most error-prone fields.',
         alanlar:[
           { ad:'Document date (`BLDAT`)', zorunlu:true, aciklama:'The date printed on the invoice/memo. A reference in reporting, but it **doesn\'t decide the period**.' },
@@ -654,7 +654,7 @@ SAP.registerTopic({
         ipucu:'On systems with {{belge-bolme}} active, you see the 2-line entry turn into 6 lines **only ' +
               'here**. Always simulate before saving.' },
 
-      { ad:'{{FB08}} — the reversal screen',
+      { ad:'{{FB08}}: the reversal screen',
         aciklama:'Where the correction is made. Choosing the reversal reason is critical.',
         alanlar:[
           { ad:'Document number / Company code / Fiscal year', zorunlu:true, aciklama:'The document to be reversed.' },
@@ -671,12 +671,12 @@ SAP.registerTopic({
       { mesaj:'Account ... cannot be directly posted to', sebep:'The account is a {{mutabakat-hesabi}} ({{SKB1}} `MITKZ` is filled).', cozum:'Post through the vendor/customer: {{FB60}} or {{FB70}}.' },
       { mesaj:'Field Cost Center is a required field for G/L account ...', sebep:'{{alan-durumu}} makes it mandatory.', cozum:'Enter the cost center; for a permanent fix, define a default CO object with {{OKB9}}.' },
       { mesaj:'Balance in transaction currency', sebep:'{{belge-denkligi}} isn\'t satisfied.', cozum:'Check the lines; if you want to save the document, park it with {{FV50}}.' },
-      { mesaj:'Document number ... was already assigned', sebep:'The {{NRIV}} counter is below the highest existing document — usually after a data migration.', cozum:'Update the counter with {{FBN1}}.' },
+      { mesaj:'Document number ... was already assigned', sebep:'The {{NRIV}} counter is below the highest existing document: usually after a data migration.', cozum:'Update the counter with {{FBN1}}.' },
       { mesaj:'Number range ... does not exist for fiscal year 2027', sebep:'The range hasn\'t been opened for the new year.', cozum:'Copy it from the previous year with {{OBH1}}. **The first item of the year-start routine.**' },
       { mesaj:'Account type D is not allowed for document type SA', sebep:'{{belge-turu}} doesn\'t allow the customer account type.', cozum:'Use the correct type (DR), or flag the account type in {{OBA7}}.' },
       { mesaj:'Tax code A1 does not exist in company code 1000', sebep:'{{vergi-kodu}} isn\'t defined for that country.', cozum:'Define it in the correct country key with {{FTXP}}, or use the correct code.' },
-      { mesaj:'Ledger 0L: document splitting error — item not assigned', sebep:'{{belge-bolme}} rules couldn\'t classify the line.', cozum:'Check the document-splitting characteristics and item category assignments in IMG.' },
-      { mesaj:'Reversal not possible — document contains cleared items', sebep:'The items have been cleared.', cozum:'First undo the clearing with {{FBRA}}, then use {{FB08}}.' },
+      { mesaj:'Ledger 0L: document splitting error: item not assigned', sebep:'{{belge-bolme}} rules couldn\'t classify the line.', cozum:'Check the document-splitting characteristics and item category assignments in IMG.' },
+      { mesaj:'Reversal not possible: document contains cleared items', sebep:'The items have been cleared.', cozum:'First undo the clearing with {{FBRA}}, then use {{FB08}}.' },
     ],
 
     ipuclari:[
@@ -695,7 +695,7 @@ SAP.registerTopic({
   /* ===================================================== 8. TECHNICAL DETAIL === */
   teknik: {
     guncellenenTablolar:[
-      { tablo:'BKPF', ne:'1 header line — number, type, dates, user, source reference' },
+      { tablo:'BKPF', ne:'1 header line: number, type, dates, user, source reference' },
       { tablo:'BSEG', ne:'1 item per entered line + the tax/splitting lines the system added' },
       { tablo:'ACDOCA', ne:'The same items in universal format; a separate set of lines for each active ledger' },
       { tablo:'BSET', ne:'Tax lines if there\'s a tax code (base amount, tax amount, account key)' },
@@ -709,7 +709,7 @@ SAP.registerTopic({
       'Work) and written atomically with `COMMIT WORK`: either all of it, or none of it.\n\n' +
       '**But number assignment runs separately.** The number-range counter ({{NRIV}}) is incremented in a ' +
       'transaction independent of the main LUW. The result: **even a canceled posting attempt can consume a ' +
-      'document number**, leaving gaps in the numbers. This is normal, not an error — and it\'s explained ' +
+      'document number**, leaving gaps in the numbers. This is normal, not an error: and it\'s explained ' +
       'that way to an auditor too.\n\n' +
       'If the asynchronous update stalls, a "document number was assigned but there\'s no posting" situation ' +
       'arises; it\'s checked with {{SM13}}.',
@@ -723,14 +723,14 @@ SAP.registerTopic({
 
     postingLogic:
       'The seven-link chain a posting follows:\n\n' +
-      '**1. Period check** — the period is calculated from `BUDAT`, checked in {{T001B}} by account type.\n' +
-      '**2. Document type** — the allowed account types are checked in {{T003}}.\n' +
-      '**3. Posting key** — the debit/credit choice turns into a key via {{TBSL}}.\n' +
-      '**4. Field status** — the account\'s group ({{SKB1}} `FSTAG`) + the posting key\'s field status; ' +
+      '**1. Period check**: the period is calculated from `BUDAT`, checked in {{T001B}} by account type.\n' +
+      '**2. Document type**: the allowed account types are checked in {{T003}}.\n' +
+      '**3. Posting key**: the debit/credit choice turns into a key via {{TBSL}}.\n' +
+      '**4. Field status**: the account\'s group ({{SKB1}} `FSTAG`) + the posting key\'s field status; ' +
       '**the more restrictive one wins**.\n' +
-      '**5. Validation / substitution** — {{OB28}} rules check, {{OBBH}} fills fields.\n' +
-      '**6. Balance check** — {{belge-denkligi}}; if {{belge-bolme}} is on, separately for each ledger and dimension.\n' +
-      '**7. Number and write** — a number from {{NRIV}}, then the tables.',
+      '**5. Validation / substitution**: {{OB28}} rules check, {{OBBH}} fills fields.\n' +
+      '**6. Balance check**: {{belge-denkligi}}; if {{belge-bolme}} is on, separately for each ledger and dimension.\n' +
+      '**7. Number and write**: a number from {{NRIV}}, then the tables.',
 
     belgeTuru:
       '{{belge-turu}} decides three things: the allowed set of {{hesap-tipi}}, the {{numara-araligi}} to be ' +
@@ -758,12 +758,12 @@ SAP.registerTopic({
       '{{kayit-anahtari}} ({{OB41}}), {{alan-durumu}} groups and variant, period control ({{OB52}}), ' +
       'validation/substitution ({{OB28}}/{{OBBH}}), document change rules.\n\n' +
       '**Transaction data:** the documents themselves.\n\n' +
-      'There\'s no master data in this topic — document posting is entirely a matter of configuration + transaction data.',
+      'There\'s no master data in this topic: document posting is entirely a matter of configuration + transaction data.',
 
     transport:
       'Document types, posting keys, field status groups, and validation and substitution rules transport. ' +
       'Documents don\'t transport.\n\n' +
-      '**Exception:** the {{numara-araligi}} definition can transport, but the **counter value doesn\'t** — ' +
+      '**Exception:** the {{numara-araligi}} definition can transport, but the **counter value doesn\'t**: ' +
       'it must be checked separately in each system.',
 
     img:[
@@ -777,10 +777,10 @@ SAP.registerTopic({
     ],
 
     ekstra:[
-      { ic:'⚖️', baslik:'Field status conflict — the more restrictive one wins', metin:
+      { ic:'⚖️', baslik:'Field status conflict: the more restrictive one wins', metin:
         '{{alan-durumu}} comes from **two sources**, and the two are evaluated together:\n\n' +
-        '**1. The account\'s field status group** ({{SKB1}} `FSTAG`) — "which fields are needed when posting to this account?"\n' +
-        '**2. The posting key\'s field status** ({{OB41}}) — "which fields are needed for this kind of line?"\n\n' +
+        '**1. The account\'s field status group** ({{SKB1}} `FSTAG`): "which fields are needed when posting to this account?"\n' +
+        '**2. The posting key\'s field status** ({{OB41}}): "which fields are needed for this kind of line?"\n\n' +
         'The conflict rule: **the more restrictive one wins.** The order (from restrictive to loose): ' +
         '**Hidden > Required > Optional**.\n\n' +
         'So if one says "hidden" while the other says "required," the field stays **invisible**. That\'s the ' +
@@ -794,7 +794,7 @@ SAP.registerTopic({
         'This is normal in SAP. If an auditor asks "why is 235 missing between 1900000234 and 1900000236?" ' +
         'the answer is: a canceled entry attempt.\n\n' +
         'If the regulation doesn\'t tolerate gaps, the solution is **external number assignment** or a ' +
-        'separate legal numbering layer — but this brings a performance and locking cost.' },
+        'separate legal numbering layer: but this brings a performance and locking cost.' },
     ],
 
     notlar:[
@@ -810,7 +810,7 @@ SAP.registerTopic({
   /* ==================================================== 9. S/4HANA === */
   s4hana: {
     ozet:
-      'The **logic** of document posting didn\'t change — the seven-check chain, document type, posting ' +
+      'The **logic** of document posting didn\'t change: the seven-check chain, document type, posting ' +
       'key, and field status are the same. What changed is **where the document gets written** and the ' +
       'removal of the item-count limit.',
 
@@ -820,7 +820,7 @@ SAP.registerTopic({
       { konu:'Number of currencies', ecc:'2 (local + one more)', s4:'Up to **10** parallel currencies' },
       { konu:'Ledger-based posting', ecc:'Limited to New G/L', s4:'A separate set of lines for every active {{defter}} on every document' },
       { konu:'Entry screens', ecc:'{{FB50}}, {{FB60}}, {{F-02}}', s4:'**The same** + Fiori apps' },
-      { konu:'Lock contention', ecc:'A totals table row gets locked', s4:'No totals table — simultaneous posting gets faster' },
+      { konu:'Lock contention', ecc:'A totals table row gets locked', s4:'No totals table: simultaneous posting gets faster' },
     ],
 
     universalJournal:
@@ -832,8 +832,8 @@ SAP.registerTopic({
       'needed; the FI line and the CO line are the same record.',
 
     kalkanTcodes:[
-      { eski:'—', yeni:'—', not:'None of the document posting transaction codes were removed; {{FB50}}, {{FB60}}, {{F-02}}, {{FB08}} all work the same way' },
-      { eski:'Totals-table rebuild programs', yeni:'—', not:'Became unnecessary because there\'s no totals table' },
+      { eski:', ', yeni:', ', not:'None of the document posting transaction codes were removed; {{FB50}}, {{FB60}}, {{F-02}}, {{FB08}} all work the same way' },
+      { eski:'Totals-table rebuild programs', yeni:': ', not:'Became unnecessary because there\'s no totals table' },
     ],
 
     fiori:[
@@ -841,14 +841,14 @@ SAP.registerTopic({
       { ad:'Display Journal Entries', aciklama:'Replaces {{FB03}}; the document and all related objects on a single screen.' },
       { ad:'Manage Journal Entries', aciklama:'Manages parked and incomplete documents as a worklist.' },
       { ad:'Reverse Journal Entries', aciklama:'Replaces {{FB08}}; supports mass reversal.' },
-      { ad:'Upload General Journal Entries', aciklama:'Bulk document upload from an Excel/CSV file — reduces the need for {{LSMW}}.' },
-      { ad:'Verify General Journal Entries', aciklama:'An approval workflow — for the four-eyes principle.' },
+      { ad:'Upload General Journal Entries', aciklama:'Bulk document upload from an Excel/CSV file: reduces the need for {{LSMW}}.' },
+      { ad:'Verify General Journal Entries', aciklama:'An approval workflow: for the four-eyes principle.' },
     ],
 
     compatibilityViews:[
-      '{{BSIS}}, {{BSAS}}, {{BSIK}}, {{BSAK}}, {{BSID}}, {{BSAD}} — the index tables turned into {{uyumluluk-view}}s.',
-      '{{GLT0}}, {{FAGLFLEXT}} — the totals tables turned into views too.',
-      '{{BKPF}}, {{BSEG}}, {{T003}}, {{TBSL}}, {{NRIV}} — **still stand as physical tables**, unchanged.',
+      '{{BSIS}}, {{BSAS}}, {{BSIK}}, {{BSAK}}, {{BSID}}, {{BSAD}}: the index tables turned into {{uyumluluk-view}}s.',
+      '{{GLT0}}, {{FAGLFLEXT}}: the totals tables turned into views too.',
+      '{{BKPF}}, {{BSEG}}, {{T003}}, {{TBSL}}, {{NRIV}}: **still stand as physical tables**, unchanged.',
       'The important consequence for document posting: the configuration tables that affect posting logic ' +
       'were preserved; only the read-only derived tables turned into views.',
     ],
@@ -861,7 +861,7 @@ SAP.registerTopic({
       'grows**; the archiving strategy should be planned accordingly.',
 
     bestPractices:[
-      'Instead of changing standard document types, create your own types **starting with Z** — standard ' +
+      'Instead of changing standard document types, create your own types **starting with Z**: standard ' +
       'definitions are preserved across upgrades.',
       'Prefer substitution ({{OBBH}}) over validation ({{OB28}}) wherever possible: fill a field ' +
       'automatically instead of blocking the user.',
@@ -877,7 +877,7 @@ SAP.registerTopic({
     baslik:'A December invoice entered in January: anatomy of a date mistake',
     hikaye:
       'It\'s January 3, 2027 at **Marmara Tekstil Inc.** The accounting specialist is entering a 50,000 TRY ' +
-      'rent invoice dated 31 December 2026. The posting goes through cleanly — no error, no warning.\n\n' +
+      'rent invoice dated 31 December 2026. The posting goes through cleanly: no error, no warning.\n\n' +
       'Three weeks later the financial advisor asks: "why is December\'s rent expense 50,000 TRY short?"\n\n' +
       'This scenario shows, step by step, how a single field in document posting mechanics broke the ' +
       'financial statements, and how it got corrected.',
@@ -890,26 +890,26 @@ SAP.registerTopic({
     ],
 
     adimlar:[
-      { baslik:'The invoice is entered — the posting date is missed', tcode:'FB60',
+      { baslik:'The invoice is entered: the posting date is missed', tcode:'FB60',
         aciklama:'The specialist enters the document date correctly, but **leaves the posting date at its ' +
                  'default**. The system uses today\'s date: 03.01.2027.',
         girdi:[
           { alan:'Vendor', deger:'V-2001' },
           { alan:'Document date (`BLDAT`)', deger:'31.12.2026 ✓ correct' },
           { alan:'**Posting date (`BUDAT`)**', deger:'03.01.2027 **left at the default**' },
-          { alan:'Period indicator', deger:'01 / 2027 — visible on screen but not noticed' },
+          { alan:'Period indicator', deger:'01 / 2027: visible on screen but not noticed' },
           { alan:'Amount / Tax', deger:'60,000 TRY gross / 20%' },
         ],
-        fis:{ baslik:'Document 1900000341 — Rent invoice', belgeTuru:'KR', tarih:'03.01.2027',
+        fis:{ baslik:'Document 1900000341: Rent invoice', belgeTuru:'KR', tarih:'03.01.2027',
           satirlar:[
-            { hesap:'770', ad:'General administrative expense — rent', borc:50000, not:'**Fell into January 2027**' },
+            { hesap:'770', ad:'General administrative expense: rent', borc:50000, not:'**Fell into January 2027**' },
             { hesap:'191', ad:'Deductible VAT', borc:10000 },
-            { hesap:'320', ad:'Trade payables — V-2001', alacak:60000 },
+            { hesap:'320', ad:'Trade payables: V-2001', alacak:60000 },
           ], not:'The posting is technically **flawless**: balanced, correct accounts, correct tax. The only ' +
                  'problem is **which period it fell into**.' },
         tabloEtkisi:[
           { tablo:'BKPF', ne:'`BLDAT` = 31.12.2026, **`BUDAT` = 03.01.2027**, `MONAT` = 01, `GJAHR` = 2027' },
-          { tablo:'BSEG', ne:'3 items — all in fiscal year 2027' },
+          { tablo:'BSEG', ne:'3 items: all in fiscal year 2027' },
           { tablo:'ACDOCA', ne:'Items in the 2027 period' },
         ],
         not:'Why didn\'t the system warn? Because **there was nothing for it to do**: the posting date was ' +
@@ -920,7 +920,7 @@ SAP.registerTopic({
         aciklama:'The financial advisor checks the December rent expense. There\'s no expected posting on ' +
                  'account 770 in December; there are two rent postings in January.',
         girdi:[
-          { alan:'Account / Period', deger:'770000 · 01.12.2026–31.12.2026' },
+          { alan:'Account / Period', deger:'770000 · 01.12.2026-31.12.2026' },
           { alan:'Finding', deger:'December rent expense: **50,000 TRY short**' },
           { alan:'January check', deger:'There are 2 rent postings in January: December\'s + January\'s' },
           { alan:'Diagnosis', deger:'{{FB03}} → document header → `BLDAT` 31.12 but `BUDAT` 03.01' },
@@ -928,33 +928,33 @@ SAP.registerTopic({
         not:'The diagnosis in {{FB03}} → *Document header* screen takes seconds. Seeing the two dates side ' +
              'by side reveals the problem instantly.' },
 
-      { baslik:'Correction attempt — FB02 doesn\'t work', tcode:'FB02',
+      { baslik:'Correction attempt: FB02 doesn\'t work', tcode:'FB02',
         aciklama:'The specialist tries to correct the posting date. **Not possible.**',
         girdi:[
           { alan:'Attempt', deger:'{{FB02}} → change the posting-date field' },
-          { alan:'Result', deger:'**The field can\'t be changed** — greyed out, doesn\'t accept input' },
+          { alan:'Result', deger:'**The field can\'t be changed**: greyed out, doesn\'t accept input' },
           { alan:'Reason', deger:'The posting date decides the period; changing it would retroactively corrupt the balances' },
         ],
         not:'{{FB02}} only updates **changeable fields**: due date, payment block, text, assignment. The ' +
              'amount, account, and **posting date** can\'t be changed. The only route for these is a reversal.' },
 
-      { baslik:'The reversal is posted — the reversal reason is critical', tcode:'FB08',
+      { baslik:'The reversal is posted: the reversal reason is critical', tcode:'FB08',
         aciklama:'The document is being reversed. Choosing the **reversal reason** is decisive here.',
         girdi:[
           { alan:'Document', deger:'1900000341 · Company code 1000 · Fiscal year 2027' },
-          { alan:'Attempt 1 — reason 01', deger:'"To the original document date" → falls on **03.01.2027**' },
-          { alan:'Consideration', deger:'If the reversal also falls in January, the net effect in January is zero — **correct**' },
+          { alan:'Attempt 1: reason 01', deger:'"To the original document date" → falls on **03.01.2027**' },
+          { alan:'Consideration', deger:'If the reversal also falls in January, the net effect in January is zero: **correct**' },
           { alan:'Choice', deger:'**Reason 01** was used; the reversal is dated 03.01.2027' },
         ],
-        fis:{ baslik:'Document 1900000389 — Reversal', belgeTuru:'KR', tarih:'03.01.2027',
+        fis:{ baslik:'Document 1900000389: Reversal', belgeTuru:'KR', tarih:'03.01.2027',
           satirlar:[
-            { hesap:'770', ad:'General administrative expense — rent', alacak:50000, not:'Direction flipped' },
+            { hesap:'770', ad:'General administrative expense: rent', alacak:50000, not:'Direction flipped' },
             { hesap:'191', ad:'Deductible VAT', alacak:10000 },
-            { hesap:'320', ad:'Trade payables — V-2001', borc:60000 },
+            { hesap:'320', ad:'Trade payables: V-2001', borc:60000 },
           ], not:'The wrong January posting was neutralized. The original document **wasn\'t deleted**; it ' +
                  'was flagged in {{BKPF}} with `STBLG` = 1900000389, and the two were linked to each other.' },
         tabloEtkisi:[
-          { tablo:'BKPF', ne:'The original document\'s `STBLG` field is filled — shows as reversed' },
+          { tablo:'BKPF', ne:'The original document\'s `STBLG` field is filled: shows as reversed' },
           { tablo:'BSIK', ne:'The vendor open item was cleared automatically (the two postings offset each other)' },
         ] },
 
@@ -962,31 +962,31 @@ SAP.registerTopic({
         aciklama:'The correct posting needs to go into December, but the period is closed. The accounting manager opens it temporarily.',
         girdi:[
           { alan:'Period variant', deger:'1000' },
-          { alan:'Account type **K** line', deger:'2nd range: period 12/2026–12/2026, authorization group FI01' },
+          { alan:'Account type **K** line', deger:'2nd range: period 12/2026-12/2026, authorization group FI01' },
           { alan:'Account type **S** line', deger:'Opened the same way' },
           { alan:'Why the 2nd range?', deger:'So only the closing team, who have the authorization group, can post' },
         ],
         not:'**Both account types must be opened:** K for the vendor item, S for the expense and VAT lines. ' +
-             'If only S is opened, the "Posting period not open for account type K" error results — the most ' +
+             'If only S is opened, the "Posting period not open for account type K" error results: the most ' +
              'common period mistake.' },
 
       { baslik:'The correct posting is entered into December', tcode:'FB60',
         aciklama:'The invoice is entered again, this time with **the posting date set by hand to 31.12.2026**.',
         girdi:[
           { alan:'Document date', deger:'31.12.2026' },
-          { alan:'**Posting date**', deger:'**31.12.2026** — corrected by hand' },
+          { alan:'**Posting date**', deger:'**31.12.2026**: corrected by hand' },
           { alan:'Period indicator', deger:'12 / 2026 ✓ checked' },
           { alan:'Reference', deger:'KIRA-2026-12 (vendor invoice number)' },
         ],
-        fis:{ baslik:'Document 1900000342 — Rent invoice (correct period)', belgeTuru:'KR', tarih:'31.12.2026',
+        fis:{ baslik:'Document 1900000342: Rent invoice (correct period)', belgeTuru:'KR', tarih:'31.12.2026',
           satirlar:[
-            { hesap:'770', ad:'General administrative expense — rent', borc:50000, not:'**Fell into December 2026** ✓' },
+            { hesap:'770', ad:'General administrative expense: rent', borc:50000, not:'**Fell into December 2026** ✓' },
             { hesap:'191', ad:'Deductible VAT', borc:10000 },
-            { hesap:'320', ad:'Trade payables — V-2001', alacak:60000 },
+            { hesap:'320', ad:'Trade payables: V-2001', alacak:60000 },
           ] },
         tabloEtkisi:[
           { tablo:'BKPF', ne:'`BUDAT` = 31.12.2026, `MONAT` = 12, `GJAHR` = **2026**' },
-          { tablo:'NRIV', ne:'The number was taken from the 2026 range — not the 2027 range' },
+          { tablo:'NRIV', ne:'The number was taken from the 2026 range: not the 2027 range' },
         ],
         not:'The document number came from **2026\'s** fiscal-year range. Since FI\'s number range is ' +
              'keyed by company code + fiscal year, this happened automatically.' },
@@ -994,20 +994,20 @@ SAP.registerTopic({
       { baslik:'The period is closed again and checked', tcode:'OB52',
         aciklama:'The correction is complete; December is closed again and the result is verified.',
         girdi:[
-          { alan:'{{OB52}}', deger:'The 2nd range was removed — December 2026 closed again' },
-          { alan:'Check 1 — {{FBL3N}}', deger:'Account 770 in December: the rent expense **is there** ✓' },
-          { alan:'Check 2 — January', deger:'Net effect is zero (wrong posting + reversal) ✓' },
-          { alan:'Check 3 — {{FBL1N}}', deger:'V-2001 has one open item: 1900000342 ✓' },
+          { alan:'{{OB52}}', deger:'The 2nd range was removed: December 2026 closed again' },
+          { alan:'Check 1: {{FBL3N}}', deger:'Account 770 in December: the rent expense **is there** ✓' },
+          { alan:'Check 2: January', deger:'Net effect is zero (wrong posting + reversal) ✓' },
+          { alan:'Check 3: {{FBL1N}}', deger:'V-2001 has one open item: 1900000342 ✓' },
         ] },
     ],
 
     sonuc:
       '**Result:** three documents were created (the wrong posting, the reversal, the correct posting), the ' +
       'December expense landed where it should, and January\'s net effect was zeroed out. The audit trail ' +
-      'was fully preserved — all three documents show up in the records.\n\n' +
+      'was fully preserved: all three documents show up in the records.\n\n' +
       '**Four critical lessons:**\n\n' +
       '**1. The posting date (`BUDAT`) decides the period, the document date (`BLDAT`) doesn\'t.** This is ' +
-      'the most common and most expensive mistake in FI, because the system **gives no warning** — the ' +
+      'the most common and most expensive mistake in FI, because the system **gives no warning**: the ' +
       'posting is technically flawless.\n\n' +
       '**2. The posting date can\'t be changed afterward.** {{FB02}} only updates fields like due date, ' +
       'payment block, and text. The only route for date, amount, and account is a {{ters-kayit}}.\n\n' +

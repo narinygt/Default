@@ -1,5 +1,5 @@
 /* ==========================================================================
-   content/fi/clearing.js — "Clearing (Kapatma)" derin içeriği
+   content/fi/clearing.js: "Clearing (Kapatma)" derin içeriği
    ========================================================================== */
 
 SAP.registerTopic({
@@ -16,7 +16,7 @@ SAP.registerTopic({
       'avans hesabında avansla mahsup kaydı eşleşir.\n\n' +
       'Teknik olarak kapatma iki şey yapar: kapatılan kalemlere **kapatma belgesi numarasını** ' +
       '({{BSEG}} `AUGBL`) ve **kapatma tarihini** (`AUGDT`) yazar. Bir kalemin açık mı kapalı mı ' +
-      'olduğunun tek ölçütü budur — `AUGBL` boşsa kalem açıktır.',
+      'olduğunun tek ölçütü budur: `AUGBL` boşsa kalem açıktır.',
 
     neden:
       '**Neyin ödenmediğini bilmek için.** Kapatma olmasaydı 5.000 faturalık bir hesapta hangisinin ' +
@@ -81,17 +81,17 @@ SAP.registerTopic({
       adimlar:[
         { ic:'📄', rol:'Sistem', baslik:'Açık kalem doğar',
           aciklama:'Fatura, mal girişi veya ödeme kaydedilir. {{acik-kalem-yonetimi}} açık hesaplarda ' +
-                   'kalem `AUGBL` boş olarak yazılır — yani **açıktır**.',
+                   'kalem `AUGBL` boş olarak yazılır: yani **açıktır**.',
           cikti:'{{acik-kalem}}', ok:'karşılığı gelir' },
-        { ic:'⚡', rol:'Sistem', baslik:'Yol 1 — Ödemeyle otomatik kapatma',
+        { ic:'⚡', rol:'Sistem', baslik:'Yol 1: Ödemeyle otomatik kapatma',
           aciklama:'{{F110}}, {{F-28}} ve {{FEBAN}} ödemeyi kaydederken kalemi **aynı işlemde** kapatır. ' +
                    'En temiz yoldur; ek bir iş gerektirmez.',
           cikti:'Kapatılmış kalem', ok:'eşleşmeyenler kalır' },
-        { ic:'🤖', rol:'Sistem', baslik:'Yol 2 — Toplu otomatik kapatma ({{F.13}})',
+        { ic:'🤖', rol:'Sistem', baslik:'Yol 2: Toplu otomatik kapatma ({{F.13}})',
           aciklama:'Geçiş hesaplarında ({{gr-ir}}, banka ara hesabı) atama alanına göre eşleştirme yapar. ' +
                    'Kuralları {{OB74}} belirler.',
           cikti:'Toplu kapatma belgeleri', ok:'kalanlar için' },
-        { ic:'✋', rol:'Muhasebe uzmanı', baslik:'Yol 3 — Manuel kapatma',
+        { ic:'✋', rol:'Muhasebe uzmanı', baslik:'Yol 3: Manuel kapatma',
           aciklama:'{{F-03}} (G/L), {{F-32}} (müşteri), {{F-44}} (satıcı) ile elle eşleştirme. ' +
                    'Otomatiğin çözemediği durumlar için.',
           cikti:'Kapatma belgesi', ok:'fark varsa' },
@@ -110,7 +110,7 @@ SAP.registerTopic({
 
     adimlar:[
       { rol:'Sistem', eylem:'Ödeme/tahsilatla eşzamanlı kapatır', sistem:'{{F110}}, {{F-28}}, {{F-53}}, {{FEBAN}}' },
-      { rol:'Ana muhasebe', eylem:'Geçiş hesaplarını toplu kapatır', sistem:'{{F.13}} — kuralları {{OB74}}' },
+      { rol:'Ana muhasebe', eylem:'Geçiş hesaplarını toplu kapatır', sistem:'{{F.13}}: kuralları {{OB74}}' },
       { rol:'Muhasebe uzmanı', eylem:'G/L hesabını elle kapatır', sistem:'{{F-03}}' },
       { rol:'AR uzmanı', eylem:'Müşteri kalemlerini kapatır', sistem:'{{F-32}}' },
       { rol:'AP uzmanı', eylem:'Satıcı kalemlerini kapatır', sistem:'{{F-44}}' },
@@ -139,7 +139,7 @@ SAP.registerTopic({
   /* =================================================== 3. MUHASEBE === */
   muhasebe: {
     anlatim:
-      'Kapatmanın muhasebe etkisi çoğu zaman **hiçbir şeydir** — ve bu, en çok yanlış anlaşılan noktadır. ' +
+      'Kapatmanın muhasebe etkisi çoğu zaman **hiçbir şeydir**: ve bu, en çok yanlış anlaşılan noktadır. ' +
       'Aşağıda önce farksız kapatma, sonra tolerans içi fark, sonra kısmi/kalan ayrımı ve ' +
       'döviz kur farkı örnekleri var.',
 
@@ -148,59 +148,59 @@ SAP.registerTopic({
       { hesap:'{{iskonto}} hesabı (602 / 653)', tur:'Gelir tablosu', neden:'Ödeme kapatmasında iskonto süresi içindeyse fark buraya yazılır.' },
       { hesap:'Kur farkı hesapları (646 / 656)', tur:'Gelir tablosu', neden:'Döviz kaleminin kaydedildiği kur ile kapatma kuru farklıysa gerçekleşmiş {{kur-farki}} doğar.' },
       { hesap:'Küçük fark hesabı', tur:'Gelir tablosu', neden:'Tolerans içindeki yuvarlama farkları otomatik buraya atılır ({{OBA3}}/{{OBA4}} ile tanımlanır).' },
-      { hesap:'{{gr-ir}} hesabı', tur:'Bilanço — Geçiş', neden:'Mal girişi ve fatura kalemleri eşleşince kapanır; bakiyesi sıfıra yaklaşır.' },
-      { hesap:'{{banka-ara-hesabi}}', tur:'Bilanço — Geçiş', neden:'Ödeme kaydı ile ekstre satırı eşleşince kapanır.' },
+      { hesap:'{{gr-ir}} hesabı', tur:'Bilanço: Geçiş', neden:'Mal girişi ve fatura kalemleri eşleşince kapanır; bakiyesi sıfıra yaklaşır.' },
+      { hesap:'{{banka-ara-hesabi}}', tur:'Bilanço: Geçiş', neden:'Ödeme kaydı ile ekstre satırı eşleşince kapanır.' },
     ],
 
     fisler:[
-      { baslik:'Örnek 1 — Farksız kapatma · GR/IR eşleşmesi ({{F-03}})',
+      { baslik:'Örnek 1: Farksız kapatma · GR/IR eşleşmesi ({{F-03}})',
         belgeTuru:'AB', tarih:'30.09.2026', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'159', ad:'GR/IR — mal girişi kalemi (kapatıldı)', borc:0, alacak:0, not:'Yalnızca `AUGBL` yazıldı' },
+          { hesap:'159', ad:'GR/IR: mal girişi kalemi (kapatıldı)', borc:0, alacak:0, not:'Yalnızca `AUGBL` yazıldı' },
         ],
         not:'**Kapatma belgesinin tutarı sıfırdır.** Hiçbir hesap hareket etmez. ' +
              'Yapılan tek şey iki kaleme aynı `AUGBL` numarasını yazmaktır. ' +
              '159 hesabının bakiyesi kapatmadan önce ne ise sonra da odur.' },
 
-      { baslik:'Örnek 2 — Tolerans içi fark · 12 TL yuvarlama',
+      { baslik:'Örnek 2: Tolerans içi fark · 12 TL yuvarlama',
         belgeTuru:'AB', tarih:'30.09.2026', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'320', ad:'Satıcılar — fatura kalemi', borc:45012, not:'Kapatıldı' },
-          { hesap:'102', ad:'Banka — ödeme kalemi', alacak:45000, not:'Kapatıldı' },
-          { hesap:'659', ad:'Diğer olağan gider — küçük fark', borc:0, alacak:12, not:'Tolerans içinde, otomatik' },
+          { hesap:'320', ad:'Satıcılar: fatura kalemi', borc:45012, not:'Kapatıldı' },
+          { hesap:'102', ad:'Banka: ödeme kalemi', alacak:45000, not:'Kapatıldı' },
+          { hesap:'659', ad:'Diğer olağan gider: küçük fark', borc:0, alacak:12, not:'Tolerans içinde, otomatik' },
         ],
         not:'12 TL fark {{tolerans-grubu}} sınırının içinde olduğu için sistem **otomatik** olarak ' +
              'küçük fark hesabına attı ve kapatmaya izin verdi. Sınır 10 TL olsaydı kapatma engellenirdi.' },
 
-      { baslik:'Örnek 3 — Kısmi kapatma · 100.000’in 40.000’i ödendi',
+      { baslik:'Örnek 3: Kısmi kapatma · 100.000’in 40.000’i ödendi',
         belgeTuru:'KZ', tarih:'25.09.2026', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'320', ad:'Satıcılar — kısmi ödeme kalemi', borc:40000, not:'**Yeni** bir açık kalem' },
+          { hesap:'320', ad:'Satıcılar: kısmi ödeme kalemi', borc:40000, not:'**Yeni** bir açık kalem' },
           { hesap:'102', ad:'Banka ara hesabı', alacak:40000 },
         ],
         not:'{{kismi-kapatma}}da **hiçbir kalem kapanmaz**. Orijinal 100.000 TL’lik kalem açık kalır ' +
              've ödeme −40.000 olarak ayrı bir açık kalem hâline gelir. İkisi de `AUGBL` boş, yani açık. ' +
              'Kalan 60.000 ödendiğinde üçü birden kapatılır. **Orijinal vade korunur.**' },
 
-      { baslik:'Örnek 4 — Kalan kapatma · aynı senaryo',
+      { baslik:'Örnek 4: Kalan kapatma · aynı senaryo',
         belgeTuru:'KZ', tarih:'25.09.2026', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'320', ad:'Satıcılar — orijinal kalem (kapatıldı)', borc:100000, not:'`AUGBL` yazıldı' },
+          { hesap:'320', ad:'Satıcılar: orijinal kalem (kapatıldı)', borc:100000, not:'`AUGBL` yazıldı' },
           { hesap:'102', ad:'Banka ara hesabı', alacak:40000 },
-          { hesap:'320', ad:'Satıcılar — **yeni kalan kalemi**', alacak:60000, not:'Vadesi **bugünden** başlar' },
+          { hesap:'320', ad:'Satıcılar: **yeni kalan kalemi**', alacak:60000, not:'Vadesi **bugünden** başlar' },
         ],
         not:'{{kalan-kapatma}}da orijinal kalem kapanır ve 60.000 TL’lik **yeni bir kalem** doğar. ' +
-             'Yeni kalemin baz tarihi bugündür — 90 gün gecikmiş bir borç aniden "vadesi gelmemiş" görünür. ' +
+             'Yeni kalemin baz tarihi bugündür: 90 gün gecikmiş bir borç aniden "vadesi gelmemiş" görünür. ' +
              '{{yaslandirma}} bu yüzden bozulur.' },
 
-      { baslik:'Örnek 5 — Döviz kapatması · kur farkı doğar',
+      { baslik:'Örnek 5: Döviz kapatması · kur farkı doğar',
         belgeTuru:'KZ', tarih:'25.09.2026', paraBirimi:'EUR',
         satirlar:[
-          { hesap:'320', ad:'Satıcılar — 10.000 EUR @ 35,00 (kapatıldı)', borc:350000, not:'Fatura kuru' },
-          { hesap:'102', ad:'Banka — 10.000 EUR @ 36,20', alacak:362000, not:'Ödeme günü kuru' },
+          { hesap:'320', ad:'Satıcılar: 10.000 EUR @ 35,00 (kapatıldı)', borc:350000, not:'Fatura kuru' },
+          { hesap:'102', ad:'Banka: 10.000 EUR @ 36,20', alacak:362000, not:'Ödeme günü kuru' },
           { hesap:'656', ad:'Kambiyo zararı', borc:12000, not:'Gerçekleşmiş {{kur-farki}}' },
         ],
-        not:'**Döviz tarafında fark yok:** 10.000 EUR borç, 10.000 EUR ödeme — tam eşleşme. ' +
+        not:'**Döviz tarafında fark yok:** 10.000 EUR borç, 10.000 EUR ödeme: tam eşleşme. ' +
              'Fark yerel para birimindedir ve kapatma anında **gerçekleşmiş** hâle gelir. ' +
              'Dönem sonu değerlemesinden ({{F.05}}) farkı budur: orada fark gerçekleşmemiştir.' },
     ],
@@ -209,7 +209,7 @@ SAP.registerTopic({
       { hesap:'GR/IR hesabı', kod:'159 (açık kalem yönetimli)',
         borc:[{ ad:'Fatura girişi (MIRO)', tutar:100000 }],
         alacak:[{ ad:'Mal girişi (MIGO)', tutar:100000 }],
-        not:'Kapatma sonrası bakiye sıfır — ama zaten sıfırdı' },
+        not:'Kapatma sonrası bakiye sıfır: ama zaten sıfırdı' },
       { hesap:'Banka ara hesabı', kod:'102 (geçiş)',
         borc:[{ ad:'Ekstre satırı', tutar:139200 }],
         alacak:[{ ad:'F110 ödemesi', tutar:139200 }],
@@ -248,13 +248,13 @@ SAP.registerTopic({
       { ad:'Ödemeyle eşzamanlı kapatma', en:'Clearing with Payment',
         aciklama:'Ödeme veya tahsilat kaydedilirken açık kalem **aynı işlemde** kapatılır. ' +
                  'Ayrı bir kapatma belgesi oluşmaz; ödeme belgesi hem kaydı hem kapatmayı yapar.',
-        neZaman:'Normal ödeme ve tahsilat akışında — kapatmaların çoğunluğu böyle olmalıdır.',
+        neZaman:'Normal ödeme ve tahsilat akışında: kapatmaların çoğunluğu böyle olmalıdır.',
         ornek:'{{F110}} ödeme koşusu 249 kalemi ödeme belgeleriyle birlikte kapatır.',
         tcodes:['F110','F-28','F-53','FEBAN'] },
 
-      { ad:'Otomatik toplu kapatma', en:'Automatic Clearing — F.13',
+      { ad:'Otomatik toplu kapatma', en:'Automatic Clearing: F.13',
         aciklama:'Tanımlı kurallara göre açık kalemleri toplu eşleştirir. Eşleştirme ölçütü ' +
-                 '{{OB74}}’te tanımlanan alanlardır (en fazla 5) — en yaygını **atama (`ZUONR`)** alanıdır.',
+                 '{{OB74}}’te tanımlanan alanlardır (en fazla 5): en yaygını **atama (`ZUONR`)** alanıdır.',
         neZaman:'Geçiş hesaplarının ({{gr-ir}}, banka ara hesabı) ay sonu rutin temizliğinde.',
         ornek:'Ay sonu {{F.13}} çalıştırması 1.240 GR/IR kalemini otomatik eşleştirir.',
         tcodes:['F.13','OB74'] },
@@ -266,7 +266,7 @@ SAP.registerTopic({
         ornek:'{{F-03}} ile GR/IR hesabında 6 kalem elle eşleştirilir.',
         tcodes:['F-03','F-32','F-44'] },
 
-      { ad:'Kayıtla birlikte kapatma', en:'Post with Clearing — FB05',
+      { ad:'Kayıtla birlikte kapatma', en:'Post with Clearing: FB05',
         aciklama:'Yeni bir belge kaydederken aynı anda açık kalemleri kapatır. ' +
                  'Kapatma ile kayıt tek işlemde birleşir.',
         neZaman:'Kalem transferlerinde, yeniden sınıflamalarda, banka dekontundan doğrudan kayıtta.',
@@ -274,7 +274,7 @@ SAP.registerTopic({
 
       { ad:'Tam kapatma', en:'Full Clearing',
         aciklama:'Seçilen kalemlerin toplamı sıfırdır; hepsi kapanır ve kapalı kalem tablosuna taşınır.',
-        neZaman:'Tutarlar tam eşleştiğinde — normal durum.',
+        neZaman:'Tutarlar tam eşleştiğinde: normal durum.',
         ornek:'120.000 TL fatura, 120.000 TL ödeme → kalem {{BSAK}}’a taşınır.' },
 
       { ad:'Kısmi kapatma', en:'Partial Clearing',
@@ -290,13 +290,13 @@ SAP.registerTopic({
                  'Yeni kalemin baz tarihi bugündür.',
         neZaman:'Fark kalıcıysa ve yeni bir ödeme planına bağlandıysa. ' +
                 '**Vadeyi sıfırladığı için dikkatli seçilir.**',
-        ornek:'100.000 kapandı, 60.000 TL’lik yeni kalem doğdu — vadesi bugünden.',
+        ornek:'100.000 kapandı, 60.000 TL’lik yeni kalem doğdu: vadesi bugünden.',
         tcodes:['F-53','F-28','FB05'] },
 
-      { ad:'Kapatmayı geri alma', en:'Reset Clearing — FBRA',
+      { ad:'Kapatmayı geri alma', en:'Reset Clearing: FBRA',
         aciklama:'Yapılmış bir kapatmayı iptal eder; kalemler yeniden **açık** hâle gelir ve ' +
                  '{{BSAK}}/{{BSAD}}’dan {{BSIK}}/{{BSID}}’ye döner.',
-        neZaman:'Yanlış kalemler eşleştirildiğinde. **Ters kayıt gerekmez** — bu ayrımı bilmek önemlidir.',
+        neZaman:'Yanlış kalemler eşleştirildiğinde. **Ters kayıt gerekmez**: bu ayrımı bilmek önemlidir.',
         ornek:'Yanlış faturaya uygulanan ödeme {{FBRA}} ile açılır, doğru faturayla yeniden kapatılır.',
         tcodes:['FBRA'] },
     ],
@@ -305,11 +305,11 @@ SAP.registerTopic({
     karsilastirma:[
       ['Orijinal kalem', '**Açık kalır**', '**Kapanır** (`AUGBL` yazılır)'],
       ['Yeni kalem', 'Ödeme ayrı açık kalem olur', 'Kalan tutar için yeni kalem üretilir'],
-      ['Vade / baz tarih', '**Korunur** — orijinal vade geçerli', '**Sıfırlanır** — bugünden başlar'],
-      ['{{yaslandirma}} etkisi', 'Doğru kalır', '**Bozulur** — gecikme silinir'],
+      ['Vade / baz tarih', '**Korunur**, orijinal vade geçerli', '**Sıfırlanır**, bugünden başlar'],
+      ['{{yaslandirma}} etkisi', 'Doğru kalır', '**Bozulur**: gecikme silinir'],
       ['{{ihtar}} seviyesi', 'Korunur', 'Sıfırlanır'],
       ['Açık kalem sayısı', 'Artar (2 kalem)', 'Sabit kalır (1 yeni kalem)'],
-      ['Ne zaman tercih edilir', 'Vade takibi önemliyse — **varsayılan**', 'Fark kalıcıysa, yeni ödeme planı varsa'],
+      ['Ne zaman tercih edilir', 'Vade takibi önemliyse: **varsayılan**', 'Fark kalıcıysa, yeni ödeme planı varsa'],
     ],
   },
 
@@ -342,7 +342,7 @@ SAP.registerTopic({
           zorunlu:['G/L hesabı','Şirket kodu','Kapatma tarihi','Kalem seçimi'],
           opsiyonel:['Ek seçim kriterleri','Metin','Belge türü'] },
         hatalar:[
-          { mesaj:'The difference is too large for clearing', sebep:'Seçilen kalemlerin toplamı sıfır değil ve fark {{tolerans-grubu}} dışında.', cozum:'Önce seçimi kontrol et — genelde yanlış kalem seçilmiştir. Fark gerçekse fark satırı gir veya {{OBA4}} toleransını gözden geçir.' },
+          { mesaj:'The difference is too large for clearing', sebep:'Seçilen kalemlerin toplamı sıfır değil ve fark {{tolerans-grubu}} dışında.', cozum:'Önce seçimi kontrol et: genelde yanlış kalem seçilmiştir. Fark gerçekse fark satırı gir veya {{OBA4}} toleransını gözden geçir.' },
           { mesaj:'Account ... is not managed on an open item basis', sebep:'Hesapta {{acik-kalem-yonetimi}} kapalı.', cozum:'Bu hesapta kapatma yapılamaz. Hesabın ana verisinin doğru kurulup kurulmadığını sorgula ({{FS00}} → `XOPVW`).' },
           { mesaj:'No open items found', sebep:'Kriterler çok dar veya kalemler zaten kapatılmış.', cozum:'Ek seçim kriterlerini kaldır; {{FBL3N}} ile açık kalemleri kontrol et.' },
           { mesaj:'Posting period ... is not open', sebep:'Kapatma tarihinin düştüğü dönem kapalı.', cozum:'{{OB52}} ile aç veya kapatma tarihini açık bir döneme al.' },
@@ -367,7 +367,7 @@ SAP.registerTopic({
             aciklama:'Kapatma belgeleri toplu olarak üretilir.' },
         ],
         ekranAkisi:[
-          { ekran:'Seçim', islem:'Şirket kodu 1000 · Hesap 159000–159999 · Mali yıl 2026 · **Test modu ✓**' },
+          { ekran:'Seçim', islem:'Şirket kodu 1000 · Hesap 159000-159999 · Mali yıl 2026 · **Test modu ✓**' },
           { ekran:'Test sonucu', islem:'1.240 kalem kapatılabilir / 86 kalem eşleşmedi' },
           { ekran:'Gerçek çalıştırma', islem:'Test kutusu kaldırıldı → 1.240 kalem kapatıldı' },
         ],
@@ -375,7 +375,7 @@ SAP.registerTopic({
           zorunlu:['Şirket kodu','Mali yıl','Hesap aralığı','Hesap tipi seçimi'],
           opsiyonel:['Test modu','Özel G/L işlemleri dâhil','Asgari kalem sayısı'] },
         hatalar:[
-          { mesaj:'Hiçbir kalem kapatılmadı (hata mesajı yok)', sebep:'Atama (`ZUONR`) alanları eşleşmiyor — genelde hesabın **sıralama anahtarı** yanlış veya boş.', cozum:'{{FS00}} → hesabın sıralama anahtarını (`ZUAWA`) kontrol et. Kural {{OB74}}’te tanımlı mı bak. **Sorun F.13’te değil, ana veridedir.**' },
+          { mesaj:'Hiçbir kalem kapatılmadı (hata mesajı yok)', sebep:'Atama (`ZUONR`) alanları eşleşmiyor: genelde hesabın **sıralama anahtarı** yanlış veya boş.', cozum:'{{FS00}} → hesabın sıralama anahtarını (`ZUAWA`) kontrol et. Kural {{OB74}}’te tanımlı mı bak. **Sorun F.13’te değil, ana veridedir.**' },
           { mesaj:'Clearing rule not defined for account type S', sebep:'{{OB74}}’te ilgili hesap tipi/aralığı için kural yok.', cozum:'{{OB74}} ile eşleştirme kriterlerini tanımla (en fazla 5 alan).' },
         ],
         ipucu:'{{F.13}} **geçmişe dönük atama alanını düzeltmez**. Sıralama anahtarını sonradan düzeltirsen ' +
@@ -417,7 +417,7 @@ SAP.registerTopic({
           { baslik:'Kapatma belgesi numarası, şirket kodu ve mali yılı gir',
             aciklama:'Kapatma belgesi numarasını kalemin `AUGBL` alanından veya {{FBL1N}}/{{FBL3N}} raporundan alırsın.' },
           { baslik:'İki seçenekten birini seç',
-            aciklama:'**Yalnızca sıfırla:** kapatma silinir, ödeme belgesi durur — çoğu durumda istenen budur. ' +
+            aciklama:'**Yalnızca sıfırla:** kapatma silinir, ödeme belgesi durur: çoğu durumda istenen budur. ' +
                      '**Sıfırla ve ters kaydet:** kapatma silinir *ve* ödeme belgesi de ters kaydedilir.' },
           { baslik:'Onayla',
             aciklama:'Kalemler {{BSAK}}/{{BSAD}}’dan {{BSIK}}/{{BSID}}’ye döner; `AUGBL` alanı temizlenir.' },
@@ -426,8 +426,8 @@ SAP.registerTopic({
           zorunlu:['Kapatma belgesi numarası','Şirket kodu','Mali yıl'],
           opsiyonel:['Ters kayıt nedeni (ters kaydedilecekse)'] },
         hatalar:[
-          { mesaj:'Document ... is not a clearing document', sebep:'Girilen numara bir kapatma belgesi değil.', cozum:'Kalemin `AUGBL` alanındaki numarayı kullan — belge numarasını değil.' },
-          { mesaj:'Clearing cannot be reset — document reversed', sebep:'Belge zaten ters kaydedilmiş.', cozum:'Kapatma zaten çözülmüştür; kalemleri {{FBL1N}} ile kontrol et.' },
+          { mesaj:'Document ... is not a clearing document', sebep:'Girilen numara bir kapatma belgesi değil.', cozum:'Kalemin `AUGBL` alanındaki numarayı kullan: belge numarasını değil.' },
+          { mesaj:'Clearing cannot be reset: document reversed', sebep:'Belge zaten ters kaydedilmiş.', cozum:'Kapatma zaten çözülmüştür; kalemleri {{FBL1N}} ile kontrol et.' },
         ],
         ipucu:'**{{FBRA}} ile {{FB08}} karıştırılmamalıdır.** {{FB08}} *belgeyi* ters kaydeder (yeni bir ' +
               'ters belge üretir). {{FBRA}} *kapatmayı* geri alır (yeni belge üretmez, sadece eşleştirmeyi bozar). ' +
@@ -472,7 +472,7 @@ SAP.registerTopic({
       'kalemin **açık indeksten kapalı indekse** taşınması. Tüm kapatma mantığı bu ikisinden ibarettir.',
 
     liste:[
-      { ad:'BSEG', baslik:'Belge kalemleri — kapatmanın kaydedildiği yer',
+      { ad:'BSEG', baslik:'Belge kalemleri: kapatmanın kaydedildiği yer',
         tutar:'Kalemin hesabı, tutarı ve **kapatma durumu**. Kapatma yalnızca iki alanı değiştirir.',
         olusturan:'FI belgesi üreten her işlem',
         guncelleyen:'Kapatma işlemleri `AUGBL`/`AUGDT` alanlarını doldurur; {{FBRA}} boşaltır',
@@ -482,8 +482,8 @@ SAP.registerTopic({
         alanlar:[
           { ad:'AUGBL', aciklama:'**Kapatma belgesi numarası. Boşsa kalem AÇIKTIR.** Kapatmanın tek ölçütü budur.' },
           { ad:'AUGDT', aciklama:'Kapatma tarihi' },
-          { ad:'ZUONR', aciklama:'**Atama alanı** — {{F.13}} eşleştirmeyi buna göre yapar. Sıralama anahtarından otomatik dolar.' },
-          { ad:'ZFBDT', aciklama:'Baz tarih — kalan kapatmada yeni kalemde **bugüne** ayarlanır' },
+          { ad:'ZUONR', aciklama:'**Atama alanı**: {{F.13}} eşleştirmeyi buna göre yapar. Sıralama anahtarından otomatik dolar.' },
+          { ad:'ZFBDT', aciklama:'Baz tarih: kalan kapatmada yeni kalemde **bugüne** ayarlanır' },
         ] },
 
       { ad:'BSIS', baslik:'G/L açık kalemleri',
@@ -492,7 +492,7 @@ SAP.registerTopic({
         guncelleyen:'Kapatıldığında kalem buradan silinir ve {{BSAS}}’a taşınır',
         anahtar:'BUKRS + HKONT + AUGDT + AUGBL + ZUONR + GJAHR + BELNR + BUZEI',
         iliskiler:'{{BSEG}}’in hızlı erişim indeksi; {{FBL3N}} açık kalem seçeneği buradan okur.',
-        s4:'**Kaldırıldı** — {{uyumluluk-view}} olarak {{ACDOCA}}’dan üretilir.' },
+        s4:'**Kaldırıldı**: {{uyumluluk-view}} olarak {{ACDOCA}}’dan üretilir.' },
 
       { ad:'BSAS', baslik:'G/L kapatılmış kalemleri',
         tutar:'Kapatılmış G/L kalemleri.',
@@ -527,7 +527,7 @@ SAP.registerTopic({
         guncelleyen:'{{FBRA}} ile geri alınırsa {{BSID}}’ye döner',
         s4:'{{uyumluluk-view}}.' },
 
-      { ad:'SKB1', baslik:'G/L hesabı — kapatmayı mümkün kılan ayarlar',
+      { ad:'SKB1', baslik:'G/L hesabı: kapatmayı mümkün kılan ayarlar',
         tutar:'Hesabın {{acik-kalem-yonetimi}} ve **sıralama anahtarı** ayarları. ' +
               'Kapatmanın çalışıp çalışmayacağı burada belirlenir.',
         olusturan:'{{FS00}}',
@@ -536,8 +536,8 @@ SAP.registerTopic({
         s4:'Değişmedi.',
         alanlar:[
           { ad:'XOPVW', aciklama:'**Açık kalem yönetimi.** X değilse bu hesapta kapatma **yapılamaz**.' },
-          { ad:'ZUAWA', aciklama:'**Sıralama anahtarı** — `ZUONR` alanını otomatik doldurur. {{F.13}}’ün çalışması buna bağlıdır.' },
-          { ad:'XKRES', aciklama:'Kalem görüntüleme — kapalıysa {{FBL3N}} kalem göstermez' },
+          { ad:'ZUAWA', aciklama:'**Sıralama anahtarı**: `ZUONR` alanını otomatik doldurur. {{F.13}}’ün çalışması buna bağlıdır.' },
+          { ad:'XKRES', aciklama:'Kalem görüntüleme: kapalıysa {{FBL3N}} kalem göstermez' },
         ] },
     ],
 
@@ -549,13 +549,13 @@ SAP.registerTopic({
           alanlar:[{ ad:'SAKNR', tip:'pk' }, { ad:'XOPVW' }, { ad:'ZUAWA' }] },
         { ad:'BSEG', rol:'Kalem', hub:true, aciklama:'Kapatma burada kaydedilir',
           alanlar:[{ ad:'BELNR', tip:'pk' }, { ad:'BUZEI', tip:'pk' }, { ad:'AUGBL' }, { ad:'AUGDT' }, { ad:'ZUONR' }] },
-        { ad:'BSIS', rol:'İndeks — açık', aciklama:'G/L açık kalemleri',
+        { ad:'BSIS', rol:'İndeks: açık', aciklama:'G/L açık kalemleri',
           alanlar:[{ ad:'HKONT', tip:'fk' }, { ad:'BELNR', tip:'fk' }, { ad:'ZUONR' }] },
-        { ad:'BSAS', rol:'İndeks — kapalı', aciklama:'G/L kapatılmış kalemleri',
+        { ad:'BSAS', rol:'İndeks: kapalı', aciklama:'G/L kapatılmış kalemleri',
           alanlar:[{ ad:'HKONT', tip:'fk' }, { ad:'AUGBL' }, { ad:'AUGDT' }] },
-        { ad:'BSIK', rol:'İndeks — açık', aciklama:'Satıcı açık',
+        { ad:'BSIK', rol:'İndeks: açık', aciklama:'Satıcı açık',
           alanlar:[{ ad:'LIFNR', tip:'fk' }, { ad:'BELNR', tip:'fk' }] },
-        { ad:'BSAK', rol:'İndeks — kapalı', aciklama:'Satıcı kapalı',
+        { ad:'BSAK', rol:'İndeks: kapalı', aciklama:'Satıcı kapalı',
           alanlar:[{ ad:'LIFNR', tip:'fk' }, { ad:'AUGBL' }] },
         { ad:'BKPF', rol:'Belge', aciklama:'Kapatma belgesi',
           alanlar:[{ ad:'BELNR', tip:'pk' }, { ad:'BLART' }] },
@@ -586,14 +586,14 @@ SAP.registerTopic({
           { ad:'Özel G/L işlemleri kutusu', zorunlu:false, aciklama:'{{avans}} kalemlerini listeye dâhil eder. İşaretlenmezse o kalemler **hiç görünmez**.' },
           { ad:'Ek seçim kriterleri', zorunlu:false, aciklama:'Atama, tutar, belge numarası, referans ile listeyi daraltır.' },
         ],
-        ipucu:'Çok kalemli hesaplarda ek seçim kriteri kullanmadan listeyi açma — binlerce satır gelir. ' +
+        ipucu:'Çok kalemli hesaplarda ek seçim kriteri kullanmadan listeyi açma: binlerce satır gelir. ' +
               'Atama alanına sipariş numarasını girerek doğrudan ilgili kalemlere in.' },
 
       { ad:'Açık kalem seçim ekranı',
         aciklama:'Kapatmanın gerçekleştiği asıl ekran. En kritik gösterge alttaki **"Atanmamış"** alanıdır.',
         alanlar:[
           { ad:'Kalem listesi', zorunlu:true, aciklama:'Kalemler **hepsi seçili** olarak gelir. *Seçimi kaldır* ile temizleyip istediklerini seçmek daha güvenlidir.' },
-          { ad:'"Atanmamış" göstergesi', zorunlu:true, aciklama:'**Sıfır olmalıdır.** Sıfır değilse kapatma yapılamaz — seçilen kalemler dengelenmemiştir.' },
+          { ad:'"Atanmamış" göstergesi', zorunlu:true, aciklama:'**Sıfır olmalıdır.** Sıfır değilse kapatma yapılamaz: seçilen kalemler dengelenmemiştir.' },
           { ad:'"Kapatılan" göstergesi', zorunlu:false, aciklama:'Seçilen kalemlerin net toplamı.' },
           { ad:'Kısmi ödeme sekmesi', zorunlu:false, aciklama:'Orijinal kalem **açık kalır**, vade korunur.' },
           { ad:'Kalan kalem sekmesi', zorunlu:false, aciklama:'Orijinal **kapanır**, yeni kalem üretilir, vade sıfırlanır.' },
@@ -601,7 +601,7 @@ SAP.registerTopic({
         ipucu:'Düzeni **atama (`ZUONR`) alanına göre sırala ve alt toplam al**. Birbirini götüren kalemler ' +
               'yan yana dizilir; seçim hem hızlanır hem hatasızlaşır.' },
 
-      { ad:'{{FBRA}} — kapatmayı geri alma ekranı',
+      { ad:'{{FBRA}}: kapatmayı geri alma ekranı',
         aciklama:'Yanlış kapatmanın düzeltildiği yer. İki seçenek arasındaki fark kritiktir.',
         alanlar:[
           { ad:'Kapatma belgesi numarası', zorunlu:true, aciklama:'Kalemin `AUGBL` alanındaki numara. Belge numarasıyla karıştırılmamalıdır.' },
@@ -616,17 +616,17 @@ SAP.registerTopic({
     opsiyonel:['Ek seçim kriterleri','Özel G/L işlemleri','Metin','Belge türü','Kısmi/kalan sekmesi'],
 
     hatalar:[
-      { mesaj:'The difference is too large for clearing', sebep:'Seçilen kalemlerin net tutarı sıfır değil ve fark {{tolerans-grubu}} sınırının dışında.', cozum:'Önce seçimi kontrol et — %90 ihtimalle yanlış kalem seçilmiştir. Fark gerçekse: kısmi/kalan kapatma kullan, fark satırı gir, ya da {{OBA3}}/{{OBA4}} toleransını gözden geçir.' },
+      { mesaj:'The difference is too large for clearing', sebep:'Seçilen kalemlerin net tutarı sıfır değil ve fark {{tolerans-grubu}} sınırının dışında.', cozum:'Önce seçimi kontrol et: %90 ihtimalle yanlış kalem seçilmiştir. Fark gerçekse: kısmi/kalan kapatma kullan, fark satırı gir, ya da {{OBA3}}/{{OBA4}} toleransını gözden geçir.' },
       { mesaj:'Account ... is not managed on an open item basis', sebep:'{{SKB1}} `XOPVW` boş.', cozum:'Bu hesapta kapatma yapılamaz. Hesap geçiş hesabıysa ana veri yanlış kurulmuş demektir; düzeltmek için bakiyenin sıfırlanması gerekir.' },
       { mesaj:'No open items found', sebep:'Kalemler zaten kapatılmış, kriter çok dar, veya avans kalemleri seçime dâhil değil.', cozum:'{{FBL3N}}/{{FBL1N}} ile kontrol et; "Özel G/L işlemleri" kutusunu işaretle.' },
       { mesaj:'Posting period ... is not open', sebep:'Kapatma tarihinin dönemi kapalı.', cozum:'{{OB52}} ile aç veya kapatma tarihini değiştir.' },
       { mesaj:'Document ... is not a clearing document (FBRA)', sebep:'Belge numarası girildi, kapatma belgesi numarası değil.', cozum:'Kalemin `AUGBL` alanındaki numarayı kullan.' },
-      { mesaj:'{{F.13}} hiçbir kalem kapatmadı (hata yok)', sebep:'Atama alanları eşleşmiyor — hesabın **sıralama anahtarı** yanlış veya {{OB74}} kuralı eksik.', cozum:'{{FS00}} → `ZUAWA` sıralama anahtarını kontrol et; {{OB74}}’te kuralı tanımla. **Sorun F.13’te değil, ana veridedir.**' },
-      { mesaj:'Clearing not possible — items in different currencies', sebep:'Farklı para birimlerindeki kalemler eşleştirilmeye çalışılıyor.', cozum:'Aynı para birimindeki kalemleri seç; döviz farkı gerekiyorsa kur farkı hesabı otomatik devreye girer.' },
+      { mesaj:'{{F.13}} hiçbir kalem kapatmadı (hata yok)', sebep:'Atama alanları eşleşmiyor: hesabın **sıralama anahtarı** yanlış veya {{OB74}} kuralı eksik.', cozum:'{{FS00}} → `ZUAWA` sıralama anahtarını kontrol et; {{OB74}}’te kuralı tanımla. **Sorun F.13’te değil, ana veridedir.**' },
+      { mesaj:'Clearing not possible: items in different currencies', sebep:'Farklı para birimlerindeki kalemler eşleştirilmeye çalışılıyor.', cozum:'Aynı para birimindeki kalemleri seç; döviz farkı gerekiyorsa kur farkı hesabı otomatik devreye girer.' },
     ],
 
     ipuclari:[
-      'Kalem listesinde **düzeni atama alanına göre sırala** — geçiş hesabı temizliğinin en büyük hızlandırıcısıdır.',
+      'Kalem listesinde **düzeni atama alanına göre sırala**: geçiş hesabı temizliğinin en büyük hızlandırıcısıdır.',
       'Kalemler hepsi seçili gelir; *Seçimi kaldır* ile temizleyip bilinçli seçim yapmak yanlış kapatmayı önler.',
       'Yanlış kapatma için **{{FBRA}}** kullan, {{FB08}} değil. FB08 belgeyi ters kaydeder ve gereksiz belge yaratır.',
       '{{F.13}}’ü her zaman **önce test modunda** çalıştır ve sonucu incele.',
@@ -641,7 +641,7 @@ SAP.registerTopic({
   teknik: {
     guncellenenTablolar:[
       { tablo:'BSEG', ne:'Kapatılan kalemlere `AUGBL` (kapatma belgesi) ve `AUGDT` (kapatma tarihi) yazılır' },
-      { tablo:'BKPF', ne:'Kapatma belgesi başlığı — fark yoksa tutarı sıfırdır' },
+      { tablo:'BKPF', ne:'Kapatma belgesi başlığı: fark yoksa tutarı sıfırdır' },
       { tablo:'BSIS', ne:'Kapatılan G/L kalemleri **silinir**' },
       { tablo:'BSAS', ne:'Kapatılan G/L kalemleri eklenir' },
       { tablo:'BSIK', ne:'Kapatılan satıcı kalemleri silinir' },
@@ -653,13 +653,13 @@ SAP.registerTopic({
 
     commit:
       'Kapatma tek bir LUW içinde yazılır: kapatma belgesi + `AUGBL` güncellemeleri + indeks taşımaları ' +
-      'atomiktir. {{F.13}} toplu çalıştırmasında **her kapatma ayrı LUW’dur** — bu yüzden 1.240 kalemin ' +
+      'atomiktir. {{F.13}} toplu çalıştırmasında **her kapatma ayrı LUW’dur**: bu yüzden 1.240 kalemin ' +
       '1.200’ü kapatılıp 40’ı başarısız olabilir. Sonuç listesi hangilerinin kapatılamadığını gösterir.',
 
     belgeNo:
       'Kapatma belgesi de normal bir FI belgesidir ve belge türüne bağlı aralıktan numara alır. ' +
       'Genelde **AB** (genel belge) türü kullanılır. Ödemeyle eşzamanlı kapatmada ise ayrı kapatma ' +
-      'belgesi **oluşmaz** — ödeme belgesinin kendisi kapatma belgesidir ve `AUGBL` alanına ' +
+      'belgesi **oluşmaz**: ödeme belgesinin kendisi kapatma belgesidir ve `AUGBL` alanına ' +
       'ödeme belgesinin numarası yazılır.',
 
     postingLogic:
@@ -682,8 +682,8 @@ SAP.registerTopic({
 
     accountDetermination:
       'Fark hesapları otomatik belirlenir:\n\n' +
-      '**İskonto:** hesap anahtarı SKE (alınan) / SKT (verilen) — IMG’deki otomatik kayıt ayarlarından.\n' +
-      '**Kur farkı:** hesap anahtarı KDF — para birimi ve şirket kodu bazında.\n' +
+      '**İskonto:** hesap anahtarı SKE (alınan) / SKT (verilen): IMG’deki otomatik kayıt ayarlarından.\n' +
+      '**Kur farkı:** hesap anahtarı KDF: para birimi ve şirket kodu bazında.\n' +
       '**Küçük fark:** {{OBA3}}/{{OBA4}} tolerans gruplarında tanımlanan hesap.\n\n' +
       'Bu hesaplar tanımlı değilse kapatma "account determination not possible" hatasıyla durur.',
 
@@ -696,19 +696,19 @@ SAP.registerTopic({
 
     transport:
       'Tolerans grupları, {{OB74}} kuralları ve fark hesap belirlemeleri taşınır. ' +
-      'Hesapların sıralama anahtarı **ana veridir ve taşınmaz** — her sistemde ayrı ayarlanmalıdır. ' +
+      'Hesapların sıralama anahtarı **ana veridir ve taşınmaz**: her sistemde ayrı ayarlanmalıdır. ' +
       'Bu ayrım, test sisteminde çalışan {{F.13}}’ün canlıda çalışmamasının klasik sebebidir.',
 
     img:[
-      { yol:'SPRO → Finansal Muhasebe → Ana Muhasebe → İş İşlemleri → Açık Kalem Kapatma → Otomatik Kapatmayı Hazırla', not:'{{OB74}} — {{F.13}} eşleştirme kriterleri' },
-      { yol:'SPRO → Finansal Muhasebe → Ana Muhasebe → İş İşlemleri → Açık Kalem Kapatma → Kapatma Farkları → Kapatma Farkları İçin Tolerans Gruplarını Tanımla', not:'{{OBA3}} — fark sınırları' },
-      { yol:'SPRO → Finansal Muhasebe → Finansal Muhasebe Genel Ayarları → Belge → Tolerans Grupları → Çalışanlar İçin Tolerans Gruplarını Tanımla', not:'{{OBA4}} — kullanıcı bazında sınırlar' },
+      { yol:'SPRO → Finansal Muhasebe → Ana Muhasebe → İş İşlemleri → Açık Kalem Kapatma → Otomatik Kapatmayı Hazırla', not:'{{OB74}}: {{F.13}} eşleştirme kriterleri' },
+      { yol:'SPRO → Finansal Muhasebe → Ana Muhasebe → İş İşlemleri → Açık Kalem Kapatma → Kapatma Farkları → Kapatma Farkları İçin Tolerans Gruplarını Tanımla', not:'{{OBA3}}: fark sınırları' },
+      { yol:'SPRO → Finansal Muhasebe → Finansal Muhasebe Genel Ayarları → Belge → Tolerans Grupları → Çalışanlar İçin Tolerans Gruplarını Tanımla', not:'{{OBA4}}: kullanıcı bazında sınırlar' },
       { yol:'SPRO → Finansal Muhasebe → Ana Muhasebe → İş İşlemleri → Açık Kalem Kapatma → Kapatma Farkları → Fark İçin Hesapları Tanımla', not:'Küçük fark hesabı belirleme' },
-      { yol:'SPRO → Finansal Muhasebe → Ana Muhasebe → Ana Veri → G/L Hesapları → Hesapları Hazırla (FS00)', not:'{{acik-kalem-yonetimi}} ve **sıralama anahtarı** — ana veri' },
+      { yol:'SPRO → Finansal Muhasebe → Ana Muhasebe → Ana Veri → G/L Hesapları → Hesapları Hazırla (FS00)', not:'{{acik-kalem-yonetimi}} ve **sıralama anahtarı**: ana veri' },
     ],
 
     ekstra:[
-      { ic:'🔑', baslik:'Sıralama anahtarı — otomatik kapatmanın belirleyici ayarı', metin:
+      { ic:'🔑', baslik:'Sıralama anahtarı: otomatik kapatmanın belirleyici ayarı', metin:
         '{{F.13}} otomatik kapatmanın çalışıp çalışmaması neredeyse tamamen hesabın ' +
         '**sıralama anahtarına** ({{SKB1}} `ZUAWA`) bağlıdır.\n\n' +
         'Sıralama anahtarı, kayıt sırasında **atama alanını** ({{BSEG}} `ZUONR`) otomatik doldurur. ' +
@@ -721,9 +721,9 @@ SAP.registerTopic({
         'doğru dolar. Eski kalemlerin atama alanı boş kalmaya devam eder ve elle kapatılmaları gerekir.' },
 
       { ic:'⚖️', baslik:'İki tolerans grubu vardır ve ikisi de kontrol edilir', metin:
-        '**{{OBA3}} — müşteri/satıcı tolerans grubu:** iş ortağı bazında kabul edilebilir fark. ' +
+        '**{{OBA3}}: müşteri/satıcı tolerans grubu:** iş ortağı bazında kabul edilebilir fark. ' +
         'Müşteri/satıcı ana verisine atanır.\n\n' +
-        '**{{OBA4}} — kullanıcı (çalışan) tolerans grubu:** kullanıcının kaydedebileceği azami tutar ve ' +
+        '**{{OBA4}}: kullanıcı (çalışan) tolerans grubu:** kullanıcının kaydedebileceği azami tutar ve ' +
         'kapatmada kabul edebileceği azami fark. Kullanıcı ana verisine atanır.\n\n' +
         'Kapatmada **ikisi birden** kontrol edilir ve **daha dar olan** geçerlidir. ' +
         '"Difference too large" hatası alan bir kullanıcı, meslektaşında aynı işlemin çalıştığını ' +
@@ -743,17 +743,17 @@ SAP.registerTopic({
   /* ==================================================== 9. S/4HANA === */
   s4hana: {
     ozet:
-      'Kapatma mantığı S/4HANA’da **değişmedi** — `AUGBL`/`AUGDT` alanları ve tolerans kontrolü aynı. ' +
+      'Kapatma mantığı S/4HANA’da **değişmedi**: `AUGBL`/`AUGDT` alanları ve tolerans kontrolü aynı. ' +
       'Değişen, açık kalem verisinin nereden okunduğudur: indeks tabloları {{uyumluluk-view}}’ine dönüştü ' +
       've veriler {{ACDOCA}}’dan üretiliyor.',
 
     eccFarklari:[
-      { konu:'Açık kalem indeksleri', ecc:'{{BSIS}}/{{BSAS}}/{{BSIK}}/{{BSAK}}/{{BSID}}/{{BSAD}} fiziksel tablo', s4:'Tamamı {{uyumluluk-view}} — veri {{ACDOCA}}’dan' },
-      { konu:'Kapatma alanları', ecc:'{{BSEG}} `AUGBL`/`AUGDT`', s4:'**Aynı** — ayrıca {{ACDOCA}}’da da tutulur' },
+      { konu:'Açık kalem indeksleri', ecc:'{{BSIS}}/{{BSAS}}/{{BSIK}}/{{BSAK}}/{{BSID}}/{{BSAD}} fiziksel tablo', s4:'Tamamı {{uyumluluk-view}}: veri {{ACDOCA}}’dan' },
+      { konu:'Kapatma alanları', ecc:'{{BSEG}} `AUGBL`/`AUGDT`', s4:'**Aynı**: ayrıca {{ACDOCA}}’da da tutulur' },
       { konu:'Kapatma mantığı', ecc:'Tolerans + fark hesabı', s4:'**Değişmedi**' },
       { konu:'Otomatik kapatma', ecc:'{{F.13}}', s4:'{{F.13}} çalışır + Fiori "Clear G/L Accounts" önerilen eşleşmelerle' },
-      { konu:'Performans', ecc:'Büyük hesaplarda indeks taraması yavaş', s4:'Sütun tabanlı {{ACDOCA}} — belirgin hızlanma' },
-      { konu:'Eşleştirme önerisi', ecc:'Yok — kullanıcı elle seçer', s4:'Fiori uygulamaları olası eşleşmeleri **önerir**' },
+      { konu:'Performans', ecc:'Büyük hesaplarda indeks taraması yavaş', s4:'Sütun tabanlı {{ACDOCA}}: belirgin hızlanma' },
+      { konu:'Eşleştirme önerisi', ecc:'Yok: kullanıcı elle seçer', s4:'Fiori uygulamaları olası eşleşmeleri **önerir**' },
     ],
 
     universalJournal:
@@ -762,7 +762,7 @@ SAP.registerTopic({
       'tek tabloda cevaplanır. ECC’de bu, indeks tablosu + {{BSEG}} + CO tablosu birleştirmesi gerektiriyordu.',
 
     kalkanTcodes:[
-      { eski:'—', yeni:'—', not:'Kapatma işlem kodlarının hiçbiri kaldırılmadı; {{F-03}}, {{F-32}}, {{F-44}}, {{F.13}}, {{FBRA}} aynen çalışır' },
+      { eski:', ', yeni:', ', not:'Kapatma işlem kodlarının hiçbiri kaldırılmadı; {{F-03}}, {{F-32}}, {{F-44}}, {{F.13}}, {{FBRA}} aynen çalışır' },
     ],
 
     fiori:[
@@ -774,10 +774,10 @@ SAP.registerTopic({
     ],
 
     compatibilityViews:[
-      '{{BSIS}}, {{BSAS}} — G/L açık/kapalı kalem indeksleri artık view.',
-      '{{BSIK}}, {{BSAK}}, {{BSID}}, {{BSAD}} — satıcı ve müşteri indeksleri de view.',
+      '{{BSIS}}, {{BSAS}}: G/L açık/kapalı kalem indeksleri artık view.',
+      '{{BSIK}}, {{BSAK}}, {{BSID}}, {{BSAD}}: satıcı ve müşteri indeksleri de view.',
       'Bu view’lere **yazma yapılamaz**. Bu tablolara doğrudan INSERT/UPDATE yapan eski Z-programları ' +
-      'geçişte bozulur — kapatma ile ilgili özel geliştirmeler taranmalıdır.',
+      'geçişte bozulur: kapatma ile ilgili özel geliştirmeler taranmalıdır.',
       '{{BSEG}} fiziksel tablo olarak duruyor; `AUGBL` alanı hâlâ oradan okunabilir.',
     ],
 
@@ -790,7 +790,7 @@ SAP.registerTopic({
     bestPractices:[
       'S/4HANA geçişinden **önce** geçiş hesaplarını temizle. Kirli açık kalemler yeni sisteme taşınır ' +
       've orada çözmek daha zordur.',
-      'Fiori’nin eşleştirme önerisi özelliğini kullan — manuel kapatma yükünü belirgin şekilde azaltır.',
+      'Fiori’nin eşleştirme önerisi özelliğini kullan: manuel kapatma yükünü belirgin şekilde azaltır.',
       'Sıralama anahtarlarını geçiş sırasında gözden geçir; yanlış anahtar yıllarca birikmiş ' +
       'eşleşmemiş kalem demektir.',
       '{{BSIS}}/{{BSIK}}’e yazan özel programları geçiş öncesi tara ve {{ACDOCA}} tabanlı yeniden yaz.',
@@ -807,8 +807,8 @@ SAP.registerTopic({
       'Bu senaryo, birikmiş bir geçiş hesabının nasıl analiz edildiğini, kök sebebin nasıl bulunduğunu ' +
       've hem geçmişin hem geleceğin nasıl düzeltildiğini adım adım gösteriyor.',
     veriler:[
-      { k:'Şirket kodu', v:'1000 — Marmara Tekstil A.Ş.' },
-      { k:'Hesap', v:'159000 — GR/IR (açık kalem yönetimli ✓)' },
+      { k:'Şirket kodu', v:'1000: Marmara Tekstil A.Ş.' },
+      { k:'Hesap', v:'159000: GR/IR (açık kalem yönetimli ✓)' },
       { k:'Bakiye', v:'4.200.000 TL alacak' },
       { k:'Açık kalem sayısı', v:'3.847' },
       { k:'Dönem', v:'Aralık 2026 kapanışı' },
@@ -819,9 +819,9 @@ SAP.registerTopic({
         aciklama:'Kalem listesine dalmadan önce **hangi ay** sorusu cevaplanır. Bu, aramayı daraltır.',
         girdi:[
           { alan:'Hesap / Şirket kodu', deger:'159000 / 1000' },
-          { alan:'Bulgu 2024', deger:'Yıl sonu bakiye 380.000 TL — normal' },
-          { alan:'Bulgu 2025', deger:'Yıl sonu bakiye 1.900.000 TL — artmaya başlamış' },
-          { alan:'Bulgu 2026', deger:'Yıl sonu bakiye 4.200.000 TL — sürekli büyüyor' },
+          { alan:'Bulgu 2024', deger:'Yıl sonu bakiye 380.000 TL: normal' },
+          { alan:'Bulgu 2025', deger:'Yıl sonu bakiye 1.900.000 TL: artmaya başlamış' },
+          { alan:'Bulgu 2026', deger:'Yıl sonu bakiye 4.200.000 TL: sürekli büyüyor' },
         ],
         not:'Bakiye **düzenli olarak** büyüyor. Bu, tek seferlik bir hata değil, **sistematik bir sorun** ' +
              'işaretidir. Tek bir yanlış kayıt olsaydı bakiye sabit kalırdı.' },
@@ -833,21 +833,21 @@ SAP.registerTopic({
           { alan:'Seçim', deger:'Hesap 159000 · **Açık kalemler** · 31.12.2026' },
           { alan:'Düzen', deger:'Atama (`ZUONR`), Referans, Metin sütunları eklendi; atamaya göre alt toplam' },
           { alan:'**Kritik bulgu**', deger:'3.847 kalemin **3.102’sinde atama alanı BOŞ**' },
-          { alan:'Eşleşebilir', deger:'Atama dolu 745 kalemin 690’ı çiftler hâlinde — eşleşebilir durumda' },
+          { alan:'Eşleşebilir', deger:'Atama dolu 745 kalemin 690’ı çiftler hâlinde: eşleşebilir durumda' },
         ],
         tabloEtkisi:[
           { tablo:'BSIS', ne:'Rapor buradan okuyor (S/4HANA’da {{ACDOCA}} üzerinden view)' },
         ],
         not:'İşte kök sebep: **atama alanı boş olan kalemler {{F.13}} tarafından eşleştirilemez.** ' +
-             'Kayıtlar doğru, denklik bozulmamış, hata mesajı yok — ama otomatik kapatma hiç çalışmamış.' },
+             'Kayıtlar doğru, denklik bozulmamış, hata mesajı yok: ama otomatik kapatma hiç çalışmamış.' },
 
-      { baslik:'Kök sebep doğrulanır — sıralama anahtarı', tcode:'FS00',
+      { baslik:'Kök sebep doğrulanır: sıralama anahtarı', tcode:'FS00',
         aciklama:'Hesabın ana verisi inceleniyor. Şüphe {{SKB1}} `ZUAWA` (sıralama anahtarı) alanında.',
         girdi:[
           { alan:'Hesap', deger:'159000 → Kontrol verisi sekmesi' },
-          { alan:'Açık kalem yönetimi (`XOPVW`)', deger:'X — **doğru** ✓' },
-          { alan:'Kalem görüntüleme (`XKRES`)', deger:'X — doğru ✓' },
-          { alan:'**Sıralama anahtarı (`ZUAWA`)**', deger:'**BOŞ** — sorunun kaynağı' },
+          { alan:'Açık kalem yönetimi (`XOPVW`)', deger:'X: **doğru** ✓' },
+          { alan:'Kalem görüntüleme (`XKRES`)', deger:'X: doğru ✓' },
+          { alan:'**Sıralama anahtarı (`ZUAWA`)**', deger:'**BOŞ**: sorunun kaynağı' },
           { alan:'Beklenen', deger:'014 (sipariş numarası) veya 018 (satınalma belgesi)' },
         ],
         not:'Sıralama anahtarı boş olduğu için kayıt sırasında atama alanı hiç doldurulmuyor. ' +
@@ -858,18 +858,18 @@ SAP.registerTopic({
         aciklama:'İkinci bir olası sebep: kapatma kuralının hiç tanımlanmamış olması.',
         girdi:[
           { alan:'Şirket kodu / Hesap tipi', deger:'1000 / S (ana muhasebe)' },
-          { alan:'Hesap aralığı 159000', deger:'Kural **var** — kriter 1: `ZUONR` ✓' },
+          { alan:'Hesap aralığı 159000', deger:'Kural **var**: kriter 1: `ZUONR` ✓' },
           { alan:'Sonuç', deger:'Kural doğru; sorun yalnızca atama alanının boş olması' },
         ],
         not:'Kural doğru tanımlanmış ama beslendiği alan boş. Bu, "F.13 çalışmıyor" şikâyetinin ' +
              'iki olası sebebinden hangisinin geçerli olduğunu netleştirir.' },
 
-      { baslik:'Geleceği düzelt — sıralama anahtarı ayarlanır', tcode:'FS00',
+      { baslik:'Geleceği düzelt: sıralama anahtarı ayarlanır', tcode:'FS00',
         aciklama:'Sıralama anahtarı doğru değere ayarlanıyor. **Bu, yalnızca yeni kalemleri etkiler.**',
         girdi:[
           { alan:'Hesap 159000', deger:'Sıralama anahtarı → **014** (satınalma siparişi)' },
           { alan:'Etki', deger:'Bugünden sonraki kayıtlarda atama alanı sipariş numarasıyla dolacak' },
-          { alan:'**Etkilemediği**', deger:'Mevcut 3.102 kalem — atama alanları boş kalmaya devam eder' },
+          { alan:'**Etkilemediği**', deger:'Mevcut 3.102 kalem: atama alanları boş kalmaya devam eder' },
         ],
         not:'Kritik nokta: sıralama anahtarı **geçmişe dönük çalışmaz**. Eski kalemler ayrı bir ' +
              'temizlik operasyonu gerektirir.' },
@@ -880,13 +880,13 @@ SAP.registerTopic({
         girdi:[
           { alan:'Seçim', deger:'Şirket kodu 1000 · Hesap 159000 · Hesap tipi S · **Test modu ✓**' },
           { alan:'Test sonucu', deger:'690 kalem kapatılabilir / 3.157 kalem eşleşmedi' },
-          { alan:'Gerçek çalıştırma', deger:'690 kalem kapatıldı — bakiye etkisi **sıfır**' },
+          { alan:'Gerçek çalıştırma', deger:'690 kalem kapatıldı: bakiye etkisi **sıfır**' },
         ],
         fis:{ baslik:'Kapatma belgeleri (345 adet)', belgeTuru:'AB', tarih:'31.12.2026',
           satirlar:[
-            { hesap:'159', ad:'GR/IR — eşleşen kalemler (kapatıldı)', borc:0, alacak:0, not:'Yalnızca `AUGBL` yazıldı' },
+            { hesap:'159', ad:'GR/IR: eşleşen kalemler (kapatıldı)', borc:0, alacak:0, not:'Yalnızca `AUGBL` yazıldı' },
           ], not:'**Bakiye değişmedi.** Kapatma bakiyeyi değil, kalemlerin durumunu değiştirir. ' +
-                 '4.200.000 TL hâlâ duruyor — çünkü o bakiye eşleşmemiş kalemlerden geliyor.' },
+                 '4.200.000 TL hâlâ duruyor: çünkü o bakiye eşleşmemiş kalemlerden geliyor.' },
         tabloEtkisi:[
           { tablo:'BSIS', ne:'690 kalem silindi' },
           { tablo:'BSAS', ne:'690 kalem eklendi, `AUGBL` dolu' },
@@ -895,9 +895,9 @@ SAP.registerTopic({
       { baslik:'Kalan 3.157 kalem analiz edilir', tcode:'ME23N',
         aciklama:'Atama alanı boş olan kalemler sipariş bazında inceleniyor. Üç farklı grup çıkıyor.',
         girdi:[
-          { alan:'**Grup 1** — 2.140 kalem / 2.850.000 TL', deger:'Eşleşebilir: mal girişi ve fatura ikisi de var, sadece atama boş' },
-          { alan:'**Grup 2** — 780 kalem / 1.100.000 TL', deger:'Gerçek zamanlama farkı: mal geldi, fatura henüz gelmedi' },
-          { alan:'**Grup 3** — 237 kalem / 250.000 TL', deger:'Kalıcı fark: küçük miktar/fiyat farkları, hiç eşleşmeyecek' },
+          { alan:'**Grup 1**: 2.140 kalem / 2.850.000 TL', deger:'Eşleşebilir: mal girişi ve fatura ikisi de var, sadece atama boş' },
+          { alan:'**Grup 2**: 780 kalem / 1.100.000 TL', deger:'Gerçek zamanlama farkı: mal geldi, fatura henüz gelmedi' },
+          { alan:'**Grup 3**: 237 kalem / 250.000 TL', deger:'Kalıcı fark: küçük miktar/fiyat farkları, hiç eşleşmeyecek' },
         ],
         not:'Üç grup, üç farklı çözüm gerektiriyor. Hepsini aynı yöntemle temizlemeye çalışmak yanlış olur.' },
 
@@ -906,29 +906,29 @@ SAP.registerTopic({
         girdi:[
           { alan:'Yöntem', deger:'{{F-03}} → ek seçim: referans alanı = sipariş numarası' },
           { alan:'Düzen', deger:'Referansa göre sıralı, alt toplamlı' },
-          { alan:'Sonuç', deger:'2.140 kalem kapatıldı — 47 iş günü yerine 3 günde (toplu seçimle)' },
+          { alan:'Sonuç', deger:'2.140 kalem kapatıldı: 47 iş günü yerine 3 günde (toplu seçimle)' },
         ],
         not:'{{F-03}}’te düzeni referans/atama alanına göre sıralamak, elle kapatmayı katlanılabilir hâle getirir. ' +
              'Kalemler çiftler hâlinde yan yana gelir.' },
 
       { baslik:'Grup 3 için kalıcı farklar yazılır', tcode:'MR11',
-        aciklama:'Hiç eşleşmeyecek küçük farklar {{MR11}} ile temizleniyor — bunlar gerçek bir gider/gelirdir.',
+        aciklama:'Hiç eşleşmeyecek küçük farklar {{MR11}} ile temizleniyor: bunlar gerçek bir gider/gelirdir.',
         girdi:[
           { alan:'Seçim', deger:'Şirket kodu 1000 · GR/IR farkları · tutar sınırı 5.000 TL altı' },
           { alan:'Sonuç', deger:'237 kalem kapatıldı, 250.000 TL fark hesabına yazıldı' },
         ],
-        fis:{ baslik:'Belge 1000009876 — GR/IR fark temizliği', belgeTuru:'SA', tarih:'31.12.2026',
+        fis:{ baslik:'Belge 1000009876: GR/IR fark temizliği', belgeTuru:'SA', tarih:'31.12.2026',
           satirlar:[
             { hesap:'159', ad:'GR/IR hesabı', borc:250000, not:'Kalemler kapatıldı' },
-            { hesap:'659', ad:'Diğer olağan gider — GR/IR farkı', alacak:0, borc:0 },
-            { hesap:'649', ad:'Diğer olağan gelir — GR/IR farkı', alacak:250000, not:'Net fark gelire yazıldı' },
-          ], not:'Bu kayıt bakiyeyi **gerçekten** azaltır — çünkü kalemler eşleşmiyor, ' +
+            { hesap:'659', ad:'Diğer olağan gider: GR/IR farkı', alacak:0, borc:0 },
+            { hesap:'649', ad:'Diğer olağan gelir: GR/IR farkı', alacak:250000, not:'Net fark gelire yazıldı' },
+          ], not:'Bu kayıt bakiyeyi **gerçekten** azaltır: çünkü kalemler eşleşmiyor, ' +
                  'aradaki fark kalıcı olarak gelir/gider yazılıyor.' } },
 
       { baslik:'Grup 2 dönem sonu yeniden sınıflaması', tcode:'F.19',
         aciklama:'Gerçek zamanlama farkı olan 1.100.000 TL, bilançoda doğru kalemde gösterilmek üzere ' +
-                 'yeniden sınıflanıyor. **Bu kalemler kapatılmaz** — henüz karşılığı gelmedi.',
-        fis:{ baslik:'Belge 1000009877 — GR/IR yeniden sınıflama', belgeTuru:'SA', tarih:'31.12.2026',
+                 'yeniden sınıflanıyor. **Bu kalemler kapatılmaz**: henüz karşılığı gelmedi.',
+        fis:{ baslik:'Belge 1000009877: GR/IR yeniden sınıflama', belgeTuru:'SA', tarih:'31.12.2026',
           satirlar:[
             { hesap:'159', ad:'GR/IR hesabı', borc:1100000, not:'Geçici boşaltma' },
             { hesap:'326', ad:'Alınan ama faturalanmamış mallar', alacak:1100000, not:'Bilanço sunum hesabı' },
@@ -942,14 +942,14 @@ SAP.registerTopic({
       '• **1.100.000 TL** gerçek zamanlama farkı → {{F.19}} ile yeniden sınıflandı (bilançoda doğru kalemde)\n\n' +
       'Yıl sonu GR/IR bakiyesi **1.100.000 TL**’ye indi ve bu tutarın tamamı açıklanabilir durumda.\n\n' +
       '**Üç kritik ders:**\n\n' +
-      '**1. Kapatma bakiyeyi değiştirmez.** 690 kalem kapatıldığında bakiye hiç değişmedi — ' +
+      '**1. Kapatma bakiyeyi değiştirmez.** 690 kalem kapatıldığında bakiye hiç değişmedi: ' +
       'çünkü o kalemler zaten birbirini götürüyordu. Bakiyeyi değiştiren tek işlem {{MR11}} oldu, ' +
       'çünkü orada gerçek bir fark yazıldı.\n\n' +
       '**2. Sorunun kaynağı kapatma işleminde değil, ana veridedir.** Sıralama anahtarı boş olduğu için ' +
       'atama alanı dolmuyordu; {{F.13}} de eşleştirme yapamıyordu. Tek bir alan, üç yıllık birikim yarattı.\n\n' +
       '**3. Sıralama anahtarı geçmişe dönük çalışmaz.** Ayarı düzeltmek geleceği kurtarır ama ' +
       'eski kalemler ayrı bir temizlik operasyonu gerektirir. Bu yüzden geçiş hesapları **açılırken** ' +
-      'doğru kurulmalıdır — sonradan düzeltmenin maliyeti çok yüksektir.',
+      'doğru kurulmalıdır: sonradan düzeltmenin maliyeti çok yüksektir.',
   },
 
   /* =================================================== 11. ÖĞRENME === */
@@ -957,12 +957,12 @@ SAP.registerTopic({
     ozet:[
       '{{kapatma}}, birbirini götüren açık kalemleri eşleştirip kapalı hâle getirmedir.',
       'Teknik olarak tek şey yapar: kalemlere **`AUGBL`** (kapatma belgesi) ve **`AUGDT`** yazar. **`AUGBL` boşsa kalem açıktır.**',
-      '**Kapatma bakiyeyi değiştirmez** (fark hariç) — yalnızca kalemlerin açık/kapalı durumunu değiştirir.',
+      '**Kapatma bakiyeyi değiştirmez** (fark hariç): yalnızca kalemlerin açık/kapalı durumunu değiştirir.',
       'Üç yolu vardır: ödemeyle eşzamanlı (en temiz), {{F.13}} toplu otomatik, elle ({{F-03}}/{{F-32}}/{{F-44}}).',
-      '{{F.13}}’ün çalışması hesabın **sıralama anahtarına** ({{SKB1}} `ZUAWA`) bağlıdır — o alan atama (`ZUONR`) alanını doldurur.',
+      '{{F.13}}’ün çalışması hesabın **sıralama anahtarına** ({{SKB1}} `ZUAWA`) bağlıdır: o alan atama (`ZUONR`) alanını doldurur.',
       'Fark {{tolerans-grubu}} içindeyse otomatik hesaba atılır; dışındaysa **kapatma engellenir**.',
       '{{kismi-kapatma}} vadeyi korur (hiçbir kalem kapanmaz); {{kalan-kapatma}} orijinali kapatır ve **vadeyi sıfırlar**.',
-      'Yanlış kapatma **{{FBRA}}** ile geri alınır — {{FB08}} ile değil.',
+      'Yanlış kapatma **{{FBRA}}** ile geri alınır: {{FB08}} ile değil.',
     ],
 
     onemliNoktalar:[
@@ -978,7 +978,7 @@ SAP.registerTopic({
 
     sikHatalar:[
       { hata:'"Kapatma yaparak GR/IR bakiyesini sıfırlayalım" demek.', dogru:'Kapatma bakiyeyi değiştirmez. Bakiye kalıyorsa eşleşmemiş kalemler vardır; sebebini bulmak gerekir.' },
-      { hata:'{{F.13}} çalışmıyor diye programı veya {{OB74}} kuralını suçlamak.', dogru:'Kaynak neredeyse her zaman hesabın **sıralama anahtarıdır** — atama alanı boş kalıyordur.' },
+      { hata:'{{F.13}} çalışmıyor diye programı veya {{OB74}} kuralını suçlamak.', dogru:'Kaynak neredeyse her zaman hesabın **sıralama anahtarıdır**: atama alanı boş kalıyordur.' },
       { hata:'Yanlış kapatmayı {{FB08}} ile düzeltmeye çalışmak.', dogru:'{{FBRA}} kullanılır. FB08 gereksiz belge yaratır ve yanlış eşleştirmeyi çözmez.' },
       { hata:'Her kısmi ödemede kalan kapatma kullanmak.', dogru:'Vadeyi sıfırlar ve gecikmiş kalemleri gizler. Varsayılan **kısmi kapatma** olmalıdır.' },
       { hata:'Gelir/gider hesaplarında açık kalem yönetimi açmak.', dogru:'Yalnızca geçiş hesaplarında açılır. Gereksiz açmak kalem birikmesine yol açar.' },
@@ -1000,7 +1000,7 @@ SAP.registerTopic({
       'Geçiş hesabı bakiyesini analiz ederken kalemleri üçe ayır: **eşleşebilir** (kapat), ' +
       '**gerçek zamanlama farkı** (yeniden sınıfla), **kalıcı fark** (yaz). ' +
       'Hepsini aynı yöntemle temizlemeye çalışma.',
-      '{{FBRA}} için kapatma belgesi numarasını kalemin `AUGBL` alanından al — belge numarasıyla karıştırma.',
+      '{{FBRA}} için kapatma belgesi numarasını kalemin `AUGBL` alanından al: belge numarasıyla karıştırma.',
     ],
 
     quiz:[
@@ -1008,7 +1008,7 @@ SAP.registerTopic({
         secenekler:[
           'Sıfırlanır',
           'Kapatılan tutar kadar azalır',
-          '**Değişmez** — kapatma yalnızca kalem durumunu değiştirir',
+          '**Değişmez**: kapatma yalnızca kalem durumunu değiştirir',
           'İki katına çıkar',
         ], dogru:2,
         aciklama:'Kapatma belgesinin tutarı sıfırdır; hiçbir hesap hareket etmez. Yapılan tek şey ' +
@@ -1029,7 +1029,7 @@ SAP.registerTopic({
         secenekler:[
           'Dönem kapalı',
           'Kullanıcının yetkisi yok',
-          'Atama (`ZUONR`) alanı boş — hesabın **sıralama anahtarı** yanlış',
+          'Atama (`ZUONR`) alanı boş: hesabın **sıralama anahtarı** yanlış',
           'Hesap bilanço hesabı değil',
         ], dogru:2,
         aciklama:'{{F.13}} eşleştirmeyi {{OB74}}’te tanımlı alanlara (genelde `ZUONR`) göre yapar. ' +
@@ -1040,7 +1040,7 @@ SAP.registerTopic({
       { soru:'Hesabın sıralama anahtarını düzelttin. Mevcut açık kalemlere ne olur?',
         secenekler:[
           'Otomatik olarak güncellenir ve eşleşmeye başlar',
-          '**Değişmez** — yalnızca yeni kalemler doğru dolar',
+          '**Değişmez**: yalnızca yeni kalemler doğru dolar',
           'Silinir',
           'Kapatılır',
         ], dogru:1,
@@ -1057,7 +1057,7 @@ SAP.registerTopic({
           '{{FB02}} ile `AUGBL` alanını temizlemek',
         ], dogru:1,
         aciklama:'{{FBRA}} kapatmayı sıfırlar: kalemler yeniden açık hâle gelir ve kapalı indeksten ' +
-                 'açık indekse döner. **Yeni belge üretmez.** {{FB08}} ise belgeyi ters kaydeder — ' +
+                 'açık indekse döner. **Yeni belge üretmez.** {{FB08}} ise belgeyi ters kaydeder: ' +
                  'gereksiz belge kalabalığı yaratır ve yanlış eşleştirmeyi çözmez.' },
 
       { soru:'100.000 TL’lik borcun 40.000 TL’si ödendi ve **kısmi kapatma** seçildi. Kaç açık kalem kalır?',
@@ -1092,18 +1092,18 @@ SAP.registerTopic({
     ],
 
     flashcards:[
-      { on:'Kapatma teknik olarak ne yapar?', arka:'Kalemlere **iki alan** yazar:\n• **AUGBL** — kapatma belgesi numarası\n• **AUGDT** — kapatma tarihi\n\nVe kalemi açık indeksten kapalı indekse taşır.\n\n**AUGBL boşsa kalem açıktır.**' },
+      { on:'Kapatma teknik olarak ne yapar?', arka:'Kalemlere **iki alan** yazar:\n• **AUGBL**, kapatma belgesi numarası\n• **AUGDT**, kapatma tarihi\n\nVe kalemi açık indeksten kapalı indekse taşır.\n\n**AUGBL boşsa kalem açıktır.**' },
       { on:'Kapatma hesabın bakiyesini değiştirir mi?', arka:'**Hayır** (fark hariç).\n\nKapatma belgesinin tutarı sıfırdır. Değişen yalnızca kalemlerin açık/kapalı durumudur.\n\n"Kapatarak bakiyeyi sıfırlayalım" cümlesi yanlıştır.' },
       { on:'F.13 neden hiçbir kalem kapatmıyor olabilir?', arka:'**Atama alanı (ZUONR) boş veya uyumsuz.**\n\nBu alan hesabın **sıralama anahtarından** (SKB1-ZUAWA) otomatik dolar.\n\nAnahtar yanlışsa alan dolmaz → eşleşme olmaz.\n\n**Sorun F.13’te değil, ana veridedir.**' },
       { on:'Sıralama anahtarı geçmişe dönük çalışır mı?', arka:'**Hayır.**\n\nDüzeltirsen yalnızca **yeni** kalemlerin atama alanı doğru dolar.\n\nEski kalemler boş kalmaya devam eder → elle (F-03) kapatılmalıdır.\n\nBu yüzden geçiş hesapları **açılırken** doğru kurulmalıdır.' },
-      { on:'FBRA ile FB08 farkı nedir?', arka:'**FBRA** — *kapatmayı* geri alır. Yeni belge üretmez, kalemler yeniden açılır.\n\n**FB08** — *belgeyi* ters kaydeder. Yeni ters belge üretir.\n\nYanlış kapatma için doğru araç **FBRA**’dır.' },
+      { on:'FBRA ile FB08 farkı nedir?', arka:'**FBRA**: *kapatmayı* geri alır. Yeni belge üretmez, kalemler yeniden açılır.\n\n**FB08**: *belgeyi* ters kaydeder. Yeni ters belge üretir.\n\nYanlış kapatma için doğru araç **FBRA**’dır.' },
       { on:'Kısmi kapatmada kaç kalem kapanır?', arka:'**Hiçbiri.**\n\nOrijinal kalem açık kalır, ödeme ayrı açık kalem olur → **iki açık kalem**.\n\nAvantajı: orijinal **vade korunur**, yaşlandırma bozulmaz.\n\nKalan kapatmada orijinal kapanır, yeni kalem doğar, vade sıfırlanır.' },
       { on:'Kapatmada fark çıkarsa ne olur?', arka:'**Tolerans içindeyse:** otomatik bir hesaba atılır (iskonto / kur farkı / küçük fark) ve kapatma yapılır.\n\n**Tolerans dışındaysa:** kapatma **engellenir**. "Difference too large" hatası alınır.' },
-      { on:'Kaç tolerans grubu vardır?', arka:'**İki:**\n• **OBA3** — müşteri/satıcı tolerans grubu (iş ortağına atanır)\n• **OBA4** — kullanıcı tolerans grubu (kullanıcıya atanır)\n\nİkisi birden kontrol edilir; **daha dar olan** geçerlidir.' },
-      { on:'Hangi hesaplarda açık kalem yönetimi açılır?', arka:'**Geçiş hesaplarında:**\n• GR/IR\n• Banka ara hesapları\n• Avans hesapları\n• Personel avansları\n\n**Açılmaz:** gelir, gider, özkaynak hesapları — orada yalnızca bakiye anlamlıdır.' },
+      { on:'Kaç tolerans grubu vardır?', arka:'**İki:**\n• **OBA3**, müşteri/satıcı tolerans grubu (iş ortağına atanır)\n• **OBA4**, kullanıcı tolerans grubu (kullanıcıya atanır)\n\nİkisi birden kontrol edilir; **daha dar olan** geçerlidir.' },
+      { on:'Hangi hesaplarda açık kalem yönetimi açılır?', arka:'**Geçiş hesaplarında:**\n• GR/IR\n• Banka ara hesapları\n• Avans hesapları\n• Personel avansları\n\n**Açılmaz:** gelir, gider, özkaynak hesapları: orada yalnızca bakiye anlamlıdır.' },
       { on:'Geçiş hesabı bakiyesi analiz edilirken kalemler nasıl ayrılır?', arka:'**Üçe ayrılır:**\n1. **Eşleşebilir** → kapat (bakiye değişmez)\n2. **Gerçek zamanlama farkı** → F.19 ile yeniden sınıfla\n3. **Kalıcı fark** → MR11 ile yaz (bakiye gerçekten azalır)\n\nHepsini aynı yöntemle temizleme.' },
-      { on:'Kapatma ekranında en kritik gösterge nedir?', arka:'Alttaki **"Atanmamış"** alanı.\n\n**Sıfır olmalıdır.** Sıfır değilse seçilen kalemler dengelenmemiştir ve kapatma yapılamaz.\n\nİpucu: düzeni atama alanına göre sırala — eşleşen kalemler yan yana gelir.' },
-      { on:'S/4HANA’da kapatma değişti mi?', arka:'**Mantığı değişmedi** — AUGBL/AUGDT ve tolerans aynı.\n\nDeğişen: BSIS/BSAS/BSIK/BSAK/BSID/BSAD artık **compatibility view**; veri ACDOCA’dan üretilir.\n\nFiori "Clear G/L Accounts" olası eşleşmeleri **önerir**.' },
+      { on:'Kapatma ekranında en kritik gösterge nedir?', arka:'Alttaki **"Atanmamış"** alanı.\n\n**Sıfır olmalıdır.** Sıfır değilse seçilen kalemler dengelenmemiştir ve kapatma yapılamaz.\n\nİpucu: düzeni atama alanına göre sırala: eşleşen kalemler yan yana gelir.' },
+      { on:'S/4HANA’da kapatma değişti mi?', arka:'**Mantığı değişmedi**: AUGBL/AUGDT ve tolerans aynı.\n\nDeğişen: BSIS/BSAS/BSIK/BSAK/BSID/BSAD artık **compatibility view**; veri ACDOCA’dan üretilir.\n\nFiori "Clear G/L Accounts" olası eşleşmeleri **önerir**.' },
     ],
   },
 

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   content/fi/fi-temelleri.js — "SAP FI Temelleri" konusunun derin içeriği
+   content/fi/fi-temelleri.js: "SAP FI Temelleri" konusunun derin içeriği
    ========================================================================== */
 
 SAP.registerTopic({
@@ -10,10 +10,10 @@ SAP.registerTopic({
   /* ====================================================== 1. TANIM === */
   tanim: {
     nedir:
-      'FI (Financial Accounting — Finansal Muhasebe), SAP’ın **dış dünyaya karşı** sorumlu olduğu muhasebe modülüdür. ' +
+      'FI (Financial Accounting: Finansal Muhasebe), SAP’ın **dış dünyaya karşı** sorumlu olduğu muhasebe modülüdür. ' +
       'Vergi dairesine verilen beyan, bankaya sunulan bilanço, ortağa gösterilen gelir tablosu buradan çıkar.\n\n' +
       'FI’ın ayırt edici özelliği şudur: **SAP’taki her modülün yolu eninde sonunda FI’a çıkar.** ' +
-      'Depoda mal kabul edilir, satışta fatura kesilir, insan kaynaklarında bordro hesaplanır — hepsi FI’da ' +
+      'Depoda mal kabul edilir, satışta fatura kesilir, insan kaynaklarında bordro hesaplanır: hepsi FI’da ' +
       'bir muhasebe belgesine dönüşür. Bu yüzden FI, sistemin en kalabalık kavşağıdır.',
 
     neden:
@@ -39,7 +39,7 @@ SAP.registerTopic({
       'SAP’ın iş yapış biçimini değiştirdiği nokta budur.',
 
     muhasebeMantigi:
-      'FI’ın tüm çıktısı tek bir nesnedir: **FI belgesi**. Nasıl gelirse gelsin — elle mi girildi, MM’den mi düştü — ' +
+      'FI’ın tüm çıktısı tek bir nesnedir: **FI belgesi**. Nasıl gelirse gelsin, elle mi girildi, MM’den mi düştü, ' +
       'sonuç hep aynı yapıdadır:\n\n' +
       '**Bir başlık** ({{BKPF}}) + **en az iki kalem** ({{BSEG}}), borç toplamı alacak toplamına eşit.\n\n' +
       'Bu yüzden "SAP’ta şu işlem nasıl yapılır?" sorusundan önce **"bu işlem hangi FI belgesini üretir?"** sorusunu ' +
@@ -67,7 +67,7 @@ SAP.registerTopic({
 
     diyagram: {
       type: 'flow',
-      baslik: 'Verinin FI’a akışı — kaynaktan mali tabloya',
+      baslik: 'Verinin FI’a akışı: kaynaktan mali tabloya',
       adimlar: [
         { ic:'🏭', rol:'Kaynak modüller', baslik:'Olay kendi modülünde kaydedilir',
           aciklama:'MM mal girişi ({{MIGO}}), MM fatura doğrulama ({{MIRO}}), SD faturası ({{VF01}}), HR bordrosu.',
@@ -105,12 +105,12 @@ SAP.registerTopic({
     veriAkisi: {
       nereden: 'MM (mal hareketi, fatura doğrulama), SD (satış faturası), HR (bordro), TR (hazine), elle FI kayıtları ve banka ekstresi.',
       nereye: 'Ana muhasebe hesapları → {{ACDOCA}} → mali tablolar; ayrıca CO tarafında {{maliyet-yeri}} ve {{kar-merkezi}} raporları.',
-      tetikleyen: 'Kaynak modülün belgesi. FI belgesi başlığındaki `AWKEY` alanı hangi kaynak belgeden geldiğini tutar — köprü budur.',
+      tetikleyen: 'Kaynak modülün belgesi. FI belgesi başlığındaki `AWKEY` alanı hangi kaynak belgeden geldiğini tutar: köprü budur.',
       sonraki: 'Vergi beyanı, konsolidasyon, yönetim raporlaması, denetim.',
     },
 
     notlar: [
-      { tip:'tip', baslik:'AWKEY — kayıp halkayı bulan alan', metin:
+      { tip:'tip', baslik:'AWKEY: kayıp halkayı bulan alan', metin:
         'Bir FI belgesinin nereden geldiğini merak ettiğinde {{BKPF}} tablosundaki `AWTYP` (kaynak tipi) ve `AWKEY` ' +
         '(kaynak belge anahtarı) alanlarına bak. `AWTYP = RMRP` ise {{MIRO}} faturası, `VBRK` ise SD faturasıdır. ' +
         'Hata analizinde ilk bakılacak yerlerden biridir.' },
@@ -121,10 +121,10 @@ SAP.registerTopic({
   muhasebe: {
     anlatim:
       'FI’da her kayıt aynı iskelete oturur. Aşağıda aynı ekonomik olayın üç farklı yoldan FI’a nasıl düştüğünü ' +
-      'görüyorsun — kayıt aynı, kapı farklı.',
+      'görüyorsun: kayıt aynı, kapı farklı.',
 
     etkilenenHesaplar: [
-      { hesap:'Mutabakat hesapları (320 Satıcılar, 120 Müşteriler)', tur:'Bilanço', neden:'Muavin defterden otomatik yansır. **Doğrudan kayıt yapılamaz** — satıcı/müşteri numarası girilir, SAP hesabı ana veriden bulur.' },
+      { hesap:'Mutabakat hesapları (320 Satıcılar, 120 Müşteriler)', tur:'Bilanço', neden:'Muavin defterden otomatik yansır. **Doğrudan kayıt yapılamaz**: satıcı/müşteri numarası girilir, SAP hesabı ana veriden bulur.' },
       { hesap:'{{gr-ir}} hesabı (159/391 benzeri geçiş hesabı)', tur:'Bilanço', neden:'Mal girişi ile fatura girişi arasındaki zaman farkını taşır. Her ikisi de olunca sıfırlanır.' },
       { hesap:'KDV hesapları (191 / 391)', tur:'Bilanço', neden:'{{vergi-kodu}} girildiğinde SAP satırı otomatik ekler; elle yazılmaz.' },
       { hesap:'Gider hesapları (7xx)', tur:'Gelir tablosu', neden:'CO ile entegre çalışır: kayıt yapıldığında {{maliyet-yeri}} istenir, aksi hâlde {{OKB9}} varsayılanı devreye girer.' },
@@ -132,24 +132,24 @@ SAP.registerTopic({
     ],
 
     fisler: [
-      { baslik:'Yol 1 — Elle FI kaydı: kira faturası ({{FB60}})',
+      { baslik:'Yol 1: Elle FI kaydı: kira faturası ({{FB60}})',
         belgeTuru:'KR', tarih:'10.04.2026', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'770', ad:'Genel yönetim gideri — kira', borc:50000, not:'Maliyet yeri zorunlu' },
+          { hesap:'770', ad:'Genel yönetim gideri: kira', borc:50000, not:'Maliyet yeri zorunlu' },
           { hesap:'191', ad:'İndirilecek KDV', borc:10000, not:'Vergi kodundan otomatik' },
           { hesap:'320', ad:'Satıcılar (V-2001)', alacak:60000, not:'{{mutabakat-hesabi}}' },
         ],
-        not:'Sipariş yoktur, mal girişi yoktur — bu yüzden MM’ye uğramadan doğrudan FI’a girilir. Kira, danışmanlık, elektrik gibi hizmet alımlarının standart yolu budur.' },
+        not:'Sipariş yoktur, mal girişi yoktur: bu yüzden MM’ye uğramadan doğrudan FI’a girilir. Kira, danışmanlık, elektrik gibi hizmet alımlarının standart yolu budur.' },
 
-      { baslik:'Yol 2 — MM’den otomatik: mal girişi ({{MIGO}})',
+      { baslik:'Yol 2: MM’den otomatik: mal girişi ({{MIGO}})',
         belgeTuru:'WE', tarih:'12.04.2026', paraBirimi:'TRY',
         satirlar:[
           { hesap:'153', ad:'Ticari mallar (stok)', borc:80000, not:'{{OBYC}} → BSX işlem anahtarı' },
-          { hesap:'159', ad:'GR/IR — mal geldi fatura gelmedi', alacak:80000, not:'{{OBYC}} → WRX işlem anahtarı' },
+          { hesap:'159', ad:'GR/IR: mal geldi fatura gelmedi', alacak:80000, not:'{{OBYC}} → WRX işlem anahtarı' },
         ],
-        not:'Muhasebeci bu kaydı **görmez bile**; depo elemanı mal kabul yaptığında oluşur. Hesapları {{OBYC}} belirler. Fatura gelmediği için satıcıya borç henüz yazılmaz — {{gr-ir}} hesabı bu boşluğu taşır.' },
+        not:'Muhasebeci bu kaydı **görmez bile**; depo elemanı mal kabul yaptığında oluşur. Hesapları {{OBYC}} belirler. Fatura gelmediği için satıcıya borç henüz yazılmaz: {{gr-ir}} hesabı bu boşluğu taşır.' },
 
-      { baslik:'Yol 2 devamı — fatura geldi ({{MIRO}})',
+      { baslik:'Yol 2 devamı: fatura geldi ({{MIRO}})',
         belgeTuru:'RE', tarih:'20.04.2026', paraBirimi:'TRY',
         satirlar:[
           { hesap:'159', ad:'GR/IR hesabı', borc:80000, not:'Mal girişindeki alacak kapanıyor' },
@@ -158,7 +158,7 @@ SAP.registerTopic({
         ],
         not:'{{gr-ir}} hesabı artık sıfırlandı: mal da geldi, fatura da geldi. Bu hesabın bakiyesi dönem sonunda sıfıra yakın olmalıdır; değilse {{F.19}} ile analiz edilir.' },
 
-      { baslik:'Yol 3 — SD’den otomatik: satış faturası ({{VF01}})',
+      { baslik:'Yol 3: SD’den otomatik: satış faturası ({{VF01}})',
         belgeTuru:'RV', tarih:'25.04.2026', paraBirimi:'TRY',
         satirlar:[
           { hesap:'120', ad:'Müşteriler (C-5001)', borc:120000, not:'{{mutabakat-hesabi}}' },
@@ -196,33 +196,33 @@ SAP.registerTopic({
       'FI tek bir parça değildir; her biri kendi ana verisi ve işlem kodlarıyla gelen alt bileşenlerden oluşur. ' +
       'Bir SAP FI danışmanı ilanında "FI-AP ve FI-AA deneyimi" yazdığında kastedilen bu ayrımdır.',
     liste: [
-      { ad:'Ana Muhasebe', en:'FI-GL — General Ledger',
+      { ad:'Ana Muhasebe', en:'FI-GL: General Ledger',
         aciklama:'Mali tabloların üretildiği merkez. Tüm alt bileşenler buraya {{mutabakat-hesabi}} üzerinden yansır.',
         neZaman:'Her kurulumda zorunludur. Diğer hiçbir bileşen onsuz çalışmaz.',
         tcodes:['FS00','FB50','FBL3N','FAGLL03'] },
 
-      { ad:'Satıcılar', en:'FI-AP — Accounts Payable',
+      { ad:'Satıcılar', en:'FI-AP: Accounts Payable',
         aciklama:'Şirketin borçlarını yönetir: satıcı ana verisi, fatura girişi, ödeme, yaşlandırma. Satın alma süreciyle (MM) sıkı entegredir.',
-        neZaman:'Şirket dışarıdan mal/hizmet alıyorsa — yani her zaman.',
+        neZaman:'Şirket dışarıdan mal/hizmet alıyorsa: yani her zaman.',
         tcodes:['FB60','FBL1N','F110','F-53'] },
 
-      { ad:'Müşteriler', en:'FI-AR — Accounts Receivable',
+      { ad:'Müşteriler', en:'FI-AR: Accounts Receivable',
         aciklama:'Şirketin alacaklarını yönetir: müşteri ana verisi, fatura, tahsilat, {{ihtar}}. Satış süreciyle (SD) entegredir.',
         neZaman:'Şirket vadeli satış yapıyorsa. Sadece peşin çalışan işletmelerde hafif kullanılır.',
         tcodes:['FB70','FBL5N','F-28','F150'] },
 
-      { ad:'Duran Varlık Muhasebesi', en:'FI-AA — Asset Accounting',
+      { ad:'Duran Varlık Muhasebesi', en:'FI-AA: Asset Accounting',
         aciklama:'Varlığın alımından elden çıkarılmasına kadar tüm yaşamını ve {{amortisman}}’ını yönetir. ' +
                  '{{amortisman-alani}} sayesinde aynı varlık ticari ve vergi mevzuatına göre ayrı ayrı değerlenebilir.',
         neZaman:'Makine, bina, araç gibi çok yıllık varlıklar varsa. Sadece kiralık ofiste çalışan küçük şirkette hafif kalır.',
         tcodes:['AS01','AW01N','ABZON','AFAB'] },
 
-      { ad:'Banka Muhasebesi', en:'FI-BL — Bank Accounting',
+      { ad:'Banka Muhasebesi', en:'FI-BL: Bank Accounting',
         aciklama:'{{ev-bankasi}} tanımı, çek yönetimi, banka ekstresi işleme ve nakit hareketlerinin muhasebeleşmesi.',
         neZaman:'Otomatik ödeme ({{F110}}) veya elektronik ekstre kullanılıyorsa zorunludur.',
         tcodes:['FI12','FF67','FEBAN','FCHN'] },
 
-      { ad:'Vergi', en:'FI — Tax on Sales/Purchases',
+      { ad:'Vergi', en:'FI: Tax on Sales/Purchases',
         aciklama:'{{vergi-kodu}} yapısı, {{matrah}} hesaplama ve vergi hesap belirleme. Ayrı bir alt modül değil, FI’a yayılmış bir katmandır.',
         neZaman:'Her ülkede zorunlu; ülkeye özgü yapılandırma gerektirir.',
         tcodes:['FTXP','OB40','F.12'] },
@@ -233,7 +233,7 @@ SAP.registerTopic({
       ['Neyi izler', 'Şirketin **borçlarını**', 'Şirketin **alacaklarını**'],
       ['Ana veri', '{{LFA1}} / {{LFB1}} (satıcı)', '{{KNA1}} / {{KNB1}} (müşteri)'],
       ['Açık kalem tablosu', '{{BSIK}} / {{BSAK}}', '{{BSID}} / {{BSAD}}'],
-      ['Entegre modül', 'MM — satın alma', 'SD — satış'],
+      ['Entegre modül', 'MM, satın alma', 'SD, satış'],
       ['Ana işlem', '{{FB60}} fatura, {{F110}} ödeme', '{{FB70}} fatura, {{F-28}} tahsilat'],
       ['Kalem raporu', '{{FBL1N}}', '{{FBL5N}}'],
       ['Tipik dönem sonu işi', 'Borç yaşlandırma, {{gr-ir}} analizi', 'Alacak yaşlandırma, {{ihtar}}'],
@@ -246,7 +246,7 @@ SAP.registerTopic({
       'FI’a yeni başlayan birinin ilk öğrenmesi gereken üç işlem kodu aşağıdadır. ' +
       '{{FB03}} özellikle önemlidir: her hatanın teşhisi bu ekranda başlar.',
     liste: [
-      { kod:'FB03', ad:'Belge görüntüleme — FI’ın röntgen cihazı',
+      { kod:'FB03', ad:'Belge görüntüleme: FI’ın röntgen cihazı',
         amac:'Bir FI belgesini başlığı, kalemleri, vergi satırları ve bağlı belgeleriyle birlikte gösterir.',
         neZaman:'Her hata analizinde, her mutabakatta, "bu rakam nereden geldi?" sorusunun sorulduğu her anda.',
         adimlar:[
@@ -303,7 +303,7 @@ SAP.registerTopic({
           { baslik:'Hesap numarası ve şirket kodunu gir' },
           { baslik:'*Tip/Tanım* sekmesi', aciklama:'Hesap grubu, bilanço mu gelir-gider mi, S/4HANA’da hesap tipi (Balance Sheet / Primary Costs / Secondary Costs).' },
           { baslik:'*Kontrol verisi* sekmesi', aciklama:'Para birimi, {{vergi-kodu}} kategorisi, {{acik-kalem-yonetimi}}, kalem görüntüleme, mutabakat hesabı tipi.' },
-          { baslik:'*Yaratma/bank/faiz* sekmesi', aciklama:'{{alan-durumu}} grubu — kayıt ekranında hangi alanın zorunlu olacağını belirler.' },
+          { baslik:'*Yaratma/bank/faiz* sekmesi', aciklama:'{{alan-durumu}} grubu: kayıt ekranında hangi alanın zorunlu olacağını belirler.' },
         ],
         ipucu:'Bir kayıtta "şu alan neden zorunlu?" diye sorduğunda cevap neredeyse her zaman burada, alan durumu grubundadır.',
         hatalar:[
@@ -328,9 +328,9 @@ SAP.registerTopic({
         s4:'Yapısı korundu. Raporlama {{ACDOCA}}’ya taşındı ama belge kimliği hâlâ burada.',
         alanlar:[
           { ad:'BLART', aciklama:'{{belge-turu}}' },
-          { ad:'BUDAT', aciklama:'Kayıt tarihi — dönemi belirler' },
-          { ad:'AWTYP / AWKEY', aciklama:'Kaynak belge tipi ve anahtarı — entegrasyon izini verir' },
-          { ad:'STBLG', aciklama:'İptal eden belge — doluysa bu belge ters kaydedilmiş' },
+          { ad:'BUDAT', aciklama:'Kayıt tarihi: dönemi belirler' },
+          { ad:'AWTYP / AWKEY', aciklama:'Kaynak belge tipi ve anahtarı: entegrasyon izini verir' },
+          { ad:'STBLG', aciklama:'İptal eden belge: doluysa bu belge ters kaydedilmiş' },
         ] },
 
       { ad:'BSEG', baslik:'Belge kalemleri',
@@ -342,8 +342,8 @@ SAP.registerTopic({
         s4:'Cluster (RFBLG) yapısında olduğu için doğrudan sorgulanması yavaştır. S/4HANA’da raporlar {{ACDOCA}}’dan okur.',
         alanlar:[
           { ad:'SHKZG', aciklama:'S = borç, H = alacak' },
-          { ad:'AUGBL / AUGDT', aciklama:'Kapatma belgesi ve tarihi — boşsa kalem **açıktır**' },
-          { ad:'ZUONR', aciklama:'Atama — otomatik kapatmanın ({{F.13}}) eşleştirme alanı' },
+          { ad:'AUGBL / AUGDT', aciklama:'Kapatma belgesi ve tarihi: boşsa kalem **açıktır**' },
+          { ad:'ZUONR', aciklama:'Atama: otomatik kapatmanın ({{F.13}}) eşleştirme alanı' },
           { ad:'UMSKZ', aciklama:'{{ozel-ana-muhasebe-gostergesi}}' },
         ] },
 
@@ -355,8 +355,8 @@ SAP.registerTopic({
         iliskiler:'{{BKPF}} ile belge numarası üzerinden; {{defter}} alanı paralel muhasebeyi ayırır.',
         s4:'S/4HANA’nın merkezidir. {{FAGLFLEXT}}, {{GLT0}}, {{BSIS}} gibi tablolar buradan üretilen {{uyumluluk-view}}’lerine dönüştü.',
         alanlar:[
-          { ad:'RLDNR', aciklama:'Defter — 0L lider defterdir' },
-          { ad:'DOCLN', aciklama:'6 haneli kalem numarası — {{BSEG}}’in 3 hanelik sınırını aşar' },
+          { ad:'RLDNR', aciklama:'Defter: 0L lider defterdir' },
+          { ad:'DOCLN', aciklama:'6 haneli kalem numarası: {{BSEG}}’in 3 hanelik sınırını aşar' },
           { ad:'HSL / WSL / KSL', aciklama:'Şirket kodu / belge / grup para birimi tutarları' },
         ] },
 
@@ -365,7 +365,7 @@ SAP.registerTopic({
         olusturan:'{{OX02}} ve {{OBY6}} ile yapılandırma',
         guncelleyen:'{{OX02}}, {{OBY6}}',
         anahtar:'BUKRS',
-        iliskiler:'{{BKPF}}, {{SKB1}}, {{LFB1}}, {{KNB1}} — şirket koduna bağlı her tablo buraya bakar.',
+        iliskiler:'{{BKPF}}, {{SKB1}}, {{LFB1}}, {{KNB1}}: şirket koduna bağlı her tablo buraya bakar.',
         s4:'Değişmedi.',
         alanlar:[
           { ad:'WAERS', aciklama:'Yerel para birimi' },
@@ -430,7 +430,7 @@ SAP.registerTopic({
           { ad:'B/A (borç-alacak)', zorunlu:true, aciklama:'Arka planda {{kayit-anahtari}}’na dönüşür: borç 40, alacak 50.' },
           { ad:'Tutar', zorunlu:true, aciklama:'Belge para biriminde. Farklı para birimi seçilirse kur alanı açılır.' },
           { ad:'Vergi kodu (`MWSKZ`)', zorunlu:false, aciklama:'Hesabın vergi kategorisi zorunlu kılıyorsa istenir. Girildiğinde SAP vergi satırını otomatik ekler.' },
-          { ad:'Maliyet yeri (`KOSTL`)', zorunlu:false, aciklama:'Gider hesaplarında çoğu zaman zorunludur — {{alan-durumu}} belirler.' },
+          { ad:'Maliyet yeri (`KOSTL`)', zorunlu:false, aciklama:'Gider hesaplarında çoğu zaman zorunludur: {{alan-durumu}} belirler.' },
           { ad:'Atama (`ZUONR`)', zorunlu:false, aciklama:'Sonradan {{F.13}} ile otomatik kapatma yapılacaksa **kritik** alandır; eşleştirme buradan yapılır.' },
           { ad:'Metin (`SGTXT`)', zorunlu:false, aciklama:'Satır bazında açıklama. Raporlarda çok işe yarar; boş bırakmamak iyi alışkanlıktır.' },
         ] },
@@ -448,7 +448,7 @@ SAP.registerTopic({
       { mesaj:'Account 320000 cannot be directly posted to', sebep:'Hesap {{mutabakat-hesabi}} olarak tanımlı ({{SKB1}} `MITKZ` dolu).', cozum:'Satıcı/müşteri üzerinden kaydet: {{FB60}} veya {{FB70}}.' },
       { mesaj:'Field Cost Center is a required field for G/L account 1000 770000', sebep:'Hesabın alan durumu grubu maliyet yerini zorunlu kılıyor.', cozum:'Maliyet yerini gir; kalıcı çözüm için {{OKB9}} ile varsayılan CO nesnesi tanımla.' },
       { mesaj:'Balance in transaction currency (borç ≠ alacak)', sebep:'{{belge-denkligi}} sağlanmamış.', cozum:'Satırları kontrol et. Denk olmayan belgeyi saklamak istiyorsan {{FV50}} ile park et.' },
-      { mesaj:'Document number 1900000001 was already assigned', sebep:'Numara aralığı çakışması — genelde veri geçişinden sonra sayacın güncellenmemesi.', cozum:'{{FBN1}} ile ilgili aralığın güncel numarasını (`NRLEVEL`) mevcut en yüksek belge numarasının üstüne çek.' },
+      { mesaj:'Document number 1900000001 was already assigned', sebep:'Numara aralığı çakışması: genelde veri geçişinden sonra sayacın güncellenmemesi.', cozum:'{{FBN1}} ile ilgili aralığın güncel numarasını (`NRLEVEL`) mevcut en yüksek belge numarasının üstüne çek.' },
       { mesaj:'Tax code A1 does not exist in company code 1000', sebep:'{{vergi-kodu}} o ülke/şirket kodu için tanımlı değil.', cozum:'{{FTXP}} ile doğru ülke anahtarında tanımla veya doğru kodu kullan.' },
     ],
 
@@ -464,7 +464,7 @@ SAP.registerTopic({
   /* ===================================================== 8. TEKNİK === */
   teknik: {
     guncellenenTablolar:[
-      { tablo:'BKPF', ne:'1 başlık satırı — belge numarası, tür, tarihler, kullanıcı, kaynak referansı' },
+      { tablo:'BKPF', ne:'1 başlık satırı: belge numarası, tür, tarihler, kullanıcı, kaynak referansı' },
       { tablo:'BSEG', ne:'Her giriş satırı için 1 kalem; vergi kodu varsa sistemin eklediği vergi satırı da buraya' },
       { tablo:'ACDOCA', ne:'Aynı kalemler evrensel formatta; her aktif {{defter}} için ayrı satır kümesi' },
       { tablo:'BSET', ne:'Vergi satırları: matrah, vergi tutarı, hesap anahtarı' },
@@ -475,7 +475,7 @@ SAP.registerTopic({
     commit:
       'Kaydet tuşuna basıldığında tüm yazma işlemleri tek bir LUW (Logical Unit of Work) içinde toplanır ve ' +
       '`COMMIT WORK` ile atomik olarak yazılır. Ya hepsi ya hiçbiri. ' +
-      'Numara ataması ise ayrı bir LUW’da (`UPDATE` görevi dışında) çalışır — bu yüzden **iptal edilen bir kayıtta bile ' +
+      'Numara ataması ise ayrı bir LUW’da (`UPDATE` görevi dışında) çalışır: bu yüzden **iptal edilen bir kayıtta bile ' +
       'belge numarası tüketilmiş olabilir** ve numaralarda boşluk oluşur. Bu normaldir, hata değildir.',
 
     belgeNo:
@@ -488,7 +488,7 @@ SAP.registerTopic({
       've hedef hesap tipini belirler → **alan durumu** hangi alanların zorunlu olacağını belirler → ' +
       '**denge kontrolü** borç = alacak doğrular → **numara ataması** ve **veritabanı yazımı**.\n\n' +
       'Alan durumu iki kaynaktan gelir: hesabın alan durumu grubu ({{SKB1}} `FSTAG`) ve kayıt anahtarının alan durumu. ' +
-      '**En kısıtlayıcı olan kazanır** — biri "gizli" diyorsa alan gizlenir, diğeri "zorunlu" dese bile. ' +
+      '**En kısıtlayıcı olan kazanır**: biri "gizli" diyorsa alan gizlenir, diğeri "zorunlu" dese bile. ' +
       'Bu çakışma, "alanı neden göremiyorum?" sorusunun en sık cevabıdır.',
 
     belgeTuru:
@@ -498,7 +498,7 @@ SAP.registerTopic({
 
     numberRange:
       'FI numara aralığı **şirket kodu + mali yıl** bazlıdır ve {{FBN1}} ile tanımlanır. ' +
-      'Yeni mali yıl için satır açılmazsa yılbaşında kayıt durur — canlıya geçen her projede Aralık ayında ' +
+      'Yeni mali yıl için satır açılmazsa yılbaşında kayıt durur: canlıya geçen her projede Aralık ayında ' +
       'yapılacaklar listesinin ilk maddesi budur. Aralık tanımı **taşınmaz**, her sistemde ayrı yapılır.',
 
     accountDetermination:
@@ -515,7 +515,7 @@ SAP.registerTopic({
     transport:
       'Özelleştirme taşıma isteğine girer ve geliştirme → test → canlı yolunu izler. ' +
       'Ana veri ve hareket verisi taşınmaz; her sistemde ayrı yüklenir ({{LSMW}}, {{LTMC}} veya elle). ' +
-      '**İstisna:** numara aralıklarının *tanımı* taşınabilir ama *güncel sayaç değeri* taşınmaz — ' +
+      '**İstisna:** numara aralıklarının *tanımı* taşınabilir ama *güncel sayaç değeri* taşınmaz: ' +
       'bu ayrımı bilmemek canlıya geçişte numara çakışmasına yol açar.',
 
     img:[
@@ -543,11 +543,11 @@ SAP.registerTopic({
 
     eccFarklari:[
       { konu:'Veri modeli', ecc:'{{BSEG}} + {{FAGLFLEXA}} + {{GLT0}} + COEP + {{ANEP}} ayrı ayrı', s4:'{{ACDOCA}} tek tabloda; diğerleri {{uyumluluk-view}}' },
-      { konu:'Müşteri/Satıcı ana verisi', ecc:'{{XK01}} / {{XD01}} ile ayrı ayrı', s4:'{{BP}} zorunlu — Customer/Vendor Integration (CVI)' },
-      { konu:'Masraf türü', ecc:'{{KA01}} ile ayrı ana veri', s4:'G/L hesabının bir tipi — {{FS00}}’da "Primary Costs" seçilir' },
+      { konu:'Müşteri/Satıcı ana verisi', ecc:'{{XK01}} / {{XD01}} ile ayrı ayrı', s4:'{{BP}} zorunlu: Customer/Vendor Integration (CVI)' },
+      { konu:'Masraf türü', ecc:'{{KA01}} ile ayrı ana veri', s4:'G/L hesabının bir tipi: {{FS00}}’da "Primary Costs" seçilir' },
       { konu:'Toplam tabloları', ecc:'Önceden hesaplanıp saklanır', s4:'Kaldırıldı; anlık hesaplanır' },
-      { konu:'Kalem numarası', ecc:'{{BSEG}} `BUZEI` — 3 hane, 999 kalem sınırı', s4:'{{ACDOCA}} `DOCLN` — 6 hane, pratikte sınırsız' },
-      { konu:'FI–CO mutabakatı', ecc:'Periyodik mutabakat işlemi gerekir', s4:'Aynı satırda oldukları için gereksiz' },
+      { konu:'Kalem numarası', ecc:'{{BSEG}} `BUZEI`, 3 hane, 999 kalem sınırı', s4:'{{ACDOCA}} `DOCLN`, 6 hane, pratikte sınırsız' },
+      { konu:'FI-CO mutabakatı', ecc:'Periyodik mutabakat işlemi gerekir', s4:'Aynı satırda oldukları için gereksiz' },
       { konu:'Duran varlık', ecc:'Klasik AA; değerler {{ANLC}}/{{ANEP}}’te', s4:'Enterprise Asset Accounting; değerler {{ACDOCA}}’da, defter bazlı' },
     ],
 
@@ -570,13 +570,13 @@ SAP.registerTopic({
       { ad:'Display Journal Entries', aciklama:'{{FB03}} yerine; belgeyi ve tüm ilişkili nesneleri tek ekranda gösterir.' },
       { ad:'Manage Journal Entries', aciklama:'Park edilmiş ve tamamlanmamış belgeleri iş listesi olarak yönetir.' },
       { ad:'Trial Balance', aciklama:'Anlık mizan; hesaptan kaleme, kalemden belgeye tek tıkla inilir.' },
-      { ad:'Maintain Business Partner', aciklama:'{{BP}} — müşteri ve satıcı için tek giriş noktası.' },
+      { ad:'Maintain Business Partner', aciklama:'{{BP}}: müşteri ve satıcı için tek giriş noktası.' },
     ],
 
     compatibilityViews:[
-      '{{BSIS}}, {{BSAS}}, {{BSIK}}, {{BSAK}}, {{BSID}}, {{BSAD}} — artık fiziksel tablo değil, {{ACDOCA}} üzerinden üretilen görünümler.',
-      '{{GLT0}}, {{FAGLFLEXT}} — toplam tabloları da view’e dönüştü.',
-      'Bu view’lere **INSERT/UPDATE yapılamaz**. Eski özel programlar okuma yapıyorsa çalışır, yazma yapıyorsa bozulur — geçiş projelerinde taranması gereken ilk risk budur.',
+      '{{BSIS}}, {{BSAS}}, {{BSIK}}, {{BSAK}}, {{BSID}}, {{BSAD}}: artık fiziksel tablo değil, {{ACDOCA}} üzerinden üretilen görünümler.',
+      '{{GLT0}}, {{FAGLFLEXT}}: toplam tabloları da view’e dönüştü.',
+      'Bu view’lere **INSERT/UPDATE yapılamaz**. Eski özel programlar okuma yapıyorsa çalışır, yazma yapıyorsa bozulur: geçiş projelerinde taranması gereken ilk risk budur.',
     ],
 
     performans:
@@ -588,7 +588,7 @@ SAP.registerTopic({
       'Yeni geliştirmelerde {{BSEG}} yerine {{ACDOCA}} veya CDS view kullan; performans farkı büyüktür.',
       'Özel programları taşımadan önce {{uyumluluk-view}}’lere yazma yapıp yapmadıklarını tara.',
       'Müşteri/satıcı yükleme senaryolarını {{BP}} üzerinden kurgula; {{LSMW}} ile klasik ekran kaydı yapmaya çalışma.',
-      'Hesap planını sadeleştirme fırsatı olarak kullan — S/4HANA geçişi hesap sayısını azaltmak için en iyi andır.',
+      'Hesap planını sadeleştirme fırsatı olarak kullan: S/4HANA geçişi hesap sayısını azaltmak için en iyi andır.',
     ],
   },
 
@@ -601,7 +601,7 @@ SAP.registerTopic({
       'Üçü de FI belgesi üretiyor ama üçü de farklı kapıdan giriyor. ' +
       'Bu senaryo, FI’ın neden "kavşak" olduğunu somut olarak gösterir.',
     veriler:[
-      { k:'Şirket kodu', v:'1000 — Marmara Tekstil A.Ş.' },
+      { k:'Şirket kodu', v:'1000: Marmara Tekstil A.Ş.' },
       { k:'Dönem', v:'Nisan 2026 (dönem 04)' },
       { k:'KDV', v:'%20' },
       { k:'Satıcılar', v:'V-2001 (danışmanlık), V-3001 (kumaş)' },
@@ -609,21 +609,21 @@ SAP.registerTopic({
     ],
 
     adimlar:[
-      { baslik:'Kapı 1 — Danışmanlık faturası doğrudan FI’a girilir', tcode:'FB60',
+      { baslik:'Kapı 1: Danışmanlık faturası doğrudan FI’a girilir', tcode:'FB60',
         aciklama:'Sipariş yok, mal girişi yok. Muhasebeci faturayı doğrudan girer. Bu, FI’ın **tek başına** çalıştığı senaryodur.',
         girdi:[
           { alan:'Satıcı', deger:'V-2001' },
           { alan:'Fatura tarihi / Kayıt tarihi', deger:'10.04.2026 / 10.04.2026' },
           { alan:'Referans (`XBLNR`)', deger:'DAN-2026-0417 (satıcının fatura no)' },
           { alan:'Tutar / Vergi kodu', deger:'60.000 TL brüt / %20' },
-          { alan:'Gider satırı', deger:'770 Genel yönetim gideri — 50.000, Maliyet yeri: 1200 Finans' },
+          { alan:'Gider satırı', deger:'770 Genel yönetim gideri: 50.000, Maliyet yeri: 1200 Finans' },
           { alan:'Ödeme koşulu', deger:'30 gün net → vade 10.05.2026' },
         ],
-        fis:{ baslik:'Belge 1900000045 — Danışmanlık faturası', belgeTuru:'KR', tarih:'10.04.2026',
+        fis:{ baslik:'Belge 1900000045: Danışmanlık faturası', belgeTuru:'KR', tarih:'10.04.2026',
           satirlar:[
             { hesap:'770', ad:'Genel yönetim gideri', borc:50000, not:'Maliyet yeri 1200 → CO’ya da düşer' },
             { hesap:'191', ad:'İndirilecek KDV', borc:10000, not:'Vergi kodundan otomatik' },
-            { hesap:'320', ad:'Satıcılar — V-2001', alacak:60000 },
+            { hesap:'320', ad:'Satıcılar: V-2001', alacak:60000 },
           ] },
         tabloEtkisi:[
           { tablo:'BKPF', ne:'BLART = KR, XBLNR = DAN-2026-0417, AWTYP boş (FI’da doğdu)' },
@@ -634,52 +634,52 @@ SAP.registerTopic({
         ],
         not:'Referans alanına satıcının fatura numarasını yazmak önemlidir: SAP aynı satıcıdan aynı numarayla ikinci fatura girilirse mükerrer uyarısı verir.' },
 
-      { baslik:'Kapı 2a — Kumaş siparişi ve mal girişi', tcode:'MIGO',
+      { baslik:'Kapı 2a: Kumaş siparişi ve mal girişi', tcode:'MIGO',
         aciklama:'Kumaş için önce satınalma siparişi açıldı ({{EKKO}}/{{EKPO}}). Mal depoya girdiğinde FI belgesi **otomatik** doğar. Muhasebeci hiçbir şey girmez.',
         girdi:[
-          { alan:'Hareket türü', deger:'101 — Siparişe mal girişi' },
+          { alan:'Hareket türü', deger:'101: Siparişe mal girişi' },
           { alan:'Satınalma siparişi', deger:'4500001234, kalem 10' },
           { alan:'Miktar / Değer', deger:'1.000 m × 80 TL = 80.000 TL' },
         ],
-        fis:{ baslik:'Belge 5000000123 — Mal girişi', belgeTuru:'WE', tarih:'12.04.2026',
+        fis:{ baslik:'Belge 5000000123: Mal girişi', belgeTuru:'WE', tarih:'12.04.2026',
           satirlar:[
             { hesap:'153', ad:'Ticari mallar (stok)', borc:80000, not:'{{OBYC}} işlem anahtarı **BSX**' },
             { hesap:'159', ad:'GR/IR hesabı', alacak:80000, not:'{{OBYC}} işlem anahtarı **WRX**' },
-          ], not:'Satıcıya borç **henüz yazılmadı** — fatura gelmedi. Bu boşluğu {{gr-ir}} hesabı taşır.' },
+          ], not:'Satıcıya borç **henüz yazılmadı**: fatura gelmedi. Bu boşluğu {{gr-ir}} hesabı taşır.' },
         tabloEtkisi:[
           { tablo:'MSEG', ne:'Malzeme belgesi kalemi, hareket türü 101' },
           { tablo:'BKPF', ne:'AWTYP = MKPF, AWKEY = malzeme belgesi → FI belgesinin kaynağı izlenebilir' },
         ] },
 
-      { baslik:'Kapı 2b — Kumaş faturası MM’den girilir', tcode:'MIRO',
+      { baslik:'Kapı 2b: Kumaş faturası MM’den girilir', tcode:'MIRO',
         aciklama:'Fatura geldiğinde {{uc-yonlu-eslestirme}} yapılır: sipariş 80.000, mal girişi 80.000, fatura 80.000 → uyumlu, bloke yok.',
         girdi:[
           { alan:'Fatura tarihi', deger:'20.04.2026' },
           { alan:'Satınalma siparişi', deger:'4500001234' },
           { alan:'Fatura tutarı', deger:'96.000 TL (KDV dâhil)' },
         ],
-        fis:{ baslik:'Belge 5100000078 — Kumaş faturası', belgeTuru:'RE', tarih:'20.04.2026',
+        fis:{ baslik:'Belge 5100000078: Kumaş faturası', belgeTuru:'RE', tarih:'20.04.2026',
           satirlar:[
             { hesap:'159', ad:'GR/IR hesabı', borc:80000, not:'Mal girişindeki alacak kapanıyor' },
             { hesap:'191', ad:'İndirilecek KDV', borc:16000 },
-            { hesap:'320', ad:'Satıcılar — V-3001', alacak:96000 },
-          ], not:'{{gr-ir}} hesabı bu kalem için sıfırlandı. Bakiyesi sürekli büyüyorsa ya mal gelip fatura gelmiyordur ya da tersi — {{F.19}} ile analiz edilir.' },
+            { hesap:'320', ad:'Satıcılar: V-3001', alacak:96000 },
+          ], not:'{{gr-ir}} hesabı bu kalem için sıfırlandı. Bakiyesi sürekli büyüyorsa ya mal gelip fatura gelmiyordur ya da tersi: {{F.19}} ile analiz edilir.' },
         tabloEtkisi:[
           { tablo:'BSIK', ne:'V-3001 için yeni açık kalem 96.000 TL' },
           { tablo:'BKPF', ne:'AWTYP = RMRP (lojistik fatura doğrulama)' },
         ],
         not:'Fatura tutarı sipariş fiyatından farklı olsaydı fark {{gr-ir}} yerine fiyat farkı hesabına ({{OBYC}} → PRD) giderdi ve fatura ödemeye bloklanabilirdi ({{MRBR}} ile açılır).' },
 
-      { baslik:'Kapı 3 — Müşteri faturası SD’den gelir', tcode:'VF01',
+      { baslik:'Kapı 3: Müşteri faturası SD’den gelir', tcode:'VF01',
         aciklama:'Satış ekibi teslimat üzerinden fatura kesiyor. Kaydedildiğinde FI belgesi otomatik doğar; hesapları {{VKOA}} belirler.',
         girdi:[
           { alan:'Teslimat / Fatura tipi', deger:'80001234 / F2 (standart fatura)' },
           { alan:'Müşteri', deger:'C-5001' },
           { alan:'Net tutar', deger:'100.000 TL + 20.000 TL KDV' },
         ],
-        fis:{ baslik:'Belge 1800000091 — SD faturası', belgeTuru:'RV', tarih:'25.04.2026',
+        fis:{ baslik:'Belge 1800000091: SD faturası', belgeTuru:'RV', tarih:'25.04.2026',
           satirlar:[
-            { hesap:'120', ad:'Müşteriler — C-5001', borc:120000 },
+            { hesap:'120', ad:'Müşteriler: C-5001', borc:120000 },
             { hesap:'600', ad:'Yurtiçi satışlar', alacak:100000, not:'{{VKOA}} hesap belirlemesi' },
             { hesap:'391', ad:'Hesaplanan KDV', alacak:20000 },
           ] },
@@ -690,7 +690,7 @@ SAP.registerTopic({
         ],
         not:'FI belgesi oluşmadıysa `RFBSK` alanı "A" (aktarılmadı) kalır. Sebep neredeyse her zaman {{VKOA}}’da eksik hesap belirlemesidir; düzeltip {{VF02}} ile yeniden aktarılır.' },
 
-      { baslik:'Ay sonu — üç kapının da sonucu tek yerde', tcode:'FBL3N',
+      { baslik:'Ay sonu: üç kapının da sonucu tek yerde', tcode:'FBL3N',
         aciklama:'Üç farklı kapıdan giren kayıtlar aynı ana muhasebe hesaplarında buluşur. Muhasebeci artık kaynağın ne olduğuna bakmadan tek bir mizanla çalışır.',
         girdi:[
           { alan:'Kontrol 1', deger:'{{FBL1N}} → satıcı açık kalemleri: V-2001 60.000 + V-3001 96.000' },
@@ -783,10 +783,10 @@ SAP.registerTopic({
 
       { soru:'SD faturası kesildi ama FI belgesi oluşmadı. İlk nereye bakılır?',
         secenekler:[
-          '{{OB52}} — dönem kontrolü',
-          '{{VKOA}} — gelir hesabı belirleme',
-          '{{FBN1}} — numara aralığı',
-          '{{FS00}} — hesap ana verisi',
+          '{{OB52}}: dönem kontrolü',
+          '{{VKOA}}: gelir hesabı belirleme',
+          '{{FBN1}}: numara aralığı',
+          '{{FS00}}: hesap ana verisi',
         ], dogru:1,
         aciklama:'SD faturasının muhasebeleşmemesinin en sık sebebi {{VKOA}}’da eksik hesap belirlemesidir. Düzeltildikten sonra {{VF02}} ile yeniden aktarılır. (Dönem kapalıysa da olabilir, ama birinci şüpheli VKOA’dır.)' },
 
@@ -794,7 +794,7 @@ SAP.registerTopic({
         secenekler:[
           'Belge iptal edilmiş',
           'Belge park edilmiş',
-          'Kalem hâlâ **açıktır** — kapatılmamış',
+          'Kalem hâlâ **açıktır**: kapatılmamış',
           'Kalemde vergi yok',
         ], dogru:2,
         aciklama:'`AUGBL` kapatma belgesinin numarasıdır. Doluysa kalem {{kapatma}} işlemiyle kapanmıştır; boşsa {{acik-kalem}} olarak durur ve {{BSIK}}/{{BSID}} üzerinde görünür.' },
@@ -816,8 +816,8 @@ SAP.registerTopic({
       { on:'Mutabakat hesabı nedir, neden doğrudan kayıt yapılamaz?', arka:'Muavin defterin (satıcı/müşteri/varlık) ana muhasebeye yansıdığı G/L hesabıdır.\n\nDoğrudan kayıt yapılsa muavin defter ile ana muhasebe **tutarsız** hale gelirdi. SAP bunu engeller.' },
       { on:'GR/IR hesabı ne işe yarar?', arka:'**Mal girişi ile fatura girişi arasındaki zaman farkını** taşır.\n\nMal geldi fatura gelmediyse alacak bakiye, tersi ise borç bakiye verir.\n\nDönem sonunda F.19 ile analiz edilir.' },
       { on:'BKPF’teki AWTYP ve AWKEY alanları ne işe yarar?', arka:'FI belgesinin **hangi kaynak belgeden** doğduğunu tutar.\n\n`RMRP` = MIRO faturası, `VBRK` = SD faturası, `MKPF` = malzeme belgesi.\n\nEntegrasyon hatalarında izi süren alan budur.' },
-      { on:'Alan durumu (field status) nereden gelir ve çakışırsa ne olur?', arka:'İki kaynaktan: **hesabın alan durumu grubu** (SKB1-FSTAG) ve **kayıt anahtarının** alan durumu.\n\nÇakışırsa **en kısıtlayıcı** olan kazanır — biri "gizli" diyorsa alan gizlenir.' },
-      { on:'S/4HANA’da FI’da değişen üç büyük şey nedir?', arka:'1. **ACDOCA** — Evrensel Kayıt Defteri (tek tablo)\n2. **BP zorunluluğu** — müşteri/satıcı ana verisi\n3. **Tablo sadeleşmesi** — toplam ve indeks tabloları compatibility view’e dönüştü' },
+      { on:'Alan durumu (field status) nereden gelir ve çakışırsa ne olur?', arka:'İki kaynaktan: **hesabın alan durumu grubu** (SKB1-FSTAG) ve **kayıt anahtarının** alan durumu.\n\nÇakışırsa **en kısıtlayıcı** olan kazanır: biri "gizli" diyorsa alan gizlenir.' },
+      { on:'S/4HANA’da FI’da değişen üç büyük şey nedir?', arka:'1. **ACDOCA**: Evrensel Kayıt Defteri (tek tablo)\n2. **BP zorunluluğu**: müşteri/satıcı ana verisi\n3. **Tablo sadeleşmesi**: toplam ve indeks tabloları compatibility view’e dönüştü' },
       { on:'Belge türü (document type) neyi belirler?', arka:'1. Hangi **hesap tiplerine** kayıt yapılabileceğini\n2. Hangi **numara aralığından** numara alınacağını\n3. Ters kayıt için varsayılan türü\n\nÖrn: KR satıcı faturası, DZ müşteri tahsilatı, RV SD faturası.' },
       { on:'FI numara aralığı hangi kırılımda tanımlanır?', arka:'**Şirket kodu + mali yıl** bazında, FBN1 ile.\n\nYeni yıl için satır açılmazsa yılbaşında kayıt durur. Sayaç değeri taşınmaz, her sistemde ayrıdır.' },
       { on:'BSEG neden yavaştır, alternatifi nedir?', arka:'**Cluster tablodur** (RFBLG içinde saklanır); anahtar olmayan alanlara göre sorgu çok yavaştır.\n\nBu yüzden indeks tabloları (BSIK/BSID/BSIS) vardır. S/4HANA’da doğru adres **ACDOCA**’dır.' },

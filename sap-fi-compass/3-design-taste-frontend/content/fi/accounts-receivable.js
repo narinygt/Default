@@ -1,5 +1,5 @@
 /* ==========================================================================
-   content/fi/accounts-receivable.js — "Accounts Receivable (Müşteriler)"
+   content/fi/accounts-receivable.js: "Accounts Receivable (Müşteriler)"
    ========================================================================== */
 
 SAP.registerTopic({
@@ -26,7 +26,7 @@ SAP.registerTopic({
       'tahsil kabiliyetine göre değerlenmek zorundadır ({{supheli-alacak}}).',
 
     sirketOnemi:
-      'AR, **Order-to-Cash (O2C — siparişten tahsilata)** sürecinin muhasebe ayağıdır ve SD ile iç içe çalışır. ' +
+      'AR, **Order-to-Cash (O2C: siparişten tahsilata)** sürecinin muhasebe ayağıdır ve SD ile iç içe çalışır. ' +
       'Faturaların büyük çoğunluğu FI’da elle girilmez; SD’de kesilir ve FI’a **otomatik** düşer.\n\n' +
       'Danışmanlık açısından kritik nokta budur: bir AR danışmanı {{VKOA}} gelir hesabı belirlemesini ' +
       've SD faturasının muhasebeye aktarım mekanizmasını bilmek zorundadır. ' +
@@ -36,7 +36,7 @@ SAP.registerTopic({
       'Bir toptancı 400 bayiye vadeli satış yapıyor. Ay sonunda 12 milyon TL alacak görünüyor ' +
       'ama bunun 2,4 milyonu 90 günü geçmiş.\n\n' +
       'Finans müdürü {{FBL5N}} ile yaşlandırma alıyor: 18 bayi vadesini 60 günden fazla aşmış. ' +
-      '{{F150}} ile ihtar çalıştırılıyor — 11 bayiye 1. seviye hatırlatma, 7 bayiye 3. seviye ' +
+      '{{F150}} ile ihtar çalıştırılıyor: 11 bayiye 1. seviye hatırlatma, 7 bayiye 3. seviye ' +
       'gecikme faizli uyarı gidiyor. Aynı anda o bayilerin {{kredi-limiti}} düşürülüyor ve ' +
       'yeni siparişleri bloklanıyor.\n\n' +
       'Bu, AR’ın sadece muhasebe değil, aynı zamanda bir **risk yönetimi** aracı olduğunu gösterir.',
@@ -44,9 +44,9 @@ SAP.registerTopic({
     muhasebeMantigi:
       'AR’de muhasebe **üç aşamalıdır** ve AP ile tam simetriktir:\n\n' +
       '**1. Alacağın doğması (fatura).** Müşteri borçlanır, gelir alacaklanır. ' +
-      'Para henüz gelmemiştir — {{tahakkuk-esasi}} gereği gelir satış anında kaydedilir.\n\n' +
+      'Para henüz gelmemiştir: {{tahakkuk-esasi}} gereği gelir satış anında kaydedilir.\n\n' +
       '**2. {{tahsilat}}.** Banka/kasa borçlanır, müşteri alacaklanır. ' +
-      'Dikkat: **tahsilat gelir değildir** — bir varlık (alacak) başka bir varlığa (nakit) dönüşür.\n\n' +
+      'Dikkat: **tahsilat gelir değildir**: bir varlık (alacak) başka bir varlığa (nakit) dönüşür.\n\n' +
       '**3. {{kapatma}}.** Fatura ile tahsilat eşleştirilir. Genelde 2. ve 3. adım {{F-28}}’de birliktedir.\n\n' +
       'Müşteri satırı doğrudan G/L hesabına yazılmaz; **müşteri numarası** girilir ve SAP ' +
       '{{KNB1}}’deki `AKONT` alanından {{mutabakat-hesabi}}nı kendisi bulur.',
@@ -59,7 +59,7 @@ SAP.registerTopic({
   surec: {
     anlatim:
       'AR süreci **Order-to-Cash** zincirinin ikinci yarısıdır. Zincir satış siparişiyle başlar, ' +
-      'tahsilatla biter. AR’ın devreye girdiği nokta faturadır — ama faturanın **nereden geldiği** ' +
+      'tahsilatla biter. AR’ın devreye girdiği nokta faturadır: ama faturanın **nereden geldiği** ' +
       '(SD mi, doğrudan FI mı) tüm akışı belirler.',
 
     roller:[
@@ -74,13 +74,13 @@ SAP.registerTopic({
 
     diyagram:{
       type:'flow',
-      baslik:'Order-to-Cash — siparişten tahsilata',
+      baslik:'Order-to-Cash: siparişten tahsilata',
       adimlar:[
         { ic:'🛒', rol:'Satış', baslik:'Satış siparişi alınır ({{VA01}})',
           aciklama:'{{kredi-limiti}} kontrolü burada yapılır. Limit aşılırsa sipariş bloklanır ve sevkiyat durur. **FI kaydı yok.**',
           cikti:'Satış siparişi', ok:'mal hazırlanır' },
         { ic:'🚚', rol:'Sevkiyat', baslik:'Teslimat ve mal çıkışı',
-          aciklama:'Stok azalır, satılan malın maliyeti gider yazılır. Müşteriye alacak **henüz doğmaz** — fatura kesilmedi.',
+          aciklama:'Stok azalır, satılan malın maliyeti gider yazılır. Müşteriye alacak **henüz doğmaz**: fatura kesilmedi.',
           cikti:'Teslimat belgesi + FI stok kaydı', ok:'fatura kesilir' },
         { ic:'🧾', rol:'Faturalama', baslik:'Fatura kesilir ({{VF01}})',
           aciklama:'**Alacak burada doğar.** SD faturası kaydedilince FI belgesi otomatik oluşur; gelir hesabını {{VKOA}} belirler.',
@@ -104,7 +104,7 @@ SAP.registerTopic({
     },
 
     adimlar:[
-      { rol:'Satış', eylem:'Sipariş alır, kredi kontrolü yapılır', sistem:'{{VA01}} — FI kaydı yok' },
+      { rol:'Satış', eylem:'Sipariş alır, kredi kontrolü yapılır', sistem:'{{VA01}}: FI kaydı yok' },
       { rol:'Sevkiyat', eylem:'Mal çıkışı yapar', sistem:'Teslimat → stok alacak / SMM borç' },
       { rol:'Faturalama', eylem:'SD faturası keser', sistem:'{{VF01}} → müşteri borç / gelir alacak ({{VKOA}})' },
       { rol:'AR muhasebe', eylem:'Siparişsiz fatura girer', sistem:'{{FB70}} → müşteri borç / gelir alacak' },
@@ -123,7 +123,7 @@ SAP.registerTopic({
 
     notlar:[
       { tip:'tip', baslik:'Sipariş ve teslimat neden alacak doğurmaz?', metin:
-        'Sipariş bir taahhüttür. Teslimat ise stoku azaltır ve maliyeti gider yazar ama **alacağı doğurmaz** — ' +
+        'Sipariş bir taahhüttür. Teslimat ise stoku azaltır ve maliyeti gider yazar ama **alacağı doğurmaz**: ' +
         'çünkü henüz fatura kesilmemiştir. Muhasebede alacak, faturayla doğar. ' +
         'Bu ayrım "mal gitti ama fatura kesilmedi" durumunun neden ayrı takip edilmesi gerektiğini açıklar.' },
       { tip:'warn', baslik:'Tahsilat gelir değildir', metin:
@@ -141,30 +141,30 @@ SAP.registerTopic({
       'şüpheli alacak ve müşteri avansı örnekleri var.',
 
     etkilenenHesaplar:[
-      { hesap:'120 Alıcılar (mutabakat)', tur:'Bilanço — Varlık', neden:'Müşteriden alacak. Fatura ile **borçlanır** (artar), tahsilat ile **alacaklanır** (azalır). Doğrudan kayıt yapılamaz.' },
+      { hesap:'120 Alıcılar (mutabakat)', tur:'Bilanço: Varlık', neden:'Müşteriden alacak. Fatura ile **borçlanır** (artar), tahsilat ile **alacaklanır** (azalır). Doğrudan kayıt yapılamaz.' },
       { hesap:'600 Yurtiçi satışlar', tur:'Gelir tablosu', neden:'Satış geliri. SD faturasında hesabı {{VKOA}} belirler; FI faturasında kullanıcı seçer.' },
-      { hesap:'391 Hesaplanan KDV', tur:'Bilanço — Kaynak', neden:'Devlete borç doğar. Şirketin geliri değildir, devlet adına tahsil edilir.' },
+      { hesap:'391 Hesaplanan KDV', tur:'Bilanço: Kaynak', neden:'Devlete borç doğar. Şirketin geliri değildir, devlet adına tahsil edilir.' },
       { hesap:'153 Ticari mallar / 621 SMM', tur:'Bilanço / Gelir tablosu', neden:'Mal çıkışında stok azalır, satılan malın maliyeti gider yazılır. **Faturadan ayrı** bir kayıttır.' },
-      { hesap:'102 Bankalar', tur:'Bilanço — Varlık', neden:'Tahsilatta artar. Ekstre gelene kadar {{banka-ara-hesabi}} kullanılabilir.' },
-      { hesap:'128 Şüpheli ticari alacaklar', tur:'Bilanço — Varlık', neden:'{{supheli-alacak}} olarak sınıflanan kalemler {{ozel-ana-muhasebe-gostergesi}} ile buraya taşınır.' },
-      { hesap:'129 Şüpheli alacak karşılığı', tur:'Bilanço — Kontra varlık', neden:'Alacağı azaltan hesap. Karşılık ayrıldığında alacaklanır, karşılığı gider (654) borçlanır.' },
-      { hesap:'340 Alınan sipariş avansları', tur:'Bilanço — Kaynak', neden:'Müşteriden peşin alınan tutar. Bir gelir değil **borçtur** — mal/hizmet henüz verilmedi.' },
+      { hesap:'102 Bankalar', tur:'Bilanço: Varlık', neden:'Tahsilatta artar. Ekstre gelene kadar {{banka-ara-hesabi}} kullanılabilir.' },
+      { hesap:'128 Şüpheli ticari alacaklar', tur:'Bilanço: Varlık', neden:'{{supheli-alacak}} olarak sınıflanan kalemler {{ozel-ana-muhasebe-gostergesi}} ile buraya taşınır.' },
+      { hesap:'129 Şüpheli alacak karşılığı', tur:'Bilanço: Kontra varlık', neden:'Alacağı azaltan hesap. Karşılık ayrıldığında alacaklanır, karşılığı gider (654) borçlanır.' },
+      { hesap:'340 Alınan sipariş avansları', tur:'Bilanço: Kaynak', neden:'Müşteriden peşin alınan tutar. Bir gelir değil **borçtur**: mal/hizmet henüz verilmedi.' },
     ],
 
     fisler:[
-      { baslik:'Adım 1 — Mal çıkışı (teslimat) · maliyet 60.000 TL',
+      { baslik:'Adım 1: Mal çıkışı (teslimat) · maliyet 60.000 TL',
         belgeTuru:'WL', tarih:'03.11.2026', paraBirimi:'TRY',
         satirlar:[
           { hesap:'621', ad:'Satılan ticari mal maliyeti', borc:60000, not:'Gider doğdu' },
           { hesap:'153', ad:'Ticari mallar (stok)', alacak:60000, not:'Stok azaldı' },
         ],
-        not:'**Müşteriye alacak yok.** Mal gitti ama fatura kesilmedi. Gelir de henüz kaydedilmedi — ' +
+        not:'**Müşteriye alacak yok.** Mal gitti ama fatura kesilmedi. Gelir de henüz kaydedilmedi: ' +
              'yalnızca maliyet tarafı işlendi. Bu ara durum "faturalanmamış teslimat" olarak izlenir.' },
 
-      { baslik:'Adım 2 — SD faturası kesildi ({{VF01}}) · 100.000 TL + KDV',
+      { baslik:'Adım 2: SD faturası kesildi ({{VF01}}) · 100.000 TL + KDV',
         belgeTuru:'RV', tarih:'05.11.2026', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'120', ad:'Alıcılar — C-5001', borc:120000, not:'{{mutabakat-hesabi}} — alacak doğdu' },
+          { hesap:'120', ad:'Alıcılar, C-5001', borc:120000, not:'{{mutabakat-hesabi}}, alacak doğdu' },
           { hesap:'600', ad:'Yurtiçi satışlar', alacak:100000, not:'{{VKOA}} hesap belirlemesi' },
           { hesap:'391', ad:'Hesaplanan KDV', alacak:20000, not:'Devlete borç' },
         ],
@@ -172,24 +172,24 @@ SAP.registerTopic({
              'Gelir 120.000 değil **100.000**’dir; KDV şirketin malı değildir.\n\n' +
              'Bu satışın kârı: 100.000 gelir − 60.000 maliyet = **40.000 TL**.' },
 
-      { baslik:'Adım 3 — Tam tahsilat ({{F-28}}) · vadesinde ödendi',
+      { baslik:'Adım 3: Tam tahsilat ({{F-28}}) · vadesinde ödendi',
         belgeTuru:'DZ', tarih:'05.12.2026', paraBirimi:'TRY',
         satirlar:[
           { hesap:'102', ad:'Bankalar', borc:120000, not:'Nakit girdi' },
-          { hesap:'120', ad:'Alıcılar — C-5001', alacak:120000, not:'Açık kalem kapandı' },
+          { hesap:'120', ad:'Alıcılar: C-5001', alacak:120000, not:'Açık kalem kapandı' },
         ],
-        not:'**Gelir kaydı yok** — gelir zaten faturada kaydedilmişti. Bu sadece bilanço içinde ' +
+        not:'**Gelir kaydı yok**: gelir zaten faturada kaydedilmişti. Bu sadece bilanço içinde ' +
              'yer değiştirmedir: alacak azaldı, nakit arttı. Kalem {{BSID}}’den {{BSAD}}’a taşındı.' },
 
-      { baslik:'Alternatif — kısmi tahsilat · 120.000’in 70.000’i geldi',
+      { baslik:'Alternatif: kısmi tahsilat · 120.000’in 70.000’i geldi',
         belgeTuru:'DZ', tarih:'05.12.2026', paraBirimi:'TRY',
         satirlar:[
           { hesap:'102', ad:'Bankalar', borc:70000 },
-          { hesap:'120', ad:'Alıcılar — C-5001 (kısmi ödeme kalemi)', alacak:70000, not:'{{kismi-kapatma}}' },
+          { hesap:'120', ad:'Alıcılar: C-5001 (kısmi ödeme kalemi)', alacak:70000, not:'{{kismi-kapatma}}' },
         ],
         not:'{{kismi-kapatma}} seçilirse **orijinal 120.000 TL’lik kalem açık kalır** ve ödeme ayrı bir ' +
              'açık kalem olarak durur. Orijinal vade korunduğu için {{yaslandirma}} bozulmaz.\n\n' +
-             '{{kalan-kapatma}} seçilseydi orijinal kalem kapanır, 50.000 TL’lik yeni kalem üretilirdi — ' +
+             '{{kalan-kapatma}} seçilseydi orijinal kalem kapanır, 50.000 TL’lik yeni kalem üretilirdi: ' +
              've o kalemin **vadesi bugünden başlardı**, yani 90 gün gecikmiş alacak "yeni" görünürdü.' },
 
       { baslik:'Müşteri avansı ({{F-29}}) · peşin alınan 40.000 TL',
@@ -233,7 +233,7 @@ SAP.registerTopic({
 
     notlar:[
       { tip:'warn', baslik:'Kısmi mi kalan mı? Yaşlandırmayı belirleyen karar', metin:
-        'Bu seçim AR’de en çok sonuç doğuran teknik karardır. {{kismi-kapatma}} orijinal vadeyi korur — ' +
+        'Bu seçim AR’de en çok sonuç doğuran teknik karardır. {{kismi-kapatma}} orijinal vadeyi korur: ' +
         'gecikmiş alacak gecikmiş görünmeye devam eder. {{kalan-kapatma}} yeni kalem ürettiği için ' +
         'vade sıfırlanır ve **90 gün gecikmiş bir alacak aniden "vadesi gelmemiş" hâle gelir**. ' +
         'Tahsilat performansını ölçen raporlar bu yüzden bozulur. Varsayılan tercih kısmi kapatma olmalıdır.' },
@@ -251,21 +251,21 @@ SAP.registerTopic({
       '**özel ana muhasebe** kategorisi ve alacağın **risk durumu**.',
 
     liste:[
-      { ad:'SD faturası', en:'SD Billing Document — VF01',
+      { ad:'SD faturası', en:'SD Billing Document: VF01',
         aciklama:'Satış siparişi ve teslimat üzerinden kesilen fatura. FI belgesi **otomatik** oluşur; ' +
                  'gelir hesabını {{VKOA}} belirler. Kurumsal şirketlerde faturaların çoğunluğu budur.',
         neZaman:'Mal veya standart hizmet satışında; SD modülü kullanılıyorsa her zaman.',
         ornek:'Teslimat 80001234 → fatura 90005678 → FI belgesi 1800000091 (belge türü RV).',
         tcodes:['VF01','VF02','VF04','VKOA'] },
 
-      { ad:'FI faturası', en:'Direct FI Invoice — FB70',
+      { ad:'FI faturası', en:'Direct FI Invoice: FB70',
         aciklama:'SD’den geçmeden doğrudan FI’da kesilen fatura. Gelir hesabını kullanıcı seçer.',
         neZaman:'Kira geliri, hurda satışı, sabit kıymet satışı, grup içi yansıtmalar gibi ' +
                 'SD’de tanımlı olmayan satışlarda.',
         ornek:'Boş depo alanının kiraya verilmesi → 120 borç / 649 diğer gelir alacak.',
         tcodes:['FB70','FB75'] },
 
-      { ad:'Alacak dekontu', en:'Credit Memo — FB75',
+      { ad:'Alacak dekontu', en:'Credit Memo: FB75',
         aciklama:'Müşteriye kesilen iade/iskonto belgesi. Faturanın tersidir: müşteri alacaklanır, gelir borçlanır.',
         neZaman:'Mal iadesi, fiyat düzeltmesi, sonradan verilen ciro primi.',
         ornek:'12.000 TL’lik iade → 600 gelir borç 10.000 / 391 KDV borç 2.000 / 120 müşteri alacak 12.000.',
@@ -287,10 +287,10 @@ SAP.registerTopic({
       { ad:'Kalan kapatma', en:'Residual Clearing',
         aciklama:'Orijinal kalem kapatılır, kalan tutar için **yeni kalem** üretilir. Yeni kalemin vadesi bugünden başlar.',
         neZaman:'Fark kalıcıysa ve yeni bir ödeme planına bağlandıysa. **Yaşlandırmayı sıfırladığı için dikkatli seçilir.**',
-        ornek:'120.000 kapatıldı, 50.000 TL’lik yeni kalem oluştu — vadesi bugün.',
+        ornek:'120.000 kapatıldı, 50.000 TL’lik yeni kalem oluştu: vadesi bugün.',
         tcodes:['F-28','FB05'] },
 
-      { ad:'Müşteri avansı', en:'Customer Down Payment — F-29 / F-39',
+      { ad:'Müşteri avansı', en:'Customer Down Payment: F-29 / F-39',
         aciklama:'Mal/hizmet verilmeden alınan tutar. {{ozel-ana-muhasebe-gostergesi}} ile normal alacaktan ayrılır ve ' +
                  'bilançoda **kaynak** tarafında gösterilir (müşteriye mal borcu).',
         neZaman:'Peşin tahsilatlı satışlarda, proje avanslarında, sipariş kaparosunda.',
@@ -312,7 +312,7 @@ SAP.registerTopic({
       ['Fatura etkisi', 'Satıcı **alacaklanır**', 'Müşteri **borçlanır**'],
       ['Ana veri', '{{LFA1}} / {{LFB1}}', '{{KNA1}} / {{KNB1}}'],
       ['Açık / kapalı kalem', '{{BSIK}} / {{BSAK}}', '{{BSID}} / {{BSAD}}'],
-      ['Entegre modül', 'MM — satın alma', 'SD — satış'],
+      ['Entegre modül', 'MM, satın alma', 'SD, satış'],
       ['Hesap belirleme', '{{OBYC}}', '{{VKOA}}'],
       ['Ana işlem', '{{FB60}} fatura · {{F110}} ödeme', '{{FB70}} fatura · {{F-28}} tahsilat'],
       ['Kalem raporu', '{{FBL1N}}', '{{FBL5N}}'],
@@ -467,13 +467,13 @@ SAP.registerTopic({
           { mesaj:'No accounts selected for dunning', sebep:'Müşterilerde {{ihtar-prosedürü}} atanmamış veya gecikme günleri henüz dolmamış.', cozum:'{{BP}} → şirket kodu verisi → `MAHNA` alanını doldur; {{FBMP}}’de gün aralıklarını kontrol et.' },
           { mesaj:'Customer is blocked for dunning', sebep:'Müşteri ana verisinde ihtar bloğu (`MANSP`) var.', cozum:'Blok bilinçliyse (uyuşmazlık) bırak; değilse {{BP}}’den kaldır.' },
         ],
-        ipucu:'İhtar bir **satış ilişkisi** meselesidir. Öneriyi ham hâliyle basma — satış ekibiyle ' +
+        ipucu:'İhtar bir **satış ilişkisi** meselesidir. Öneriyi ham hâliyle basma: satış ekibiyle ' +
               'gözden geçir. Yanlış zamanda giden 3. seviye ihtar, kazanılmış bir müşteriyi kaybettirebilir.',
         ilgili:['FBMP','FBL5N','S_ALR_87012168'] },
 
       { kod:'VF01', ad:'SD faturası oluştur',
         amac:'Satış siparişi veya teslimat üzerinden fatura keser; kaydedildiğinde FI belgesi otomatik oluşur.',
-        neZaman:'Mal ve standart hizmet satışlarında — kurumsal şirketlerde faturaların çoğunluğu.',
+        neZaman:'Mal ve standart hizmet satışlarında: kurumsal şirketlerde faturaların çoğunluğu.',
         adimlar:[
           { baslik:'Faturalanacak belgeyi (teslimat veya sipariş) gir' },
           { baslik:'Kalemleri ve fiyatlandırmayı kontrol et' },
@@ -481,7 +481,7 @@ SAP.registerTopic({
             aciklama:'FI belgesi oluşmazsa {{VBRK}} tablosundaki `RFBSK` alanı "A" (aktarılmadı) kalır.' },
         ],
         hatalar:[
-          { mesaj:'Document ... saved (no accounting document generated)', sebep:'{{VKOA}}’da gelir hesabı belirlemesi eksik — en sık sebep.', cozum:'{{VKOA}}’da ilgili hesap belirleme grubu için hesabı tanımla, sonra {{VF02}} → *Muhasebeye aktar* ile yeniden dene. **Faturayı iptal etmeye gerek yok.**' },
+          { mesaj:'Document ... saved (no accounting document generated)', sebep:'{{VKOA}}’da gelir hesabı belirlemesi eksik: en sık sebep.', cozum:'{{VKOA}}’da ilgili hesap belirleme grubu için hesabı tanımla, sonra {{VF02}} → *Muhasebeye aktar* ile yeniden dene. **Faturayı iptal etmeye gerek yok.**' },
           { mesaj:'Posting period is not open', sebep:'FI dönemi kapalı.', cozum:'{{OB52}} ile aç, {{VF02}} ile yeniden aktar.' },
         ],
         ipucu:'"Fatura kesildi ama muhasebeye düşmedi" şikâyetinde ilk bakılacak yer {{VKOA}}’dır. ' +
@@ -497,7 +497,7 @@ SAP.registerTopic({
       'Bu simetriyi bilmek, AP öğrendikten sonra AR’yi yarı sürede öğrenmeni sağlar.',
 
     liste:[
-      { ad:'KNA1', baslik:'Müşteri — genel katman',
+      { ad:'KNA1', baslik:'Müşteri: genel katman',
         tutar:'Ad, adres, ülke, vergi numarası, hesap grubu. Tüm şirket kodları için ortak.',
         olusturan:'{{BP}} (S/4HANA) veya {{XD01}} (ECC)',
         guncelleyen:'{{BP}}, {{XD01}}, {{XD02}}',
@@ -507,11 +507,11 @@ SAP.registerTopic({
         alanlar:[
           { ad:'KUNNR', aciklama:'Müşteri numarası' },
           { ad:'NAME1', aciklama:'Unvan' },
-          { ad:'KTOKD', aciklama:'Hesap grubu — numara aralığını ve alan durumunu belirler' },
+          { ad:'KTOKD', aciklama:'Hesap grubu: numara aralığını ve alan durumunu belirler' },
           { ad:'SPERR / LOEVM', aciklama:'Merkezi blok / silme işareti' },
         ] },
 
-      { ad:'KNB1', baslik:'Müşteri — şirket kodu katmanı',
+      { ad:'KNB1', baslik:'Müşteri: şirket kodu katmanı',
         tutar:'Muhasebe davranışı: mutabakat hesabı, ödeme koşulu, ihtar prosedürü, ihtar bloğu.',
         olusturan:'{{BP}} → FI Customer rolü',
         guncelleyen:'{{BP}}, {{FD02}}',
@@ -519,11 +519,11 @@ SAP.registerTopic({
         iliskiler:'{{KNA1}}’in çocuğu; `AKONT` alanı {{SKB1}}’deki mutabakat hesabına işaret eder.',
         s4:'Değişmedi; {{BP}} üzerinden doldurulur.',
         alanlar:[
-          { ad:'AKONT', aciklama:'**{{mutabakat-hesabi}}** — genelde 120 Alıcılar' },
-          { ad:'ZTERM', aciklama:'{{odeme-kosulu}} — vade buradan hesaplanır' },
-          { ad:'MAHNA', aciklama:'{{ihtar-prosedürü}} — {{F150}} buna bakar' },
-          { ad:'MANSP', aciklama:'İhtar bloğu — doluysa müşteriye ihtar gitmez' },
-          { ad:'ZUAWA', aciklama:'Sıralama anahtarı — `ZUONR` alanını doldurur' },
+          { ad:'AKONT', aciklama:'**{{mutabakat-hesabi}}**: genelde 120 Alıcılar' },
+          { ad:'ZTERM', aciklama:'{{odeme-kosulu}}: vade buradan hesaplanır' },
+          { ad:'MAHNA', aciklama:'{{ihtar-prosedürü}}: {{F150}} buna bakar' },
+          { ad:'MANSP', aciklama:'İhtar bloğu: doluysa müşteriye ihtar gitmez' },
+          { ad:'ZUAWA', aciklama:'Sıralama anahtarı: `ZUONR` alanını doldurur' },
         ] },
 
       { ad:'BSID', baslik:'Müşteri açık kalemleri',
@@ -534,10 +534,10 @@ SAP.registerTopic({
         iliskiler:'{{KNB1}} ile müşteri, {{BSEG}} ile belge kalemi bağı.',
         s4:'**Fiziksel tablo kaldırıldı**; {{uyumluluk-view}} olarak {{ACDOCA}}’dan üretilir.',
         alanlar:[
-          { ad:'ZFBDT', aciklama:'Baz tarih — vade bu tarihten hesaplanır' },
-          { ad:'MANSP', aciklama:'İhtar bloğu — kalem bazında' },
+          { ad:'ZFBDT', aciklama:'Baz tarih: vade bu tarihten hesaplanır' },
+          { ad:'MANSP', aciklama:'İhtar bloğu: kalem bazında' },
           { ad:'MAHNS', aciklama:'Ulaşılan ihtar seviyesi' },
-          { ad:'UMSKZ', aciklama:'{{ozel-ana-muhasebe-gostergesi}} — avans ve şüpheli alacağı ayırır' },
+          { ad:'UMSKZ', aciklama:'{{ozel-ana-muhasebe-gostergesi}}: avans ve şüpheli alacağı ayırır' },
         ] },
 
       { ad:'BSAD', baslik:'Müşteri kapatılmış kalemleri',
@@ -575,7 +575,7 @@ SAP.registerTopic({
         anahtar:'KUNNR + KKBER',
         s4:'S/4HANA’da SAP Credit Management (UKMBP_CMS_SGM) kullanılır; KNKK uyumluluk amaçlıdır.' },
 
-      { ad:'MHNK', baslik:'İhtar verisi — başlık',
+      { ad:'MHNK', baslik:'İhtar verisi: başlık',
         tutar:'Müşteri bazında son ihtar tarihi ve ulaşılan ihtar seviyesi.',
         olusturan:'{{F150}}',
         guncelleyen:'Her ihtar çalıştırması',
@@ -586,7 +586,7 @@ SAP.registerTopic({
 
     er:{
       type:'er',
-      baslik:'AR tablo ilişkileri — müşteriden tahsilata',
+      baslik:'AR tablo ilişkileri: müşteriden tahsilata',
       varliklar:[
         { ad:'KNA1', rol:'Ana veri', aciklama:'Müşteri kimliği',
           alanlar:[{ ad:'KUNNR', tip:'pk' }, { ad:'NAME1' }, { ad:'KTOKD' }] },
@@ -621,11 +621,11 @@ SAP.registerTopic({
   sapSurec: {
     anlatim:
       'AR’de günlük iş üç ekranda geçer: **fatura girmek** ({{FB70}}), **tahsilat kaydetmek** ({{F-28}}) ve ' +
-      '**alacakları izlemek** ({{FBL5N}}). Kritik nokta {{F-28}}’deki kalem seçimidir — orada verilen karar ' +
+      '**alacakları izlemek** ({{FBL5N}}). Kritik nokta {{F-28}}’deki kalem seçimidir: orada verilen karar ' +
       'yaşlandırma raporunun doğruluğunu belirler.',
 
     ekranlar:[
-      { ad:'{{FB70}} — Temel veri sekmesi',
+      { ad:'{{FB70}}: Temel veri sekmesi',
         aciklama:'Faturanın başlık bilgisi. Müşteri girildiği an ana veriden gelen değerler ekranı doldurur.',
         alanlar:[
           { ad:'Müşteri', zorunlu:true, aciklama:'Girildiğinde adres ve ödeme koşulu sağ panelde görünür.' },
@@ -635,7 +635,7 @@ SAP.registerTopic({
           { ad:'Vergi kodu', zorunlu:false, aciklama:'Gelir hesabının vergi kategorisi zorunlu kılıyorsa istenir.' },
         ] },
 
-      { ad:'{{F-28}} — Açık kalem seçim ekranı',
+      { ad:'{{F-28}}: Açık kalem seçim ekranı',
         aciklama:'AR’nin en kritik ekranı. Hangi kalemin kapatılacağı burada belirlenir ve bu karar yaşlandırmayı doğrudan etkiler.',
         alanlar:[
           { ad:'Banka G/L hesabı', zorunlu:true, aciklama:'Paranın girdiği hesap.' },
@@ -648,7 +648,7 @@ SAP.registerTopic({
         ipucu:'Müşteri hangi faturayı ödediğini söylemediyse **en eski kalemden** kapat. ' +
               'Rastgele seçim, gecikmiş alacakları açık bırakıp yaşlandırmayı bozar.' },
 
-      { ad:'{{FBL5N}} — Yaşlandırma görünümü',
+      { ad:'{{FBL5N}}: Yaşlandırma görünümü',
         aciklama:'Alacakların vadeye göre dağılımını gösteren çalışma ekranı.',
         alanlar:[
           { ad:'Kalem tipi', zorunlu:true, aciklama:'**Açık kalemler** + anahtar tarih.' },
@@ -663,7 +663,7 @@ SAP.registerTopic({
     hatalar:[
       { mesaj:'Posting period ... is not open for account type D', sebep:'Dönem müşteri hesap tipi için kapalı.', cozum:'{{OB52}}’de **D** satırında dönemi aç. S satırını açmak yetmez.' },
       { mesaj:'Customer ... is blocked for posting', sebep:'{{KNA1}} `SPERR` veya {{KNB1}} kayıt bloğu.', cozum:'{{BP}} → FI Customer rolünde bloğu kaldır. Kredi riski nedeniyle konmuşsa önce kredi kontrol ile görüş.' },
-      { mesaj:'Document ... saved (no accounting document generated)', sebep:'SD faturası muhasebeye aktarılmadı — {{VKOA}}’da gelir hesabı belirlemesi eksik.', cozum:'{{VKOA}}’yı tamamla, {{VF02}} → *Muhasebeye aktar*. Faturayı iptal etme.' },
+      { mesaj:'Document ... saved (no accounting document generated)', sebep:'SD faturası muhasebeye aktarılmadı: {{VKOA}}’da gelir hesabı belirlemesi eksik.', cozum:'{{VKOA}}’yı tamamla, {{VF02}} → *Muhasebeye aktar*. Faturayı iptal etme.' },
       { mesaj:'The difference is too large for clearing', sebep:'Tahsilat ile seçilen kalemler eşleşmiyor.', cozum:'Kısmi veya kalan kapatma kullan; tolerans için {{OBA3}}.' },
       { mesaj:'No open items found (F-28)', sebep:'Avans/şüpheli alacak kalemleri normal seçime gelmez.', cozum:'Seçim ekranında **"Özel G/L işlemleri"** kutusunu işaretle.' },
       { mesaj:'Credit limit exceeded (satış siparişinde)', sebep:'Müşterinin {{kredi-limiti}} aşıldı.', cozum:'Tahsilat yapılmasını bekle veya kredi yöneticisinden limit artışı/serbest bırakma iste ({{UKM_BP}}).' },
@@ -671,12 +671,12 @@ SAP.registerTopic({
     ],
 
     ipuclari:[
-      '{{FBL5N}} düzenine **gecikme günü** ve **ihtar seviyesi** sütunlarını ekleyip varsayılan yap — ' +
+      '{{FBL5N}} düzenine **gecikme günü** ve **ihtar seviyesi** sütunlarını ekleyip varsayılan yap: ' +
       'tahsilat toplantısının tek raporu bu olur.',
       'Tahsilatlarda **en eski kalemden kapatma (FIFO)** disiplinini benimse. Bu, yaşlandırmanın ' +
       'gerçeği yansıtmasını sağlar ve tahsilat performansı ölçülebilir hâle gelir.',
       '{{kalan-kapatma}}yı istisnai durumlar dışında kullanma; vadeyi sıfırladığı için gecikmiş alacakları gizler.',
-      'Banka ekstresinden gelen toplu tahsilatları {{F-28}} yerine {{FEBAN}} üzerinden işlemek daha hızlıdır — ' +
+      'Banka ekstresinden gelen toplu tahsilatları {{F-28}} yerine {{FEBAN}} üzerinden işlemek daha hızlıdır: ' +
       'ekstre satırı doğrudan açık kaleme bağlanır.',
       'İhtar önerisini basmadan önce **satış ekibiyle gözden geçir**. İhtar teknik bir işlem değil, ' +
       'müşteri ilişkisi kararıdır.',
@@ -702,13 +702,13 @@ SAP.registerTopic({
       '{{VF01}} önce SD belgesini ({{VBRK}}/{{VBRP}}) yazar, ardından muhasebe aktarımını tetikler. ' +
       'Bu ikinci adım başarısız olursa **SD faturası kaydedilmiş ama FI belgesi oluşmamış** olur ' +
       've `RFBSK` alanı "A" kalır. Bu yüzden SD faturası kesildikten sonra muhasebeye düşüp düşmediği ' +
-      'kontrol edilmelidir — AP’de böyle bir ara durum yoktur.',
+      'kontrol edilmelidir: AP’de böyle bir ara durum yoktur.',
 
     belgeNo:
       'Belge türüne bağlı aralıktan kaydetme anında verilir. AR’de tipik türler: ' +
       '**DR** müşteri faturası (FI), **DG** müşteri alacak dekontu, **DZ** müşteri tahsilatı, ' +
       '**RV** SD faturası. SD faturası **iki numara** üretir: SD fatura numarası ({{VBRK}}) ve ' +
-      'FI belge numarası ({{BKPF}}) — çoğu kurulumda bunlar aynı olacak şekilde ayarlanır ' +
+      'FI belge numarası ({{BKPF}}): çoğu kurulumda bunlar aynı olacak şekilde ayarlanır ' +
       '(SD fatura tipi ile FI numara aralığı eşitlenir), ama zorunlu değildir.',
 
     postingLogic:
@@ -745,11 +745,11 @@ SAP.registerTopic({
 
     img:[
       { yol:'SPRO → Finansal Muhasebe → Müşteri Hesapları → Ana Veri → Hazırlık → Müşteri Hesap Gruplarını Tanımla', not:'Hesap grubu ve alan durumu' },
-      { yol:'SPRO → Finansal Muhasebe → Müşteri Hesapları → İş İşlemleri → Gelen Faturalar/Alacak Dekontları → Ödeme Koşullarını Tanımla', not:'{{odeme-kosulu}} — vade' },
-      { yol:'SPRO → Finansal Muhasebe → Müşteri Hesapları → İş İşlemleri → İhtar → İhtar Prosedürünü Tanımla', not:'{{FBMP}} — ihtar seviyeleri ve gün aralıkları' },
-      { yol:'SPRO → Satış ve Dağıtım → Temel Fonksiyonlar → Hesap Atama/Maliyetler → Gelir Hesabı Belirleme', not:'{{VKOA}} — SD gelir hesabı belirleme' },
-      { yol:'SPRO → Finansal Muhasebe → Müşteri Hesapları → İş İşlemleri → Gelen Ödemeler → Avanslar → Özel Ana Muhasebe İşlemlerini Tanımla', not:'{{OBXR}} — avans ve şüpheli alacak göstergeleri' },
-      { yol:'SPRO → Finansal Muhasebe → Müşteri Hesapları → İş İşlemleri → Gelen Ödemeler → Manuel Gelen Ödemeler → Ödeme Farkları İçin Tolerans Tanımla', not:'{{OBA3}} — kapatma tolerans sınırları' },
+      { yol:'SPRO → Finansal Muhasebe → Müşteri Hesapları → İş İşlemleri → Gelen Faturalar/Alacak Dekontları → Ödeme Koşullarını Tanımla', not:'{{odeme-kosulu}}: vade' },
+      { yol:'SPRO → Finansal Muhasebe → Müşteri Hesapları → İş İşlemleri → İhtar → İhtar Prosedürünü Tanımla', not:'{{FBMP}}: ihtar seviyeleri ve gün aralıkları' },
+      { yol:'SPRO → Satış ve Dağıtım → Temel Fonksiyonlar → Hesap Atama/Maliyetler → Gelir Hesabı Belirleme', not:'{{VKOA}}: SD gelir hesabı belirleme' },
+      { yol:'SPRO → Finansal Muhasebe → Müşteri Hesapları → İş İşlemleri → Gelen Ödemeler → Avanslar → Özel Ana Muhasebe İşlemlerini Tanımla', not:'{{OBXR}}: avans ve şüpheli alacak göstergeleri' },
+      { yol:'SPRO → Finansal Muhasebe → Müşteri Hesapları → İş İşlemleri → Gelen Ödemeler → Manuel Gelen Ödemeler → Ödeme Farkları İçin Tolerans Tanımla', not:'{{OBA3}}: kapatma tolerans sınırları' },
     ],
 
     ekstra:[
@@ -761,14 +761,14 @@ SAP.registerTopic({
         'Vadesi gelmemiş grubun payı düşükse ya vadeler çok kısadır ya da satış yavaşlamıştır.\n\n' +
         'Bu analiz {{FBL5N}} veya {{S_ALR_87012168}} ile alınır ve {{supheli-alacak}} kararının girdisidir.' },
 
-      { ic:'🔗', baslik:'AR–SD entegrasyonunun kırılma noktası', metin:
+      { ic:'🔗', baslik:'AR-SD entegrasyonunun kırılma noktası', metin:
         'SD faturası kesildiğinde FI belgesinin **otomatik** oluşması beklenir. Oluşmazsa ' +
         '{{VBRK}} tablosundaki `RFBSK` alanı "A" (aktarılmadı) kalır.\n\n' +
         'Sebepler sıklık sırasına göre: **(1)** {{VKOA}}’da hesap belirleme eksik, ' +
         '**(2)** FI dönemi kapalı, **(3)** gelir hesabı bloklu veya kayda kapalı, ' +
         '**(4)** {{belge-bolme}} kuralları satırı sınıflandıramadı.\n\n' +
         'Çözüm her durumda aynıdır: eksiği gider, {{VF02}} → *Muhasebeye aktar* ile yeniden dene. ' +
-        '**Faturayı iptal etmek gerekmez** ve iptal etmek yanlıştır — SD tarafında numara boşa gider.' },
+        '**Faturayı iptal etmek gerekmez** ve iptal etmek yanlıştır: SD tarafında numara boşa gider.' },
     ],
 
     notlar:[
@@ -788,10 +788,10 @@ SAP.registerTopic({
       '**indeks tablolarının {{uyumluluk-view}}’ine dönüşmesi**.',
 
     eccFarklari:[
-      { konu:'Müşteri ana verisi', ecc:'{{FD01}} / {{XD01}}', s4:'{{BP}} zorunlu — FI Customer rolü ile' },
+      { konu:'Müşteri ana verisi', ecc:'{{FD01}} / {{XD01}}', s4:'{{BP}} zorunlu: FI Customer rolü ile' },
       { konu:'Aynı firma hem müşteri hem satıcı', ecc:'İki ayrı ana veri kaydı', s4:'Tek BP kaydı, iki rol' },
-      { konu:'Kredi yönetimi', ecc:'FD32 — FI-AR içinde', s4:'{{UKM_BP}} — SAP Credit Management (FIN-FSCM-CR), ayrı bileşen' },
-      { konu:'Açık kalem tablosu', ecc:'{{BSID}} / {{BSAD}} fiziksel tablo', s4:'{{uyumluluk-view}} — veri {{ACDOCA}}’dan' },
+      { konu:'Kredi yönetimi', ecc:'FD32, FI-AR içinde', s4:'{{UKM_BP}}, SAP Credit Management (FIN-FSCM-CR), ayrı bileşen' },
+      { konu:'Açık kalem tablosu', ecc:'{{BSID}} / {{BSAD}} fiziksel tablo', s4:'{{uyumluluk-view}}: veri {{ACDOCA}}’dan' },
       { konu:'Terminoloji', ecc:'Customer', s4:'**Customer** korundu (satıcı Vendor→Supplier oldu, müşteri değişmedi)' },
       { konu:'Kalem raporu', ecc:'{{FBL5N}}', s4:'{{FBL5N}} çalışır; {{FBL5H}} ve Fiori önerilir' },
       { konu:'Tahsilat yönetimi', ecc:'Manuel takip', s4:'FSCM Collections Management ile iş listesi ve puanlama' },
@@ -803,7 +803,7 @@ SAP.registerTopic({
       'sorusu tek tablodan cevaplanır. Eskiden {{BSID}} + {{VBRP}} + CO-PA birleştirmesi gerekiyordu.',
 
     kalkanTcodes:[
-      { eski:'{{FD01}} / {{FD02}} / {{FD03}}', yeni:'{{BP}}', not:'Müşteri ana verisi — kaldırıldı' },
+      { eski:'{{FD01}} / {{FD02}} / {{FD03}}', yeni:'{{BP}}', not:'Müşteri ana verisi: kaldırıldı' },
       { eski:'{{XD01}} / {{XD02}}', yeni:'{{BP}}', not:'BP işlemine yönlendirir' },
       { eski:'FD32 / FD33', yeni:'{{UKM_BP}}', not:'Kredi yönetimi tamamen yeni bileşene taşındı' },
       { eski:'F.2x serisi eski yaşlandırma raporları', yeni:'{{FBL5N}} / Fiori', not:'Yeni raporlar tercih edilir' },
@@ -814,13 +814,13 @@ SAP.registerTopic({
       { ad:'Post Incoming Payments', aciklama:'{{F-28}} yerine; açık kalemleri otomatik eşleştirme önerisiyle gösterir.' },
       { ad:'Create Outgoing Invoices', aciklama:'{{FB70}} yerine.' },
       { ad:'Manage Dunning Notices', aciklama:'{{F150}} önerisini görsel iş listesi olarak yönetir.' },
-      { ad:'Days Sales Outstanding (DSO)', aciklama:'Ortalama tahsilat süresini analiz eder — AR’nin ana performans göstergesi.' },
-      { ad:'Process Receivables', aciklama:'FSCM Collections — müşteri bazında tahsilat görev listesi ve iletişim geçmişi.' },
+      { ad:'Days Sales Outstanding (DSO)', aciklama:'Ortalama tahsilat süresini analiz eder: AR’nin ana performans göstergesi.' },
+      { ad:'Process Receivables', aciklama:'FSCM Collections: müşteri bazında tahsilat görev listesi ve iletişim geçmişi.' },
     ],
 
     compatibilityViews:[
-      '{{BSID}}, {{BSAD}} — müşteri açık/kapalı kalem indeksleri artık {{ACDOCA}} üzerinden üretilen görünümler.',
-      '{{KNC1}} — müşteri dönemsel bakiyeleri de view’e dönüştü.',
+      '{{BSID}}, {{BSAD}}: müşteri açık/kapalı kalem indeksleri artık {{ACDOCA}} üzerinden üretilen görünümler.',
+      '{{KNC1}}: müşteri dönemsel bakiyeleri de view’e dönüştü.',
       'Bu view’lere **yazma yapılamaz**; {{BSID}}’ye doğrudan INSERT yapan eski Z-programları geçişte bozulur.',
       '{{KNA1}} ve {{KNB1}} fiziksel tablo olarak duruyor ama {{BP}} tarafından doldurulur.',
     ],
@@ -828,14 +828,14 @@ SAP.registerTopic({
     performans:
       'Yaşlandırma ve açık kalem raporları {{ACDOCA}} üzerinden çalıştığı için büyük müşteri ' +
       'portföylerinde belirgin hızlanma vardır. {{F150}} ihtar seçimi de hızlanır. ' +
-      'Buna karşılık {{uyumluluk-view}} üzerinden çalışan eski özel raporlar yavaş kalır — ' +
+      'Buna karşılık {{uyumluluk-view}} üzerinden çalışan eski özel raporlar yavaş kalır: ' +
       'performans şikâyetinde ilk bakılacak yer budur.',
 
     bestPractices:[
       'Kredi yönetimini geçişte {{UKM_BP}}’ye taşı; FD32 verisi otomatik dönüşmez, ayrı bir geçiş adımıdır.',
       'Yeni raporları {{BSID}} yerine {{ACDOCA}} veya CDS view üzerine kur.',
       'Geçiş öncesi müşteri mükerrerlerini temizle; {{BP}}’de birleştirmek çok daha zordur.',
-      'Ödeme koşullarını sadeleştir — yıllar içinde biriken onlarca koşul geçişte gözden geçirilmelidir.',
+      'Ödeme koşullarını sadeleştir: yıllar içinde biriken onlarca koşul geçişte gözden geçirilmelidir.',
       'Tahsilat sürecini FSCM Collections Management ile yapılandırmayı değerlendir; Excel tabanlı takip ' +
       'listelerini sisteme taşımak AR’nin en hızlı kazanç alanıdır.',
     ],
@@ -848,18 +848,18 @@ SAP.registerTopic({
       '**Marmara Tekstil A.Ş.** bayisi **Ankara Tekstil Ltd.**’ye (C-5001) 120.000 TL’lik satış yapıyor. ' +
       'Ödeme koşulu 30 gün. Bayi vadesinde ödemiyor, kısmi ödeme yapıyor, ihtar alıyor ve ' +
       'kalan tutar sonunda şüpheli alacağa dönüşüyor. ' +
-      'Bu senaryo AR’nin tüm aşamalarını — iyi ve kötü senaryoyu birlikte — gösteriyor.',
+      'Bu senaryo AR’nin tüm aşamalarını, iyi ve kötü senaryoyu birlikte, gösteriyor.',
     veriler:[
-      { k:'Şirket kodu', v:'1000 — Marmara Tekstil A.Ş.' },
+      { k:'Şirket kodu', v:'1000: Marmara Tekstil A.Ş.' },
       { k:'Müşteri', v:'C-5001 Ankara Tekstil Ltd. · mutabakat hesabı 120000' },
-      { k:'Ödeme koşulu', v:'ZB03 — 30 gün net' },
-      { k:'İhtar prosedürü', v:'Z001 — 4 seviye (10 / 20 / 30 / 45 gün gecikme)' },
+      { k:'Ödeme koşulu', v:'ZB03: 30 gün net' },
+      { k:'İhtar prosedürü', v:'Z001: 4 seviye (10 / 20 / 30 / 45 gün gecikme)' },
       { k:'Satış', v:'100.000 TL + %20 KDV = 120.000 TL · maliyet 60.000 TL' },
-      { k:'Dönem', v:'Kasım–Aralık 2026' },
+      { k:'Dönem', v:'Kasım-Aralık 2026' },
     ],
 
     adimlar:[
-      { baslik:'Satış siparişi alınır — kredi kontrolü', tcode:'VA01',
+      { baslik:'Satış siparişi alınır: kredi kontrolü', tcode:'VA01',
         aciklama:'Satış temsilcisi siparişi giriyor. Sistem müşterinin {{kredi-limiti}}ni kontrol ediyor: ' +
                  'limit 500.000 TL, mevcut risk 180.000 TL → sipariş serbest.',
         girdi:[
@@ -870,10 +870,10 @@ SAP.registerTopic({
         ],
         not:'**FI kaydı yok.** Sipariş bir taahhüttür. Kredi limiti aşılsaydı sipariş bloklanır ve sevkiyat durdurulurdu.' },
 
-      { baslik:'Mal gönderilir — maliyet kaydedilir, alacak doğmaz', tcode:'VF01',
+      { baslik:'Mal gönderilir: maliyet kaydedilir, alacak doğmaz', tcode:'VF01',
         aciklama:'Sevkiyat yapılıyor. Stok azalıyor ve maliyet gider yazılıyor. ' +
                  'Ama müşteriye alacak **henüz doğmadı** çünkü fatura kesilmedi.',
-        fis:{ baslik:'Belge 4900000567 — Mal çıkışı', belgeTuru:'WL', tarih:'03.11.2026',
+        fis:{ baslik:'Belge 4900000567: Mal çıkışı', belgeTuru:'WL', tarih:'03.11.2026',
           satirlar:[
             { hesap:'621', ad:'Satılan ticari mal maliyeti', borc:60000 },
             { hesap:'153', ad:'Ticari mallar (stok)', alacak:60000 },
@@ -882,18 +882,18 @@ SAP.registerTopic({
           { tablo:'MSEG', ne:'Mal çıkışı hareketi (601)' },
         ] },
 
-      { baslik:'Fatura kesilir — alacak doğar', tcode:'VF01',
+      { baslik:'Fatura kesilir: alacak doğar', tcode:'VF01',
         aciklama:'Faturalama ekibi teslimat üzerinden fatura kesiyor. **FI belgesi otomatik oluşuyor**; ' +
                  'muhasebe hiçbir şey girmiyor.',
         girdi:[
           { alan:'Teslimat', deger:'80001234' },
-          { alan:'Fatura tipi', deger:'F2 — standart fatura' },
+          { alan:'Fatura tipi', deger:'F2: standart fatura' },
           { alan:'Net tutar / KDV', deger:'100.000 / 20.000 TL' },
-          { alan:'Vade — otomatik', deger:'05.12.2026 (30 gün, ZB03’ten)' },
+          { alan:'Vade: otomatik', deger:'05.12.2026 (30 gün, ZB03’ten)' },
         ],
-        fis:{ baslik:'Belge 1800000091 — SD faturası', belgeTuru:'RV', tarih:'05.11.2026',
+        fis:{ baslik:'Belge 1800000091: SD faturası', belgeTuru:'RV', tarih:'05.11.2026',
           satirlar:[
-            { hesap:'120', ad:'Alıcılar — C-5001', borc:120000, not:'{{mutabakat-hesabi}} — alacak doğdu' },
+            { hesap:'120', ad:'Alıcılar, C-5001', borc:120000, not:'{{mutabakat-hesabi}}, alacak doğdu' },
             { hesap:'600', ad:'Yurtiçi satışlar', alacak:100000, not:'{{VKOA}} hesap belirlemesi' },
             { hesap:'391', ad:'Hesaplanan KDV', alacak:20000 },
           ], not:'Satışın kârı: 100.000 gelir − 60.000 maliyet = **40.000 TL**. Ama henüz **tahsil edilmedi**.' },
@@ -903,13 +903,13 @@ SAP.registerTopic({
           { tablo:'BSID', ne:'Yeni **açık kalem**: 120.000 TL, vade 05.12.2026' },
           { tablo:'BSET', ne:'Vergi satırı: matrah 100.000, KDV 20.000' },
         ],
-        not:'`RFBSK` alanı "A" kalsaydı FI belgesi oluşmamış olurdu — sebebi neredeyse her zaman {{VKOA}} eksiğidir.' },
+        not:'`RFBSK` alanı "A" kalsaydı FI belgesi oluşmamış olurdu: sebebi neredeyse her zaman {{VKOA}} eksiğidir.' },
 
-      { baslik:'Vade geçer, ödeme gelmez — 1. ihtar', tcode:'F150',
+      { baslik:'Vade geçer, ödeme gelmez: 1. ihtar', tcode:'F150',
         aciklama:'05.12 vadesi geldi ama ödeme yok. 15.12’de (10 gün gecikme) ihtar çalıştırılıyor.',
         girdi:[
           { alan:'Çalıştırma tarihi / kimlik', deger:'15.12.2026 / AR01' },
-          { alan:'İhtar prosedürü', deger:'Z001 — 1. seviye (10 gün gecikme)' },
+          { alan:'İhtar prosedürü', deger:'Z001: 1. seviye (10 gün gecikme)' },
           { alan:'Sonuç', deger:'C-5001 için 1. seviye ihtarname basıldı' },
         ],
         tabloEtkisi:[
@@ -918,46 +918,46 @@ SAP.registerTopic({
         ],
         not:'İhtar bir muhasebe kaydı **üretmez**; yalnızca takip verisi yazar. Muhasebe etkisi yoktur.' },
 
-      { baslik:'Kısmi ödeme gelir — 70.000 TL', tcode:'F-28',
-        aciklama:'Bayi 70.000 TL gönderiyor, kalanı için süre istiyor. AR uzmanı **kısmi kapatma** seçiyor — ' +
+      { baslik:'Kısmi ödeme gelir: 70.000 TL', tcode:'F-28',
+        aciklama:'Bayi 70.000 TL gönderiyor, kalanı için süre istiyor. AR uzmanı **kısmi kapatma** seçiyor: ' +
                  'çünkü orijinal vadenin korunması, gecikmenin izlenebilmesi için şart.',
         girdi:[
           { alan:'Banka hesabı / Tutar', deger:'102000 / 70.000 TL' },
           { alan:'Müşteri', deger:'C-5001 → açık kalem listelendi (120.000)' },
           { alan:'Seçim', deger:'**Kısmi ödeme** sekmesi → 70.000 TL girildi' },
         ],
-        fis:{ baslik:'Belge 1400000234 — Kısmi tahsilat', belgeTuru:'DZ', tarih:'22.12.2026',
+        fis:{ baslik:'Belge 1400000234: Kısmi tahsilat', belgeTuru:'DZ', tarih:'22.12.2026',
           satirlar:[
             { hesap:'102', ad:'Bankalar', borc:70000, not:'Nakit girdi' },
-            { hesap:'120', ad:'Alıcılar — C-5001', alacak:70000, not:'{{kismi-kapatma}} kalemi' },
-          ], not:'**Gelir kaydı yok** — gelir faturada kaydedilmişti. Bu sadece varlık dönüşümüdür.' },
+            { hesap:'120', ad:'Alıcılar: C-5001', alacak:70000, not:'{{kismi-kapatma}} kalemi' },
+          ], not:'**Gelir kaydı yok**: gelir faturada kaydedilmişti. Bu sadece varlık dönüşümüdür.' },
         tabloEtkisi:[
           { tablo:'BSID', ne:'İki açık kalem: orijinal **+120.000** (vade 05.12, hâlâ açık) ve ödeme **−70.000**' },
         ],
         not:'{{kalan-kapatma}} seçilseydi orijinal kalem kapanır, 50.000 TL’lik yeni kalem üretilir ve ' +
-             '**vadesi 22.12’den başlardı** — 17 günlük gecikme silinir, ihtar seviyesi sıfırlanırdı. ' +
+             '**vadesi 22.12’den başlardı**: 17 günlük gecikme silinir, ihtar seviyesi sıfırlanırdı. ' +
              'Bu yüzden kısmi kapatma seçildi.' },
 
-      { baslik:'Gecikme sürer — 3. ihtar ve kredi bloğu', tcode:'F150',
+      { baslik:'Gecikme sürer: 3. ihtar ve kredi bloğu', tcode:'F150',
         aciklama:'Kalan 50.000 TL için ödeme gelmiyor. 45 gün gecikmede 3. seviye ihtar gidiyor ve ' +
                  'müşterinin kredi limiti düşürülüyor.',
         girdi:[
-          { alan:'İhtar seviyesi', deger:'3 — gecikme faizli sert uyarı' },
+          { alan:'İhtar seviyesi', deger:'3: gecikme faizli sert uyarı' },
           { alan:'Kredi limiti', deger:'500.000 → 200.000 TL’ye düşürüldü ({{UKM_BP}})' },
           { alan:'Sonuç', deger:'Yeni siparişler otomatik bloklanır' },
         ],
         not:'AR yalnızca muhasebe değil, **risk yönetimidir**. Tahsil edilemeyen alacak, yeni satışı durdurur.' },
 
-      { baslik:'Dönem sonu — şüpheli alacak karşılığı', tcode:'F-30',
+      { baslik:'Dönem sonu: şüpheli alacak karşılığı', tcode:'F-30',
         aciklama:'31.12 kapanışında kalan 50.000 TL 90+ gün grubunda. Muhasebe müdürü karşılık ayırıyor.',
         girdi:[
           { alan:'Yaşlandırma', deger:'{{S_ALR_87012168}} → 50.000 TL, 90+ gün' },
           { alan:'Karar', deger:'%100 karşılık ayrılacak' },
-          { alan:'Özel G/L göstergesi', deger:'E — şüpheli alacak' },
+          { alan:'Özel G/L göstergesi', deger:'E: şüpheli alacak' },
         ],
-        fis:{ baslik:'Belge 1000000891 — Şüpheli alacak karşılığı', belgeTuru:'SA', tarih:'31.12.2026',
+        fis:{ baslik:'Belge 1000000891: Şüpheli alacak karşılığı', belgeTuru:'SA', tarih:'31.12.2026',
           satirlar:[
-            { hesap:'654', ad:'Karşılık giderleri', borc:50000, not:'Gider doğdu — kâr azalır' },
+            { hesap:'654', ad:'Karşılık giderleri', borc:50000, not:'Gider doğdu: kâr azalır' },
             { hesap:'129', ad:'Şüpheli ticari alacaklar karşılığı', alacak:50000, not:'Kontra varlık' },
           ], not:'**Alacak silinmedi.** 120 hesabı hâlâ 50.000 TL gösteriyor; 129 hesabı onu bilançoda ' +
                  'sıfıra indiriyor. Müşteri sonradan öderse karşılık iptal edilir ve gelir yazılır.' },
@@ -967,7 +967,7 @@ SAP.registerTopic({
     ],
 
     sonuc:
-      '**Sonuç tablosu:** 100.000 TL gelir kaydedildi, 60.000 TL maliyet yazıldı — kâğıt üzerinde **40.000 TL kâr**. ' +
+      '**Sonuç tablosu:** 100.000 TL gelir kaydedildi, 60.000 TL maliyet yazıldı: kâğıt üzerinde **40.000 TL kâr**. ' +
       'Ama 70.000 TL tahsil edildi ve 50.000 TL için karşılık ayrıldı (50.000 TL gider). ' +
       'Gerçek sonuç: 100.000 − 60.000 − 50.000 = **−10.000 TL zarar**.\n\n' +
       '**Üç kritik ders:**\n\n' +
@@ -986,15 +986,15 @@ SAP.registerTopic({
       'AR, müşterilerden olan alacakları yöneten {{muavin-defter}}dir; ana muhasebeye {{mutabakat-hesabi}} ile yansır.',
       'AP’nin **aynasıdır**: LFA1↔{{KNA1}}, LFB1↔{{KNB1}}, BSIK↔{{BSID}}, BSAK↔{{BSAD}}, OBYC↔{{VKOA}}.',
       'Muhasebe zinciri: **fatura** (alacak doğar) → **{{tahsilat}}** (nakde döner) → **{{kapatma}}**.',
-      '**Tahsilat gelir değildir** — gelir faturada kaydedilir; tahsilat sadece varlık dönüşümüdür.',
+      '**Tahsilat gelir değildir**: gelir faturada kaydedilir; tahsilat sadece varlık dönüşümüdür.',
       'Faturanın iki yolu: **{{VF01}}** (SD’den otomatik, hesabı {{VKOA}} belirler) ve **{{FB70}}** (doğrudan FI).',
       'SD faturası kesildi ama FI belgesi yoksa {{VBRK}} `RFBSK` = "A" kalır; sebep genelde {{VKOA}} eksiğidir.',
-      '{{kismi-kapatma}} vadeyi korur, {{kalan-kapatma}} sıfırlar — AR’de varsayılan tercih kısmi olmalıdır.',
+      '{{kismi-kapatma}} vadeyi korur, {{kalan-kapatma}} sıfırlar: AR’de varsayılan tercih kısmi olmalıdır.',
       '{{supheli-alacak}}ta alacak silinmez; karşılık ayrılarak bilançoda net değere getirilir.',
     ],
 
     onemliNoktalar:[
-      '**"Tahsilat gelir midir?"** Hayır. Gelir fatura anında kaydedilir. Tahsilat alacağı nakde çevirir — bilanço içi yer değiştirme.',
+      '**"Tahsilat gelir midir?"** Hayır. Gelir fatura anında kaydedilir. Tahsilat alacağı nakde çevirir: bilanço içi yer değiştirme.',
       '**"SD faturası kesildi ama muhasebeye düşmedi. Ne yaparsın?"** {{VBRK}} `RFBSK` alanını kontrol et; "A" ise {{VKOA}}’yı tamamla ve {{VF02}} → *Muhasebeye aktar*. **Faturayı iptal etme.**',
       '**"Kısmi ile kalan kapatma farkı?"** Kısmi: orijinal kalem açık kalır, **vade korunur**. Kalan: orijinal kapanır, yeni kalem üretilir, **vade sıfırlanır** ve yaşlandırma bozulur.',
       '**"Müşteri avansı neden 120’ye yazılmaz?"** Avans bir alacak değil **borçtur** (müşteriye mal borcu). {{ozel-ana-muhasebe-gostergesi}} ile 340 hesabına yönlendirilir.',
@@ -1005,7 +1005,7 @@ SAP.registerTopic({
     ],
 
     sikHatalar:[
-      { hata:'Tahsilatı gelir olarak kaydetmek.', dogru:'Gelir faturada kaydedildi. Tahsilat: banka borç / müşteri alacak — gelir hesabı hiç çalışmaz.' },
+      { hata:'Tahsilatı gelir olarak kaydetmek.', dogru:'Gelir faturada kaydedildi. Tahsilat: banka borç / müşteri alacak: gelir hesabı hiç çalışmaz.' },
       { hata:'SD faturası muhasebeleşmedi diye faturayı iptal edip yeniden kesmek.', dogru:'{{VKOA}} eksiği giderilir, {{VF02}} ile yeniden aktarılır. İptal, SD numarasını boşa harcar.' },
       { hata:'Her kısmi tahsilatta kalan kapatma kullanmak.', dogru:'Vadeyi sıfırlar ve gecikmiş alacağı gizler. Varsayılan **kısmi kapatma** olmalıdır.' },
       { hata:'Müşteri avansını 120 Alıcılar hesabına yazmak.', dogru:'Avans bir borçtur; {{ozel-ana-muhasebe-gostergesi}} ile 340 hesabına yazılır.' },
@@ -1020,10 +1020,10 @@ SAP.registerTopic({
       '**AP’yi biliyorsan AR’yi yarı sürede öğrenirsin.** Tablo, işlem ve kavramlar birebir simetriktir; ' +
       'tek fark yönün tersine dönmesidir (borç↔alacak, varlık↔kaynak).',
       '{{FBL5N}} düzenine **gecikme günü** ve **ihtar seviyesi** sütunlarını ekle, varsayılan yap.',
-      'Tahsilatlarda FIFO disiplinini benimse — yaşlandırmanın gerçeği yansıtması buna bağlıdır.',
+      'Tahsilatlarda FIFO disiplinini benimse: yaşlandırmanın gerçeği yansıtması buna bağlıdır.',
       'Dönem sonunda {{S_ALR_87012168}} ile yaşlandırma al; **90+ gün grubu toplamın %5’ini geçiyorsa** ' +
       'tahsilat süreci gözden geçirilmelidir.',
-      'Toplu tahsilatları {{F-28}} yerine {{FEBAN}} üzerinden işle — banka ekstresi satırı doğrudan ' +
+      'Toplu tahsilatları {{F-28}} yerine {{FEBAN}} üzerinden işle: banka ekstresi satırı doğrudan ' +
       'açık kaleme bağlanır, çok daha hızlıdır.',
       '"Fatura muhasebeye düşmedi" şikâyetinde ilk komut: {{SE16N}} → {{VBRK}} → `RFBSK` alanına bak.',
     ],
@@ -1036,7 +1036,7 @@ SAP.registerTopic({
           'Alıcılar borç 120.000 / Banka alacak 120.000',
           'Banka borç 100.000 / Satışlar alacak 100.000 / KDV alacak 20.000',
         ], dogru:1,
-        aciklama:'{{tahsilat}} **gelir kaydı değildir** — gelir fatura anında kaydedilmişti. ' +
+        aciklama:'{{tahsilat}} **gelir kaydı değildir**: gelir fatura anında kaydedilmişti. ' +
                  'Tahsilat bilanço içi bir dönüşümdür: alacak azalır (120 alacaklanır), nakit artar (banka borçlanır).' },
 
       { soru:'SD faturası kesildi ama FI belgesi oluşmadı. İlk kontrol edilecek şey nedir?',
@@ -1062,9 +1062,9 @@ SAP.registerTopic({
 
       { soru:'Müşteriden mal teslim edilmeden 40.000 TL avans alındı. Bu tutar bilançoda nerede gösterilir?',
         secenekler:[
-          'Varlık — Alıcılar hesabında',
-          'Gelir tablosunda — satış geliri olarak',
-          'Kaynak — Alınan sipariş avansları hesabında',
+          'Varlık: Alıcılar hesabında',
+          'Gelir tablosunda: satış geliri olarak',
+          'Kaynak: Alınan sipariş avansları hesabında',
           'Kayıt yapılmaz, fatura kesilince kaydedilir',
         ], dogru:2,
         aciklama:'{{avans}} bir gelir değildir; mal/hizmet henüz verilmemiştir. Şirketin müşteriye ' +
@@ -1078,7 +1078,7 @@ SAP.registerTopic({
           'Gelir hesabı ters kaydedilir',
           'Hiçbir kayıt yapılmaz, hukuki süreç beklenir',
         ], dogru:1,
-        aciklama:'Alacak **silinmez** — hukuki takip sürdüğü için 120 hesabı bakiyeyi göstermeye devam eder. ' +
+        aciklama:'Alacak **silinmez**: hukuki takip sürdüğü için 120 hesabı bakiyeyi göstermeye devam eder. ' +
                  'Karşılık hesabı (129, kontra varlık) alacağı bilançoda netler. Müşteri sonradan öderse ' +
                  'karşılık iptal edilir ve gelir yazılır.' },
 
@@ -1112,12 +1112,12 @@ SAP.registerTopic({
       { on:'AR ile AP tablo simetrisi nedir?', arka:'**Satıcı → Müşteri**\nLFA1 → KNA1\nLFB1 → KNB1\nBSIK → **BSID** (açık)\nBSAK → **BSAD** (kapalı)\nOBYC → **VKOA**\nFBL1N → FBL5N' },
       { on:'SD faturası kesildi ama FI belgesi yok. Ne yaparsın?', arka:'**VBRK-RFBSK** alanına bak: "A" = aktarılmadı.\n\nEn sık sebep: **VKOA**’da gelir hesabı belirlemesi eksik.\n\nÇözüm: VKOA’yı tamamla → **VF02 → Muhasebeye aktar**.\n\nFaturayı iptal etme.' },
       { on:'Kısmi ile kalan kapatma farkı nedir?', arka:'**Kısmi:** orijinal kalem açık kalır, ödeme ayrı kalem olur. **Vade korunur** → yaşlandırma doğru kalır.\n\n**Kalan:** orijinal kapanır, yeni kalem üretilir. **Vade bugünden başlar** → gecikme silinir, ihtar sıfırlanır.\n\nAR’de varsayılan: kısmi.' },
-      { on:'Müşteri avansı neden 120 hesabına yazılmaz?', arka:'Avans bir **alacak değil, borçtur** — müşteriye mal/hizmet borcu.\n\nBilançoda **kaynak** tarafında (340 Alınan avanslar) gösterilir.\n\nÖzel G/L göstergesi ile ayrılır; fatura kesilince F-39 ile mahsup edilir.' },
+      { on:'Müşteri avansı neden 120 hesabına yazılmaz?', arka:'Avans bir **alacak değil, borçtur**: müşteriye mal/hizmet borcu.\n\nBilançoda **kaynak** tarafında (340 Alınan avanslar) gösterilir.\n\nÖzel G/L göstergesi ile ayrılır; fatura kesilince F-39 ile mahsup edilir.' },
       { on:'Şüpheli alacakta alacak silinir mi?', arka:'**Hayır.** Karşılık ayrılır:\n**654 Karşılık gideri borç / 129 Karşılık alacak**\n\n120 hesabı bakiyeyi göstermeye devam eder (hukuki takip sürüyor).\n129 kontra hesabı bilançoda netler.' },
       { on:'VKOA neye göre gelir hesabını belirler?', arka:'Dört kritere göre:\n1. **Satış organizasyonu**\n2. **Müşteri** hesap belirleme grubu\n3. **Malzeme** hesap belirleme grubu\n4. **Hesap anahtarı** (ERL gelir, ERS iskonto, ERF navlun)\n\nSonuç T030 tablosuna yazılır.' },
       { on:'İhtar (F150) muhasebe kaydı üretir mi?', arka:'**Hayır.**\n\nSadece takip verisi yazar:\n• MHNK/MHND tablolarına ihtar seviyesi ve tarih\n• Kalemde MAHNS alanı güncellenir\n\nGecikme faizi ayrıca faturalanırsa o zaman kayıt oluşur.' },
       { on:'Yaşlandırma nasıl yorumlanır?', arka:'Vadeden itibaren gün gruplarına ayrılır: gelmemiş · 1-30 · 31-60 · 61-90 · **90+**\n\n**90+ grubu toplamın %5’ini geçiyorsa** tahsilat süreci zayıftır.\n\nTek müşteri 90+’ın yarısındansa **yoğunlaşma riski** vardır.' },
-      { on:'Mal gönderildi ama fatura kesilmedi. Muhasebe durumu nedir?', arka:'Sadece **maliyet** kaydedilir:\n621 SMM borç / 153 Stok alacak\n\n**Gelir ve alacak yok** — bunlar faturayla doğar.\n\nDönem sonunda "faturalanmamış teslimat" olarak tahakkuk ettirilir.' },
+      { on:'Mal gönderildi ama fatura kesilmedi. Muhasebe durumu nedir?', arka:'Sadece **maliyet** kaydedilir:\n621 SMM borç / 153 Stok alacak\n\n**Gelir ve alacak yok**: bunlar faturayla doğar.\n\nDönem sonunda "faturalanmamış teslimat" olarak tahakkuk ettirilir.' },
       { on:'S/4HANA’da AR’de ne değişti?', arka:'1. Müşteri ana verisi → **BP** (FI Customer rolü)\n2. Kredi yönetimi FD32 → **UKM_BP** (SAP Credit Management)\n3. BSID/BSAD → **compatibility view**\n4. FSCM Collections Management ile tahsilat iş listesi' },
       { on:'Tahsilatta hangi kalemden başlanmalı?', arka:'**En eskiden (FIFO).**\n\nMüşteri hangi faturayı ödediğini belirtmediyse en eski kalem kapatılır.\n\nRastgele seçim gecikmiş alacakları açık bırakır ve yaşlandırma raporunu bozar.' },
     ],

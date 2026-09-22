@@ -1,6 +1,6 @@
 /* ==========================================================================
-   content/fi-en/bank-accounting.js — English body for "Bank Accounting"
-   Same conventions as content/fi-en/gl-accounting.js — see that file's
+   content/fi-en/bank-accounting.js: English body for "Bank Accounting"
+   Same conventions as content/fi-en/gl-accounting.js: see that file's
    header comment.
    ========================================================================== */
 
@@ -30,7 +30,7 @@ SAP.registerTopic({
     sirketOnemi:
       'In a company that doesn\'t perform bank reconciliation, **no figure can be trusted**. If the bank ' +
       'balance in accounting shows 4.2 million TRY while the bank\'s actual balance is 3.8 million TRY, the ' +
-      '400,000 TRY gap is either an unrecorded movement, an error — or possibly fraud.\n\n' +
+      '400,000 TRY gap is either an unrecorded movement, an error: or possibly fraud.\n\n' +
       'From a consulting standpoint, FI-BL is **inseparably tied** to {{F110}}: {{FBZP}} bank determination ' +
       'rules decide which house bank the payment program will pay from, and those rules rest on {{ev-bankasi}} ' +
       'setup. F110 doesn\'t work unless FI-BL is set up correctly.\n\n' +
@@ -48,14 +48,14 @@ SAP.registerTopic({
 
     muhasebeMantigi:
       'FI-BL\'s accounting logic rests on a single concept: **the two-stage posting**.\n\n' +
-      '**Stage 1 — the transaction is recorded:** when a payment is made, the {{banka-ara-hesabi}} is ' +
+      '**Stage 1: the transaction is recorded:** when a payment is made, the {{banka-ara-hesabi}} is ' +
       'credited. This means "we issued the payment instruction."\n\n' +
-      '**Stage 2 — the statement arrives:** the clearing account is debited, and the **actual bank account** is ' +
+      '**Stage 2: the statement arrives:** the clearing account is debited, and the **actual bank account** is ' +
       'credited. This means "the money actually went out."\n\n' +
       'The clearing account\'s balance = **money in transit**. In a healthy system this balance is small and ' +
       'closes within a few days. If it keeps growing, either the statement isn\'t being processed, or the ' +
       'payments being recorded aren\'t happening at the bank.\n\n' +
-      'That\'s why {{acik-kalem-yonetimi}} is **mandatory** on clearing accounts — so {{kapatma}} can happen.',
+      'That\'s why {{acik-kalem-yonetimi}} is **mandatory** on clearing accounts: so {{kapatma}} can happen.',
 
     kavramlar: ['ev-bankasi', 'banka-ara-hesabi', 'ekstre-eslestirme', 'valor-tarihi',
                 'acik-kalem-yonetimi', 'kapatma', 'odeme-yontemi'],
@@ -71,8 +71,8 @@ SAP.registerTopic({
 
     roller:[
       { rol:'Treasury / Finance', gorev:'Manages banking relationships, requests {{ev-bankasi}} setups, performs cash planning.' },
-      { rol:'AP accounting', gorev:'Records payments ({{F110}}, {{F-53}}) — the clearing account is credited.' },
-      { rol:'AR accounting', gorev:'Records collections ({{F-28}}) — the clearing account is debited.' },
+      { rol:'AP accounting', gorev:'Records payments ({{F110}}, {{F-53}}): the clearing account is credited.' },
+      { rol:'AR accounting', gorev:'Records collections ({{F-28}}): the clearing account is debited.' },
       { rol:'Bank accountant', gorev:'Processes the statement ({{FF67}} or {{FEBAN}}), closes the clearing accounts, investigates differences.' },
       { rol:'Accounting manager', gorev:'Approves the month-end bank reconciliation; follows up on unexplained differences.' },
       { rol:'FI consultant', gorev:'Sets up the {{ev-bankasi}} structure, clearing account design, {{FBZP}} bank determination, and check number ranges.' },
@@ -81,7 +81,7 @@ SAP.registerTopic({
 
     diyagram:{
       type:'flow',
-      baslik:'The bank process — from payment to reconciliation',
+      baslik:'The bank process: from payment to reconciliation',
       adimlar:[
         { ic:'🏦', rol:'FI consultant', baslik:'The bank structure is built',
           aciklama:'Bank master data ({{FI01}} → {{BNKA}}), {{ev-bankasi}} and account IDs ' +
@@ -133,10 +133,10 @@ SAP.registerTopic({
 
     notlar:[
       { tip:'tip', baslik:'How many clearing accounts are needed?', metin:
-        'A common design: **two clearing accounts per bank account** — one for outgoing payments, one for ' +
+        'A common design: **two clearing accounts per bank account**: one for outgoing payments, one for ' +
         'incoming collections. Some setups split further by payment method (a wire-transfer clearing account, ' +
         'a check clearing account).\n\n' +
-        'The finer the split, the easier reconciliation gets — but the chart of accounts grows. A practical ' +
+        'The finer the split, the easier reconciliation gets: but the chart of accounts grows. A practical ' +
         'balance: **bank account × direction** (outgoing/incoming). For 11 bank accounts, that\'s 22 clearing ' +
         'accounts + 11 actual accounts = 33 accounts.' },
       { tip:'warn', baslik:'What happens without a clearing account?', metin:
@@ -155,83 +155,83 @@ SAP.registerTopic({
       'first, then an incoming collection, then a check and a bank fee. The same pattern repeats in every one.',
 
     etkilenenHesaplar:[
-      { hesap:'102 Banks — actual account', tur:'Balance sheet — Asset', neden:'Only moves **once the statement is processed**. Its balance must match the figure the bank reports.' },
-      { hesap:'102.9x Bank clearing account (outgoing)', tur:'Balance sheet — Clearing', neden:'Credited when a payment is recorded, debited and closed once the statement arrives. Its balance = **outgoing money in transit**.' },
-      { hesap:'102.8x Bank clearing account (incoming)', tur:'Balance sheet — Clearing', neden:'Debited when a collection is recorded, credited and closed once the statement arrives.' },
+      { hesap:'102 Banks, actual account', tur:'Balance sheet, Asset', neden:'Only moves **once the statement is processed**. Its balance must match the figure the bank reports.' },
+      { hesap:'102.9x Bank clearing account (outgoing)', tur:'Balance sheet: Clearing', neden:'Credited when a payment is recorded, debited and closed once the statement arrives. Its balance = **outgoing money in transit**.' },
+      { hesap:'102.8x Bank clearing account (incoming)', tur:'Balance sheet: Clearing', neden:'Debited when a collection is recorded, credited and closed once the statement arrives.' },
       { hesap:'770 / 653 Bank charges', tur:'Income statement', neden:'Wire-transfer fees, account maintenance fees. Usually posted automatically while the statement is processed.' },
-      { hesap:'642 Interest income / 780 Interest expense', tur:'Income statement', neden:'Deposit interest and loan interest — comes from the statement.' },
-      { hesap:'103 Checks and payment orders issued', tur:'Balance sheet — Liability', neden:'Checks that have been written but not yet collected. Frequently used in the Turkish setup.' },
+      { hesap:'642 Interest income / 780 Interest expense', tur:'Income statement', neden:'Deposit interest and loan interest: comes from the statement.' },
+      { hesap:'103 Checks and payment orders issued', tur:'Balance sheet: Liability', neden:'Checks that have been written but not yet collected. Frequently used in the Turkish setup.' },
     ],
 
     fisler:[
-      { baslik:'Stage 1 — the payment is recorded ({{F110}})',
+      { baslik:'Stage 1: the payment is recorded ({{F110}})',
         belgeTuru:'KZ', tarih:'25.09.2026', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'320', ad:'Trade payables — V-4001', borc:140000, not:'Open item closed' },
-          { hesap:'102.91', ad:'Bank clearing account — outgoing ISB', alacak:140000, not:'**Not the actual account**' },
+          { hesap:'320', ad:'Trade payables: V-4001', borc:140000, not:'Open item closed' },
+          { hesap:'102.91', ad:'Bank clearing account: outgoing ISB', alacak:140000, not:'**Not the actual account**' },
         ],
         not:'The payment instruction was issued, but the money hasn\'t left the bank yet. This item sits ' +
              '**open** in the clearing account (thanks to {{acik-kalem-yonetimi}}).' },
 
-      { baslik:'Stage 2 — the statement arrives, the clearing account closes ({{FEBAN}})',
+      { baslik:'Stage 2: the statement arrives, the clearing account closes ({{FEBAN}})',
         belgeTuru:'SB', tarih:'26.09.2026', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'102.91', ad:'Bank clearing account — outgoing ISB', borc:140000, not:'**Closed** — item matched' },
-          { hesap:'102.01', ad:'Banks — ISB actual account', alacak:140000, not:'The money actually left' },
+          { hesap:'102.91', ad:'Bank clearing account, outgoing ISB', borc:140000, not:'**Closed**, item matched' },
+          { hesap:'102.01', ad:'Banks: ISB actual account', alacak:140000, not:'The money actually left' },
         ],
         not:'The cash outflow is confirmed **only here**. Account 102.01\'s balance now matches the figure the ' +
              'bank reports. The clearing account is zeroed out.' },
 
-      { baslik:'An incoming collection — same pattern, opposite direction',
+      { baslik:'An incoming collection: same pattern, opposite direction',
         belgeTuru:'DZ', tarih:'26.09.2026', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'102.81', ad:'Bank clearing account — incoming ISB', borc:120000, not:'Collection recorded' },
-          { hesap:'120', ad:'Trade receivables — C-5001', alacak:120000, not:'Open item closed' },
+          { hesap:'102.81', ad:'Bank clearing account: incoming ISB', borc:120000, not:'Collection recorded' },
+          { hesap:'120', ad:'Trade receivables: C-5001', alacak:120000, not:'Open item closed' },
         ],
         not:'When the statement arrives, the second posting is made: **102.81 credit / 102.01 debit**. Same ' +
              'pattern as the outgoing payment, just reversed.' },
 
-      { baslik:'A bank fee — automatic, from the statement',
+      { baslik:'A bank fee: automatic, from the statement',
         belgeTuru:'SB', tarih:'26.09.2026', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'770', ad:'General administrative expense — bank fee', borc:450 },
-          { hesap:'102.01', ad:'Banks — ISB', alacak:450 },
+          { hesap:'770', ad:'General administrative expense: bank fee', borc:450 },
+          { hesap:'102.01', ad:'Banks: ISB', alacak:450 },
         ],
         not:'Bank fees arrive as a separate line on the statement and are posted **directly to the actual ' +
-             'account** — no clearing account is used. That\'s because this movement has no prior counterpart ' +
+             'account**: no clearing account is used. That\'s because this movement has no prior counterpart ' +
              'already recorded in accounting; it\'s learned about for the first time from the statement. ' +
              '{{OT83}} posting rules automate this.' },
 
-      { baslik:'A check is written ({{FCH5}}) — the Turkish setup',
+      { baslik:'A check is written ({{FCH5}}): the Turkish setup',
         belgeTuru:'KZ', tarih:'25.09.2026', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'320', ad:'Trade payables — V-6001', borc:85000 },
+          { hesap:'320', ad:'Trade payables: V-6001', borc:85000 },
           { hesap:'103', ad:'Checks and payment orders issued', alacak:85000, not:'Check written, not yet collected' },
         ],
         not:'A check **behaves like a clearing account**: account 103 is credited when it\'s written, and ' +
              'debited (with the bank credited) once it\'s presented for collection. The gap between the two ' +
              'can run for months, depending on the check\'s due date. The {{PAYR}} table tracks every check\'s status.' },
 
-      { baslik:'The check is collected — from the statement',
+      { baslik:'The check is collected: from the statement',
         belgeTuru:'SB', tarih:'15.11.2026', paraBirimi:'TRY',
         satirlar:[
           { hesap:'103', ad:'Checks and payment orders issued', borc:85000, not:'Check collected' },
-          { hesap:'102.01', ad:'Banks — ISB', alacak:85000 },
+          { hesap:'102.01', ad:'Banks: ISB', alacak:85000 },
         ],
         not:'Account 103\'s balance = **checks not yet collected**. This is the most common explainable ' +
              'difference in bank reconciliation.' },
     ],
 
     tHesaplar:[
-      { hesap:'Banks — actual account', kod:'102.01',
+      { hesap:'Banks: actual account', kod:'102.01',
         borc:[{ ad:'Collections (from the statement)', tutar:120000 }],
         alacak:[{ ad:'Payments (from the statement)', tutar:140000 }, { ad:'Bank fee', tutar:450 }],
         not:'Its balance should match the bank\'s figure' },
-      { hesap:'Bank clearing account — outgoing', kod:'102.91',
+      { hesap:'Bank clearing account: outgoing', kod:'102.91',
         borc:[{ ad:'Statement match', tutar:140000 }],
         alacak:[{ ad:'F110 payment', tutar:140000 }],
         not:'Balance = outgoing money in transit' },
-      { hesap:'Bank clearing account — incoming', kod:'102.81',
+      { hesap:'Bank clearing account: incoming', kod:'102.81',
         borc:[{ ad:'Collection posting', tutar:120000 }],
         alacak:[{ ad:'Statement match', tutar:120000 }],
         not:'Balance = incoming money in transit' },
@@ -252,7 +252,7 @@ SAP.registerTopic({
         'This balance should be monitored monthly; its growth is the first sign of a silent reconciliation breakdown.' },
       { tip:'tip', baslik:'Why doesn\'t a bank fee use a clearing account?', metin:
         'A clearing account waits for a movement **already recorded in accounting** to happen at the bank. ' +
-        'You learn about a bank fee for the first time from the statement — it has no expected counterpart.\n\n' +
+        'You learn about a bank fee for the first time from the statement: it has no expected counterpart.\n\n' +
         'That\'s why it\'s posted directly to the actual bank account and an expense account. The same logic ' +
         'applies to interest, stamp duty, and unexpected wire transfers.' },
     ],
@@ -265,14 +265,14 @@ SAP.registerTopic({
       '**the payment instrument**.',
 
     liste:[
-      { ad:'Bank Master Data — BNKA',
+      { ad:'Bank Master Data: BNKA',
         aciklama:'The list of **every bank in the world**: country + bank key, name, SWIFT, address. Both the ' +
                  'company\'s own banks and customer/vendor banks live here.',
         neZaman:'Before a business partner\'s bank information can be entered, that bank must already be defined in {{BNKA}}.',
         ornek:'TR + 0064 → İş Bankası. The bank-key format varies by country.',
         tcodes:['FI01','FI02','FI03'] },
 
-      { ad:'House Bank — T012',
+      { ad:'House Bank: T012',
         aciklama:'The bank **the company itself** works with. Each house bank has one or more **account IDs**, ' +
                  'and each ID is linked to a G/L account.',
         neZaman:'Mandatory when {{F110}} or statement processing will be used.',
@@ -280,14 +280,14 @@ SAP.registerTopic({
               'account and its own clearing account.',
         tcodes:['FI12','FBZP'] },
 
-      { ad:'Manual Bank Statement — FF67',
+      { ad:'Manual Bank Statement: FF67',
         aciklama:'Statement lines are entered **by hand**. Posting rules still apply, but the data is manual.',
         neZaman:'At small banks that don\'t provide an electronic statement, on foreign accounts, or before ' +
                 'the switch to electronic statements.',
         ornek:'A treasury specialist enters 40 lines from a paper statement into {{FF67}}.',
         tcodes:['FF67'] },
 
-      { ad:'Electronic Bank Statement — FF_5',
+      { ad:'Electronic Bank Statement: FF_5',
         aciklama:'The file coming from the bank (MT940, CAMT.053) is uploaded to the system and posting ' +
                  'rules apply automatically. See the {{konu:ebs}} topic for detail.',
         neZaman:'The **standard choice** when volume is high. Both faster and less error-prone than manual entry.',
@@ -320,7 +320,7 @@ SAP.registerTopic({
       ['What it holds', '**Every bank** in the world', 'Only the banks the company **itself** works with'],
       ['Whose bank', 'Customer, vendor, and the company\'s', 'Only the company\'s'],
       ['Key', 'Country + bank key', 'Company code + house bank ID'],
-      ['G/L account link', 'None', '**Yes** — an account ID is linked to a G/L account'],
+      ['G/L account link', 'None', '**Yes**: an account ID is linked to a G/L account'],
       ['Used by {{F110}}?', 'For the business partner\'s IBAN', '**To decide which account the payment goes out from**'],
       ['Transaction code', '{{FI01}} / {{FI02}} / {{FI03}}', '{{FI12}}'],
       ['Table', '{{BNKA}}', '{{T012}} / {{T012K}}'],
@@ -361,7 +361,7 @@ SAP.registerTopic({
         ],
         ipucu:'Plan **three G/L accounts** for every house bank account: the actual bank account, the ' +
               'outgoing clearing account, the incoming clearing account. {{acik-kalem-yonetimi}} must be on ' +
-              'for clearing accounts — otherwise {{kapatma}} can\'t happen and reconciliation becomes impossible.',
+              'for clearing accounts: otherwise {{kapatma}} can\'t happen and reconciliation becomes impossible.',
         ilgili:['FI01','FBZP','FCHI','T012K'] },
 
       { kod:'FF67', ad:'Manual bank statement entry',
@@ -372,7 +372,7 @@ SAP.registerTopic({
             aciklama:'The statement number must be sequential; a skipped number creates a reconciliation gap.' },
           { baslik:'Enter the opening and closing balances',
             aciklama:'The system expects the sum of the entered lines to equal the difference between these ' +
-                     'two balances. It warns if it doesn\'t — a strong control.' },
+                     'two balances. It warns if it doesn\'t: a strong control.' },
           { baslik:'Enter the lines: transaction code, amount, value date, reference',
             aciklama:'The transaction code (the bank transaction code) decides the posting rule and target account.' },
           { baslik:'Save and run the batch input session',
@@ -394,7 +394,7 @@ SAP.registerTopic({
         neZaman:'When a checkbook is received; before paying with a check.',
         adimlar:[
           { baslik:'Enter the company code, house bank, and account ID' },
-          { baslik:'Enter the check number range: lower bound — upper bound',
+          { baslik:'Enter the check number range: lower bound: upper bound',
             aciklama:'Must match the physical checkbook\'s numbers **exactly**.' },
           { baslik:'Enter the range ID and description' },
         ],
@@ -445,7 +445,7 @@ SAP.registerTopic({
         ],
         ipucu:'**The difference between {{FCH8}} and {{FCH9}} is critical:** FCH8 voids both the check and ' +
               'the payment; FCH9 voids **only the check** and the payment document stands. Use FCH9 when the ' +
-              'check was printed wrong but the payment itself is correct — a new check is then linked afterward.',
+              'check was printed wrong but the payment itself is correct: a new check is then linked afterward.',
         ilgili:['FCH9','FCHN','FBRA','FB08'] },
     ],
   },
@@ -467,9 +467,9 @@ SAP.registerTopic({
         s4:'Unchanged.',
         alanlar:[
           { ad:'BANKS', aciklama:'Bank country' },
-          { ad:'BANKL', aciklama:'Bank key — format varies by country' },
+          { ad:'BANKL', aciklama:'Bank key: format varies by country' },
           { ad:'BANKA', aciklama:'Bank name' },
-          { ad:'SWIFT', aciklama:'SWIFT/BIC code — mandatory for international payments' },
+          { ad:'SWIFT', aciklama:'SWIFT/BIC code: mandatory for international payments' },
         ] },
 
       { ad:'T012', baslik:'House bank definition',
@@ -493,7 +493,7 @@ SAP.registerTopic({
         s4:'Managed with BAM.',
         alanlar:[
           { ad:'HKTID', aciklama:'Account ID (e.g. 0001)' },
-          { ad:'HKONT', aciklama:'**G/L account** — the accounting counterpart of movements on this account' },
+          { ad:'HKONT', aciklama:'**G/L account**: the accounting counterpart of movements on this account' },
           { ad:'BANKN / IBAN', aciklama:'Account number and IBAN' },
         ] },
 
@@ -508,8 +508,8 @@ SAP.registerTopic({
           { ad:'CHECT', aciklama:'Check number' },
           { ad:'VBLNR', aciklama:'Linked payment document' },
           { ad:'ZALDT', aciklama:'Check date' },
-          { ad:'BANCD', aciklama:'**Collection date** — if filled, the check has been collected at the bank' },
-          { ad:'VOIDR', aciklama:'Void reason — if filled, the check has been voided' },
+          { ad:'BANCD', aciklama:'**Collection date**: if filled, the check has been collected at the bank' },
+          { ad:'VOIDR', aciklama:'Void reason: if filled, the check has been voided' },
         ] },
 
       { ad:'FEBKO', baslik:'Bank statement header',
@@ -533,11 +533,11 @@ SAP.registerTopic({
         iliskiler:'A child of {{FEBKO}}; links to the FI document it matches.',
         s4:'Unchanged.',
         alanlar:[
-          { ad:'VGINT / VGEXT', aciklama:'Internal and external bank transaction code — decides the posting rule' },
+          { ad:'VGINT / VGEXT', aciklama:'Internal and external bank transaction code: decides the posting rule' },
           { ad:'KWBTR', aciklama:'Line amount' },
           { ad:'VALUT', aciklama:'{{valor-tarihi}}' },
-          { ad:'SGTXT / Note to payee', aciklama:'Description text — the main input for automatic matching' },
-          { ad:'EPVOZ / Status', aciklama:'The line\'s processing status — this is where pending lines in {{FEBAN}} are found' },
+          { ad:'SGTXT / Note to payee', aciklama:'Description text: the main input for automatic matching' },
+          { ad:'EPVOZ / Status', aciklama:'The line\'s processing status: this is where pending lines in {{FEBAN}} are found' },
         ] },
     ],
 
@@ -581,10 +581,10 @@ SAP.registerTopic({
       '**reconciliation checking** ({{FBL3N}}). On the configuration side, {{FI12}} is central.',
 
     ekranlar:[
-      { ad:'{{FI12}} — House bank definition',
+      { ad:'{{FI12}}: House bank definition',
         aciklama:'A three-tier screen: house bank → account ID → G/L account link.',
         alanlar:[
-          { ad:'House bank ID (`HBKID`)', zorunlu:true, aciklama:'5 characters, free text (ISB, GRNT). Choose a meaningful abbreviation — you\'ll see it constantly in {{FBZP}}.' },
+          { ad:'House bank ID (`HBKID`)', zorunlu:true, aciklama:'5 characters, free text (ISB, GRNT). Choose a meaningful abbreviation: you\'ll see it constantly in {{FBZP}}.' },
           { ad:'Bank country + bank key', zorunlu:true, aciklama:'A reference to {{BNKA}}. If the bank isn\'t defined, use {{FI01}} first.' },
           { ad:'Account ID (`HKTID`)', zorunlu:true, aciklama:'A separate one for every account at the same bank (0001 TRY, 0002 EUR).' },
           { ad:'**G/L account (`HKONT`)**', zorunlu:true, aciklama:'This account\'s accounting counterpart. The actual bank account is entered here; clearing accounts are defined separately in {{FBZP}}.' },
@@ -593,21 +593,21 @@ SAP.registerTopic({
         ipucu:'Choose a meaningful house bank ID: something like **ISB**, **GRNT**, **AKBNK**. You\'ll keep ' +
               'seeing it in {{FBZP}} bank determination and in {{REGUH}} records.' },
 
-      { ad:'{{FF67}} — Manual statement entry screen',
+      { ad:'{{FF67}}: Manual statement entry screen',
         aciklama:'The statement header on top, the line table below. The balance check is its most valuable feature.',
         alanlar:[
           { ad:'House bank / Account ID', zorunlu:true, aciklama:'Which account\'s statement.' },
           { ad:'Statement number', zorunlu:true, aciklama:'**Must be sequential.** A skipped number creates a reconciliation gap.' },
           { ad:'Opening balance', zorunlu:true, aciklama:'Must equal the previous statement\'s closing balance.' },
-          { ad:'Closing balance', zorunlu:true, aciklama:'The system expects the line totals to equal this difference — a **strong control**.' },
+          { ad:'Closing balance', zorunlu:true, aciklama:'The system expects the line totals to equal this difference: a **strong control**.' },
           { ad:'Line: transaction code', zorunlu:true, aciklama:'The bank transaction code; decides the posting rule in {{OT83}} and the target account.' },
           { ad:'Line: amount / {{valor-tarihi}}', zorunlu:true, aciklama:'The value date is used for cash management, the posting date for the accounting period.' },
-          { ad:'Line: reference / description', zorunlu:false, aciklama:'The main input for automatic matching — document number, invoice number, or business partner name.' },
+          { ad:'Line: reference / description', zorunlu:false, aciklama:'The main input for automatic matching: document number, invoice number, or business partner name.' },
         ],
         ipucu:'**Never skip** the opening-closing balance check. This single check catches nearly all ' +
               'statement-entry errors and saves the reconciliation.' },
 
-      { ad:'{{FEBAN}} — Statement correction (post-processing)',
+      { ad:'{{FEBAN}}: Statement correction (post-processing)',
         aciklama:'The screen where unmatched lines are linked by hand. See the {{konu:ebs}} topic for detail.',
         alanlar:[
           { ad:'Statement / line selection', zorunlu:true, aciklama:'Unprocessed lines are listed.' },
@@ -615,7 +615,7 @@ SAP.registerTopic({
           { ad:'Posting rule', zorunlu:false, aciklama:'Determined automatically; can be changed by hand.' },
         ] },
 
-      { ad:'{{FBL3N}} — Clearing account check',
+      { ad:'{{FBL3N}}: Clearing account check',
         aciklama:'Where bank reconciliation actually gets done.',
         alanlar:[
           { ad:'Account', zorunlu:true, aciklama:'The {{banka-ara-hesabi}} (such as 102.91, 102.81).' },
@@ -644,7 +644,7 @@ SAP.registerTopic({
       '+ an incoming clearing account. {{acik-kalem-yonetimi}} must be **on** for clearing accounts.',
       'Monitor clearing account balances **weekly**. Growth is the first and only silent sign of a reconciliation breakdown.',
       'If there\'s an open item older than 30 days in a clearing account at month-end, investigate it ' +
-      'individually — these are usually movements that were never recorded, or recorded twice.',
+      'individually: these are usually movements that were never recorded, or recorded twice.',
       'If checks are used, pull an **uncollected checks** list with {{FCHN}}; account 103\'s balance should ' +
       'equal this list\'s total.',
       'Give the house bank ID a meaningful abbreviation (you\'ll keep seeing it in {{FBZP}} and {{REGUH}}).',
@@ -656,10 +656,10 @@ SAP.registerTopic({
   /* ===================================================== 8. TECHNICAL DETAIL === */
   teknik: {
     guncellenenTablolar:[
-      { tablo:'BNKA', ne:'Bank master data — via {{FI01}}' },
-      { tablo:'T012', ne:'House bank definition — via {{FI12}}' },
+      { tablo:'BNKA', ne:'Bank master data: via {{FI01}}' },
+      { tablo:'T012', ne:'House bank definition: via {{FI12}}' },
       { tablo:'T012K', ne:'Account IDs and the G/L account link' },
-      { tablo:'FEBKO', ne:'Statement header — via {{FF_5}} or {{FF67}}' },
+      { tablo:'FEBKO', ne:'Statement header: via {{FF_5}} or {{FF67}}' },
       { tablo:'FEBEP', ne:'Statement lines and their processing status' },
       { tablo:'PAYR', ne:'Check records; `BANCD` fills in once collected' },
       { tablo:'BKPF / BSEG', ne:'The FI documents statement processing produces' },
@@ -684,10 +684,10 @@ SAP.registerTopic({
     postingLogic:
       'The chain a statement line follows to get posted:\n\n' +
       '**1.** The **bank transaction code** (the code coming from the bank, e.g. 051, 835) is read.\n' +
-      '**2. {{OT83}}** — which **posting rule** does this code map to?\n' +
-      '**3. The posting rule** — which accounts get debited/credited? (via account symbols)\n' +
-      '**4. The account symbol is resolved** — the symbol turns into the actual G/L account for that house bank account.\n' +
-      '**5. Matching is attempted** — an open item is searched for using the document number or amount in the description text.\n' +
+      '**2. {{OT83}}**: which **posting rule** does this code map to?\n' +
+      '**3. The posting rule**: which accounts get debited/credited? (via account symbols)\n' +
+      '**4. The account symbol is resolved**: the symbol turns into the actual G/L account for that house bank account.\n' +
+      '**5. Matching is attempted**: an open item is searched for using the document number or amount in the description text.\n' +
       '**6.** If it matches, it\'s cleared; if not, the line falls into {{FEBAN}}.',
 
     belgeTuru:
@@ -712,28 +712,28 @@ SAP.registerTopic({
 
     transport:
       '{{OT83}} posting rules and account symbols transport. {{ev-bankasi}} definitions are **system-specific** ' +
-      '— the bank accounts in the test system differ from production and usually don\'t transport.\n\n' +
+      ': the bank accounts in the test system differ from production and usually don\'t transport.\n\n' +
       '**Critical:** {{FBZP}} bank determination settings reference house banks. After {{FBZP}} is ' +
       'transported, the existence of the house banks in the target system **must be verified**.',
 
     img:[
       { yol:'SPRO → Financial Accounting → Bank Accounting → Bank Accounts → Define House Banks', not:'{{ev-bankasi}} ({{FI12}})' },
-      { yol:'SPRO → … → Bank Accounting → Business Transactions → Payment Transactions → Manual Bank Statement → Make Global Settings', not:'{{OT83}} — account symbols and posting rules' },
+      { yol:'SPRO → … → Bank Accounting → Business Transactions → Payment Transactions → Manual Bank Statement → Make Global Settings', not:'{{OT83}}: account symbols and posting rules' },
       { yol:'SPRO → … → Bank Accounting → Business Transactions → Check Deposit → Define Check Number Ranges', not:'{{FCHI}}' },
-      { yol:'SPRO → … → Accounts Receivable and Accounts Payable → Business Transactions → Outgoing Payments → Automatic Outgoing Payments → Payment Program Configuration → Bank Determination', not:'{{FBZP}} — which bank to pay from' },
+      { yol:'SPRO → … → Accounts Receivable and Accounts Payable → Business Transactions → Outgoing Payments → Automatic Outgoing Payments → Payment Program Configuration → Bank Determination', not:'{{FBZP}}: which bank to pay from' },
     ],
 
     ekstra:[
-      { ic:'⚖️', baslik:'How is bank reconciliation done? — four steps', metin:
+      { ic:'⚖️', baslik:'How is bank reconciliation done? - four steps', metin:
         'At month-end, the bank balance in accounting is compared against the statement\'s closing balance. ' +
         'The difference is almost always made up of four explainable items:\n\n' +
-        '**1. Outgoing payments in transit** — recorded, but not yet reflected at the bank. → the outgoing ' +
+        '**1. Outgoing payments in transit**: recorded, but not yet reflected at the bank. → the outgoing ' +
         '{{banka-ara-hesabi}}\'s balance.\n\n' +
-        '**2. Incoming collections in transit** — recorded, but not yet reflected at the bank. → the ' +
+        '**2. Incoming collections in transit**: recorded, but not yet reflected at the bank. → the ' +
         'incoming clearing account\'s balance.\n\n' +
-        '**3. Uncollected checks** — written, not yet presented. → account 103\'s balance (verified against ' +
+        '**3. Uncollected checks**: written, not yet presented. → account 103\'s balance (verified against ' +
         'the {{FCHN}} list).\n\n' +
-        '**4. Movements the bank recorded that never reached us** — fees, interest, an unexpected wire ' +
+        '**4. Movements the bank recorded that never reached us**: fees, interest, an unexpected wire ' +
         'transfer. → disappears once the statement is processed.\n\n' +
         'Once these four are explained, whatever difference remains is a **genuine error** and must be investigated.' },
 
@@ -742,7 +742,7 @@ SAP.registerTopic({
         '**Segregation of duties:** the person who records the payment, the person who approves it, and the ' +
         'person who sends the bank file must **all be different**.\n\n' +
         '**Bank account changes:** business partners\' IBAN changes should be tracked via {{CDPOS}} and ' +
-        'require separate approval — a fake "our bank account has changed" email is the most common fraud technique.\n\n' +
+        'require separate approval: a fake "our bank account has changed" email is the most common fraud technique.\n\n' +
         '**Checkbook control:** unused check numbers should be checked regularly with {{FCHN}}; lost checks ' +
         'should be voided with {{FCH9}}.' },
     ],
@@ -752,7 +752,7 @@ SAP.registerTopic({
         'If {{acik-kalem-yonetimi}} is off on the {{banka-ara-hesabi}}, statement matching **never works**: ' +
         'items can\'t be cleared, the balance inflates, and reconciliation becomes impossible.\n\n' +
         'This setting must be made when the account is opened. Changing it on an account with movements ' +
-        'requires zeroing the balance and restoring it — risky in production.' },
+        'requires zeroing the balance and restoring it: risky in production.' },
     ],
   },
 
@@ -764,10 +764,10 @@ SAP.registerTopic({
       'statement-processing logic itself didn\'t change.',
 
     eccFarklari:[
-      { konu:'House bank management', ecc:'{{FI12}} — behaves like customizing, requires a transport request', s4:'**Bank Account Management** — master data, Fiori interface, approval workflow' },
+      { konu:'House bank management', ecc:'{{FI12}}, behaves like customizing, requires a transport request', s4:'**Bank Account Management**, master data, Fiori interface, approval workflow' },
       { konu:'Opening a bank account', ecc:'By a consultant/authorized user, from IMG', s4:'By a **business user**, with an approval workflow' },
       { konu:'Statement processing', ecc:'{{FF_5}}, {{FEBAN}}', s4:'**Same** + the Fiori "Reprocess Bank Statement Items" app' },
-      { konu:'Cash visibility', ecc:'A separate Cash Management module', s4:'Integrated Cash Management — bank balances in real time' },
+      { konu:'Cash visibility', ecc:'A separate Cash Management module', s4:'Integrated Cash Management: bank balances in real time' },
       { konu:'Payment medium', ecc:'Classic RFFO* programs common', s4:'**PMW is standard** ({{FBPM}})' },
       { konu:'Bank master data', ecc:'{{BNKA}} / {{FI01}}', s4:'Unchanged' },
     ],
@@ -787,12 +787,12 @@ SAP.registerTopic({
       { ad:'Manage Bank Accounts', aciklama:'Manages house bank accounts with an approval workflow (BAM). FI-BL\'s biggest innovation.' },
       { ad:'Reprocess Bank Statement Items', aciklama:'The Fiori counterpart of {{FEBAN}}; unmatched lines as a visual worklist.' },
       { ad:'Cash Flow Analyzer', aciklama:'Shows bank balances and expected cash movements together.' },
-      { ad:'Bank Statement Monitor', aciklama:'Which accounts\' statements have been uploaded and which are missing — reconciliation control.' },
+      { ad:'Bank Statement Monitor', aciklama:'Which accounts\' statements have been uploaded and which are missing: reconciliation control.' },
       { ad:'Manage Checks', aciklama:'Replaces {{FCHN}}; checkbook management.' },
     ],
 
     compatibilityViews:[
-      '{{BNKA}}, {{T012}}, {{T012K}}, {{PAYR}}, {{FEBKO}}, {{FEBEP}} — **all remain physical tables**.',
+      '{{BNKA}}, {{T012}}, {{T012K}}, {{PAYR}}, {{FEBKO}}, {{FEBEP}}: **all remain physical tables**.',
       'FI-BL is one of the areas whose table structure changed the least in S/4HANA.',
       'What changed is **how these tables are managed** (as master data, via BAM), not their structure.',
     ],
@@ -804,7 +804,7 @@ SAP.registerTopic({
 
     bestPractices:[
       'During the S/4HANA migration, **move house bank accounts to BAM** and tie bank account changes to an ' +
-      'approval workflow — the highest-return step for internal control.',
+      'approval workflow: the highest-return step for internal control.',
       'If there are accounts that haven\'t moved to electronic statements, the migration project is a good opportunity for that.',
       'Use PMW for the payment medium; don\'t do new development on classic RFFO* programs.',
       'Review the clearing account structure during migration: is the bank-account × direction pattern sustainable?',
@@ -826,7 +826,7 @@ SAP.registerTopic({
       { k:'Actual bank account', v:'102001' },
       { k:'Outgoing clearing account', v:'102091 (open item managed ✓)' },
       { k:'Incoming clearing account', v:'102081 (open item managed ✓)' },
-      { k:'Check account', v:'103000 — checks issued' },
+      { k:'Check account', v:'103000: checks issued' },
       { k:'Date', v:'30.09.2026' },
     ],
 
@@ -834,26 +834,26 @@ SAP.registerTopic({
       { baslik:'The balances are compared', tcode:'FS10N',
         aciklama:'First step: what does accounting say, what does the bank say?',
         girdi:[
-          { alan:'Accounting — 102001 balance', deger:'3,850,000 TRY (debit)' },
+          { alan:'Accounting: 102001 balance', deger:'3,850,000 TRY (debit)' },
           { alan:'Bank statement closing balance', deger:'4,250,000 TRY' },
-          { alan:'**Difference**', deger:'**400,000 TRY** — the bank shows more' },
+          { alan:'**Difference**', deger:'**400,000 TRY**: the bank shows more' },
         ],
         not:'If the bank shows more: either an outflow we\'ve recorded hasn\'t yet happened at the bank, or ' +
              'money that reached the bank isn\'t recorded on our side. Both can be true at once.' },
 
-      { baslik:'Component 1 — the outgoing clearing account is checked', tcode:'FBL3N',
+      { baslik:'Component 1: the outgoing clearing account is checked', tcode:'FBL3N',
         aciklama:'Part of the September 25 payment run will only hit the bank on October 1. These items sit ' +
                  '**open** in the clearing account.',
         girdi:[
           { alan:'Account / Item type', deger:'102091 · **Open items** · 30.09.2026' },
           { alan:'Finding', deger:'8 open items, totaling **310,000 TRY** credit' },
-          { alan:'Detail', deger:'All are payments dated September 28–30 — not yet reflected on the statement' },
+          { alan:'Detail', deger:'All are payments dated September 28-30: not yet reflected on the statement' },
           { alan:'Meaning', deger:'The money left in our records, not yet at the bank' },
         ],
         not:'This is a **normal, expected** difference. The payment file was sent to the bank, but the bank ' +
              'hasn\'t processed it yet. It\'ll close within 1-2 days.' },
 
-      { baslik:'Component 2 — the incoming clearing account is checked', tcode:'FBL3N',
+      { baslik:'Component 2: the incoming clearing account is checked', tcode:'FBL3N',
         aciklama:'Some collections from customers were recorded but haven\'t hit the statement.',
         girdi:[
           { alan:'Account', deger:'102081 · Open items · 30.09.2026' },
@@ -862,7 +862,7 @@ SAP.registerTopic({
         ],
         not:'These items **reduce** the difference (our balance looks that much higher by comparison).' },
 
-      { baslik:'Component 3 — uncollected checks', tcode:'FCHN',
+      { baslik:'Component 3: uncollected checks', tcode:'FCHN',
         aciklama:'Checks that have been written but not yet presented to the bank.',
         girdi:[
           { alan:'Filter', deger:'House bank ISB · Status: **not collected**' },
@@ -873,13 +873,13 @@ SAP.registerTopic({
         not:'The {{FCHN}} list\'s total and account 103\'s balance **should match**. If they don\'t, there\'s ' +
              'a gap between the check record and the accounting entry.' },
 
-      { baslik:'Component 4 — on the statement but not on our side', tcode:'FEBAN',
+      { baslik:'Component 4: on the statement but not on our side', tcode:'FEBAN',
         aciklama:'The statement was uploaded but some lines haven\'t been processed yet.',
         girdi:[
           { alan:'Unprocessed lines', deger:'4 lines pending' },
-          { alan:'Line 1', deger:'Bank fee 450 TRY — a posting rule is defined, will be processed' },
-          { alan:'Line 2', deger:'Deposit interest 1,200 TRY — a posting rule is defined' },
-          { alan:'Lines 3–4', deger:'2 wire transfers from customers, totaling **178,750 TRY** — description text didn\'t match' },
+          { alan:'Line 1', deger:'Bank fee 450 TRY: a posting rule is defined, will be processed' },
+          { alan:'Line 2', deger:'Deposit interest 1,200 TRY: a posting rule is defined' },
+          { alan:'Lines 3-4', deger:'2 wire transfers from customers, totaling **178,750 TRY**: description text didn\'t match' },
           { alan:'Total impact', deger:'+179,500 TRY about to enter our records' },
         ],
         not:'The reason the wire transfers didn\'t match: the customer didn\'t write the invoice number in the ' +
@@ -903,19 +903,19 @@ SAP.registerTopic({
       { baslik:'The pending statement lines are processed', tcode:'FEBAN',
         aciklama:'Two wire transfers are linked to customer accounts by hand; the fee and interest post automatically.',
         girdi:[
-          { alan:'Transfer 1 — 98,750 TRY', deger:'Matched to customer C-5001\'s open invoice' },
-          { alan:'Transfer 2 — 80,000 TRY', deger:'Matched to customer C-5012\'s open invoice' },
+          { alan:'Transfer 1: 98,750 TRY', deger:'Matched to customer C-5001\'s open invoice' },
+          { alan:'Transfer 2: 80,000 TRY', deger:'Matched to customer C-5012\'s open invoice' },
           { alan:'Bank fee', deger:'450 TRY → account 770 expense (automatic rule)' },
           { alan:'Deposit interest', deger:'1,200 TRY → account 642 interest income (automatic rule)' },
         ],
-        fis:{ baslik:'Document 1000005678 — Statement posting', belgeTuru:'SB', tarih:'30.09.2026',
+        fis:{ baslik:'Document 1000005678: Statement posting', belgeTuru:'SB', tarih:'30.09.2026',
           satirlar:[
-            { hesap:'102001', ad:'Banks — ISB', borc:179500, not:'Net inflow' },
-            { hesap:'120', ad:'Trade receivables — C-5001', alacak:98750, not:'Open item closed' },
-            { hesap:'120', ad:'Trade receivables — C-5012', alacak:80000, not:'Open item closed' },
+            { hesap:'102001', ad:'Banks: ISB', borc:179500, not:'Net inflow' },
+            { hesap:'120', ad:'Trade receivables: C-5001', alacak:98750, not:'Open item closed' },
+            { hesap:'120', ad:'Trade receivables: C-5012', alacak:80000, not:'Open item closed' },
             { hesap:'642', ad:'Interest income', alacak:1200 },
             { hesap:'770', ad:'Bank fees', borc:450 },
-          ], not:'The wire transfers were posted directly to the actual bank account — **no clearing account ' +
+          ], not:'The wire transfers were posted directly to the actual bank account: **no clearing account ' +
                  'was used**. That\'s because these collections had no prior counterpart already recorded in ' +
                  'accounting; they were learned about for the first time from the statement.' },
         tabloEtkisi:[
@@ -932,7 +932,7 @@ SAP.registerTopic({
           { alan:'(+) Uncollected checks', deger:'+135,000 TRY' },
           { alan:'**Calculated**', deger:'**4,429,500 TRY**' },
           { alan:'Actual statement balance', deger:'4,250,000 TRY' },
-          { alan:'Remaining difference', deger:'179,500 TRY — **a double-counting error detected**' },
+          { alan:'Remaining difference', deger:'179,500 TRY: **a double-counting error detected**' },
         ],
         not:'The lines that were processed got added to the accounting balance **and** were left in the "on ' +
              'statement, not processed" item. The correct total: 4,029,500 + 310,000 − 45,000 + 135,000 doesn\'t ' +

@@ -149,9 +149,11 @@ body.menu-open .burger i:last-child  { transform: translateY(-4.25px) rotate(-45
 .side-item.active, .side-topic.active { background: var(--accent-tint); }
 .side-topic.active::before { background: transparent; }
 .side-label { border-radius: 999px; }
+.side-label::before { display: none; }   /* grup şeridi: tek vurgu rengiyle anlamsızlaştı */
 .side-foot { border-top: 0; margin: 0 var(--sp-3) var(--sp-3); padding: var(--sp-3) var(--sp-4);
              border-radius: var(--r-in-sm); background: var(--shell); }
-.side-foot .bar, .resume-bar { height: 4px; border-radius: 99px; overflow: hidden; background: var(--rule); }
+/* İlerleme: arka plan izi YOK — yalnızca dolu kısım + yüzde rakamı. */
+.side-foot .bar, .resume-bar { height: 3px; border-radius: 99px; overflow: hidden; background: transparent; }
 .side-foot .bar i, .resume-bar i { border-radius: 99px; }
 
 /* ======================================================== ANA SAYFA === */
@@ -192,6 +194,15 @@ body.menu-open .burger i:last-child  { transform: translateY(-4.25px) rotate(-45
   background: var(--paper);
   background-clip: padding-box;
   box-shadow: 0 0 0 1px var(--hair), inset 0 0 0 1px var(--hair), var(--lift-hi);
+}
+.hero-img {
+  display: block;
+  width: calc(100% + 2 * var(--sp-5));
+  max-width: none;
+  height: 200px;
+  margin: calc(-1 * var(--sp-5)) calc(-1 * var(--sp-5)) var(--sp-5);
+  object-fit: cover;
+  border-radius: var(--r-in) var(--r-in) 0 0;
 }
 .hero-t {
   margin: var(--sp-5) 0 var(--sp-4);
@@ -331,20 +342,25 @@ body.menu-open .burger i:last-child  { transform: translateY(-4.25px) rotate(-45
 .b-6 { grid-column: span 5; }
 .b-7 { grid-column: span 3; }
 .b-8 { grid-column: span 12; }
-/* Arka plan çeşitliliği: en büyük hücre (on konu) ve tam genişlikteki
-   son hücre grubun tonuyla hafifçe boyanır — dokuz beyaz kart yan yana
-   tek düze okunur. Ton yine catalog.js'ten (--h). */
-.bento > .b-2, .bento > .b-8 {
-  background: hsl(var(--h) 40% 97%);
-  background-clip: padding-box;
+/* Arka plan çeşitliliği GERÇEK FOTOĞRAFLA: üç hücre (en büyük, dönem
+   sonu, tam genişlikteki son) üstte siyah-beyaz bir görsel taşır. Görsel
+   çekirdeğin iç yarıçapını izler; oran yazılı olduğu için kayma yok. */
+.part-img {
+  display: block;
+  width: calc(100% + 2 * var(--sp-5));
+  max-width: none;
+  height: 168px;
+  margin: calc(-1 * var(--sp-5)) calc(-1 * var(--sp-5)) var(--sp-5);
+  object-fit: cover;
+  border-radius: var(--r-in) var(--r-in) 0 0;
 }
-.bento > .b-2 .part-n, .bento > .b-8 .part-n { color: hsl(var(--h) var(--grup-s) var(--grup-l-ln) / .45); }
+.b-2 .part-img { height: 220px; }
+.b-8 .part-img { height: 200px; }
 .b-8 .idx { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--sp-5); }
 
 .bento .part-h {
   display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: flex-start;
   gap: var(--sp-4);
   padding-bottom: var(--sp-4);
@@ -358,8 +374,11 @@ body.menu-open .burger i:last-child  { transform: translateY(-4.25px) rotate(-45
   font-weight: 700;
   line-height: .9;
   letter-spacing: -.04em;
-  color: hsl(var(--h) var(--grup-s) var(--grup-l-ln) / .28);
+  color: transparent;
 }
+/* Kart köşesindeki iri 01–09 numaraları kaldırıldı: kullanıcı kartları
+   sayabilir, numara bilgi taşımıyordu. */
+.bento .part-n { display: none; }
 .bento .part-h h2 { font-size: 22px; letter-spacing: -.025em; }
 
 .bento .idx-row {
@@ -384,8 +403,8 @@ body.menu-open .burger i:last-child  { transform: translateY(-4.25px) rotate(-45
   padding: 5px 12px;
   border-top: 0;
   border-radius: 999px;
-  background: hsl(var(--h) var(--grup-s) var(--grup-l) / .07);
-  box-shadow: inset 0 0 0 1px hsl(var(--h) var(--grup-s) var(--grup-l) / .12);
+  background: var(--accent-tint);
+  box-shadow: inset 0 0 0 1px var(--accent-line);
   font-size: 10.5px;
   font-weight: 600;
   letter-spacing: .2em;
@@ -557,6 +576,12 @@ table.tbl td:last-child, table.tbl th:last-child { padding-right: var(--sp-3); }
   .view { padding: var(--sp-6) var(--sp-4) var(--sp-7); }
   .hero { grid-template-columns: minmax(0, 1fr); min-height: 0; gap: var(--sp-6); padding: var(--sp-3) 0 var(--sp-7); }
   .hero-tool { padding: var(--sp-4); }
+  .hero-img { width: calc(100% + 2 * var(--sp-4)); margin: calc(-1 * var(--sp-4)) calc(-1 * var(--sp-4)) var(--sp-4); height: 180px; }
+  .part-img, .b-2 .part-img, .b-8 .part-img {
+    width: calc(100% + 2 * var(--sp-4));
+    margin: calc(-1 * var(--sp-4)) calc(-1 * var(--sp-4)) var(--sp-4);
+    height: 160px;
+  }
   .hero-p { font-size: 17px; }
 
   /* Bento tek sütuna iner; tüm yayılmalar sıfırlanır. */

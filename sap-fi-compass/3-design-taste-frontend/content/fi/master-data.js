@@ -1,5 +1,5 @@
 /* ==========================================================================
-   content/fi/master-data.js — "Master Data (Ana Veri)" konusunun derin içeriği
+   content/fi/master-data.js: "Master Data (Ana Veri)" konusunun derin içeriği
    ========================================================================== */
 
 SAP.registerTopic({
@@ -27,7 +27,7 @@ SAP.registerTopic({
       'SAP projelerinin gecikme sebeplerinin başında **ana veri kalitesi** gelir. Yapılandırma iki haftada biter, ' +
       'ana veri temizliği aylar sürer.\n\n' +
       'Bunun sebebi eski sistemden gelen verinin genelde kirli olmasıdır: mükerrer satıcılar, boş vergi numaraları, ' +
-      'artık çalışılmayan müşteriler. Bu veri temizlenmeden taşınırsa problem SAP’a da taşınır — ' +
+      'artık çalışılmayan müşteriler. Bu veri temizlenmeden taşınırsa problem SAP’a da taşınır: ' +
       've SAP’ta düzeltmek çok daha pahalıdır. Danışmanlıkta "garbage in, garbage out" en çok burada geçerlidir.',
 
     gercekHayat:
@@ -61,7 +61,7 @@ SAP.registerTopic({
       { rol:'Satın alma / Satış', gorev:'Kendi bölümünü tamamlar: satın alma organizasyonu / satış alanı verisi.' },
       { rol:'Muhasebe', gorev:'Şirket kodu bölümünü açar: {{mutabakat-hesabi}}, {{odeme-kosulu}}, {{odeme-yontemi}}, {{ihtar-prosedürü}}.' },
       { rol:'Muhasebe müdürü', gorev:'Kritik alanlardaki (banka hesabı, mutabakat hesabı) değişiklikleri onaylar.' },
-      { rol:'İç denetim', gorev:'{{CDHDR}}/{{CDPOS}} üzerinden değişiklik geçmişini denetler — özellikle banka hesabı değişikliklerini.' },
+      { rol:'İç denetim', gorev:'{{CDHDR}}/{{CDPOS}} üzerinden değişiklik geçmişini denetler: özellikle banka hesabı değişikliklerini.' },
     ],
 
     diyagram:{
@@ -113,7 +113,7 @@ SAP.registerTopic({
 
     notlar:[
       { tip:'warn', baslik:'Ana verinin sessiz gücü', metin:
-        'Ana veri hatası kayıt anında hata vermez — sadece **yanlış davranışa** yol açar. ' +
+        'Ana veri hatası kayıt anında hata vermez: sadece **yanlış davranışa** yol açar. ' +
         'Yanlış ödeme koşulu erken ödeme, yanlış mutabakat hesabı yanlış bilanço kalemi, ' +
         'eksik ihtar prosedürü tahsil edilmeyen alacak demektir. Bu yüzden ana veri denetimi belge denetiminden önemlidir.' },
     ],
@@ -122,7 +122,7 @@ SAP.registerTopic({
   /* =================================================== 3. MUHASEBE === */
   muhasebe: {
     anlatim:
-      'Ana veri **kendisi muhasebe kaydı üretmez** — bir satıcı açmak hiçbir hesabı etkilemez. ' +
+      'Ana veri **kendisi muhasebe kaydı üretmez**: bir satıcı açmak hiçbir hesabı etkilemez. ' +
       'Ama ürettiği kayıtların şeklini belirler. Aşağıda aynı 60.000 TL’lik faturanın, ' +
       'yalnızca ana veri farkıyla nasıl bambaşka kayıtlara dönüştüğünü görüyorsun.',
 
@@ -134,36 +134,36 @@ SAP.registerTopic({
     ],
 
     fisler:[
-      { baslik:'Aynı fatura — Satıcı A: mutabakat hesabı 320 (yurtiçi)',
+      { baslik:'Aynı fatura: Satıcı A: mutabakat hesabı 320 (yurtiçi)',
         belgeTuru:'KR', tarih:'05.05.2026', paraBirimi:'TRY',
         satirlar:[
           { hesap:'770', ad:'Genel yönetim gideri', borc:50000 },
           { hesap:'191', ad:'İndirilecek KDV', borc:10000 },
-          { hesap:'320', ad:'Satıcılar — yurtiçi', alacak:60000, not:'{{LFB1}} `AKONT` = 320' },
+          { hesap:'320', ad:'Satıcılar: yurtiçi', alacak:60000, not:'{{LFB1}} `AKONT` = 320' },
         ] },
 
-      { baslik:'Aynı fatura — Satıcı B: mutabakat hesabı 321 (yurtdışı)',
+      { baslik:'Aynı fatura: Satıcı B: mutabakat hesabı 321 (yurtdışı)',
         belgeTuru:'KR', tarih:'05.05.2026', paraBirimi:'TRY',
         satirlar:[
           { hesap:'770', ad:'Genel yönetim gideri', borc:50000 },
           { hesap:'191', ad:'İndirilecek KDV', borc:10000 },
-          { hesap:'321', ad:'Satıcılar — yurtdışı', alacak:60000, not:'{{LFB1}} `AKONT` = 321' },
+          { hesap:'321', ad:'Satıcılar: yurtdışı', alacak:60000, not:'{{LFB1}} `AKONT` = 321' },
         ],
         not:'Kullanıcı hiçbir şeyi farklı yapmadı; **tek fark ana veridir.** Bilançoda yurtiçi ve yurtdışı borçların ayrı satırlarda görünmesi bu sayede sağlanır.' },
 
-      { baslik:'Aynı satıcıya avans — özel ana muhasebe göstergesi ile ({{F-48}})',
+      { baslik:'Aynı satıcıya avans: özel ana muhasebe göstergesi ile ({{F-48}})',
         belgeTuru:'KZ', tarih:'08.05.2026', paraBirimi:'TRY',
         satirlar:[
           { hesap:'159', ad:'Verilen sipariş avansları', borc:30000, not:'`UMSKZ` = A → alternatif hesap devreye girdi' },
           { hesap:'102', ad:'Bankalar', alacak:30000 },
         ],
-        not:'Satıcı aynı, mutabakat hesabı 320 — ama {{ozel-ana-muhasebe-gostergesi}} "A" girildiği için kayıt 320’ye değil 159’a gitti. Avans bir borç değil, bir **alacaktır**; bilançoda ayrı görünmesi gerekir.' },
+        not:'Satıcı aynı, mutabakat hesabı 320: ama {{ozel-ana-muhasebe-gostergesi}} "A" girildiği için kayıt 320’ye değil 159’a gitti. Avans bir borç değil, bir **alacaktır**; bilançoda ayrı görünmesi gerekir.' },
     ],
 
     tHesaplar:[
-      { hesap:'Satıcılar — yurtiçi', kod:'320 (mutabakat)',
+      { hesap:'Satıcılar: yurtiçi', kod:'320 (mutabakat)',
         borc:[{ ad:'Ödeme', tutar:60000 }],
-        alacak:[{ ad:'Fatura — Satıcı A', tutar:60000 }, { ad:'Fatura — Satıcı C', tutar:45000 }],
+        alacak:[{ ad:'Fatura, Satıcı A', tutar:60000 }, { ad:'Fatura, Satıcı C', tutar:45000 }],
         not:'800 satıcının toplamı tek hesapta' },
       { hesap:'Verilen sipariş avansları', kod:'159 (özel G/L)',
         borc:[{ ad:'Avans ödemesi', tutar:30000 }],
@@ -183,8 +183,8 @@ SAP.registerTopic({
     anlatim:'FI’da dört temel ana veri nesnesi vardır. Her birinin katman yapısı farklıdır ve bu yapı, verinin nerede paylaşıldığını belirler.',
     liste:[
       { ad:'G/L hesabı', en:'General Ledger Account',
-        aciklama:'İki katmanlıdır: **hesap planı seviyesi** ({{SKA1}}) tüm şirket kodları için ortaktır — numara, ad, hesap grubu, bilanço/gelir-gider ayrımı. ' +
-                 '**Şirket kodu seviyesi** ({{SKB1}}) her şirkete özeldir — para birimi, vergi kategorisi, {{acik-kalem-yonetimi}}, {{alan-durumu}} grubu.',
+        aciklama:'İki katmanlıdır: **hesap planı seviyesi** ({{SKA1}}) tüm şirket kodları için ortaktır: numara, ad, hesap grubu, bilanço/gelir-gider ayrımı. ' +
+                 '**Şirket kodu seviyesi** ({{SKB1}}) her şirkete özeldir: para birimi, vergi kategorisi, {{acik-kalem-yonetimi}}, {{alan-durumu}} grubu.',
         neZaman:'Yeni bir muhasebe hesabı gerektiğinde. Ama önce sor: gerçekten yeni hesap mı gerekiyor, yoksa {{maliyet-yeri}} ile ayrıştırmak yeter mi?',
         ornek:'Aynı "770 Genel yönetim gideri" hesabı 5 şirket kodunda kullanılır ama her birinde farklı para biriminde olabilir.',
         tcodes:['FS00','FSP0','FSS0','OBD4'] },
@@ -193,13 +193,13 @@ SAP.registerTopic({
         aciklama:'Üç katmanlıdır: **genel** ({{LFA1}}) ad-adres-vergi no, **şirket kodu** ({{LFB1}}) muhasebe ayarları, ' +
                  '**satın alma organizasyonu** ({{LFM1}}) MM ayarları. S/4HANA’da üçü de {{BP}} üzerinden yönetilir.',
         neZaman:'Şirket birinden mal/hizmet alıyor ve borçlanıyorsa.',
-        ornek:'Bir grup şirketinde aynı satıcı tek bir {{LFA1}} kaydına sahiptir ama 4 şirket kodunda 4 ayrı {{LFB1}} kaydı olabilir — her birinde farklı ödeme koşuluyla.',
+        ornek:'Bir grup şirketinde aynı satıcı tek bir {{LFA1}} kaydına sahiptir ama 4 şirket kodunda 4 ayrı {{LFB1}} kaydı olabilir: her birinde farklı ödeme koşuluyla.',
         tcodes:['BP','XK01','FK01','FBL1N'] },
 
       { ad:'Müşteri (İş Ortağı)', en:'Customer',
         aciklama:'Satıcı ile simetriktir: **genel** ({{KNA1}}), **şirket kodu** ({{KNB1}}), **satış alanı** ({{KNVV}}).',
         neZaman:'Şirket vadeli satış yapıyorsa. Peşin perakende satışta tek bir "toplu müşteri" kaydı yeterli olabilir.',
-        ornek:'S/4HANA’da aynı firma hem müşteri hem satıcıysa **tek bir {{BP}} kaydında iki rol** olarak tutulur — ECC’de iki ayrı kayıt gerekiyordu.',
+        ornek:'S/4HANA’da aynı firma hem müşteri hem satıcıysa **tek bir {{BP}} kaydında iki rol** olarak tutulur: ECC’de iki ayrı kayıt gerekiyordu.',
         tcodes:['BP','XD01','FD01','FBL5N'] },
 
       { ad:'Duran varlık', en:'Asset',
@@ -221,7 +221,7 @@ SAP.registerTopic({
       ['Ne tutar', 'Hesap, satıcı, müşteri, varlık', 'Hesap grubu, belge türü, alan durumu kuralları'],
       ['Kim bakım yapar', 'Ana veri ekibi / muhasebe (son kullanıcı)', 'Danışman / yetkili yapılandırıcı'],
       ['Nerede yapılır', 'Uygulama işlemleri: {{FS00}}, {{BP}}, {{AS01}}', '{{SPRO}} → IMG ağacı'],
-      ['Taşıma isteği', '**Girmez** — her sistemde ayrı yüklenir', '**Girer** — geliştirme → test → canlı'],
+      ['Taşıma isteği', '**Girmez**, her sistemde ayrı yüklenir', '**Girer**, geliştirme → test → canlı'],
       ['Canlıda değiştirilebilir mi', 'Evet, günlük iş', 'Hayır, taşıma ile gelir'],
       ['Geçişte nasıl taşınır', '{{LTMC}} / {{LSMW}} ile veri yükleme', 'Taşıma isteği ile'],
     ],
@@ -243,7 +243,7 @@ SAP.registerTopic({
             aciklama:'Para birimi, {{vergi-kodu}} kategorisi, **mutabakat hesabı tipi** (D/K/A), ' +
                      '{{acik-kalem-yonetimi}}, kalem görüntüleme, sıralama anahtarı.' },
           { baslik:'*Yaratma/bank/faiz* sekmesi',
-            aciklama:'{{alan-durumu}} grubu — kayıt ekranında hangi alanın zorunlu/opsiyonel/gizli olacağını belirleyen alan. ' +
+            aciklama:'{{alan-durumu}} grubu: kayıt ekranında hangi alanın zorunlu/opsiyonel/gizli olacağını belirleyen alan. ' +
                      '"Bu alan neden zorunlu?" sorusunun cevabı burasıdır.' },
           { baslik:'Kaydet',
             aciklama:'Hesap {{ana-veri}}dir; taşıma isteğine girmez. Test sisteminde açtığın hesap canlıda **yoktur**.' },
@@ -266,14 +266,14 @@ SAP.registerTopic({
         ipucu:'Yeni hesap açarken benzer bir hesabı **şablon olarak kopyala** (giriş ekranında "Şablonla oluştur"). Alan durumu ve kontrol ayarlarını yeniden düşünmek zorunda kalmazsın.',
         ilgili:['FSP0','FSS0','OBD4','FBL3N','FS10N'] },
 
-      { kod:'BP', ad:'İş ortağı bakımı — S/4HANA’nın tek kapısı',
+      { kod:'BP', ad:'İş ortağı bakımı: S/4HANA’nın tek kapısı',
         amac:'Müşteri ve satıcı ana verisini tek nesne üzerinden yönetir. Aynı firma **rol** kavramıyla hem müşteri hem satıcı olabilir.',
         neZaman:'S/4HANA’da her müşteri/satıcı işleminde. Klasik {{XK01}}/{{XD01}} ekranları kaldırılmıştır.',
         adimlar:[
           { baslik:'İş ortağı türünü seç', aciklama:'Organization (tüzel kişi), Person (gerçek kişi) veya Group.' },
           { baslik:'Genel veriyi gir', aciklama:'Unvan, adres, iletişim, vergi numarası. Bu kısım {{LFA1}}/{{KNA1}}’e yazılır.' },
           { baslik:'Rol ekle: **FI Vendor** veya **FI Customer**',
-            aciklama:'Rol ekranın sağ üstündeki açılır listeden seçilir. Rol eklenmeden muhasebe verisi girilemez — ' +
+            aciklama:'Rol ekranın sağ üstündeki açılır listeden seçilir. Rol eklenmeden muhasebe verisi girilemez: ' +
                      'yeni başlayanların en sık takıldığı yer burasıdır.' },
           { baslik:'Şirket kodu verisini gir', aciklama:'{{mutabakat-hesabi}}, {{odeme-kosulu}}, izin verilen {{odeme-yontemi}} (`ZWELS`), {{ihtar-prosedürü}}.' },
           { baslik:'Gerekirse satın alma / satış rolünü ekle', aciklama:'"Supplier (Purchasing)" veya "Customer (Sales)" rolleri MM/SD verisini açar.' },
@@ -302,7 +302,7 @@ SAP.registerTopic({
         neZaman:'Hesap planı tasarlanırken ve "bu alan neden zorunlu/gizli?" sorusunun kaynağını ararken.',
         adimlar:[
           { baslik:'Hesap planını seç' },
-          { baslik:'Grup ekle: kod, ad, numara aralığı (başlangıç–bitiş)' },
+          { baslik:'Grup ekle: kod, ad, numara aralığı (başlangıç-bitiş)' },
           { baslik:'Grubu seçip *Alan durumu* düğmesine bas', aciklama:'Alan grupları (Hesap kontrolü, Belge girişi, Banka/faiz…) tek tek gizli/zorunlu/opsiyonel yapılır.' },
         ],
         ipucu:'Numara aralıklarını en baştan mantıklı kur: 1xxxxx dönen varlık, 3xxxxx kısa vadeli borç gibi. Sonradan düzeltmek, açılmış hesapların taşınmasını gerektirir ve neredeyse imkânsızdır.',
@@ -315,7 +315,7 @@ SAP.registerTopic({
           { baslik:'Varlık sınıfı ve şirket kodunu gir', aciklama:'Sınıf, hesap belirlemeyi ve varsayılan amortisman ayarlarını getirir.' },
           { baslik:'*Genel* sekmesi', aciklama:'Tanım, miktar, envanter numarası.' },
           { baslik:'*Zaman bağımlı* sekmesi', aciklama:'{{maliyet-yeri}}, tesis, sorumlu kişi. Bu alanlar tarih bazlı değişebilir ({{ANLZ}}).' },
-          { baslik:'*Amortisman alanları* sekmesi', aciklama:'{{amortisman-anahtari}} ve {{faydali-omur}}. Her {{amortisman-alani}} için ayrı ayrı ayarlanabilir — vergi ve ticari amortisman burada ayrışır.' },
+          { baslik:'*Amortisman alanları* sekmesi', aciklama:'{{amortisman-anahtari}} ve {{faydali-omur}}. Her {{amortisman-alani}} için ayrı ayrı ayarlanabilir: vergi ve ticari amortisman burada ayrışır.' },
         ],
         hatalar:[
           { mesaj:'Account determination ... for asset class not maintained', sebep:'{{AO90}}’da varlık sınıfı için hesap belirleme eksik.', cozum:'{{AO90}} ile bilanço, birikmiş amortisman, amortisman gideri ve satış kâr/zarar hesaplarını tanımla.' },
@@ -333,21 +333,21 @@ SAP.registerTopic({
       'Bu deseni bir kez kavradığında hangi bilginin hangi tabloda olduğunu tahmin edebilirsin.',
 
     liste:[
-      { ad:'SKA1', baslik:'G/L hesabı — hesap planı katmanı',
+      { ad:'SKA1', baslik:'G/L hesabı: hesap planı katmanı',
         tutar:'Hesabın kimliği: numara, hesap grubu, bilanço mu gelir-gider mi. **Şirket kodundan bağımsızdır.**',
         olusturan:'{{FS00}} veya {{FSP0}}',
         guncelleyen:'{{FS00}}, {{FSP0}}, veri yükleme araçları',
         anahtar:'KTOPL + SAKNR',
         iliskiler:'{{SKB1}} ile 1-n (bir hesap birçok şirket kodunda); {{SKAT}} ile dil bazlı açıklamalar.',
-        s4:'Değişmedi. Yeni "hesap tipi" (GLACCOUNT_TYPE) alanı eklendi — masraf türü ayrımı buraya taşındı.',
+        s4:'Değişmedi. Yeni "hesap tipi" (GLACCOUNT_TYPE) alanı eklendi: masraf türü ayrımı buraya taşındı.',
         alanlar:[
           { ad:'KTOPL', aciklama:'Hesap planı' },
           { ad:'SAKNR', aciklama:'Hesap numarası' },
-          { ad:'KTOKS', aciklama:'{{hesap-grubu}} — numara aralığını ve alan durumunu getirir' },
+          { ad:'KTOKS', aciklama:'{{hesap-grubu}}: numara aralığını ve alan durumunu getirir' },
           { ad:'XBILK', aciklama:'X ise bilanço hesabı; boşsa gelir-gider hesabı' },
         ] },
 
-      { ad:'SKB1', baslik:'G/L hesabı — şirket kodu katmanı',
+      { ad:'SKB1', baslik:'G/L hesabı: şirket kodu katmanı',
         tutar:'Hesabın o şirkette nasıl davranacağı: para birimi, vergi kategorisi, açık kalem yönetimi, alan durumu grubu, mutabakat hesabı tipi.',
         olusturan:'{{FS00}} veya {{FSS0}}',
         guncelleyen:'{{FS00}}, {{FSS0}}',
@@ -356,13 +356,13 @@ SAP.registerTopic({
         s4:'Değişmedi.',
         alanlar:[
           { ad:'MITKZ', aciklama:'Mutabakat hesabı tipi: **D** müşteri, **K** satıcı, **A** duran varlık. Doluysa hesaba doğrudan kayıt yapılamaz.' },
-          { ad:'XOPVW', aciklama:'{{acik-kalem-yonetimi}} — kapatma yapılabilmesi için X olmalı' },
-          { ad:'FSTAG', aciklama:'{{alan-durumu}} grubu — hangi alan zorunlu/gizli' },
-          { ad:'XKRES', aciklama:'Kalem görüntüleme açık mı — kapalıysa {{FBL3N}} kalem göstermez' },
-          { ad:'ZUAWA', aciklama:'Sıralama anahtarı — `ZUONR` (atama) alanını otomatik doldurur; {{F.13}} için kritik' },
+          { ad:'XOPVW', aciklama:'{{acik-kalem-yonetimi}}: kapatma yapılabilmesi için X olmalı' },
+          { ad:'FSTAG', aciklama:'{{alan-durumu}} grubu: hangi alan zorunlu/gizli' },
+          { ad:'XKRES', aciklama:'Kalem görüntüleme açık mı: kapalıysa {{FBL3N}} kalem göstermez' },
+          { ad:'ZUAWA', aciklama:'Sıralama anahtarı: `ZUONR` (atama) alanını otomatik doldurur; {{F.13}} için kritik' },
         ] },
 
-      { ad:'LFA1', baslik:'Satıcı — genel katman',
+      { ad:'LFA1', baslik:'Satıcı: genel katman',
         tutar:'Ad, adres, ülke, vergi numaraları, hesap grubu. Tüm şirket kodları için ortaktır.',
         olusturan:'{{BP}} (S/4HANA) veya {{XK01}} (ECC)',
         guncelleyen:'{{BP}}, {{XK01}}, {{XK02}}',
@@ -371,12 +371,12 @@ SAP.registerTopic({
         s4:'Tablo duruyor ama artık {{BP}} tarafından doldurulur; doğrudan {{XK01}} ile bakım yapılmaz.',
         alanlar:[
           { ad:'LIFNR', aciklama:'Satıcı numarası' },
-          { ad:'STCD1 / STCD2', aciklama:'Vergi numarası alanları — mükerrer kontrolünde ilk bakılacak yer' },
-          { ad:'KTOKK', aciklama:'Hesap grubu — numara aralığını ve alan durumunu belirler' },
+          { ad:'STCD1 / STCD2', aciklama:'Vergi numarası alanları: mükerrer kontrolünde ilk bakılacak yer' },
+          { ad:'KTOKK', aciklama:'Hesap grubu: numara aralığını ve alan durumunu belirler' },
           { ad:'SPERR / LOEVM', aciklama:'Merkezi blok / silme işareti' },
         ] },
 
-      { ad:'LFB1', baslik:'Satıcı — şirket kodu katmanı',
+      { ad:'LFB1', baslik:'Satıcı: şirket kodu katmanı',
         tutar:'Muhasebe davranışı: mutabakat hesabı, ödeme koşulu, izin verilen ödeme yöntemleri, ödeme bloğu, ihtar prosedürü.',
         olusturan:'{{BP}} → FI Vendor rolü veya {{FK01}}',
         guncelleyen:'{{BP}}, {{FK02}}',
@@ -384,14 +384,14 @@ SAP.registerTopic({
         iliskiler:'{{LFA1}}’in çocuğu; {{BSIK}}/{{BSAK}} açık/kapalı kalemleri buraya bağlıdır.',
         s4:'Değişmedi; {{BP}} üzerinden doldurulur.',
         alanlar:[
-          { ad:'AKONT', aciklama:'**{{mutabakat-hesabi}}** — bu satıcının ana muhasebedeki adresi' },
-          { ad:'ZTERM', aciklama:'{{odeme-kosulu}} — vade buradan hesaplanır' },
-          { ad:'ZWELS', aciklama:'İzin verilen {{odeme-yontemi}} listesi — {{F110}} bunun dışına çıkamaz' },
-          { ad:'ZAHLS', aciklama:'{{odeme-blogu}} — doluysa {{F110}} bu satıcıyı öneriye almaz' },
+          { ad:'AKONT', aciklama:'**{{mutabakat-hesabi}}**: bu satıcının ana muhasebedeki adresi' },
+          { ad:'ZTERM', aciklama:'{{odeme-kosulu}}: vade buradan hesaplanır' },
+          { ad:'ZWELS', aciklama:'İzin verilen {{odeme-yontemi}} listesi: {{F110}} bunun dışına çıkamaz' },
+          { ad:'ZAHLS', aciklama:'{{odeme-blogu}}: doluysa {{F110}} bu satıcıyı öneriye almaz' },
           { ad:'MAHNA', aciklama:'{{ihtar-prosedürü}}' },
         ] },
 
-      { ad:'KNB1', baslik:'Müşteri — şirket kodu katmanı',
+      { ad:'KNB1', baslik:'Müşteri: şirket kodu katmanı',
         tutar:'Müşterinin muhasebe ayarları; {{LFB1}} ile simetriktir.',
         olusturan:'{{BP}} → FI Customer rolü veya {{FD01}}',
         guncelleyen:'{{BP}}, {{FD02}}',
@@ -404,7 +404,7 @@ SAP.registerTopic({
           { ad:'MAHNA / MANSP', aciklama:'İhtar prosedürü / ihtar bloğu' },
         ] },
 
-      { ad:'ANLA', baslik:'Duran varlık — ana kayıt',
+      { ad:'ANLA', baslik:'Duran varlık: ana kayıt',
         tutar:'Varlığın kimliği: sınıf, tanım, aktifleştirme tarihi, envanter numarası.',
         olusturan:'{{AS01}}',
         guncelleyen:'{{AS01}}, {{AS02}}, {{ABUMN}} (transferde)',
@@ -412,9 +412,9 @@ SAP.registerTopic({
         iliskiler:'{{ANLB}} amortisman ayarları, {{ANLC}} yıllık değerler, {{ANEP}} hareketler, {{ANLZ}} zaman bağımlı atamalar.',
         s4:'Ana veri yapısı korundu; değerler {{ACDOCA}}’ya taşındı.',
         alanlar:[
-          { ad:'ANLKL', aciklama:'{{varlik-sinifi}} — hesap belirlemeyi getirir' },
-          { ad:'AKTIV', aciklama:'{{aktiflestirme}} tarihi — amortismanın başlangıcı' },
-          { ad:'ANLN2', aciklama:'Alt varlık numarası — bileşenleri ayrı izlemek için' },
+          { ad:'ANLKL', aciklama:'{{varlik-sinifi}}: hesap belirlemeyi getirir' },
+          { ad:'AKTIV', aciklama:'{{aktiflestirme}} tarihi: amortismanın başlangıcı' },
+          { ad:'ANLN2', aciklama:'Alt varlık numarası: bileşenleri ayrı izlemek için' },
         ] },
     ],
 
@@ -464,19 +464,19 @@ SAP.registerTopic({
       { ad:'Adres ve kimlik verisi (genel katman → {{LFA1}})',
         aciklama:'Bu bölüm tüm şirket kodları için ortaktır.',
         alanlar:[
-          { ad:'Unvan / Ad', zorunlu:true, aciklama:'Ticari unvan. Tutarlı bir isimlendirme kuralı belirle — mükerrer önlemenin yarısı budur.' },
+          { ad:'Unvan / Ad', zorunlu:true, aciklama:'Ticari unvan. Tutarlı bir isimlendirme kuralı belirle: mükerrer önlemenin yarısı budur.' },
           { ad:'Ülke / Adres', zorunlu:true, aciklama:'Ülke, vergi hesaplamasını ve ödeme formatını etkiler.' },
           { ad:'Vergi numarası (`STCD1`)', zorunlu:false, aciklama:'Mükerrer kontrolünün anahtarı. Zorunlu yapmak iyi bir uygulamadır.' },
-          { ad:'Banka verisi (IBAN)', zorunlu:false, aciklama:'{{F110}} buradan okur. **Değişikliği ayrı onaya bağlanmalıdır** — dolandırıcılığın en sık girişi budur.' },
+          { ad:'Banka verisi (IBAN)', zorunlu:false, aciklama:'{{F110}} buradan okur. **Değişikliği ayrı onaya bağlanmalıdır**: dolandırıcılığın en sık girişi budur.' },
         ],
         ipucu:'Vergi numarasıyla önce {{SE16N}} → {{LFA1}} araması yap. Aynı firmanın "A.Ş.", "AS", "Anonim Şirketi" gibi üç kayıtla açılması en yaygın ana veri kirliliğidir.' },
 
-      { ad:'Rol ekleme — kritik adım',
+      { ad:'Rol ekleme: kritik adım',
         aciklama:'BP ekranının sağ üstündeki rol açılır listesinden **FI Vendor** seçilir. Rol eklenmeden şirket kodu sekmeleri **görünmez**.',
         alanlar:[
           { ad:'Rol: FI Vendor (FLVN00)', zorunlu:true, aciklama:'Muhasebe verisini açar; {{LFB1}} bu rolle yazılır.' },
           { ad:'Rol: Supplier (Purchasing)', zorunlu:false, aciklama:'MM verisini ({{LFM1}}) açar. Satın alma siparişi verilecekse gerekir.' },
-          { ad:'Rol: FI Customer (FLCU00)', zorunlu:false, aciklama:'Aynı firma müşteri de ise **aynı BP kaydına** bu rol eklenir — ECC’de iki ayrı kayıt gerekiyordu.' },
+          { ad:'Rol: FI Customer (FLCU00)', zorunlu:false, aciklama:'Aynı firma müşteri de ise **aynı BP kaydına** bu rol eklenir: ECC’de iki ayrı kayıt gerekiyordu.' },
         ],
         ipucu:'"Alanları göremiyorum" şikâyeti geldiğinde ilk sorun: hangi roldesin? Roller arası geçiş yapmadan alan aramak boşuna zaman kaybıdır.' },
 
@@ -506,7 +506,7 @@ SAP.registerTopic({
     ipuclari:[
       'Ana veri değişikliklerini {{CDHDR}}/{{CDPOS}} üzerinden düzenli denetle. Özellikle `LFBK` (banka hesabı) değişiklikleri: ödeme dolandırıcılığının en yaygın yolu budur.',
       'Yeni satıcıyı **ödeme bloklu** aç, ilk fatura onaylandıktan sonra bloğu kaldır. Basit ama çok etkili bir kontroldür.',
-      'Toplu ana veri açarken {{LTMC}} (Migration Cockpit) kullan; {{BP}} ekranını {{LSMW}} ile kaydetmeye çalışma — ekran akışı dinamiktir ve kayıt bozulur.',
+      'Toplu ana veri açarken {{LTMC}} (Migration Cockpit) kullan; {{BP}} ekranını {{LSMW}} ile kaydetmeye çalışma: ekran akışı dinamiktir ve kayıt bozulur.',
       'Hesap açarken benzer hesabı şablon olarak kopyala. Alan durumu ve kontrol ayarları hazır gelir.',
       'Silme yerine **blok** kullan. Ana veri silinemez çünkü geçmiş belgeler ona referans verir; silme işareti (`LOEVM`) yalnızca arşivleme içindir.',
     ],
@@ -530,7 +530,7 @@ SAP.registerTopic({
     commit:
       'Ana veri kaydı tek bir LUW içinde yazılır. {{BP}} tarafında ek bir katman vardır: ' +
       'BP kaydedildiğinde **CVI senkronizasyonu** tetiklenir ve {{LFA1}}/{{LFB1}} (veya {{KNA1}}/{{KNB1}}) ' +
-      'kayıtları üretilir. Senkronizasyon hata alırsa BP oluşur ama satıcı oluşmaz — ' +
+      'kayıtları üretilir. Senkronizasyon hata alırsa BP oluşur ama satıcı oluşmaz: ' +
       'bu durumda MDS_LOAD_COCKPIT / MDS_PPO2 ile hata kuyruğuna bakılır.',
 
     belgeNo:
@@ -556,14 +556,14 @@ SAP.registerTopic({
 
     transport:
       'Ana veri **taşınmaz**. Test sisteminde açtığın hesap canlıda yoktur; her sistemde ayrı yüklenir ' +
-      '({{LTMC}}, {{LSMW}} veya elle). Hesap grubu, alan durumu ve numara aralığı **tanımı** taşınır — ' +
+      '({{LTMC}}, {{LSMW}} veya elle). Hesap grubu, alan durumu ve numara aralığı **tanımı** taşınır: ' +
       'ama numara aralığının **güncel sayacı** taşınmaz.',
 
     img:[
       { yol:'SPRO → Finansal Muhasebe → Ana Muhasebe → Ana Veri → G/L Hesapları → Hazırlık → Hesap Grupları ve Alan Durumunu Tanımla', not:'{{hesap-grubu}} ve {{alan-durumu}} ({{OBD4}})' },
       { yol:'SPRO → Finansal Muhasebe → Satıcı Hesapları → Ana Veri → Hazırlık → Satıcı Hesap Gruplarını Tanımla', not:'Satıcı hesap grubu ve alan durumu' },
       { yol:'SPRO → Finansal Muhasebe → Müşteri Hesapları → Ana Veri → Hazırlık → Müşteri Hesap Gruplarını Tanımla', not:'Müşteri hesap grubu' },
-      { yol:'SPRO → Cross-Application Components → Master Data Synchronization → Customer/Vendor Integration', not:'**CVI** — S/4HANA’da BP ile satıcı/müşteri eşlemesi. S/4HANA geçişinin zorunlu adımı.' },
+      { yol:'SPRO → Cross-Application Components → Master Data Synchronization → Customer/Vendor Integration', not:'**CVI**: S/4HANA’da BP ile satıcı/müşteri eşlemesi. S/4HANA geçişinin zorunlu adımı.' },
       { yol:'SPRO → Finansal Muhasebe → Duran Varlık Muhasebesi → Organizasyon Yapıları → Varlık Sınıfları → Varlık Sınıflarını Tanımla', not:'{{varlik-sinifi}} ({{OAOA}})' },
     ],
 
@@ -572,7 +572,7 @@ SAP.registerTopic({
         'Ana veri değişiklikleri {{CDHDR}} (kim, ne zaman) ve {{CDPOS}} (hangi alan, eski değer, yeni değer) ' +
         'tablolarına yazılır. Denetçilerin en çok istediği rapor budur.\n\n' +
         'Kritik izlenmesi gerekenler: satıcı **banka hesabı** (`LFBK` tablosu), **mutabakat hesabı** (`AKONT`) ve ' +
-        '**ödeme bloğu** (`ZAHLS`). Banka hesabı değişikliği, ödeme dolandırıcılığının en yaygın yöntemidir — ' +
+        '**ödeme bloğu** (`ZAHLS`). Banka hesabı değişikliği, ödeme dolandırıcılığının en yaygın yöntemidir: ' +
         'sahte bir e-postayla "banka hesabımız değişti" denir ve ödeme başka hesaba gider.' },
       { ic:'🧹', baslik:'Ana veri kalitesi nasıl ölçülür?', metin:
         'Üç basit sorgu çoğu problemi ortaya çıkarır:\n\n' +
@@ -597,10 +597,10 @@ SAP.registerTopic({
       'Bu, ECC’den geçen her projenin karşılaştığı ve genelde hafife alınan bir iştir.',
 
     eccFarklari:[
-      { konu:'Müşteri/satıcı bakımı', ecc:'{{XK01}}/{{XD01}} — ayrı ayrı, ayrı numaralarla', s4:'{{BP}} — tek nesne, rollerle ayrışır' },
+      { konu:'Müşteri/satıcı bakımı', ecc:'{{XK01}}/{{XD01}}, ayrı ayrı, ayrı numaralarla', s4:'{{BP}}, tek nesne, rollerle ayrışır' },
       { konu:'Aynı firma hem müşteri hem satıcı', ecc:'İki ayrı ana veri, elle eşleştirme', s4:'Tek BP kaydı, iki rol' },
       { konu:'Masraf türü', ecc:'{{KA01}} ile ayrı ana veri', s4:'G/L hesabının tipi ({{FS00}} → Primary Costs)' },
-      { konu:'Ev bankası', ecc:'{{FI12}} — özelleştirme gibi davranır', s4:'Bank Account Management (BAM) — ana veri ve iş akışı destekli' },
+      { konu:'Ev bankası', ecc:'{{FI12}}, özelleştirme gibi davranır', s4:'Bank Account Management (BAM), ana veri ve iş akışı destekli' },
       { konu:'Hesap ana verisi', ecc:'Hesap tipi kavramı yok', s4:'GLACCOUNT_TYPE zorunlu: Balance Sheet / Primary Costs / Secondary Costs / Nonoperating' },
       { konu:'Veri yükleme', ecc:'{{LSMW}} yaygın', s4:'{{LTMC}} / Migrate Your Data; LSMW BP için **önerilmez**' },
     ],
@@ -611,9 +611,9 @@ SAP.registerTopic({
       'Yani ana veri, evrensel defterin **doldurma kurallarıdır**.',
 
     kalkanTcodes:[
-      { eski:'{{FK01}} / {{FK02}} / {{FK03}}', yeni:'{{BP}}', not:'Satıcı — kaldırıldı' },
-      { eski:'{{XK01}}', yeni:'{{BP}}', not:'Satıcı merkezi bakım — BP’ye yönlendirir' },
-      { eski:'{{FD01}} / {{XD01}}', yeni:'{{BP}}', not:'Müşteri — kaldırıldı' },
+      { eski:'{{FK01}} / {{FK02}} / {{FK03}}', yeni:'{{BP}}', not:'Satıcı: kaldırıldı' },
+      { eski:'{{XK01}}', yeni:'{{BP}}', not:'Satıcı merkezi bakım: BP’ye yönlendirir' },
+      { eski:'{{FD01}} / {{XD01}}', yeni:'{{BP}}', not:'Müşteri: kaldırıldı' },
       { eski:'{{KA01}} / KA02 / KA03', yeni:'{{FS00}}', not:'Masraf türü G/L hesap tipine dönüştü' },
       { eski:'{{FI12}}', yeni:'FI12_HBANK / BAM', not:'Ev bankası yönetimi Fiori’ye taşındı' },
     ],
@@ -623,11 +623,11 @@ SAP.registerTopic({
       { ad:'Manage G/L Account Master Data', aciklama:'{{FS00}} yerine; toplu düzenleme ve Excel’e/den aktarım destekler.' },
       { ad:'Manage Bank Accounts', aciklama:'Ev bankası hesaplarını onay akışıyla yönetir (BAM).' },
       { ad:'Manage Fixed Assets', aciklama:'{{AS01}}/{{AS02}} yerine; varlık listesi ve değerleri tek ekranda.' },
-      { ad:'Migrate Your Data', aciklama:'{{LTMC}}’nin Fiori hâli — S/4HANA 2020 ve sonrası için standart yükleme aracı.' },
+      { ad:'Migrate Your Data', aciklama:'{{LTMC}}’nin Fiori hâli: S/4HANA 2020 ve sonrası için standart yükleme aracı.' },
     ],
 
     compatibilityViews:[
-      '{{LFA1}}, {{LFB1}}, {{KNA1}}, {{KNB1}} **fiziksel tablo olarak duruyor** — kaldırılmadılar.',
+      '{{LFA1}}, {{LFB1}}, {{KNA1}}, {{KNB1}} **fiziksel tablo olarak duruyor**: kaldırılmadılar.',
       'Ancak artık {{BP}} tarafından CVI senkronizasyonu ile doldurulurlar; doğrudan yazma yapan özel programlar senkronizasyonu bozar.',
       'Eski özel programların {{LFA1}}’e doğrudan INSERT/UPDATE yapıp yapmadığı geçiş öncesi taranmalıdır.',
     ],
@@ -638,7 +638,7 @@ SAP.registerTopic({
 
     bestPractices:[
       'S/4HANA geçişinde CVI’yı **projenin başında** kur; sona bırakılan CVI en sık gecikme sebeplerindendir.',
-      'Geçiş öncesi mükerrer satıcı/müşteri temizliği yap — BP’ye taşındıktan sonra birleştirmek çok daha zordur.',
+      'Geçiş öncesi mükerrer satıcı/müşteri temizliği yap: BP’ye taşındıktan sonra birleştirmek çok daha zordur.',
       'BP grubu ile satıcı/müşteri hesap grubu numara aralıklarını **aynı** tut; farklı olursa aynı iş ortağının iki farklı numarası olur ve raporlama karışır.',
       'Yeni hesap açarken hesap tipini doğru seç: gider hesabını "Primary Costs" yerine "Balance Sheet" açarsan CO’ya hiç akmaz ve sonradan düzeltmek hareket varken imkânsıza yakındır.',
       '{{LSMW}} ile BP yüklemeye çalışma; {{LTMC}} şablonlarını kullan.',
@@ -647,13 +647,13 @@ SAP.registerTopic({
 
   /* =================================================== 10. SENARYO === */
   senaryo: {
-    baslik:'Yeni bir tedarikçiyle çalışmaya başlamak — ana veriden ilk ödemeye',
+    baslik:'Yeni bir tedarikçiyle çalışmaya başlamak: ana veriden ilk ödemeye',
     hikaye:
       '**Marmara Tekstil A.Ş.** yeni bir boya tedarikçisiyle ("Ege Kimya A.Ş.") çalışmaya karar verdi. ' +
       'Bu senaryo, ana verinin açılmasından ilk ödemeye kadar her adımı ve **ana verideki her alanın ' +
       'ilerideki hangi davranışı belirlediğini** gösterir.',
     veriler:[
-      { k:'Şirket kodu', v:'1000 — Marmara Tekstil A.Ş.' },
+      { k:'Şirket kodu', v:'1000: Marmara Tekstil A.Ş.' },
       { k:'Tedarikçi', v:'Ege Kimya A.Ş., vergi no 1234567890' },
       { k:'Anlaşma', v:'60 gün vade, %2 erken ödeme iskontosu (10 gün içinde)' },
       { k:'İlk sipariş', v:'200.000 TL + %20 KDV' },
@@ -669,11 +669,11 @@ SAP.registerTopic({
         ],
         not:'Bu adım atlanırsa aynı firma iki numarayla açılır; bakiyeler bölünür, mutabakat imkânsızlaşır ve iki ayrı ödeme çıkabilir.' },
 
-      { baslik:'BP kaydı açılır — genel katman', tcode:'BP',
+      { baslik:'BP kaydı açılır: genel katman', tcode:'BP',
         aciklama:'Organization tipinde yeni iş ortağı açılır. Bu bilgi {{LFA1}}’e yazılır ve tüm şirket kodları için ortaktır.',
         girdi:[
           { alan:'İş ortağı türü', deger:'Organization' },
-          { alan:'BP grubu', deger:'Z001 — Yurtiçi tedarikçi (iç numara ataması)' },
+          { alan:'BP grubu', deger:'Z001: Yurtiçi tedarikçi (iç numara ataması)' },
           { alan:'Unvan', deger:'Ege Kimya A.Ş.' },
           { alan:'Ülke / Adres', deger:'TR / İzmir' },
           { alan:'Vergi no (`STCD1`)', deger:'1234567890' },
@@ -684,16 +684,16 @@ SAP.registerTopic({
           { tablo:'CDHDR', ne:'Oluşturma kaydı: kullanıcı, tarih, saat' },
         ] },
 
-      { baslik:'FI Vendor rolü eklenir — şirket kodu katmanı', tcode:'BP',
+      { baslik:'FI Vendor rolü eklenir: şirket kodu katmanı', tcode:'BP',
         aciklama:'Asıl muhasebe kararlarının verildiği adım. Buradaki her alan ilerideki bir davranışı belirler.',
         girdi:[
           { alan:'Rol', deger:'FI Vendor (FLVN00)' },
           { alan:'Şirket kodu', deger:'1000' },
-          { alan:'Mutabakat hesabı (`AKONT`)', deger:'320000 — Satıcılar (yurtiçi)' },
-          { alan:'Ödeme koşulu (`ZTERM`)', deger:'ZB02 — 60 gün net, 10 gün %2 iskonto' },
+          { alan:'Mutabakat hesabı (`AKONT`)', deger:'320000: Satıcılar (yurtiçi)' },
+          { alan:'Ödeme koşulu (`ZTERM`)', deger:'ZB02: 60 gün net, 10 gün %2 iskonto' },
           { alan:'Ödeme yöntemi (`ZWELS`)', deger:'H (banka havalesi)' },
-          { alan:'Ödeme bloğu (`ZAHLS`)', deger:'A — ilk fatura onaylanana kadar bloklu' },
-          { alan:'Sıralama anahtarı (`ZUAWA`)', deger:'001 — atama alanına belge tarihi yazılır' },
+          { alan:'Ödeme bloğu (`ZAHLS`)', deger:'A: ilk fatura onaylanana kadar bloklu' },
+          { alan:'Sıralama anahtarı (`ZUAWA`)', deger:'001: atama alanına belge tarihi yazılır' },
         ],
         tabloEtkisi:[
           { tablo:'LFB1', ne:'AKONT = 320000, ZTERM = ZB02, ZWELS = H, ZAHLS = A' },
@@ -703,38 +703,38 @@ SAP.registerTopic({
       { baslik:'İlk fatura girilir', tcode:'FB60',
         aciklama:'Dikkat: kullanıcı vadeyi, mutabakat hesabını ve iskonto şartını **hiç girmedi**. Hepsi ana veriden geldi.',
         girdi:[
-          { alan:'Satıcı', deger:'100456 — Ege Kimya A.Ş.' },
+          { alan:'Satıcı', deger:'100456: Ege Kimya A.Ş.' },
           { alan:'Fatura tarihi', deger:'01.06.2026' },
           { alan:'Tutar', deger:'240.000 TL brüt (%20 KDV dâhil)' },
-          { alan:'Vade — **otomatik**', deger:'31.07.2026 (60 gün, `ZTERM`’den)' },
-          { alan:'İskonto — **otomatik**', deger:'11.06.2026’ya kadar %2 = 4.000 TL' },
-          { alan:'Mutabakat hesabı — **otomatik**', deger:'320000 (`AKONT`’tan)' },
+          { alan:'Vade: **otomatik**', deger:'31.07.2026 (60 gün, `ZTERM`’den)' },
+          { alan:'İskonto: **otomatik**', deger:'11.06.2026’ya kadar %2 = 4.000 TL' },
+          { alan:'Mutabakat hesabı: **otomatik**', deger:'320000 (`AKONT`’tan)' },
         ],
-        fis:{ baslik:'Belge 1900000112 — Ege Kimya ilk faturası', belgeTuru:'KR', tarih:'01.06.2026',
+        fis:{ baslik:'Belge 1900000112: Ege Kimya ilk faturası', belgeTuru:'KR', tarih:'01.06.2026',
           satirlar:[
             { hesap:'153', ad:'Ticari mallar', borc:200000 },
             { hesap:'191', ad:'İndirilecek KDV', borc:40000 },
-            { hesap:'320', ad:'Satıcılar — Ege Kimya', alacak:240000, not:'Ana veriden gelen hesap' },
+            { hesap:'320', ad:'Satıcılar: Ege Kimya', alacak:240000, not:'Ana veriden gelen hesap' },
           ] },
         tabloEtkisi:[
           { tablo:'BSIK', ne:'Açık kalem: 240.000 TL, vade 31.07.2026, ödeme bloğu A (ana veriden miras)' },
         ] },
 
-      { baslik:'Ödeme çalıştırılır — blok engelliyor', tcode:'F110',
+      { baslik:'Ödeme çalıştırılır: blok engelliyor', tcode:'F110',
         aciklama:'Fatura vadesi geldi ama {{F110}} bu kalemi öneriye almadı. Sebep: ana verideki ödeme bloğu.',
         girdi:[
           { alan:'Öneri sonucu', deger:'Kalem "bloklu" olarak istisna listesinde' },
-          { alan:'İstisna sebebi', deger:'Payment block A — ana veriden geliyor' },
+          { alan:'İstisna sebebi', deger:'Payment block A: ana veriden geliyor' },
         ],
         not:'Bu, ana verinin ödeme davranışını nasıl kontrol ettiğinin en somut örneğidir. Blok faturada değil, **satıcıda**dır.' },
 
       { baslik:'Blok kaldırılır ve ödeme yapılır', tcode:'BP',
         aciklama:'İlk fatura kontrol edildikten sonra {{BP}} → şirket kodu verisi → ödeme bloğu temizlenir. Sonraki {{F110}} çalıştırmasında ödeme gerçekleşir.',
-        fis:{ baslik:'Belge 2000000034 — Ödeme', belgeTuru:'KZ', tarih:'31.07.2026',
+        fis:{ baslik:'Belge 2000000034: Ödeme', belgeTuru:'KZ', tarih:'31.07.2026',
           satirlar:[
-            { hesap:'320', ad:'Satıcılar — Ege Kimya', borc:240000, not:'Açık kalem kapandı' },
+            { hesap:'320', ad:'Satıcılar: Ege Kimya', borc:240000, not:'Açık kalem kapandı' },
             { hesap:'102', ad:'Bankalar', alacak:240000 },
-          ], not:'İskonto süresi (11.06) geçtiği için indirim uygulanmadı. Erken ödenseydi 4.000 TL kâr edilecekti — ana veride tanımlı iskonto bunu mümkün kılıyordu.' },
+          ], not:'İskonto süresi (11.06) geçtiği için indirim uygulanmadı. Erken ödenseydi 4.000 TL kâr edilecekti: ana veride tanımlı iskonto bunu mümkün kılıyordu.' },
         tabloEtkisi:[
           { tablo:'BSIK', ne:'Kalem buradan silindi' },
           { tablo:'BSAK', ne:'Kapatılmış kalem olarak buraya taşındı, AUGBL = 2000000034' },
@@ -745,11 +745,11 @@ SAP.registerTopic({
 
     sonuc:
       'Kullanıcı fatura girerken sadece **satıcı numarası ve tutar** girdi. Vade, iskonto şartı, mutabakat hesabı, ' +
-      'ödeme yöntemi ve ödeme bloğu — hepsi ana veriden geldi.\n\n' +
+      'ödeme yöntemi ve ödeme bloğu: hepsi ana veriden geldi.\n\n' +
       'Çıkarılacak ders: **ana veri, gelecekteki yüzlerce işlemin davranışını önceden yazar.** ' +
       'Bu yüzden ana veri hatası tek bir belgeyi değil, o kayda bağlı tüm işlemleri etkiler ve ' +
       'genelde aylar sonra fark edilir.\n\n' +
-      'Bu senaryoda iskonto süresi kaçırıldığı için 4.000 TL kaybedildi. Ana veri doğruydu, süreç yavaştı — ' +
+      'Bu senaryoda iskonto süresi kaçırıldığı için 4.000 TL kaybedildi. Ana veri doğruydu, süreç yavaştı: ' +
       'ama ana veri yanlış olsaydı iskonto **hiç** hesaplanmayacaktı ve kimse fark etmeyecekti.',
   },
 
@@ -757,13 +757,13 @@ SAP.registerTopic({
   ogrenme: {
     ozet:[
       '{{ana-veri}} kalıcı ve referans verilen veridir; {{hareket-verisi}} tek bir olayı kaydeder.',
-      'Ana veri **taşıma isteğine girmez** — her sistemde ayrı açılır veya yüklenir. Yapılandırma taşınır.',
+      'Ana veri **taşıma isteğine girmez**: her sistemde ayrı açılır veya yüklenir. Yapılandırma taşınır.',
       'Ana veri katmanlıdır: **genel** (tüm şirketler için ortak) + **organizasyon** (şirket kodu / satın alma / satış).',
       '{{mutabakat-hesabi}} ({{LFB1}}/{{KNB1}} `AKONT`), muavin defter ile ana muhasebe arasındaki köprüdür.',
       '{{hesap-grubu}} iki şeyi belirler: numara aralığı ve {{alan-durumu}}.',
       'S/4HANA’da müşteri/satıcı yalnızca {{BP}} ile yönetilir; **rol** eklenmeden muhasebe verisi girilemez.',
       'Ana veri silinmez, **bloklanır**. Geçmiş belgeler ona referans verir.',
-      'Ana veri hatası kayıt anında hata vermez — sessizce yanlış davranış üretir. Bu yüzden en tehlikeli hata türüdür.',
+      'Ana veri hatası kayıt anında hata vermez: sessizce yanlış davranış üretir. Bu yüzden en tehlikeli hata türüdür.',
     ],
 
     onemliNoktalar:[
@@ -784,7 +784,7 @@ SAP.registerTopic({
       { hata:'Hareket görmüş hesapta {{acik-kalem-yonetimi}}nu değiştirmeye çalışmak.', dogru:'Bakiye sıfırlanmadan değiştirilemez. Yeni hesap açmak çoğu zaman daha güvenlidir.' },
       { hata:'Gider hesabını S/4HANA’da "Balance Sheet" tipiyle açmak.', dogru:'"Primary Costs or Revenue" seçilmelidir; aksi hâlde kayıt CO’ya hiç akmaz.' },
       { hata:'{{LSMW}} ile {{BP}} yüklemeye çalışmak.', dogru:'BP ekranı dinamiktir, ekran kaydı bozulur. {{LTMC}} şablonları kullanılır.' },
-      { hata:'Satıcı banka hesabı değişikliğini normal bir güncelleme gibi görmek.', dogru:'Ayrı onaya bağlanmalı ve {{CDPOS}} üzerinden denetlenmelidir — ödeme dolandırıcılığının en yaygın yoludur.' },
+      { hata:'Satıcı banka hesabı değişikliğini normal bir güncelleme gibi görmek.', dogru:'Ayrı onaya bağlanmalı ve {{CDPOS}} üzerinden denetlenmelidir: ödeme dolandırıcılığının en yaygın yoludur.' },
     ],
 
     ipuclari:[
@@ -792,7 +792,7 @@ SAP.registerTopic({
       'Yeni satıcıyı ödeme bloklu aç, ilk fatura onayından sonra bloğu kaldır. Maliyeti sıfır, koruması yüksek bir kontroldür.',
       '"Bu alan neden zorunlu?" sorusunun cevabı üç yerden birindedir: hesap/satıcı **hesap grubunun alan durumu**, **kayıt anahtarının** alan durumu, veya şirket kodunun **alan durumu varyantı**.',
       'Ana veri kalitesini üç sorguyla ölç: mükerrer vergi numarası, boş `AKONT`, 2 yıldır hareketsiz kayıt.',
-      'Toplu ana veri işlerinde ekran otomasyonu yerine {{LTMC}} veya BAPI kullan — daha hızlı ve kırılgan değil.',
+      'Toplu ana veri işlerinde ekran otomasyonu yerine {{LTMC}} veya BAPI kullan: daha hızlı ve kırılgan değil.',
       '{{FS00}}’a girip *Kontrol verisi* sekmesine bakmak, bir hesabın davranışıyla ilgili soruların çoğunu tek ekranda cevaplar.',
     ],
 
@@ -859,15 +859,15 @@ SAP.registerTopic({
 
     flashcards:[
       { on:'Ana veri ile hareket verisi farkı nedir?', arka:'**Ana veri:** kalıcı, referans verilen (hesap, satıcı, müşteri, varlık).\n**Hareket verisi:** tek bir olayı kaydeden, tarihli (fatura, ödeme).\n\nHareket verisi ana veriye referans verir ve davranışını ondan alır.' },
-      { on:'Ana veri taşıma isteğine girer mi?', arka:'**Hayır.**\n\nHer sistemde ayrı açılır veya LTMC/LSMW ile yüklenir.\n\nTaşınan şey: hesap grubu, alan durumu, numara aralığı **tanımı** — yani customizing.' },
-      { on:'G/L hesabının iki katmanı nedir?', arka:'**SKA1** — hesap planı seviyesi: numara, ad, hesap grubu, bilanço/gelir-gider. Tüm şirketler için ortak.\n\n**SKB1** — şirket kodu seviyesi: para birimi, vergi kategorisi, açık kalem yönetimi, alan durumu grubu.' },
+      { on:'Ana veri taşıma isteğine girer mi?', arka:'**Hayır.**\n\nHer sistemde ayrı açılır veya LTMC/LSMW ile yüklenir.\n\nTaşınan şey: hesap grubu, alan durumu, numara aralığı **tanımı**: yani customizing.' },
+      { on:'G/L hesabının iki katmanı nedir?', arka:'**SKA1**: hesap planı seviyesi: numara, ad, hesap grubu, bilanço/gelir-gider. Tüm şirketler için ortak.\n\n**SKB1**: şirket kodu seviyesi: para birimi, vergi kategorisi, açık kalem yönetimi, alan durumu grubu.' },
       { on:'Mutabakat hesabı hangi alanda tutulur?', arka:'Satıcıda **LFB1-AKONT**, müşteride **KNB1-AKONT**.\n\nHesabın kendisi SKB1’de `MITKZ` alanıyla işaretlenir: D müşteri, K satıcı, A duran varlık.' },
-      { on:'Hesap grubu neyi belirler?', arka:'İki şeyi:\n1. **Numara aralığı** — hesabın hangi aralıkta açılabileceği\n2. **Alan durumu** — hangi alanların zorunlu/opsiyonel/gizli olacağı\n\nOBD4 ile tanımlanır.' },
-      { on:'S/4HANA’da BP nedir, neden zorunludur?', arka:'**Business Partner** — müşteri ve satıcı ana verisinin tek giriş noktası.\n\nCVI (Customer/Vendor Integration) ile LFA1/KNA1’i doldurur.\n\nAynı firma tek kayıtta hem müşteri hem satıcı rolü taşıyabilir.' },
+      { on:'Hesap grubu neyi belirler?', arka:'İki şeyi:\n1. **Numara aralığı**: hesabın hangi aralıkta açılabileceği\n2. **Alan durumu**: hangi alanların zorunlu/opsiyonel/gizli olacağı\n\nOBD4 ile tanımlanır.' },
+      { on:'S/4HANA’da BP nedir, neden zorunludur?', arka:'**Business Partner**: müşteri ve satıcı ana verisinin tek giriş noktası.\n\nCVI (Customer/Vendor Integration) ile LFA1/KNA1’i doldurur.\n\nAynı firma tek kayıtta hem müşteri hem satıcı rolü taşıyabilir.' },
       { on:'BP’de şirket kodu verisini göremiyorsan sebep nedir?', arka:'**Rol eklenmemiştir.**\n\nFI Vendor (FLVN00) veya FI Customer (FLCU00) rolü eklenmeden muhasebe sekmeleri açılmaz.' },
       { on:'ZWELS ve ZAHLS alanları ne işe yarar?', arka:'**ZWELS** = izin verilen ödeme yöntemleri. F110 bunun dışına çıkamaz.\n**ZAHLS** = ödeme bloğu. Doluysa F110 satıcıyı öneriye almaz.\n\nİkisi de LFB1’de, satıcı ana verisindedir.' },
       { on:'Ana veri neden silinmez?', arka:'Geçmiş belgeler ona **referans verir**. Silinirse belgeler yetim kalır.\n\nDoğru yöntem **bloklamaktır**. LOEVM (silme işareti) sadece arşivleme programına sinyaldir.' },
-      { on:'Ana veri değişikliği nasıl denetlenir?', arka:'**CDHDR** (kim, ne zaman) + **CDPOS** (hangi alan, eski/yeni değer).\n\nEn kritik izlenecek alan: satıcı **banka hesabı** (LFBK) — ödeme dolandırıcılığının en yaygın yolu.' },
+      { on:'Ana veri değişikliği nasıl denetlenir?', arka:'**CDHDR** (kim, ne zaman) + **CDPOS** (hangi alan, eski/yeni değer).\n\nEn kritik izlenecek alan: satıcı **banka hesabı** (LFBK): ödeme dolandırıcılığının en yaygın yolu.' },
       { on:'Varlık sınıfı (asset class) neyi getirir?', arka:'1. **Numara aralığı**\n2. **Hesap belirleme** (AO90 üzerinden)\n3. Varsayılan **amortisman anahtarı** ve **faydalı ömür**\n\nAS01’de sınıf seçilir seçilmez bunlar otomatik gelir.' },
       { on:'S/4HANA’da bir gider hesabı hangi tiple açılmalı?', arka:'**Primary Costs or Revenue.**\n\n"Balance Sheet" seçilirse kayıt CO’ya **hiç akmaz** ve maliyet yeri raporlarında görünmez.\n\nHareket varken tip değiştirmek neredeyse imkânsızdır.' },
     ],

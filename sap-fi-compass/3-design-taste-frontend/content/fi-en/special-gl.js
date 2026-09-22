@@ -1,6 +1,6 @@
 /* ==========================================================================
-   content/fi-en/special-gl.js — English body for "Special G/L"
-   Same conventions as content/fi-en/gl-accounting.js — see that file's
+   content/fi-en/special-gl.js: English body for "Special G/L"
+   Same conventions as content/fi-en/gl-accounting.js: see that file's
    header comment.
    ========================================================================== */
 
@@ -16,12 +16,12 @@ SAP.registerTopic({
       '**on a different account than the normal reconciliation account**.\n\n' +
       'Normally a vendor liability is posted to the reconciliation account (320) in the ' +
       '{{LFB1}} `AKONT` field. But when a **down payment** is made to a vendor, that isn\'t a ' +
-      'liability, it\'s a **receivable** — and on the balance sheet it must show up not under ' +
+      'liability, it\'s a **receivable**: and on the balance sheet it must show up not under ' +
       '320 but under 159 (down payments made).\n\n' +
       'The mechanism runs on a single character: the **{{ozel-ana-muhasebe-gostergesi}}**. ' +
       'The user enters `A` (down payment), and the system posts by **swapping** the ' +
       'reconciliation account. The vendor is still the same vendor, the item is still a ' +
-      'vendor item — only the G/L account differs.\n\n' +
+      'vendor item: only the G/L account differs.\n\n' +
       'The critical distinction is this: **the business partner stays the same, the G/L ' +
       'account changes.** This lets the question "what is my total relationship with this ' +
       'vendor?" be answered from one place, while the balance sheet reports the down payment ' +
@@ -50,7 +50,7 @@ SAP.registerTopic({
       'for years.\n\n' +
       'The distinguishing question is: **"What happens if the down payment is never ' +
       'cleared?"** The correct answer: the vendor liability **and** the down payment made ' +
-      '**both** show up on the balance sheet at the same time — meaning both an asset and a ' +
+      '**both** show up on the balance sheet at the same time: meaning both an asset and a ' +
       'liability are inflated. The document is balanced, the trial balance ties out, no alarm ' +
       'goes off. This is the most common cause of balance-sheet inflation.',
 
@@ -58,7 +58,7 @@ SAP.registerTopic({
       'A company orders a new machine: 1,200,000 TRY, **30% upfront**.\n\n' +
       '360,000 TRY is paid as a down payment. Out of habit, the accountant enters a normal ' +
       'payment posting: vendor debit / bank credit.\n\n' +
-      'The problem: **there isn\'t a liability to the vendor yet** — the invoice hasn\'t ' +
+      'The problem: **there isn\'t a liability to the vendor yet**: the invoice hasn\'t ' +
       'arrived. The posting closes out a liability that doesn\'t exist and creates a ' +
       '**reverse balance** on the vendor account.\n\n' +
       'Three months later the invoice arrives: 1,200,000 TRY. The system posts 1,200,000 TRY ' +
@@ -79,7 +79,7 @@ SAP.registerTopic({
       '360,000 TRY is an **asset** (a right to receive goods/services), 1,200,000 TRY is a ' +
       '**liability**. The two must be shown separately.\n\n' +
       'Special G/L delivers exactly that. Clearing ({{F-54}}) is done only once a genuine ' +
-      'right of set-off arises — that is, once the invoice arrives.\n\n' +
+      'right of set-off arises: that is, once the invoice arrives.\n\n' +
       'The second layer of logic is **statistical items**: a down payment *request* is not a ' +
       'liability, no money has gone out yet. That\'s why the posting is **statistical**: it ' +
       'doesn\'t affect the balance sheet but is tracked in the system ({{F-47}}).',
@@ -106,9 +106,9 @@ SAP.registerTopic({
 
     diyagram:{
       type:'flow',
-      baslik:'The down-payment chain — four steps; skip one and the balance sheet inflates',
+      baslik:'The down-payment chain: four steps; skip one and the balance sheet inflates',
       adimlar:[
-        { ic:'📋', rol:'AP accounting', baslik:'Down-payment request ({{F-47}}) — **statistical**',
+        { ic:'📋', rol:'AP accounting', baslik:'Down-payment request ({{F-47}}): **statistical**',
           aciklama:'Indicator **F**. Does **not affect** the balance sheet, is only tracked. ' +
                    '{{F110}} sees this request and picks it up in its payment proposal.',
           cikti:'A statistical item', ok:'payment time arrives' },
@@ -117,7 +117,7 @@ SAP.registerTopic({
                    'The request item is closed.',
           cikti:'A genuine down-payment item', ok:'the goods/service arrives' },
         { ic:'🧾', rol:'AP accounting', baslik:'The invoice is recorded ({{FB60}} / {{MIRO}})',
-          aciklama:'**A normal posting** — no indicator. 320 Trade payables is credited. ' +
+          aciklama:'**A normal posting**: no indicator. 320 Trade payables is credited. ' +
                    'The down payment is still sitting in 159.',
           cikti:'A vendor liability', ok:'**clearing is required**' },
         { ic:'🔗', rol:'AP accounting', baslik:'**The down payment is cleared ({{F-54}})**',
@@ -131,13 +131,13 @@ SAP.registerTopic({
     },
 
     adimlar:[
-      { rol:'AP accounting', eylem:'Creates the down-payment request', sistem:'{{F-47}} — indicator **F**, statistical' },
-      { rol:'Treasury', eylem:'Pays the down payment', sistem:'{{F-48}} or {{F110}} — indicator **A**' },
-      { rol:'AP accounting', eylem:'Records the invoice', sistem:'{{FB60}} / {{MIRO}} — **no indicator**' },
-      { rol:'AP accounting', eylem:'Clears the down payment', sistem:'{{F-54}} — **must not be skipped**' },
+      { rol:'AP accounting', eylem:'Creates the down-payment request', sistem:'{{F-47}}: indicator **F**, statistical' },
+      { rol:'Treasury', eylem:'Pays the down payment', sistem:'{{F-48}} or {{F110}}: indicator **A**' },
+      { rol:'AP accounting', eylem:'Records the invoice', sistem:'{{FB60}} / {{MIRO}}: **no indicator**' },
+      { rol:'AP accounting', eylem:'Clears the down payment', sistem:'{{F-54}}: **must not be skipped**' },
       { rol:'Treasury', eylem:'Pays the remainder', sistem:'{{F-53}} / {{F110}}' },
-      { rol:'General ledger', eylem:'Checks open down payments', sistem:'{{FBL1N}} — special G/L indicator filter' },
-      { rol:'AR accounting', eylem:'Receives a customer down payment', sistem:'{{F-29}} — indicator **A**, account 340' },
+      { rol:'General ledger', eylem:'Checks open down payments', sistem:'{{FBL1N}}: special G/L indicator filter' },
+      { rol:'AR accounting', eylem:'Receives a customer down payment', sistem:'{{F-29}}: indicator **A**, account 340' },
       { rol:'AR accounting', eylem:'Clears the customer down payment', sistem:'{{F-39}}' },
     ],
 
@@ -171,38 +171,38 @@ SAP.registerTopic({
   muhasebe: {
     anlatim:
       'Special G/L\'s accounting impact is tracked across the **four steps of the ' +
-      'down-payment chain**. The documents below show every stage of the same transaction — ' +
+      'down-payment chain**. The documents below show every stage of the same transaction: ' +
       'plus the faulty scenario where the clearing step is skipped.',
 
     etkilenenHesaplar:[
-      { hesap:'159 Down payments on orders made', tur:'Balance sheet — Asset', neden:'A down payment made to a vendor. Indicator **A** → the alternative reconciliation account.' },
-      { hesap:'340 Down payments on orders received', tur:'Balance sheet — Liability', neden:'A down payment received from a customer. A liability — an obligation to deliver goods/services.' },
-      { hesap:'320 Trade payables', tur:'Balance sheet — Liability', neden:'The normal reconciliation account ({{LFB1}} `AKONT`); used when no indicator is entered.' },
-      { hesap:'120 Trade receivables', tur:'Balance sheet — Asset', neden:'The customer\'s normal reconciliation account.' },
-      { hesap:'126 Deposits and guarantees given', tur:'Balance sheet — Asset', neden:'Indicator **T** or similar; rent/tender guarantees.' },
-      { hesap:'326 Deposits and guarantees received', tur:'Balance sheet — Liability', neden:'A guarantee received from a customer.' },
-      { hesap:'121 Notes receivable', tur:'Balance sheet — Asset', neden:'Indicator **W** — a customer receivable converted into a bill of exchange.' },
+      { hesap:'159 Down payments on orders made', tur:'Balance sheet: Asset', neden:'A down payment made to a vendor. Indicator **A** → the alternative reconciliation account.' },
+      { hesap:'340 Down payments on orders received', tur:'Balance sheet: Liability', neden:'A down payment received from a customer. A liability: an obligation to deliver goods/services.' },
+      { hesap:'320 Trade payables', tur:'Balance sheet: Liability', neden:'The normal reconciliation account ({{LFB1}} `AKONT`); used when no indicator is entered.' },
+      { hesap:'120 Trade receivables', tur:'Balance sheet: Asset', neden:'The customer\'s normal reconciliation account.' },
+      { hesap:'126 Deposits and guarantees given', tur:'Balance sheet: Asset', neden:'Indicator **T** or similar; rent/tender guarantees.' },
+      { hesap:'326 Deposits and guarantees received', tur:'Balance sheet: Liability', neden:'A guarantee received from a customer.' },
+      { hesap:'121 Notes receivable', tur:'Balance sheet, Asset', neden:'Indicator **W**, a customer receivable converted into a bill of exchange.' },
       { hesap:'Statistical items', tur:'**No** balance sheet impact', neden:'A down-payment request (indicator **F**) is only tracked, it doesn\'t produce a posting.' },
     ],
 
     fisler:[
-      { baslik:'Step 1 — Down-payment request ({{F-47}}) · **statistical, no balance-sheet impact**',
+      { baslik:'Step 1: Down-payment request ({{F-47}}) · **statistical, no balance-sheet impact**',
         belgeTuru:'KA', tarih:'05.07.2027', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'—', ad:'Statistical item — Vendor V-2001, indicator **F**', borc:0, alacak:0,
+          { hesap:', ', ad:'Statistical item, Vendor V-2001, indicator **F**', borc:0, alacak:0,
             not:'Tracking only; **the G/L account is not affected**' },
         ],
-        not:'A down-payment **request** isn\'t a liability — no money has gone out yet, ' +
+        not:'A down-payment **request** isn\'t a liability: no money has gone out yet, ' +
              'there\'s just an intention under the contract.\n\n' +
              'That\'s why the posting is **statistical** (a noted item): it doesn\'t affect ' +
              'the balance sheet, but {{F110}} can see this request and pick it up in its ' +
              'payment proposal, and it can be tracked in {{FBL1N}}.\n\n' +
              '*(The 0/0 shown in the table is to emphasize that the posting has no G/L impact.)*' },
 
-      { baslik:'Step 2 — The down payment is paid ({{F-48}}) · indicator **A**',
+      { baslik:'Step 2: The down payment is paid ({{F-48}}) · indicator **A**',
         belgeTuru:'KZ', tarih:'10.07.2027', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'159', ad:'Down payments on orders made — V-2001', borc:360000, not:'Indicator **A** → the alternative reconciliation account' },
+          { hesap:'159', ad:'Down payments on orders made: V-2001', borc:360000, not:'Indicator **A** → the alternative reconciliation account' },
           { hesap:'102', ad:'Banks', alacak:360000 },
         ],
         not:'**Account 320 Trade payables was never used.** The item is still a vendor item ' +
@@ -212,26 +212,26 @@ SAP.registerTopic({
              'right to receive goods/services in return.\n\n' +
              'The request item (step 1) was closed by this payment.' },
 
-      { baslik:'Step 3 — The invoice arrives ({{FB60}}) · **no indicator**',
+      { baslik:'Step 3: The invoice arrives ({{FB60}}) · **no indicator**',
         belgeTuru:'KR', tarih:'15.09.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'253', ad:'Plant, machinery and equipment', borc:1000000 },
           { hesap:'191', ad:'Deductible VAT', borc:200000 },
-          { hesap:'320', ad:'Trade payables — V-2001', alacak:1200000, not:'The **normal** reconciliation account' },
+          { hesap:'320', ad:'Trade payables: V-2001', alacak:1200000, not:'The **normal** reconciliation account' },
         ],
-        not:'The invoice is a **normal posting** — no special G/L indicator is entered. ' +
+        not:'The invoice is a **normal posting**: no special G/L indicator is entered. ' +
              'Account 320 is credited.\n\n' +
              '**There are now two items on the balance sheet:**\n' +
              '159 Down payment made: 360,000 TRY (asset)\n' +
              '320 Trade payables: 1,200,000 TRY (liability)\n\n' +
-             'Both are correct but they **need to be netted** — because a legal right of ' +
+             'Both are correct but they **need to be netted**: because a legal right of ' +
              'set-off now exists.' },
 
-      { baslik:'Step 4 — The down payment is cleared ({{F-54}}) · **the critical step**',
+      { baslik:'Step 4: The down payment is cleared ({{F-54}}) · **the critical step**',
         belgeTuru:'KA', tarih:'15.09.2027', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'320', ad:'Trade payables — V-2001', borc:360000, not:'The liability decreased' },
-          { hesap:'159', ad:'Down payments on orders made — V-2001', alacak:360000, not:'The down payment was closed' },
+          { hesap:'320', ad:'Trade payables: V-2001', borc:360000, not:'The liability decreased' },
+          { hesap:'159', ad:'Down payments on orders made: V-2001', alacak:360000, not:'The down payment was closed' },
         ],
         not:'The down payment and the liability were netted. **The balance sheet is now ' +
              'correct:**\n' +
@@ -241,36 +241,36 @@ SAP.registerTopic({
              'sides, and there\'s a risk of the down payment being paid a second time when ' +
              'the remainder is paid.' },
 
-      { baslik:'Step 5 — The remaining amount is paid ({{F-53}})',
+      { baslik:'Step 5: The remaining amount is paid ({{F-53}})',
         belgeTuru:'KZ', tarih:'30.09.2027', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'320', ad:'Trade payables — V-2001', borc:840000 },
+          { hesap:'320', ad:'Trade payables: V-2001', borc:840000 },
           { hesap:'102', ad:'Banks', alacak:840000 },
         ],
         not:'1,200,000 − 360,000 = **840,000 TRY** was paid. ' +
              'Total cash outflow: 360,000 + 840,000 = 1,200,000 TRY ✓\n\n' +
              'The vendor open item is closed, the transaction is complete.' },
 
-      { baslik:'**Faulty scenario** — clearing is skipped, the full amount is paid',
+      { baslik:'**Faulty scenario**: clearing is skipped, the full amount is paid',
         belgeTuru:'KZ', tarih:'30.09.2027', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'320', ad:'Trade payables — V-2001', borc:1200000, not:'**The full invoice amount**' },
+          { hesap:'320', ad:'Trade payables: V-2001', borc:1200000, not:'**The full invoice amount**' },
           { hesap:'102', ad:'Banks', alacak:1200000, not:'**An overpayment**' },
         ],
         not:'Because {{F-54}} was skipped, the vendor liability showed as 1,200,000 TRY and ' +
              'the user paid the whole thing.\n\n' +
              '**Result:** total cash outflow of 360,000 + 1,200,000 = **1,560,000 TRY**. ' +
              'The invoice was 1,200,000 TRY. **360,000 TRY was overpaid.**\n\n' +
-             'On top of that, the 360,000 TRY down payment is still open in account 159 — ' +
+             'On top of that, the 360,000 TRY down payment is still open in account 159: ' +
              'the company is now **owed** by the vendor, and nobody notices.\n\n' +
              'This is the point where a special G/L account used incorrectly turns into a ' +
              '**genuine cash loss**.' },
 
-      { baslik:'Customer down payment — the mirror transaction ({{F-29}}) · indicator **A**',
+      { baslik:'Customer down payment: the mirror transaction ({{F-29}}) · indicator **A**',
         belgeTuru:'DZ', tarih:'12.07.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'102', ad:'Banks', borc:250000 },
-          { hesap:'340', ad:'Down payments on orders received — C-5002', alacak:250000, not:'A **liability** — an obligation to deliver goods/services' },
+          { hesap:'340', ad:'Down payments on orders received, C-5002', alacak:250000, not:'A **liability**, an obligation to deliver goods/services' },
         ],
         not:'A down payment received from a customer is a **liability**: money was received ' +
              'but no goods/services have been delivered in return.\n\n' +
@@ -303,7 +303,7 @@ SAP.registerTopic({
         '**1. The business-partner link.** The item doesn\'t carry a vendor number. The ' +
         'question "what is my total relationship with V-2001?" can\'t be answered; ' +
         '{{FBL1N}} never sees this down payment at all.\n\n' +
-        '**2. Automatic clearing.** {{F-54}} can\'t work — it can\'t find the down payment ' +
+        '**2. Automatic clearing.** {{F-54}} can\'t work: it can\'t find the down payment ' +
         'as a vendor item. Clearing is done manually, and gets forgotten.\n\n' +
         '**3. Process integration.** {{F110}} doesn\'t see the down payment, doesn\'t take it ' +
         'into account in its payment proposal. Vendor balance reports come out incomplete.\n\n' +
@@ -329,18 +329,18 @@ SAP.registerTopic({
 
       { ad:'Statistical / Noted Item',
         aciklama:'**Doesn\'t affect the balance sheet**; a one-sided posting made only for tracking.',
-        neZaman:'For down-payment requests, sureties, guarantees — commitments that haven\'t yet materialized.',
+        neZaman:'For down-payment requests, sureties, guarantees: commitments that haven\'t yet materialized.',
         ornek:'Indicator **F** (down-payment request) → no G/L impact, but {{F110}} sees it ' +
               'and picks it up in its payment proposal.',
         tcodes:['F-47','F-37'] },
 
-      { ad:'Down Payment Made (Vendor) — indicator A',
+      { ad:'Down Payment Made (Vendor): indicator A',
         aciklama:'A down payment paid to a vendor; tracked as an **asset**.',
         neZaman:'When advance payment is required before an order.',
         ornek:'159 Down payments on orders made. Cleared with {{F-54}}.',
         tcodes:['F-48','F-54'] },
 
-      { ad:'Down Payment Received (Customer) — indicator A',
+      { ad:'Down Payment Received (Customer): indicator A',
         aciklama:'A down payment received from a customer; tracked as a **liability**.',
         neZaman:'When advance collection is made from a customer.',
         ornek:'340 Down payments on orders received. Cleared with {{F-39}}.',
@@ -350,9 +350,9 @@ SAP.registerTopic({
         aciklama:'Amounts given or received as security under a contract.',
         neZaman:'Lease contracts, tender guarantees, public-sector work.',
         ornek:'126 Deposits and guarantees given / 326 Deposits and guarantees received. ' +
-              '**Stays open for a long time** — the period-end check matters here.' },
+              '**Stays open for a long time**: the period-end check matters here.' },
 
-      { ad:'Bill of Exchange — indicator W',
+      { ad:'Bill of Exchange: indicator W',
         aciklama:'A receivable converted into a bill of exchange; carries a different maturity and risk profile.',
         neZaman:'In sectors that work with bills of exchange (textiles, food wholesale).',
         ornek:'121 Notes receivable / 321 Notes payable. ' +
@@ -372,8 +372,8 @@ SAP.registerTopic({
 
     karsilastirmaBasliklar:['Real item', 'Statistical item'],
     karsilastirma:[
-      ['Balance-sheet impact', '**Yes** — the G/L account moves', '**No** — tracked only'],
-      ['Offsetting posting', 'Yes (bank, cash)', 'No — one-sided'],
+      ['Balance-sheet impact', '**Yes**, the G/L account moves', '**No**, tracked only'],
+      ['Offsetting posting', 'Yes (bank, cash)', 'No: one-sided'],
       ['Typical indicator', '**A** down payment, **T** guarantee', '**F** down-payment request'],
       ['Typical transaction', '{{F-48}}, {{F-29}}', '{{F-47}}, {{F-37}}'],
       ['{{F110}} behavior', 'Treats it as a paid item', '**Picks it up in the payment proposal**'],
@@ -386,13 +386,13 @@ SAP.registerTopic({
   /* ===================================================== 5. TRANSACTION CODES === */
   tcodes: {
     liste:[
-      { kod:'F-47', ad:'Vendor down-payment request — statistical',
+      { kod:'F-47', ad:'Vendor down-payment request: statistical',
         amac:'Creates a statistical item for a down payment to be paid to a vendor; ' +
              '{{F110}} sees it and picks it up in its payment proposal.',
         neZaman:'Whenever the contract has a down-payment term, before the payment is made.',
         adimlar:[
           { baslik:'Enter the vendor and company code' },
-          { baslik:'**Enter the special G/L indicator** — usually `F`',
+          { baslik:'**Enter the special G/L indicator**: usually `F`',
             aciklama:'This indicator makes the posting **statistical**; the balance sheet isn\'t affected.' },
           { baslik:'Enter the amount and due date',
             aciklama:'The due date decides when {{F110}} will pick up the request in its payment proposal.' },
@@ -409,14 +409,14 @@ SAP.registerTopic({
         hatalar:[
           { mesaj:'Special G/L indicator ... not defined for account type K', sebep:'The indicator isn\'t defined for the vendor account type.', cozum:'Define the indicator with {{FBKP}} and assign the alternative reconciliation account.' },
         ],
-        ipucu:'The down-payment request step is **optional** — a payment can also be made ' +
+        ipucu:'The down-payment request step is **optional**: a payment can also be made ' +
               'directly with {{F-48}}. But if a request is created, {{F110}} picks up the ' +
               'down payment **automatically** in its payment proposal and the process ' +
               'doesn\'t depend on someone remembering. On companies that pay down payments ' +
               'routinely, this step saves a considerable amount of time.',
         ilgili:['F-48','F110','FBL1N'] },
 
-      { kod:'F-48', ad:'Pay vendor down payment — a real item',
+      { kod:'F-48', ad:'Pay vendor down payment: a real item',
         amac:'Pays the down payment and posts it to the **159 Down payments made** account.',
         neZaman:'When making a down-payment payment.',
         adimlar:[
@@ -440,9 +440,9 @@ SAP.registerTopic({
               'show up, a plain G/L posting was made by mistake and {{F-54}} **won\'t work**.',
         ilgili:['F-47','F-54','FBL1N','FBKP'] },
 
-      { kod:'F-54', ad:'Clear vendor down payment — **the most critical transaction**',
+      { kod:'F-54', ad:'Clear vendor down payment: **the most critical transaction**',
         amac:'Nets the down payment made against the vendor invoice.',
-        neZaman:'After the invoice is recorded — **every time**.',
+        neZaman:'After the invoice is recorded: **every time**.',
         adimlar:[
           { baslik:'Enter the vendor and company code' },
           { baslik:'Select the invoice to clear against',
@@ -465,7 +465,7 @@ SAP.registerTopic({
           { mesaj:'No down payments found for vendor', sebep:'The down payment was made with a plain G/L posting, not the special G/L indicator.', cozum:'Reverse the down-payment posting and re-enter it with {{F-48}} using indicator **A**.' },
           { mesaj:'Down payment amount exceeds invoice amount', sebep:'The down payment is larger than the invoice.', cozum:'Do a partial clearing; the remaining down payment stays open and is cleared against the next invoice.' },
         ],
-        ipucu:'**No error occurs when this transaction is skipped** — and that\'s exactly ' +
+        ipucu:'**No error occurs when this transaction is skipped**: and that\'s exactly ' +
               'where the danger lies. The balance sheet inflates on both sides, and the down ' +
               'payment can end up paid a second time when the remainder is paid.\n\n' +
               'Add this check to the month-end close: {{FBL1N}} → indicator **A** → open ' +
@@ -473,7 +473,7 @@ SAP.registerTopic({
               'on that list.',
         ilgili:['F-48','FBL1N','F-53'] },
 
-      { kod:'F-29', ad:'Receive customer down payment — the mirror transaction',
+      { kod:'F-29', ad:'Receive customer down payment: the mirror transaction',
         amac:'Posts a down payment received from a customer to the **340 Down payments received** account.',
         neZaman:'When advance collection is made from a customer.',
         adimlar:[
@@ -519,12 +519,12 @@ SAP.registerTopic({
           zorunlu:['Account type','Indicator','Normal reconciliation account','Alternative account'],
           opsiyonel:['Statistical flag','Target special G/L indicator'] },
         hatalar:[
-          { mesaj:'Alternative reconciliation account not defined', sebep:'The match was only defined for some reconciliation accounts.', cozum:'A match must be entered **for every reconciliation account in use** — if there\'s more than one 320* account, all of them.' },
+          { mesaj:'Alternative reconciliation account not defined', sebep:'The match was only defined for some reconciliation accounts.', cozum:'A match must be entered **for every reconciliation account in use**: if there\'s more than one 320* account, all of them.' },
         ],
         ipucu:'The most common configuration mistake: the company has more than one vendor ' +
               'reconciliation account (domestic 320, foreign 321, group companies 322) and ' +
               'the match is only defined for one of them.\n\n' +
-              'The result: down payments can be paid to some vendors, not to others — and ' +
+              'The result: down payments can be paid to some vendors, not to others: and ' +
               'the error message doesn\'t clearly say why.',
         ilgili:['F-48','F-29','FS00'] },
     ],
@@ -534,11 +534,11 @@ SAP.registerTopic({
   tablolar: {
     anlatim:
       'The table side of special G/L is simple: **a single field** ({{BSEG}} `UMSKZ`) ' +
-      'decides everything. There\'s no separate table — the items sit in the normal ' +
+      'decides everything. There\'s no separate table: the items sit in the normal ' +
       'vendor/customer open-item tables.',
 
     liste:[
-      { ad:'BSEG', baslik:'Document line items — the special G/L indicator lives here',
+      { ad:'BSEG', baslik:'Document line items: the special G/L indicator lives here',
         tutar:'The item\'s special G/L indicator (`UMSKZ`) and the alternative reconciliation account used.',
         olusturan:'A posting',
         guncelleyen:'Clearing and settlement transactions',
@@ -546,22 +546,22 @@ SAP.registerTopic({
         iliskiler:'{{BSIK}}/{{BSID}} open-item indexes; {{LFB1}}/{{KNB1}} master data.',
         s4:'{{uyumluluk-view}}; {{ACDOCA}} carries the `UMSKZ` field.',
         alanlar:[
-          { ad:'UMSKZ', aciklama:'**Special G/L indicator** — A down payment, F request, W bill of exchange. Blank means a normal item.' },
-          { ad:'HKONT', aciklama:'The G/L account used — the **alternative** account (159) when an indicator is present' },
-          { ad:'LIFNR / KUNNR', aciklama:'Vendor / customer — **stays filled even with an indicator**', tip:'fk' },
-          { ad:'UMSKS', aciklama:'Special G/L transaction type — A down payment, W bill of exchange, D other' },
+          { ad:'UMSKZ', aciklama:'**Special G/L indicator**: A down payment, F request, W bill of exchange. Blank means a normal item.' },
+          { ad:'HKONT', aciklama:'The G/L account used: the **alternative** account (159) when an indicator is present' },
+          { ad:'LIFNR / KUNNR', aciklama:'Vendor / customer: **stays filled even with an indicator**', tip:'fk' },
+          { ad:'UMSKS', aciklama:'Special G/L transaction type: A down payment, W bill of exchange, D other' },
         ] },
 
       { ad:'BSIK', baslik:'Vendor open items',
-        tutar:'Down-payment items sit **here** too — in the same table as normal liabilities.',
+        tutar:'Down-payment items sit **here** too: in the same table as normal liabilities.',
         olusturan:'Every document that contains a vendor item',
         guncelleyen:'Clearing → moves to {{BSAK}}',
         anahtar:'LIFNR + BUKRS + BELNR + BUZEI',
         iliskiler:'{{FBL1N}} reads from this table; can be filtered by `UMSKZ`.',
         s4:'{{uyumluluk-view}}.',
         alanlar:[
-          { ad:'UMSKZ', aciklama:'Indicator — used **as a filter** in {{FBL1N}}' },
-          { ad:'LIFNR', aciklama:'Vendor — the down payment is tied to the vendor too', tip:'fk' },
+          { ad:'UMSKZ', aciklama:'Indicator: used **as a filter** in {{FBL1N}}' },
+          { ad:'LIFNR', aciklama:'Vendor: the down payment is tied to the vendor too', tip:'fk' },
         ] },
 
       { ad:'BSID', baslik:'Customer open items',
@@ -569,16 +569,16 @@ SAP.registerTopic({
         olusturan:'Every document that contains a customer item',
         s4:'{{uyumluluk-view}}.',
         alanlar:[
-          { ad:'UMSKZ', aciklama:'Indicator — A down payment received, W bill of exchange' },
+          { ad:'UMSKZ', aciklama:'Indicator: A down payment received, W bill of exchange' },
         ] },
 
       { ad:'LFB1', baslik:'Vendor company-code data',
         tutar:'The **normal** reconciliation account (`AKONT`). The alternative account isn\'t ' +
-              'here — it lives in configuration ({{FBKP}}).',
+              'here: it lives in configuration ({{FBKP}}).',
         olusturan:'{{BP}} → the FI Vendor role',
         s4:'Managed via {{BP}}.',
         alanlar:[
-          { ad:'AKONT', aciklama:'The {{mutabakat-hesabi}} — 320. **Not used** once an indicator is entered.' },
+          { ad:'AKONT', aciklama:'The {{mutabakat-hesabi}}: 320. **Not used** once an indicator is entered.' },
         ] },
 
       { ad:'T074', baslik:'Special G/L account determination',
@@ -589,7 +589,7 @@ SAP.registerTopic({
         iliskiler:'Read at posting time to find the alternative account.',
         s4:'Unchanged.',
         alanlar:[
-          { ad:'KOART', aciklama:'Account type — **K** vendor, **D** customer' },
+          { ad:'KOART', aciklama:'Account type: **K** vendor, **D** customer' },
           { ad:'SHBKZ', aciklama:'The special G/L indicator' },
           { ad:'HKONT', aciklama:'The normal reconciliation account (320)' },
           { ad:'SKONT', aciklama:'The **alternative** reconciliation account (159)' },
@@ -603,7 +603,7 @@ SAP.registerTopic({
 
     er:{
       type:'er',
-      baslik:'Special G/L — a single field decides everything',
+      baslik:'Special G/L: a single field decides everything',
       varliklar:[
         { ad:'LFB1', rol:'Master data', aciklama:'Vendor company-code data',
           alanlar:[{ ad:'LIFNR', tip:'pk' }, { ad:'BUKRS', tip:'pk' }, { ad:'AKONT', tip:'fk' }] },
@@ -611,7 +611,7 @@ SAP.registerTopic({
           alanlar:[{ ad:'KOART', tip:'pk' }, { ad:'SHBKZ', tip:'pk' }, { ad:'HKONT', tip:'fk' }, { ad:'SKONT' }] },
         { ad:'BKPF', rol:'FI', aciklama:'Document header',
           alanlar:[{ ad:'BELNR', tip:'pk' }, { ad:'BLART' }] },
-        { ad:'BSEG', rol:'FI', hub:true, aciklama:'Line item — **UMSKZ is here**',
+        { ad:'BSEG', rol:'FI', hub:true, aciklama:'Line item: **UMSKZ is here**',
           alanlar:[{ ad:'BELNR', tip:'fk' }, { ad:'BUZEI', tip:'pk' }, { ad:'UMSKZ' }, { ad:'HKONT' }, { ad:'LIFNR', tip:'fk' }] },
         { ad:'BSIK', rol:'Index', aciklama:'Vendor open items',
           alanlar:[{ ad:'LIFNR', tip:'fk' }, { ad:'BELNR', tip:'fk' }, { ad:'UMSKZ' }] },
@@ -636,23 +636,23 @@ SAP.registerTopic({
       'clearing step decides the outcome of the whole process.',
 
     ekranlar:[
-      { ad:'{{F-48}} — the down-payment payment screen',
+      { ad:'{{F-48}}: the down-payment payment screen',
         aciklama:'Bank information and vendor information are entered; the indicator field is critical.',
         alanlar:[
           { ad:'Bank account', zorunlu:true, aciklama:'The account the payment goes out from.' },
           { ad:'Amount / date', zorunlu:true },
-          { ad:'Vendor', zorunlu:true, aciklama:'The down payment stays **tied to the vendor** — this is the heart of the design.' },
+          { ad:'Vendor', zorunlu:true, aciklama:'The down payment stays **tied to the vendor**: this is the heart of the design.' },
           { ad:'**Special G/L indicator**', zorunlu:true, aciklama:'**A**. If left blank, it becomes a normal ' +
                    'payment and tries to close a liability that doesn\'t exist.' },
           { ad:'Down-payment request reference', zorunlu:false, aciklama:'Selected and closed if a request exists via {{F-47}}.' },
         ],
         ipucu:'If the indicator field is left blank, the system **doesn\'t throw an error** ' +
-              '— it just makes a normal payment posting. Result: a reverse balance forms on ' +
+              ': it just makes a normal payment posting. Result: a reverse balance forms on ' +
               'the vendor account and account 159 never moves at all.\n\n' +
               'Check after posting: {{FBL1N}} → vendor → indicator **A** filter. If the down ' +
               'payment doesn\'t show up here, it was entered wrong.' },
 
-      { ad:'{{F-54}} — the down-payment clearing screen',
+      { ad:'{{F-54}}: the down-payment clearing screen',
         aciklama:'The screen where the invoice and the down payment are netted; the most critical step in the process.',
         alanlar:[
           { ad:'Vendor', zorunlu:true },
@@ -668,13 +668,13 @@ SAP.registerTopic({
               'The first case is more common, and the fix: reverse the down-payment posting, ' +
               're-enter it with {{F-48}} using the indicator.' },
 
-      { ad:'{{FBL1N}} — the open-down-payment check',
+      { ad:'{{FBL1N}}: the open-down-payment check',
         aciklama:'Special G/L\'s **control point**.',
         alanlar:[
           { ad:'Vendor / company code', zorunlu:true },
           { ad:'Open items', zorunlu:true, aciklama:'The open-items option is selected.' },
           { ad:'**Special G/L indicator**', zorunlu:false, aciklama:'If **A** is entered, only ' +
-                   'down payments are listed. If left blank, normal items come back — ' +
+                   'down payments are listed. If left blank, normal items come back: ' +
                    '**the down payments don\'t show up**.' },
           { ad:'Date range', zorunlu:false },
         ],
@@ -685,11 +685,11 @@ SAP.registerTopic({
               'This is the most common answer to "where did the down payment go?" To see ' +
               'every item, enter `*` in the indicator field, or query separately.' },
 
-      { ad:'{{FBKP}} — indicator configuration',
+      { ad:'{{FBKP}}: indicator configuration',
         aciklama:'The screen where indicators and account matches are defined.',
         alanlar:[
           { ad:'Account type', zorunlu:true, aciklama:'**K** vendor · **D** customer' },
-          { ad:'Indicator', zorunlu:true, aciklama:'A single character — A, F, W, T…' },
+          { ad:'Indicator', zorunlu:true, aciklama:'A single character: A, F, W, T…' },
           { ad:'Statistical flag', zorunlu:false, aciklama:'If set, the balance sheet isn\'t affected.' },
           { ad:'Normal → alternative account', zorunlu:true, aciklama:'320 → 159. ' +
                    '**A separate line for every reconciliation account in use.**' },
@@ -705,10 +705,10 @@ SAP.registerTopic({
 
     hatalar:[
       { mesaj:'Special G/L indicator ... is not defined for account type K', sebep:'The indicator isn\'t defined for the vendor account type.', cozum:'{{FBKP}} → account type K → define the indicator.' },
-      { mesaj:'Alternative reconciliation account not defined for account 320100', sebep:'No match was entered for that reconciliation account.', cozum:'In {{FBKP}}, define the match for **every** reconciliation account in use — if there\'s more than one 320* account, all of them.' },
+      { mesaj:'Alternative reconciliation account not defined for account 320100', sebep:'No match was entered for that reconciliation account.', cozum:'In {{FBKP}}, define the match for **every** reconciliation account in use: if there\'s more than one 320* account, all of them.' },
       { mesaj:'No down payments found for vendor (F-54)', sebep:'The down payment was made as a plain G/L posting; it isn\'t a vendor item.', cozum:'Reverse the down-payment posting and re-enter it with {{F-48}} using indicator **A**.' },
       { mesaj:'The down payment doesn\'t show up in FBL1N', sebep:'The special G/L indicator filter was left blank.', cozum:'Enter **A** or `*` in the indicator field. This isn\'t a bug, it\'s filter behavior.' },
-      { mesaj:'Account 159000 requires a special G/L indicator', sebep:'The account is set up to be used only with a special G/L indicator.', cozum:'This is correct behavior — it blocks a plain posting. Enter the indicator.' },
+      { mesaj:'Account 159000 requires a special G/L indicator', sebep:'The account is set up to be used only with a special G/L indicator.', cozum:'This is correct behavior: it blocks a plain posting. Enter the indicator.' },
       { mesaj:'Down payment amount exceeds invoice amount', sebep:'The down payment is larger than the invoice.', cozum:'Do a partial clearing; the remaining down payment is cleared against the next invoice.' },
     ],
 
@@ -717,12 +717,12 @@ SAP.registerTopic({
       '**A** → open items. A down payment whose invoice has already arrived shouldn\'t remain ' +
       'on that list.',
       'In {{FBL1N}}, if the indicator field is left blank, down payments **don\'t show up** ' +
-      '— this is the first cause of the "where did the down payment go" complaint.',
+      ': this is the first cause of the "where did the down payment go" complaint.',
       'After a down-payment payment, always confirm with {{FBL1N}} that it shows up as a ' +
       'vendor item; if it doesn\'t, {{F-54}} won\'t work.',
       'In {{FBKP}}, define the match for **every** reconciliation account in use.',
       'Don\'t make the alternative reconciliation accounts ({{FS00}}) "automatic postings ' +
-      'only" — special G/L transactions post to those accounts as vendor/customer items.',
+      'only": special G/L transactions post to those accounts as vendor/customer items.',
       'Review long-open items like guarantees annually; guarantees whose contracts have ' +
       'expired get forgotten on the balance sheet.',
     ],
@@ -732,15 +732,15 @@ SAP.registerTopic({
   teknik: {
     guncellenenTablolar:[
       { tablo:'BSEG', ne:'The `UMSKZ` special G/L indicator + the alternative account `HKONT`' },
-      { tablo:'BSIK', ne:'Vendor open items — down payments are here too' },
-      { tablo:'BSID', ne:'Customer open items — down payments received' },
+      { tablo:'BSIK', ne:'Vendor open items: down payments are here too' },
+      { tablo:'BSID', ne:'Customer open items: down payments received' },
       { tablo:'ACDOCA', ne:'Universal items; distinguished by `UMSKZ`' },
       { tablo:'BKPF', ne:'Document header' },
       { tablo:'T074', ne:'The indicator ↔ alternative account match ({{FBKP}})' },
     ],
 
     commit:
-      'A special G/L posting is **not technically different** from a normal FI posting — ' +
+      'A special G/L posting is **not technically different** from a normal FI posting: ' +
       'the same LUW, the same tables, the same commit logic.\n\n' +
       'The only difference is that, in the account-determination step, the {{T074}} table is ' +
       'read and the alternative account there is used instead of {{LFB1}} `AKONT`.\n\n' +
@@ -750,7 +750,7 @@ SAP.registerTopic({
 
     belgeNo:
       'Special G/L documents use the normal number ranges. However, a separate document ' +
-      'type (KA) is common for down-payment transactions, and that type gets its own range — ' +
+      'type (KA) is common for down-payment transactions, and that type gets its own range: ' +
       'making it easier to distinguish in reporting.',
 
     postingLogic:
@@ -761,7 +761,7 @@ SAP.registerTopic({
       '**4.** The **alternative account** found (159) is written to the line item.\n' +
       '**5.** If the indicator is defined as **statistical**, no offsetting posting is ' +
       'generated; the item is written for tracking purposes only.\n' +
-      '**6.** The indicator is stored in the {{BSEG}} `UMSKZ` field — reporting and clearing ' +
+      '**6.** The indicator is stored in the {{BSEG}} `UMSKZ` field: reporting and clearing ' +
       'look at this field.\n\n' +
       'If no match is found at step 3, the error *"Alternative reconciliation account not ' +
       'defined"* is raised and **the document can\'t be saved**.',
@@ -808,9 +808,9 @@ SAP.registerTopic({
 
     img:[
       { yol:'SPRO → Financial Accounting → Accounts Receivable and Accounts Payable → Business Transactions → Down Payment Made → Define Alternative Reconciliation Account for Down Payments', not:'{{FBKP}} → {{T074}}' },
-      { yol:'SPRO → Financial Accounting → Accounts Receivable and Accounts Payable → Business Transactions → Down Payment Received → Define Alternative Reconciliation Account for Down Payments', not:'The customer side — mirror configuration' },
+      { yol:'SPRO → Financial Accounting → Accounts Receivable and Accounts Payable → Business Transactions → Down Payment Received → Define Alternative Reconciliation Account for Down Payments', not:'The customer side: mirror configuration' },
       { yol:'SPRO → Financial Accounting → Accounts Receivable and Accounts Payable → Business Transactions → Bills of Exchange Transactions', not:'Bill-of-exchange indicators (W)' },
-      { yol:'SPRO → Financial Accounting → Financial Accounting Global Settings → Document → Document Types', not:'{{OBA7}} — the KA, KZ, DZ types' },
+      { yol:'SPRO → Financial Accounting → Financial Accounting Global Settings → Document → Document Types', not:'{{OBA7}}: the KA, KZ, DZ types' },
     ],
 
     ekstra:[
@@ -819,10 +819,10 @@ SAP.registerTopic({
         'has happened yet: no money has gone out, no goods have arrived, no legal obligation ' +
         'has arisen. There\'s only a down-payment term in the contract.\n\n' +
         'The accounting principle is clear: **an unrealized transaction isn\'t posted.** But ' +
-        'from a process point of view, this information needs to exist in the system — ' +
+        'from a process point of view, this information needs to exist in the system: ' +
         'otherwise nobody remembers to pay the down payment.\n\n' +
         'SAP solves this with a **statistical item**: the item is written to {{BSEG}}, shows ' +
-        'up in {{FBL1N}}, and {{F110}} picks it up in its payment proposal — but **no ' +
+        'up in {{FBL1N}}, and {{F110}} picks it up in its payment proposal: but **no ' +
         'offsetting posting is generated**, so it doesn\'t affect the trial balance or the ' +
         'balance sheet.\n\n' +
         'The same mechanism is used for sureties and guarantees too: not a liability, but a ' +
@@ -843,7 +843,7 @@ SAP.registerTopic({
         '**b)** Down payments **can\'t** be paid to foreign vendors\n\n' +
         'The error message *"Alternative reconciliation account not defined"* is shown, but ' +
         'it doesn\'t always clearly say **which account** it\'s about. The user says "it ' +
-        'worked yesterday, it doesn\'t work today" — actually they\'re working with a ' +
+        'worked yesterday, it doesn\'t work today": actually they\'re working with a ' +
         'different vendor group.\n\n' +
         '**Diagnosis:** read the vendor\'s {{LFB1}} `AKONT` value, then check in {{FBKP}} ' +
         'whether a match exists for that account.' },
@@ -853,7 +853,7 @@ SAP.registerTopic({
       { tip:'warn', baslik:'Don\'t make the alternative accounts "automatic postings only"', metin:
         'The practice that\'s correct on tax accounts is **wrong** here.\n\n' +
         'If an "automatic postings only" flag is set in {{FS00}} on alternative reconciliation ' +
-        'accounts like 159 or 340, special G/L transactions **won\'t work** — because these ' +
+        'accounts like 159 or 340, special G/L transactions **won\'t work**: because these ' +
         'transactions post to those accounts as vendor/customer items.\n\n' +
         'The correct setting: flag the account as a **reconciliation account** ({{SKB1}} ' +
         '`MITKZ` = K or D). That already prevents **direct** postings to the account but ' +
@@ -889,8 +889,8 @@ SAP.registerTopic({
       'segment-based down-payment report can be produced.',
 
     kalkanTcodes:[
-      { eski:'{{XK01}} / {{XD01}}', yeni:'{{BP}}', not:'Master data — the reconciliation account comes from here' },
-      { eski:'—', yeni:'—', not:'{{F-47}}, {{F-48}}, {{F-54}}, {{F-29}}, {{F-39}}, {{FBKP}} were **not removed**' },
+      { eski:'{{XK01}} / {{XD01}}', yeni:'{{BP}}', not:'Master data: the reconciliation account comes from here' },
+      { eski:', ', yeni:', ', not:'{{F-47}}, {{F-48}}, {{F-54}}, {{F-29}}, {{F-39}}, {{FBKP}} were **not removed**' },
     ],
 
     fiori:[
@@ -901,8 +901,8 @@ SAP.registerTopic({
     ],
 
     compatibilityViews:[
-      '{{BSIK}}, {{BSID}}, {{BSEG}} — views derived from {{ACDOCA}}.',
-      '{{T074}} — **stays a physical table**.',
+      '{{BSIK}}, {{BSID}}, {{BSEG}}: views derived from {{ACDOCA}}.',
+      '{{T074}}: **stays a physical table**.',
       'Special G/L is one of the areas that\'s **structurally untouched** in the S/4HANA migration.',
     ],
 
@@ -915,7 +915,7 @@ SAP.registerTopic({
     bestPractices:[
       'Put the Fiori "Manage Down Payments" app into the **monthly routine**; it\'s the most ' +
       'practical tool for tracking uncleared down payments.',
-      'Verify the {{T074}} match **for every reconciliation account** during migration — ' +
+      'Verify the {{T074}} match **for every reconciliation account** during migration: ' +
       'production can have more accounts than the test environment.',
       'Clean up open down payments before migration; carried-forward balances can end up ' +
       'disconnected in the new system.',
@@ -933,7 +933,7 @@ SAP.registerTopic({
       'The down payment is paid, the machine arrives, the invoice is recorded, the remainder ' +
       'is paid. The process is thought to be finished.\n\n' +
       'Three months later, the vendor calls: *"You have a 360,000 TRY credit balance with ' +
-      'us — should we refund it, or apply it to the next order?"*\n\n' +
+      'us: should we refund it, or apply it to the next order?"*\n\n' +
       'Accounting is caught off guard: **nobody knew** an overpayment had been made. This ' +
       'scenario shows how special G/L used incorrectly turns into a real cash loss, and how ' +
       'it gets diagnosed.',
@@ -941,44 +941,44 @@ SAP.registerTopic({
       { k:'Company code', v:'1000 · TRY' },
       { k:'Vendor', v:'V-2001 · reconciliation account **320100**' },
       { k:'Order', v:'1,200,000 TRY + 20% VAT · 30% upfront' },
-      { k:'Down payment', v:'360,000 TRY — 10.07.2027' },
-      { k:'Invoice', v:'1,200,000 + 240,000 VAT = 1,440,000 TRY — 15.09.2027' },
-      { k:'**Problem**', v:'Total paid **1,800,000 TRY** — 360,000 TRY too much' },
+      { k:'Down payment', v:'360,000 TRY: 10.07.2027' },
+      { k:'Invoice', v:'1,200,000 + 240,000 VAT = 1,440,000 TRY: 15.09.2027' },
+      { k:'**Problem**', v:'Total paid **1,800,000 TRY**: 360,000 TRY too much' },
     ],
 
     adimlar:[
       { baslik:'The down payment was paid correctly', tcode:'F-48',
-        aciklama:'The first step was actually done right — the problem isn\'t here.',
+        aciklama:'The first step was actually done right: the problem isn\'t here.',
         girdi:[
           { alan:'Vendor', deger:'V-2001' },
           { alan:'Special G/L indicator', deger:'**A** ✓' },
           { alan:'Amount', deger:'360,000 TRY' },
         ],
-        fis:{ baslik:'Document 1500002201 — down-payment payment', belgeTuru:'KZ', tarih:'10.07.2027',
+        fis:{ baslik:'Document 1500002201: down-payment payment', belgeTuru:'KZ', tarih:'10.07.2027',
           satirlar:[
-            { hesap:'159', ad:'Down payments on orders made — V-2001', borc:360000, not:'Indicator **A**' },
+            { hesap:'159', ad:'Down payments on orders made: V-2001', borc:360000, not:'Indicator **A**' },
             { hesap:'102', ad:'Banks', alacak:360000 },
           ], not:'A correct posting: account 159 was debited, sitting as a vendor item in ' +
                  '{{BSIK}}. {{F-54}} can find this item when the time comes.' },
         tabloEtkisi:[
           { tablo:'BSEG', ne:'`UMSKZ` = **A** · `HKONT` = 159000' },
-          { tablo:'BSIK', ne:'A vendor open item — indicator A' },
+          { tablo:'BSIK', ne:'A vendor open item: indicator A' },
         ],
         not:'**This step was correct.** The down payment is in the right place on the ' +
              'balance sheet and still tied to the vendor. The problem is in the steps that follow.' },
 
-      { baslik:'The invoice was recorded — a normal posting', tcode:'MIRO',
+      { baslik:'The invoice was recorded: a normal posting', tcode:'MIRO',
         aciklama:'The machine arrived, the invoice was recorded.',
         girdi:[
           { alan:'Vendor', deger:'V-2001' },
           { alan:'Amount', deger:'1,200,000 + 240,000 VAT' },
-          { alan:'Special G/L indicator', deger:'**None** ✓ (correct — the invoice is a normal posting)' },
+          { alan:'Special G/L indicator', deger:'**None** ✓ (correct: the invoice is a normal posting)' },
         ],
-        fis:{ baslik:'Document 5100004411 — vendor invoice', belgeTuru:'RE', tarih:'15.09.2027',
+        fis:{ baslik:'Document 5100004411: vendor invoice', belgeTuru:'RE', tarih:'15.09.2027',
           satirlar:[
             { hesap:'253', ad:'Plant, machinery and equipment', borc:1200000 },
             { hesap:'191', ad:'Deductible VAT', borc:240000 },
-            { hesap:'320', ad:'Trade payables — V-2001', alacak:1440000, not:'The **normal** reconciliation account' },
+            { hesap:'320', ad:'Trade payables: V-2001', alacak:1440000, not:'The **normal** reconciliation account' },
           ], not:'This is correct too. The invoice is a normal posting, no indicator is ' +
                  'entered.\n\n' +
                  '**But there are now two items on the balance sheet:**\n' +
@@ -987,20 +987,20 @@ SAP.registerTopic({
                  'They need to be netted.' },
         not:'Both steps were done correctly. The problem is in the step that **wasn\'t taken**.' },
 
-      { baslik:'**The clearing step was skipped** — the error is here', tcode:'F-54',
+      { baslik:'**The clearing step was skipped**: the error is here', tcode:'F-54',
         aciklama:'{{F-54}} was never run. Nobody noticed.',
         girdi:[
-          { alan:'Expected transaction', deger:'{{F-54}} — 320 debit 360,000 / 159 credit 360,000' },
+          { alan:'Expected transaction', deger:'{{F-54}}: 320 debit 360,000 / 159 credit 360,000' },
           { alan:'What was done', deger:'**Nothing**' },
-          { alan:'System warning', deger:'**None** — no error message appears' },
+          { alan:'System warning', deger:'**None**: no error message appears' },
           { alan:'Balance-sheet status', deger:'159: 360,000 open · 320: 1,440,000 open' },
         ],
         not:'**This is the process\'s critical gap:** when {{F-54}} is skipped, the system ' +
              'gives no warning at all. The document is balanced, the trial balance ties out, ' +
              '{{FBL1N}} looks normal.\n\n' +
-             'The vendor liability sits at 1,440,000 TRY — as if no down payment had ever been paid.' },
+             'The vendor liability sits at 1,440,000 TRY: as if no down payment had ever been paid.' },
 
-      { baslik:'The full amount was paid — a cash loss resulted', tcode:'F-53',
+      { baslik:'The full amount was paid: a cash loss resulted', tcode:'F-53',
         aciklama:'When payment day came, the 1,440,000 TRY showing in {{FBL1N}} was paid.',
         girdi:[
           { alan:'Open item shown in {{FBL1N}}', deger:'1,440,000 TRY' },
@@ -1008,29 +1008,29 @@ SAP.registerTopic({
           { alan:'Amount that should have been paid', deger:'1,440,000 − 360,000 = **1,080,000 TRY**' },
           { alan:'**Overpayment**', deger:'**360,000 TRY**' },
         ],
-        fis:{ baslik:'Document 1500003876 — the remaining payment (faulty)', belgeTuru:'KZ', tarih:'30.09.2027',
+        fis:{ baslik:'Document 1500003876: the remaining payment (faulty)', belgeTuru:'KZ', tarih:'30.09.2027',
           satirlar:[
-            { hesap:'320', ad:'Trade payables — V-2001', borc:1440000, not:'**The full amount**' },
+            { hesap:'320', ad:'Trade payables: V-2001', borc:1440000, not:'**The full amount**' },
             { hesap:'102', ad:'Banks', alacak:1440000, not:'**360,000 TRY too much**' },
           ], not:'Total cash outflow: 360,000 + 1,440,000 = **1,800,000 TRY**\n' +
                  'Invoice amount: **1,440,000 TRY**\n' +
                  '**Difference: 360,000 TRY overpaid.**\n\n' +
-                 'The down payment is still open in account 159 — the company is now **owed** ' +
+                 'The down payment is still open in account 159: the company is now **owed** ' +
                  'by the vendor.' },
         tabloEtkisi:[
           { tablo:'BSIK', ne:'The 320 item closed; **the 159 item is still open**' },
           { tablo:'BSAK', ne:'The closed invoice and payment items' },
         ],
         not:'The person who made the payment paid the amount they saw in {{FBL1N}} and ' +
-             '**made no mistake at all** — from their own point of view.\n\n' +
+             '**made no mistake at all**: from their own point of view.\n\n' +
              'The problem is that, because the indicator filter in {{FBL1N}} was blank, the ' +
              'down payment **never showed up** in that list.' },
 
-      { baslik:'Diagnosis — the open down payments are queried', tcode:'FBL1N',
+      { baslik:'Diagnosis: the open down payments are queried', tcode:'FBL1N',
         aciklama:'The investigation begins after the vendor\'s call.',
         girdi:[
           { alan:'First query', deger:'V-2001 · open items · indicator **blank**' },
-          { alan:'Result', deger:'**No open items** — everything looks normal' },
+          { alan:'Result', deger:'**No open items**: everything looks normal' },
           { alan:'Second query', deger:'V-2001 · open items · indicator **A**' },
           { alan:'**Result**', deger:'**360,000 TRY open down payment**' },
         ],
@@ -1041,13 +1041,13 @@ SAP.registerTopic({
              'This behavior is the cause both of how the problem **arose** and of it being ' +
              'noticed **late**. The person who made the payment had looked with the same filter and hadn\'t seen the down payment either.' },
 
-      { baslik:'Verification — account 159 is checked', tcode:'FBL3N',
+      { baslik:'Verification: account 159 is checked', tcode:'FBL3N',
         aciklama:'The scale of the problem and other occurrences are investigated.',
         girdi:[
           { alan:'Account', deger:'159000 Down payments on orders made' },
           { alan:'Balance', deger:'**2,140,000 TRY**' },
           { alan:'Number of open items', deger:'**7 down payments**' },
-          { alan:'Ones with an invoice already in', deger:'**4 of them** — not cleared' },
+          { alan:'Ones with an invoice already in', deger:'**4 of them**: not cleared' },
         ],
         not:'The problem isn\'t confined to one vendor: **four down payments** haven\'t been ' +
              'cleared. Two of them were overpaid (590,000 TRY total), two haven\'t been paid ' +
@@ -1055,21 +1055,21 @@ SAP.registerTopic({
              'This isn\'t a single user\'s mistake, it\'s a **process gap**: the clearing step ' +
              'isn\'t on any checklist.' },
 
-      { baslik:'Correction — retroactive clearing', tcode:'F-54',
+      { baslik:'Correction: retroactive clearing', tcode:'F-54',
         aciklama:'The clearing is now done; the overpayment turns into a vendor credit.',
         girdi:[
           { alan:'Vendor', deger:'V-2001' },
           { alan:'Invoice', deger:'5100004411' },
           { alan:'Down payment cleared', deger:'360,000 TRY' },
         ],
-        fis:{ baslik:'Document 1700001042 — down-payment clearing', belgeTuru:'KA', tarih:'15.10.2027',
+        fis:{ baslik:'Document 1700001042: down-payment clearing', belgeTuru:'KA', tarih:'15.10.2027',
           satirlar:[
-            { hesap:'320', ad:'Trade payables — V-2001', borc:360000, not:'Because the invoice was already paid, a **reverse balance** results' },
+            { hesap:'320', ad:'Trade payables: V-2001', borc:360000, not:'Because the invoice was already paid, a **reverse balance** results' },
             { hesap:'159', ad:'Down payments on orders made', alacak:360000, not:'The down payment closed ✓' },
           ], not:'Account 159 was **zeroed out** ✓\n\n' +
                  'But account 320 now has a **360,000 TRY reverse balance**: the company ' +
                  'doesn\'t owe the vendor, it\'s **owed by** the vendor.\n\n' +
-                 'This is the accounting correctly reflecting the real situation — and it\'s ' +
+                 'This is the accounting correctly reflecting the real situation: and it\'s ' +
                  'the basis for the conversation with the vendor.' },
         tabloEtkisi:[
           { tablo:'BSIK', ne:'The 159 item closed; an open item with a reverse balance on 320' },
@@ -1077,15 +1077,15 @@ SAP.registerTopic({
         not:'Agreed with the vendor: the 360,000 TRY will be **applied to the next order**. ' +
              'The reverse balance will be closed by that order\'s invoice.' },
 
-      { baslik:'Prevention — process and controls added', tcode:'FBL1N',
+      { baslik:'Prevention: process and controls added', tcode:'FBL1N',
         aciklama:'Three permanent measures are taken so the same mistake doesn\'t repeat.',
         girdi:[
-          { alan:'Measure 1 — a closing check', deger:'{{FBL1N}} → indicator **A** → open items ' +
+          { alan:'Measure 1: a closing check', deger:'{{FBL1N}} → indicator **A** → open items ' +
                                                     'query added to the month-end checklist' },
-          { alan:'Measure 2 — process', deger:'Whoever records an invoice can\'t close the ' +
+          { alan:'Measure 2: process', deger:'Whoever records an invoice can\'t close the ' +
                                           'transaction **without running {{F-54}}** if the vendor has an open down payment' },
-          { alan:'Measure 3 — training', deger:'The payment team was walked through {{FBL1N}}\'s indicator-filter behavior' },
-          { alan:'Measure 4 — a report', deger:'A "down payments with an invoice in but not cleared" variant was saved' },
+          { alan:'Measure 3: training', deger:'The payment team was walked through {{FBL1N}}\'s indicator-filter behavior' },
+          { alan:'Measure 4: a report', deger:'A "down payments with an invoice in but not cleared" variant was saved' },
         ],
         not:'The fourth measure is the most valuable: a variant that lists **invoices for ' +
              'vendors that have a down payment** shows the cases that need clearing ' +
@@ -1099,13 +1099,13 @@ SAP.registerTopic({
       '**1. The {{F-54}} clearing step can be skipped silently.** The system gives no ' +
       'warning, the document is balanced, the trial balance ties out. But the balance sheet ' +
       'inflates on both sides, and the down payment can end up **paid a second time** when ' +
-      'the remainder is paid — that\'s a genuine cash loss.\n\n' +
+      'the remainder is paid: that\'s a genuine cash loss.\n\n' +
       '**2. If the indicator filter in {{FBL1N}} is left blank, down payments don\'t show ' +
       'up.** This behavior is the cause both of how the problem arose and of it being noticed ' +
       'late: the person who made the payment paid the amount they saw on the list and made no ' +
       'mistake from their own point of view. For diagnosis, the indicator field needs **A** ' +
       'or `*` entered.\n\n' +
-      '**3. The down payment was paid correctly — the error was at the end of the chain.** ' +
+      '**3. The down payment was paid correctly: the error was at the end of the chain.** ' +
       '{{F-48}} was run with indicator **A**, the posting was flawless. In special G/L, ' +
       '**a single correct step isn\'t enough**; the whole chain (request → payment → invoice ' +
       '→ **clearing**) has to be completed.\n\n' +

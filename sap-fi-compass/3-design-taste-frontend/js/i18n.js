@@ -1,13 +1,13 @@
 /* ==========================================================================
-   i18n.js — Arayüz dili (TR / EN)
+   i18n.js: Arayüz dili (TR / EN)
    --------------------------------------------------------------------------
    KAPSAM (Eylül 2026 itibarıyla TAM):
 
    ✔ Arayüz metinleri, dokuz grup adı, 36 konunun başlığı ve özeti,
-     seviye adları, bölüm adları, boş durum metinleri — bu dosyada.
-   ✔ Konuların DERİN İÇERİĞİ — 36/36 konu, content/fi-en/*.js
+     seviye adları, bölüm adları, boş durum metinleri: bu dosyada.
+   ✔ Konuların DERİN İÇERİĞİ: 36/36 konu, content/fi-en/*.js
      (`sections_en`, bkz. core.js sectionData).
-   ✔ Sözlük gövdeleri — data/tcodes-en.js, tables-en.js, glossary-en.js
+   ✔ Sözlük gövdeleri: data/tcodes-en.js, tables-en.js, glossary-en.js
      (`_en` ekiyle merge, bkz. core.js registerTcodesEn / SAP.alan).
 
    ⚠️ Bu dosyanın başlığı bir dönem "derin içerik ÇEVRİLMEZ" diyordu ve
@@ -15,7 +15,7 @@
    değişti; not güncellenmezse sonraki okuyucu yanlış bilgilenir.
 
    Çeviri eksik kalan bir konu olursa `.lang-notice` uyarısı KONU BAZINDA
-   çıkar — mekanizma duruyor, şu an tetiklenmiyor (bkz. CLAUDE.md §10).
+   çıkar: mekanizma duruyor, şu an tetiklenmiyor (bkz. CLAUDE.md §10).
 
    Yeni dil eklemek: DICT'e bir anahtar seti + TOPICS_EN benzeri bir konu
    sözlüğü. Motorda değişiklik gerekmez.
@@ -29,13 +29,13 @@
   /* ------------------------------------------- DİL ANAHTARI: AÇIK ---
      Eylül 2026'da yeniden açıldı. Gerekçe: gövde çevirisi artık KISMEN
      var (content/fi-en/*.js) ve views.js bunu KONU BAZINDA kontrol
-     ediyor — bir konunun bütün bölümleri sections_en'de varsa uyarı
+     ediyor: bir konunun bütün bölümleri sections_en'de varsa uyarı
      çıkmaz, eksikse `.lang-notice` uyarısı görünür kalır. Yani "yarım
      çevrili arayüz" riski artık konu düzeyinde yönetiliyor, anahtarın
      kendisinde değil.
 
      KAPATMAK GEREKİRSE: aşağıdaki satırı false yap. Başka hiçbir yer
-     değişmez — bu satır tek başına anahtarı gizler (bkz. Ders #33'ten
+     değişmez: bu satır tek başına anahtarı gizler (bkz. Ders #33'ten
      önceki not: normalize() her değeri 'tr'ye çeker). Anahtar kapalıyken
      dil 'tr'ye sabitlenir: kaynak dil odur, kullanıcı da geri
      dönemeyeceği için İngilizcede kilitli kalmamalı. */
@@ -51,7 +51,7 @@
 
   var DICT = {
     tr: {
-      /* Ürün adı — her iki dilde AYNI. Özel isim çevrilmez.
+      /* Ürün adı: her iki dilde AYNI. Özel isim çevrilmez.
          Alt başlık kaldırıldı: "el kitabı" gibi bir sıfat, adın kendisi
          zaten yeterince açıkken sayfaya ağırlık ekliyordu. */
       'app.name':        'SAP FI Compass',
@@ -66,6 +66,10 @@
       'home.title':      'İçindekiler',
       'cmd.label':       'İşlem kodu, tablo ya da konu yaz',
       'hero.eyebrow':    'S/4HANA Finansal Muhasebe',
+      'img.hero':        'Masada açık bir dizüstü bilgisayar ve not defteri',
+      'img.daily':       'Masaya yayılmış belgeler, kalemler ve bir tablet',
+      'img.period':      'Yakın plan bir duvar saati',
+      'img.advanced':    'Çelik kafesli bir köprü yapısı',
       'hero.title':      'SAP FI, işlem kodundan tabloya.',
       'hero.lede':       'S/4HANA finansında iş süreci, muhasebe mantığı, işlem kodları ve tablolar. {n} konu, tek arama alanı.',
       'cmd.placeholder': 'FB50',
@@ -96,7 +100,7 @@
       'level.Orta':      'Orta',
       'level.İleri':     'İleri',
 
-      /* İşlem kodu ve tablo TÜRÜ — data/tcodes.js ve data/tables.js'teki
+      /* İşlem kodu ve tablo TÜRÜ: data/tcodes.js ve data/tables.js'teki
          `tur` alanının kapalı sözlüğü (level gibi). Detay sayfasındaki
          etiket bunlardan basılır; eskiden ham veri basılıyordu ve
          İngilizce sitede "İşlem", "Özelleştirme" görünüyordu. */
@@ -119,7 +123,7 @@
       'ref.siblings':    'Aynı alandaki diğerleri',
       'ref.fields':      'Alanlar',
       'ref.related':     'İlgili terimler',
-      /* Detay sayfası panel başlıkları — eskiden views.js'e gömülüydü. */
+      /* Detay sayfası panel başlıkları: eskiden views.js'e gömülüydü. */
       'ref.keyFields':   'En önemli alanlar',
       'ref.tableInTopics': 'Bu tablo şu konularda anlatılıyor',
       'ref.definition':  'Tanım',
@@ -137,7 +141,7 @@
       'search.title':    'Arama sonuçları',
       'search.topic':    'Konu',
       'search.empty':    'Sonuç bulunamadı.',
-      /* Sonuç satırındaki tür rozeti — search.js'teki `tur` alanı. */
+      /* Sonuç satırındaki tür rozeti: search.js'teki `tur` alanı. */
       'search.kind.topic': 'Konu',
       'search.kind.tcode': 'İşlem kodu',
       'search.kind.table': 'Tablo',
@@ -187,6 +191,10 @@
       'home.title':      'Contents',
       'cmd.label':       'Type a transaction code, table or topic',
       'hero.eyebrow':    'S/4HANA Financial Accounting',
+      'img.hero':        'An open laptop and a notebook on a desk',
+      'img.daily':       'Documents, pens and a tablet spread across a desk',
+      'img.period':      'A close-up of a wall clock',
+      'img.advanced':    'The steel lattice structure of a bridge',
       'hero.title':      'SAP FI, from T-code to table.',
       'hero.lede':       'Business process, accounting logic, T-codes and tables for S/4HANA finance. {n} topics, one search field.',
       'cmd.placeholder': 'FB50',
@@ -313,7 +321,7 @@
     'fi-temelleri': { title: 'SAP FI Fundamentals',
       summary: 'What the FI module covers, its components (GL, AP, AR, AA, BL), how it relates to other modules, and the anatomy of an FI document.' },
     'org-yapisi': { title: 'Organizational Structure',
-      summary: 'Company, company code, business area, chart of accounts, fiscal year variant, credit control area — the skeleton FI is built on.' },
+      summary: 'Company, company code, business area, chart of accounts, fiscal year variant, credit control area: the skeleton FI is built on.' },
     'master-data': { title: 'Master Data',
       summary: 'G/L account, vendor, customer and bank master data; account group, field status, reconciliation account and the Business Partner in S/4HANA.' },
 
@@ -347,22 +355,22 @@
     'dogrulama-ikame': { title: 'Validation & Substitution',
       summary: 'The rule engine that fires at posting time: validation blocks a wrong entry and is visible; substitution changes a value and is silent.' },
     'e-donusum': { title: 'Turkish E-Invoicing',
-      summary: 'Turkey-specific: the accounting document and the e-document are two separate objects with independent lifecycles — and either can fail alone.' },
+      summary: 'Turkey-specific: the accounting document and the e-document are two separate objects with independent lifecycles: and either can fail alone.' },
 
     'foreign-currency': { title: 'Foreign Currency Valuation',
       summary: 'Translation, valuation and realization kept apart; monetary versus non-monetary items; why a down payment is never valued.' },
     'closing': { title: 'Closing Operations',
-      summary: 'The ten steps of a month-end close, why they run in that order, provisional versus permanent postings, and special periods 13–16.' },
+      summary: 'The ten steps of a month-end close, why they run in that order, provisional versus permanent postings, and special periods 13-16.' },
 
     'new-gl': { title: 'New G/L',
-      summary: 'What document splitting is really for: expense lines already carry a profit center — the problem is the balance sheet lines.' },
+      summary: 'What document splitting is really for: expense lines already carry a profit center: the problem is the balance sheet lines.' },
     'parallel-ledger': { title: 'Parallel Ledger',
       summary: 'An empty ledger group means all ledgers. Record the fact in every ledger; record the valuation judgement per ledger.' },
 
     'cost-center': { title: 'Cost Center Integration',
       summary: 'Why a wrong cost center triggers no accounting control at all, and why the fix is KB11N rather than a reversal.' },
     'co-integration': { title: 'CO Integration',
-      summary: 'FI and CO share one LUW: a missing CO number range stops the FI posting too — the error surfaces in FI, the cause sits in CO.' },
+      summary: 'FI and CO share one LUW: a missing CO number range stops the FI posting too: the error surfaces in FI, the cause sits in CO.' },
     'mm-integration': { title: 'MM Integration',
       summary: 'OBYC transaction keys, the BSX/WRX asymmetry, account assignment categories, price control S versus V and the “V trap”.' },
     'sd-integration': { title: 'SD Integration',
@@ -376,16 +384,16 @@
     'sap-tables': { title: 'FI Table Architecture',
       summary: 'Header and item, index and total tables as a performance fix that HANA made unnecessary, and the SHKZG sign trap.' },
     'tcodes': { title: 'Transaction Codes',
-      summary: 'Transaction codes are not memorised, they are decoded: about fifteen patterns explain hundreds of codes — starting with their German roots.' },
+      summary: 'Transaction codes are not memorised, they are decoded: about fifteen patterns explain hundreds of codes: starting with their German roots.' },
     'reporting': { title: 'Reporting',
-      summary: 'Choosing the right report type: balance answers “how much”, line item answers “why” — and only one of them can drill to the document.' },
+      summary: 'Choosing the right report type: balance answers “how much”, line item answers “why”: and only one of them can drill to the document.' },
 
     'lsmw': { title: 'LSMW',
       summary: 'Not an upload tool but a recipe book: loading data once is easy, repeating the same load with the same result is not.' },
     'data-upload': { title: 'Data Upload',
       summary: 'Not a speed decision but an error-handling decision: what happens to the fourteen records out of five hundred that fail?' },
     'migration': { title: 'Data Migration',
-      summary: 'Not a data-moving exercise but an accounting decision about which past is carried forward — and which is left behind.' },
+      summary: 'Not a data-moving exercise but an accounting decision about which past is carried forward: and which is left behind.' },
 
     'error-handling': { title: 'Error Handling',
       summary: 'Not an error dictionary but a diagnostic method: three classes of error, and the one that separates a consultant is the silent one.' },
@@ -397,7 +405,7 @@
 
   /* ---------------------------------- BÖLÜM İÇİ ETİKETLER (33+) ---
      Alt başlıklar ve tablo sütun adları. Bunlar YAZAR PROZASI DEĞİL,
-     renderer'ın kendi etiketleridir — bu yüzden gövde Türkçe kalsa da
+     renderer'ın kendi etiketleridir: bu yüzden gövde Türkçe kalsa da
      çevrilirler. Anahtar Türkçe metnin kendisidir: içerik dosyalarına
      dokunmadan çeviri eklenebilsin diye. */
   var LABELS_EN = {
@@ -466,7 +474,7 @@
     'Girdi': 'Input',
     'Etki': 'Effect',
 
-    /* qa() soru etiketleri ve note() başlıkları — bkz. Ders #33.
+    /* qa() soru etiketleri ve note() başlıkları: bkz. Ders #33.
        subH() zaten etiket() üzerinden geçiyordu; qa()/note() geçmiyordu,
        bu yüzden gövde ilk kez İngilizceye çevrilene kadar fark edilmedi:
        "Bu nedir?" gibi sorular İngilizce bir cümlenin ortasında Türkçe
@@ -556,7 +564,7 @@
       return SAP.store.d.langSecildi ? (SAP.store.d.lang || VARSAYILAN) : VARSAYILAN;
     },
 
-    /** Arayüz metni. Anahtar yoksa anahtarın kendisi döner — sessiz
+    /** Arayüz metni. Anahtar yoksa anahtarın kendisi döner: sessiz
         kaybolmasın, ekranda görünsün ki eksik çeviri fark edilsin. */
     t: function (k) {
       var d = DICT[dil] || DICT.tr;
@@ -571,10 +579,10 @@
       return g.ad;
     },
 
-    /** Konu başlığı — seçili dilde. */
+    /** Konu başlığı: seçili dilde. */
     baslik: function (t) { return i18n.baslikDil(t, dil); },
 
-    /** Konu özeti — seçili dilde. */
+    /** Konu özeti: seçili dilde. */
     ozet: function (t) { return i18n.ozetDil(t, dil); },
 
     /* Belirli bir dildeki karşılık. Arama indeksi bunu kullanır: görünen
@@ -591,11 +599,11 @@
     /** Seviye adı (Başlangıç / Orta / İleri). */
     seviye: function (lv) { return i18n.t('level.' + lv); },
 
-    /** İşlem kodu / tablo türü — kapalı sözlük, bkz. `tur.*`. */
+    /** İşlem kodu / tablo türü: kapalı sözlük, bkz. `tur.*`. */
     tur: function (x) { return x ? i18n.t('tur.' + x) : ''; },
 
     /** Renderer etiketi (alt başlık, tablo sütunu). Karşılığı yoksa
-        Türkçesi döner — eksik çeviri sayfayı kırmaz, sadece görünür. */
+        Türkçesi döner: eksik çeviri sayfayı kırmaz, sadece görünür. */
     etiket: function (tr) {
       if (dil === 'en' && LABELS_EN[tr]) return LABELS_EN[tr];
       return tr;

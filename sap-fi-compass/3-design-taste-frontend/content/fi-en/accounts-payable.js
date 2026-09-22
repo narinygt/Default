@@ -1,6 +1,6 @@
 /* ==========================================================================
-   content/fi-en/accounts-payable.js — English body for "Accounts Payable"
-   Same conventions as content/fi-en/gl-accounting.js — see that file's
+   content/fi-en/accounts-payable.js: English body for "Accounts Payable"
+   Same conventions as content/fi-en/gl-accounting.js: see that file's
    header comment.
    ========================================================================== */
 
@@ -13,7 +13,7 @@ SAP.registerTopic({
   tanim: {
     nedir:
       "Accounts Payable (FI-AP) is the FI sub-component that manages the company's **debts to vendors**. " +
-      'It covers the entire chain — from the invoice arriving, through payment, to the liability being cleared.\n\n' +
+      'It covers the entire chain: from the invoice arriving, through payment, to the liability being cleared.\n\n' +
       "AP is a {{muavin-defter}}: every vendor's detail is held here, and it is reflected in the general ledger as a " +
       'single line through a {{mutabakat-hesabi}}. The balance sheet shows "320 Trade payables 4,500,000 TRY"; ' +
       'the identity of the 800 vendors behind that figure lives in AP.',
@@ -43,7 +43,7 @@ SAP.registerTopic({
     muhasebeMantigi:
       'In AP, accounting happens in **three stages**, and each stage produces a separate entry:\n\n' +
       '**1. The debt arises (invoice).** The expense or asset is debited, the vendor is credited. No cash ' +
-      'leaves at this point — the classic application of {{tahakkuk-esasi}}.\n\n' +
+      'leaves at this point: the classic application of {{tahakkuk-esasi}}.\n\n' +
       '**2. The payment is made.** The vendor is debited (the liability decreases), the bank is credited (cash goes out).\n\n' +
       '**3. Clearing ({{kapatma}}).** The invoice is matched against the payment and the item becomes ' +
       '"cleared." Steps 2 and 3 usually happen together in one transaction ({{F-53}} or {{F110}}).\n\n' +
@@ -58,7 +58,7 @@ SAP.registerTopic({
   surec: {
     anlatim:
       'The AP process is the second half of the **Procure-to-Pay** chain. The chain starts with a purchase ' +
-      'requisition and ends with payment. AP comes into play when the invoice arrives — but how the invoice ' +
+      'requisition and ends with payment. AP comes into play when the invoice arrives: but how the invoice ' +
       "gets processed splits from the start depending on **whether it's tied to a purchase order**.",
 
     roller:[
@@ -73,13 +73,13 @@ SAP.registerTopic({
 
     diyagram:{
       type:'flow',
-      baslik:'Procure-to-Pay — from purchasing to payment',
+      baslik:'Procure-to-Pay: from purchasing to payment',
       adimlar:[
         { ic:'📝', rol:'Requesting department', baslik:'A purchase requisition is opened',
-          aciklama:"The need is stated. There's no accounting entry yet — a requisition isn't even a commitment.",
+          aciklama:"The need is stated. There's no accounting entry yet: a requisition isn't even a commitment.",
           cikti:'Purchase requisition', ok:'goes through approval' },
         { ic:'🛒', rol:'Purchasing', baslik:'A purchase order is opened ({{ME21N}})',
-          aciklama:"The vendor, quantity, price, and delivery date are set. **There's still no FI entry** — the order is a commitment, not a debt.",
+          aciklama:"The vendor, quantity, price, and delivery date are set. **There's still no FI entry**: the order is a commitment, not a debt.",
           cikti:'{{EKKO}} / {{EKPO}} records', ok:'goods arrive' },
         { ic:'📦', rol:'Warehouse', baslik:'Goods receipt is posted ({{MIGO}})',
           aciklama:"**The first FI entry is born here:** stock is debited, {{gr-ir}} is credited. The vendor isn't debited yet because the invoice hasn't arrived.",
@@ -104,7 +104,7 @@ SAP.registerTopic({
     },
 
     adimlar:[
-      { rol:'Purchasing', eylem:'Opens the order', sistem:'{{ME21N}} → {{EKKO}}/{{EKPO}} — no FI entry' },
+      { rol:'Purchasing', eylem:'Opens the order', sistem:'{{ME21N}} → {{EKKO}}/{{EKPO}}: no FI entry' },
       { rol:'Warehouse', eylem:'Receives the goods', sistem:'{{MIGO}} → stock debit / {{gr-ir}} credit' },
       { rol:'AP accounting', eylem:'Processes the PO-based invoice', sistem:'{{MIRO}} → {{gr-ir}} debit / vendor credit' },
       { rol:'AP accounting', eylem:'Processes the non-PO invoice', sistem:'{{FB60}} → expense debit / vendor credit' },
@@ -130,7 +130,7 @@ SAP.registerTopic({
       { tip:'warn', baslik:'Two different invoice paths, two different sources of trouble', metin:
         '{{FB60}} errors usually come from **FI settings** (period, field status, tax code). {{MIRO}} errors ' +
         'usually come from **MM settings** ({{OBYC}}, tolerance, order data). Before you start troubleshooting, ' +
-        'figure out which path the invoice came in through — looking in the wrong place wastes hours.' },
+        'figure out which path the invoice came in through: looking in the wrong place wastes hours.' },
     ],
   },
 
@@ -142,48 +142,48 @@ SAP.registerTopic({
       'PO-based purchase, followed by the shortcut for a non-PO purchase.',
 
     etkilenenHesaplar:[
-      { hesap:'320 Trade payables (reconciliation)', tur:'Balance sheet — Liability', neden:"The debt owed to the vendor. **Credited** (increases) by the invoice, **debited** (decreases) by the payment. Can't be posted to directly." },
-      { hesap:'159 GR/IR account', tur:'Balance sheet — Clearing', neden:'Carries the timing gap between the goods receipt and the invoice receipt. {{acik-kalem-yonetimi}} **must be on**.' },
+      { hesap:'320 Trade payables (reconciliation)', tur:'Balance sheet: Liability', neden:"The debt owed to the vendor. **Credited** (increases) by the invoice, **debited** (decreases) by the payment. Can't be posted to directly." },
+      { hesap:'159 GR/IR account', tur:'Balance sheet: Clearing', neden:'Carries the timing gap between the goods receipt and the invoice receipt. {{acik-kalem-yonetimi}} **must be on**.' },
       { hesap:'153 Trade goods / 7xx Expenses', tur:'Balance sheet / Income statement', neden:"Depends on the nature of what was received: an asset if it will be stocked, an expense if it will be consumed." },
-      { hesap:'191 Deductible VAT', tur:'Balance sheet — Asset', neden:'A receivable from the state arises. The line is generated automatically once a {{vergi-kodu}} is entered, and written to {{BSET}}.' },
-      { hesap:'102 Banks / bank clearing account', tur:'Balance sheet — Asset', neden:'Decreases on payment. {{banka-ara-hesabi}} is used between the payment posting and the actual outflow.' },
-      { hesap:'159 Down payments made (special G/L)', tur:'Balance sheet — Asset', neden:'When an {{avans}} is paid, this runs instead of the normal reconciliation account ({{ozel-ana-muhasebe-gostergesi}}).' },
+      { hesap:'191 Deductible VAT', tur:'Balance sheet: Asset', neden:'A receivable from the state arises. The line is generated automatically once a {{vergi-kodu}} is entered, and written to {{BSET}}.' },
+      { hesap:'102 Banks / bank clearing account', tur:'Balance sheet: Asset', neden:'Decreases on payment. {{banka-ara-hesabi}} is used between the payment posting and the actual outflow.' },
+      { hesap:'159 Down payments made (special G/L)', tur:'Balance sheet: Asset', neden:'When an {{avans}} is paid, this runs instead of the normal reconciliation account ({{ozel-ana-muhasebe-gostergesi}}).' },
       { hesap:'602 / 653 Exchange difference', tur:'Income statement', neden:'If a foreign-currency invoice is at a different rate at payment time, a realized {{kur-farki}} arises.' },
     ],
 
     fisler:[
-      { baslik:'Step 1 — Goods receipt ({{MIGO}}) · 100,000 TRY of raw material',
+      { baslik:'Step 1: Goods receipt ({{MIGO}}) · 100,000 TRY of raw material',
         belgeTuru:'WE', tarih:'05.09.2026', paraBirimi:'TRY',
         satirlar:[
           { hesap:'153', ad:'Trade goods (stock)', borc:100000, not:'{{OBYC}} transaction key **BSX**' },
           { hesap:'159', ad:'GR/IR account', alacak:100000, not:'{{OBYC}} transaction key **WRX**' },
         ],
-        not:"There's **no** debt to the vendor yet — the invoice hasn't arrived. {{gr-ir}} carries this gap. " +
+        not:"There's **no** debt to the vendor yet: the invoice hasn't arrived. {{gr-ir}} carries this gap. " +
              "The accountant doesn't see this entry; the warehouse staff generates it." },
 
-      { baslik:'Step 2 — Invoice entry ({{MIRO}}) · matches the order price',
+      { baslik:'Step 2: Invoice entry ({{MIRO}}) · matches the order price',
         belgeTuru:'RE', tarih:'12.09.2026', paraBirimi:'TRY',
         satirlar:[
           { hesap:'159', ad:'GR/IR account', borc:100000, not:'Closes the credit from the goods receipt' },
           { hesap:'191', ad:'Deductible VAT', borc:20000 },
-          { hesap:'320', ad:'Trade payables — V-4001', alacak:120000, not:'The debt now sits with the vendor' },
+          { hesap:'320', ad:'Trade payables: V-4001', alacak:120000, not:'The debt now sits with the vendor' },
         ],
         not:"{{gr-ir}} is zeroed out: both the goods and the invoice have arrived. Thanks to " +
              '{{acik-kalem-yonetimi}}, these two items are now able to offset each other and match automatically via {{F.13}}.' },
 
-      { baslik:'Step 3 — Payment ({{F110}}) · due date reached, discount period passed',
+      { baslik:'Step 3: Payment ({{F110}}) · due date reached, discount period passed',
         belgeTuru:'KZ', tarih:'12.10.2026', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'320', ad:'Trade payables — V-4001', borc:120000, not:'The open item is being cleared' },
+          { hesap:'320', ad:'Trade payables: V-4001', borc:120000, not:'The open item is being cleared' },
           { hesap:'102', ad:'Banks (clearing account)', alacak:120000 },
         ],
         not:"Payment and clearing happen **in a single transaction**. The item moves from {{BSIK}} to " +
              "{{BSAK}}, and this document's number is written to the `AUGBL` field." },
 
-      { baslik:'Alternative — had an early payment been made (2% discount)',
+      { baslik:'Alternative: had an early payment been made (2% discount)',
         belgeTuru:'KZ', tarih:'22.09.2026', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'320', ad:'Trade payables — V-4001', borc:120000, not:'The full debt is cleared' },
+          { hesap:'320', ad:'Trade payables: V-4001', borc:120000, not:'The full debt is cleared' },
           { hesap:'102', ad:'Banks', alacak:117600, not:'The amount actually paid' },
           { hesap:'602', ad:'Discounts received (income)', alacak:2000, not:'2% × 100,000 (on the net amount)' },
           { hesap:'191', ad:'Deductible VAT correction', alacak:400, not:'VAT is also corrected by the discount amount' },
@@ -191,12 +191,12 @@ SAP.registerTopic({
         not:'The full debt (120,000) is cleared, but only 117,600 TRY is paid. The difference is **income**. ' +
              'SAP knows the {{iskonto}} period from the {{odeme-kosulu}} and {{F110}} picks the most advantageous payment day on its own.' },
 
-      { baslik:'Non-PO invoice — the shortcut ({{FB60}}) · 60,000 TRY consulting',
+      { baslik:'Non-PO invoice: the shortcut ({{FB60}}) · 60,000 TRY consulting',
         belgeTuru:'KR', tarih:'15.09.2026', paraBirimi:'TRY',
         satirlar:[
           { hesap:'770', ad:'General administrative expense', borc:50000, not:'Cost center mandatory' },
           { hesap:'191', ad:'Deductible VAT', borc:10000 },
-          { hesap:'320', ad:'Trade payables — V-2001', alacak:60000 },
+          { hesap:'320', ad:'Trade payables: V-2001', alacak:60000 },
         ],
         not:"Since there's no order and no goods receipt, {{gr-ir}} never comes into play. The debt arises " +
              'with a single entry. The standard route for service purchases.' },
@@ -207,7 +207,7 @@ SAP.registerTopic({
           { hesap:'159', ad:'Down payments made on orders', borc:30000, not:'`UMSKZ` = A → alternative account' },
           { hesap:'102', ad:'Banks', alacak:30000 },
         ],
-        not:'The vendor is the same, the reconciliation account is 320 — but because the ' +
+        not:'The vendor is the same, the reconciliation account is 320: but because the ' +
              '{{ozel-ana-muhasebe-gostergesi}} "A" was entered, the posting did not go to 320. An {{avans}} ' +
              "isn't a liability, it's a **receivable**; it needs to be shown separately on the balance sheet. " +
              'Once the invoice arrives, it is offset with {{F-54}}.' },
@@ -253,13 +253,13 @@ SAP.registerTopic({
       'are often mixed up.',
 
     liste:[
-      { ad:'Non-PO Invoice — FB60',
+      { ad:'Non-PO Invoice: FB60',
         aciklama:'A vendor invoice entered directly into FI without a purchase order or goods receipt. The expense account and cost center are selected by hand.',
         neZaman:"For service purchases: rent, consulting, electricity, insurance, legal fees. For expenses that aren't stocked and aren't tracked by order.",
         ornek:'A 50,000 TRY consulting invoice → 770 expense debit / 320 vendor credit.',
         tcodes:['FB60','FB65','F-43'] },
 
-      { ad:'PO-based Invoice — MIRO',
+      { ad:'PO-based Invoice: MIRO',
         aciklama:"An invoice based on a purchase order and a goods receipt. {{uc-yonlu-eslestirme}} is performed: order ↔ goods receipt ↔ invoice. " +
                  "The account isn't chosen by the user, {{OBYC}} determines it.",
         neZaman:'For every stocked good and every order-tracked purchase. In corporate companies, most invoices arrive this way.',
@@ -272,20 +272,20 @@ SAP.registerTopic({
         ornek:'Defective goods returned → 320 vendor debit 24,000 / 153 stock credit 20,000 / 191 VAT credit 4,000.',
         tcodes:['FB65','MIRO'] },
 
-      { ad:'Manual Payment — F-53 / F-58',
+      { ad:'Manual Payment: F-53 / F-58',
         aciklama:'Records a single payment by hand and clears the open item. {{F-58}} also prints a check/form.',
         neZaman:"For urgent one-off payments, exceptions outside {{F110}}'s scope, and in small companies.",
         ornek:'An urgent payment made by hand to a vendor.',
         tcodes:['F-53','F-58'] },
 
-      { ad:'Automatic Payment Program — F110',
+      { ad:'Automatic Payment Program: F110',
         aciklama:'Selects every due item in bulk, generates a proposal, pays after approval, and creates a bank file. ' +
                  'Merges items belonging to the same vendor into a single payment.',
-        neZaman:'For routine payment cycles — the standard method for corporate companies.',
+        neZaman:'For routine payment cycles: the standard method for corporate companies.',
         ornek:'A payment run executed twice a month: 340 invoices → 47 payments → 1 bank file.',
         tcodes:['F110','FBZP','FBPM','F110S'] },
 
-      { ad:'Down Payment — F-47 / F-48 / F-54',
+      { ad:'Down Payment: F-47 / F-48 / F-54',
         aciklama:'A payment made before goods/services are delivered. Kept separate from the normal debt using the {{ozel-ana-muhasebe-gostergesi}}. ' +
                  'Three steps: request ({{F-47}}) → payment ({{F-48}}) → offset ({{F-54}}).',
         neZaman:'For an order deposit, a payment before a letter of credit on a foreign purchase, and for project down payments.',
@@ -301,16 +301,16 @@ SAP.registerTopic({
       { ad:'Residual Clearing',
         aciklama:'The original item **is cleared**, and a new open item is generated for the remaining amount.',
         neZaman:'When the difference is permanent and tied to a new due date.',
-        ornek:'120,000 TRY was cleared, a new 40,000 TRY item was created — its **due date starts from today**.',
+        ornek:'120,000 TRY was cleared, a new 40,000 TRY item was created: its **due date starts from today**.',
         tcodes:['F-53','FB05'] },
     ],
 
     karsilastirmaBasliklar:['FB60 (FI Invoice)', 'MIRO (MM Invoice)'],
     karsilastirma:[
-      ['Is a purchase order required', 'No', 'Yes — entered with a reference to the order'],
+      ['Is a purchase order required', 'No', 'Yes: entered with a reference to the order'],
       ['Is a goods receipt required', 'No', 'Usually yes ({{uc-yonlu-eslestirme}})'],
       ['Who determines the account', 'The user selects it by hand', '{{OBYC}} determines it automatically'],
-      ['Does GR/IR come into play', 'No', 'Yes — closes the item from the goods receipt'],
+      ['Does GR/IR come into play', 'No', 'Yes: closes the item from the goods receipt'],
       ['Document type', 'KR', 'RE'],
       ['Extra tables', 'None', '{{RBKP}} / {{RSEG}} / {{EKBE}}'],
       ['Variance check', 'None', 'Out-of-tolerance variance → **payment block**'],
@@ -330,7 +330,7 @@ SAP.registerTopic({
             aciklama:'The moment the vendor is entered, the address, bank, and payment term appear on the right of the screen. ' +
                      'The due date, {{mutabakat-hesabi}}, and payment method come **automatically** from master data.' },
           { baslik:'Enter the invoice date, posting date, and reference',
-            aciklama:"Type the vendor's invoice number into the reference (`XBLNR`) field — the duplicate invoice check looks at this field." },
+            aciklama:"Type the vendor's invoice number into the reference (`XBLNR`) field: the duplicate invoice check looks at this field." },
           { baslik:'Enter the gross amount and tax code',
             aciklama:'If you check "Calculate tax," SAP splits out the VAT line from the gross amount.' },
           { baslik:'Enter the expense lines',
@@ -351,13 +351,13 @@ SAP.registerTopic({
           opsiyonel:['Reference','Header text','Cost center','Payment term','Payment block','Due date','Assignment'] },
         hatalar:[
           { mesaj:'Vendor 100234 is blocked for posting', sebep:'There is a posting block on the vendor master ({{LFA1}} `SPERR` or {{LFB1}}).', cozum:'{{BP}} → remove the block in the relevant role. If the block was deliberate, investigate the reason first.' },
-          { mesaj:'Check document number ... — duplicate invoice', sebep:'An invoice with the same reference number from the same vendor has already been entered.', cozum:"It is a warning, not an error. If it is genuinely a duplicate, cancel it; if it is a different invoice, fix the reference and continue." },
+          { mesaj:'Check document number ... - duplicate invoice', sebep:'An invoice with the same reference number from the same vendor has already been entered.', cozum:"It is a warning, not an error. If it is genuinely a duplicate, cancel it; if it is a different invoice, fix the reference and continue." },
           { mesaj:'Tax code V1 does not appear in any G/L account item', sebep:'A tax code was entered but there is no taxable expense line.', cozum:'Select the same tax code on the expense line too, or remove the tax code from the header.' },
-          { mesaj:'Posting period ... is not open for account type K', sebep:'The period is closed for the vendor account type (K).', cozum:'Open the period on the **K** line in {{OB52}} — opening only the S line is not enough.' },
+          { mesaj:'Posting period ... is not open for account type K', sebep:'The period is closed for the vendor account type (K).', cozum:'Open the period on the **K** line in {{OB52}}: opening only the S line is not enough.' },
           { mesaj:'Field Cost Center is a required field', sebep:"The expense account's {{alan-durumu}} group makes the cost center mandatory.", cozum:'Enter a cost center, or define a default with {{OKB9}}.' },
         ],
         ipucu:"For invoices that recur regularly from the same vendor, set up an **account assignment model**; " +
-              "the expense account and cost center come pre-filled. Also don't leave the reference field blank — " +
+              "the expense account and cost center come pre-filled. Also don't leave the reference field blank: " +
               'it is the sole basis for the duplicate invoice check.',
         ilgili:['FB65','MIRO','F-43','FBL1N','FB03'] },
 
@@ -392,7 +392,7 @@ SAP.registerTopic({
         hatalar:[
           { mesaj:'Balance not zero', sebep:'The gross amount entered does not match the item total + tax.', cozum:'Check the item amounts and tax code; if there is an additional cost (freight), enter it on the relevant tab.' },
           { mesaj:'Account determination for entry ... WRX ... not possible', sebep:"{{OBYC}}'s {{gr-ir}} account is not defined (for the {{degerleme-sinifi}} combination).", cozum:'{{OBYC}} → transaction key WRX → define the account for the relevant valuation class.' },
-          { mesaj:'Price/quantity variance — invoice blocked for payment', sebep:'The variance is outside the tolerance limit.', cozum:'Investigate the variance. If justified, release it with {{MRBR}}; if not, request a credit memo from the vendor.' },
+          { mesaj:'Price/quantity variance: invoice blocked for payment', sebep:'The variance is outside the tolerance limit.', cozum:'Investigate the variance. If justified, release it with {{MRBR}}; if not, request a credit memo from the vendor.' },
           { mesaj:'No (suitable) item found for purchase order', sebep:'No goods receipt was posted, or the item is already fully invoiced.', cozum:'{{ME23N}} → check the goods-receipt and invoice status on the *purchase order history* tab.' },
           { mesaj:'Document ... is not an invoice for this vendor', sebep:"The order's vendor and the invoice's vendor are different.", cozum:'Choose the correct order; if there is a different invoicing address, check the alternative payee on the order.' },
         ],
@@ -456,7 +456,7 @@ SAP.registerTopic({
           { baslik:'Confirm the net amount is zero and save',
             aciklama:'Clearing produces a document but **does not move any G/L account** (if there is no difference). It only matches the items.' },
         ],
-        ipucu:'If you clear the wrong items, you can reverse it with {{FBRA}} — no need to enter a new correction posting.',
+        ipucu:'If you clear the wrong items, you can reverse it with {{FBRA}}: no need to enter a new correction posting.',
         ilgili:['F-32','F-03','FBRA','F.13'] },
 
       { kod:'MRBR', ad:'Release blocked invoices',
@@ -469,7 +469,7 @@ SAP.registerTopic({
           { baslik:'Select the justified ones and release them' },
         ],
         ipucu:'Until the block is lifted, {{F110}} **never sees** that invoice. This is the most common cause of ' +
-              'the complaint "I entered the invoice but it did not show up in the payment run" — the second most ' +
+              'the complaint "I entered the invoice but it did not show up in the payment run": the second most ' +
               'common cause is the {{odeme-blogu}} on the vendor master.',
         hatalar:[
           { mesaj:'Blocking reason cannot be deleted manually', sebep:'The block is a stochastic (random-check) block.', cozum:'This block is deliberate; it is removed with authorized approval.' },
@@ -482,7 +482,7 @@ SAP.registerTopic({
         adimlar:[
           { baslik:'Enter the vendor, amount, and special G/L indicator (usually F)' },
           { baslik:'Set the due date and link the order if there is one' },
-          { baslik:'Save — a statistical item is created',
+          { baslik:'Save: a statistical item is created',
             aciklama:'This item **does not move any G/L account**; it only carries the information "a down payment is to be paid to this vendor."' },
         ],
         ipucu:'Request (F) and payment (A) are different indicators. The request is statistical, the payment ' +
@@ -499,7 +499,7 @@ SAP.registerTopic({
       '{{uyumluluk-view}}s, but the logic stayed the same.',
 
     liste:[
-      { ad:'LFA1', baslik:'Vendor — general layer',
+      { ad:'LFA1', baslik:'Vendor: general layer',
         tutar:'Name, address, country, tax numbers, account group. Common across all company codes.',
         olusturan:'{{BP}} (S/4HANA) or {{XK01}} (ECC)',
         guncelleyen:'{{BP}}, {{XK01}}, {{XK02}}',
@@ -508,11 +508,11 @@ SAP.registerTopic({
         s4:'The table remains, but is populated via CVI synchronization from {{BP}}.',
         alanlar:[
           { ad:'LIFNR', aciklama:'Vendor number' },
-          { ad:'STCD1 / STCD2', aciklama:'Tax number — the key for the duplicate check' },
-          { ad:'SPERR', aciklama:'Central posting block — affects every company code' },
+          { ad:'STCD1 / STCD2', aciklama:'Tax number: the key for the duplicate check' },
+          { ad:'SPERR', aciklama:'Central posting block: affects every company code' },
         ] },
 
-      { ad:'LFB1', baslik:'Vendor — company code layer',
+      { ad:'LFB1', baslik:'Vendor: company code layer',
         tutar:'Accounting behavior: reconciliation account, payment term, allowed payment methods, payment block.',
         olusturan:'{{BP}} → FI Vendor role',
         guncelleyen:'{{BP}}, {{FK02}}',
@@ -520,11 +520,11 @@ SAP.registerTopic({
         iliskiler:'A child of {{LFA1}}; the `AKONT` field points to the reconciliation account in {{SKB1}}.',
         s4:'Unchanged; populated via {{BP}}.',
         alanlar:[
-          { ad:'AKONT', aciklama:"**{{mutabakat-hesabi}}** — the vendor's address in general ledger" },
-          { ad:'ZTERM', aciklama:'{{odeme-kosulu}} — the due date and discount are calculated from here' },
-          { ad:'ZWELS', aciklama:"The list of allowed {{odeme-yontemi}} — {{F110}} can't go outside it" },
-          { ad:'ZAHLS', aciklama:'{{odeme-blogu}} — if filled, {{F110}} will not pick up the vendor for the proposal' },
-          { ad:'ZUAWA', aciklama:'Sort key — fills the `ZUONR` field' },
+          { ad:'AKONT', aciklama:"**{{mutabakat-hesabi}}**: the vendor's address in general ledger" },
+          { ad:'ZTERM', aciklama:'{{odeme-kosulu}}: the due date and discount are calculated from here' },
+          { ad:'ZWELS', aciklama:"The list of allowed {{odeme-yontemi}}: {{F110}} can't go outside it" },
+          { ad:'ZAHLS', aciklama:'{{odeme-blogu}}: if filled, {{F110}} will not pick up the vendor for the proposal' },
+          { ad:'ZUAWA', aciklama:'Sort key: fills the `ZUONR` field' },
         ] },
 
       { ad:'BSIK', baslik:'Vendor open items',
@@ -535,10 +535,10 @@ SAP.registerTopic({
         iliskiler:'Linked to the vendor via {{LFB1}}, to the document line via {{BSEG}}.',
         s4:'**The physical table is removed**; a {{uyumluluk-view}} of the same name produces the data from {{ACDOCA}} + {{BSEG}}. Writing is not possible.',
         alanlar:[
-          { ad:'ZFBDT', aciklama:'Base date — the due date is calculated from this' },
-          { ad:'ZBD1T', aciklama:'Discount days — {{F110}} finds the most advantageous payment day from here' },
-          { ad:'ZLSPR', aciklama:'Payment block — at the item level' },
-          { ad:'UMSKZ', aciklama:'{{ozel-ana-muhasebe-gostergesi}} — separates down-payment items from normal ones' },
+          { ad:'ZFBDT', aciklama:'Base date: the due date is calculated from this' },
+          { ad:'ZBD1T', aciklama:'Discount days: {{F110}} finds the most advantageous payment day from here' },
+          { ad:'ZLSPR', aciklama:'Payment block: at the item level' },
+          { ad:'UMSKZ', aciklama:'{{ozel-ana-muhasebe-gostergesi}}: separates down-payment items from normal ones' },
         ] },
 
       { ad:'BSAK', baslik:'Vendor cleared items',
@@ -557,7 +557,7 @@ SAP.registerTopic({
         iliskiler:'Linked to its items via {{RSEG}}, to the FI document via {{BKPF}} (through `AWKEY`).',
         s4:'Unchanged.',
         alanlar:[
-          { ad:'ZLSPR', aciklama:'Payment block — filled automatically if there is a variance' },
+          { ad:'ZLSPR', aciklama:'Payment block: filled automatically if there is a variance' },
           { ad:'RMWWR', aciklama:'Invoice gross amount' },
         ] },
 
@@ -573,7 +573,7 @@ SAP.registerTopic({
           { ad:'MENGE / WRBTR', aciklama:'Quantity and amount' },
         ] },
 
-      { ad:'REGUH', baslik:'Payment run — payment headers',
+      { ad:'REGUH', baslik:'Payment run: payment headers',
         tutar:'The header of every payment {{F110}} produces: payee, amount, bank, payment method, payment document.',
         olusturan:'{{F110}} proposal and payment run',
         guncelleyen:'{{F110}}',
@@ -585,7 +585,7 @@ SAP.registerTopic({
           { ad:'VBLNR', aciklama:'Payment document number' },
         ] },
 
-      { ad:'REGUP', baslik:'Payment run — paid items',
+      { ad:'REGUP', baslik:'Payment run: paid items',
         tutar:'Which invoice items each payment cleared. The answer to "which invoices did this payment clear?"',
         olusturan:'{{F110}}',
         guncelleyen:'{{F110}}',
@@ -596,7 +596,7 @@ SAP.registerTopic({
 
     er:{
       type:'er',
-      baslik:'AP table relationships — from vendor to payment',
+      baslik:'AP table relationships: from vendor to payment',
       varliklar:[
         { ad:'LFA1', rol:'Master data', aciklama:'Vendor identity',
           alanlar:[{ ad:'LIFNR', tip:'pk' }, { ad:'NAME1' }, { ad:'STCD1' }] },
@@ -638,20 +638,20 @@ SAP.registerTopic({
       'feel familiar too.',
 
     ekranlar:[
-      { ad:'{{FB60}} — Basic data tab',
+      { ad:'{{FB60}}: Basic data tab',
         aciklama:"The invoice's header information. The moment the vendor is entered, values from master data fill the screen.",
         alanlar:[
           { ad:'Vendor', zorunlu:true, aciklama:'Once entered, address, bank, and payment term appear in the right panel. Picking the wrong vendor is the most expensive mistake.' },
           { ad:'Invoice date (`BLDAT`)', zorunlu:true, aciklama:"The date on the vendor's invoice. Usually the **base date** for the due-date calculation." },
           { ad:'Posting date (`BUDAT`)', zorunlu:true, aciklama:'Decides the accounting period. Checked carefully for invoices arriving at month-end.' },
-          { ad:'Reference (`XBLNR`)', zorunlu:false, aciklama:"The vendor's invoice number. **The duplicate invoice check looks at this** — do not leave it blank." },
+          { ad:'Reference (`XBLNR`)', zorunlu:false, aciklama:"The vendor's invoice number. **The duplicate invoice check looks at this**: do not leave it blank." },
           { ad:'Amount', zorunlu:true, aciklama:'The gross amount (VAT included). If "Calculate tax" is checked, SAP splits out the VAT.' },
           { ad:'Tax code', zorunlu:false, aciklama:"Requested if the account's tax category requires it." },
         ],
         ipucu:'The moment you enter the vendor, read the information that appears on the right: is the payment ' +
               'term and block correct? Wrong master data is hard to fix once noticed after the invoice is entered.' },
 
-      { ad:'{{FB60}} — Payment tab',
+      { ad:'{{FB60}}: Payment tab',
         aciklama:'The tab where the due date and payment behavior are set. Values come from master data but can be overridden for this specific invoice.',
         alanlar:[
           { ad:'Base date (`ZFBDT`)', zorunlu:false, aciklama:'The starting point of the due-date calculation. Comes from master data; can be the invoice date or the posting date.' },
@@ -659,10 +659,10 @@ SAP.registerTopic({
           { ad:'Payment block (`ZLSPR`)', zorunlu:false, aciklama:'A block specific to this invoice. Set here if there is a dispute; different from the block on the vendor master.' },
           { ad:'Payment method', zorunlu:false, aciklama:"If left blank, {{F110}} chooses from the vendor master's `ZWELS` list." },
         ],
-        ipucu:"Do not cancel a disputed invoice — set a payment block instead. The invoice stays in the record, " +
+        ipucu:"Do not cancel a disputed invoice: set a payment block instead. The invoice stays in the record, " +
               'appears in aging, but is not paid. Once resolved, the block is removed.' },
 
-      { ad:'{{MIRO}} — Reference object and item matching',
+      { ad:'{{MIRO}}: Reference object and item matching',
         aciklama:"MIRO's core. Once the order number is entered, the system pulls up items waiting to be invoiced.",
         alanlar:[
           { ad:'Purchase order', zorunlu:true, aciklama:'Once entered, items that have been goods-receipted but not invoiced come in automatically, and quantity/amount are proposed.' },
@@ -673,7 +673,7 @@ SAP.registerTopic({
         ipucu:'When a variance occurs, first check {{ME23N}} → the *Purchase Order History* tab. Usually either ' +
               'the goods receipt is missing, there is a partial delivery, or the order price was never updated.' },
 
-      { ad:'{{F-53}} — Open item selection screen',
+      { ad:'{{F-53}}: Open item selection screen',
         aciklama:"The screen where the items to pay are selected. The most critical indicator is the \"Not assigned\" field at the bottom.",
         alanlar:[
           { ad:'Bank G/L account', zorunlu:true, aciklama:'The account the money leaves from. Usually a {{banka-ara-hesabi}}.' },
@@ -706,7 +706,7 @@ SAP.registerTopic({
       'For the duplicate invoice check to work, the reference field (`XBLNR`) must be filled in consistently. ' +
       'Which fields the check looks at is set in {{OBY6}} → company code global parameters.',
       'Review the {{gr-ir}} account by open item with {{FBL3N}} every month. Clean up small differences that ' +
-      'will never match with {{MR11}} — do not let them accumulate for years.',
+      'will never match with {{MR11}}: do not let them accumulate for years.',
       "The fastest way to find why an invoice was not paid: {{FBL1N}} → find the item → is the payment block " +
       'filled? If not, is there a vendor block in {{BP}}? If not, the due date may not have arrived yet.',
     ],
@@ -728,7 +728,7 @@ SAP.registerTopic({
     commit:
       'The invoice posting is written within a single LUW. {{MIRO}} has an extra layer: first the MM invoice ' +
       'document ({{RBKP}}/{{RSEG}}) is produced, then the FI document, and the two are linked by `AWKEY`. These ' +
-      'two steps are in the same LUW — if one fails, neither is written.\n\n' +
+      'two steps are in the same LUW: if one fails, neither is written.\n\n' +
       '{{F110}} works differently: the **proposal** and the **payment** are separate runs with an approval in ' +
       'between. The proposal is written to {{REGUH}}/{{REGUP}} with `XVORL = X`; on the payment run these ' +
       'records turn into a real payment.',
@@ -736,7 +736,7 @@ SAP.registerTopic({
     belgeNo:
       'Assigned **at save time** from the number range tied to the document type. Typical types in AP: **KR** ' +
       'vendor invoice, **KG** vendor credit memo, **KZ** vendor payment, **RE** logistics invoice. {{MIRO}} ' +
-      'produces two numbers: the MM invoice number ({{RBKP}}) and the FI document number ({{BKPF}}) — these ' +
+      'produces two numbers: the MM invoice number ({{RBKP}}) and the FI document number ({{BKPF}}): these ' +
       'are **different** and should not be confused.',
 
     postingLogic:
@@ -753,7 +753,7 @@ SAP.registerTopic({
 
     numberRange:
       'Defined per company code + fiscal year with {{FBN1}}. The MM invoice number comes from a separate range ' +
-      '(defined on the MM side). **Both** must be opened at year-start — opening only the FI range and ' +
+      '(defined on the MM side). **Both** must be opened at year-start: opening only the FI range and ' +
       'forgetting MM is the classic mistake that stalls MIRO in January.',
 
     accountDetermination:
@@ -776,16 +776,16 @@ SAP.registerTopic({
 
     img:[
       { yol:'SPRO → Financial Accounting → Accounts Receivable and Accounts Payable → Vendor Accounts → Master Data → Preparations for Creating Vendor Master Data → Define Account Groups with Screen Layout (Vendors)', not:'Account group and field status' },
-      { yol:'SPRO → Financial Accounting → Accounts Receivable and Accounts Payable → Business Transactions → Outgoing Invoices/Credit Memos → Maintain Terms of Payment', not:'{{odeme-kosulu}} — due date and discount' },
-      { yol:'SPRO → Financial Accounting → Accounts Receivable and Accounts Payable → Business Transactions → Outgoing Payments → Automatic Outgoing Payments → Payment Method/Bank Selection for Payment Program → Set Up Payment Program', not:"{{FBZP}} — all of {{F110}}'s settings" },
-      { yol:'SPRO → Financial Accounting → Accounts Receivable and Accounts Payable → Business Transactions → Outgoing Payments → Manual Outgoing Payments → Define Tolerances (Vendors)', not:'{{OBA3}} — clearing tolerance limits' },
-      { yol:'SPRO → Materials Management → Valuation and Account Assignment → Account Determination → Account Determination Without Wizard → Configure Automatic Postings', not:'{{OBYC}} — BSX, WRX, PRD transaction keys' },
+      { yol:'SPRO → Financial Accounting → Accounts Receivable and Accounts Payable → Business Transactions → Outgoing Invoices/Credit Memos → Maintain Terms of Payment', not:'{{odeme-kosulu}}: due date and discount' },
+      { yol:'SPRO → Financial Accounting → Accounts Receivable and Accounts Payable → Business Transactions → Outgoing Payments → Automatic Outgoing Payments → Payment Method/Bank Selection for Payment Program → Set Up Payment Program', not:"{{FBZP}}: all of {{F110}}'s settings" },
+      { yol:'SPRO → Financial Accounting → Accounts Receivable and Accounts Payable → Business Transactions → Outgoing Payments → Manual Outgoing Payments → Define Tolerances (Vendors)', not:'{{OBA3}}: clearing tolerance limits' },
+      { yol:'SPRO → Materials Management → Valuation and Account Assignment → Account Determination → Account Determination Without Wizard → Configure Automatic Postings', not:'{{OBYC}}: BSX, WRX, PRD transaction keys' },
       { yol:'SPRO → Materials Management → Logistics Invoice Verification → Invoice Block → Set Tolerance Limits for Price/Quantity Variance', not:'{{MIRO}} block tolerances' },
-      { yol:'SPRO → Financial Accounting → Accounts Receivable and Accounts Payable → Business Transactions → Down Payment Made → Define Alternative Reconciliation Account for Down Payments', not:'{{OBYR}} — down payment indicators' },
+      { yol:'SPRO → Financial Accounting → Accounts Receivable and Accounts Payable → Business Transactions → Down Payment Made → Define Alternative Reconciliation Account for Down Payments', not:'{{OBYR}}: down payment indicators' },
     ],
 
     ekstra:[
-      { ic:'🔐', baslik:'Internal control in AP — where does it matter?', metin:
+      { ic:'🔐', baslik:'Internal control in AP: where does it matter?', metin:
         "Almost all of the company's cash outflow goes through AP; that's why it's the area needing the most control.\n\n" +
         '**Segregation of duties:** the person who opens a vendor master and the person who makes payments ' +
         '**must not be the same**. Otherwise, opening a fake vendor and paying yourself becomes possible.\n\n' +
@@ -815,30 +815,30 @@ SAP.registerTopic({
   /* ==================================================== 9. S/4HANA === */
   s4hana: {
     ozet:
-      "AP's business logic has not changed in S/4HANA — invoices, payments, and clearing work the same way. " +
+      "AP's business logic has not changed in S/4HANA: invoices, payments, and clearing work the same way. " +
       'What changed: **vendor master data moving to {{BP}}**, **index tables turning into views**, and ' +
       '**new Fiori-based worklists**.',
 
     eccFarklari:[
-      { konu:'Vendor master data', ecc:'{{FK01}} / {{XK01}}', s4:'{{BP}} mandatory — via the FI Vendor role' },
-      { konu:'Open item table', ecc:'{{BSIK}} / {{BSAK}} physical table', s4:'{{uyumluluk-view}} — data produced from {{ACDOCA}}' },
+      { konu:'Vendor master data', ecc:'{{FK01}} / {{XK01}}', s4:'{{BP}} mandatory: via the FI Vendor role' },
+      { konu:'Open item table', ecc:'{{BSIK}} / {{BSAK}} physical table', s4:'{{uyumluluk-view}}: data produced from {{ACDOCA}}' },
       { konu:'Terminology', ecc:'Vendor', s4:'**Supplier** (in Fiori and new documentation)' },
       { konu:'Line item report', ecc:'{{FBL1N}}', s4:'{{FBL1N}} still works; the Fiori "Display Supplier Line Items" is recommended' },
       { konu:'Invoice entry', ecc:'{{FB60}} / {{MIRO}}', s4:'Same + the Fiori "Create Supplier Invoice" (with machine-learning-assisted account suggestion)' },
       { konu:'Payment', ecc:'{{F110}}', s4:'{{F110}} + Fiori "Manage Automatic Payments" for visual proposal management' },
-      { konu:'Credit/risk', ecc:'FD32-based', s4:'SAP Credit Management ({{UKM_BP}}) — on the AR side' },
+      { konu:'Credit/risk', ecc:'FD32-based', s4:'SAP Credit Management ({{UKM_BP}}): on the AR side' },
     ],
 
     universalJournal:
       "AP items are now also held in {{ACDOCA}}, and the vendor number, cost center, and profit center are " +
       '**on the same line**. The practical result: "how much did we pay to which vendor, and which cost ' +
-      'center did it hit?" is answered from a single table — previously you had to join {{BSEG}} + {{BSIK}} + ' +
+      'center did it hit?" is answered from a single table: previously you had to join {{BSEG}} + {{BSIK}} + ' +
       'the CO tables.\n\n' +
       "Also, {{BSEG}}'s 999-item limit does not exist in {{ACDOCA}}; high-line-count bulk invoices are " +
       'recorded without issue.',
 
     kalkanTcodes:[
-      { eski:'{{FK01}} / {{FK02}} / {{FK03}}', yeni:'{{BP}}', not:'Vendor master data — removed' },
+      { eski:'{{FK01}} / {{FK02}} / {{FK03}}', yeni:'{{BP}}', not:'Vendor master data: removed' },
       { eski:'{{XK01}} / {{XK02}}', yeni:'{{BP}}', not:'Redirects to the BP transaction' },
       { eski:'MK01 / MK02', yeni:'{{BP}}', not:'The purchasing side too goes through BP' },
       { eski:'F-43', yeni:'{{FB60}}', not:'The classic screen still works but FB60 is recommended' },
@@ -849,20 +849,20 @@ SAP.registerTopic({
       { ad:'Manage Supplier Line Items', aciklama:'Replaces {{FBL1N}}; supports filtering, grouping, and bulk block removal.' },
       { ad:'Manage Automatic Payments', aciklama:'Manages the {{F110}} proposal visually; including/excluding items becomes easier.' },
       { ad:'Supplier Invoices List', aciklama:'A worklist of blocked and approval-pending invoices.' },
-      { ad:'Days Payable Outstanding', aciklama:'Analyzes the average payment period — a cash management indicator.' },
-      { ad:'Maintain Business Partner', aciklama:'{{BP}} — the single gateway to vendor master data.' },
+      { ad:'Days Payable Outstanding', aciklama:'Analyzes the average payment period: a cash management indicator.' },
+      { ad:'Maintain Business Partner', aciklama:'{{BP}}: the single gateway to vendor master data.' },
     ],
 
     compatibilityViews:[
-      '{{BSIK}}, {{BSAK}} — the vendor open/cleared item indexes are no longer physical tables; they are views produced from {{ACDOCA}}.',
-      "{{LFC1}} — the vendor's periodic balances also turned into a view.",
+      '{{BSIK}}, {{BSAK}}: the vendor open/cleared item indexes are no longer physical tables; they are views produced from {{ACDOCA}}.',
+      "{{LFC1}}: the vendor's periodic balances also turned into a view.",
       "**These views cannot be INSERT/UPDATE'd.** Old Z-programs that write directly to {{BSIK}} break during migration; they must be scanned.",
-      '{{LFA1}} and {{LFB1}} **remain** physical tables — but are populated by {{BP}}; writing directly breaks CVI synchronization.',
+      '{{LFA1}} and {{LFB1}} **remain** physical tables: but are populated by {{BP}}; writing directly breaks CVI synchronization.',
     ],
 
     performans:
       "Because open item queries run through {{ACDOCA}}, there is a noticeable speedup for large vendor " +
-      'portfolios. {{F110}} proposal generation is also faster — the {{BSIK}} scan used to be the bottleneck. ' +
+      'portfolios. {{F110}} proposal generation is also faster: the {{BSIK}} scan used to be the bottleneck. ' +
       'On the other hand, old custom reports running through {{uyumluluk-view}} are slower than new reports ' +
       'that query {{ACDOCA}} directly; that is the first place to look if a performance complaint comes in.',
 
@@ -880,19 +880,19 @@ SAP.registerTopic({
     baslik:'A purchase from start to finish: 100,000 TRY of raw material, from order to payment',
     hikaye:
       '**Marmara Textiles Inc.** (company code 1000) buys 100 drums of paint from Ege Kimya. The order is ' +
-      'opened, the goods arrive, the invoice arrives — but the invoice shows a **price variance**. This ' +
+      'opened, the goods arrive, the invoice arrives: but the invoice shows a **price variance**. This ' +
       'scenario walks through, step by step, the most common AP flow in real life, including variance handling.',
     veriler:[
-      { k:'Company code', v:'1000 — Marmara Textiles Inc.' },
+      { k:'Company code', v:'1000: Marmara Textiles Inc.' },
       { k:'Vendor', v:'V-4001 Ege Kimya Inc. · reconciliation account 320000' },
-      { k:'Payment term', v:'ZB02 — 30 days net, 2% discount within 10 days' },
+      { k:'Payment term', v:'ZB02: 30 days net, 2% discount within 10 days' },
       { k:'Order', v:'100 drums × 1,000 TRY = 100,000 TRY' },
       { k:'Period', v:'September 2026' },
       { k:'Price variance tolerance', v:'3% or 500 TRY, whichever is smaller' },
     ],
 
     adimlar:[
-      { baslik:'A purchase order is opened — no FI entry', tcode:'ME21N',
+      { baslik:'A purchase order is opened: no FI entry', tcode:'ME21N',
         aciklama:'Purchasing opens an order for 100 drums of paint. This is a **commitment**, not a debt; so ' +
                  'no accounting entry occurs.',
         girdi:[
@@ -907,16 +907,16 @@ SAP.registerTopic({
         ],
         not:"**There is no FI document.** The answer to \"we placed the order, do we owe anything?\" is no. The debt arises once the goods are received." },
 
-      { baslik:'Goods receipt is posted — the first FI entry is born', tcode:'MIGO',
+      { baslik:'Goods receipt is posted: the first FI entry is born', tcode:'MIGO',
         aciklama:'The warehouse receives the 100 drums and records it in the system. The accountant knows ' +
                  'nothing of this entry, but this is where the first FI document is created.',
         girdi:[
-          { alan:'Movement type', deger:'101 — Goods receipt for order' },
+          { alan:'Movement type', deger:'101: Goods receipt for order' },
           { alan:'Purchase order', deger:'4500002345, item 10' },
           { alan:'Quantity', deger:'100 drums (full delivery)' },
           { alan:'Document date', deger:'05.09.2026' },
         ],
-        fis:{ baslik:'Document 5000001234 — Goods receipt', belgeTuru:'WE', tarih:'05.09.2026',
+        fis:{ baslik:'Document 5000001234: Goods receipt', belgeTuru:'WE', tarih:'05.09.2026',
           satirlar:[
             { hesap:'153', ad:'Trade goods (stock)', borc:100000, not:'{{OBYC}} → **BSX**' },
             { hesap:'159', ad:'GR/IR account', alacak:100000, not:'{{OBYC}} → **WRX**' },
@@ -928,9 +928,9 @@ SAP.registerTopic({
           { tablo:'BSIS', ne:'A new **open item** on account 159 (credit 100,000)' },
         ] },
 
-      { baslik:'The invoice arrives — a price variance appears', tcode:'MIRO',
+      { baslik:'The invoice arrives: a price variance appears', tcode:'MIRO',
         aciklama:"The vendor billed **1,050 TRY/drum** for 100 drums. The order was 1,000 TRY. The total " +
-                 "variance is 5,000 TRY — since tolerance is 3% (3,000 TRY), it is **outside tolerance**.",
+                 "variance is 5,000 TRY: since tolerance is 3% (3,000 TRY), it is **outside tolerance**.",
         girdi:[
           { alan:'Invoice date', deger:'12.09.2026' },
           { alan:'Reference (vendor invoice no.)', deger:'EGE-2026-4471' },
@@ -939,12 +939,12 @@ SAP.registerTopic({
           { alan:'System proposal', deger:'100 drums × 1,000 = 100,000 TRY' },
           { alan:'Manually corrected to', deger:'100 drums × 1,050 = 105,000 TRY' },
         ],
-        fis:{ baslik:'Document 5100000456 (MM) / 1900000234 (FI) — Vendor invoice', belgeTuru:'RE', tarih:'12.09.2026',
+        fis:{ baslik:'Document 5100000456 (MM) / 1900000234 (FI): Vendor invoice', belgeTuru:'RE', tarih:'12.09.2026',
           satirlar:[
-            { hesap:'159', ad:'GR/IR account', borc:100000, not:'Closes the credit from the goods receipt — **at the order price**' },
+            { hesap:'159', ad:'GR/IR account', borc:100000, not:'Closes the credit from the goods receipt: **at the order price**' },
             { hesap:'711', ad:'Price variance', borc:5000, not:'{{OBYC}} → **PRD** · goes here if the material has a standard price' },
             { hesap:'191', ad:'Deductible VAT', borc:21000 },
-            { hesap:'320', ad:'Trade payables — V-4001', alacak:126000, not:'The debt now sits with the vendor' },
+            { hesap:'320', ad:'Trade payables: V-4001', alacak:126000, not:'The debt now sits with the vendor' },
           ], not:'Note: {{gr-ir}} closed at **100,000**, not 105,000. The remaining 5,000 TRY price variance ' +
                  'went to the price variance account. Had the material been moving-average priced, the ' +
                  'variance would have been added to stock (account 153).' },
@@ -952,7 +952,7 @@ SAP.registerTopic({
           { tablo:'RBKP', ne:'MM invoice header 5100000456; `ZLSPR` = **R** (price variance block)' },
           { tablo:'RSEG', ne:'Invoice item: order 4500002345 item 10, 105,000 TRY' },
           { tablo:'EKBE', ne:'A line added to the order history: `VGABE` = **2** (invoice), 100 drums / 105,000 TRY' },
-          { tablo:'BSIK', ne:'Vendor open item 126,000 TRY — **but blocked for payment**' },
+          { tablo:'BSIK', ne:'Vendor open item 126,000 TRY: **but blocked for payment**' },
           { tablo:'BSIS', ne:'The open item on account 159 closed' },
         ],
         not:"The invoice **was recorded** but blocked for payment. This is not a bug, it is by design: the " +
@@ -960,10 +960,10 @@ SAP.registerTopic({
 
       { baslik:'The variance is investigated and the block is released', tcode:'MRBR',
         aciklama:'The AP specialist asks purchasing: the price increase was agreed by contract in early ' +
-                 'September, but the order was never updated. The variance is **justified** — the block is released.',
+                 'September, but the order was never updated. The variance is **justified**: the block is released.',
         girdi:[
           { alan:'Company code', deger:'1000' },
-          { alan:'Block reason', deger:'Price variance (R) — 5,000 TRY' },
+          { alan:'Block reason', deger:'Price variance (R): 5,000 TRY' },
           { alan:'Decision', deger:'Contract confirmed → release' },
         ],
         tabloEtkisi:[
@@ -978,7 +978,7 @@ SAP.registerTopic({
                  'last day for the discount is **22.09**. The block investigation dragged on until 25.09.',
         girdi:[
           { alan:'Item', deger:'126,000 TRY · Due date 12.10.2026' },
-          { alan:'Last day for the discount', deger:'22.09.2026 — **passed**' },
+          { alan:'Last day for the discount', deger:'22.09.2026: **passed**' },
           { alan:'Discount missed', deger:'105,000 × 2% = **2,100 TRY**' },
         ],
         not:'The concrete cost of the delay in block management: 2,100 TRY. That is why blocked invoices ' +
@@ -988,12 +988,12 @@ SAP.registerTopic({
         aciklama:'When the 12.10.2026 due date arrives, the payment run selects and pays this invoice.',
         girdi:[
           { alan:'Run date / ID', deger:'12.10.2026 / AP01' },
-          { alan:'Payment method', deger:'H — bank transfer' },
+          { alan:'Payment method', deger:'H: bank transfer' },
           { alan:'Selected item', deger:'1900000234 · 126,000 TRY' },
         ],
-        fis:{ baslik:'Document 2000000789 — Payment', belgeTuru:'KZ', tarih:'12.10.2026',
+        fis:{ baslik:'Document 2000000789: Payment', belgeTuru:'KZ', tarih:'12.10.2026',
           satirlar:[
-            { hesap:'320', ad:'Trade payables — V-4001', borc:126000, not:'The open item is being cleared' },
+            { hesap:'320', ad:'Trade payables: V-4001', borc:126000, not:'The open item is being cleared' },
             { hesap:'102', ad:'Banks (clearing account)', alacak:126000 },
           ], not:'Since the discount period had passed, no discount was applied; the full amount was paid.' },
         tabloEtkisi:[
@@ -1003,12 +1003,12 @@ SAP.registerTopic({
           { tablo:'BSAK', ne:'Added as a cleared item, `AUGBL` = 2000000789' },
         ] },
 
-      { baslik:'Month-end check — is GR/IR clean?', tcode:'FBL3N',
+      { baslik:'Month-end check: is GR/IR clean?', tcode:'FBL3N',
         aciklama:'At the September close, account 159 GR/IR is checked. For this order, the goods receipt ' +
                  'and invoice matched and the item is cleared.',
         girdi:[
           { alan:'Account', deger:'159000 · Open items · 30.09.2026' },
-          { alan:'For this order', deger:'No item — matched and cleared ✓' },
+          { alan:'For this order', deger:'No item: matched and cleared ✓' },
           { alan:'Other orders', deger:'6 open items remain → to be reclassified with {{F.19}}' },
         ],
         not:'{{gr-ir}} items are cleared automatically with {{F.13}}; the matching criterion is the ' +
@@ -1020,9 +1020,9 @@ SAP.registerTopic({
       'vendor credited, the variance went to PRD) → block resolution → payment (debt cleared).\n\n' +
       '**Three key lessons:**\n\n' +
       '**1.** {{gr-ir}} always closes at the **order price**. The invoice variance goes to a separate account ' +
-      "— the price variance account (PRD) if the material has a standard price, stock if it is moving-average.\n\n" +
+      ": the price variance account (PRD) if the material has a standard price, stock if it is moving-average.\n\n" +
       "**2.** A price-variance block is not a malfunction, it is a **control mechanism**. But if block " +
-      'management is slow, the discount is lost — 2,100 TRY in this scenario. Blocked invoices should be ' +
+      'management is slow, the discount is lost: 2,100 TRY in this scenario. Blocked invoices should be ' +
       'tracked daily.\n\n' +
       '**3.** When troubleshooting an AP issue, ask in order: **which path did the invoice come in through ' +
       '({{FB60}} or {{MIRO}})?** → **is there a block ({{MRBR}}, {{FBL1N}})?** → **is there a block on the ' +

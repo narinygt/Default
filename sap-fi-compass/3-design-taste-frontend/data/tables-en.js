@@ -1,9 +1,9 @@
 /* ==========================================================================
-   data/tables-en.js — data/tables.js'in İngilizce üst katmanı
+   data/tables-en.js: data/tables.js'in İngilizce üst katmanı
    --------------------------------------------------------------------------
    `ad` ile eşleşir, alanlar `_en` ekiyle TR kaydın üstüne MERGE olur
    (js/core.js → registerTablesEn). Çevrilmeyen alan Türkçe kalır.
-   `alanlar_en` TR `alanlar` ile AYNI SIRADA olmalıdır — görünüm eşleştirmeyi
+   `alanlar_en` TR `alanlar` ile AYNI SIRADA olmalıdır: görünüm eşleştirmeyi
    indise göre yapar.
    ========================================================================== */
 
@@ -18,7 +18,7 @@ SAP.registerTablesEn([
       { aciklama:'Document number' },
       { aciklama:'Fiscal year' },
       { aciklama:'Document type (KR, SA, RV…)' },
-      { aciklama:'Posting date — this date determines the period' },
+      { aciklama:'Posting date: this date determines the period' },
       { aciklama:'Document date (the date printed on the invoice)' },
       { aciklama:'Posting period' },
       { aciklama:'Document currency' },
@@ -28,7 +28,7 @@ SAP.registerTablesEn([
     ] },
 
   { ad:'BSEG', baslik:'Accounting document line items',
-    aciklama:'Holds the document\'s line items: account, amount, debit/credit indicator, cost center, tax code. It is a cluster table — which is why filtering it directly with SELECT is slow.',
+    aciklama:'Holds the document\'s line items: account, amount, debit/credit indicator, cost center, tax code. It is a cluster table: which is why filtering it directly with SELECT is slow.',
     olusturan:'Every transaction that posts an FI document',
     s4:'Still written in S/4HANA, but reporting is done through ACDOCA. Because of its cluster (RFBLG) structure it is much slower than ACDOCA.',
     alanlar:[
@@ -45,8 +45,8 @@ SAP.registerTablesEn([
       { aciklama:'Amount in document currency' },
       { aciklama:'Tax code' },
       { aciklama:'Cost center' },
-      { aciklama:'Assignment — the matching field for automatic clearing (F.13)' },
-      { aciklama:'Clearing document — if filled, the item is cleared' },
+      { aciklama:'Assignment: the matching field for automatic clearing (F.13)' },
+      { aciklama:'Clearing document: if filled, the item is cleared' },
       { aciklama:'Clearing date' },
       { aciklama:'Special G/L indicator (down payment, guarantee…)' },
     ] },
@@ -56,10 +56,10 @@ SAP.registerTablesEn([
     olusturan:'Every transaction posted in FI/CO',
     s4:'A table introduced with S/4HANA. It has no ECC equivalent; think of it as a merger of BSEG + FAGLFLEXA + COEP + ANEP.',
     alanlar:[
-      { aciklama:'Ledger — the field that separates parallel accounting' },
+      { aciklama:'Ledger: the field that separates parallel accounting' },
       { aciklama:'Company code' },
       { aciklama:'Document number' },
-      { aciklama:'Line item number (6 digits — wider than BSEG\'s BUZEI)' },
+      { aciklama:'Line item number (6 digits: wider than BSEG\'s BUZEI)' },
       { aciklama:'Account number' },
       { aciklama:'Amount in company code currency' },
       { aciklama:'Amount in document currency' },
@@ -103,33 +103,33 @@ SAP.registerTablesEn([
 
   { ad:'FAGLFLEXT', baslik:'New G/L totals table',
     aciklama:'Holds totals by account/ledger/period. Balance reports used to read from here.',
-    s4:'Removed in S/4HANA — totals are now calculated on-the-fly from ACDOCA.' },
+    s4:'Removed in S/4HANA: totals are now calculated on-the-fly from ACDOCA.' },
 
   { ad:'GLT0', baslik:'Classic G/L totals',
     aciklama:'Holds debit/credit totals by account and period in classic G/L (the source for FS10N).',
     s4:'In S/4HANA it was converted into a compatibility view.' },
 
-  { ad:'SKA1', baslik:'G/L account — chart of accounts level',
+  { ad:'SKA1', baslik:'G/L account: chart of accounts level',
     aciklama:'Holds the chart-of-accounts-level part of the account: number, account group, balance sheet/P&L distinction. Independent of company code.',
     olusturan:'FS00 / FSP0',
     alanlar:[
       { aciklama:'Chart of accounts' },
       { aciklama:'Account number' },
-      { aciklama:'Account group — determines the number range and field status' },
+      { aciklama:'Account group: determines the number range and field status' },
       { aciklama:'Is it a balance sheet account? (if blank, it is a P&L account)' },
     ] },
 
-  { ad:'SKB1', baslik:'G/L account — company code level',
+  { ad:'SKB1', baslik:'G/L account: company code level',
     aciklama:'Holds the account\'s company-code-specific settings: currency, tax category, open item management, field status group, reconciliation account type.',
     olusturan:'FS00 / FSS0',
     alanlar:[
       { aciklama:'Company code' },
       { aciklama:'Account number' },
       { aciklama:'Account currency' },
-      { aciklama:'Is open item management on? — required for clearing to be possible' },
+      { aciklama:'Is open item management on? - required for clearing to be possible' },
       { aciklama:'Is line item display on?' },
       { aciklama:'Reconciliation account type: D customer, K vendor, A fixed asset' },
-      { aciklama:'Field status group — which field is required/hidden on the posting screen' },
+      { aciklama:'Field status group: which field is required/hidden on the posting screen' },
     ] },
 
   { ad:'SKAT', baslik:'G/L account descriptions',
@@ -152,10 +152,10 @@ SAP.registerTablesEn([
     aciklama:'The vendor\'s accounting data: reconciliation account, payment terms, payment method, payment block.',
     olusturan:'FK01 / XK01 / BP',
     alanlar:[
-      { aciklama:'Reconciliation account — the G/L account the vendor\'s balance is reflected in' },
+      { aciklama:'Reconciliation account: the G/L account the vendor\'s balance is reflected in' },
       { aciklama:'Payment terms (due date)' },
-      { aciklama:'Permitted payment methods — F110 checks this' },
-      { aciklama:'Payment block — if filled, F110 will not pay' },
+      { aciklama:'Permitted payment methods: F110 checks this' },
+      { aciklama:'Payment block: if filled, F110 will not pay' },
       { aciklama:'Dunning procedure' },
     ] },
 
@@ -180,11 +180,11 @@ SAP.registerTablesEn([
       { aciklama:'Dunning block' },
     ] },
 
-  { ad:'MHNK', baslik:'Dunning data — header',
+  { ad:'MHNK', baslik:'Dunning data: header',
     aciklama:'Holds the dunning history per customer: the last dunning date, the dunning level reached.',
     olusturan:'{{F150}} dunning run' },
 
-  { ad:'MHND', baslik:'Dunning data — item',
+  { ad:'MHND', baslik:'Dunning data: item',
     aciklama:'Holds which item was dunned at which dunning level.',
     olusturan:'{{F150}}' },
 
@@ -201,12 +201,12 @@ SAP.registerTablesEn([
     alanlar:[
       { aciklama:'Main asset number' },
       { aciklama:'Asset sub-number' },
-      { aciklama:'Asset class — brings in account determination' },
-      { aciklama:'Capitalization date — the start of depreciation' },
+      { aciklama:'Asset class: brings in account determination' },
+      { aciklama:'Capitalization date: the start of depreciation' },
     ] },
 
   { ad:'ANLB', baslik:'Asset depreciation area data',
-    aciklama:'Holds the depreciation key and useful life for each depreciation area. The same asset can see different depreciation in different areas — this is where the tax vs. reporting distinction comes from.' },
+    aciklama:'Holds the depreciation key and useful life for each depreciation area. The same asset can see different depreciation in different areas: this is where the tax vs. reporting distinction comes from.' },
 
   { ad:'ANLC', baslik:'Asset annual value totals',
     aciklama:'Holds the asset\'s acquisition value, accumulated depreciation, and period depreciation by year. AW01N\'s values tab reads from here.',
@@ -217,11 +217,11 @@ SAP.registerTablesEn([
     olusturan:'ABZON, F-90, ABAVN, ABUMN',
     s4:'Moved to ACDOCA in S/4HANA; ANEP is a compatibility view.' },
 
-  { ad:'ANEA', baslik:'Asset transaction — depreciation portion',
+  { ad:'ANEA', baslik:'Asset transaction: depreciation portion',
     aciklama:'Holds how much of the accumulated depreciation is to be written off in retirement transactions.' },
 
   { ad:'ANLZ', baslik:'Asset time-dependent data',
-    aciklama:'Holds assignments that can change over time — cost center, plant, person responsible — together with their validity date.' },
+    aciklama:'Holds assignments that can change over time, cost center, plant, person responsible, together with their validity date.' },
 
   { ad:'ANEK', baslik:'Asset document header',
     aciklama:'Links the header information of asset documents to the FI document.' },
@@ -236,7 +236,7 @@ SAP.registerTablesEn([
   { ad:'T012K', baslik:'House bank account IDs',
     aciklama:'Holds the IBAN and the corresponding G/L account of each house bank account. F110\'s bank determination checks this.' },
 
-  { ad:'REGUH', baslik:'Payment run — payment headers',
+  { ad:'REGUH', baslik:'Payment run: payment headers',
     aciklama:'The header of every payment F110 produces: payee, amount, bank, payment method, payment document number.',
     olusturan:'F110 proposal and payment run',
     alanlar:[
@@ -247,11 +247,11 @@ SAP.registerTablesEn([
       { aciklama:'Payment document number' },
     ] },
 
-  { ad:'REGUP', baslik:'Payment run — paid items',
+  { ad:'REGUP', baslik:'Payment run: paid items',
     aciklama:'Holds which invoice items each payment cleared. This is the answer to "which invoices did this payment clear?"',
     olusturan:'F110' },
 
-  { ad:'REGUV', baslik:'Payment run — control record',
+  { ad:'REGUV', baslik:'Payment run: control record',
     aciklama:'Holds the status of the run: were the parameters entered, was the proposal generated, was payment made.' },
 
   { ad:'PAYR', baslik:'Check register',
@@ -282,7 +282,7 @@ SAP.registerTablesEn([
     alanlar:[
       { aciklama:'Number range key' },
       { aciklama:'The range\'s lower and upper limits' },
-      { aciklama:'**Current counter** — the next document is taken from above this value' },
+      { aciklama:'**Current counter**: the next document is taken from above this value' },
     ] },
 
   { ad:'T003', baslik:'Document type definition',
@@ -330,13 +330,13 @@ SAP.registerTablesEn([
     ] },
 
   { ad:'RBKP', baslik:'Logistics invoice header',
-    aciklama:'The header of an invoice entered with {{MIRO}}: vendor, amount, date, block status. Separate from the FI document — the invoice record on the MM side.',
+    aciklama:'The header of an invoice entered with {{MIRO}}: vendor, amount, date, block status. Separate from the FI document: the invoice record on the MM side.',
     olusturan:'{{MIRO}}',
     alanlar:[
       { aciklama:'Invoice document number' },
       { aciklama:'Vendor' },
       { aciklama:'Gross invoice amount' },
-      { aciklama:'Payment block — set automatically if there is a price/quantity variance' },
+      { aciklama:'Payment block: set automatically if there is a price/quantity variance' },
     ] },
 
   { ad:'RSEG', baslik:'Logistics invoice line items',
@@ -348,7 +348,7 @@ SAP.registerTablesEn([
       { aciklama:'Item amount' },
     ] },
 
-  { ad:'T042', baslik:'Payment program — company code settings',
+  { ad:'T042', baslik:'Payment program: company code settings',
     aciklama:'Holds the payment program configuration entered in {{FBZP}}: paying company code, tolerance days, minimum amount.',
     olusturan:'{{FBZP}}' },
 
@@ -369,19 +369,19 @@ SAP.registerTablesEn([
     s4:'Unchanged.',
     alanlar:[
       { aciklama:'Tax calculation procedure (country-dependent)' },
-      { aciklama:'Tax code — two characters' },
+      { aciklama:'Tax code: two characters' },
       { aciklama:'Tax type: **A** output (calculated), **V** input (deductible)' },
     ] },
 
-  { ad:'T030K', baslik:'Tax account determination — which account tax posts to',
-    aciklama:'Holds which G/L account a tax transaction posts to. {{OB40}} populates this table. **It is the tax member of the {{T030}} family** — {{OBYC}} in MM and {{VKOA}} in SD write to the same family.',
+  { ad:'T030K', baslik:'Tax account determination: which account tax posts to',
+    aciklama:'Holds which G/L account a tax transaction posts to. {{OB40}} populates this table. **It is the tax member of the {{T030}} family**: {{OBYC}} in MM and {{VKOA}} in SD write to the same family.',
     olusturan:'{{OB40}}',
     s4:'Unchanged. It remains the single source for tax account determination in S/4HANA as well.',
     alanlar:[
-      { aciklama:'**Chart of accounts** — the first field of the key. A different chart of accounts means a different row.' },
-      { aciklama:'**Transaction key** — specifies the type of tax: `MWS` calculated (output) VAT · `VST` deductible (input) VAT · `NAV` non-deductible · `NVV` non-deductible, distributed to the account assignment' },
-      { aciklama:'**Tax code** — only filled when "differentiate by tax code" is checked. If blank, **all codes** under that transaction key go to the same account.' },
-      { aciklama:'**Determined G/L account** — 191 deductible, 391 calculated VAT' },
+      { aciklama:'**Chart of accounts**: the first field of the key. A different chart of accounts means a different row.' },
+      { aciklama:'**Transaction key**: specifies the type of tax: `MWS` calculated (output) VAT · `VST` deductible (input) VAT · `NAV` non-deductible · `NVV` non-deductible, distributed to the account assignment' },
+      { aciklama:'**Tax code**: only filled when "differentiate by tax code" is checked. If blank, **all codes** under that transaction key go to the same account.' },
+      { aciklama:'**Determined G/L account**: 191 deductible, 391 calculated VAT' },
       { aciklama:'Credit-side account (in setups where debit/credit are separated)' },
     ] },
 
@@ -390,10 +390,10 @@ SAP.registerTablesEn([
     olusturan:'Every FI document that contains tax',
     s4:'Still exists; {{ACDOCA}} carries the tax amount, but the return is still based on BSET.',
     alanlar:[
-      { aciklama:'**Tax base** — the amount the tax is calculated on (local currency)' },
+      { aciklama:'**Tax base**: the amount the tax is calculated on (local currency)' },
       { aciklama:'Tax amount (local currency)' },
       { aciklama:'Tax code' },
-      { aciklama:'Transaction key — MWS / VST / NAV' },
+      { aciklama:'Transaction key: MWS / VST / NAV' },
     ] },
 
   { ad:'CSKS', baslik:'Cost center master data',
@@ -403,8 +403,8 @@ SAP.registerTablesEn([
     alanlar:[
       { aciklama:'Controlling area' },
       { aciklama:'Cost center' },
-      { aciklama:'**Validity end date** — part of the key; time-sliced master data' },
-      { aciklama:'{{kar-merkezi}} — derived into the FI posting from here' },
+      { aciklama:'**Validity end date**: part of the key; time-sliced master data' },
+      { aciklama:'{{kar-merkezi}}: derived into the FI posting from here' },
       { aciklama:'Person responsible' },
     ] },
 
@@ -413,7 +413,7 @@ SAP.registerTablesEn([
     olusturan:'{{KA01}}',
     s4:'In S/4HANA, the cost element is a **property** of the G/L account (within {{FS00}}); the separate {{KA01}} requirement is gone.',
     alanlar:[
-      { aciklama:'Cost element — **identical** to the G/L account number' },
+      { aciklama:'Cost element: **identical** to the G/L account number' },
       { aciklama:'**Category:** 1 primary · 11 revenue · 42 assessment · 43 settlement of internal activity' },
     ] },
 
@@ -424,7 +424,7 @@ SAP.registerTablesEn([
   { ad:'COEP', baslik:'CO actual line items (ECC)',
     aciklama:'Actual cost line items on the CO side. In ECC these were kept **separate** from FI and required reconciliation.',
     olusturan:'An FI posting or a CO transaction',
-    s4:'**Merged into {{ACDOCA}}** — FI and CO are now in the same table; the concept of reconciliation is gone.',
+    s4:'**Merged into {{ACDOCA}}**: FI and CO are now in the same table; the concept of reconciliation is gone.',
     alanlar:[
       { aciklama:'CO object (cost center, internal order…)' },
       { aciklama:'Cost element' },
@@ -437,7 +437,7 @@ SAP.registerTablesEn([
     s4:'Unchanged.',
     alanlar:[
       { aciklama:'Order number' },
-      { aciklama:'Order type — determines behavior and number range' },
+      { aciklama:'Order type: determines behavior and number range' },
       { aciklama:'Status: created · released · technically complete · closed' },
     ] },
 
@@ -446,9 +446,9 @@ SAP.registerTablesEn([
     olusturan:'{{FV50}} / {{FV60}} / {{FBV1}}',
     s4:'Unchanged.',
     alanlar:[
-      { aciklama:'Document number — **assigned at the time of parking**, the same number is used once posted' },
+      { aciklama:'Document number: **assigned at the time of parking**, the same number is used once posted' },
       { aciklama:'Document status: **V** parked · **Z** statistical' },
-      { aciklama:'User who parked it — the basis for the four-eyes control' },
+      { aciklama:'User who parked it: the basis for the four-eyes control' },
     ] },
 
   { ad:'VBSEG', baslik:'Parked document line items',
@@ -462,7 +462,7 @@ SAP.registerTablesEn([
     s4:'Unchanged.',
     alanlar:[
       { aciklama:'Dunning procedure code' },
-      { aciklama:'Dunning interval (days) — the minimum time between two dunning notices' },
+      { aciklama:'Dunning interval (days): the minimum time between two dunning notices' },
     ] },
 
   { ad:'TKA01', baslik:'Controlling area definition',
@@ -471,43 +471,43 @@ SAP.registerTablesEn([
     s4:'Unchanged.',
     alanlar:[
       { aciklama:'Controlling area' },
-      { aciklama:'Chart of accounts — **must be the same as the company codes**' },
+      { aciklama:'Chart of accounts: **must be the same as the company codes**' },
       { aciklama:'Controlling area currency' },
     ] },
 
-  { ad:'EDOCUMENT', baslik:'E-document header — the accounting document\'s electronic twin',
+  { ad:'EDOCUMENT', baslik:'E-document header: the accounting document\'s electronic twin',
     aciklama:'Holds the **status and the link to the source document** of every e-document. It is a **separate object** from the accounting document: even if {{BKPF}} succeeds, the status here can still be **error** or **rejected**.',
     olusturan:'When an invoice posting (FI or SD) triggers the e-document trigger',
     s4:'In S/4HANA it is under the **DRC** (Document and Reporting Compliance) framework; the table structure is preserved.',
     alanlar:[
       { aciklama:'E-document ID' },
-      { aciklama:'Source type — whether it is an FI invoice or an SD invoice' },
-      { aciklama:'Source document key — the link to {{BKPF}} / {{VBRK}}' },
-      { aciklama:'E-document type — e-invoice, e-archive, e-waybill' },
-      { aciklama:'**Status** — created / sent / accepted / **rejected** / error' },
-      { aciklama:'Processing status — whether resubmission is required' },
+      { aciklama:'Source type: whether it is an FI invoice or an SD invoice' },
+      { aciklama:'Source document key: the link to {{BKPF}} / {{VBRK}}' },
+      { aciklama:'E-document type: e-invoice, e-archive, e-waybill' },
+      { aciklama:'**Status**: created / sent / accepted / **rejected** / error' },
+      { aciklama:'Processing status: whether resubmission is required' },
     ] },
 
-  { ad:'EDOCUMENTFILE', baslik:'E-document file — the sent XML itself',
-    aciklama:'Stores the generated **UBL-TR XML** and the response files returned by the GİB (Turkish Revenue Administration). It is the single definitive answer to *"what did we send in the invoice?"* — not the screen, the **file actually sent** is what counts.',
+  { ad:'EDOCUMENTFILE', baslik:'E-document file: the sent XML itself',
+    aciklama:'Stores the generated **UBL-TR XML** and the response files returned by the GİB (Turkish Revenue Administration). It is the single definitive answer to *"what did we send in the invoice?"*: not the screen, the **file actually sent** is what counts.',
     olusturan:'E-document generation and every response received',
     s4:'Unchanged.',
     alanlar:[
       { aciklama:'E-document ID' },
       { aciklama:'Whether it is the outgoing XML or the incoming response' },
-      { aciklama:'**XML content** — the place to check in case of a discrepancy' },
+      { aciklama:'**XML content**: the place to check in case of a discrepancy' },
     ] },
 
-  { ad:'EDIDC', baslik:'IDoc control record — where the status is kept',
-    aciklama:'Holds the header and **status** of every {{idoc}}. This is the technical basis for the IDoc\'s biggest advantage: a failed message **is not lost** — it stays in the table with its status and can be reprocessed with {{BD87}}.',
+  { ad:'EDIDC', baslik:'IDoc control record: where the status is kept',
+    aciklama:'Holds the header and **status** of every {{idoc}}. This is the technical basis for the IDoc\'s biggest advantage: a failed message **is not lost**: it stays in the table with its status and can be reprocessed with {{BD87}}.',
     olusturan:'IDoc receipt or generation',
     s4:'Unchanged.',
     alanlar:[
       { aciklama:'IDoc number' },
-      { aciklama:'**Status** — 53 successful · 51 application error · **56 no partner profile**' },
-      { aciklama:'Message type — which business object' },
-      { aciklama:'Direction — 1 outbound, 2 inbound' },
-      { aciklama:'Sender / receiver partner — must match the {{WE20}} profile' },
+      { aciklama:'**Status**: 53 successful · 51 application error · **56 no partner profile**' },
+      { aciklama:'Message type: which business object' },
+      { aciklama:'Direction: 1 outbound, 2 inbound' },
+      { aciklama:'Sender / receiver partner: must match the {{WE20}} profile' },
     ] },
 
   { ad:'BALHDR', baslik:'Application log header',
@@ -516,11 +516,11 @@ SAP.registerTablesEn([
     s4:'Unchanged.',
     alanlar:[
       { aciklama:'Log number' },
-      { aciklama:'Application object — whose log it is' },
-      { aciklama:'Sub-object — the type of run' },
+      { aciklama:'Application object: whose log it is' },
+      { aciklama:'Sub-object: the type of run' },
       { aciklama:'Log date' },
       { aciklama:'User who ran it' },
-      { aciklama:'**Highest message class** — 1 very critical … 4 information' },
+      { aciklama:'**Highest message class**: 1 very critical … 4 information' },
     ] },
 
   { ad:'TSTC', baslik:'Transaction code definitions',
@@ -531,17 +531,17 @@ SAP.registerTablesEn([
       { aciklama:'Transaction code' },
       { aciklama:'The ABAP program behind it' },
       { aciklama:'Screen number' },
-      { aciklama:'Type info — dialog / report / parameter transaction' },
+      { aciklama:'Type info: dialog / report / parameter transaction' },
     ] },
 
   { ad:'TSTCT', baslik:'Transaction code texts',
-    aciklama:'Descriptions of transaction codes **by language**. If the code name is not known, **searching by description** is done from here — `*invoice*` is entered in the `TEXT` field.',
+    aciklama:'Descriptions of transaction codes **by language**. If the code name is not known, **searching by description** is done from here: `*invoice*` is entered in the `TEXT` field.',
     olusturan:'SAP standard delivery',
     s4:'Unchanged.',
     alanlar:[
-      { aciklama:'Language key — TR / EN / DE' },
+      { aciklama:'Language key: TR / EN / DE' },
       { aciklama:'Transaction code' },
-      { aciklama:'**Description** — the most practical field for searching by code' },
+      { aciklama:'**Description**: the most practical field for searching by code' },
     ] },
 
   { ad:'GB01', baslik:'Boolean class field control',
@@ -549,9 +549,9 @@ SAP.registerTablesEn([
     olusturan:'SAP standard delivery',
     s4:'Unchanged.',
     alanlar:[
-      { aciklama:'Boolean class — **09** for FI documents' },
+      { aciklama:'Boolean class: **09** for FI documents' },
       { aciklama:'Table and field name (BKPF/BSEG fields)' },
-      { aciklama:'**Excluded from substitution** flag — if set, that field cannot be changed' },
+      { aciklama:'**Excluded from substitution** flag: if set, that field cannot be changed' },
     ] },
 
   { ad:'T880', baslik:'Company definition',
@@ -565,12 +565,12 @@ SAP.registerTablesEn([
     ] },
 
   { ad:'T014', baslik:'Credit control area definition',
-    aciklama:'The organizational unit where {{kredi-limiti}} control is performed. **Multiple company codes** can be assigned to a credit control area — for a shared limit across group companies.',
+    aciklama:'The organizational unit where {{kredi-limiti}} control is performed. **Multiple company codes** can be assigned to a credit control area: for a shared limit across group companies.',
     olusturan:'{{OB45}}',
     s4:'Used together with SAP Credit Management.',
     alanlar:[
       { aciklama:'Credit control area' },
-      { aciklama:'Currency — the unit in which limits are tracked' },
+      { aciklama:'Currency: the unit in which limits are tracked' },
     ] },
 
   { ad:'T074', baslik:'Special G/L account determination',
@@ -578,9 +578,9 @@ SAP.registerTablesEn([
     olusturan:'{{FBKP}}',
     s4:'Unchanged.',
     alanlar:[
-      { aciklama:'Account type — **K** vendor, **D** customer' },
+      { aciklama:'Account type: **K** vendor, **D** customer' },
       { aciklama:'Special G/L indicator (A down payment, F request, W bill of exchange)' },
-      { aciklama:'**Normal** reconciliation account (320) — the field most often overlooked in the match' },
+      { aciklama:'**Normal** reconciliation account (320): the field most often overlooked in the match' },
       { aciklama:'**Alternative** reconciliation account (159)' },
     ] },
 
@@ -589,8 +589,8 @@ SAP.registerTablesEn([
     olusturan:'{{FINSC_LEDGER}}',
     s4:'Managed with {{FINSC_LEDGER}}; {{ACDOCA}} carries `RLDNR` on every line.',
     alanlar:[
-      { aciklama:'Ledger code — **0L** is the leading ledger' },
-      { aciklama:'Leading ledger flag — there can be **only one** in the system' },
+      { aciklama:'Ledger code: **0L** is the leading ledger' },
+      { aciklama:'Leading ledger flag: there can be **only one** in the system' },
     ] },
 
   { ad:'FAGL_SPLINFO', baslik:'Document splitting information',
@@ -599,8 +599,8 @@ SAP.registerTablesEn([
     s4:'Still exists; the split result is also reflected in {{ACDOCA}} lines.' },
 
   /* ------------------------------- Veri geçişi / taşıma / S4 partisi --- */
-  { ad:'BUT000', baslik:'Business Partner — general data',
-    aciklama:'The **common** header table of vendor and customer master data in S/4HANA. {{is-ortagi}} is a single object; vendor and customer are now its **roles**. Company code and purchasing/sales data still live in {{LFB1}} and {{KNB1}} — {{BUT000}} is the identity above them.',
+  { ad:'BUT000', baslik:'Business Partner: general data',
+    aciklama:'The **common** header table of vendor and customer master data in S/4HANA. {{is-ortagi}} is a single object; vendor and customer are now its **roles**. Company code and purchasing/sales data still live in {{LFB1}} and {{KNB1}}: {{BUT000}} is the identity above them.',
     olusturan:'{{BP}}',
     s4:'Mandatory. Even records created with {{XK01}}/{{XD01}} are written here in the background through {{cvi}}.',
     alanlar:[
@@ -610,14 +610,14 @@ SAP.registerTablesEn([
       { aciklama:'Name / title' },
     ] },
 
-  { ad:'MATDOC', baslik:'Material document — combined table',
+  { ad:'MATDOC', baslik:'Material document: combined table',
     aciklama:'The single table for material documents in S/4HANA. It is the MM counterpart of **the same architectural decision** as {{ACDOCA}} on the FI side: the header+item+totals tables (MKPF/MSEG/MARD/MBEW) merged into one table, and totals are **calculated instead of stored**. The old tables continue to be read as {{uyumluluk-view}}.',
     olusturan:'{{MIGO}} and every transaction that produces a stock movement',
     s4:'New. Outside the topic, but included here because it shows **the pattern**: the same principle was applied outside FI too.',
     alanlar:[
       { aciklama:'Material document number' },
       { aciklama:'{{hareket-turu}}' },
-      { aciklama:'Quantity — summed from here instead of a totals table' },
+      { aciklama:'Quantity: summed from here instead of a totals table' },
     ] },
 
   { ad:'E070', baslik:'Transport request header',
@@ -626,18 +626,18 @@ SAP.registerTablesEn([
     s4:'Unchanged.',
     alanlar:[
       { aciklama:'Request number' },
-      { aciklama:'Status — **R** released' },
-      { aciklama:'Release date — the change timeline' },
+      { aciklama:'Status: **R** released' },
+      { aciklama:'Release date: the change timeline' },
       { aciklama:'Owner' },
     ] },
 
   { ad:'E071', baslik:'Transport request objects',
-    aciklama:'Holds **exactly what** a request transports. Whether two requests touch the same object is seen from here — the place to diagnose {{tasima-sirasi}} conflicts.',
+    aciklama:'Holds **exactly what** a request transports. Whether two requests touch the same object is seen from here: the place to diagnose {{tasima-sirasi}} conflicts.',
     olusturan:'{{SE09}}',
     s4:'Unchanged.',
     alanlar:[
       { aciklama:'Request number' },
       { aciklama:'Object type (TABU, PROG, VDAT…)' },
-      { aciklama:'Object name — table or program' },
+      { aciklama:'Object name: table or program' },
     ] },
 ]);

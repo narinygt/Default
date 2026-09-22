@@ -1,6 +1,6 @@
 /* ==========================================================================
-   content/fi-en/tcodes.js — English body for "SAP Transaction Codes"
-   Same conventions as content/fi-en/gl-accounting.js — see that file's
+   content/fi-en/tcodes.js: English body for "SAP Transaction Codes"
+   Same conventions as content/fi-en/gl-accounting.js: see that file's
    header comment.
    ========================================================================== */
 
@@ -14,7 +14,7 @@ SAP.registerTopic({
     nedir:
       'A transaction code is the **shortcut** to a SAP screen. A screen that takes five clicks ' +
       'to reach through the menu opens in one step by typing `FB60` into the command field.\n\n' +
-      'But the real point isn\'t that it\'s a shortcut — it\'s that **the codes aren\'t random**.\n\n' +
+      'But the real point isn\'t that it\'s a shortcut: it\'s that **the codes aren\'t random**.\n\n' +
       '`FK01` · `FD01` · `FS00` · `FBL1N` · `BSIK`\n\n' +
       'These five look like five things to memorize. In fact **a two-letter rule** explains ' +
       'all of them: SAP was developed in German, and the letters are the initials of German words.\n\n' +
@@ -27,7 +27,7 @@ SAP.registerTopic({
     neden:
       '**Speed.** Navigating the menu is slow; a consultant switches between dozens of screens a day.\n\n' +
       '**Predictability.** Someone who knows the pattern can **guess** what a code they\'ve never ' +
-      'seen does — and is usually right.\n\n' +
+      'seen does: and is usually right.\n\n' +
       '**Communication.** Consultants talk to each other by **code**, not by screen name: ' +
       '*"pay it with F-53"*, *"check it in FBL1N"*.\n\n' +
       '**Authorization.** Roles are granted at the transaction-code level; a role can\'t be ' +
@@ -53,11 +53,11 @@ SAP.registerTopic({
       'A new consultant sees an error on screen: *"Number range missing for document type AB"*. ' +
       'They need to change the document type setting but don\'t know **which transaction code** ' +
       'to use.\n\n' +
-      '**Going from memory**, they get stuck — you can\'t recall a code you never knew.\n\n' +
+      '**Going from memory**, they get stuck: you can\'t recall a code you never knew.\n\n' +
       '**Going from the pattern**, they find it in three steps:\n\n' +
       '**1.** This is a **customizing** setting → FI customizing codes start with **`OB`**.\n' +
       '**2.** {{SE16N}} → {{TSTCT}} → `TCODE` = `OB*` and `TTEXT` containing *document*\n' +
-      '**3.** Result: **{{OBA7}}** — Define Document Types.\n\n' +
+      '**3.** Result: **{{OBA7}}**: Define Document Types.\n\n' +
       '---\n\n' +
       '**Even faster:** open {{SPRO}}, search the IMG tree for *Document Type*, and ' +
       'clicking the node shows **the code is already right there**.\n\n' +
@@ -91,12 +91,12 @@ SAP.registerTopic({
 
     roller:[
       { rol:'User', gorev:'States the need in business language: *"I need to enter a vendor invoice."*' },
-      { rol:'Consultant', gorev:'Guesses from the pattern — module letter + transaction type.' },
+      { rol:'Consultant', gorev:'Guesses from the pattern: module letter + transaction type.' },
       { rol:'Consultant', gorev:'If unsure, **searches by description** in {{TSTCT}}.' },
-      { rol:'Consultant', gorev:'If it\'s a customizing task, goes through the {{SPRO}} tree — the code is written on the node.' },
+      { rol:'Consultant', gorev:'If it\'s a customizing task, goes through the {{SPRO}} tree: the code is written on the node.' },
       { rol:'Consultant', gorev:'For a custom (`Z*`) code, looks at the program behind it with {{SE93}}.' },
       { rol:'User', gorev:'Adds frequently used codes to **favorites**.' },
-      { rol:'Authorization', gorev:'Adds the code to a role — {{PFCG}}, {{yetki-nesnesi}} `S_TCODE`.' },
+      { rol:'Authorization', gorev:'Adds the code to a role: {{PFCG}}, {{yetki-nesnesi}} `S_TCODE`.' },
     ],
 
     diyagram:{
@@ -111,20 +111,20 @@ SAP.registerTopic({
           aciklama:'Is it a **posting/report**, a **customizing** task, or a **technical** one? ' +
                    'This question decides which route to use.',
           cikti:'Type', ok:'a route is chosen' },
-        { ic:'🔤', rol:'Consultant', baslik:'1️⃣ Guess from the pattern — the fastest',
+        { ic:'🔤', rol:'Consultant', baslik:'1️⃣ Guess from the pattern: the fastest',
           aciklama:'Module letter + transaction letter + number. ' +
                    'Vendor invoice → FI + invoice → **{{FB60}}**. ' +
                    '80% of an experienced consultant\'s guesses are solved right here.',
           cikti:'Guess', ok:'if it doesn\'t hold' },
-        { ic:'🔍', rol:'Consultant', baslik:'2️⃣ Search by description — the most reliable',
+        { ic:'🔍', rol:'Consultant', baslik:'2️⃣ Search by description: the most reliable',
           aciklama:'{{SE16N}} → {{TSTCT}} → `*invoice*` in `TTEXT`. ' +
                    'Knowing **what it does** is enough, without knowing the code.',
           cikti:'Candidate codes', ok:'if it is customizing' },
-        { ic:'⚙️', rol:'Consultant', baslik:'3️⃣ The {{SPRO}} tree — for customizing',
+        { ic:'⚙️', rol:'Consultant', baslik:'3️⃣ The {{SPRO}} tree: for customizing',
           aciklama:'The topic is searched for in the IMG tree; clicking the node shows ' +
                    '**the code is already right there**. There\'s no need to memorize `OB*` codes.',
           cikti:'Customizing screen', ok:'if it is a custom code' },
-        { ic:'🧩', rol:'Consultant', baslik:'4️⃣ {{SE93}} — "what does this code run?"',
+        { ic:'🧩', rol:'Consultant', baslik:'4️⃣ {{SE93}}: "what does this code run?"',
           aciklama:'Especially for customer-specific `Z*` codes. ' +
                    'The program name and screen number are shown.',
           cikti:'Program name', ok:'put into use' },
@@ -139,41 +139,41 @@ SAP.registerTopic({
       { rol:'Consultant', eylem:'Guesses from the pattern', sistem:'Module letter + transaction type' },
       { rol:'Consultant', eylem:'Searches by description', sistem:'{{SE16N}} → {{TSTCT}} → `TTEXT`' },
       { rol:'Consultant', eylem:'Goes through the menu tree', sistem:'{{SMEN}} → application menu' },
-      { rol:'Consultant', eylem:'Finds the customizing code', sistem:'{{SPRO}} — written on the node' },
+      { rol:'Consultant', eylem:'Finds the customizing code', sistem:'{{SPRO}}: written on the node' },
       { rol:'Consultant', eylem:'Decodes the custom code', sistem:'{{SE93}} → program name' },
       { rol:'User', eylem:'Adds it to favorites', sistem:'Easy Access → Favorites' },
       { rol:'User', eylem:'Sets a default field value', sistem:'{{SU3}} → Parameters' },
-      { rol:'Authorization', eylem:'Adds the code to a role', sistem:'{{PFCG}} — `S_TCODE`' },
+      { rol:'Authorization', eylem:'Adds the code to a role', sistem:'{{PFCG}}: `S_TCODE`' },
     ],
 
     veriAkisi:{
       nereden:'The user types the code into the command field or picks it from the menu.',
       nereye:'The program name is read from {{TSTC}}, and the program runs.',
       tetikleyen:'A command-field entry · a menu click · a favorite · a Fiori tile.',
-      sonraki:'The relevant screen opens — the authorization check (`S_TCODE`) happens **first**.',
+      sonraki:'The relevant screen opens: the authorization check (`S_TCODE`) happens **first**.',
     },
 
     notlar:[
-      { tip:'tip', baslik:'Command field prefixes — little known but used daily', metin:
+      { tip:'tip', baslik:'Command field prefixes: little known but used daily', metin:
         'Typing a code straight into the command field tries to run the new code ' +
         '**without closing the current transaction**, and it usually throws an error. ' +
         'Prefixes solve this:\n\n' +
-        '**`/n<code>`** — **close** the current transaction, start the new one. ' +
+        '**`/n<code>`**: **close** the current transaction, start the new one. ' +
         'The most commonly used prefix. Example: `/nFB03`\n\n' +
-        '**`/o<code>`** — open the new one **in a separate session**. ' +
+        '**`/o<code>`**: open the new one **in a separate session**. ' +
         'For comparing two screens side by side: entering a posting in one window ' +
         'while looking at a table in the other.\n\n' +
-        '**`/n`** — just closes the current transaction, returns to the main menu.\n\n' +
-        '**`/i`** — **closes** the current session.\n\n' +
-        '**`/nex`** — exits the system **without asking for confirmation**. ' +
+        '**`/n`**: just closes the current transaction, returns to the main menu.\n\n' +
+        '**`/i`**: **closes** the current session.\n\n' +
+        '**`/nex`**: exits the system **without asking for confirmation**. ' +
         'Unsaved data **is discarded without being asked about**.\n\n' +
         '---\n\n' +
-        '**`/$sync`** — clears every **{{tampon}}**.\n\n' +
+        '**`/$sync`**: clears every **{{tampon}}**.\n\n' +
         'This last one is a consultant\'s tool and solves this question: ' +
         '*"I changed the customizing but the effect isn\'t showing."* ' +
         'Configuration tables like {{T001}}, {{T004}}, {{T030}} are buffered; ' +
         'a change may not be picked up right away.\n\n' +
-        '**Use carefully on a production system** — it affects every user and ' +
+        '**Use carefully on a production system**: it affects every user and ' +
         'causes a temporary performance dip. It\'s fine to use freely on a test system.' },
     ],
   },
@@ -181,20 +181,20 @@ SAP.registerTopic({
   /* =================================================== 3. ACCOUNTING LOGIC === */
   muhasebe: {
     anlatim:
-      'A transaction code doesn\'t produce a posting by itself — but knowing **which code ' +
+      'A transaction code doesn\'t produce a posting by itself: but knowing **which code ' +
       'produces which posting** is the accounting counterpart of the code map. ' +
       'Below are the postings produced by the four most commonly used codes.',
 
     etkilenenHesaplar:[
-      { hesap:'{{FB60}} → 320 Trade payables', tur:'Balance sheet — Liability', neden:'A vendor invoice **creates a liability**.' },
-      { hesap:'{{FB70}} → 120 Trade receivables', tur:'Balance sheet — Asset', neden:'A customer invoice **creates a receivable**.' },
-      { hesap:'{{F-53}} → 102 Banks', tur:'Balance sheet — Asset', neden:'A payment **clears the liability**.' },
+      { hesap:'{{FB60}} → 320 Trade payables', tur:'Balance sheet: Liability', neden:'A vendor invoice **creates a liability**.' },
+      { hesap:'{{FB70}} → 120 Trade receivables', tur:'Balance sheet: Asset', neden:'A customer invoice **creates a receivable**.' },
+      { hesap:'{{F-53}} → 102 Banks', tur:'Balance sheet: Asset', neden:'A payment **clears the liability**.' },
       { hesap:'{{AFAB}} → 257 / 770', tur:'Mixed', neden:'Depreciation runs **in bulk**, not entered one at a time.' },
       { hesap:'{{FB08}} → same accounts, reversed', tur:'Correcting', neden:'A reversal produces a **new document**, it doesn\'t delete the old one.' },
     ],
 
     fisler:[
-      { baslik:'{{FB60}} — vendor invoice (creates a liability)',
+      { baslik:'{{FB60}}: vendor invoice (creates a liability)',
         belgeTuru:'KR', tarih:'10.11.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'770', ad:'General administrative expense', borc:100000 },
@@ -204,11 +204,11 @@ SAP.registerTopic({
         not:'The `FB` family is **new generation**: a single screen, no need to enter a ' +
              '{{kayit-anahtari}}. Debit/credit is chosen, and the system **derives the ' +
              'posting key itself**.\n\n' +
-             'You could enter the same posting with `F-43` — but there you\'d have to ' +
+             'You could enter the same posting with `F-43`: but there you\'d have to ' +
              '**manually enter** the **31** (vendor credit) and **40** (G/L debit) keys.\n\n' +
              'The result is the same document. The difference is **ease of use**, not accounting.' },
 
-      { baslik:'{{F-53}} — payment (clears a liability)',
+      { baslik:'{{F-53}}: payment (clears a liability)',
         belgeTuru:'KZ', tarih:'25.11.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'320', ad:'Trade payables (clearing)', borc:120000, not:'{{BSIK}} → {{BSAK}}' },
@@ -219,16 +219,16 @@ SAP.registerTopic({
              'you check off from a list which invoices to clear.\n\n' +
              'The new-generation `FB` screens were designed for **single-line postings**; ' +
              'they don\'t offer a multi-item selection screen.\n\n' +
-             'So the code family isn\'t arbitrary — it reflects **the accounting nature of the job**.' },
+             'So the code family isn\'t arbitrary: it reflects **the accounting nature of the job**.' },
 
-      { baslik:'{{FB08}} — reversal (correcting)',
+      { baslik:'{{FB08}}: reversal (correcting)',
         belgeTuru:'KR', tarih:'12.11.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'320', ad:'Trade payables', borc:120000 },
           { hesap:'770', ad:'General administrative expense', alacak:100000 },
           { hesap:'191', ad:'Deductible VAT', alacak:20000 },
         ],
-        not:'**A reversal isn\'t a deletion** — the original document stays in place, ' +
+        not:'**A reversal isn\'t a deletion**: the original document stays in place, ' +
              'a **new document** is produced, and the two are linked to each other ' +
              '(the {{BKPF}} `STBLG` field).\n\n' +
              '**Two entries** show up in the trial balance. This follows from the audit ' +
@@ -237,7 +237,7 @@ SAP.registerTopic({
              'principle that *"a preventive control beats a detective one"*: an error that\'s ' +
              'prevented produces **zero documents**; one found later produces **three documents**.' },
 
-      { baslik:'{{AFAB}} — depreciation (produces in bulk)',
+      { baslik:'{{AFAB}}: depreciation (produces in bulk)',
         belgeTuru:'AF', tarih:'30.11.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'770', ad:'Depreciation expense', borc:45000 },
@@ -257,7 +257,7 @@ SAP.registerTopic({
     ],
 
     tHesaplar:[
-      { hesap:'Trade payables — movement by code', kod:'320',
+      { hesap:'Trade payables: movement by code', kod:'320',
         borc:[{ ad:'{{F-53}} payment', tutar:120000 }],
         alacak:[{ ad:'{{FB60}} invoice', tutar:120000 }],
         not:'The creating and clearing codes are in **different code families**' },
@@ -267,15 +267,15 @@ SAP.registerTopic({
       { tip:'warn', baslik:'More than one code can produce the same posting', metin:
         'An accounting entry doesn\'t have **a single correct transaction code**. ' +
         'The same vendor invoice can be entered three ways:\n\n' +
-        '**{{FB60}}** — new generation, single screen, no posting key\n' +
-        '**`F-43`** — classic generation, the posting key is entered manually\n' +
-        '**{{MIRO}}** — from MM, tied to a purchase order\n\n' +
+        '**{{FB60}}**: new generation, single screen, no posting key\n' +
+        '**`F-43`**: classic generation, the posting key is entered manually\n' +
+        '**{{MIRO}}**: from MM, tied to a purchase order\n\n' +
         'All three produce {{BKPF}} + {{BSEG}}, and the accounting result is **identical**.\n\n' +
         '**But the three aren\'t the same:**\n\n' +
         '{{MIRO}} performs a **three-way match** against the order and goods receipt ' +
         '(see {{konu:mm-integration}}); the other two don\'t. Entering an order-related ' +
         'invoice with {{FB60}} instead **leaves the GR/IR account open**.\n\n' +
-        '**Rule:** choosing a code isn\'t a matter of convenience — it\'s a decision about ' +
+        '**Rule:** choosing a code isn\'t a matter of convenience: it\'s a decision about ' +
         '**which control the process will pass through**.' },
     ],
   },
@@ -284,9 +284,9 @@ SAP.registerTopic({
   cesitler: {
     anlatim:
       'The **twelve patterns** below explain almost every code you\'ll run into in FI. ' +
-      'It isn\'t the codes that get memorized — it\'s **these patterns**.\n\n' +
+      'It isn\'t the codes that get memorized: it\'s **these patterns**.\n\n' +
       '---\n\n' +
-      '**The key to three letters — German roots**\n\n' +
+      '**The key to three letters: German roots**\n\n' +
       'SAP was developed in German. Three letters carry **the same meaning** in both ' +
       'transaction codes and table names:\n\n' +
       '| Letter | German | English | Transaction code | Table |\n' +
@@ -304,7 +304,7 @@ SAP.registerTopic({
       '`AS01/02/03` asset · `FK01/02/03` vendor · `KS01/02/03` cost center\n\n' +
       '**9x** = legacy data transfer (*Altdaten*): `AS91` legacy-asset takeover\n\n' +
       '**A well-known exception: {{FS00}}.** There\'s no `FS01/02/03` for a G/L account; ' +
-      '`FS00` does all three **in a single screen** — the mode is chosen from within the ' +
+      '`FS00` does all three **in a single screen**: the mode is chosen from within the ' +
       'screen. Because it\'s the exception to the pattern, it comes up often.',
 
     liste:[
@@ -314,11 +314,11 @@ SAP.registerTopic({
         ornek:'`F-02` G/L · `F-43` vendor invoice · **{{F-53}}** payment · ' +
               '**{{F-28}}** incoming payment · **{{F-32}}** customer clearing · `F-44` vendor clearing\n\n' +
               '**The dash (`-`) marks the classic generation.** Almost all clearing transactions ' +
-              'are in this family — because they require an {{acik-kalem}} selection screen.',
+              'are in this family: because they require an {{acik-kalem}} selection screen.',
         tcodes:['F-53','F-28','F-32'] },
 
       { ad:'Enjoy posting',
-        aciklama:'A single screen, no posting key **needed** — debit/credit is chosen, the system derives it.',
+        aciklama:'A single screen, no posting key **needed**: debit/credit is chosen, the system derives it.',
         neZaman:'Routine single-document postings. The default to hand to users.',
         ornek:'**{{FB50}}** G/L · **{{FB60}}** vendor invoice · **{{FB70}}** customer invoice · ' +
               '**{{FB03}}** display · **{{FB08}}** reversal · {{FB02}} change\n\n' +
@@ -330,7 +330,7 @@ SAP.registerTopic({
         neZaman:'For the question *"why is the balance this amount?"*',
         ornek:'**{{FBL1N}}** vendor (**1**) · **{{FBL3N}}** G/L (**3**) · ' +
               '**{{FBL5N}}** customer (**5**)\n\n' +
-              'The trailing **`N`** = *neu* (new) — the ALV-enabled version of the old `FBL1`.\n\n' +
+              'The trailing **`N`** = *neu* (new): the ALV-enabled version of the old `FBL1`.\n\n' +
               'Line item display requires **open item management to be on** for the account ' +
               'and can\'t be turned on retroactively (see {{konu:reporting}}).',
         tcodes:['FBL1N','FBL3N','FBL5N'] },
@@ -348,7 +348,7 @@ SAP.registerTopic({
         neZaman:'Standard financial reports.',
         ornek:'{{S_ALR_87012357}} VAT list · {{S_ALR_87012284}} financial statement · ' +
               '{{S_ALR_87013611}} cost center plan/actual\n\n' +
-              '**These aren\'t memorized** — the system generated them, and they carry no ' +
+              '**These aren\'t memorized**: the system generated them, and they carry no ' +
               'meaning. They\'re accessed **from the menu or a favorite**. The benefit of ' +
               'knowing the pattern: seeing this prefix tells you *"this is a standard report, ' +
               'it\'s in the menu."*' },
@@ -395,7 +395,7 @@ SAP.registerTopic({
         ornek:'{{KS01}} cost center · {{KA01}} cost element · {{KO01}} internal order · ' +
               '**{{KB11N}}** reposting · {{KSU5}} distribution · {{KSV5}} assessment · ' +
               '{{OKB9}} default assignment\n\n' +
-              'A correction inside CO is made **with {{KB11N}}, not {{FB08}}** — ' +
+              'A correction inside CO is made **with {{KB11N}}, not {{FB08}}**: ' +
               'FI is already correct (see {{konu:cost-center}}).',
         tcodes:['KS01','KB11N','OKB9'] },
 
@@ -412,10 +412,10 @@ SAP.registerTopic({
 
       { ad:'Central maintenance',
         aciklama:'`X` = all views together. FI + MM, or FI + SD, on the same screen.',
-        neZaman:'When opening master data — **the preferred route**.',
+        neZaman:'When opening master data: **the preferred route**.',
         ornek:'**{{XK01}}** vendor (FI + purchasing) · **{{XD01}}** customer (FI + sales)\n\n' +
               'Compare: {{FK01}} is **accounting view only**, `MK01` is **purchasing view only**.\n\n' +
-              'A vendor opened with {{FK01}} **can\'t have a purchase order entered against it** — ' +
+              'A vendor opened with {{FK01}} **can\'t have a purchase order entered against it**: ' +
               'there\'s no purchasing view. A classic new-consultant mistake.',
         tcodes:['XK01','XD01','FK01'] },
     ],
@@ -423,8 +423,8 @@ SAP.registerTopic({
     karsilastirmaBasliklar:['`F-43` (classic generation)', '{{FB60}} (new generation)'],
     karsilastirma:[
       ['Number of screens', 'Multi-screen, line by line', '**Single screen**'],
-      ['{{kayit-anahtari}}', '**Entered manually** (31, 40 …)', 'Not needed — the system derives it'],
-      ['Learning curve', 'Steep — key knowledge required', '**Low**'],
+      ['{{kayit-anahtari}}', '**Entered manually** (31, 40 …)', 'Not needed: the system derives it'],
+      ['Learning curve', 'Steep: key knowledge required', '**Low**'],
       ['Multi-line posting', '**Strong**', 'Limited'],
       ['Open item selection', '**Yes**', 'No'],
       ['Accounting result', 'Same document', '**Same document**'],
@@ -436,7 +436,7 @@ SAP.registerTopic({
   /* ===================================================== 5. TRANSACTION CODES === */
   tcodes: {
     liste:[
-      { kod:'SE93', ad:'Transaction code definition — "what does this code run?"',
+      { kod:'SE93', ad:'Transaction code definition: "what does this code run?"',
         amac:'Shows the program, screen, and type behind a transaction code.',
         neZaman:'When decoding a custom (`Z*`) code; when verifying what a code does.',
         adimlar:[
@@ -450,7 +450,7 @@ SAP.registerTopic({
         ekranAkisi:[
           { ekran:'Entry', islem:'Transaction code **`ZFI_RAPOR`**' },
           { ekran:'Definition', islem:'Type: **report transaction** · program `ZFIR_ACIK_KALEM`' },
-          { ekran:'Conclusion', islem:'A custom ABAP report — not a standard one' },
+          { ekran:'Conclusion', islem:'A custom ABAP report: not a standard one' },
           { ekran:'Follow-up', islem:'Source inspected with {{SE38}}, seen that it reads {{BSIK}}' },
         ],
         alanlar:{
@@ -464,11 +464,11 @@ SAP.registerTopic({
               'it\'s a code that calls another transaction with **fields pre-filled**.\n\n' +
               'Example: the code `Z_FB03_1000` opens {{FB03}} with company code 1000 fixed. ' +
               'The user can\'t change the field.\n\n' +
-              'This is **a technique used in authorization design** — a practical way to ' +
+              'This is **a technique used in authorization design**: a practical way to ' +
               'restrict a user to a single company code.',
         ilgili:['SE38','SE16N','TSTC'] },
 
-      { kod:'SU3', ad:'Own user data — default field values',
+      { kod:'SU3', ad:'Own user data: default field values',
         amac:'Assigns an **automatic default** to frequently repeated fields.',
         neZaman:'Day one. The first setting a consultant makes when settling into a system.',
         adimlar:[
@@ -477,7 +477,7 @@ SAP.registerTopic({
           { baslik:'Enter the parameter ID and value',
             aciklama:'`BUK` = 1000 (company code) · `CAC` = 1000 (controlling area) · ' +
                      '`GJR` = 2027 (fiscal year).' },
-          { baslik:'Save — the effect shows up **on the next screen**' },
+          { baslik:'Save: the effect shows up **on the next screen**' },
         ],
         ekranAkisi:[
           { ekran:'Parameters', islem:'`BUK` = **1000**' },
@@ -494,11 +494,11 @@ SAP.registerTopic({
         ipucu:'**How do you find a field\'s parameter ID?**\n\n' +
               'Hover over the field → **`F1`** → **Technical information** → *Parameter ID*.\n\n' +
               'This is the consultant\'s biggest time-saving trick, and the same route also ' +
-              'gives you the field\'s **technical name** — exactly what you need when ' +
+              'gives you the field\'s **technical name**: exactly what you need when ' +
               'searching a table.',
         ilgili:['SMEN','SE93'] },
 
-      { kod:'SPRO', ad:'IMG — the single gateway to customizing',
+      { kod:'SPRO', ad:'IMG: the single gateway to customizing',
         amac:'Presents every configuration screen in a **tree structure**.',
         neZaman:'Every time you can\'t remember an `OB*` code.',
         adimlar:[
@@ -506,7 +506,7 @@ SAP.registerTopic({
           { baslik:'Find the topic in the tree',
             aciklama:'Financial Accounting → … The search function can also be used.' },
           { baslik:'**Read the transaction code** next to the node',
-            aciklama:'The code is **written on the node** — no need to memorize it.' },
+            aciklama:'The code is **written on the node**: no need to memorize it.' },
           { baslik:'Open the screen with the clock icon' },
         ],
         alanlar:{
@@ -524,7 +524,7 @@ SAP.registerTopic({
         ilgili:['OB52','OBA7','SE93'] },
 
       { kod:'SE16N', ad:'Searching for a code through {{TSTCT}}',
-        amac:'Finds a transaction code by its **description** — for when the pattern isn\'t enough.',
+        amac:'Finds a transaction code by its **description**: for when the pattern isn\'t enough.',
         neZaman:'*"I know what it does but I don\'t know the code."*',
         adimlar:[
           { baslik:'{{SE16N}} → table **{{TSTCT}}**' },
@@ -537,7 +537,7 @@ SAP.registerTopic({
         ekranAkisi:[
           { ekran:'Table', islem:'**{{TSTCT}}**' },
           { ekran:'Selection', islem:'`SPRSL` = EN · `TTEXT` = `*dunning*`' },
-          { ekran:'Result', islem:'**{{F150}}** — Dunning · a few related codes' },
+          { ekran:'Result', islem:'**{{F150}}**: Dunning · a few related codes' },
           { ekran:'Narrowing', islem:'`TCODE` = `OB*` added → only dunning **customizing**' },
         ],
         alanlar:{
@@ -545,7 +545,7 @@ SAP.registerTopic({
           opsiyonel:['Language','Text pattern','Code pattern'] },
         hatalar:[
           { mesaj:'Too many results come back', sebep:'The pattern is too broad, or no language was given.', cozum:'Add `SPRSL` and narrow with a `TCODE` pattern (`OB*`, `F*`, `S_ALR*`).' },
-          { mesaj:'A search in one language returns no results', sebep:'The texts may not be translated into that language.', cozum:'Search with `SPRSL` = `EN` on the English term instead — it\'s usually the most complete.' },
+          { mesaj:'A search in one language returns no results', sebep:'The texts may not be translated into that language.', cozum:'Search with `SPRSL` = `EN` on the English term instead: it\'s usually the most complete.' },
         ],
         ipucu:'**If you can\'t find a result in your language, switch to English.** ' +
               'A SAP text\'s translation can be incomplete; the English text base ' +
@@ -572,21 +572,21 @@ SAP.registerTopic({
         s4:'Unchanged.',
         alanlar:[
           { ad:'TCODE', aciklama:'Transaction code', tip:'pk' },
-          { ad:'PGMNA', aciklama:'ABAP program — "what does this code run?"' },
+          { ad:'PGMNA', aciklama:'ABAP program: "what does this code run?"' },
           { ad:'DYPNO', aciklama:'Screen number' },
           { ad:'CINFO', aciklama:'Type: dialog / report / **parameter transaction**' },
         ] },
 
-      { ad:'TSTCT', baslik:'Transaction code texts — the real table for searching',
+      { ad:'TSTCT', baslik:'Transaction code texts: the real table for searching',
         tutar:'Descriptions of the codes, **by language**.',
         olusturan:'SAP standard delivery',
         anahtar:'**SPRSL + TCODE**',
         iliskiler:'The text extension of {{TSTC}}.',
         s4:'Unchanged.',
         alanlar:[
-          { ad:'SPRSL', aciklama:'Language — `TR` / `EN` / `DE`. **If not given, every language comes back**', tip:'pk' },
+          { ad:'SPRSL', aciklama:'Language: `TR` / `EN` / `DE`. **If not given, every language comes back**', tip:'pk' },
           { ad:'TCODE', aciklama:'Transaction code', tip:'pk' },
-          { ad:'TTEXT', aciklama:'**Description** — searched with a wildcard like `*dunning*`' },
+          { ad:'TTEXT', aciklama:'**Description**: searched with a wildcard like `*dunning*`' },
         ] },
 
       { ad:'BKPF', baslik:'The trace of the document a code produced',
@@ -596,8 +596,8 @@ SAP.registerTopic({
         iliskiler:'The `TCODE` field points to {{TSTC}}.',
         s4:'Unchanged.',
         alanlar:[
-          { ad:'TCODE', aciklama:'**The transaction code that produced the document** — very valuable in audit and diagnosis' },
-          { ad:'BLART', aciklama:'{{belge-turu}} — together with the code it tells you the posting\'s origin' },
+          { ad:'TCODE', aciklama:'**The transaction code that produced the document**: very valuable in audit and diagnosis' },
+          { ad:'BLART', aciklama:'{{belge-turu}}: together with the code it tells you the posting\'s origin' },
           { ad:'USNAM', aciklama:'The user who posted it' },
         ] },
     ],
@@ -608,11 +608,11 @@ SAP.registerTopic({
       varliklar:[
         { ad:'TSTC', rol:'Definition', hub:true, aciklama:'**The transaction code and its program**',
           alanlar:[{ ad:'TCODE', tip:'pk' }, { ad:'PGMNA' }, { ad:'DYPNO' }, { ad:'CINFO' }] },
-        { ad:'TSTCT', rol:'Text', aciklama:'Description — **the table for searching**',
+        { ad:'TSTCT', rol:'Text', aciklama:'Description: **the table for searching**',
           alanlar:[{ ad:'SPRSL', tip:'pk' }, { ad:'TCODE', tip:'pk' }, { ad:'TTEXT' }] },
         { ad:'BKPF', rol:'Document', aciklama:'The document the code **produces**',
           alanlar:[{ ad:'BELNR', tip:'pk' }, { ad:'TCODE', tip:'fk' }, { ad:'BLART' }, { ad:'USNAM' }] },
-        { ad:'ACDOCA', rol:'S/4HANA', aciklama:'Line items — a single table',
+        { ad:'ACDOCA', rol:'S/4HANA', aciklama:'Line items: a single table',
           alanlar:[{ ad:'BELNR', tip:'fk' }, { ad:'RACCT' }] },
       ],
       iliskiler:[
@@ -630,16 +630,16 @@ SAP.registerTopic({
       '(the fastest), the **menu** (the most reliable), and **favorites** (the most convenient).',
 
     ekranlar:[
-      { ad:'The command field — the box at the top left',
+      { ad:'The command field: the box at the top left',
         aciklama:'Where the code is typed. Prefixes work here.',
         alanlar:[
           { ad:'`/n<code>`', zorunlu:false, aciklama:'**Close** the current transaction, start ' +
                    'the new one. The most commonly used prefix.' },
-          { ad:'`/o<code>`', zorunlu:false, aciklama:'Open it **in a separate session** — ' +
+          { ad:'`/o<code>`', zorunlu:false, aciklama:'Open it **in a separate session**: ' +
                    'for comparing two screens.' },
           { ad:'`/n`', zorunlu:false, aciklama:'Close the transaction, return to the main menu.' },
           { ad:'`/i`', zorunlu:false, aciklama:'Close the current session.' },
-          { ad:'`/nex`', zorunlu:false, aciklama:'Exit **without asking for confirmation** — ' +
+          { ad:'`/nex`', zorunlu:false, aciklama:'Exit **without asking for confirmation**: ' +
                    'unsaved data is discarded without being asked about.' },
           { ad:'`/$sync`', zorunlu:false, aciklama:'**Clear the {{tampon}}s.** ' +
                    'The fix for *"I changed the setting, the effect isn\'t showing."* ' +
@@ -651,13 +651,13 @@ SAP.registerTopic({
               'Session count is limited (usually 6) and extra sessions consume memory; ' +
               'close a finished session with **`/i`**.' },
 
-      { ad:'{{SMEN}} — the SAP Easy Access menu',
+      { ad:'{{SMEN}}: the SAP Easy Access menu',
         aciklama:'The **most reliable** route if you don\'t know the code.',
         alanlar:[
           { ad:'Menu tree', zorunlu:false, aciklama:'Accounting → Financial Accounting → … ' +
                    'Follows the logic of the business process.' },
           { ad:'**Favorites**', zorunlu:false, aciklama:'Frequently used codes. ' +
-                   'Can be organized into folders and **exported** — carried over to a new system.' },
+                   'Can be organized into folders and **exported**: carried over to a new system.' },
           { ad:'Technical name display', zorunlu:false, aciklama:'Extras → Settings → ' +
                    '*Display Technical Names*. **Should be turned on while learning.**' },
         ],
@@ -667,7 +667,7 @@ SAP.registerTopic({
               'the codes become familiar on their own.\n\n' +
               'With it off, only screen names show and code knowledge **never builds up**.' },
 
-      { ad:'{{SU3}} — default parameters',
+      { ad:'{{SU3}}: default parameters',
         aciklama:'Puts an end to repeated field entries.',
         alanlar:[
           { ad:'`BUK`', zorunlu:false, aciklama:'Company code default.' },
@@ -678,7 +678,7 @@ SAP.registerTopic({
         ],
         ipucu:'**A field\'s parameter ID:** hover the field, **`F1`** → ' +
               '**Technical information** → *Parameter ID*.\n\n' +
-              'The same screen also gives the field\'s **technical name** — exactly what ' +
+              'The same screen also gives the field\'s **technical name**: exactly what ' +
               'you need when searching a table with {{SE16N}}.\n\n' +
               'A wrong `BUK` default is a risk of **posting to the wrong company code**; ' +
               'if you work across several company codes, leaving it blank is safer.' },
@@ -689,36 +689,36 @@ SAP.registerTopic({
 
     hatalar:[
       { mesaj:'You are not authorized to use transaction ...', sebep:'No `S_TCODE` authorization.', cozum:'Check the missing authorization with {{SU53}}, forward a screenshot to authorization.' },
-      { mesaj:'Transaction ... does not exist', sebep:'The code doesn\'t exist, is misspelled, or was removed in this release.', cozum:'Search by description in {{TSTCT}}. It may have been removed in S/4HANA — check the **simplification list**.' },
-      { mesaj:'The code opens but the list comes back **empty** — with no error', sebep:'`S_TCODE` is present but the **data authorization** (`F_BKPF_BUK`) is missing.', cozum:'The most misleading error: the transaction starts, no data comes back. Check with {{SU53}}. Details: this topic\'s scenario.' },
+      { mesaj:'Transaction ... does not exist', sebep:'The code doesn\'t exist, is misspelled, or was removed in this release.', cozum:'Search by description in {{TSTCT}}. It may have been removed in S/4HANA: check the **simplification list**.' },
+      { mesaj:'The code opens but the list comes back **empty**: with no error', sebep:'`S_TCODE` is present but the **data authorization** (`F_BKPF_BUK`) is missing.', cozum:'The most misleading error: the transaction starts, no data comes back. Check with {{SU53}}. Details: this topic\'s scenario.' },
       { mesaj:'I changed the setting but don\'t see any effect', sebep:'The table is {{tampon}}ed.', cozum:'Log off and back on; if that doesn\'t help, `/$sync`. Affects every user in production.' },
       { mesaj:'I typed the code into the command field and got an error', sebep:'The current transaction is still open.', cozum:'Type it with the `/n` prefix: `/nFB03`.' },
       { mesaj:'I don\'t know what this `Z*` code does', sebep:'A customer-specific development.', cozum:'Find the program with {{SE93}}, inspect it with {{SE38}}.' },
     ],
 
     ipuclari:[
-      '**Turn on "Display Technical Names" on day one** — codes get learned on their own as you work.',
+      '**Turn on "Display Technical Names" on day one**: codes get learned on their own as you work.',
       'Open a second session with `/o`: a posting on one side, a table on the other.',
       'If you don\'t know the code, search by **description** in {{TSTCT}}; if a search in ' +
       'your own language returns nothing, **switch to English**.',
-      'Don\'t memorize `OB*` codes in customizing — find the topic in the {{SPRO}} tree, the code is written on the node.',
+      'Don\'t memorize `OB*` codes in customizing: find the topic in the {{SPRO}} tree, the code is written on the node.',
       'Set the company code as default with {{SU3}} → `BUK`; ' +
       'leave it blank if you work across several companies.',
       '`F1` → **Technical information** gives you a field\'s parameter ID and technical name.',
-      '**Export** your favorites — they carry over to a new system or a new project.',
+      '**Export** your favorites: they carry over to a new system or a new project.',
     ],
   },
 
   /* ===================================================== 8. TECHNICAL DETAIL === */
   teknik: {
     guncellenenTablolar:[
-      { tablo:'TSTC', ne:'The transaction code definition — **read**, not updated during posting' },
-      { tablo:'TSTCT', ne:'Code descriptions — by language' },
+      { tablo:'TSTC', ne:'The transaction code definition: **read**, not updated during posting' },
+      { tablo:'TSTCT', ne:'Code descriptions: by language' },
       { tablo:'BKPF', ne:'The `TCODE` field is written with **the code that produced the document**' },
     ],
 
     commit:
-      'A transaction code doesn\'t start an LUW — **the program does**. ' +
+      'A transaction code doesn\'t start an LUW: **the program does**. ' +
       'The LUW starts with the posting operation inside the program.\n\n' +
       'But one distinction matters: **dialog** transactions wait for user interaction, ' +
       '**report** transactions run once, straight through, after the selection screen.\n\n' +
@@ -750,7 +750,7 @@ SAP.registerTopic({
 
     belgeTuru:
       '{{belge-turu}} and the transaction code are **linked** but not the same thing.\n\n' +
-      '{{FB60}} produces `KR` by default, {{FB70}} produces `DR` — ' +
+      '{{FB60}} produces `KR` by default, {{FB70}} produces `DR`: ' +
       'but the user **can change it** (with the right authorization).\n\n' +
       'The two are used together in diagnosis: lines with `BLART` = `SA` **and** ' +
       '`TCODE` = `FB50` are entries **manually** posted to an account that should have been automatic.',
@@ -758,31 +758,31 @@ SAP.registerTopic({
     numberRange:
       'Transaction codes don\'t use number ranges. ' +
       'The documents they produce take their number from the range tied to {{belge-turu}}.\n\n' +
-      'Custom codes are created with {{SE93}} and must start with `Z` or `Y` — ' +
+      'Custom codes are created with {{SE93}} and must start with `Z` or `Y`: ' +
       'the rule that prevents a clash with SAP\'s own namespace.',
 
     accountDetermination:
       'A transaction code **triggers** account determination but doesn\'t contain it. ' +
       'When {{MIRO}} runs, {{OBYC}} kicks in; when {{VF01}} runs, {{VKOA}} does.\n\n' +
       'The practical upshot: when you get an *"account determination error"* message, ' +
-      '**the code\'s module** tells you which table to look at — {{OBYC}} for an MM code, ' +
+      '**the code\'s module** tells you which table to look at: {{OBYC}} for an MM code, ' +
       '{{VKOA}} for an SD code, {{T030K}} for FI tax.',
 
     tur:
       'The **transaction type** in {{SE93}} decides how the code behaves:\n\n' +
-      '**Dialog transaction** — tied to a screen, waits for user interaction ({{FB60}}).\n\n' +
-      '**Report transaction** — runs an ABAP report with a selection screen ({{F.01}}).\n\n' +
-      '**Parameter transaction** — calls another transaction with **fields pre-filled**. ' +
+      '**Dialog transaction**: tied to a screen, waits for user interaction ({{FB60}}).\n\n' +
+      '**Report transaction**: runs an ABAP report with a selection screen ({{F.01}}).\n\n' +
+      '**Parameter transaction**: calls another transaction with **fields pre-filled**. ' +
       'A practical way to restrict a user to a single company code.\n\n' +
-      '**Object method transaction** — runs a business object\'s method.',
+      '**Object method transaction**: runs a business object\'s method.',
 
     transport:
-      'Standard transaction codes aren\'t transported — **they come with the system**.\n\n' +
+      'Standard transaction codes aren\'t transported: **they come with the system**.\n\n' +
       'Custom (`Z*`) codes are created with {{SE93}} and **are transported**. ' +
       'The code transports, but **the program behind it is a separate object**; ' +
       'if one arrives and the other doesn\'t, you get *"the code exists but doesn\'t work."*\n\n' +
       '**Roles ({{PFCG}}) transport separately, too.** Even if the code has already gone ' +
-      'to production, the user is left **unauthorized** if the role hasn\'t been updated — ' +
+      'to production, the user is left **unauthorized** if the role hasn\'t been updated: ' +
       'one of the most commonly skipped steps in a migration.',
 
     img:[
@@ -793,9 +793,9 @@ SAP.registerTopic({
     ],
 
     ekstra:[
-      { ic:'🔤', baslik:'German roots — decoding 8 table names with 2 rules', metin:
+      { ic:'🔤', baslik:'German roots: decoding 8 table names with 2 rules', metin:
         'SAP was developed in Germany, and **German abbreviations got embedded into code ' +
-        'names**. This isn\'t a historical quirk — it\'s **a key that shortens learning**.\n\n' +
+        'names**. This isn\'t a historical quirk: it\'s **a key that shortens learning**.\n\n' +
         '**Three account-type letters:**\n\n' +
         '**K** = *Kreditor* → vendor\n' +
         '**D** = *Debitor* → customer\n' +
@@ -813,41 +813,41 @@ SAP.registerTopic({
         'Trying to memorize each one separately means missing the rule.\n\n' +
         '---\n\n' +
         '**Other common German traces:**\n\n' +
-        '**`SHKZG`** — *Soll/Haben-Kennzeichen* → **S** debit, **H** credit ' +
+        '**`SHKZG`**: *Soll/Haben-Kennzeichen* → **S** debit, **H** credit ' +
         '(see {{konu:sap-tables}})\n' +
-        '**`BUKRS`** — *Buchungskreis* → company code\n' +
-        '**`BELNR`** — *Belegnummer* → document number\n' +
-        '**`GJAHR`** — *Geschäftsjahr* → fiscal year\n' +
-        '**`WRBTR`** — *Währungsbetrag* → amount in transaction currency\n' +
-        '**`BLART`** — *Belegart* → document type\n' +
-        'The **`N`** suffix — *neu* (new) → {{FBL1N}}, {{ME21N}}, {{KB11N}}\n\n' +
-        'The **`BUK`** parameter is also *Buchungskreis* — the default in {{SU3}}.\n\n' +
+        '**`BUKRS`**: *Buchungskreis* → company code\n' +
+        '**`BELNR`**: *Belegnummer* → document number\n' +
+        '**`GJAHR`**: *Geschäftsjahr* → fiscal year\n' +
+        '**`WRBTR`**: *Währungsbetrag* → amount in transaction currency\n' +
+        '**`BLART`**: *Belegart* → document type\n' +
+        'The **`N`** suffix: *neu* (new) → {{FBL1N}}, {{ME21N}}, {{KB11N}}\n\n' +
+        'The **`BUK`** parameter is also *Buchungskreis*: the default in {{SU3}}.\n\n' +
         '**Practical takeaway:** when you don\'t recognize a field name, try guessing the ' +
         'German root; it holds up surprisingly often.' },
 
-      { ic:'🔒', baslik:'Is `S_TCODE` enough? — two-layer authorization', metin:
+      { ic:'🔒', baslik:'Is `S_TCODE` enough? - two-layer authorization', metin:
         'Transaction-code authorization has **two layers**, and not knowing this distinction ' +
         'produces a class of error that can\'t be diagnosed.\n\n' +
-        '**Layer 1 — `S_TCODE`:** *"Can this code be run at all?"*\n' +
+        '**Layer 1: `S_TCODE`:** *"Can this code be run at all?"*\n' +
         'Without it the transaction **never starts** and a clear message comes back: ' +
         '*"You are not authorized to use transaction ..."*\n\n' +
-        '**Layer 2 — object authorizations:** *"Which data can be seen?"*\n' +
+        '**Layer 2: object authorizations:** *"Which data can be seen?"*\n' +
         '`F_BKPF_BUK` company code · `F_BKPF_KOA` account type · `F_BKPF_BLA` document type\n\n' +
         '---\n\n' +
         '**The dangerous case: the first is there, the second isn\'t.**\n\n' +
         'The transaction **opens**, the user sees the selection screen, runs it, and ' +
         '**an empty list** comes back. No error message appears.\n\n' +
         'The user lands on one of two wrong conclusions: *"there\'s no data"* or *"the ' +
-        'system is broken."* Both are wrong — the data exists, **the authorization to see ' +
+        'system is broken."* Both are wrong: the data exists, **the authorization to see ' +
         'it doesn\'t**.\n\n' +
         '**Why doesn\'t it throw an error?** Most FI reports apply authorization as a ' +
         '**filter**: they list the authorized company codes and only query those. If the ' +
-        'list is empty, the query returns empty — which, from the program\'s point of ' +
+        'list is empty, the query returns empty: which, from the program\'s point of ' +
         'view, **isn\'t an error condition**.\n\n' +
         '**Diagnosis:** the user runs {{SU53}} **immediately after** getting the empty ' +
         'list; the last failed authorization check shows up. A screenshot goes to the ' +
         'authorization team.\n\n' +
-        '**{{SU53}} shows only the last check** — if another transaction runs in between, ' +
+        '**{{SU53}} shows only the last check**: if another transaction runs in between, ' +
         'the trace is lost. That\'s why *"immediately after"* is essential.' },
     ],
 
@@ -857,37 +857,37 @@ SAP.registerTopic({
         'code to the role, authorization is done."*\n\n' +
         '**It isn\'t.** `S_TCODE` only allows the code **to run**. Separate objects decide ' +
         'which data can be seen:\n\n' +
-        '`F_BKPF_BUK` — **company code**\n' +
-        '`F_BKPF_KOA` — account type (S / K / D / A)\n' +
-        '`F_BKPF_BLA` — document type\n\n' +
+        '`F_BKPF_BUK`: **company code**\n' +
+        '`F_BKPF_KOA`: account type (S / K / D / A)\n' +
+        '`F_BKPF_BLA`: document type\n\n' +
         'Each of them also has an **activity**: **01** create · **02** change · **03** display.\n\n' +
         '**Practical result:** a request to *"let them view but not post"* is solved not ' +
         'by adding a code, but by **granting activity 03 and withholding 01/02**.\n\n' +
         'The same way, a request to *"only see their own company code"* is solved with ' +
-        '`F_BKPF_BUK` — not with the list of transaction codes.' },
+        '`F_BKPF_BUK`: not with the list of transaction codes.' },
     ],
   },
 
   /* ==================================================== 9. S/4HANA === */
   s4hana: {
     ozet:
-      'Transaction codes **weren\'t removed** in S/4HANA — the command field and {{SMEN}} ' +
+      'Transaction codes **weren\'t removed** in S/4HANA: the command field and {{SMEN}} ' +
       'keep working. Two things changed: **Fiori apps** became the primary interface, ' +
       'and some codes were **removed or redirected via the simplification list**.',
 
     eccFarklari:[
-      { konu:'Command field', ecc:'Primary access', s4:'**Still there** — the same in the GUI' },
+      { konu:'Command field', ecc:'Primary access', s4:'**Still there**: the same in the GUI' },
       { konu:'Primary interface', ecc:'The SAP GUI menu', s4:'**Fiori Launchpad** tiles' },
       { konu:'FI posting codes', ecc:'{{FB50}}, {{FB60}}, {{FB70}}', s4:'**Still there** + Fiori counterparts' },
       { konu:'Line item codes', ecc:'{{FBL1N}}, {{FBL3N}}, {{FBL5N}}', s4:'Still there · Fiori: *Display Line Items*' },
       { konu:'MM posting codes', ecc:'`MB01`, `MB1A`, `MB1B`, `MB31` …', s4:'**Removed** → {{MIGO}}' },
-      { konu:'Vendor/customer master data', ecc:'{{XK01}}, {{XD01}}, {{FK01}}, {{FD01}}', s4:'**{{BP}}** — a single business partner transaction' },
+      { konu:'Vendor/customer master data', ecc:'{{XK01}}, {{XD01}}, {{FK01}}, {{FD01}}', s4:'**{{BP}}**: a single business partner transaction' },
       { konu:'Technical codes', ecc:'{{SE16N}}, {{SE93}}, {{SM13}}', s4:'**Still there**' },
       { konu:'Finding a code', ecc:'Menu + {{TSTCT}}', s4:'+ **Fiori Apps Reference Library**' },
     ],
 
     universalJournal:
-      'The {{evrensel-kayit-defteri}} didn\'t directly change transaction codes — ' +
+      'The {{evrensel-kayit-defteri}} didn\'t directly change transaction codes: ' +
       'the same codes open the same screens.\n\n' +
       'But the table they read **underneath** changed: {{FBL3N}} now reads from ' +
       '{{ACDOCA}} (through a compatibility view).\n\n' +
@@ -896,11 +896,11 @@ SAP.registerTopic({
       '(see {{konu:sap-tables}}).',
 
     kalkanTcodes:[
-      { eski:'{{XK01}} / {{FK01}} / `MK01`', yeni:'**{{BP}}**', not:'Vendor master data — **a single business partner transaction**' },
+      { eski:'{{XK01}} / {{FK01}} / `MK01`', yeni:'**{{BP}}**', not:'Vendor master data: **a single business partner transaction**' },
       { eski:'{{XD01}} / {{FD01}} / `VD01`', yeni:'**{{BP}}**', not:'Customer master data' },
       { eski:'`MB01`, `MB1A`, `MB1B`, `MB1C`, `MB31`', yeni:'{{MIGO}}', not:'MM goods movements were unified' },
       { eski:'`ME21` (without the N)', yeni:'{{ME21N}}', not:'The old version was removed' },
-      { eski:'—', yeni:'—', not:'FI posting and line item codes **weren\'t removed**' },
+      { eski:', ', yeni:', ', not:'FI posting and line item codes **weren\'t removed**' },
     ],
 
     fiori:[
@@ -908,15 +908,15 @@ SAP.registerTopic({
              'mapping. Look here to find whether a transaction code has a Fiori counterpart.' },
       { ad:'Post General Journal Entries', aciklama:'The {{FB50}} counterpart.' },
       { ad:'Create Supplier Invoice', aciklama:'The {{FB60}} counterpart.' },
-      { ad:'Display Supplier Line Items', aciklama:'The {{FBL1N}} counterpart — ' +
+      { ad:'Display Supplier Line Items', aciklama:'The {{FBL1N}} counterpart: ' +
              'the same data, with **filtering and charts** added.' },
       { ad:'Manage Journal Entries', aciklama:'A merger of {{FB03}} + {{FBV3}}.' },
       { ad:'Transaction tiles', aciklama:'Codes with no Fiori counterpart are added to the ' +
-             'Launchpad as a **GUI tile** — so no functionality is ever lost.' },
+             'Launchpad as a **GUI tile**: so no functionality is ever lost.' },
     ],
 
     compatibilityViews:[
-      'Transaction codes **aren\'t affected** by the {{uyumluluk-view}} — the code runs the same.',
+      'Transaction codes **aren\'t affected** by the {{uyumluluk-view}}: the code runs the same.',
       'What\'s affected is **performance**: old code slows down when it reads through the view.',
       '{{TSTC}} and {{TSTCT}} **remain real tables**.',
     ],
@@ -930,14 +930,14 @@ SAP.registerTopic({
       'and slow down; this is why a post-migration performance test is necessary.',
 
     bestPractices:[
-      '**Build an inventory of the codes actually used** before migration — a real year\'s ' +
+      '**Build an inventory of the codes actually used** before migration: a real year\'s ' +
       'usage can be pulled from the {{BKPF}} `TCODE` field. Plan with **data**, not assumptions.',
       'Compare the inventory against the **simplification list**; flag the codes being removed.',
-      'Rewrite master-data processes around **{{BP}}** — the {{XK01}}/{{XD01}} habit is ' +
+      'Rewrite master-data processes around **{{BP}}**: the {{XK01}}/{{XD01}} habit is ' +
       'the change that meets the most resistance.',
       'Update the screenshots in training documents; even where the code stays the same, ' +
       '**the Fiori interface is different**.',
-      'Add a **GUI tile** for codes with no Fiori counterpart — so users don\'t say ' +
+      'Add a **GUI tile** for codes with no Fiori counterpart: so users don\'t say ' +
       '"my old screen is gone."',
       'Review the roles ({{PFCG}}): removed codes leave **dead lines** behind in roles.',
     ],
@@ -945,61 +945,61 @@ SAP.registerTopic({
 
   /* =================================================== 10. REAL SCENARIO === */
   senaryo: {
-    baslik:'"FBL5N comes back empty" — an authorization gap that throws no error',
+    baslik:'"FBL5N comes back empty": an authorization gap that throws no error',
     hikaye:
       'At **Doğu Tekstil Inc.**, a newly hired accounting clerk calls in: ' +
       '*"{{FBL5N}} opens but the list comes back empty when I run it. ' +
       'No error either. I know the customer has open invoices."*\n\n' +
-      'The consultant tries it on the same user\'s screen — genuinely empty.\n\n' +
-      'Tries it with their own user — **47 items come back**.\n\n' +
+      'The consultant tries it on the same user\'s screen: genuinely empty.\n\n' +
+      'Tries it with their own user: **47 items come back**.\n\n' +
       'Same code, same selection, different result. And **no error message at all**.',
     veriler:[
-      { k:'Transaction code', v:'**{{FBL5N}}** — customer line item list' },
+      { k:'Transaction code', v:'**{{FBL5N}}**: customer line item list' },
       { k:'User', v:'MUHASEBE07 (new employee)' },
       { k:'Selection', v:'Customer 100234 · company code **2000** · open items' },
-      { k:'Result', v:'**0 items** — **no** error message' },
+      { k:'Result', v:'**0 items**: **no** error message' },
       { k:'With the consultant\'s user', v:'**47 items**' },
     ],
 
     adimlar:[
-      { baslik:'Does the data actually exist? — this is verified first', tcode:'SE16N',
+      { baslik:'Does the data actually exist? - this is verified first', tcode:'SE16N',
         aciklama:'The table is checked without trusting the screen.',
         girdi:[
-          { alan:'Table', deger:'{{BSID}} — customer **open** items' },
+          { alan:'Table', deger:'{{BSID}}: customer **open** items' },
           { alan:'Selection', deger:'`KUNNR` = 100234 · `BUKRS` = **2000**' },
           { alan:'Result', deger:'**47 records**' },
-          { alan:'Conclusion', deger:'The data **exists** — the problem is in display' },
+          { alan:'Conclusion', deger:'The data **exists**: the problem is in display' },
         ],
         not:'This is always the first step: *"does the data actually exist?"*\n\n' +
              'If it does, the problem is **access, not data**; if it doesn\'t, the problem ' +
              'is **in posting**. Without making this distinction, diagnosis heads the ' +
              'wrong way.\n\n' +
-             'Here the data exists — so the user **can\'t see it**.' },
+             'Here the data exists: so the user **can\'t see it**.' },
 
-      { baslik:'The first hypothesis is ruled out — is line item display off?', tcode:'SE16N',
+      { baslik:'The first hypothesis is ruled out: is line item display off?', tcode:'SE16N',
         aciklama:'The known cause of a missing line item display is checked.',
         girdi:[
-          { alan:'Table', deger:'{{KNB1}} — customer company code data' },
+          { alan:'Table', deger:'{{KNB1}}: customer company code data' },
           { alan:'Check', deger:'Customer 100234 · company code 2000 · **record exists**' },
           { alan:'Conclusion', deger:'The customer is **defined** in this company code' },
           { alan:'Additional note', deger:'Open item management is **already mandatory** on customer accounts' },
         ],
         not:'The *"if line item display is off, you can\'t get a line item report"* issue ' +
              'covered in {{konu:reporting}} is **specific to G/L accounts**.\n\n' +
-             'On customer and vendor accounts, open item management is **always on** — ' +
+             'On customer and vendor accounts, open item management is **always on**: ' +
              'open item tracking is the very reason these accounts exist.\n\n' +
              'This hypothesis is ruled out.' },
 
-      { baslik:'Authorization is checked — but there was no error message', tcode:'SU53',
+      { baslik:'Authorization is checked: but there was no error message', tcode:'SU53',
         aciklama:'The user runs it **immediately after** getting the empty list.',
         girdi:[
-          { alan:'Run by', deger:'MUHASEBE07 — **immediately after** the empty list' },
+          { alan:'Run by', deger:'MUHASEBE07: **immediately after** the empty list' },
           { alan:'Failed object', deger:'**`F_BKPF_BUK`**' },
           { alan:'Missing value', deger:'`BUKRS` = **2000**' },
           { alan:'Existing authorization', deger:'`BUKRS` = **1000** (only)' },
         ],
         not:'**Root cause found.**\n\n' +
-             'The user had **`S_TCODE`** authorization — that\'s why {{FBL5N}} **opened**. ' +
+             'The user had **`S_TCODE`** authorization: that\'s why {{FBL5N}} **opened**. ' +
              'But the **`F_BKPF_BUK`** authorization only covered company code **1000**; ' +
              'the query was for **2000**.\n\n' +
              '**Why didn\'t it throw an error?** Most FI reports apply authorization as a ' +
@@ -1014,33 +1014,33 @@ SAP.registerTopic({
           { alan:'The user\'s role', deger:'`Z_FI_MUHASEBE_1000`' },
           { alan:'Role name', deger:'The company code is **embedded in the name**' },
           { alan:'The user\'s job', deger:'Works in **both** company codes' },
-          { alan:'Reason', deger:'Only the 1000 role was assigned during onboarding — 2000 was forgotten' },
+          { alan:'Reason', deger:'Only the 1000 role was assigned during onboarding: 2000 was forgotten' },
         ],
         not:'**A process error, not a system error.**\n\n' +
              'The onboarding process includes role assignment, but the question ' +
              '*"which company codes will they work in?"* was **never asked**. ' +
              'A single role was assigned by default.\n\n' +
              'Having the company code appear in the role name (`Z_FI_MUHASEBE_1000`) is ' +
-             'actually good design — it makes the gap **visible**. If the role had been ' +
+             'actually good design: it makes the gap **visible**. If the role had been ' +
              'named `Z_FI_MUHASEBE`, no one would have noticed.' },
 
       { baslik:'Fix and verification', tcode:'SU53',
         aciklama:'The second role is assigned and the result is tested.',
         girdi:[
           { alan:'Role assigned', deger:'`Z_FI_MUHASEBE_2000`' },
-          { alan:'User action', deger:'Logged off and back on — the **authorization buffer** refreshed' },
+          { alan:'User action', deger:'Logged off and back on: the **authorization buffer** refreshed' },
           { alan:'{{FBL5N}} again', deger:'**47 items** ✓' },
           { alan:'{{SU53}}', deger:'**No** failed check ✓' },
         ],
         fis:{ baslik:'One of the items that became visible', belgeTuru:'DR', tarih:'05.11.2027',
           satirlar:[
-            { hesap:'120', ad:'Trade receivables — company code 2000', borc:88500, not:'{{BSID}} open item' },
+            { hesap:'120', ad:'Trade receivables: company code 2000', borc:88500, not:'{{BSID}} open item' },
             { hesap:'600', ad:'Domestic sales', alacak:73750 },
             { hesap:'391', ad:'Output VAT', alacak:14750 },
-          ], not:'The document **had always been there** — the user just couldn\'t see it.\n\n' +
+          ], not:'The document **had always been there**: the user just couldn\'t see it.\n\n' +
                  'Nothing changed in the accounting; what changed was **access**.' },
         tabloEtkisi:[
-          { tablo:'BSID', ne:'**Unchanged** — the data was already there, only the authorization changed' },
+          { tablo:'BSID', ne:'**Unchanged**: the data was already there, only the authorization changed' },
         ],
         not:'**Logging off and back on was necessary.** Authorizations are loaded into a ' +
              '**{{tampon}}** at logon; once a role is assigned, it doesn\'t take effect ' +
@@ -1053,10 +1053,10 @@ SAP.registerTopic({
         girdi:[
           { alan:'Measure 1', deger:'The question **"which company codes?"** was added to the onboarding checklist' },
           { alan:'Measure 2', deger:'Users were taught the **{{SU53}} reflex**: empty list → SU53 right away → screenshot' },
-          { alan:'Measure 3', deger:'Role naming will **keep** the company code in it — so a gap stays visible' },
+          { alan:'Measure 3', deger:'Role naming will **keep** the company code in it: so a gap stays visible' },
           { alan:'Measure 4', deger:'6 users in the same situation were **scanned**; 2 had the same gap' },
         ],
-        not:'**The fourth measure turned up two more people** — neither had reported the ' +
+        not:'**The fourth measure turned up two more people**: neither had reported the ' +
              'problem.\n\n' +
              'One had assumed *"there\'s probably just no activity in that company code,"* ' +
              'the other had started tracking their work in Excel instead.\n\n' +
@@ -1067,12 +1067,12 @@ SAP.registerTopic({
     ],
 
     sonuc:
-      '**The transaction opened, threw no error, returned an empty list — and two more ' +
+      '**The transaction opened, threw no error, returned an empty list: and two more ' +
       'users were in the same situation.**\n\n' +
       '**Four critical lessons:**\n\n' +
       '**1. Authorization has two layers, and the second one is silent.** ' +
-      '**`S_TCODE`** allows the code **to run** — without it, a clear message appears. ' +
-      '**`F_BKPF_BUK`** decides which **data** can be seen — without it, an **empty list** ' +
+      '**`S_TCODE`** allows the code **to run**: without it, a clear message appears. ' +
+      '**`F_BKPF_BUK`** decides which **data** can be seen: without it, an **empty list** ' +
       'comes back and **no message appears at all**. Because most FI reports apply ' +
       'authorization as a filter, an unauthorized company code is **never queried**, ' +
       'and this isn\'t an error from the program\'s point of view.\n\n' +
@@ -1083,12 +1083,12 @@ SAP.registerTopic({
       '**3. {{SU53}} must be run "immediately after."** ' +
       'It only shows the **last** failed authorization check; if another transaction runs ' +
       'in between, the trace is lost. A newly assigned role also has no effect until the ' +
-      'session is closed and reopened — authorizations are loaded into a {{tampon}} at ' +
+      'session is closed and reopened: authorizations are loaded into a {{tampon}} at ' +
       'logon.\n\n' +
       '**4. Silent errors don\'t get reported, they get worked around.** ' +
       'The scan turned up two more users; neither had complained. One had assumed there ' +
       'was no data, the other had switched to tracking things in Excel. This is why the ' +
-      'fix isn\'t just correcting the authorization — it\'s giving users the **{{SU53}} ' +
+      'fix isn\'t just correcting the authorization: it\'s giving users the **{{SU53}} ' +
       'reflex**: the only person who can make a silent error visible is the one living ' +
       'through it.',
   },

@@ -1,6 +1,6 @@
 /* ==========================================================================
-   content/fi-en/master-data.js — English body for "Master Data"
-   Same conventions as content/fi-en/genel-muhasebe.js — see that file's
+   content/fi-en/master-data.js: English body for "Master Data"
+   Same conventions as content/fi-en/genel-muhasebe.js: see that file's
    header comment.
    ========================================================================== */
 
@@ -30,7 +30,7 @@ SAP.registerTopic({
       '**Master data quality** sits at the top of the list of reasons SAP projects get delayed. Configuration ' +
       'finishes in two weeks; master data cleanup takes months.\n\n' +
       'The reason is that data coming from a legacy system is usually dirty: duplicate vendors, blank tax numbers, ' +
-      'customers no longer active. Migrate that data without cleaning it, and the problem migrates into SAP too — ' +
+      'customers no longer active. Migrate that data without cleaning it, and the problem migrates into SAP too: ' +
       'and fixing it there is far more expensive. "Garbage in, garbage out" is nowhere truer in consulting than here.',
 
     gercekHayat:
@@ -38,7 +38,7 @@ SAP.registerTopic({
       'because the due date comes in automatically when the invoice is entered. But when {{F110}} runs, every ' +
       'invoice from that vendor is treated as **already due** and paid early.\n\n' +
       'The company makes needless cash outflows for two months and nobody understands why. The bug isn\'t in the ' +
-      'invoice — it\'s in a master record opened two years earlier. That\'s the power, and the risk, of master data.',
+      'invoice: it\'s in a master record opened two years earlier. That\'s the power, and the risk, of master data.',
 
     muhasebeMantigi:
       'The point where master data connects to accounting is the {{mutabakat-hesabi}}. Whatever G/L account is ' +
@@ -66,7 +66,7 @@ SAP.registerTopic({
       { rol:'Procurement / Sales', gorev:'Completes their own segment: purchasing organization / sales area data.' },
       { rol:'Accounting', gorev:'Opens the company code segment: {{mutabakat-hesabi}}, {{odeme-kosulu}}, {{odeme-yontemi}}, {{ihtar-prosedürü}}.' },
       { rol:'Accounting manager', gorev:'Approves changes to critical fields (bank account, reconciliation account).' },
-      { rol:'Internal audit', gorev:'Audits the change history via {{CDHDR}}/{{CDPOS}} — bank account changes especially.' },
+      { rol:'Internal audit', gorev:'Audits the change history via {{CDHDR}}/{{CDPOS}}: bank account changes especially.' },
     ],
 
     diyagram:{
@@ -116,7 +116,7 @@ SAP.registerTopic({
 
     notlar:[
       { tip:'warn', baslik:'Master data\'s silent power', metin:
-        'A master data error doesn\'t throw an error at posting time — it just leads to **the wrong behavior**. A ' +
+        'A master data error doesn\'t throw an error at posting time: it just leads to **the wrong behavior**. A ' +
         'wrong payment term means early payment; a wrong reconciliation account means the wrong balance sheet line; ' +
         'a missing dunning procedure means an uncollected receivable. That\'s why auditing master data matters more ' +
         'than auditing a single document.' },
@@ -126,7 +126,7 @@ SAP.registerTopic({
   /* =================================================== 3. ACCOUNTING LOGIC === */
   muhasebe: {
     anlatim:
-      'Master data **doesn\'t produce a posting by itself** — opening a vendor doesn\'t touch any account. But it ' +
+      'Master data **doesn\'t produce a posting by itself**: opening a vendor doesn\'t touch any account. But it ' +
       'shapes the postings that follow. Below, see how the exact same 60,000 TRY invoice turns into completely ' +
       'different postings, purely because of a difference in master data.',
 
@@ -138,39 +138,39 @@ SAP.registerTopic({
     ],
 
     fisler:[
-      { baslik:'Same invoice — Vendor A: reconciliation account 320 (domestic)',
+      { baslik:'Same invoice: Vendor A: reconciliation account 320 (domestic)',
         belgeTuru:'KR', tarih:'05.05.2026', paraBirimi:'TRY',
         satirlar:[
           { hesap:'770', ad:'General administrative expense', borc:50000 },
           { hesap:'191', ad:'Deductible VAT', borc:10000 },
-          { hesap:'320', ad:'Trade payables — domestic', alacak:60000, not:'{{LFB1}} `AKONT` = 320' },
+          { hesap:'320', ad:'Trade payables: domestic', alacak:60000, not:'{{LFB1}} `AKONT` = 320' },
         ] },
 
-      { baslik:'Same invoice — Vendor B: reconciliation account 321 (foreign)',
+      { baslik:'Same invoice: Vendor B: reconciliation account 321 (foreign)',
         belgeTuru:'KR', tarih:'05.05.2026', paraBirimi:'TRY',
         satirlar:[
           { hesap:'770', ad:'General administrative expense', borc:50000 },
           { hesap:'191', ad:'Deductible VAT', borc:10000 },
-          { hesap:'321', ad:'Trade payables — foreign', alacak:60000, not:'{{LFB1}} `AKONT` = 321' },
+          { hesap:'321', ad:'Trade payables: foreign', alacak:60000, not:'{{LFB1}} `AKONT` = 321' },
         ],
         not:'The user did nothing differently; **the only difference is the master data.** This is exactly how ' +
              'domestic and foreign payables end up on separate balance-sheet lines.' },
 
-      { baslik:'An advance to the same vendor — via a special G/L indicator ({{F-48}})',
+      { baslik:'An advance to the same vendor: via a special G/L indicator ({{F-48}})',
         belgeTuru:'KZ', tarih:'08.05.2026', paraBirimi:'TRY',
         satirlar:[
           { hesap:'159', ad:'Advances on purchase orders', borc:30000, not:'`UMSKZ` = A → the alternative account kicked in' },
           { hesap:'102', ad:'Banks', alacak:30000 },
         ],
-        not:'Same vendor, reconciliation account still 320 — but because {{ozel-ana-muhasebe-gostergesi}} "A" was ' +
+        not:'Same vendor, reconciliation account still 320: but because {{ozel-ana-muhasebe-gostergesi}} "A" was ' +
              'entered, the posting went to 159, not 320. An advance isn\'t a liability, it\'s a **receivable**; it ' +
              'needs to show up separately on the balance sheet.' },
     ],
 
     tHesaplar:[
-      { hesap:'Trade payables — domestic', kod:'320 (reconciliation)',
+      { hesap:'Trade payables: domestic', kod:'320 (reconciliation)',
         borc:[{ ad:'Payment', tutar:60000 }],
-        alacak:[{ ad:'Invoice — Vendor A', tutar:60000 }, { ad:'Invoice — Vendor C', tutar:45000 }],
+        alacak:[{ ad:'Invoice, Vendor A', tutar:60000 }, { ad:'Invoice, Vendor C', tutar:45000 }],
         not:'The sum of 800 vendors, in one account' },
       { hesap:'Advances on purchase orders', kod:'159 (special G/L)',
         borc:[{ ad:'Advance payment', tutar:30000 }],
@@ -181,7 +181,7 @@ SAP.registerTopic({
     notlar:[
       { tip:'tip', baslik:'What happens if the reconciliation account is changed later?', metin:
         'Old postings **stay on the old account**; new postings go to the new one. That\'s why changing a ' +
-        'reconciliation account is a serious operation requiring a balance transfer — in production it\'s only done ' +
+        'reconciliation account is a serious operation requiring a balance transfer: in production it\'s only done ' +
         'at period end, with a correcting entry.' },
     ],
   },
@@ -191,9 +191,9 @@ SAP.registerTopic({
     anlatim:'FI has four core master data objects. Each has a different layer structure, and that structure decides where the data is shared.',
     liste:[
       { ad:'G/L Account',
-        aciklama:'Two-layered: the **chart-of-accounts level** ({{SKA1}}) is shared across all company codes — number, ' +
+        aciklama:'Two-layered: the **chart-of-accounts level** ({{SKA1}}) is shared across all company codes: number, ' +
                  'name, account group, balance-sheet/income-statement split. The **company code level** ({{SKB1}}) is ' +
-                 'specific to each company — currency, tax category, {{acik-kalem-yonetimi}}, {{alan-durumu}} group.',
+                 'specific to each company: currency, tax category, {{acik-kalem-yonetimi}}, {{alan-durumu}} group.',
         neZaman:'When a new accounting account is needed. But ask first: is a genuinely new account needed, or does splitting by {{maliyet-yeri}} do the job?',
         ornek:'The same "770 General administrative expense" account is used across 5 company codes, but can have a different currency in each.',
         tcodes:['FS00','FSP0','FSS0','OBD4'] },
@@ -203,13 +203,13 @@ SAP.registerTopic({
                  'accounting settings, **purchasing organization** ({{LFM1}}) MM settings. In S/4HANA all three are ' +
                  'managed through {{BP}}.',
         neZaman:'Whenever the company buys goods or services from someone and owes them for it.',
-        ornek:'In a group of companies, the same vendor has one {{LFA1}} record but can have 4 separate {{LFB1}} records across 4 company codes — each with different payment terms.',
+        ornek:'In a group of companies, the same vendor has one {{LFA1}} record but can have 4 separate {{LFB1}} records across 4 company codes: each with different payment terms.',
         tcodes:['BP','XK01','FK01','FBL1N'] },
 
       { ad:'Customer',
         aciklama:'Symmetric with the vendor: **general** ({{KNA1}}), **company code** ({{KNB1}}), **sales area** ({{KNVV}}).',
         neZaman:'Whenever the company sells on credit. Cash-only retail sales can get by with a single "collective customer" record.',
-        ornek:'In S/4HANA, if the same company is both a customer and a vendor, it\'s carried as **two roles on a single {{BP}} record** — ECC needed two separate records.',
+        ornek:'In S/4HANA, if the same company is both a customer and a vendor, it\'s carried as **two roles on a single {{BP}} record**: ECC needed two separate records.',
         tcodes:['BP','XD01','FD01','FBL5N'] },
 
       { ad:'Fixed Asset',
@@ -231,7 +231,7 @@ SAP.registerTopic({
       ['What it holds', 'Account, vendor, customer, asset', 'Account group, document type, field status rules'],
       ['Who maintains it', 'Master data team / accounting (end user)', 'Consultant / authorized configurer'],
       ['Where it\'s done', 'Application transactions: {{FS00}}, {{BP}}, {{AS01}}', '{{SPRO}} → the IMG tree'],
-      ['Transport request', '**Doesn\'t go in one** — loaded separately in each system', '**Goes in one** — dev → test → production'],
+      ['Transport request', '**Doesn\'t go in one**, loaded separately in each system', '**Goes in one**, dev → test → production'],
       ['Changeable in production?', 'Yes, everyday business', 'No, arrives via transport'],
       ['How it migrates', 'Data load via {{LTMC}} / {{LSMW}}', 'Via a transport request'],
     ],
@@ -251,7 +251,7 @@ SAP.registerTopic({
           { baslik:'*Control data* tab',
             aciklama:'Currency, {{vergi-kodu}} category, **reconciliation account type** (D/K/A), {{acik-kalem-yonetimi}}, line item display, sort key.' },
           { baslik:'*Create/bank/interest* tab',
-            aciklama:'The {{alan-durumu}} group — the field that decides which field on the posting screen is mandatory/optional/hidden. The answer to "why is this field required?" lives here.' },
+            aciklama:'The {{alan-durumu}} group: the field that decides which field on the posting screen is mandatory/optional/hidden. The answer to "why is this field required?" lives here.' },
           { baslik:'Save',
             aciklama:'An account is {{ana-veri}}; it doesn\'t go into a transport request. The account you opened in test **does not exist** in production.' },
         ],
@@ -267,13 +267,13 @@ SAP.registerTopic({
         hatalar:[
           { mesaj:'Account 770000 not created in chart of accounts INT', sebep:'The chart-of-accounts level ({{SKA1}}) doesn\'t exist; only a company code segment is being attempted.', cozum:'Create the chart-of-accounts level first with {{FSP0}}, then add the company code segment with {{FSS0}}. {{FS00}} does both at once.' },
           { mesaj:'Account number 770000 not within number range of account group', sebep:'The selected {{hesap-grubu}}\'s number range doesn\'t cover this number.', cozum:'Choose the correct account group, or widen the range with {{OBD4}}.' },
-          { mesaj:'Open item management cannot be activated; account has postings', sebep:'{{acik-kalem-yonetimi}} can\'t be turned on while the account has movements.', cozum:'Zero the balance, change the setting, restore the balance — or use SAP\'s conversion program (RFSEPA02-type). Handled carefully in production.' },
+          { mesaj:'Open item management cannot be activated; account has postings', sebep:'{{acik-kalem-yonetimi}} can\'t be turned on while the account has movements.', cozum:'Zero the balance, change the setting, restore the balance: or use SAP\'s conversion program (RFSEPA02-type). Handled carefully in production.' },
           { mesaj:'Company code area for account ... does not exist', sebep:'The account hasn\'t been opened for that company code.', cozum:'Add the company code segment with {{FSS0}} or {{FS00}}.' },
         ],
         ipucu:'When opening a new account, **copy a similar one as a template** ("Create with template" on the entry screen). You won\'t have to rethink the field status and control settings.',
         ilgili:['FSP0','FSS0','OBD4','FBL3N','FS10N'] },
 
-      { kod:'BP', ad:'Business partner maintenance — S/4HANA\'s single gate',
+      { kod:'BP', ad:'Business partner maintenance: S/4HANA\'s single gate',
         amac:'Manages customer and vendor master data through a single object. The same company can be both a customer and a vendor via the **role** concept.',
         neZaman:'Every customer/vendor transaction in S/4HANA. The classic {{XK01}}/{{XD01}} screens have been removed.',
         adimlar:[
@@ -281,7 +281,7 @@ SAP.registerTopic({
           { baslik:'Enter the general data', aciklama:'Name, address, contact, tax number. This part writes to {{LFA1}}/{{KNA1}}.' },
           { baslik:'Add a role: **FI Vendor** or **FI Customer**',
             aciklama:'The role is chosen from the dropdown in the top right of the screen. No accounting data can be ' +
-                     'entered until a role is added — this is where beginners get stuck most often.' },
+                     'entered until a role is added: this is where beginners get stuck most often.' },
           { baslik:'Enter the company code data', aciklama:'{{mutabakat-hesabi}}, {{odeme-kosulu}}, allowed {{odeme-yontemi}} (`ZWELS`), {{ihtar-prosedürü}}.' },
           { baslik:'Add the purchasing / sales role if needed', aciklama:'The "Supplier (Purchasing)" or "Customer (Sales)" roles open the MM/SD data.' },
           { baslik:'Enter bank details and save', aciklama:'The IBAN is kept in the general data; {{F110}} reads it from here when making a payment.' },
@@ -299,7 +299,7 @@ SAP.registerTopic({
         hatalar:[
           { mesaj:'Role FI Vendor cannot be assigned; number range not maintained', sebep:'The mapping between the BP group and the vendor account group (CVI) is missing.', cozum:'Complete the number range and group mapping under IMG → Cross-Application Components → Master Data Synchronization → Customer/Vendor Integration.' },
           { mesaj:'Reconciliation account 320000 not permitted', sebep:'The account isn\'t marked `MITKZ` = K (vendor) in {{SKB1}}.', cozum:'{{FS00}} → Control data → set the reconciliation account type to **K**.' },
-          { mesaj:'Duplicate business partner found', sebep:'A record with the same tax number/name already exists.', cozum:'Use the existing record. If it really is a different legal entity, override the warning — but check first.' },
+          { mesaj:'Duplicate business partner found', sebep:'A record with the same tax number/name already exists.', cozum:'Use the existing record. If it really is a different legal entity, override the warning: but check first.' },
         ],
         ipucu:'**Keep checking which role you\'re in** on the BP screen. Most "I can\'t find the field" complaints come from looking for a field while in the wrong role.',
         ilgili:['XK01','XD01','FK01','FD01','FBL1N','FBL5N'] },
@@ -309,7 +309,7 @@ SAP.registerTopic({
         neZaman:'When designing a chart of accounts, and when chasing "why is this field mandatory/hidden?"',
         adimlar:[
           { baslik:'Choose the chart of accounts' },
-          { baslik:'Add a group: code, name, number range (from–to)' },
+          { baslik:'Add a group: code, name, number range (from-to)' },
           { baslik:'Select the group and click *Field status*', aciklama:'Field groups (Account control, Document entry, Bank/interest…) are each set to hidden/mandatory/optional one at a time.' },
         ],
         ipucu:'Set up sensible number ranges from the start: 1xxxxx current assets, 3xxxxx short-term liabilities, and so on. Fixing this later requires moving already-opened accounts and is close to impossible.',
@@ -322,7 +322,7 @@ SAP.registerTopic({
           { baslik:'Enter the asset class and company code', aciklama:'The class supplies the account determination and default depreciation settings.' },
           { baslik:'*General* tab', aciklama:'Description, quantity, inventory number.' },
           { baslik:'*Time-dependent* tab', aciklama:'{{maliyet-yeri}}, plant, person responsible. These fields can change by date ({{ANLZ}}).' },
-          { baslik:'*Depreciation areas* tab', aciklama:'{{amortisman-anahtari}} and {{faydali-omur}}. Can be set separately for each {{amortisman-alani}} — tax and commercial depreciation split here.' },
+          { baslik:'*Depreciation areas* tab', aciklama:'{{amortisman-anahtari}} and {{faydali-omur}}. Can be set separately for each {{amortisman-alani}}: tax and commercial depreciation split here.' },
         ],
         hatalar:[
           { mesaj:'Account determination ... for asset class not maintained', sebep:'Account determination is missing for the asset class in {{AO90}}.', cozum:'Use {{AO90}} to define the balance sheet, accumulated depreciation, depreciation expense, and gain/loss-on-sale accounts.' },
@@ -340,21 +340,21 @@ SAP.registerTopic({
       'internalized this pattern once, you can predict which table holds which piece of information.',
 
     liste:[
-      { ad:'SKA1', baslik:'G/L account — chart-of-accounts layer',
+      { ad:'SKA1', baslik:'G/L account: chart-of-accounts layer',
         tutar:'The account\'s identity: number, account group, balance sheet or income statement. **Independent of company code.**',
         olusturan:'{{FS00}} or {{FSP0}}',
         guncelleyen:'{{FS00}}, {{FSP0}}, data load tools',
         anahtar:'KTOPL + SAKNR',
         iliskiler:'1-to-n with {{SKB1}} (one account, many company codes); {{SKAT}} for language-specific descriptions.',
-        s4:'Unchanged. A new "account type" (GLACCOUNT_TYPE) field was added — the cost-element split moved here.',
+        s4:'Unchanged. A new "account type" (GLACCOUNT_TYPE) field was added: the cost-element split moved here.',
         alanlar:[
           { ad:'KTOPL', aciklama:'Chart of accounts' },
           { ad:'SAKNR', aciklama:'Account number' },
-          { ad:'KTOKS', aciklama:'{{hesap-grubu}} — supplies the number range and field status' },
+          { ad:'KTOKS', aciklama:'{{hesap-grubu}}: supplies the number range and field status' },
           { ad:'XBILK', aciklama:'X means balance sheet account; blank means income statement account' },
         ] },
 
-      { ad:'SKB1', baslik:'G/L account — company code layer',
+      { ad:'SKB1', baslik:'G/L account: company code layer',
         tutar:'How the account behaves at that company: currency, tax category, open item management, field status group, reconciliation account type.',
         olusturan:'{{FS00}} or {{FSS0}}',
         guncelleyen:'{{FS00}}, {{FSS0}}',
@@ -363,13 +363,13 @@ SAP.registerTopic({
         s4:'Unchanged.',
         alanlar:[
           { ad:'MITKZ', aciklama:'Reconciliation account type: **D** customer, **K** vendor, **A** fixed asset. If filled, the account can\'t be posted to directly.' },
-          { ad:'XOPVW', aciklama:'{{acik-kalem-yonetimi}} — must be X for clearing to be possible' },
-          { ad:'FSTAG', aciklama:'{{alan-durumu}} group — which field is mandatory/hidden' },
-          { ad:'XKRES', aciklama:'Whether line item display is on — if off, {{FBL3N}} shows no items' },
-          { ad:'ZUAWA', aciklama:'Sort key — auto-fills the `ZUONR` (assignment) field; critical for {{F.13}}' },
+          { ad:'XOPVW', aciklama:'{{acik-kalem-yonetimi}}: must be X for clearing to be possible' },
+          { ad:'FSTAG', aciklama:'{{alan-durumu}} group: which field is mandatory/hidden' },
+          { ad:'XKRES', aciklama:'Whether line item display is on: if off, {{FBL3N}} shows no items' },
+          { ad:'ZUAWA', aciklama:'Sort key: auto-fills the `ZUONR` (assignment) field; critical for {{F.13}}' },
         ] },
 
-      { ad:'LFA1', baslik:'Vendor — general layer',
+      { ad:'LFA1', baslik:'Vendor: general layer',
         tutar:'Name, address, country, tax numbers, account group. Shared across all company codes.',
         olusturan:'{{BP}} (S/4HANA) or {{XK01}} (ECC)',
         guncelleyen:'{{BP}}, {{XK01}}, {{XK02}}',
@@ -378,12 +378,12 @@ SAP.registerTopic({
         s4:'The table still exists but is now populated by {{BP}}; maintained directly via {{XK01}} no longer.',
         alanlar:[
           { ad:'LIFNR', aciklama:'Vendor number' },
-          { ad:'STCD1 / STCD2', aciklama:'Tax number fields — the first place to check for duplicates' },
-          { ad:'KTOKK', aciklama:'Account group — determines the number range and field status' },
+          { ad:'STCD1 / STCD2', aciklama:'Tax number fields: the first place to check for duplicates' },
+          { ad:'KTOKK', aciklama:'Account group: determines the number range and field status' },
           { ad:'SPERR / LOEVM', aciklama:'Central block / deletion flag' },
         ] },
 
-      { ad:'LFB1', baslik:'Vendor — company code layer',
+      { ad:'LFB1', baslik:'Vendor: company code layer',
         tutar:'Accounting behavior: reconciliation account, payment terms, allowed payment methods, payment block, dunning procedure.',
         olusturan:'{{BP}} → FI Vendor role, or {{FK01}}',
         guncelleyen:'{{BP}}, {{FK02}}',
@@ -391,14 +391,14 @@ SAP.registerTopic({
         iliskiler:'A child of {{LFA1}}; {{BSIK}}/{{BSAK}} open/cleared items link here.',
         s4:'Unchanged; populated via {{BP}}.',
         alanlar:[
-          { ad:'AKONT', aciklama:'**{{mutabakat-hesabi}}** — this vendor\'s address in general ledger' },
-          { ad:'ZTERM', aciklama:'{{odeme-kosulu}} — the due date is calculated from here' },
-          { ad:'ZWELS', aciklama:'The list of allowed {{odeme-yontemi}} — {{F110}} can\'t go outside it' },
-          { ad:'ZAHLS', aciklama:'{{odeme-blogu}} — if filled, {{F110}} won\'t propose this vendor' },
+          { ad:'AKONT', aciklama:'**{{mutabakat-hesabi}}**: this vendor\'s address in general ledger' },
+          { ad:'ZTERM', aciklama:'{{odeme-kosulu}}: the due date is calculated from here' },
+          { ad:'ZWELS', aciklama:'The list of allowed {{odeme-yontemi}}: {{F110}} can\'t go outside it' },
+          { ad:'ZAHLS', aciklama:'{{odeme-blogu}}: if filled, {{F110}} won\'t propose this vendor' },
           { ad:'MAHNA', aciklama:'{{ihtar-prosedürü}}' },
         ] },
 
-      { ad:'KNB1', baslik:'Customer — company code layer',
+      { ad:'KNB1', baslik:'Customer: company code layer',
         tutar:'The customer\'s accounting settings; symmetric with {{LFB1}}.',
         olusturan:'{{BP}} → FI Customer role, or {{FD01}}',
         guncelleyen:'{{BP}}, {{FD02}}',
@@ -411,7 +411,7 @@ SAP.registerTopic({
           { ad:'MAHNA / MANSP', aciklama:'Dunning procedure / dunning block' },
         ] },
 
-      { ad:'ANLA', baslik:'Fixed asset — master record',
+      { ad:'ANLA', baslik:'Fixed asset: master record',
         tutar:'The asset\'s identity: class, description, capitalization date, inventory number.',
         olusturan:'{{AS01}}',
         guncelleyen:'{{AS01}}, {{AS02}}, {{ABUMN}} (on transfer)',
@@ -419,9 +419,9 @@ SAP.registerTopic({
         iliskiler:'{{ANLB}} depreciation settings, {{ANLC}} annual values, {{ANEP}} movements, {{ANLZ}} time-dependent assignments.',
         s4:'The master-data structure is preserved; values moved to {{ACDOCA}}.',
         alanlar:[
-          { ad:'ANLKL', aciklama:'{{varlik-sinifi}} — supplies the account determination' },
-          { ad:'AKTIV', aciklama:'{{aktiflestirme}} date — where depreciation begins' },
-          { ad:'ANLN2', aciklama:'Sub-asset number — for tracking components separately' },
+          { ad:'ANLKL', aciklama:'{{varlik-sinifi}}: supplies the account determination' },
+          { ad:'AKTIV', aciklama:'{{aktiflestirme}} date: where depreciation begins' },
+          { ad:'ANLN2', aciklama:'Sub-asset number: for tracking components separately' },
         ] },
     ],
 
@@ -465,25 +465,25 @@ SAP.registerTopic({
         alanlar:[
           { ad:'Business partner type', zorunlu:true, aciklama:'Organization (company), Person (individual), Group.' },
           { ad:'BP group', zorunlu:true, aciklama:'Determines the number range and is mapped to the vendor account group (CVI mapping).' },
-          { ad:'Business partner number', zorunlu:false, aciklama:'Left blank under internal assignment — the system supplies it.' },
+          { ad:'Business partner number', zorunlu:false, aciklama:'Left blank under internal assignment: the system supplies it.' },
         ] },
 
       { ad:'Address and identity data (general layer → {{LFA1}})',
         aciklama:'This segment is shared across every company code.',
         alanlar:[
-          { ad:'Name', zorunlu:true, aciklama:'The legal name. Set a consistent naming convention — this alone prevents half of duplicate records.' },
+          { ad:'Name', zorunlu:true, aciklama:'The legal name. Set a consistent naming convention: this alone prevents half of duplicate records.' },
           { ad:'Country / Address', zorunlu:true, aciklama:'Country affects tax calculation and payment format.' },
           { ad:'Tax number (`STCD1`)', zorunlu:false, aciklama:'The key to the duplicate check. Making it mandatory is good practice.' },
-          { ad:'Bank data (IBAN)', zorunlu:false, aciklama:'{{F110}} reads it from here. **Any change should require separate approval** — the most common point of entry for fraud.' },
+          { ad:'Bank data (IBAN)', zorunlu:false, aciklama:'{{F110}} reads it from here. **Any change should require separate approval**: the most common point of entry for fraud.' },
         ],
         ipucu:'Search {{SE16N}} → {{LFA1}} on the tax number first. The same company registered three times as "Inc.", "Incorporated", "The X Company" is the most common form of master-data mess.' },
 
-      { ad:'Adding a role — the critical step',
+      { ad:'Adding a role: the critical step',
         aciklama:'**FI Vendor** is chosen from the role dropdown in the top right of the BP screen. The company code tabs **stay invisible** until a role is added.',
         alanlar:[
           { ad:'Role: FI Vendor (FLVN00)', zorunlu:true, aciklama:'Opens accounting data; {{LFB1}} is written with this role.' },
           { ad:'Role: Supplier (Purchasing)', zorunlu:false, aciklama:'Opens the MM data ({{LFM1}}). Needed if a purchase order will be raised.' },
-          { ad:'Role: FI Customer (FLCU00)', zorunlu:false, aciklama:'If the same company is also a customer, this role is added to **the same BP record** — ECC needed two separate records.' },
+          { ad:'Role: FI Customer (FLCU00)', zorunlu:false, aciklama:'If the same company is also a customer, this role is added to **the same BP record**: ECC needed two separate records.' },
         ],
         ipucu:'When "I can\'t see the fields" comes up, the first question is: which role are you in? Looking for a field without switching roles is wasted time.' },
 
@@ -513,7 +513,7 @@ SAP.registerTopic({
     ipuclari:[
       'Audit master data changes regularly through {{CDHDR}}/{{CDPOS}}. Especially `LFBK` (bank account) changes: the most common route for payment fraud.',
       'Open a new vendor **payment-blocked**, remove the block once the first invoice is approved. A simple but very effective control.',
-      'For bulk master data loads, use {{LTMC}} (Migration Cockpit); don\'t try to record the {{BP}} screen with {{LSMW}} — the screen flow is dynamic and the recording breaks.',
+      'For bulk master data loads, use {{LTMC}} (Migration Cockpit); don\'t try to record the {{BP}} screen with {{LSMW}}: the screen flow is dynamic and the recording breaks.',
       'When opening an account, copy a similar one as a template. The field status and control settings come along ready-made.',
       'Use a **block**, not deletion. Master data can\'t be deleted because historical documents reference it; the deletion flag (`LOEVM`) is only a signal for archiving.',
     ],
@@ -537,7 +537,7 @@ SAP.registerTopic({
     commit:
       'A master data record is written within a single LUW. On the {{BP}} side there\'s an extra layer: saving a BP ' +
       'triggers **CVI synchronization**, which generates the {{LFA1}}/{{LFB1}} (or {{KNA1}}/{{KNB1}}) records. If ' +
-      'synchronization errors out, the BP is created but the vendor isn\'t — the error queue is then checked with ' +
+      'synchronization errors out, the BP is created but the vendor isn\'t: the error queue is then checked with ' +
       'MDS_LOAD_COCKPIT / MDS_PPO2.',
 
     belgeNo:
@@ -565,13 +565,13 @@ SAP.registerTopic({
     transport:
       'Master data **doesn\'t transport**. The account you open in test doesn\'t exist in production; it\'s loaded ' +
       'separately into each system ({{LTMC}}, {{LSMW}}, or by hand). The account group, field status, and number ' +
-      'range **definition** transport — but the number range\'s **current counter** doesn\'t.',
+      'range **definition** transport: but the number range\'s **current counter** doesn\'t.',
 
     img:[
       { yol:'SPRO → Financial Accounting → General Ledger Accounting → Master Data → G/L Accounts → Preparations → Define Account Group', not:'{{hesap-grubu}} and {{alan-durumu}} ({{OBD4}})' },
       { yol:'SPRO → Financial Accounting → Accounts Receivable and Accounts Payable → Vendor Accounts → Master Data → Preparations for Creating Vendor Master Data → Define Account Groups with Screen Layout (Vendors)', not:'Vendor account group and field status' },
       { yol:'SPRO → Financial Accounting → Accounts Receivable and Accounts Payable → Customer Accounts → Master Data → Preparations for Creating Customer Master Data → Define Account Groups with Screen Layout (Customers)', not:'Customer account group' },
-      { yol:'SPRO → Cross-Application Components → Master Data Synchronization → Customer/Vendor Integration', not:'**CVI** — the BP-to-vendor/customer mapping in S/4HANA. A mandatory step of any S/4HANA migration.' },
+      { yol:'SPRO → Cross-Application Components → Master Data Synchronization → Customer/Vendor Integration', not:'**CVI**: the BP-to-vendor/customer mapping in S/4HANA. A mandatory step of any S/4HANA migration.' },
       { yol:'SPRO → Financial Accounting → Asset Accounting → Organizational Structures → Asset Classes → Define Asset Classes', not:'{{varlik-sinifi}} ({{OAOA}})' },
     ],
 
@@ -581,13 +581,13 @@ SAP.registerTopic({
         'It\'s the report auditors ask for most.\n\n' +
         'The critical fields to monitor: a vendor\'s **bank account** (the `LFBK` table), the **reconciliation ' +
         'account** (`AKONT`), and the **payment block** (`ZAHLS`). A bank-account change is the most common method ' +
-        'of payment fraud — a fake email says "our bank account changed," and the payment goes to a different account.' },
+        'of payment fraud: a fake email says "our bank account changed," and the payment goes to a different account.' },
       { ic:'🧹', baslik:'How is master data quality measured?', metin:
         'Three simple queries surface most problems:\n\n' +
         '**Duplicates:** multiple `LIFNR`s in {{LFA1}} sharing the same `STCD1` (tax number).\n\n' +
         '**Gaps:** {{LFB1}} records with a blank `AKONT`, vendors with a blank `ZTERM`.\n\n' +
         '**Dead records:** vendors with no activity in the last 2 years (never appearing in {{BSIK}}/{{BSAK}}). ' +
-        'These aren\'t deleted — they\'re blocked.' },
+        'These aren\'t deleted: they\'re blocked.' },
     ],
 
     notlar:[
@@ -605,10 +605,10 @@ SAP.registerTopic({
       'job every project migrating from ECC runs into, and one that\'s usually underestimated.',
 
     eccFarklari:[
-      { konu:'Customer/vendor maintenance', ecc:'{{XK01}}/{{XD01}} — separately, with separate numbers', s4:'{{BP}} — a single object, split by roles' },
+      { konu:'Customer/vendor maintenance', ecc:'{{XK01}}/{{XD01}}, separately, with separate numbers', s4:'{{BP}}, a single object, split by roles' },
       { konu:'The same company as both customer and vendor', ecc:'Two separate master records, mapped manually', s4:'One BP record, two roles' },
       { konu:'Cost element', ecc:'A separate master record via {{KA01}}', s4:'A type of the G/L account ({{FS00}} → Primary Costs)' },
-      { konu:'House bank', ecc:'{{FI12}} — behaves like configuration', s4:'Bank Account Management (BAM) — master data with workflow support' },
+      { konu:'House bank', ecc:'{{FI12}}, behaves like configuration', s4:'Bank Account Management (BAM), master data with workflow support' },
       { konu:'Account master data', ecc:'No account-type concept', s4:'GLACCOUNT_TYPE mandatory: Balance Sheet / Primary Costs / Secondary Costs / Nonoperating' },
       { konu:'Data loading', ecc:'{{LSMW}} common', s4:'{{LTMC}} / Migrate Your Data; LSMW **not recommended** for BP' },
     ],
@@ -619,9 +619,9 @@ SAP.registerTopic({
       'posting flows into CO at all. In other words, master data is the Universal Journal\'s **fill-in rules**.',
 
     kalkanTcodes:[
-      { eski:'{{FK01}} / {{FK02}} / {{FK03}}', yeni:'{{BP}}', not:'Vendor — removed' },
-      { eski:'{{XK01}}', yeni:'{{BP}}', not:'Central vendor maintenance — redirects to BP' },
-      { eski:'{{FD01}} / {{XD01}}', yeni:'{{BP}}', not:'Customer — removed' },
+      { eski:'{{FK01}} / {{FK02}} / {{FK03}}', yeni:'{{BP}}', not:'Vendor: removed' },
+      { eski:'{{XK01}}', yeni:'{{BP}}', not:'Central vendor maintenance: redirects to BP' },
+      { eski:'{{FD01}} / {{XD01}}', yeni:'{{BP}}', not:'Customer: removed' },
       { eski:'{{KA01}} / KA02 / KA03', yeni:'{{FS00}}', not:'The cost element turned into a G/L account type' },
       { eski:'{{FI12}}', yeni:'FI12_HBANK / BAM', not:'House bank management moved to Fiori' },
     ],
@@ -631,11 +631,11 @@ SAP.registerTopic({
       { ad:'Manage G/L Account Master Data', aciklama:'Replaces {{FS00}}; supports bulk editing and Excel import/export.' },
       { ad:'Manage Bank Accounts', aciklama:'Manages house bank accounts with an approval workflow (BAM).' },
       { ad:'Manage Fixed Assets', aciklama:'Replaces {{AS01}}/{{AS02}}; the asset list and values on one screen.' },
-      { ad:'Migrate Your Data', aciklama:'The Fiori face of {{LTMC}} — the standard load tool for S/4HANA 2020 and later.' },
+      { ad:'Migrate Your Data', aciklama:'The Fiori face of {{LTMC}}: the standard load tool for S/4HANA 2020 and later.' },
     ],
 
     compatibilityViews:[
-      '{{LFA1}}, {{LFB1}}, {{KNA1}}, {{KNB1}} **remain physical tables** — they weren\'t removed.',
+      '{{LFA1}}, {{LFB1}}, {{KNA1}}, {{KNB1}} **remain physical tables**: they weren\'t removed.',
       'But they\'re now populated by {{BP}} via CVI synchronization; a custom program writing to them directly breaks that synchronization.',
       'Whether old custom programs perform a direct INSERT/UPDATE on {{LFA1}} needs to be scanned before migration.',
     ],
@@ -646,22 +646,22 @@ SAP.registerTopic({
 
     bestPractices:[
       'Build CVI **at the start** of an S/4HANA migration project; leaving it for the end is one of the most common causes of delay.',
-      'Clean up duplicate vendors/customers before migration — merging them after they\'ve moved into BP is far harder.',
+      'Clean up duplicate vendors/customers before migration: merging them after they\'ve moved into BP is far harder.',
       'Keep the BP group\'s number range **identical** to the vendor/customer account group\'s; if they differ, the same business partner ends up with two different numbers and reporting gets confused.',
-      'When opening a new account, pick the right account type: open an expense account as "Balance Sheet" instead of "Primary Costs" and it never flows into CO — fixing it later, once there are postings, is close to impossible.',
+      'When opening a new account, pick the right account type: open an expense account as "Balance Sheet" instead of "Primary Costs" and it never flows into CO: fixing it later, once there are postings, is close to impossible.',
       'Don\'t try to load BP with {{LSMW}}; use {{LTMC}} templates.',
     ],
   },
 
   /* =================================================== 10. REAL SCENARIO === */
   senaryo: {
-    baslik:'Starting to work with a new supplier — from master data to the first payment',
+    baslik:'Starting to work with a new supplier: from master data to the first payment',
     hikaye:
       '**Marmara Textiles Inc.** decides to start working with a new paint supplier ("Ege Kimya Inc."). This ' +
       'scenario shows every step from opening the master record to the first payment, and **which future behavior ' +
       'each field in master data decides**.',
     veriler:[
-      { k:'Company code', v:'1000 — Marmara Textiles Inc.' },
+      { k:'Company code', v:'1000: Marmara Textiles Inc.' },
       { k:'Supplier', v:'Ege Kimya Inc., tax no 1234567890' },
       { k:'Agreement', v:'60-day terms, 2% early-payment discount (within 10 days)' },
       { k:'First order', v:'200,000 TRY + 20% VAT' },
@@ -677,11 +677,11 @@ SAP.registerTopic({
         ],
         not:'Skip this step, and the same company gets opened under two numbers; balances split, reconciliation becomes impossible, and two separate payments can go out.' },
 
-      { baslik:'A BP record is opened — the general layer', tcode:'BP',
+      { baslik:'A BP record is opened: the general layer', tcode:'BP',
         aciklama:'A new business partner is opened as type Organization. This data writes to {{LFA1}} and is shared across every company code.',
         girdi:[
           { alan:'Business partner type', deger:'Organization' },
-          { alan:'BP group', deger:'Z001 — Domestic supplier (internal number assignment)' },
+          { alan:'BP group', deger:'Z001: Domestic supplier (internal number assignment)' },
           { alan:'Name', deger:'Ege Kimya Inc.' },
           { alan:'Country / Address', deger:'TR / Izmir' },
           { alan:'Tax no (`STCD1`)', deger:'1234567890' },
@@ -692,16 +692,16 @@ SAP.registerTopic({
           { tablo:'CDHDR', ne:'Creation entry: user, date, time' },
         ] },
 
-      { baslik:'The FI Vendor role is added — the company code layer', tcode:'BP',
+      { baslik:'The FI Vendor role is added: the company code layer', tcode:'BP',
         aciklama:'The step where the actual accounting decisions get made. Every field here decides a future behavior.',
         girdi:[
           { alan:'Role', deger:'FI Vendor (FLVN00)' },
           { alan:'Company code', deger:'1000' },
-          { alan:'Reconciliation account (`AKONT`)', deger:'320000 — Trade payables (domestic)' },
-          { alan:'Payment terms (`ZTERM`)', deger:'ZB02 — net 60 days, 2% discount within 10 days' },
+          { alan:'Reconciliation account (`AKONT`)', deger:'320000: Trade payables (domestic)' },
+          { alan:'Payment terms (`ZTERM`)', deger:'ZB02: net 60 days, 2% discount within 10 days' },
           { alan:'Payment method (`ZWELS`)', deger:'H (bank transfer)' },
-          { alan:'Payment block (`ZAHLS`)', deger:'A — blocked until the first invoice is approved' },
-          { alan:'Sort key (`ZUAWA`)', deger:'001 — the document date is written into the assignment field' },
+          { alan:'Payment block (`ZAHLS`)', deger:'A: blocked until the first invoice is approved' },
+          { alan:'Sort key (`ZUAWA`)', deger:'001: the document date is written into the assignment field' },
         ],
         tabloEtkisi:[
           { tablo:'LFB1', ne:'AKONT = 320000, ZTERM = ZB02, ZWELS = H, ZAHLS = A' },
@@ -711,39 +711,39 @@ SAP.registerTopic({
       { baslik:'The first invoice is entered', tcode:'FB60',
         aciklama:'Notice: the user **never entered** the due date, the reconciliation account, or the discount terms. All of it came from master data.',
         girdi:[
-          { alan:'Vendor', deger:'100456 — Ege Kimya Inc.' },
+          { alan:'Vendor', deger:'100456: Ege Kimya Inc.' },
           { alan:'Invoice date', deger:'01.06.2026' },
           { alan:'Amount', deger:'240,000 TRY gross (20% VAT included)' },
-          { alan:'Due date — **automatic**', deger:'31.07.2026 (60 days, from `ZTERM`)' },
-          { alan:'Discount — **automatic**', deger:'2% = 4,000 TRY through 11.06.2026' },
-          { alan:'Reconciliation account — **automatic**', deger:'320000 (from `AKONT`)' },
+          { alan:'Due date: **automatic**', deger:'31.07.2026 (60 days, from `ZTERM`)' },
+          { alan:'Discount: **automatic**', deger:'2% = 4,000 TRY through 11.06.2026' },
+          { alan:'Reconciliation account: **automatic**', deger:'320000 (from `AKONT`)' },
         ],
-        fis:{ baslik:'Document 1900000112 — Ege Kimya\'s first invoice', belgeTuru:'KR', tarih:'01.06.2026',
+        fis:{ baslik:'Document 1900000112: Ege Kimya\'s first invoice', belgeTuru:'KR', tarih:'01.06.2026',
           satirlar:[
             { hesap:'153', ad:'Trade goods', borc:200000 },
             { hesap:'191', ad:'Deductible VAT', borc:40000 },
-            { hesap:'320', ad:'Trade payables — Ege Kimya', alacak:240000, not:'The account came from master data' },
+            { hesap:'320', ad:'Trade payables: Ege Kimya', alacak:240000, not:'The account came from master data' },
           ] },
         tabloEtkisi:[
           { tablo:'BSIK', ne:'Open item: 240,000 TRY, due 31.07.2026, payment block A (inherited from master data)' },
         ] },
 
-      { baslik:'The payment run is executed — the block stops it', tcode:'F110',
+      { baslik:'The payment run is executed: the block stops it', tcode:'F110',
         aciklama:'The invoice is due, but {{F110}} never proposed the item. Cause: the payment block on the master record.',
         girdi:[
           { alan:'Proposal result', deger:'The item is on the exception list, marked "blocked"' },
-          { alan:'Exception reason', deger:'Payment block A — coming from master data' },
+          { alan:'Exception reason', deger:'Payment block A: coming from master data' },
         ],
         not:'This is the most concrete example of how master data controls payment behavior. The block isn\'t on the invoice, it\'s on **the vendor**.' },
 
       { baslik:'The block is removed and payment is made', tcode:'BP',
         aciklama:'Once the first invoice has been checked, the payment block is cleared via {{BP}} → company code data → payment block. On the next {{F110}} run, the payment goes through.',
-        fis:{ baslik:'Document 2000000034 — Payment', belgeTuru:'KZ', tarih:'31.07.2026',
+        fis:{ baslik:'Document 2000000034: Payment', belgeTuru:'KZ', tarih:'31.07.2026',
           satirlar:[
-            { hesap:'320', ad:'Trade payables — Ege Kimya', borc:240000, not:'Open item cleared' },
+            { hesap:'320', ad:'Trade payables: Ege Kimya', borc:240000, not:'Open item cleared' },
             { hesap:'102', ad:'Banks', alacak:240000 },
           ], not:'Because the discount window (through 11.06) had already passed, the discount wasn\'t applied. Paid ' +
-               'earlier, 4,000 TRY would have been saved — the discount defined in master data made that possible.' },
+               'earlier, 4,000 TRY would have been saved: the discount defined in master data made that possible.' },
         tabloEtkisi:[
           { tablo:'BSIK', ne:'The item was removed from here' },
           { tablo:'BSAK', ne:'Moved here as a cleared item, AUGBL = 2000000034' },
@@ -754,13 +754,13 @@ SAP.registerTopic({
 
     sonuc:
       'While entering the invoice, the user only typed **the vendor number and the amount**. The due date, the ' +
-      'discount terms, the reconciliation account, the payment method, and the payment block — all of it came from ' +
+      'discount terms, the reconciliation account, the payment method, and the payment block: all of it came from ' +
       'master data.\n\n' +
       'The lesson: **master data writes the behavior of hundreds of future transactions in advance.** That\'s why a ' +
-      'master data error doesn\'t affect a single document — it affects every transaction tied to that record, and ' +
+      'master data error doesn\'t affect a single document: it affects every transaction tied to that record, and ' +
       'it usually surfaces months later.\n\n' +
       'In this scenario, 4,000 TRY was lost because the discount window was missed. The master data was correct, ' +
-      'the process was slow — but had the master data been wrong, the discount would **never** have been calculated ' +
+      'the process was slow: but had the master data been wrong, the discount would **never** have been calculated ' +
       'at all, and nobody would have noticed.',
   },
 

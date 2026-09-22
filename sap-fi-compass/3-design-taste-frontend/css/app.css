@@ -238,14 +238,14 @@
 /* Kenar çubuğunda grup işareti: adın SOLUNDA 3px'lik dikey şerit.
    Metnin kendisi --ink-3 kalır (uzun listede dokuz renkli başlık
    yorucu olurdu); renk yalnızca işarette. Çizgi olduğu için 3:1
-   yeterli — --grup-l-ln. */
+   yeterli. (3. sürüm: şerit gizli, bkz. surface.css) */
 .side-label::before {
   content: '';
   flex: 0 0 3px;
   align-self: stretch;
   margin: 2px 0;
   border-radius: 1px;
-  background: hsl(var(--h) var(--grup-s) var(--grup-l-ln));
+  background: transparent;
 }
 .side-label .chev {
   display: flex;
@@ -509,9 +509,9 @@
 .part-n {
   font-size: var(--t-num);
   font-weight: 600;
-  color: hsl(var(--h) var(--grup-s) var(--grup-l));
+  color: var(--accent);
   letter-spacing: .06em;
-  border-right: 2px solid hsl(var(--h) var(--grup-s) var(--grup-l-ln));
+  border-right: 2px solid var(--accent-line);
   padding-right: var(--sp-4);
   min-height: 1em;
 }
@@ -639,10 +639,10 @@
 .thead-k {
   font-size: var(--t-sm);
   font-weight: 620;
-  color: hsl(var(--h) var(--grup-s) var(--grup-l));
+  color: var(--accent);
   margin-bottom: var(--sp-3);
   padding-top: var(--sp-3);
-  border-top: 2px solid hsl(var(--h) var(--grup-s) var(--grup-l-ln));
+  border-top: 2px solid var(--accent-line);
   display: inline-block;
 }
 .thead h1 {

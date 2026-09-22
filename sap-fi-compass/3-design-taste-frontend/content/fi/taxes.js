@@ -1,5 +1,5 @@
 /* ==========================================================================
-   content/fi/taxes.js — "Taxes (Vergiler)"
+   content/fi/taxes.js: "Taxes (Vergiler)"
    ========================================================================== */
 
 SAP.registerTopic({
@@ -16,7 +16,7 @@ SAP.registerTopic({
       'Vergi kodu **üç şeyi birden** taşır: **oran** (%20, %10, %0), **tip** (A = çıkış/hesaplanan, ' +
       'V = giriş/indirilecek) ve **hesap ataması** ({{OB40}} üzerinden hangi G/L hesabına gideceği).\n\n' +
       'Bu üçlü tek kodda birleştiği için kullanıcı hata yapamaz: yanlış oran giremez, ' +
-      'vergiyi yanlış hesaba yazamaz. Ama **yanlış kodu seçebilir** — ve vergi konusundaki ' +
+      'vergiyi yanlış hesaba yazamaz. Ama **yanlış kodu seçebilir**: ve vergi konusundaki ' +
       'hataların neredeyse tamamı budur.',
 
     neden:
@@ -35,7 +35,7 @@ SAP.registerTopic({
       'Fiş dengelidir, mizan tutar, hiçbir alarm çalmaz. Yalnızca beyanname hazırlanırken ' +
       'ya da denetimde ortaya çıkar.\n\n' +
       'Ayırt edici soru şudur: **"İndirilemeyen KDV nereye kaydedilir?"** ' +
-      'Doğru cevap: ayrı bir vergi hesabına **değil**, **giderin veya varlığın maliyetine** — ' +
+      'Doğru cevap: ayrı bir vergi hesabına **değil**, **giderin veya varlığın maliyetine**: ' +
       'çünkü indirilemiyorsa o bir vergi alacağı değil, gerçek bir maliyettir.',
 
     gercekHayat:
@@ -50,7 +50,7 @@ SAP.registerTopic({
       '**Ders:** vergi kodu seçimi bir muhasebe kararıdır, bir tuş alışkanlığı değil.',
 
     muhasebeMantigi:
-      'KDV, işletme için bir **gelir veya gider değildir** — devlet adına tahsil edilen ' +
+      'KDV, işletme için bir **gelir veya gider değildir**: devlet adına tahsil edilen ' +
       'veya devletten alacaklı olunan bir tutardır. Bu yüzden gelir tablosunda değil ' +
       '**bilançoda** izlenir.\n\n' +
       '**Hesaplanan KDV (satışta tahsil edilen):** işletmenin devlete **borcudur** → kaynak hesabı (391).\n\n' +
@@ -90,7 +90,7 @@ SAP.registerTopic({
           aciklama:'İşlem anahtarı bazında: **MWS** hesaplanan, **VST** indirilecek, **NAV** indirilemeyen. ' +
                    'Sonuç {{T030K}} tablosuna yazılır.',
           cikti:'Vergi hesabı eşleşmesi', ok:'kullanıma açılır' },
-        { ic:'🧾', rol:'Kullanıcı', baslik:'Fatura girilir — **kod seçilir**',
+        { ic:'🧾', rol:'Kullanıcı', baslik:'Fatura girilir: **kod seçilir**',
           aciklama:'{{FB60}} / {{FB70}} / {{MIRO}} ekranında vergi kodu seçilir. ' +
                    'Sistem oranı uygular, tutarı hesaplar. **Sürecin tek insan kararı burada.**',
           cikti:'Vergi satırı', ok:'kaydedilir' },
@@ -112,11 +112,11 @@ SAP.registerTopic({
     adimlar:[
       { rol:'Danışman', eylem:'Vergi kodunu tanımlar', sistem:'{{FTXP}} → {{T007A}}' },
       { rol:'Danışman', eylem:'Vergi hesabını atar', sistem:'{{OB40}} → {{T030K}}' },
-      { rol:'Danışman', eylem:'İzinli kodları sınırlar', sistem:'{{OBZT}} — kullanıcı hatasını azaltır' },
+      { rol:'Danışman', eylem:'İzinli kodları sınırlar', sistem:'{{OBZT}}: kullanıcı hatasını azaltır' },
       { rol:'Kullanıcı', eylem:'Faturada vergi kodunu seçer', sistem:'{{FB60}}, {{FB70}}, {{MIRO}}' },
       { rol:'Sistem', eylem:'Vergiyi hesaplar ve yazar', sistem:'{{BSEG}} + {{BSET}}' },
       { rol:'Vergi sorumlusu', eylem:'Beyan raporunu alır', sistem:'{{S_ALR_87012357}}' },
-      { rol:'Vergi sorumlusu', eylem:'Raporu mizanla karşılaştırır', sistem:'{{FBL3N}} — 191 ve 391 bakiyeleri' },
+      { rol:'Vergi sorumlusu', eylem:'Raporu mizanla karşılaştırır', sistem:'{{FBL3N}}: 191 ve 391 bakiyeleri' },
       { rol:'Ana muhasebe', eylem:'Mahsup kaydını yapar', sistem:'{{FB50}}' },
     ],
 
@@ -130,7 +130,7 @@ SAP.registerTopic({
     notlar:[
       { tip:'warn', baslik:'Vergi hatası hiçbir alarm üretmez', metin:
         'Yanlış vergi kodu seçildiğinde fiş **dengelidir**, mizan **tutar**, ' +
-        'hiçbir hata mesajı çıkmaz. Sistem "bu kod bu işlem için yanlış" diyemez — ' +
+        'hiçbir hata mesajı çıkmaz. Sistem "bu kod bu işlem için yanlış" diyemez: ' +
         'çünkü hangi kodun doğru olduğu **mevzuat bilgisidir**, sistem bilgisi değil.\n\n' +
         'Bu yüzden vergi kontrolü **rapor karşılaştırmasıyla** yapılır: ' +
         '{{S_ALR_87012357}} beyan raporundaki toplamlar, {{FBL3N}}’deki 191 ve 391 hesap ' +
@@ -144,29 +144,29 @@ SAP.registerTopic({
   muhasebe: {
     anlatim:
       'KDV muhasebesinin tek cümlelik özeti: **alışta ödenen vergi varlıktır, satışta tahsil edilen ' +
-      'vergi borçtur, ay sonunda mahsuplaşırlar.** İstisna: indirilemeyen KDV — o varlık değil maliyettir.',
+      'vergi borçtur, ay sonunda mahsuplaşırlar.** İstisna: indirilemeyen KDV: o varlık değil maliyettir.',
 
     etkilenenHesaplar:[
-      { hesap:'191 İndirilecek KDV', tur:'Bilanço — Varlık', neden:'Alışta ödenen, devletten alacaklı olunan KDV. {{OB40}} → **VST**.' },
-      { hesap:'391 Hesaplanan KDV', tur:'Bilanço — Kaynak', neden:'Satışta tahsil edilen, devlete borç olan KDV. {{OB40}} → **MWS**.' },
-      { hesap:'360 Ödenecek vergi ve fonlar', tur:'Bilanço — Kaynak', neden:'Mahsup sonrası devlete ödenecek net KDV.' },
-      { hesap:'190 Devreden KDV', tur:'Bilanço — Varlık', neden:'İndirilecek > hesaplanan ise fark sonraki döneme taşınır.' },
+      { hesap:'191 İndirilecek KDV', tur:'Bilanço: Varlık', neden:'Alışta ödenen, devletten alacaklı olunan KDV. {{OB40}} → **VST**.' },
+      { hesap:'391 Hesaplanan KDV', tur:'Bilanço: Kaynak', neden:'Satışta tahsil edilen, devlete borç olan KDV. {{OB40}} → **MWS**.' },
+      { hesap:'360 Ödenecek vergi ve fonlar', tur:'Bilanço: Kaynak', neden:'Mahsup sonrası devlete ödenecek net KDV.' },
+      { hesap:'190 Devreden KDV', tur:'Bilanço: Varlık', neden:'İndirilecek > hesaplanan ise fark sonraki döneme taşınır.' },
       { hesap:'İlgili gider/varlık hesabı', tur:'Değişken', neden:'**İndirilemeyen KDV** ayrı hesaba değil, maliyetin içine gider. {{OB40}} → **NAV**.' },
-      { hesap:'360 Ödenecek stopaj', tur:'Bilanço — Kaynak', neden:'{{tevkifat}} — satıcıya ödenmeyip vergi dairesine yatırılacak kesinti.' },
+      { hesap:'360 Ödenecek stopaj', tur:'Bilanço, Kaynak', neden:'{{tevkifat}}, satıcıya ödenmeyip vergi dairesine yatırılacak kesinti.' },
     ],
 
     fisler:[
-      { baslik:'Alış faturası — indirilecek KDV (V1, %20)',
+      { baslik:'Alış faturası: indirilecek KDV (V1, %20)',
         belgeTuru:'KR', tarih:'10.05.2027', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'770', ad:'Genel yönetim gideri', borc:10000, not:'Matrah — {{BSET}} `HWBAS`' },
+          { hesap:'770', ad:'Genel yönetim gideri', borc:10000, not:'Matrah: {{BSET}} `HWBAS`' },
           { hesap:'191', ad:'İndirilecek KDV', borc:2000, not:'{{OB40}} → **VST** · devletten alacak' },
           { hesap:'320', ad:'Satıcılar', alacak:12000, not:'{{LFB1}} `AKONT`' },
         ],
         not:'Gider **10.000** TL’dir, 12.000 değil. KDV gidere dâhil edilmez çünkü ' +
-             'devletten geri alınacaktır — bu yüzden **varlık** olarak kaydedilir.' },
+             'devletten geri alınacaktır: bu yüzden **varlık** olarak kaydedilir.' },
 
-      { baslik:'Satış faturası — hesaplanan KDV (A1, %20)',
+      { baslik:'Satış faturası: hesaplanan KDV (A1, %20)',
         belgeTuru:'DR', tarih:'12.05.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'120', ad:'Alıcılar', borc:36000 },
@@ -176,10 +176,10 @@ SAP.registerTopic({
         not:'Gelir **30.000** TL’dir. Tahsil edilen 6.000 TL KDV işletmenin geliri değil, ' +
              'devlet adına tahsil edilmiş bir tutardır.' },
 
-      { baslik:'**İndirilemeyen KDV** — vergi maliyete eklenir',
+      { baslik:'**İndirilemeyen KDV**: vergi maliyete eklenir',
         belgeTuru:'KR', tarih:'15.05.2027', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'770', ad:'Genel yönetim gideri (binek oto kirası)', borc:12000, not:'**Matrah + KDV** — {{OB40}} → **NAV**' },
+          { hesap:'770', ad:'Genel yönetim gideri (binek oto kirası)', borc:12000, not:'**Matrah + KDV**: {{OB40}} → **NAV**' },
           { hesap:'320', ad:'Satıcılar', alacak:12000 },
         ],
         not:'**191 hesabı hiç kullanılmadı.** İndirilemeyen KDV devletten alacak olmadığı için ' +
@@ -190,14 +190,14 @@ SAP.registerTopic({
       { baslik:'Sabit kıymet alımında indirilemeyen KDV',
         belgeTuru:'KR', tarih:'15.05.2027', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'254', ad:'Taşıtlar (binek otomobil)', borc:1200000, not:'**Matrah + KDV** — amortismana tabi tutar' },
+          { hesap:'254', ad:'Taşıtlar (binek otomobil)', borc:1200000, not:'**Matrah + KDV**: amortismana tabi tutar' },
           { hesap:'320', ad:'Satıcılar', alacak:1200000 },
         ],
         not:'Aynı mantık varlık alımında daha da önemlidir: indirilemeyen KDV ' +
              '**varlığın maliyetine** girer, dolayısıyla **amortismana da tabi olur**. ' +
              '191’e yazılsaydı hem KDV yanlış indirilecek hem amortisman eksik hesaplanacaktı.' },
 
-      { baslik:'Ay sonu KDV mahsubu — ödenecek KDV çıkan durum',
+      { baslik:'Ay sonu KDV mahsubu: ödenecek KDV çıkan durum',
         belgeTuru:'SA', tarih:'31.05.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'391', ad:'Hesaplanan KDV', borc:180000, not:'Hesap sıfırlanır' },
@@ -205,10 +205,10 @@ SAP.registerTopic({
           { hesap:'360', ad:'Ödenecek vergi ve fonlar', alacak:35000, not:'Devlete ödenecek net tutar' },
         ],
         not:'Hesaplanan (180.000) > indirilecek (145.000) olduğu için fark **ödenir**. ' +
-             'Her iki KDV hesabı da mahsup sonrası **sıfırlanır** — bu, ay sonu ' +
+             'Her iki KDV hesabı da mahsup sonrası **sıfırlanır**: bu, ay sonu ' +
              'kontrol noktalarından biridir.' },
 
-      { baslik:'Ay sonu KDV mahsubu — devreden KDV çıkan durum',
+      { baslik:'Ay sonu KDV mahsubu: devreden KDV çıkan durum',
         belgeTuru:'SA', tarih:'30.06.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'391', ad:'Hesaplanan KDV', borc:90000 },
@@ -219,7 +219,7 @@ SAP.registerTopic({
              'fark **190 Devreden KDV** olarak varlıkta kalır ve sonraki ay indirilecek KDV’ye eklenir.\n\n' +
              'Yatırım yapılan dönemlerde bu durum aylarca sürebilir.' },
 
-      { baslik:'{{tevkifat}} — stopajlı hizmet faturası',
+      { baslik:'{{tevkifat}}: stopajlı hizmet faturası',
         belgeTuru:'KR', tarih:'20.05.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'770', ad:'Danışmanlık gideri', borc:100000 },
@@ -229,7 +229,7 @@ SAP.registerTopic({
         ],
         not:'Fatura tutarı 120.000 TL ama satıcıya 100.000 TL ödenir. ' +
              'Aradaki 20.000 TL kesilip **doğrudan vergi dairesine** yatırılır.\n\n' +
-             'Satıcının borcu 120.000 değil 100.000 görünür — çünkü kalan kısım artık ' +
+             'Satıcının borcu 120.000 değil 100.000 görünür: çünkü kalan kısım artık ' +
              'satıcıya değil devlete borçtur.' },
     ],
 
@@ -249,7 +249,7 @@ SAP.registerTopic({
     ],
 
     notlar:[
-      { tip:'tip', baslik:'"KDV gider midir?" — üç farklı cevap', metin:
+      { tip:'tip', baslik:'"KDV gider midir?": üç farklı cevap', metin:
         'Bu sorunun tek bir cevabı yoktur; duruma göre değişir:\n\n' +
         '**1. İndirilebiliyorsa → hayır, varlıktır.** Devletten geri alınacaktır (191).\n\n' +
         '**2. İndirilemiyorsa → evet, ama ayrı bir gider değil.** ' +
@@ -269,13 +269,13 @@ SAP.registerTopic({
       '**hesaplama biçimi**. Türkiye kurulumlarında ayrıca {{tevkifat}} dördüncü bir eksen ekler.',
 
     liste:[
-      { ad:'Çıkış vergisi (hesaplanan)', en:'Output Tax — tip A',
+      { ad:'Çıkış vergisi (hesaplanan)', en:'Output Tax: tip A',
         aciklama:'Satışta müşteriden tahsil edilen KDV. Devlete borçtur.',
         neZaman:'Her satış faturasında, alacak dekontunda.',
         ornek:'A1 = %20 hesaplanan KDV → 391 hesabı. {{OB40}} → **MWS**.',
         tcodes:['FTXP','OB40'] },
 
-      { ad:'Giriş vergisi (indirilecek)', en:'Input Tax — tip V',
+      { ad:'Giriş vergisi (indirilecek)', en:'Input Tax: tip V',
         aciklama:'Alışta satıcıya ödenen KDV. Devletten alacaktır.',
         neZaman:'Her alış faturasında, {{MIRO}} kaydında.',
         ornek:'V1 = %20 indirilecek KDV → 191 hesabı. {{OB40}} → **VST**.',
@@ -292,7 +292,7 @@ SAP.registerTopic({
         neZaman:'Hem vergiye tabi hem istisna faaliyeti olan işletmelerde (kısmi istisna).',
         ornek:'%60 indirilebilir tanımlanan bir kodda 2.000 TL KDV’nin 1.200’ü 191’e, 800’ü gidere gider.' },
 
-      { ad:'Sıfır oranlı vergi', en:'Zero-rated — %0',
+      { ad:'Sıfır oranlı vergi', en:'Zero-rated: %0',
         aciklama:'Oran %0 ama işlem **vergiye tabidir**; beyannamede matrah olarak görünür.',
         neZaman:'İhracat, ihraç kayıtlı teslim, bazı teşvikli işlemler.',
         ornek:'Matrah beyan edilir, vergi 0 TL. **Vergisiz işlemle karıştırılmamalıdır.**' },
@@ -300,17 +300,17 @@ SAP.registerTopic({
       { ad:'Vergisiz / istisna', en:'Exempt / Not Taxable',
         aciklama:'İşlem vergi kapsamı **dışındadır**; matrah da beyannamede farklı satırda raporlanır.',
         neZaman:'Kanunen istisna işlemler.',
-        ornek:'Sıfır oranlıdan farkı **beyannamedeki yeridir** — muhasebe kaydı aynı görünür.' },
+        ornek:'Sıfır oranlıdan farkı **beyannamedeki yeridir**: muhasebe kaydı aynı görünür.' },
 
       { ad:'{{tevkifat}} (stopaj)', en:'Withholding Tax',
         aciklama:'Ödeyenin, ödeyeceği tutardan vergiyi kesip doğrudan vergi dairesine yatırması.',
         neZaman:'Serbest meslek ödemeleri, kira, bazı hizmet alımları, yurt dışı ödemeler.',
-        ornek:'Satıcı ana verisinde tevkifat tipi ve kodu tanımlı olmalıdır — yoksa kesinti yapılmaz.',
+        ornek:'Satıcı ana verisinde tevkifat tipi ve kodu tanımlı olmalıdır: yoksa kesinti yapılmaz.',
         tcodes:['FB60','F110'] },
 
       { ad:'Otomatik hesaplama', en:'Calculate Tax Automatically',
         aciklama:'Kullanıcı yalnızca kodu seçer; sistem matrahtan vergiyi hesaplar.',
-        neZaman:'Normal akış — **tercih edilen yöntem**.',
+        neZaman:'Normal akış: **tercih edilen yöntem**.',
         ornek:'Kayıt ekranındaki "Vergiyi hesapla" kutusu işaretlenir.' },
 
       { ad:'Elle vergi girişi', en:'Manual Tax Entry',
@@ -334,7 +334,7 @@ SAP.registerTopic({
   /* ===================================================== 5. TCODES === */
   tcodes: {
     liste:[
-      { kod:'FTXP', ad:'Vergi kodu tanımla — vergi yapılandırmasının merkezi',
+      { kod:'FTXP', ad:'Vergi kodu tanımla: vergi yapılandırmasının merkezi',
         amac:'Ülke bazında vergi kodlarını, oranlarını ve tiplerini tanımlar.',
         neZaman:'Kurulumda; yeni oran veya yeni istisna tipi geldiğinde.',
         adimlar:[
@@ -360,7 +360,7 @@ SAP.registerTopic({
         ],
         ipucu:'**Kullanılmaya başlanmış bir vergi kodunun oranı asla değiştirilmemelidir.** ' +
               'Değiştirilirse geçmiş belgeler eski oranla, yeniler yeni oranla kalır ama ' +
-              '**rapor ikisini aynı kod altında toplar** — beyan tutarsız çıkar ve sebebi ' +
+              '**rapor ikisini aynı kod altında toplar**: beyan tutarsız çıkar ve sebebi ' +
               'aylar sonra anlaşılır. Oran değişikliğinde **yeni kod** açılır (bkz. Teknik bölümü).',
         ilgili:['OB40','FTXA','BSET','T007A'] },
 
@@ -381,7 +381,7 @@ SAP.registerTopic({
           { mesaj:'Error in account determination: table T030K key TR MWS', sebep:'Vergi hesabı atanmamış.', cozum:'{{OB40}} → MWS → hesap ata. SD faturalarındaki en sık vergi hatasıdır.' },
         ],
         ipucu:'Vergi hesapları {{FS00}}’da **"yalnızca otomatik kayıt"** işaretiyle açılmalıdır. ' +
-              'Böylece kullanıcı elle kayıt atamaz — bu, beyan ile mizanın tutmasını garanti eden ' +
+              'Böylece kullanıcı elle kayıt atamaz: bu, beyan ile mizanın tutmasını garanti eden ' +
               'en basit ve en etkili tedbirdir.',
         ilgili:['FTXP','T030K','FS00'] },
 
@@ -399,7 +399,7 @@ SAP.registerTopic({
                      'bir belge vergi kodsuz girilmiş.' },
         ],
         ipucu:'Bu rapor {{BSET}} tablosundan üretilir, {{BSEG}}’den değil. ' +
-              'Vergi hesabına elle atılan bir kayıt {{BSEG}}’i etkiler ama {{BSET}}’e satır yazmaz — ' +
+              'Vergi hesabına elle atılan bir kayıt {{BSEG}}’i etkiler ama {{BSET}}’e satır yazmaz: ' +
               'işte rapor ile mizanın ayrışmasının en yaygın sebebi budur.',
         hatalar:[
           { mesaj:'Rapor toplamı ile hesap bakiyesi tutmuyor', sebep:'Vergi hesabına elle kayıt atılmış veya vergi kodsuz belge var.', cozum:'{{FBL3N}}’de 191/391 hesabında **belge türü SA** olan satırları ara; genelde suçlu odur.' },
@@ -416,7 +416,7 @@ SAP.registerTopic({
         ],
         ipucu:'Beyan raporu ile mizan tutmadığında teşhis sırası: ' +
               '**1)** {{S_ALR_87012357}} ile toplamı gör, **2)** {{F.12}} ile belge kırılımını al, ' +
-              '**3)** {{FBL3N}} ile hesap hareketlerini al, **4)** iki listeyi karşılaştır — ' +
+              '**3)** {{FBL3N}} ile hesap hareketlerini al, **4)** iki listeyi karşılaştır: ' +
               'farkta kalan belge suçludur.',
         ilgili:['S_ALR_87012357','FB03','FBL3N'] },
 
@@ -443,7 +443,7 @@ SAP.registerTopic({
       'sorusunun cevabıdır.',
 
     liste:[
-      { ad:'BSET', baslik:'Vergi satırları — beyannamenin kaynağı',
+      { ad:'BSET', baslik:'Vergi satırları: beyannamenin kaynağı',
         tutar:'Her belgenin vergi bilgisi: matrah, vergi tutarı, vergi kodu, işlem anahtarı.',
         olusturan:'Vergi kodu içeren her FI belgesi',
         guncelleyen:'Belge kaydı; ters kayıt yeni satır ekler',
@@ -451,11 +451,11 @@ SAP.registerTopic({
         iliskiler:'{{BKPF}} ile belge anahtarı üzerinden; {{T007A}} ile vergi kodu üzerinden.',
         s4:'Duruyor. {{ACDOCA}} vergi tutarını taşır ama **beyan hâlâ BSET’e dayanır**.',
         alanlar:[
-          { ad:'HWBAS', aciklama:'**Matrah** (yerel para) — verginin üzerinden hesaplandığı tutar' },
+          { ad:'HWBAS', aciklama:'**Matrah** (yerel para): verginin üzerinden hesaplandığı tutar' },
           { ad:'HWSTE', aciklama:'**Vergi tutarı** (yerel para)' },
           { ad:'MWSKZ', aciklama:'Vergi kodu', tip:'fk' },
-          { ad:'KTOSL', aciklama:'İşlem anahtarı — MWS / VST / NAV' },
-          { ad:'KSCHL', aciklama:'Koşul türü — hesaplama prosedüründen gelir' },
+          { ad:'KTOSL', aciklama:'İşlem anahtarı: MWS / VST / NAV' },
+          { ad:'KSCHL', aciklama:'Koşul türü: hesaplama prosedüründen gelir' },
         ] },
 
       { ad:'T007A', baslik:'Vergi kodu tanımları',
@@ -466,12 +466,12 @@ SAP.registerTopic({
         iliskiler:'{{BSET}} `MWSKZ` bu tabloya bakar.',
         s4:'Değişmedi.',
         alanlar:[
-          { ad:'KALSM', aciklama:'Vergi hesaplama prosedürü — ülkeye bağlıdır' },
+          { ad:'KALSM', aciklama:'Vergi hesaplama prosedürü: ülkeye bağlıdır' },
           { ad:'MWSKZ', aciklama:'Vergi kodu (2 karakter)' },
-          { ad:'MWART', aciklama:'**A** çıkış · **V** giriş — kaydedildikten sonra değişmez' },
+          { ad:'MWART', aciklama:'**A** çıkış · **V** giriş: kaydedildikten sonra değişmez' },
         ] },
 
-      { ad:'T030K', baslik:'Vergi hesap belirleme — "vergi hangi hesaba yazılacak?"',
+      { ad:'T030K', baslik:'Vergi hesap belirleme: "vergi hangi hesaba yazılacak?"',
         tutar:'Bir vergi işleminin hangi G/L hesabına kaydedileceği. ' +
               'Kayıt sırasında sistem bu tabloyu okuyup 191 veya 391 hesabını bulur.',
         olusturan:'{{OB40}}',
@@ -480,13 +480,13 @@ SAP.registerTopic({
         iliskiler:'{{T007A}}’dan vergi kodu okunur → burada hesap bulunur → ' +
                   '{{BSEG}} `HKONT` ve {{BSET}}’e yazılır. ' +
                   '**{{T030}} ailesinin vergi üyesidir**; {{OBYC}} (MM) ve {{VKOA}} (SD) aynı aileye yazar.',
-        s4:'Değişmedi — S/4HANA’da da vergi hesap belirlemesinin tek kaynağıdır.',
+        s4:'Değişmedi: S/4HANA’da da vergi hesap belirlemesinin tek kaynağıdır.',
         alanlar:[
-          { ad:'KTOPL', aciklama:'**Hesap planı** — anahtarın ilk alanı. Farklı hesap planı kullanan şirket kodları için ayrı satır gerekir.' },
-          { ad:'KTOSL', aciklama:'**İşlem anahtarı** — verginin türü. `MWS` hesaplanan · `VST` indirilecek · `NAV` indirilemeyen · `NVV` indirilemeyen/dağıtılan' },
-          { ad:'MWSKZ', aciklama:'**Vergi kodu** — yalnızca "koda göre ayrım" işaretliyse dolar. **Boşsa o anahtardaki tüm kodlar aynı hesaba gider.**' },
-          { ad:'KONTS', aciklama:'**Belirlenen G/L hesabı** — 191 indirilecek, 391 hesaplanan' },
-          { ad:'KONTH', aciklama:'Alacak tarafı hesabı — borç/alacak ayrımı yapılan kurulumlarda' },
+          { ad:'KTOPL', aciklama:'**Hesap planı**: anahtarın ilk alanı. Farklı hesap planı kullanan şirket kodları için ayrı satır gerekir.' },
+          { ad:'KTOSL', aciklama:'**İşlem anahtarı**: verginin türü. `MWS` hesaplanan · `VST` indirilecek · `NAV` indirilemeyen · `NVV` indirilemeyen/dağıtılan' },
+          { ad:'MWSKZ', aciklama:'**Vergi kodu**: yalnızca "koda göre ayrım" işaretliyse dolar. **Boşsa o anahtardaki tüm kodlar aynı hesaba gider.**' },
+          { ad:'KONTS', aciklama:'**Belirlenen G/L hesabı**: 191 indirilecek, 391 hesaplanan' },
+          { ad:'KONTH', aciklama:'Alacak tarafı hesabı: borç/alacak ayrımı yapılan kurulumlarda' },
         ] },
 
       { ad:'BSEG', baslik:'Belge kalemleri',
@@ -501,7 +501,7 @@ SAP.registerTopic({
 
     er:{
       type:'er',
-      baslik:'Vergi tablo ilişkileri — BSET neden ayrı?',
+      baslik:'Vergi tablo ilişkileri: BSET neden ayrı?',
       varliklar:[
         { ad:'T007A', rol:'Özelleştirme', aciklama:'Vergi kodu tanımı',
           alanlar:[{ ad:'KALSM', tip:'pk' }, { ad:'MWSKZ', tip:'pk' }, { ad:'MWART' }] },
@@ -511,7 +511,7 @@ SAP.registerTopic({
           alanlar:[{ ad:'BUKRS', tip:'pk' }, { ad:'BELNR', tip:'pk' }, { ad:'GJAHR', tip:'pk' }] },
         { ad:'BSEG', rol:'FI', aciklama:'Belge kalemleri',
           alanlar:[{ ad:'BELNR', tip:'fk' }, { ad:'BUZEI', tip:'pk' }, { ad:'MWSKZ', tip:'fk' }, { ad:'HKONT' }] },
-        { ad:'BSET', rol:'Vergi', aciklama:'**Vergi satırları — beyanın kaynağı**',
+        { ad:'BSET', rol:'Vergi', aciklama:'**Vergi satırları: beyanın kaynağı**',
           alanlar:[{ ad:'BELNR', tip:'fk' }, { ad:'MWSKZ', tip:'fk' }, { ad:'HWBAS' }, { ad:'HWSTE' }] },
         { ad:'ACDOCA', rol:'S/4HANA', aciklama:'Evrensel kayıt defteri',
           alanlar:[{ ad:'BELNR', tip:'fk' }, { ad:'MWSKZ', tip:'fk' }] },
@@ -530,15 +530,15 @@ SAP.registerTopic({
   sapSurec: {
     anlatim:
       'Kullanıcı açısından vergi süreci tek bir alandan ibarettir: **vergi kodu**. ' +
-      'Ama o alanın arkasında üç ekran vardır — tanım ({{FTXP}}), hesap ({{OB40}}) ve ' +
+      'Ama o alanın arkasında üç ekran vardır: tanım ({{FTXP}}), hesap ({{OB40}}) ve ' +
       'kontrol ({{S_ALR_87012357}}).',
 
     ekranlar:[
-      { ad:'{{FTXP}} — vergi kodu tanımı',
+      { ad:'{{FTXP}}: vergi kodu tanımı',
         aciklama:'Ülke seçilir, kod girilir, tip ve oran tanımlanır.',
         alanlar:[
           { ad:'Ülke', zorunlu:true, aciklama:'Vergi kodları **ülkeye bağlıdır**. Şirket kodunun ülkesi ({{OBY6}}) belirleyicidir.' },
-          { ad:'Vergi kodu', zorunlu:true, aciklama:'İki karakter. Yerleşik kural: A* çıkış, V* giriş — zorunlu değil ama izlenmesi hayat kurtarır.' },
+          { ad:'Vergi kodu', zorunlu:true, aciklama:'İki karakter. Yerleşik kural: A* çıkış, V* giriş: zorunlu değil ama izlenmesi hayat kurtarır.' },
           { ad:'Vergi tipi', zorunlu:true, aciklama:'**A** veya **V**. Kaydedildikten sonra **değiştirilemez**.' },
           { ad:'Oran (%)', zorunlu:true, aciklama:'İlgili işlem anahtarı satırına yazılır. **Sonradan değiştirilmemelidir.**' },
           { ad:'İndirilebilirlik', zorunlu:false, aciklama:'Kısmi indirim için yüzde; boşsa %100 indirilebilir sayılır.' },
@@ -547,7 +547,7 @@ SAP.registerTopic({
               '`V0` %0, `VN` indirilemeyen, `A1` %20 hesaplanan… ' +
               'Yıllar sonra 40 kod olduğunda bu disiplin tek kurtarıcıdır.' },
 
-      { ad:'{{OB40}} — vergi hesabı ataması',
+      { ad:'{{OB40}}: vergi hesabı ataması',
         aciklama:'İşlem anahtarı bazında G/L hesabı atanır.',
         alanlar:[
           { ad:'İşlem anahtarı', zorunlu:true, aciklama:'**MWS** hesaplanan · **VST** indirilecek · **NAV** indirilemeyen (maliyete eklenir)' },
@@ -555,11 +555,11 @@ SAP.registerTopic({
           { ad:'Vergi koduna göre ayrım', zorunlu:false, aciklama:'İşaretlenirse her kod için ayrı hesap tanımlanabilir.' },
           { ad:'G/L hesabı', zorunlu:true, aciklama:'{{FS00}}’da **"yalnızca otomatik kayıt"** işaretli olmalıdır.' },
         ],
-        ipucu:'**NAV anahtarı özeldir:** ona atanan hesap aslında kullanılmaz — ' +
+        ipucu:'**NAV anahtarı özeldir:** ona atanan hesap aslında kullanılmaz: ' +
               'sistem indirilemeyen KDV’yi ilgili gider/varlık satırına ekler. ' +
               'Bu davranışı bilmeden "NAV hesabına hiç kayıt gelmiyor" diye saatler harcanabilir.' },
 
-      { ad:'Kayıt ekranı — vergi kodu alanı ({{FB60}} / {{FB70}} / {{MIRO}})',
+      { ad:'Kayıt ekranı: vergi kodu alanı ({{FB60}} / {{FB70}} / {{MIRO}})',
         aciklama:'Kullanıcının vergiyle tek teması burasıdır.',
         alanlar:[
           { ad:'Vergi kodu', zorunlu:true, aciklama:'Doğru kodun seçilmesi **kullanıcının mevzuat bilgisine** bağlıdır; sistem denetleyemez.' },
@@ -577,8 +577,8 @@ SAP.registerTopic({
     hatalar:[
       { mesaj:'Tax code ... does not exist in company code country ...', sebep:'Vergi kodu şirket kodunun ülkesi için tanımlı değil.', cozum:'{{OBY6}} ile ülkeyi doğrula; {{FTXP}}’de doğru ülkede tanımla. Çok ülkeli kurulumlarda çok sık görülür.' },
       { mesaj:'Error in account determination: table T030K key ... MWS', sebep:'{{OB40}}’ta hesap atanmamış.', cozum:'{{OB40}} → MWS/VST/NAV satırına hesap ata.' },
-      { mesaj:'Tax entry not possible in this item', sebep:'Kalem vergi kodu kabul etmiyor — hesap ayarı veya kalem tipi uygun değil.', cozum:'{{FS00}}’da hesabın vergi kategorisini kontrol et (`-`, `+`, `*` veya boş).' },
-      { mesaj:'The difference is too large for clearing / tax amount incorrect', sebep:'Elle girilen vergi, hesaplanandan tolerans dışı sapıyor.', cozum:'Tutarı düzelt veya vergi tolerans sınırını gözden geçir. Yuvarlama farkı 1–2 kuruşu geçmemelidir.' },
+      { mesaj:'Tax entry not possible in this item', sebep:'Kalem vergi kodu kabul etmiyor: hesap ayarı veya kalem tipi uygun değil.', cozum:'{{FS00}}’da hesabın vergi kategorisini kontrol et (`-`, `+`, `*` veya boş).' },
+      { mesaj:'The difference is too large for clearing / tax amount incorrect', sebep:'Elle girilen vergi, hesaplanandan tolerans dışı sapıyor.', cozum:'Tutarı düzelt veya vergi tolerans sınırını gözden geçir. Yuvarlama farkı 1-2 kuruşu geçmemelidir.' },
       { mesaj:'Beyan raporu ile 191/391 bakiyesi tutmuyor', sebep:'Vergi hesabına **elle** kayıt atılmış ({{BSET}}’e satır yazmaz) veya vergi kodsuz belge var.', cozum:'{{FBL3N}}’de vergi hesabında belge türü SA olan satırları ara; hesapları {{FS00}}’da "yalnızca otomatik kayıt" yap.' },
     ],
 
@@ -589,7 +589,7 @@ SAP.registerTopic({
       '{{OBZT}} ile alış işlemlerinde yalnızca V*, satış işlemlerinde yalnızca A* kodlarını göster.',
       'Ay sonunda {{S_ALR_87012357}} toplamlarını {{FBL3N}}’deki 191/391 bakiyeleriyle **her ay** karşılaştır.',
       'İndirilemeyen KDV için ayrı gider hesabı **açma**; NAV mekanizması tutarı doğru kaleme ekler.',
-      '{{tevkifat}} kullanılacaksa satıcı ana verisinde tevkifat tipi ve kodu **tanımlı olmalıdır** — ' +
+      '{{tevkifat}} kullanılacaksa satıcı ana verisinde tevkifat tipi ve kodu **tanımlı olmalıdır**: ' +
       'eksikse sistem sessizce kesinti yapmaz.',
     ],
   },
@@ -597,7 +597,7 @@ SAP.registerTopic({
   /* ===================================================== 8. TEKNİK === */
   teknik: {
     guncellenenTablolar:[
-      { tablo:'BSET', ne:'**Vergi satırları** — matrah ve vergi tutarı; beyannamenin kaynağı' },
+      { tablo:'BSET', ne:'**Vergi satırları**: matrah ve vergi tutarı; beyannamenin kaynağı' },
       { tablo:'BSEG', ne:'Vergi kalemi (191/391 satırı) ve kalemlerin `MWSKZ` alanı' },
       { tablo:'BKPF', ne:'Belge başlığı' },
       { tablo:'ACDOCA', ne:'Evrensel kalemler; vergi kodu ve tutarı taşır' },
@@ -610,7 +610,7 @@ SAP.registerTopic({
       '{{BSEG}} ve {{BSET}} aynı commit’te yazılır; biri yazılıp diğeri yazılamaz.\n\n' +
       'Bu, veri bütünlüğü açısından iyi haberdir ama şu sonucu doğurur: ' +
       'vergi hesabına **{{FB50}} ile elle** atılan bir kayıt {{BSEG}}’e satır yazar, ' +
-      '**{{BSET}}’e yazmaz** — çünkü o bir vergi işlemi değil, düz bir G/L kaydıdır. ' +
+      '**{{BSET}}’e yazmaz**: çünkü o bir vergi işlemi değil, düz bir G/L kaydıdır. ' +
       'Beyan raporu ile mizanın ayrışmasının teknik açıklaması budur.',
 
     belgeNo:
@@ -640,11 +640,11 @@ SAP.registerTopic({
 
     accountDetermination:
       '{{OB40}} → {{T030K}}. İşlem anahtarları:\n\n' +
-      '**MWS** — hesaplanan (çıkış) KDV → 391\n' +
-      '**VST** — indirilecek (giriş) KDV → 191\n' +
-      '**NAV** — indirilemeyen KDV → *hesap atanır ama kullanılmaz*; tutar gider/varlık satırına eklenir\n' +
-      '**NVV** — indirilemeyen, hesap atamasına dağıtılan\n\n' +
-      'Aynı mimari MM’de {{OBYC}}, SD’de {{VKOA}} olarak çalışır — **üçü de {{T030}} ailesine** yazar.',
+      '**MWS**: hesaplanan (çıkış) KDV → 391\n' +
+      '**VST**: indirilecek (giriş) KDV → 191\n' +
+      '**NAV**: indirilemeyen KDV → *hesap atanır ama kullanılmaz*; tutar gider/varlık satırına eklenir\n' +
+      '**NVV**: indirilemeyen, hesap atamasına dağıtılan\n\n' +
+      'Aynı mimari MM’de {{OBYC}}, SD’de {{VKOA}} olarak çalışır: **üçü de {{T030}} ailesine** yazar.',
 
     tur:
       '**Özelleştirme:** vergi kodları ({{FTXP}}), hesap atamaları ({{OB40}}), ' +
@@ -655,7 +655,7 @@ SAP.registerTopic({
     transport:
       '**Vergi kodları taşınmaz gibi davranır ve bu bir tuzaktır.** ' +
       '{{FTXP}}’de tanımlanan kodun *yapısı* taşıma isteğine girer, ama **oranlar** ' +
-      'çoğu kurulumda taşınmaz — hedef sistemde ayrıca girilmesi gerekir.\n\n' +
+      'çoğu kurulumda taşınmaz: hedef sistemde ayrıca girilmesi gerekir.\n\n' +
       'Sonuç: test sisteminde %20 hesaplayan kod, canlıda **%0** hesaplayabilir ve ' +
       'hiçbir hata vermez. Canlıya geçişte **her vergi kodunun oranı tek tek doğrulanmalıdır**.\n\n' +
       '{{OB40}} hesap atamaları normal şekilde taşınır.',
@@ -668,13 +668,13 @@ SAP.registerTopic({
     ],
 
     ekstra:[
-      { ic:'🗂️', baslik:'{{T030K}} — vergi hesap belirlemenin anatomisi', metin:
+      { ic:'🗂️', baslik:'{{T030K}}: vergi hesap belirlemenin anatomisi', metin:
         'Kullanıcı faturaya `V1` yazar ve sistem 191 hesabını bulur. ' +
         'Bu bulmayı sağlayan tablo **{{T030K}}**’dır.\n\n' +
         '**Anahtar üç alandan oluşur:**\n\n' +
-        '`KTOPL` **hesap planı** — hangi hesap planında çalışıyoruz\n' +
-        '`KTOSL` **işlem anahtarı** — verginin türü\n' +
-        '`MWSKZ` **vergi kodu** — *(opsiyonel, aşağıya bakın)*\n\n' +
+        '`KTOPL` **hesap planı**: hangi hesap planında çalışıyoruz\n' +
+        '`KTOSL` **işlem anahtarı**: verginin türü\n' +
+        '`MWSKZ` **vergi kodu**: *(opsiyonel, aşağıya bakın)*\n\n' +
         '---\n\n' +
         '**İşlem anahtarları ne anlama gelir?**\n\n' +
         '`MWS` **hesaplanan (çıkış) KDV** → 391. Satış faturalarında oluşur.\n\n' +
@@ -689,7 +689,7 @@ SAP.registerTopic({
         'davranışı köklü biçimde değiştirir:\n\n' +
         '**İşaretsiz (varsayılan):** `MWSKZ` alanı **boş** kalır. ' +
         'O işlem anahtarındaki **tüm vergi kodları aynı hesaba** gider. ' +
-        'V1, V2, V0 — hepsi 191’e.\n\n' +
+        'V1, V2, V0: hepsi 191’e.\n\n' +
         '**İşaretli:** her vergi kodu için **ayrı satır** tanımlanabilir. ' +
         'V1 → 191001, V2 → 191002 gibi.\n\n' +
         'Ne zaman gerekir? Farklı oranları ayrı hesapta izlemek istendiğinde ' +
@@ -709,7 +709,7 @@ SAP.registerTopic({
       { ic:'🚫', baslik:'Oran değiştirme: en pahalı vergi hatası', metin:
         'KDV oranı %18’den %20’ye çıktığında iki yol vardır:\n\n' +
         '**Yanlış yol:** mevcut V1 kodunun oranını 18’den 20’ye çevirmek. ' +
-        'Sonuç: geçmiş belgeler %18 tutarla, yeni belgeler %20 tutarla {{BSET}}’te durur — ' +
+        'Sonuç: geçmiş belgeler %18 tutarla, yeni belgeler %20 tutarla {{BSET}}’te durur: ' +
         'veri doğrudur. Ama **beyan raporu ikisini aynı kod altında toplar** ve ' +
         'ortalama oran ne %18 ne %20 çıkar. Denetimde "bu tutar hangi orandan?" sorusuna ' +
         'cevap verilemez.\n\n' +
@@ -720,7 +720,7 @@ SAP.registerTopic({
         'Bu, SAP’ın teknik olarak engellemediği ama muhasebe disiplininin yasakladığı bir işlemdir.' },
 
       { ic:'🔍', baslik:'NAV: hesap atanır ama kullanılmaz', metin:
-        '{{OB40}}’ta **NAV** işlem anahtarına bir hesap atanır — ama o hesaba genelde ' +
+        '{{OB40}}’ta **NAV** işlem anahtarına bir hesap atanır: ama o hesaba genelde ' +
         '**hiç kayıt gelmez**. Sebebi şudur: indirilemeyen KDV ayrı bir satır olarak değil, ' +
         'ilgili gider veya varlık satırına **eklenerek** kaydedilir.\n\n' +
         'Yani 10.000 TL gider + 2.000 TL indirilemeyen KDV → tek satır: **12.000 TL gider**.\n\n' +
@@ -735,7 +735,7 @@ SAP.registerTopic({
       { tip:'warn', baslik:'Vergi hesabına elle kayıt atılmamalı', metin:
         '{{FB50}} ile 191 veya 391 hesabına atılan bir kayıt {{BSEG}}’e satır yazar ama ' +
         '**{{BSET}}’e yazmaz**. Beyan raporu {{BSET}}’ten üretildiği için o tutar ' +
-        'beyanda **görünmez** — mizanda görünür.\n\n' +
+        'beyanda **görünmez**: mizanda görünür.\n\n' +
         'Sonuç: rapor ile mizan ayrışır ve sebebi aylar sonra aranır.\n\n' +
         'Önlem: vergi hesaplarını {{FS00}}’da **"yalnızca otomatik kayıt"** olarak işaretle. ' +
         'Tek bir kutucuk, bu hata sınıfını tamamen kapatır.' },
@@ -751,7 +751,7 @@ SAP.registerTopic({
 
     eccFarklari:[
       { konu:'{{FTXP}} / {{OB40}}', ecc:'Vergi kodu ve hesap tanımı', s4:'**Değişmedi**' },
-      { konu:'{{BSET}}', ecc:'Vergi satırları', s4:'**Duruyor** — beyan hâlâ buradan üretilir' },
+      { konu:'{{BSET}}', ecc:'Vergi satırları', s4:'**Duruyor**: beyan hâlâ buradan üretilir' },
       { konu:'Vergi tutarı', ecc:'{{BSEG}} + {{BSET}}', s4:'+ {{ACDOCA}} (raporlama için)' },
       { konu:'Beyan raporu', ecc:'{{S_ALR_87012357}}', s4:'Aynı + Fiori vergi uygulamaları' },
       { konu:'E-beyan / e-fatura', ecc:'Ülke eklentileri', s4:'SAP Document and Reporting Compliance' },
@@ -761,12 +761,12 @@ SAP.registerTopic({
     universalJournal:
       '{{ACDOCA}} vergi kodunu ve tutarını satır bazında taşır. Bu, **analiz için** büyük kolaylık: ' +
       '"hangi kâr merkezinde ne kadar indirilemeyen KDV var?" gibi sorular tek tablodan cevaplanır.\n\n' +
-      '**Ama beyan hâlâ {{BSET}}’ten üretilir** — çünkü beyanname matrah kırılımı ister ve ' +
+      '**Ama beyan hâlâ {{BSET}}’ten üretilir**: çünkü beyanname matrah kırılımı ister ve ' +
       'matrah {{ACDOCA}}’nın değil {{BSET}}’in konusudur. Bu ayrımı bilmemek, ' +
       '"S/4HANA’da BSET kalktı mı?" sorusuna yanlış cevap verdirir. **Kalkmadı.**',
 
     kalkanTcodes:[
-      { eski:'—', yeni:'—', not:'{{FTXP}}, {{OB40}}, {{F.12}}, {{S_ALR_87012357}} **kaldırılmadı**' },
+      { eski:', ', yeni:', ', not:'{{FTXP}}, {{OB40}}, {{F.12}}, {{S_ALR_87012357}} **kaldırılmadı**' },
     ],
 
     fiori:[
@@ -777,7 +777,7 @@ SAP.registerTopic({
     ],
 
     compatibilityViews:[
-      '{{BSET}}, {{T007A}}, {{T030K}} — **fiziksel tablo olarak duruyor**.',
+      '{{BSET}}, {{T007A}}, {{T030K}}: **fiziksel tablo olarak duruyor**.',
       '{{BSEG}} vergi kalemi için uyumluluk görünümü üzerinden okunur.',
       'Vergi, S/4HANA geçişinde yapı olarak en az etkilenen FI alanıdır.',
     ],
@@ -788,10 +788,10 @@ SAP.registerTopic({
       'vergi verisinin **diğer boyutlarla birlikte** analiz edilebilmesidir.',
 
     bestPractices:[
-      'Geçişte **her vergi kodunun oranını canlı sistemde tek tek doğrula** — oranlar taşınmayabilir.',
+      'Geçişte **her vergi kodunun oranını canlı sistemde tek tek doğrula**: oranlar taşınmayabilir.',
       'Kullanılmayan eski vergi kodlarını geçişte sadeleştir; ama **kullanılmış olanları silme** ' +
       '(geçmiş belgeler ve raporlar onlara referans verir).',
-      'Vergi hesaplarını "yalnızca otomatik kayıt" olarak işaretle — geçiş, bunu düzeltmek için iyi bir fırsattır.',
+      'Vergi hesaplarını "yalnızca otomatik kayıt" olarak işaretle: geçiş, bunu düzeltmek için iyi bir fırsattır.',
       'Ülke bazlı e-beyan gereksinimlerini Document and Reporting Compliance ile değerlendir.',
       'Beyan raporu ile mizan mutabakatını **aylık rutine** al; geçiş sonrası ilk üç ay özellikle kontrol et.',
     ],
@@ -809,14 +809,14 @@ SAP.registerTopic({
     veriler:[
       { k:'Şirket kodu', v:'1000 · Ülke TR' },
       { k:'Dönem', v:'Mayıs 2027' },
-      { k:'Beyan raporu — hesaplanan KDV', v:'180.000 TL' },
-      { k:'Mizan — 391 bakiyesi', v:'264.000 TL' },
+      { k:'Beyan raporu: hesaplanan KDV', v:'180.000 TL' },
+      { k:'Mizan: 391 bakiyesi', v:'264.000 TL' },
       { k:'**Fark**', v:'**84.000 TL**' },
     ],
 
     adimlar:[
       { baslik:'Farkın yönü belirlenir', tcode:'FBL3N',
-        aciklama:'Önce hangi tarafın fazla olduğuna bakılıyor — bu, olası sebepleri ikiye indiriyor.',
+        aciklama:'Önce hangi tarafın fazla olduğuna bakılıyor: bu, olası sebepleri ikiye indiriyor.',
         girdi:[
           { alan:'Hesap', deger:'391 Hesaplanan KDV' },
           { alan:'Mizan bakiyesi', deger:'264.000 TL' },
@@ -832,9 +832,9 @@ SAP.registerTopic({
       { baslik:'Hesap hareketleri belge türüne göre süzülür', tcode:'FBL3N',
         aciklama:'391 hesabının hareketleri belge türüne göre gruplanıyor.',
         girdi:[
-          { alan:'Belge türü **DR** (müşteri faturası)', deger:'176.000 TL — normal satış KDV’si' },
-          { alan:'Belge türü **RV** (SD faturası)', deger:'4.000 TL — normal' },
-          { alan:'Belge türü **SA** (G/L kaydı)', deger:'**84.000 TL — şüpheli**' },
+          { alan:'Belge türü **DR** (müşteri faturası)', deger:'176.000 TL: normal satış KDV’si' },
+          { alan:'Belge türü **RV** (SD faturası)', deger:'4.000 TL: normal' },
+          { alan:'Belge türü **SA** (G/L kaydı)', deger:'**84.000 TL: şüpheli**' },
           { alan:'Toplam', deger:'264.000 TL' },
         ],
         not:'**SA belge türü, vergi hesabında bir alarm işaretidir.** ' +
@@ -848,22 +848,22 @@ SAP.registerTopic({
           { alan:'Açıklama', deger:'"Nisan KDV düzeltmesi"' },
           { alan:'Kaydeden', deger:'Muhasebe müdürü' },
         ],
-        fis:{ baslik:'Belge 100004521 — elle atılan düzeltme', belgeTuru:'SA', tarih:'20.05.2027',
+        fis:{ baslik:'Belge 100004521: elle atılan düzeltme', belgeTuru:'SA', tarih:'20.05.2027',
           satirlar:[
-            { hesap:'120', ad:'Alıcılar — düzeltme', borc:84000 },
+            { hesap:'120', ad:'Alıcılar: düzeltme', borc:84000 },
             { hesap:'391', ad:'Hesaplanan KDV', alacak:84000, not:'**Vergi kodu yok** → {{BSET}}’e satır yazılmadı' },
           ], not:'Fiş **dengeli**, kayıt **geçerli**, mizan **doğru**. ' +
                  'Ama vergi kodu girilmediği için sistem bunu bir vergi işlemi saymadı ve ' +
                  '{{BSET}}’e satır yazmadı. **Beyanname bu 84.000 TL’yi hiç görmüyor.**' },
         tabloEtkisi:[
           { tablo:'BSEG', ne:'391 hesabına 84.000 TL alacak satırı **yazıldı**' },
-          { tablo:'BSET', ne:'**Satır yazılmadı** — sorunun kaynağı' },
+          { tablo:'BSET', ne:'**Satır yazılmadı**: sorunun kaynağı' },
         ],
         not:'Müdür, Nisan ayında eksik faturalanan bir satışın KDV’sini düzeltmek istemiş ve ' +
              'doğrudan vergi hesabına kayıt atmış. Muhasebe açısından **niyeti doğru**; ' +
              'ama yöntemi vergi mimarisini atlıyor.' },
 
-      { baslik:'Doğrulama — F.12 ile belge kırılımı alınır', tcode:'F.12',
+      { baslik:'Doğrulama: F.12 ile belge kırılımı alınır', tcode:'F.12',
         aciklama:'Teşhisin doğruluğu bağımsız bir raporla kontrol ediliyor.',
         girdi:[
           { alan:'Dönem', deger:'Mayıs 2027 · vergi kodu A1' },
@@ -874,42 +874,42 @@ SAP.registerTopic({
              'Bu, teşhisi **iki bağımsız kaynakla** doğruladı: ' +
              'belge {{BSEG}}’de var, {{BSET}}’te yok.' },
 
-      { baslik:'Düzeltme — belge ters kaydedilir', tcode:'FB08',
+      { baslik:'Düzeltme: belge ters kaydedilir', tcode:'FB08',
         aciklama:'Elle atılan kayıt iptal ediliyor.',
         girdi:[
           { alan:'Ters kaydedilen', deger:'100004521' },
-          { alan:'Ters kayıt sebebi', deger:'01 — hatalı kayıt' },
+          { alan:'Ters kayıt sebebi', deger:'01: hatalı kayıt' },
           { alan:'Sonuç', deger:'391 bakiyesi 264.000 → **180.000 TL**' },
         ],
         not:'Ters kayıt sonrası mizan ile beyan raporu **eşitlendi**. ' +
-             'Ama asıl düzeltme henüz yapılmadı — eksik faturalanan satış hâlâ eksik.' },
+             'Ama asıl düzeltme henüz yapılmadı: eksik faturalanan satış hâlâ eksik.' },
 
       { baslik:'Doğru yöntemle yeniden kaydedilir', tcode:'FB70',
         aciklama:'Aynı düzeltme, bu kez **vergi koduyla** ve müşteri faturası olarak giriliyor.',
         girdi:[
-          { alan:'İşlem', deger:'{{FB70}} — müşteri faturası (belge türü DR)' },
+          { alan:'İşlem', deger:'{{FB70}}: müşteri faturası (belge türü DR)' },
           { alan:'Matrah', deger:'420.000 TL' },
           { alan:'Vergi kodu', deger:'**A1** (%20 hesaplanan)' },
-          { alan:'Hesaplanan KDV', deger:'84.000 TL — **sistem hesapladı**' },
+          { alan:'Hesaplanan KDV', deger:'84.000 TL: **sistem hesapladı**' },
         ],
-        fis:{ baslik:'Belge 1800005612 — doğru yöntem', belgeTuru:'DR', tarih:'31.05.2027',
+        fis:{ baslik:'Belge 1800005612: doğru yöntem', belgeTuru:'DR', tarih:'31.05.2027',
           satirlar:[
             { hesap:'120', ad:'Alıcılar', borc:504000 },
-            { hesap:'600', ad:'Yurtiçi satışlar', alacak:420000, not:'Matrah — {{BSET}} `HWBAS`' },
+            { hesap:'600', ad:'Yurtiçi satışlar', alacak:420000, not:'Matrah: {{BSET}} `HWBAS`' },
             { hesap:'391', ad:'Hesaplanan KDV', alacak:84000, not:'{{OB40}} → MWS · **{{BSET}}’e yazıldı**' },
           ], not:'Bu kez vergi kodu girildiği için sistem {{BSET}}’e satır yazdı. ' +
-                 'Ayrıca ilk kayıtta hiç görünmeyen **420.000 TL gelir** de artık muhasebede — ' +
+                 'Ayrıca ilk kayıtta hiç görünmeyen **420.000 TL gelir** de artık muhasebede: ' +
                  'elle atılan kayıt yalnızca KDV’yi düzeltmiş, geliri unutmuştu.' },
         tabloEtkisi:[
           { tablo:'BSEG', ne:'Müşteri, gelir ve KDV kalemleri' },
-          { tablo:'BSET', ne:'**Vergi satırı yazıldı** — matrah 420.000, vergi 84.000' },
+          { tablo:'BSET', ne:'**Vergi satırı yazıldı**: matrah 420.000, vergi 84.000' },
           { tablo:'BSID', ne:'Müşteri açık kalemi 504.000 TL' },
         ],
         not:'**Elle atılan kayıt aslında iki hata içeriyordu:** ' +
              '(1) vergi kodu yoktu, (2) gelir hiç kaydedilmemişti. ' +
              'Doğru yöntem ikisini birden çözdü.' },
 
-      { baslik:'Önlem — vergi hesapları kilitlenir', tcode:'FS00',
+      { baslik:'Önlem: vergi hesapları kilitlenir', tcode:'FS00',
         aciklama:'Aynı hatanın tekrarını **sistemsel olarak** imkânsız hâle getiriyoruz.',
         girdi:[
           { alan:'Hesaplar', deger:'191 ve 391' },
@@ -922,7 +922,7 @@ SAP.registerTopic({
     ],
 
     sonuc:
-      '**84.000 TL’lik fark, iyi niyetle atılmış tek bir elle kayıttan çıktı** — ve o kayıt ' +
+      '**84.000 TL’lik fark, iyi niyetle atılmış tek bir elle kayıttan çıktı**: ve o kayıt ' +
       'aynı zamanda 420.000 TL’lik geliri de atlamıştı.\n\n' +
       '**Dört kritik ders:**\n\n' +
       '**1. Vergi bilgisi {{BSEG}}’de değil {{BSET}}’te tutulur.** Beyanname {{BSET}}’ten üretilir. ' +
@@ -945,7 +945,7 @@ SAP.registerTopic({
       'Hesaplanan KDV (391) devlete **borç**, indirilecek KDV (191) devletten **alacaktır**.',
       '**İndirilemeyen KDV** ayrı hesaba değil, **giderin veya varlığın maliyetine** eklenir ({{OB40}} → NAV).',
       'İşlem anahtarları: **MWS** hesaplanan · **VST** indirilecek · **NAV** indirilemeyen.',
-      'Kullanılmaya başlanmış kodun **oranı değiştirilmez** — yeni kod açılır.',
+      'Kullanılmaya başlanmış kodun **oranı değiştirilmez**: yeni kod açılır.',
       'Vergi hesabına **elle** atılan kayıt {{BSET}}’e yazmaz → beyan ile mizan ayrışır.',
       'Önlem: vergi hesaplarını {{FS00}}’da **"yalnızca otomatik kayıt"** yap.',
     ],
@@ -954,7 +954,7 @@ SAP.registerTopic({
       '**"İndirilemeyen KDV nereye kaydedilir?"** Ayrı bir vergi hesabına **değil**, ilgili giderin veya varlığın **maliyetine**. İndirilemiyorsa devletten alacak değildir, dolayısıyla varlık değil maliyettir. En sık sorulan vergi sorusudur.',
       '**"Beyan raporu ile mizan neden tutmaz?"** Rapor {{BSET}}’ten, mizan {{BSEG}}’den gelir. Vergi hesabına vergi kodsuz elle kayıt atılırsa {{BSEG}}’e yazılır, {{BSET}}’e yazılmaz.',
       '**"Vergi kodunun oranı değiştirilebilir mi?"** Teknik olarak evet, **muhasebeten hayır**. Geçmiş ve yeni belgeler aynı kod altında farklı oranlarla toplanır; beyan tutarsız çıkar. Yeni kod açılır.',
-      '**"MWS, VST, NAV nedir?"** {{OB40}} işlem anahtarları: hesaplanan, indirilecek, indirilemeyen. NAV’a atanan hesap genelde **kullanılmaz** — tutar gider/varlık satırına eklenir.',
+      '**"MWS, VST, NAV nedir?"** {{OB40}} işlem anahtarları: hesaplanan, indirilecek, indirilemeyen. NAV’a atanan hesap genelde **kullanılmaz**: tutar gider/varlık satırına eklenir.',
       '**"Sıfır oranlı ile vergisiz farkı?"** Sıfır oranlı **kapsam içindedir** (matrah beyan edilir, vergi 0); vergisiz **kapsam dışındadır**. Muhasebe kaydı benzer, **beyannamedeki yeri farklıdır**.',
       '**"{{tevkifat}} nasıl çalışır?"** Ödeyen, ödeyeceği tutardan vergiyi keser ve doğrudan vergi dairesine yatırır. Satıcının borcu kesinti kadar azalır. Satıcı ana verisinde tevkifat tipi/kodu tanımlı olmalıdır.',
       '**"Vergi hatası nasıl fark edilir?"** Fiş dengeli, mizan tutar, alarm yok. Tek yol: {{S_ALR_87012357}} beyan raporunu {{FBL3N}}’deki 191/391 bakiyeleriyle **her ay** karşılaştırmak.',
@@ -968,17 +968,17 @@ SAP.registerTopic({
       { hata:'İndirilemeyen KDV için ayrı gider hesabı açmak.', dogru:'Gerekmez ve yanlıştır; tutar ilgili kalemin gerçek maliyetidir, ayrı izlenmez.' },
       { hata:'Sıfır oranlı ile vergisizi aynı saymak.', dogru:'Sıfır oranlı kapsam içindedir ve matrahı beyan edilir; vergisiz kapsam dışındadır.' },
       { hata:'Beyan raporunu mizanla hiç karşılaştırmamak.', dogru:'Aylık rutin olmalıdır; vergi hatasının başka erken uyarısı yoktur.' },
-      { hata:'Canlıya geçişte vergi oranlarını doğrulamamak.', dogru:'Her kodun oranı canlıda tek tek kontrol edilmelidir — oranlar taşınmayabilir.' },
+      { hata:'Canlıya geçişte vergi oranlarını doğrulamamak.', dogru:'Her kodun oranı canlıda tek tek kontrol edilmelidir: oranlar taşınmayabilir.' },
       { hata:'Vergi hesaplarını normal kayda açık bırakmak.', dogru:'{{FS00}}’da **"yalnızca otomatik kayıt"** işaretlenir; hata sınıfını sistemsel olarak kapatır.' },
     ],
 
     ipuclari:[
       'Vergi kodu isimlendirmesini baştan disiplinli yap: `V1` %20 indirilecek, `V0` %0, ' +
       '`VN` indirilemeyen, `A1` %20 hesaplanan. 40 kod olduğunda tek kurtarıcı budur.',
-      '{{OBZT}} ile alışta yalnızca V*, satışta yalnızca A* kodlarını göster — yön hatasını sıfırlar.',
+      '{{OBZT}} ile alışta yalnızca V*, satışta yalnızca A* kodlarını göster: yön hatasını sıfırlar.',
       'Beyan farkı teşhisinde ilk filtre: {{FBL3N}}’de vergi hesabında **belge türü SA** olan satırlar.',
       'Farkın **yönü** teşhisi ikiye böler: mizan fazla → elle kayıt; rapor fazla → temizlenmemiş ters kayıt.',
-      '{{F.12}} ile beyan raporundaki tutarı belge belge kırabilirsin — denetimde en çok istenen dökümdür.',
+      '{{F.12}} ile beyan raporundaki tutarı belge belge kırabilirsin: denetimde en çok istenen dökümdür.',
       'NAV hesabına kayıt gelmemesi **normaldir**; boşuna yapılandırma arama.',
     ],
 
@@ -1003,7 +1003,7 @@ SAP.registerTopic({
         ], dogru:1,
         aciklama:'Vergi bilgisi (matrah + vergi tutarı) {{BSEG}}’den **ayrı** olarak {{BSET}}’te tutulur. ' +
                  'Bu ayrım kritiktir: vergi hesabına vergi kodsuz elle kayıt atılırsa {{BSEG}}’e yazılır ' +
-                 'ama {{BSET}}’e yazılmaz — mizanda görünür, beyanda görünmez.' },
+                 'ama {{BSET}}’e yazılmaz: mizanda görünür, beyanda görünmez.' },
 
       { soru:'KDV oranı %18’den %20’ye çıktı. Ne yapılmalı?',
         secenekler:[
@@ -1012,7 +1012,7 @@ SAP.registerTopic({
           'Kullanıcılar tutarı elle girer',
           '{{OB40}}’ta hesap değiştirilir',
         ], dogru:1,
-        aciklama:'Mevcut kodun oranı değiştirilirse geçmiş belgeler %18, yeniler %20 tutarla kalır — ' +
+        aciklama:'Mevcut kodun oranı değiştirilirse geçmiş belgeler %18, yeniler %20 tutarla kalır: ' +
                  'veri doğrudur ama **rapor ikisini aynı kod altında toplar** ve beyan tutarsız çıkar. ' +
                  'Her kod tek bir oranı temsil etmelidir.' },
 
@@ -1023,7 +1023,7 @@ SAP.registerTopic({
           '{{OB40}} hesap ataması',
           'Kur farkları',
         ], dogru:1,
-        aciklama:'**Mizan fazlaysa** {{BSEG}}’e yazılıp {{BSET}}’e yazılmayan bir kayıt vardır — ' +
+        aciklama:'**Mizan fazlaysa** {{BSEG}}’e yazılıp {{BSET}}’e yazılmayan bir kayıt vardır: ' +
                  'bunun tek yolu elle atılmış G/L kaydıdır. Vergi kalemleri normalde fatura ' +
                  'kayıtlarından (DR/KR/RV) doğar; **SA belge türü alarm işaretidir**.' },
 
@@ -1045,14 +1045,14 @@ SAP.registerTopic({
           '**Sıfır oranlı kapsam içindedir ve matrahı beyan edilir; vergisiz kapsam dışındadır**',
           'Fark yoktur',
         ], dogru:2,
-        aciklama:'Sıfır oranlı işlem **vergiye tabidir**, oranı sadece %0’dır — matrah beyannamede görünür ve ' +
+        aciklama:'Sıfır oranlı işlem **vergiye tabidir**, oranı sadece %0’dır: matrah beyannamede görünür ve ' +
                  '{{BSET}}’e satır yazılır. Vergisiz işlem kapsam dışıdır. ' +
                  'Muhasebe kaydı benzer göründüğü için karıştırılır; **fark beyannamededir**.' },
 
       { soru:'Canlıya geçişte vergiyle ilgili en sinsi risk nedir?',
         secenekler:[
           '{{OB40}} hesapları taşınmaz',
-          '**Vergi kodu taşınır ama oranı taşınmayabilir — sistem hata vermeden %0 hesaplar**',
+          '**Vergi kodu taşınır ama oranı taşınmayabilir: sistem hata vermeden %0 hesaplar**',
           '{{BSET}} tablosu oluşmaz',
           'Belge türleri değişir',
         ], dogru:1,
@@ -1074,16 +1074,16 @@ SAP.registerTopic({
     ],
 
     flashcards:[
-      { on:'Vergi kodu hangi üç şeyi taşır?', arka:'**1. Oran** (%20, %10, %0)\n**2. Tip** — A çıkış (hesaplanan) / V giriş (indirilecek)\n**3. Hesap ataması** — OB40 üzerinden hangi G/L hesabına\n\nTanım: FTXP → T007A' },
-      { on:'Vergi bilgisi hangi tabloda tutulur?', arka:'**BSET** — matrah (HWBAS) + vergi tutarı (HWSTE) + vergi kodu.\n\n**BSEG değil.** Beyanname BSET’ten üretilir.\n\nBu ayrım, "rapor ile mizan neden tutmuyor?" sorusunun cevabıdır.' },
+      { on:'Vergi kodu hangi üç şeyi taşır?', arka:'**1. Oran** (%20, %10, %0)\n**2. Tip**: A çıkış (hesaplanan) / V giriş (indirilecek)\n**3. Hesap ataması**: OB40 üzerinden hangi G/L hesabına\n\nTanım: FTXP → T007A' },
+      { on:'Vergi bilgisi hangi tabloda tutulur?', arka:'**BSET**: matrah (HWBAS) + vergi tutarı (HWSTE) + vergi kodu.\n\n**BSEG değil.** Beyanname BSET’ten üretilir.\n\nBu ayrım, "rapor ile mizan neden tutmuyor?" sorusunun cevabıdır.' },
       { on:'İndirilemeyen KDV nereye kaydedilir?', arka:'**İlgili giderin veya varlığın maliyetine eklenir.**\n\n10.000 gider + 2.000 KDV → tek satır **12.000 gider**\n\n191’e yazılmaz (varlık değil), ayrı gider hesabı açılmaz.\nOB40 → **NAV** anahtarı.' },
-      { on:'MWS, VST, NAV nedir?', arka:'{{OB40}} işlem anahtarları:\n\n**MWS** — hesaplanan (çıkış) KDV → 391\n**VST** — indirilecek (giriş) KDV → 191\n**NAV** — indirilemeyen → hesap atanır ama **kullanılmaz**, tutar maliyete eklenir' },
-      { on:'Vergi oranı değişti. Ne yaparsın?', arka:'**Yeni kod açarsın**, eskisini kapatırsın.\n\nMevcut kodun oranını değiştirirsen geçmiş belgeler eski oranla, yeniler yeni oranla kalır — ama rapor **ikisini aynı kod altında toplar**.\n\nHer kod = tek oran.' },
+      { on:'MWS, VST, NAV nedir?', arka:'{{OB40}} işlem anahtarları:\n\n**MWS**, hesaplanan (çıkış) KDV → 391\n**VST**, indirilecek (giriş) KDV → 191\n**NAV**, indirilemeyen → hesap atanır ama **kullanılmaz**, tutar maliyete eklenir' },
+      { on:'Vergi oranı değişti. Ne yaparsın?', arka:'**Yeni kod açarsın**, eskisini kapatırsın.\n\nMevcut kodun oranını değiştirirsen geçmiş belgeler eski oranla, yeniler yeni oranla kalır: ama rapor **ikisini aynı kod altında toplar**.\n\nHer kod = tek oran.' },
       { on:'Beyan raporu ile mizan neden ayrışır?', arka:'Rapor **BSET**’ten, mizan **BSEG**’den gelir.\n\nVergi hesabına **vergi kodsuz elle kayıt** atılırsa BSEG’e yazılır, BSET’e yazılmaz → mizanda var, beyanda yok.\n\nÖnlem: FS00 → "yalnızca otomatik kayıt".' },
-      { on:'Beyan farkı teşhisi — nereden başlarsın?', arka:'**Farkın yönüne bak:**\n\n**Mizan fazla** → BSET’e yazılmayan elle kayıt ara (FBL3N’de belge türü **SA**)\n\n**Rapor fazla** → temizlenmemiş ters kayıt ara\n\nYön, aramayı ikiye böler.' },
-      { on:'391 ve 191 hesapları ne anlama gelir?', arka:'**391 Hesaplanan KDV** — satışta tahsil edilen, devlete **borç** (kaynak)\n\n**191 İndirilecek KDV** — alışta ödenen, devletten **alacak** (varlık)\n\nAy sonunda mahsuplaşır → 360 ödenecek veya 190 devreden.' },
-      { on:'Sıfır oranlı vs vergisiz farkı?', arka:'**Sıfır oranlı (%0):** kapsam **içinde**, matrah beyan edilir, BSET’e satır yazılır. (İhracat)\n\n**Vergisiz (istisna):** kapsam **dışında**, farklı beyan satırı.\n\nMuhasebe kaydı benzer — **fark beyannamededir**.' },
-      { on:'Tevkifat (stopaj) nasıl çalışır?', arka:'Ödeyen, ödeyeceği tutardan vergiyi **keser** ve doğrudan vergi dairesine yatırır.\n\nFatura 120.000 → satıcıya 100.000 ödenir, 20.000 devlete.\n\nSatıcı ana verisinde tevkifat tipi/kodu **tanımlı olmalı** — yoksa sessizce kesinti yapılmaz.' },
+      { on:'Beyan farkı teşhisi: nereden başlarsın?', arka:'**Farkın yönüne bak:**\n\n**Mizan fazla** → BSET’e yazılmayan elle kayıt ara (FBL3N’de belge türü **SA**)\n\n**Rapor fazla** → temizlenmemiş ters kayıt ara\n\nYön, aramayı ikiye böler.' },
+      { on:'391 ve 191 hesapları ne anlama gelir?', arka:'**391 Hesaplanan KDV**, satışta tahsil edilen, devlete **borç** (kaynak)\n\n**191 İndirilecek KDV**, alışta ödenen, devletten **alacak** (varlık)\n\nAy sonunda mahsuplaşır → 360 ödenecek veya 190 devreden.' },
+      { on:'Sıfır oranlı vs vergisiz farkı?', arka:'**Sıfır oranlı (%0):** kapsam **içinde**, matrah beyan edilir, BSET’e satır yazılır. (İhracat)\n\n**Vergisiz (istisna):** kapsam **dışında**, farklı beyan satırı.\n\nMuhasebe kaydı benzer: **fark beyannamededir**.' },
+      { on:'Tevkifat (stopaj) nasıl çalışır?', arka:'Ödeyen, ödeyeceği tutardan vergiyi **keser** ve doğrudan vergi dairesine yatırır.\n\nFatura 120.000 → satıcıya 100.000 ödenir, 20.000 devlete.\n\nSatıcı ana verisinde tevkifat tipi/kodu **tanımlı olmalı**: yoksa sessizce kesinti yapılmaz.' },
       { on:'Canlıya geçişte vergi riski nedir?', arka:'**Vergi kodu taşınır, oranı taşınmayabilir.**\n\nTestte %20 hesaplayan kod canlıda **%0** hesaplar ve **hiçbir hata vermez**.\n\nGeçişte her kodun oranı **tek tek** doğrulanmalıdır.' },
       { on:'Vergi hatası nasıl fark edilir?', arka:'**Kendiliğinden fark edilmez.** Fiş dengeli, mizan tutar, alarm yok.\n\nTek yol: **S_ALR_87012357** beyan raporunu **FBL3N**’deki 191/391 bakiyeleriyle **her ay** karşılaştırmak.\n\nAylık rutin olmalı.' },
     ],

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   data/catalog.js — Modüller, konu grupları ve konu kataloğu
+   data/catalog.js: Modüller, konu grupları ve konu kataloğu
    --------------------------------------------------------------------------
    Buradaki her konu bir "stub"tır: kart bilgisi (başlık, ikon, renk, özet,
    ilgili konular, T-code ve tablo listesi) vardır ama derin `sections` yoktur.
@@ -13,21 +13,21 @@
    ========================================================================== */
 
 SAP.registerModule({ id:'FI', name:'Finansal Muhasebe', short:'FI', icon:'💰', order:1,
-  aciklama:'SAP S/4HANA Financial Accounting — dış muhasebe, yasal raporlama ve ödeme süreçleri.' });
+  aciklama:'SAP S/4HANA Financial Accounting: dış muhasebe, yasal raporlama ve ödeme süreçleri.' });
 
-/* Kenar çubuğundaki gruplar — sıra burada belirlenir.
+/* Kenar çubuğundaki gruplar: sıra burada belirlenir.
 
    `hue` = oklch renk açısı. RENK KONUYA DEĞİL GRUBA AİTTİR:
    36 konuya 36 ayrı ton vermek kataloğu dağıtıyordu; 9 grup rengi
    hem renkli hem düzenli bir katalog verir. Tonlar aynı açıklık ve
    doygunlukta üretildiği için (bkz. theme.css renk formülü) dokuzu
-   birlikte tek bir aile gibi okunur — gökkuşağı gibi değil.
+   birlikte tek bir aile gibi okunur: gökkuşağı gibi değil.
 
    Renk burada bir SINIFLANDIRMA aracıdır: aynı renk = aynı grup.  */
 /* Dokuz açı renk çemberine EŞİT aralıkla (33°) yerleştirilmiştir.
-   Marka (252 — #001F3F) açı olarak `islemler`e (264) 12° yakındır ama
+   Marka (252: #001F3F) açı olarak `islemler`e (264) 12° yakındır ama
    AÇIKLIK olarak çok uzaktır: marka %23.8, grup tonları %54. Bu yüzden
-   karışmazlar — ayrım renkten değil, koyuluktan geliyor.  */
+   karışmazlar: ayrım renkten değil, koyuluktan geliyor.  */
 SAP.GROUPS = [
   { id:'temeller',    ad:'Temeller',              ic:'🧱', hue:165 },
   { id:'surecler',    ad:'Ana Süreçler',          ic:'🏛️', hue:231 },
@@ -50,7 +50,7 @@ SAP.grupHue = function (grupId) {
   /* ------------------------------------------------------- Temeller --- */
   { id:'genel-muhasebe', grup:'temeller', title:'Genel Muhasebe', icon:'📗', hue:150,
     level:'Başlangıç', minutes:40,
-    summary:'SAP’a girmeden önce bilinmesi gereken muhasebe dili: borç–alacak mantığı, çift taraflı kayıt, bilanço ve gelir tablosu, tahakkuk esası.',
+    summary:'SAP’a girmeden önce bilinmesi gereken muhasebe dili: borç-alacak mantığı, çift taraflı kayıt, bilanço ve gelir tablosu, tahakkuk esası.',
     related:['fi-temelleri','gl-accounting','document-posting'],
     tcodes:[], tables:[] },
 
@@ -62,7 +62,7 @@ SAP.grupHue = function (grupId) {
 
   { id:'org-yapisi', grup:'temeller', title:'Kuruluş Yapısı', icon:'🏗️', hue:200,
     level:'Başlangıç', minutes:35,
-    summary:'Şirket, şirket kodu, iş alanı, hesap planı, mali yıl varyantı, kredi kontrol alanı — FI’ın üzerine kurulduğu organizasyon iskeleti.',
+    summary:'Şirket, şirket kodu, iş alanı, hesap planı, mali yıl varyantı, kredi kontrol alanı: FI’ın üzerine kurulduğu organizasyon iskeleti.',
     related:['fi-temelleri','master-data','new-gl'],
     tcodes:['OX02','OBY6','OB13','OB29'], tables:['T001','T004','T009'] },
 
@@ -112,7 +112,7 @@ SAP.grupHue = function (grupId) {
   /* ------------------------------------------------ Günlük İşlemler --- */
   { id:'document-posting', grup:'islemler', title:'Belge Kaydı', icon:'✍️', hue:290,
     level:'Orta', minutes:50,
-    summary:'Bir FI belgesi nasıl doğar: belge türü, kayıt anahtarı, alan durumu, numara aralığı, kayıt tarihi–belge tarihi ayrımı ve belge iptali.',
+    summary:'Bir FI belgesi nasıl doğar: belge türü, kayıt anahtarı, alan durumu, numara aralığı, kayıt tarihi-belge tarihi ayrımı ve belge iptali.',
     related:['gl-accounting','document-parking','error-handling','fi-temelleri'],
     tcodes:['FB50','F-02','FB60','FB03','FB08','OBA7','FBN1'], tables:['BKPF','BSEG','T003','TBSL'] },
 
@@ -183,7 +183,7 @@ SAP.grupHue = function (grupId) {
   /* ---------------------------------------------- Muhasebe Mimarisi --- */
   { id:'new-gl', grup:'mimari', title:'Yeni Ana Muhasebe', icon:'🧭', hue:285,
     level:'İleri', minutes:50,
-    summary:'Klasik ana muhasebeden farkı: genişletilmiş veri yapısı, belge bölme (document splitting), gerçek zamanlı FI–CO entegrasyonu.',
+    summary:'Klasik ana muhasebeden farkı: genişletilmiş veri yapısı, belge bölme (document splitting), gerçek zamanlı FI-CO entegrasyonu.',
     related:['parallel-ledger','gl-accounting','s4-yenilikleri','co-integration'],
     tcodes:['FAGLL03','FAGLB03'], tables:['FAGLFLEXA','FAGLFLEXT','ACDOCA'] },
 
@@ -214,14 +214,14 @@ SAP.grupHue = function (grupId) {
 
   { id:'sd-integration', grup:'entegrasyon', title:'SD Entegrasyonu', icon:'🛒', hue:355,
     level:'İleri', minutes:45,
-    summary:'Satış faturasının FI’a aktarılması: gelir hesabı belirleme, aktarım hataları ve teslimat–fatura–muhasebe zinciri.',
+    summary:'Satış faturasının FI’a aktarılması: gelir hesabı belirleme, aktarım hataları ve teslimat-fatura-muhasebe zinciri.',
     related:['accounts-receivable','taxes','gl-accounting'],
     tcodes:['VF01','VF02','VKOA'], tables:['VBRK','VBRP','BKPF'] },
 
   /* -------------------------------------------- Teknik & Raporlama --- */
   { id:'sap-tables', grup:'teknik', title:'FI Tablo Mimarisi', icon:'🗃️', hue:220,
     level:'Orta', minutes:45,
-    summary:'FI tablo mimarisi: başlık–kalem ilişkisi, indeks ve toplam tabloları, tabloların birbirine nasıl bağlandığı ve S/4HANA’daki sadeleşme.',
+    summary:'FI tablo mimarisi: başlık-kalem ilişkisi, indeks ve toplam tabloları, tabloların birbirine nasıl bağlandığı ve S/4HANA’daki sadeleşme.',
     related:['s4-yenilikleri','gl-accounting','reporting'],
     tcodes:['SE16N','SE11'], tables:['BKPF','BSEG','ACDOCA','BSIK','BSID','CDHDR','CDPOS'] },
 
@@ -233,7 +233,7 @@ SAP.grupHue = function (grupId) {
 
   /* BAPI ve BAdI: FI danışmanının kod YAZMADAN bilmesi gereken iki
      geliştirme arayüzü. Biri sisteme dışarıdan girer (BAPI), diğeri
-     sistemin içine girer (BAdI) — ikisi de kayıt anında devreye girdiği
+     sistemin içine girer (BAdI): ikisi de kayıt anında devreye girdiği
      için teşhiste sürekli karşılaşılır. */
   { id:'bapi', grup:'teknik', title:'BAPI (İş Nesnesi Arayüzü)', icon:'🔌', hue:205,
     level:'İleri', minutes:45,

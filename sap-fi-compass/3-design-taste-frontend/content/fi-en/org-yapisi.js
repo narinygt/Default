@@ -1,6 +1,6 @@
 /* ==========================================================================
-   content/fi-en/org-yapisi.js — English body for "Organizational Structure"
-   Same conventions as content/fi-en/genel-muhasebe.js — see that file's
+   content/fi-en/org-yapisi.js: English body for "Organizational Structure"
+   Same conventions as content/fi-en/genel-muhasebe.js: see that file's
    header comment.
    ========================================================================== */
 
@@ -19,7 +19,7 @@ SAP.registerTopic({
       '**"How is the year split?"** → {{mali-yil-varyanti}}\n' +
       '**"In which currency?"** → local currency\n\n' +
       'These four decisions are **linked to each other**, and almost none of them can be changed afterward. Changing ' +
-      'a company code\'s chart of accounts after go-live is practically impossible — every posting references it.\n\n' +
+      'a company code\'s chart of accounts after go-live is practically impossible: every posting references it.\n\n' +
       'This is what sets the organizational structure apart: **the cost of a mistake here is proportional not to its ' +
       'size, but to how late it is noticed.**',
 
@@ -30,7 +30,7 @@ SAP.registerTopic({
       '**Shared use.** Conversely, some things **should** be shared: if the same vendor sells goods to two companies, ' +
       'it shouldn\'t be defined twice.\n\n' +
       '**Consolidation.** For group reporting, how the companies will roll up has to be planned from the start.\n\n' +
-      '**Authorization.** Who can post in which company code — authorization rests on this structure.',
+      '**Authorization.** Who can post in which company code: authorization rests on this structure.',
 
     sirketOnemi:
       'Organizational structure decisions are made in the project\'s **first two weeks** and live for **ten years**. ' +
@@ -44,17 +44,17 @@ SAP.registerTopic({
 
     gercekHayat:
       'A holding company operates in Turkey and Germany. Three questions land on the table at the kickoff meeting:\n\n' +
-      '**1. How many company codes?** Two — two separate legal entities, two separate balance sheets.\n\n' +
+      '**1. How many company codes?** Two: two separate legal entities, two separate balance sheets.\n\n' +
       '**2. How many charts of accounts?** This is where the argument starts. Turkey uses the Uniform Chart of ' +
       'Accounts, Germany uses SKR. Setting up two separate charts feels "natural."\n\n' +
-      '**But:** with separate charts, a shared {{kontrol-alani}} can\'t be built — cross-company cost allocation ' +
+      '**But:** with separate charts, a shared {{kontrol-alani}} can\'t be built: cross-company cost allocation ' +
       'becomes impossible. Consolidation also needs manual mapping.\n\n' +
       '**The solution:** a single **operational chart of accounts** is built (the group standard). Local statutory ' +
       'needs are met with a **country chart of accounts**: the same account can appear under a different number in ' +
       'local reporting.\n\n' +
-      '**3. Fiscal year variant?** Both run January–December → same variant. Had they differed, a shared controlling ' +
+      '**3. Fiscal year variant?** Both run January-December → same variant. Had they differed, a shared controlling ' +
       'area still couldn\'t be built.\n\n' +
-      'The answers to all three questions are linked — **which is exactly why they\'re decided together**.',
+      'The answers to all three questions are linked: **which is exactly why they\'re decided together**.',
 
     muhasebeMantigi:
       'The organizational structure\'s accounting logic rests on **a single principle**: **a balance sheet is ' +
@@ -67,7 +67,7 @@ SAP.registerTopic({
       'same chart, their balance sheets can be **summed directly**. If they use different charts, every account has ' +
       'to be mapped by hand.\n\n' +
       'The third principle: **the fiscal year variant is the system\'s counterpart to the matching principle.** It ' +
-      'decides which date falls into which period; special periods (13–16) let closing entries be kept apart from ' +
+      'decides which date falls into which period; special periods (13-16) let closing entries be kept apart from ' +
       'the regular months.',
 
     kavramlar: ['sirket-kodu', 'hesap-plani', 'mali-yil-varyanti', 'is-alani',
@@ -78,13 +78,13 @@ SAP.registerTopic({
   surec: {
     anlatim:
       'Building the organizational structure moves **top-down**: shared structures first (chart of accounts, fiscal ' +
-      'year variant), then the company code, and assignments last. The order can\'t be reversed — the lower level ' +
+      'year variant), then the company code, and assignments last. The order can\'t be reversed: the lower level ' +
       'references the higher one.',
 
     roller:[
-      { rol:'Project management', gorev:'How many legal entities, how many countries, how consolidation will work — a **business decision**.' },
+      { rol:'Project management', gorev:'How many legal entities, how many countries, how consolidation will work: a **business decision**.' },
       { rol:'FI consultant', gorev:'Designs the chart of accounts, fiscal year variant, and company code.' },
-      { rol:'CO consultant', gorev:'Designs the {{kontrol-alani}} **together with** FI — it\'s a dependency.' },
+      { rol:'CO consultant', gorev:'Designs the {{kontrol-alani}} **together with** FI: it\'s a dependency.' },
       { rol:'Tax advisor', gorev:'States the local statutory reporting requirements (country chart of accounts).' },
       { rol:'Authorization', gorev:'Builds authorization structure keyed on company code.' },
       { rol:'Basis', gorev:'Moves settings from test to production via a transport request.' },
@@ -92,18 +92,18 @@ SAP.registerTopic({
 
     diyagram:{
       type:'flow',
-      baslik:'Build order — top to bottom, irreversible',
+      baslik:'Build order: top to bottom, irreversible',
       adimlar:[
         { ic:'📗', rol:'FI consultant', baslik:'{{hesap-plani}} is defined ({{OB13}})',
           aciklama:'**The most fundamental decision.** A **single operational chart of accounts** should be the ' +
                    'target group-wide; otherwise a shared controlling area and easy consolidation become impossible.',
           cikti:'Chart of accounts', ok:'the year is split' },
         { ic:'📅', rol:'FI consultant', baslik:'{{mali-yil-varyanti}} is defined ({{OB29}})',
-          aciklama:'How many regular periods (usually 12), how many **special periods** (13–16). If it differs from ' +
-                   'the calendar year (April–March), it\'s decided here.',
+          aciklama:'How many regular periods (usually 12), how many **special periods** (13-16). If it differs from ' +
+                   'the calendar year (April-March), it\'s decided here.',
           cikti:'Fiscal year variant', ok:'the company is opened' },
         { ic:'🏢', rol:'FI consultant', baslik:'{{sirket-kodu}} is created ({{OX02}})',
-          aciklama:'**Create by copying** — never from scratch. Copying brings along hundreds of linked settings and ' +
+          aciklama:'**Create by copying**: never from scratch. Copying brings along hundreds of linked settings and ' +
                    'reduces the risk of a forgotten one.',
           cikti:'Company code', ok:'settings are linked' },
         { ic:'🔗', rol:'FI consultant', baslik:'Global parameters are assigned ({{OBY6}})',
@@ -128,7 +128,7 @@ SAP.registerTopic({
       { rol:'FI consultant', eylem:'Defines the chart of accounts', sistem:'{{OB13}} → {{T004}}' },
       { rol:'FI consultant', eylem:'Defines the fiscal year variant', sistem:'{{OB29}} → {{T009}}' },
       { rol:'FI consultant', eylem:'Creates the company code **by copying**', sistem:'{{OX02}} → {{T001}}' },
-      { rol:'FI consultant', eylem:'Assigns the global parameters', sistem:'{{OBY6}} — four critical fields' },
+      { rol:'FI consultant', eylem:'Assigns the global parameters', sistem:'{{OBY6}}: four critical fields' },
       { rol:'FI consultant', eylem:'Assigns the posting period variant', sistem:'{{OB52}} → {{T001B}}' },
       { rol:'CO consultant', eylem:'Builds the controlling area and assigns company codes', sistem:'{{OKKP}} → {{TKA01}}' },
       { rol:'FI consultant', eylem:'Defines the credit control area', sistem:'{{OB45}} → {{T014}}' },
@@ -150,7 +150,7 @@ SAP.registerTopic({
         'A company code has **hundreds of linked settings**: document types, number ranges, tolerance groups, field ' +
         'status, tax settings, bank definitions…\n\n' +
         'None of these exist on a company code opened from scratch. The gaps surface **one error at a time**, and ' +
-        'each has to be solved separately — it takes weeks.\n\n' +
+        'each has to be solved separately: it takes weeks.\n\n' +
         '**The right method:** **copy** a working company code (or SAP\'s model one), then fix the differences. ' +
         'Copying brings the linked settings along.\n\n' +
         'What to always check after copying: country, currency, tax settings, bank accounts, address. These come ' +
@@ -161,7 +161,7 @@ SAP.registerTopic({
   /* =================================================== 3. ACCOUNTING LOGIC === */
   muhasebe: {
     anlatim:
-      'The organizational structure\'s accounting impact **doesn\'t directly produce a posting** — but it decides ' +
+      'The organizational structure\'s accounting impact **doesn\'t directly produce a posting**: but it decides ' +
       'which balance sheet every posting will end up on. The examples below show how the structure is reflected in ' +
       'postings.',
 
@@ -169,14 +169,14 @@ SAP.registerTopic({
       { hesap:'All accounts', tur:'Variable', neden:'Every posting belongs to a {{sirket-kodu}}; the balance sheet is produced at the company-code level.' },
       { hesap:'Intercompany payable/receivable accounts', tur:'Balance sheet', neden:'A cross-company-code transaction produces **two separate documents**; these accounts build the bridge.' },
       { hesap:'Country chart of accounts equivalents', tur:'Reporting', neden:'The operational chart is the group standard; an **alternative account number** is used for the local statutory report.' },
-      { hesap:'Posting period control', tur:'Structural', neden:'{{T001B}} — which account type can be posted to in which period ({{OB52}}).' },
+      { hesap:'Posting period control', tur:'Structural', neden:'{{T001B}}: which account type can be posted to in which period ({{OB52}}).' },
     ],
 
     fisler:[
-      { baslik:'Normal posting — single company code',
+      { baslik:'Normal posting: single company code',
         belgeTuru:'KR', tarih:'10.03.2027', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'770', ad:'General administrative expense — **company code 1000**', borc:50000 },
+          { hesap:'770', ad:'General administrative expense: **company code 1000**', borc:50000 },
           { hesap:'191', ad:'Deductible VAT', borc:10000 },
           { hesap:'320', ad:'Trade payables', alacak:60000 },
         ],
@@ -184,22 +184,22 @@ SAP.registerTopic({
              'This is what **99% of postings** look like. The company code field is entered once on the posting ' +
              'screen, and every line inherits it.' },
 
-      { baslik:'Cross-company posting — **two documents are created**',
+      { baslik:'Cross-company posting: **two documents are created**',
         belgeTuru:'KR', tarih:'15.03.2027', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'770', ad:'Expense — **company code 2000** (bearing the cost)', borc:80000 },
-          { hesap:'395', ad:'Intercompany payables — to company 1000', alacak:80000, not:'2000\'s document' },
-          { hesap:'195', ad:'Intercompany receivables — from company 2000', borc:80000, not:'1000\'s document' },
-          { hesap:'320', ad:'Trade payables — **company code 1000** (received the invoice)', alacak:80000 },
+          { hesap:'770', ad:'Expense: **company code 2000** (bearing the cost)', borc:80000 },
+          { hesap:'395', ad:'Intercompany payables: to company 1000', alacak:80000, not:'2000\'s document' },
+          { hesap:'195', ad:'Intercompany receivables: from company 2000', borc:80000, not:'1000\'s document' },
+          { hesap:'320', ad:'Trade payables: **company code 1000** (received the invoice)', alacak:80000 },
         ],
-        not:'The invoice arrived at 1000, but the expense belongs to 2000. **A single document isn\'t enough** — ' +
+        not:'The invoice arrived at 1000, but the expense belongs to 2000. **A single document isn\'t enough**: ' +
              'because each legal entity produces its own balance sheet.\n\n' +
              'The system creates **two separate documents** and builds the bridge with intercompany accounts. Each ' +
              'company\'s document is balanced on its own.\n\n' +
-             'In consolidation, 395 and 195 **cancel each other out** — no liability arose toward anyone outside the ' +
+             'In consolidation, 395 and 195 **cancel each other out**: no liability arose toward anyone outside the ' +
              'group.' },
 
-      { baslik:'Country chart of accounts — **one posting**, reported under two numbers',
+      { baslik:'Country chart of accounts: **one posting**, reported under two numbers',
         belgeTuru:'KR', tarih:'20.03.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'400100', ad:'Office expenses (operational/group chart)', borc:50000,
@@ -207,25 +207,25 @@ SAP.registerTopic({
           { hesap:'160000', ad:'Trade payables (operational/group chart)', alacak:50000,
             not:'Printed as **320** on the local report' },
         ],
-        not:'**The posting happens only once** — on the operational (group) chart of accounts.\n\n' +
+        not:'**The posting happens only once**: on the operational (group) chart of accounts.\n\n' +
              'Turkey\'s statutory report requires Uniform Chart of Accounts numbers: 770 and 320. For that, an ' +
              '**alternative account number** is defined on the G/L account master:\n\n' +
              '`400100` → alternative `770`\n' +
              '`160000` → alternative `320`\n\n' +
              'Which number gets printed is chosen when the report is pulled. **One posting, two views.**\n\n' +
              'This way consolidation works directly (every country on the same chart) and local compliance is ' +
-             'satisfied — **without setting up a second operational chart**.' },
+             'satisfied: **without setting up a second operational chart**.' },
     ],
 
     tHesaplar:[
-      { hesap:'Intercompany payables — Company 2000', kod:'395',
+      { hesap:'Intercompany payables: Company 2000', kod:'395',
         borc:[],
         alacak:[{ ad:'Expense paid by 1000', tutar:80000 }],
         not:'Eliminated in consolidation' },
-      { hesap:'Intercompany receivables — Company 1000', kod:'195',
+      { hesap:'Intercompany receivables: Company 1000', kod:'195',
         borc:[{ ad:'Paid on behalf of 2000', tutar:80000 }],
         alacak:[],
-        not:'**Mirrors** 395 — the totals must be equal' },
+        not:'**Mirrors** 395: the totals must be equal' },
     ],
 
     notlar:[
@@ -234,7 +234,7 @@ SAP.registerTopic({
         'other**: what company A is owed by B must equal what company B owes A.\n\n' +
         'If they don\'t match, there are three possible reasons:\n\n' +
         '**1.** One side posted, the other didn\'t (a timing gap).\n' +
-        '**2.** An exchange-rate difference — if the transaction was in foreign currency, the two sides may have ' +
+        '**2.** An exchange-rate difference: if the transaction was in foreign currency, the two sides may have ' +
         'converted it at different rates.\n' +
         '**3.** The wrong account was used.\n\n' +
         'This reconciliation is a **prerequisite for consolidation**: if the items that need to be eliminated don\'t ' +
@@ -257,7 +257,7 @@ SAP.registerTopic({
         tcodes:['OX02','OBY6'] },
 
       { ad:'Mandatory · Chart of Accounts',
-        aciklama:'The list of usable G/L accounts — **the balance sheet\'s language**.',
+        aciklama:'The list of usable G/L accounts: **the balance sheet\'s language**.',
         neZaman:'At least one. Multiple company codes can share the **same** chart.',
         ornek:'**A single operational chart group-wide should be the target.** Separate charts block a shared ' +
               '{{kontrol-alani}} and easy consolidation.',
@@ -266,13 +266,13 @@ SAP.registerTopic({
       { ad:'Mandatory · Fiscal Year Variant',
         aciklama:'How the year splits into periods; **the system\'s counterpart to the matching principle**.',
         neZaman:'Assigned to every company code.',
-        ornek:'`K4` calendar year (12 regular + 4 special periods). A separate variant is defined for a shifted year like April–March.',
+        ornek:'`K4` calendar year (12 regular + 4 special periods). A separate variant is defined for a shifted year like April-March.',
         tcodes:['OB29'] },
 
       { ad:'Mandatory · Local Currency',
         aciklama:'The currency the company code keeps its books in ({{T001}} `WAERS`).',
         neZaman:'While the company code is being defined. **Cannot be changed afterward.**',
-        ornek:'Group and free currencies can be defined **additionally** — but this too must be done before ' +
+        ornek:'Group and free currencies can be defined **additionally**: but this too must be done before ' +
               'posting begins ({{paralel-para-birimi}}).' },
 
       { ad:'Optional · Country Chart of Accounts',
@@ -303,27 +303,27 @@ SAP.registerTopic({
 
       { ad:'Optional · {{kontrol-alani}} (CO)', en:'Controlling Area',
         aciklama:'The framework cost accounting runs in.',
-        neZaman:'Whenever CO is used — practically every implementation.',
+        neZaman:'Whenever CO is used: practically every implementation.',
         ornek:'**Depends on FI:** the company codes assigned to it must use **the same chart of accounts** and ' +
               '**the same fiscal year variant**. That\'s why CO design can\'t be done independently of FI.',
         tcodes:['OKKP'] },
 
       { ad:'Optional · {{kar-merkezi}} / Segment', en:'Profit Center / Segment',
         aciklama:'Units for responsibility- and segment-based reporting.',
-        neZaman:'Whenever a segmented balance sheet is required — together with {{belge-bolme}}.',
+        neZaman:'Whenever a segmented balance sheet is required: together with {{belge-bolme}}.',
         ornek:'Carried as an {{ACDOCA}} dimension in S/4HANA; the modern alternative to {{is-alani}}.' },
     ],
 
     karsilastirmaBasliklar:['Company code', 'Company (consolidation)'],
     karsilastirma:[
       ['Purpose', 'The **statutory accounting** unit', 'The **consolidation** umbrella'],
-      ['Produces a balance sheet?', '**Yes** — its whole purpose', 'No — it merges them'],
+      ['Produces a balance sheet?', '**Yes**, its whole purpose', 'No, it merges them'],
       ['Table', '{{T001}}', '{{T880}}'],
       ['Transaction code', '{{OX02}}', '{{OX15}}'],
       ['Numeric relationship', '**Multiple** company codes to one company', 'One company code to **one** company'],
-      ['Present on the document?', '**Yes** — on every document', 'No — derived'],
-      ['Mandatory?', '**Yes**', 'No — unnecessary if no consolidation is done'],
-      ['Common mistake', '—', 'Thinking the two are the same → consolidation structure built wrong'],
+      ['Present on the document?', '**Yes**, on every document', 'No, derived'],
+      ['Mandatory?', '**Yes**', 'No: unnecessary if no consolidation is done'],
+      ['Common mistake', ': ', 'Thinking the two are the same → consolidation structure built wrong'],
     ],
   },
 
@@ -335,13 +335,13 @@ SAP.registerTopic({
         neZaman:'When a new legal entity is added.',
         adimlar:[
           { baslik:'**Choose the company code to copy from**',
-            aciklama:'Use "Copy, delete, check company code." **Don\'t create from scratch** — hundreds of linked ' +
+            aciklama:'Use "Copy, delete, check company code." **Don\'t create from scratch**: hundreds of linked ' +
                      'settings will be missing.' },
           { baslik:'Enter the new code and name', aciklama:'4 characters. The naming standard should be decided up front.' },
           { baslik:'Fix the address data',
             aciklama:'The address that came with the copy belongs to the source company; **it must always be changed**.' },
           { baslik:'Review the copied settings',
-            aciklama:'Country, currency, tax settings, bank accounts — all of it comes from the source, and **is ' +
+            aciklama:'Country, currency, tax settings, bank accounts: all of it comes from the source, and **is ' +
                      'hard to notice if left wrong**.' },
         ],
         ekranAkisi:[
@@ -354,7 +354,7 @@ SAP.registerTopic({
           zorunlu:['Company code','Company name','City','Country','Currency','Language'],
           opsiyonel:['Address details','Tax number'] },
         hatalar:[
-          { mesaj:'Company code ... already exists', sebep:'The code is already in use.', cozum:'Pick a different code. **Never reuse a deleted company code\'s code** — it can clash with old transport records.' },
+          { mesaj:'Company code ... already exists', sebep:'The code is already in use.', cozum:'Pick a different code. **Never reuse a deleted company code\'s code**: it can clash with old transport records.' },
           { mesaj:'A document can\'t be posted after copying', sebep:'The linked settings only copied partially.', cozum:'Check the {{OBY6}} global parameters and the number ranges.' },
         ],
         ipucu:'**Post-copy checklist:** country · currency · tax settings · bank accounts · address · number ranges.\n\n' +
@@ -363,7 +363,7 @@ SAP.registerTopic({
               'to fix.',
         ilgili:['OBY6','OB13','OB29'] },
 
-      { kod:'OBY6', ad:'Company code global parameters — **the most critical screen**',
+      { kod:'OBY6', ad:'Company code global parameters: **the most critical screen**',
         amac:'Defines the company code\'s core links: chart of accounts, fiscal year variant, currency, and so on.',
         neZaman:'Immediately after the company code is created.',
         adimlar:[
@@ -387,7 +387,7 @@ SAP.registerTopic({
           zorunlu:['Chart of accounts','Fiscal year variant','Country','Currency','Field status variant','Posting period variant'],
           opsiyonel:['Business area mandatory flag','Tax numbers','Company (consolidation)'] },
         hatalar:[
-          { mesaj:'Chart of accounts cannot be changed — postings exist', sebep:'Postings already exist on the company code.', cozum:'**Cannot be changed.** If a different chart is needed, a new company code must be set up and the data migrated — a project-sized job.' },
+          { mesaj:'Chart of accounts cannot be changed, postings exist', sebep:'Postings already exist on the company code.', cozum:'**Cannot be changed.** If a different chart is needed, a new company code must be set up and the data migrated, a project-sized job.' },
           { mesaj:'Fiscal year variant ... is not defined', sebep:'The variant hasn\'t been defined via {{OB29}}.', cozum:'Define the variant first; the order can\'t be skipped.' },
         ],
         ipucu:'**The four fields on this screen decide the project\'s fate:** chart of accounts, fiscal year ' +
@@ -421,7 +421,7 @@ SAP.registerTopic({
               '• A shared {{kontrol-alani}} can\'t be built → cross-company cost allocation is over\n' +
               '• Consolidation requires manual mapping\n' +
               '• Group reporting needs a conversion every time\n\n' +
-              'Local statutory need is solved with a **country chart of accounts** (an alternative account number) — ' +
+              'Local statutory need is solved with a **country chart of accounts** (an alternative account number): ' +
               'without setting up a second operational chart.',
         ilgili:['OBY6','FS00','OKKP'] },
 
@@ -429,12 +429,12 @@ SAP.registerTopic({
         amac:'Decides how the year splits into periods and how many special periods exist.',
         neZaman:'At setup time; whenever the fiscal year differs from the calendar year.',
         adimlar:[
-          { baslik:'Enter the variant code', aciklama:'`K4` — calendar year + 4 special periods (standard).' },
+          { baslik:'Enter the variant code', aciklama:'`K4`: calendar year + 4 special periods (standard).' },
           { baslik:'Set the number of regular periods', aciklama:'Usually 12.' },
           { baslik:'**Set the number of special periods**',
-            aciklama:'13–16. Lets closing entries be kept **separate** from December.' },
+            aciklama:'13-16. Lets closing entries be kept **separate** from December.' },
           { baslik:'Choose whether it\'s year-independent',
-            aciklama:'For a shifted year like April–March, this is **not** checked, and period dates are entered by hand.' },
+            aciklama:'For a shifted year like April-March, this is **not** checked, and period dates are entered by hand.' },
         ],
         alanlar:{
           zorunlu:['Variant code','Number of regular periods','Number of special periods'],
@@ -445,12 +445,12 @@ SAP.registerTopic({
         ipucu:'**Why do special periods exist?** Both regular transactions and closing entries happen in December. ' +
               'If everything is posted to period 12, the question *"what was December\'s actual expense?"* can never ' +
               'be answered.\n\n' +
-              'Special periods (13–16) split off the closing entries: 13 → audit adjustments, 14 → tax adjustments, ' +
+              'Special periods (13-16) split off the closing entries: 13 → audit adjustments, 14 → tax adjustments, ' +
               'and so on.\n\n' +
               'The postings share the same date (31.12) but fall into **different periods**.',
         ilgili:['OB52','OBY6','closing'] },
 
-      { kod:'OKKP', ad:'Controlling area — where FI and CO meet',
+      { kod:'OKKP', ad:'Controlling area: where FI and CO meet',
         amac:'Builds the CO organization and assigns company codes.',
         neZaman:'After the FI organizational structure is complete.',
         adimlar:[
@@ -460,10 +460,10 @@ SAP.registerTopic({
                      '**the same fiscal year variant**.' },
           { baslik:'Select the active components', aciklama:'Cost center, internal order, CO-PA…' },
           { baslik:'Define the number ranges ({{KANK}})',
-            aciklama:'**If missing, expense postings can\'t happen at all** — it stops FI too.' },
+            aciklama:'**If missing, expense postings can\'t happen at all**: it stops FI too.' },
         ],
         ipucu:'**This screen is where organizational structure decisions get tested.** Company codes using different ' +
-              'charts of accounts **cannot** be assigned to the same controlling area — which shows exactly why the ' +
+              'charts of accounts **cannot** be assigned to the same controlling area: which shows exactly why the ' +
               'chart-of-accounts decision must be made before, and with, CO in mind.\n\n' +
               'The full detail lives in {{konu:co-integration}}.',
         ilgili:['OBY6','OB13','KANK'] },
@@ -477,19 +477,19 @@ SAP.registerTopic({
       '{{T001}} is one of the most-read configuration tables of all.',
 
     liste:[
-      { ad:'T001', baslik:'Company code definition — FI\'s core table',
+      { ad:'T001', baslik:'Company code definition: FI\'s core table',
         tutar:'The company code\'s name, country, **currency**, **chart of accounts**, and **fiscal year variant** links.',
         olusturan:'{{OX02}}',
         guncelleyen:'{{OBY6}} global parameters',
         anahtar:'BUKRS',
-        iliskiler:'{{BKPF}}, {{BSEG}}, {{ACDOCA}} — every document belongs to one company code.',
+        iliskiler:'{{BKPF}}, {{BSEG}}, {{ACDOCA}}: every document belongs to one company code.',
         s4:'Unchanged.',
         alanlar:[
           { ad:'BUKRS', aciklama:'Company code (4 characters)', tip:'pk' },
           { ad:'BUTXT', aciklama:'Company name' },
-          { ad:'LAND1', aciklama:'**Country** — determines tax codes' },
-          { ad:'WAERS', aciklama:'**Local currency** — cannot be changed afterward' },
-          { ad:'KTOPL', aciklama:'**Chart of accounts** — cannot be changed once posting has started', tip:'fk' },
+          { ad:'LAND1', aciklama:'**Country**: determines tax codes' },
+          { ad:'WAERS', aciklama:'**Local currency**: cannot be changed afterward' },
+          { ad:'KTOPL', aciklama:'**Chart of accounts**: cannot be changed once posting has started', tip:'fk' },
           { ad:'PERIV', aciklama:'**Fiscal year variant**', tip:'fk' },
           { ad:'RCOMP', aciklama:'Company (consolidation unit)', tip:'fk' },
         ] },
@@ -515,7 +515,7 @@ SAP.registerTopic({
         alanlar:[
           { ad:'PERIV', aciklama:'Variant code', tip:'pk' },
           { ad:'ANZBP', aciklama:'Number of regular periods (usually 12)' },
-          { ad:'ANZSP', aciklama:'**Number of special periods** (usually 4 → periods 13–16)' },
+          { ad:'ANZSP', aciklama:'**Number of special periods** (usually 4 → periods 13-16)' },
           { ad:'XKALE', aciklama:'Whether it\'s calendar-year dependent' },
         ] },
 
@@ -546,7 +546,7 @@ SAP.registerTopic({
 
     er:{
       type:'er',
-      baslik:'The organizational skeleton — everything links to T001',
+      baslik:'The organizational skeleton: everything links to T001',
       varliklar:[
         { ad:'T004', rol:'Configuration', aciklama:'Chart of accounts',
           alanlar:[{ ad:'KTOPL', tip:'pk' }, { ad:'KTPLT' }] },
@@ -554,7 +554,7 @@ SAP.registerTopic({
           alanlar:[{ ad:'PERIV', tip:'pk' }, { ad:'ANZBP' }, { ad:'ANZSP' }] },
         { ad:'T880', rol:'Configuration', aciklama:'Company (consolidation)',
           alanlar:[{ ad:'RCOMP', tip:'pk' }] },
-        { ad:'T001', rol:'Organization', hub:true, aciklama:'**Company code — the hub**',
+        { ad:'T001', rol:'Organization', hub:true, aciklama:'**Company code: the hub**',
           alanlar:[{ ad:'BUKRS', tip:'pk' }, { ad:'KTOPL', tip:'fk' }, { ad:'PERIV', tip:'fk' }, { ad:'WAERS' }, { ad:'RCOMP', tip:'fk' }] },
         { ad:'TKA01', rol:'CO', aciklama:'Controlling area',
           alanlar:[{ ad:'KOKRS', tip:'pk' }, { ad:'KTOPL', tip:'fk' }] },
@@ -579,24 +579,24 @@ SAP.registerTopic({
   /* ================================================= 7. IN THE SYSTEM === */
   sapSurec: {
     anlatim:
-      'The organizational structure has **no** end-user screen — it\'s all configuration. The three screens that ' +
+      'The organizational structure has **no** end-user screen: it\'s all configuration. The three screens that ' +
       'matter most to a consultant: {{OX02}}, {{OBY6}}, and {{OKKP}}.',
 
     ekranlar:[
-      { ad:'{{OX02}} — copying a company code',
+      { ad:'{{OX02}}: copying a company code',
         aciklama:'The screen a new company code is created on.',
         alanlar:[
           { ad:'Source company code', zorunlu:true, aciklama:'A **working company code** is chosen; its linked ' +
                    'settings copy along with it.' },
           { ad:'Target company code', zorunlu:true, aciklama:'4 characters, unique.' },
           { ad:'Name and address', zorunlu:true, aciklama:'The source data that came with the copy **must always be fixed**.' },
-          { ad:'Copy dependent tables too?', zorunlu:true, aciklama:'**Yes** — this is the whole point.' },
+          { ad:'Copy dependent tables too?', zorunlu:true, aciklama:'**Yes**: this is the whole point.' },
         ],
         ipucu:'Post-copy checklist: **country · currency · tax settings · bank accounts · address · number ranges**.\n\n' +
               'If the country is left wrong, tax codes don\'t work. If the currency is left wrong, **every posting ' +
               'gets converted incorrectly**, and fixing it is close to impossible.' },
 
-      { ad:'{{OBY6}} — global parameters',
+      { ad:'{{OBY6}}: global parameters',
         aciklama:'The screen holding the four fields that decide the project\'s fate.',
         alanlar:[
           { ad:'**Chart of accounts**', zorunlu:true, aciklama:'**Cannot be changed** once posting has started.' },
@@ -611,7 +611,7 @@ SAP.registerTopic({
               'Because a controlling area requires **the same chart of accounts** and **the same fiscal year ' +
               'variant**. These two fields are chosen right here, and can\'t be changed afterward.' },
 
-      { ad:'{{OB13}} / {{OB29}} — the shared structures',
+      { ad:'{{OB13}} / {{OB29}}: the shared structures',
         aciklama:'Structures that must be defined **before** the company code.',
         alanlar:[
           { ad:'Chart of accounts code', zorunlu:true, aciklama:'**One chart** should be the group-wide target.' },
@@ -619,7 +619,7 @@ SAP.registerTopic({
           { ad:'Fiscal year variant code', zorunlu:true },
           { ad:'Regular + special period count', zorunlu:true, aciklama:'12 + 4 is standard.' },
         ],
-        ipucu:'These screens run **before** the company code. Skip the order, and {{OBY6}} has no value to assign — ' +
+        ipucu:'These screens run **before** the company code. Skip the order, and {{OBY6}} has no value to assign: ' +
               'the build stalls halfway.' },
     ],
 
@@ -627,7 +627,7 @@ SAP.registerTopic({
     opsiyonel:['Company (consolidation)','Business area','Credit control area','Country chart of accounts'],
 
     hatalar:[
-      { mesaj:'Chart of accounts cannot be changed — postings exist', sebep:'Postings already exist on the company code.', cozum:'**Cannot be changed.** If a different chart is needed, a new company code has to be set up and the data migrated — a project-sized job. That\'s why the decision must be correct from the start.' },
+      { mesaj:'Chart of accounts cannot be changed, postings exist', sebep:'Postings already exist on the company code.', cozum:'**Cannot be changed.** If a different chart is needed, a new company code has to be set up and the data migrated, a project-sized job. That\'s why the decision must be correct from the start.' },
       { mesaj:'Company codes have different charts of accounts (OKKP)', sebep:'An attempt to assign company codes with different charts to the same controlling area.', cozum:'Either align the charts of accounts or build a separate controlling area. **Cross-company cost allocation becomes impossible under the second option.**' },
       { mesaj:'Fiscal year variants are not the same', sebep:'The controlling area\'s and the company code\'s variants differ.', cozum:'They must be identical; period matching can\'t be established otherwise.' },
       { mesaj:'Tax codes don\'t work after copying', sebep:'The country field came from the source company code and was never corrected.', cozum:'Fix the country in {{OBY6}}; tax codes are **country-dependent**.' },
@@ -636,13 +636,13 @@ SAP.registerTopic({
     ],
 
     ipuclari:[
-      '**Always create a company code by copying** — starting from scratch costs weeks.',
+      '**Always create a company code by copying**: starting from scratch costs weeks.',
       'Always verify the **country and currency** after copying; both can silently stay wrong and are close to ' +
       'impossible to fix afterward.',
       'Aim for **a single operational chart of accounts group-wide**; solve local needs with a country chart of accounts.',
-      'Before opening a company code, ask: *"which controlling area will it be assigned to?"* — the chart of ' +
+      'Before opening a company code, ask: *"which controlling area will it be assigned to?"*: the chart of ' +
       'accounts and fiscal year variant are chosen accordingly.',
-      'Define the special periods (13–16) from the start; adding them later is possible but useless for past years.',
+      'Define the special periods (13-16) from the start; adding them later is possible but useless for past years.',
       'Put the reconciliation of intercompany accounts (at {{konu:closing}}) on the period-end checklist.',
     ],
   },
@@ -655,11 +655,11 @@ SAP.registerTopic({
       { tablo:'T009', ne:'Fiscal year variant' },
       { tablo:'T880', ne:'Company (consolidation unit)' },
       { tablo:'T014', ne:'Credit control area' },
-      { tablo:'TKA01', ne:'Controlling area — chart-of-accounts and variant compatibility' },
+      { tablo:'TKA01', ne:'Controlling area: chart-of-accounts and variant compatibility' },
     ],
 
     commit:
-      'The organizational structure is **configuration**, not transaction data — LUW and commit logic doesn\'t apply ' +
+      'The organizational structure is **configuration**, not transaction data: LUW and commit logic doesn\'t apply ' +
       'the way it does to posting.\n\n' +
       'But there\'s an important technical consequence: {{T001}} **is read on every single posting**. The company ' +
       'code\'s chart of accounts, fiscal year variant and currency are used at every stage of a posting.\n\n' +
@@ -670,7 +670,7 @@ SAP.registerTopic({
       'The organizational structure doesn\'t generate document numbers. But **number ranges are keyed by company ' +
       'code** ({{FBN1}}): each company code uses its own ranges, and when a new company code is opened, the ranges ' +
       'need to be opened too.\n\n' +
-      'Copying usually brings this along, but it **must be verified** — if it doesn\'t, the first posting attempt fails.',
+      'Copying usually brings this along, but it **must be verified**: if it doesn\'t, the first posting attempt fails.',
 
     postingLogic:
       'When a document is posted, the organizational structure kicks in, in this order:\n\n' +
@@ -700,7 +700,7 @@ SAP.registerTopic({
       'Account determination tables (the {{T030}} family) are keyed **by chart of accounts**. This is another ' +
       'consequence of the chart-of-accounts decision:\n\n' +
       'Company codes sharing the same chart use **the same account determination rules**. If different charts are ' +
-      'used, a separate rule set is needed for each — {{OBYC}}, {{VKOA}}, {{OB40}} all have to be defined ' +
+      'used, a separate rule set is needed for each: {{OBYC}}, {{VKOA}}, {{OB40}} all have to be defined ' +
       'separately, twice over.\n\n' +
       'This is one of the concrete benefits of using a single chart: account determination is built **once**.',
 
@@ -711,25 +711,25 @@ SAP.registerTopic({
 
     transport:
       'Organizational structure settings transport via {{tasima-istegi}}. **Three warnings:**\n\n' +
-      '**1.** Copying a company code **does not transport** — it\'s done separately in the target system. Copying ' +
+      '**1.** Copying a company code **does not transport**: it\'s done separately in the target system. Copying ' +
       'is an *action*, not a configuration record.\n\n' +
       '**2.** Number ranges **usually don\'t transport**; they\'re defined by hand in production. This is the ' +
       'classic reason postings stall at go-live.\n\n' +
       '**3.** The chart of accounts transports, but **the accounts transport separately** ({{SKA1}}/{{SKB1}}); the ' +
       'chart arrives, but it can be empty.\n\n' +
-      '**Migration check:** post a test document in production — it verifies that the number range, period, and ' +
+      '**Migration check:** post a test document in production: it verifies that the number range, period, and ' +
       'account determination all work.',
 
     img:[
-      { yol:'SPRO → Enterprise Structure → Definition → Financial Accounting → Edit, Copy, Delete, Check Company Code', not:'{{OX02}} — **create by copying**' },
-      { yol:'SPRO → Enterprise Structure → Definition → Financial Accounting → Define Company', not:'{{OX15}} — consolidation unit' },
-      { yol:'SPRO → Financial Accounting → Financial Accounting Global Settings → Global Parameters', not:'{{OBY6}} — **the four critical fields**' },
+      { yol:'SPRO → Enterprise Structure → Definition → Financial Accounting → Edit, Copy, Delete, Check Company Code', not:'{{OX02}}: **create by copying**' },
+      { yol:'SPRO → Enterprise Structure → Definition → Financial Accounting → Define Company', not:'{{OX15}}: consolidation unit' },
+      { yol:'SPRO → Financial Accounting → Financial Accounting Global Settings → Global Parameters', not:'{{OBY6}}: **the four critical fields**' },
       { yol:'SPRO → Financial Accounting → General Ledger Accounting → Master Data → Chart of Accounts → Edit Chart of Accounts List', not:'{{OB13}}' },
       { yol:'SPRO → Financial Accounting → Financial Accounting Global Settings → Fiscal Year → Maintain Fiscal Year Variant', not:'{{OB29}}' },
     ],
 
     ekstra:[
-      { ic:'🧭', baslik:'How many charts of accounts should be built? — the project\'s most expensive decision', metin:
+      { ic:'🧭', baslik:'How many charts of accounts should be built? - the project\'s most expensive decision', metin:
         '**The short answer: one.** The long answer goes like this:\n\n' +
         '**The appeal of "a separate chart per country":** Turkey uses the Uniform Chart of Accounts, Germany uses ' +
         'SKR. Giving each country its own chart feels natural and is easy at first setup.\n\n' +
@@ -750,30 +750,30 @@ SAP.registerTopic({
         '**This decision is irreversible once posting has started.** Changing a company code\'s chart of accounts ' +
         'means setting up a new company code and migrating all the data.' },
 
-      { ic:'🏢', baslik:'Company vs. company code — the most commonly confused pair', metin:
+      { ic:'🏢', baslik:'Company vs. company code: the most commonly confused pair', metin:
         'Both carry the word "company," and they get mixed up often. But they answer different questions:\n\n' +
         '**{{sirket-kodu}} → "who produces the balance sheet?"**\n\n' +
         'The legal accounting unit. Every document belongs to one company code. The balance sheet and income ' +
         'statement come out at this level. Lives in table {{T001}}, defined with {{OX02}}. **Mandatory.**\n\n' +
         '**Company → "who consolidates together?"**\n\n' +
         'The consolidation umbrella. It doesn\'t produce a balance sheet, it **merges** them. Lives in table ' +
-        '{{T880}}, defined with {{OX15}}. **Optional** — unnecessary if no consolidation is done.\n\n' +
+        '{{T880}}, defined with {{OX15}}. **Optional**: unnecessary if no consolidation is done.\n\n' +
         '**Numeric relationship:** multiple company codes can roll up into one company. A company code belongs to ' +
         '**exactly one** company.\n\n' +
         '*Example:* "Anadolu Holding" is a company; under it sit company codes TR01 (Turkey) and DE01 (Germany). ' +
         'Each produces its own balance sheet, and they\'re consolidated at the holding level.\n\n' +
         '**Why the confusion?** Because in single-company implementations, the two collapse into one and the ' +
-        'difference is invisible. It shows up the moment a second legal entity is added — and by then, fixing a ' +
+        'difference is invisible. It shows up the moment a second legal entity is added: and by then, fixing a ' +
         'wrongly-built structure is hard.' },
     ],
 
     notlar:[
       { tip:'warn', baslik:'Four fields with no way back', metin:
         'The following four fields in {{OBY6}} become **practically unchangeable** once posting has started:\n\n' +
-        '**1. Chart of accounts** — every posting references it.\n' +
-        '**2. Fiscal year variant** — period matching breaks.\n' +
-        '**3. Local currency** — every conversion becomes wrong.\n' +
-        '**4. Country** — the entire tax configuration depends on it.\n\n' +
+        '**1. Chart of accounts**: every posting references it.\n' +
+        '**2. Fiscal year variant**: period matching breaks.\n' +
+        '**3. Local currency**: every conversion becomes wrong.\n' +
+        '**4. Country**: the entire tax configuration depends on it.\n\n' +
         'SAP doesn\'t technically block some of these, but **the consequences can\'t be fixed**.\n\n' +
         'That\'s why three questions must be answered before opening a company code:\n\n' +
         '• Which {{kontrol-alani}} will this company be assigned to? *(decides the chart of accounts + variant)*\n' +
@@ -791,13 +791,13 @@ SAP.registerTopic({
       'came to the fore, and there\'s more support for parallel currencies.',
 
     eccFarklari:[
-      { konu:'{{sirket-kodu}}', ecc:'{{T001}} — legal unit', s4:'**Unchanged**' },
+      { konu:'{{sirket-kodu}}', ecc:'{{T001}}: legal unit', s4:'**Unchanged**' },
       { konu:'{{hesap-plani}}', ecc:'Operational + country + group', s4:'**Unchanged**' },
-      { konu:'{{is-alani}}', ecc:'Widely used', s4:'**Fell out of favor** — replaced by profit center/segment' },
-      { konu:'{{kar-merkezi}}', ecc:'A separate ledger (EC-PCA)', s4:'An {{ACDOCA}} dimension — **came to the fore**' },
+      { konu:'{{is-alani}}', ecc:'Widely used', s4:'**Fell out of favor**: replaced by profit center/segment' },
+      { konu:'{{kar-merkezi}}', ecc:'A separate ledger (EC-PCA)', s4:'An {{ACDOCA}} dimension: **came to the fore**' },
       { konu:'Parallel currency', ecc:'3 currencies', s4:'**Up to 8**' },
-      { konu:'Customer/vendor', ecc:'Separate master data', s4:'{{BP}} — Business Partner' },
-      { konu:'Controlling area', ecc:'Same-chart-of-accounts requirement', s4:'**Same requirement** — unchanged' },
+      { konu:'Customer/vendor', ecc:'Separate master data', s4:'{{BP}}: Business Partner' },
+      { konu:'Controlling area', ecc:'Same-chart-of-accounts requirement', s4:'**Same requirement**: unchanged' },
     ],
 
     universalJournal:
@@ -810,7 +810,7 @@ SAP.registerTopic({
       'New implementations prefer **profit center + segment** over business area.',
 
     kalkanTcodes:[
-      { eski:'—', yeni:'—', not:'{{OX02}}, {{OBY6}}, {{OB13}}, {{OB29}}, {{OKKP}} were **not removed**' },
+      { eski:', ', yeni:', ', not:'{{OX02}}, {{OBY6}}, {{OB13}}, {{OB29}}, {{OKKP}} were **not removed**' },
       { eski:'{{XK01}} / {{XD01}}', yeni:'{{BP}}', not:'It\'s the master-data side that changed, not the organizational structure' },
     ],
 
@@ -818,14 +818,14 @@ SAP.registerTopic({
       { ad:'Manage Company Codes', aciklama:'Displays and manages company code data.' },
       { ad:'Manage Chart of Accounts', aciklama:'Chart of accounts and account list management.' },
       { ad:'Manage G/L Account Master Data', aciklama:'Replaces {{FS00}}; the alternative account number lives here.' },
-      { ad:'Manage Profit Centers', aciklama:'The profit center structure — the modern alternative to business area.' },
+      { ad:'Manage Profit Centers', aciklama:'The profit center structure: the modern alternative to business area.' },
       { ad:'Trial Balance', aciklama:'A trial balance by company code, profit center, and segment.' },
     ],
 
     compatibilityViews:[
-      '{{T001}}, {{T004}}, {{T009}}, {{T880}}, {{T014}} — **remain physical tables**.',
+      '{{T001}}, {{T004}}, {{T009}}, {{T880}}, {{T014}}: **remain physical tables**.',
       'The organizational structure is the area **least affected** by the S/4HANA move.',
-      'The work done during migration is **reviewing** the existing structure — not changing it.',
+      'The work done during migration is **reviewing** the existing structure: not changing it.',
     ],
 
     performans:
@@ -834,11 +834,11 @@ SAP.registerTopic({
       '{{ACDOCA}}; business area reports in ECC needed separate mechanisms.',
 
     bestPractices:[
-      '**Don\'t change** the organizational structure during migration — review it. If a change is needed, that\'s ' +
+      '**Don\'t change** the organizational structure during migration: review it. If a change is needed, that\'s ' +
       'a separate transformation project.',
-      'If {{is-alani}} is in use, evaluate **moving to profit center/segment** — business area has no technical edge ' +
+      'If {{is-alani}} is in use, evaluate **moving to profit center/segment**: business area has no technical edge ' +
       'left in S/4HANA.',
-      'Re-evaluate parallel currency needs **during the migration** — S/4 supports up to eight, and it\'s a setting ' +
+      'Re-evaluate parallel currency needs **during the migration**: S/4 supports up to eight, and it\'s a setting ' +
       'that\'s hard to add later.',
       'If there are multiple charts of accounts, calculate the cost of **moving to a single chart**; a migration is ' +
       'a rare chance for this kind of simplification.',
@@ -853,7 +853,7 @@ SAP.registerTopic({
       '**Anadolu Holding** went live on SAP in Turkey with a single company code (TR01). The setup went smoothly, ' +
       'and everything was fine for six months.\n\n' +
       'Then the German subsidiary (DE01) was to be onboarded. The German tax advisor wants the **SKR chart of ' +
-      'accounts** — required for statutory reporting.\n\n' +
+      'accounts**: required for statutory reporting.\n\n' +
       'The consultant says "let\'s just build a separate chart of accounts, no problem," and it gets built.\n\n' +
       'Three months later the CFO asks: *"How are we going to allocate the head-office IT cost between the two ' +
       'companies?"*\n\n' +
@@ -861,12 +861,12 @@ SAP.registerTopic({
     veriler:[
       { k:'TR01', v:'Turkey · chart of accounts **TDHP** · fiscal year K4' },
       { k:'DE01', v:'Germany · chart of accounts **SKR** · fiscal year K4' },
-      { k:'Head-office IT expense', v:'480,000 TRY monthly — serves both companies' },
+      { k:'Head-office IT expense', v:'480,000 TRY monthly: serves both companies' },
       { k:'**Problem**', v:'Cross-company cost allocation **cannot be done**' },
     ],
 
     adimlar:[
-      { baslik:'The problem surfaces — a shared controlling area can\'t be built', tcode:'OKKP',
+      { baslik:'The problem surfaces: a shared controlling area can\'t be built', tcode:'OKKP',
         aciklama:'The CO consultant tries to assign both company codes to the same controlling area.',
         girdi:[
           { alan:'Controlling area', deger:'1000' },
@@ -875,11 +875,11 @@ SAP.registerTopic({
           { alan:'Cause', deger:'TR01 → TDHP · DE01 → SKR' },
         ],
         not:'{{OKKP}} requires its assigned company codes to use **the same chart of accounts**.\n\n' +
-             'Two separate controlling areas could be built — but then **cross-company cost allocation becomes ' +
+             'Two separate controlling areas could be built: but then **cross-company cost allocation becomes ' +
              'impossible**. The head-office IT cost stays in TR01 and can\'t be transferred to DE01.\n\n' +
              'This is concrete proof that the chart-of-accounts decision **also binds CO**.' },
 
-      { baslik:'A second problem — double account determination', tcode:'OBYC',
+      { baslik:'A second problem: double account determination', tcode:'OBYC',
         aciklama:'It\'s noticed while building the MM integration for Germany.',
         girdi:[
           { alan:'{{OBYC}} entries', deger:'Defined for TDHP · **missing for SKR**' },
@@ -892,7 +892,7 @@ SAP.registerTopic({
              'it has to be entered **in two places**, and if one is forgotten, that chart gets a silent error.\n\n' +
              'This is the most concrete, and least talked-about, benefit of using a single chart.' },
 
-      { baslik:'A third problem — consolidation wants manual mapping', tcode:'F.01',
+      { baslik:'A third problem: consolidation wants manual mapping', tcode:'F.01',
         aciklama:'An attempt is made to prepare the group balance sheet.',
         girdi:[
           { alan:'TR01 trial balance', deger:'In TDHP numbers (770, 320, 120…)' },
@@ -900,7 +900,7 @@ SAP.registerTopic({
           { alan:'Group balance sheet', deger:'Every account\'s counterpart will need to be **mapped by hand**' },
           { alan:'Maintenance burden', deger:'The mapping table grows as new accounts are opened' },
         ],
-        not:'The two trial balances **cannot simply be summed** — because the same concept sits under different ' +
+        not:'The two trial balances **cannot simply be summed**: because the same concept sits under different ' +
              'numbers.\n\n' +
              'A mapping table can be built, but it\'s a **living maintenance burden**: it needs updating for every ' +
              'new account, and if forgotten, that amount **disappears** from the group balance sheet.' },
@@ -914,28 +914,28 @@ SAP.registerTopic({
           { alan:'Option 2', deger:'Keep the current structure, do the allocation **by hand**' },
         ],
         not:'**{{OBY6}}\'s chart of accounts cannot be changed once posting has started.**\n\n' +
-             'The only fix is to set up a new company code and migrate the data — opening balances, open items, ' +
+             'The only fix is to set up a new company code and migrate the data: opening balances, open items, ' +
              'fixed assets, historical documents.\n\n' +
              'This is a **project-sized job**, and it\'s the price of a three-month-old setup decision.' },
 
       { baslik:'Decision: keep the current structure + manual allocation', tcode:'FB50',
         aciklama:'After the cost-benefit analysis, a pragmatic decision is made.',
         girdi:[
-          { alan:'Decision', deger:'No data migration — the cost outweighs the benefit' },
+          { alan:'Decision', deger:'No data migration: the cost outweighs the benefit' },
           { alan:'IT expense allocation', deger:'A monthly **manual** intercompany invoice' },
           { alan:'Consolidation', deger:'A mapping table will be built and maintained' },
           { alan:'Accepted burden', deger:'~4 hours of manual work a month + mapping maintenance' },
         ],
-        fis:{ baslik:'Intercompany IT expense — manual invoice', belgeTuru:'SA', tarih:'31.03.2028',
+        fis:{ baslik:'Intercompany IT expense: manual invoice', belgeTuru:'SA', tarih:'31.03.2028',
           satirlar:[
-            { hesap:'195', ad:'Intercompany receivables — from DE01 (TR01\'s document)', borc:216000 },
-            { hesap:'770', ad:'IT expense — TR01\'s share reduced', alacak:216000 },
+            { hesap:'195', ad:'Intercompany receivables: from DE01 (TR01\'s document)', borc:216000 },
+            { hesap:'770', ad:'IT expense: TR01\'s share reduced', alacak:216000 },
           ], not:'The mirror posting on DE01\'s side: expense 770 debit / intercompany payable 395 credit.\n\n' +
                  'Because CO\'s automatic distribution ({{KSV5}}) can\'t reach across, it\'s calculated and posted ' +
                  '**by hand** every month.\n\n' +
                  'The amount is correct, but the process is fragile: the risk of a calculation error or a forgotten ' +
                  'posting repeats every month.' },
-        not:'**The pragmatic decision can be the right one** — but its cost is paid every month. Had a single chart ' +
+        not:'**The pragmatic decision can be the right one**: but its cost is paid every month. Had a single chart ' +
              'been built from the start, this would have run automatically via {{KSV5}}.' },
 
       { baslik:'A rule is set for the third country', tcode:'OB13',
@@ -949,7 +949,7 @@ SAP.registerTopic({
         not:'**The most valuable rule is the third:** before a company code is opened, the question *"which ' +
              'controlling area will this be assigned to?"* will be answered.\n\n' +
              'That single question is enough to steer the chart-of-accounts and fiscal-year-variant decisions ' +
-             'correctly — because {{OKKP}} requires both to match.' },
+             'correctly: because {{OKKP}} requires both to match.' },
     ],
 
     sonuc:
@@ -959,7 +959,7 @@ SAP.registerTopic({
       'controlling area to use **the same chart of accounts** and **the same fiscal year variant**. Separate ' +
       'charts → separate controlling areas → **cross-company cost allocation becomes impossible**. That\'s why the ' +
       'chart-of-accounts decision isn\'t one the FI consultant can make alone.\n\n' +
-      '**2. Account determination is chart-of-accounts-keyed.** {{OBYC}}, {{VKOA}}, {{OB40}} — all built and ' +
+      '**2. Account determination is chart-of-accounts-keyed.** {{OBYC}}, {{VKOA}}, {{OB40}}: all built and ' +
       'maintained separately for each chart. Two charts permanently mean double the configuration burden, and a ' +
       'change forgotten on one side produces a **silent error**.\n\n' +
       '**3. A local statutory need doesn\'t require a separate chart.** The **country chart of accounts** ' +
@@ -967,7 +967,7 @@ SAP.registerTopic({
       'statutory report prints with local numbers. One posting, two views.\n\n' +
       '**4. The decision window closes once posting begins.** The chart of accounts, fiscal year variant, currency ' +
       'and country fields in {{OBY6}} become **practically unchangeable** once postings exist. Fixing it means ' +
-      'setting up a new company code and migrating all the data — a project-sized job. That\'s why the question to ' +
+      'setting up a new company code and migrating all the data: a project-sized job. That\'s why the question to ' +
       'ask before opening a company code is: **"Which controlling area will this company be assigned to, and how ' +
       'will group reporting work?"**',
   },

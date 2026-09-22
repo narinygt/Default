@@ -1,7 +1,7 @@
 /* ==========================================================================
-   content/fi/best-practices.js — "Best Practices (Danışmanlık Pratiği)"
+   content/fi/best-practices.js: "Best Practices (Danışmanlık Pratiği)"
 
-   Ana tez: Yapılandırma kararları İKİYE ayrılır — geri alınabilenler ve
+   Ana tez: Yapılandırma kararları İKİYE ayrılır: geri alınabilenler ve
    VERİYLE MÜHÜRLENENLER. Proje riski, ikincisinin listesini bilmemekten doğar.
    ========================================================================== */
 
@@ -15,7 +15,7 @@ SAP.registerTopic({
     nedir:
       '"İyi pratik" denince akla genelde bir liste gelir: dokümantasyon yap, ' +
       'test et, taşıma isteklerini küçük tut.\n\n' +
-      'Bu listeler doğrudur ve **işe yaramaz** — çünkü hepsi aynı şeyi söyler: ' +
+      'Bu listeler doğrudur ve **işe yaramaz**: çünkü hepsi aynı şeyi söyler: ' +
       '*"dikkatli ol"*. Dikkatli olmak bir yöntem değildir.\n\n' +
       '---\n\n' +
       '**Bu konunun tezi:**\n\n' +
@@ -35,7 +35,7 @@ SAP.registerTopic({
     neden:
       '**Çünkü hata maliyeti eşit değildir.** Bütün kararlara aynı özeni ' +
       'göstermek imkânsızdır; bir projede binlerce ayar vardır. ' +
-      'Özen **seçici** olmak zorundadır — ve doğru yere yönlendirilmelidir.\n\n' +
+      'Özen **seçici** olmak zorundadır: ve doğru yere yönlendirilmelidir.\n\n' +
       '**Çünkü zaman baskısı gerçektir.** Canlıya geçiş tarihi yaklaşınca ' +
       'tartışmalar kısalır. O anda hangi kararın "sonra bakarız" ' +
       'diyebileceğinizi, hangisinin diyemeyeceğinizi **önceden** bilmelisiniz.\n\n' +
@@ -50,7 +50,7 @@ SAP.registerTopic({
       'teknik bir konu değil.\n\n' +
       'Bir ERP projesinde alınan kararların ömrü, projeyi alan ekibin ' +
       'şirkette kalma süresinden **uzundur**. Beş yıl sonra kimse ' +
-      '*"neden böyle kurulmuş?"* sorusunu cevaplayamaz — ' +
+      '*"neden böyle kurulmuş?"* sorusunu cevaplayamaz: ' +
       'çünkü SAP **ne yapıldığını** tutar ({{degisiklik-belgesi}}), ' +
       '**neden yapıldığını** tutmaz.\n\n' +
       '---\n\n' +
@@ -58,7 +58,7 @@ SAP.registerTopic({
       '**1.** Hangi kararın geri alınamaz olduğunu **karar anında** bilmek.\n' +
       '**2.** O kararı doğru soruyla sormak: *"bugün istiyor muyuz?"* değil, ' +
       '**"üç yıl içinde isteme ihtimalimiz var mı?"**\n' +
-      '**3.** Cevabı **gerekçesiyle** yazmak — çünkü gerekçe olmayan karar, ' +
+      '**3.** Cevabı **gerekçesiyle** yazmak: çünkü gerekçe olmayan karar, ' +
       'iki yıl sonra bir hata gibi görünür.\n\n' +
       'İşlem kodunu herkes öğrenir. Bu üç madde öğrenilmez, **taşınır**.',
 
@@ -70,13 +70,13 @@ SAP.registerTopic({
       '*"Peki. Ama şunu bilerek kapatalım: bu ayar canlıya geçtikten sonra ' +
       '**açılamaz**. Üç yıl içinde bir iş kolu ayırma, bir satın alma ' +
       'veya bir yatırımcı raporlaması ihtimali varsa, bugün açık kurup ' +
-      'kullanmamak — kapatıp sonra pişman olmaktan **çok daha ucuz**. ' +
+      'kullanmamak: kapatıp sonra pişman olmaktan **çok daha ucuz**. ' +
       'Kararı böyle bir tutanağa yazalım mı?"*\n\n' +
       '---\n\n' +
       'Bu cevabın üç özelliği var ve üçü de bilinçli:\n\n' +
-      '**Kararı almıyor** — müşteriye ait bir karardır.\n' +
-      '**Bilgiyi ekliyor** — "geri alınamaz" bilgisi masada yoktu.\n' +
-      '**Yazılı hâle getiriyor** — iki yıl sonra bu bir hata değil, ' +
+      '**Kararı almıyor**: müşteriye ait bir karardır.\n' +
+      '**Bilgiyi ekliyor**: "geri alınamaz" bilgisi masada yoktu.\n' +
+      '**Yazılı hâle getiriyor**: iki yıl sonra bu bir hata değil, ' +
       'bir **karar** olarak okunacak.',
 
     muhasebeMantigi:
@@ -111,15 +111,15 @@ SAP.registerTopic({
       'aittir; hangisine ait olduğunu bilmek, ne zaman uygulanacağını da söyler.',
 
     roller:[
-      { rol:'İş tarafı', gorev:'İhtiyacı tarif eder — çözümü değil.' },
+      { rol:'İş tarafı', gorev:'İhtiyacı tarif eder: çözümü değil.' },
       { rol:'Danışman', gorev:'**Bu bir {{tek-yonlu-kapi}} mı?** diye sorar.' },
       { rol:'Danışman', gorev:'{{standarda-yakin}} seçenek var mı, araştırır.' },
       { rol:'Danışman', gorev:'Kararı **gerekçesiyle** yazar.' },
       { rol:'Danışman', gorev:'Geliştirme sisteminde yapar, {{tasima-istegi}}ne alır.' },
       { rol:'Test kullanıcısı', gorev:'Test sisteminde **pozitif ve {{negatif-test}}**.' },
-      { rol:'Danışman', gorev:'{{regresyon-testi}} — **eskiden çalışan** bozuldu mu?' },
+      { rol:'Danışman', gorev:'{{regresyon-testi}}: **eskiden çalışan** bozuldu mu?' },
       { rol:'BT', gorev:'{{STMS}} ile **sırayla** taşır ({{tasima-sirasi}}).' },
-      { rol:'Danışman', gorev:'Canlıda **doğrular** — taşındı ≠ çalışıyor.' },
+      { rol:'Danışman', gorev:'Canlıda **doğrular**: taşındı ≠ çalışıyor.' },
       { rol:'Danışman', gorev:'{{akim-verisi}} tablolarını canlıda **ayrıca** ayarlar.' },
     ],
 
@@ -157,21 +157,21 @@ SAP.registerTopic({
           cikti:'{{tasima-istegi}}', ok:'test edilir' },
         { ic:'🧪', rol:'Test', baslik:'Pozitif **ve** {{negatif-test}}',
           aciklama:'Mutlu yolu herkes test eder. Asıl değer ' +
-                   '*"yanlış veri durduruluyor mu?"* sorusundadır — ' +
+                   '*"yanlış veri durduruluyor mu?"* sorusundadır: ' +
                    'çünkü kontroller **yalnızca ihlal edildiklerinde** görünür.',
           cikti:'Test sonucu', ok:'regresyon' },
-        { ic:'🔁', rol:'Danışman', baslik:'{{regresyon-testi}} — eskiden çalışan bozuldu mu?',
+        { ic:'🔁', rol:'Danışman', baslik:'{{regresyon-testi}}: eskiden çalışan bozuldu mu?',
           aciklama:'FI’da yapılandırma **paylaşımlıdır**: bir vergi kodunun ' +
                    'hesap ataması değişince ona bağlı **her süreç** etkilenir.\n\n' +
                    'Kapsam tahminle değil {{E071}} bağımlılığıyla belirlenir.',
           cikti:'Yeşil çekirdek küme', ok:'taşınır' },
         { ic:'🚚', rol:'BT', baslik:'{{STMS}} ile **sırayla** taşınır',
-          aciklama:'{{tasima-sirasi}} bozulursa **eski hâl yeniyi ezer** — ' +
+          aciklama:'{{tasima-sirasi}} bozulursa **eski hâl yeniyi ezer**: ' +
                    've hiçbir hata mesajı çıkmaz.',
           cikti:'Canlıda ayar', ok:'doğrulanır' },
-        { ic:'✓', rol:'Danışman', baslik:'Canlıda **doğrulanır** — taşındı ≠ çalışıyor',
+        { ic:'✓', rol:'Danışman', baslik:'Canlıda **doğrulanır**: taşındı ≠ çalışıyor',
           aciklama:'İki sebeple: taşıma hata dönmüş olabilir ({{SE09}} günlüğü), ' +
-                   've **{{akim-verisi}} tabloları taşımayla gelmez** — ' +
+                   've **{{akim-verisi}} tabloları taşımayla gelmez**: ' +
                    '{{OB52}}, {{TCURR}} canlıda ayrıca ayarlanır.',
           cikti:'Çalışan yapılandırma' },
       ],
@@ -179,7 +179,7 @@ SAP.registerTopic({
 
     adimlar:[
       { rol:'İş tarafı', eylem:'İhtiyacı tarif eder', sistem:'Toplantı' },
-      { rol:'Danışman', eylem:'Tek yönlü kapı mı?', sistem:'Karar — sistemde değil' },
+      { rol:'Danışman', eylem:'Tek yönlü kapı mı?', sistem:'Karar: sistemde değil' },
       { rol:'Danışman', eylem:'Standart çözüm aranır', sistem:'{{SPRO}}' },
       { rol:'Danışman', eylem:'Gerekçe yazılır', sistem:'Karar kaydı' },
       { rol:'Danışman', eylem:'Ayar yapılır', sistem:'{{SPRO}} · {{tasima-istegi}}' },
@@ -197,11 +197,11 @@ SAP.registerTopic({
     },
 
     notlar:[
-      { tip:'warn', baslik:'"Test sisteminde çalışıyordu" — üç sebep', metin:
+      { tip:'warn', baslik:'"Test sisteminde çalışıyordu": üç sebep', metin:
         'Bu cümle bir danışmanın en sık duyduğu şikâyettir ve neredeyse ' +
         'her zaman **üç sebepten birine** dayanır:\n\n' +
         '---\n\n' +
-        '**1. {{akim-verisi}} — ayar taşınmamıştır çünkü taşınmaz.**\n\n' +
+        '**1. {{akim-verisi}}: ayar taşınmamıştır çünkü taşınmaz.**\n\n' +
         'Bazı yapılandırma tabloları taşıma isteğine **hiç girmez**: ' +
         '{{OB52}} dönem açma, {{TCURR}} kurlar, ihtar tarihleri. ' +
         'Bunlar her sistemde **ayrı ayrı** ayarlanır.\n\n' +
@@ -232,89 +232,89 @@ SAP.registerTopic({
       'Ortak özellikleri: **hiçbiri hata mesajı üretmez.**',
 
     etkilenenHesaplar:[
-      { hesap:'320 Satıcılar', tur:'Bilanço — Kaynak', neden:'Doğru {{mutabakat-hesabi}}.' },
-      { hesap:'336 Diğer çeşitli borçlar', tur:'Bilanço — Kaynak', neden:'Yanlış `AKONT` ile buraya düşer.' },
-      { hesap:'191 İndirilecek KDV', tur:'Bilanço — Varlık', neden:'Yanlış {{vergi-kodu}} burayı şişirir.' },
+      { hesap:'320 Satıcılar', tur:'Bilanço: Kaynak', neden:'Doğru {{mutabakat-hesabi}}.' },
+      { hesap:'336 Diğer çeşitli borçlar', tur:'Bilanço: Kaynak', neden:'Yanlış `AKONT` ile buraya düşer.' },
+      { hesap:'191 İndirilecek KDV', tur:'Bilanço: Varlık', neden:'Yanlış {{vergi-kodu}} burayı şişirir.' },
       { hesap:'770 Genel yönetim giderleri', tur:'Gelir tablosu', neden:'Uyarı geçilince yanlış boyutla kaydedilir.' },
     ],
 
     fisler:[
-      { baslik:'① Yanlış {{mutabakat-hesabi}} — kayıt geçer, bilanço yanlış',
+      { baslik:'① Yanlış {{mutabakat-hesabi}}: kayıt geçer, bilanço yanlış',
         belgeTuru:'KR', tarih:'12.03.2028', paraBirimi:'TRY',
         satirlar:[
           { hesap:'153', ad:'Ticari mallar', borc:100000 },
           { hesap:'191', ad:'İndirilecek KDV %20', borc:20000 },
-          { hesap:'336', ad:'Diğer çeşitli borçlar — satıcı V-2087', alacak:120000,
+          { hesap:'336', ad:'Diğer çeşitli borçlar: satıcı V-2087', alacak:120000,
             not:'`AKONT` yanlış girilmiş' },
         ],
         not:'**Fiş dengeli, sistem kabul etti, hata mesajı çıkmadı.**\n\n' +
              'Satıcının {{LFB1}}.`AKONT` alanına `336` yazılmıştı. ' +
              'Ana veri açılırken kimse fark etmedi çünkü ' +
-             '**SAP hangi hesabın "doğru" olduğunu bilmez** — ' +
+             '**SAP hangi hesabın "doğru" olduğunu bilmez**: ' +
              'girdiğiniz hesabı kullanır.\n\n' +
              '**Sonuçları:**\n\n' +
-             '• {{FBL1N}} satıcı dökümü **doğru** görünür — satıcı bazlı bakiye tutar\n' +
+             '• {{FBL1N}} satıcı dökümü **doğru** görünür: satıcı bazlı bakiye tutar\n' +
              '• Ama {{FS10N}}’de `320` **eksik**, `336` **fazla**\n' +
              '• Bilanço sunumu yanlış: ticari borç, diğer borç gibi görünür\n' +
-             '• Yaşlandırma ve {{F110}} çalışır — çünkü açık kalem yönetimi ' +
+             '• Yaşlandırma ve {{F110}} çalışır: çünkü açık kalem yönetimi ' +
              'hesaptan bağımsızdır\n\n' +
              '**Bu yüzden `AKONT` yükleme öncesi elle doğrulanması gereken ' +
              'az sayıdaki alandan biridir** (bkz. {{konu:migration}}).' },
 
-      { baslik:'② Düzeltme — ayar değişir, **geçmiş kalır**',
+      { baslik:'② Düzeltme: ayar değişir, **geçmiş kalır**',
         belgeTuru:'SA', tarih:'31.03.2028', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'336', ad:'Diğer çeşitli borçlar — sınıflandırma düzeltmesi', borc:120000 },
+          { hesap:'336', ad:'Diğer çeşitli borçlar: sınıflandırma düzeltmesi', borc:120000 },
           { hesap:'320', ad:'Satıcılar', alacak:120000 },
         ],
         not:'**Konunun özü bu fişte.**\n\n' +
-             'Satıcı ana verisindeki `AKONT` {{FK02}} ile düzeltilebilir — ' +
+             'Satıcı ana verisindeki `AKONT` {{FK02}} ile düzeltilebilir: ' +
              'bu bir **çift yönlü kapıdır**, beş dakika sürer.\n\n' +
              '**Ama geçmiş kayıtlar taşınmaz.** Değişiklikten sonraki ' +
              'kayıtlar `320`’ye gider; öncekiler `336`’da **kalır**.\n\n' +
-             'Yani ayar geri alınabilir, **veri geri alınamaz** — ve ' +
+             'Yani ayar geri alınabilir, **veri geri alınamaz**: ve ' +
              'yukarıdaki gibi bir sınıflandırma düzeltme kaydı gerekir.\n\n' +
              'Bu kaydın kendi bedeli de var: `336` ve `320` artık ' +
-             '**satıcı bazlı mutabık değildir** — düzeltme G/L seviyesinde ' +
+             '**satıcı bazlı mutabık değildir**: düzeltme G/L seviyesinde ' +
              'yapıldı, satıcı kalemleri hâlâ eski hesabın altında duruyor. ' +
              'Bilanço doğrulanır ama {{FBL1N}} ile {{FS10N}} arasındaki ' +
              'köprü bozulur.\n\n' +
              '**Genel kural:** *"ayar değiştirilebilir"* ile ' +
              '*"hata düzeltilebilir"* **aynı şey değildir**.' },
 
-      { baslik:'③ Uyarı (W) seviyesinde bırakılmış kontrol — sessizce geçilir',
+      { baslik:'③ Uyarı (W) seviyesinde bırakılmış kontrol: sessizce geçilir',
         belgeTuru:'KR', tarih:'18.04.2028', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'770', ad:'Genel yönetim giderleri — kapatılmış kâr merkezi', borc:45000 },
-          { hesap:'320', ad:'Satıcılar — danışmanlık faturası', alacak:45000 },
+          { hesap:'770', ad:'Genel yönetim giderleri: kapatılmış kâr merkezi', borc:45000 },
+          { hesap:'320', ad:'Satıcılar: danışmanlık faturası', alacak:45000 },
         ],
         not:'Kâr merkezi kontrolü bir doğrulamayla kurulmuştu ama ' +
              'mesaj tipi **W (uyarı)** bırakılmıştı.\n\n' +
              '**W ile kurulan kural, ilk yoğun günde herkes tarafından ' +
              'geçilir ve fiilen kalkar.** Kullanıcı Enter’a basar, kayıt geçer.\n\n' +
-             '**Sonuç:** mizan doğru, fiş dengeli, gider doğru hesapta — ' +
+             '**Sonuç:** mizan doğru, fiş dengeli, gider doğru hesapta: ' +
              'ama CO tarafında **kapatılmış bir kâr merkezine** yazıldı ve ' +
              'bütçe raporu bozuldu ({{konu:cost-center}}).\n\n' +
-             '**{{OBA5}} bir "hatayı sustur" aracı değildir** — ve tersi ' +
+             '**{{OBA5}} bir "hatayı sustur" aracı değildir**: ve tersi ' +
              'daha değerlidir: **kritik bir kontrol `W` ise `E` yapılır.**\n\n' +
              'Bu ayrımın testi de özeldir: pozitif test bunu **göremez**. ' +
-             'Yalnızca {{negatif-test}} yakalar — kural bilerek ihlal edilir ' +
+             'Yalnızca {{negatif-test}} yakalar: kural bilerek ihlal edilir ' +
              've sistemin gerçekten **durdurup durdurmadığına** bakılır.' },
     ],
 
     tHesaplar:[
-      { hesap:'Yanlış sınıflandırma — iki hesap', kod:'336 / 320',
+      { hesap:'Yanlış sınıflandırma: iki hesap', kod:'336 / 320',
         borc:[{ ad:'336 düzeltme aktarımı', tutar:120000 }],
         alacak:[{ ad:'336’ya yanlış giden faturalar', tutar:120000 }],
         not:'Düzeltme **G/L seviyesinde** yapıldı; satıcı kalemleri eski hesabın altında' },
     ],
 
     notlar:[
-      { tip:'err', baslik:'Üç fişin ortak özelliği — ve neden bu konu var', metin:
+      { tip:'err', baslik:'Üç fişin ortak özelliği: ve neden bu konu var', metin:
         'Yukarıdaki üç fiş de:\n\n' +
-        '**dengelidir** — borç = alacak\n' +
-        '**sistem tarafından kabul edilmiştir** — hata mesajı yok\n' +
-        '**mizanı bozmaz** — toplamlar tutar\n' +
+        '**dengelidir**: borç = alacak\n' +
+        '**sistem tarafından kabul edilmiştir**: hata mesajı yok\n' +
+        '**mizanı bozmaz**: toplamlar tutar\n' +
         've **üçü de yanlıştır**\n\n' +
         '---\n\n' +
         'Bu, {{konu:error-handling}}’deki **② sessiz hata** sınıfının ' +
@@ -334,19 +334,19 @@ SAP.registerTopic({
     anlatim:
       'Bu bölüm konunun **çalışma listesidir**: hangi karar tek yönlü kapı, ' +
       'hangisi değil.\n\n' +
-      'Liste ezberlenmez — **ölçüt** ezberlenir:\n\n' +
+      'Liste ezberlenmez: **ölçüt** ezberlenir:\n\n' +
       '*"Bu ayar yanlış kurulursa, üzerine veri yazıldıktan sonra ' +
       'geri alınabilir mi?"*\n\n' +
       'Cevap **hayır** ise tek yönlü kapıdır ve kararı yavaşlatmak gerekir.',
 
     liste:[
       /* --- TEK YÖNLÜ KAPILAR --- */
-      { ad:'{{hesap-plani}} — tek yönlü', en:'Chart of Accounts',
+      { ad:'{{hesap-plani}}: tek yönlü', en:'Chart of Accounts',
         aciklama:'Şirket kodunun bağlı olduğu hesap planı ve hesap numaralandırma yapısı.',
         neZaman:'Proje başında, **bir kez**.',
         ornek:'**Neden geri alınamaz:** her belge bir hesaba yazılır. ' +
               'Hesap planını değiştirmek, **açılmış tüm bakiyelerin taşınması** ' +
-              'demektir — pratikte yeni bir {{konu:migration}} projesidir.\n\n' +
+              'demektir: pratikte yeni bir {{konu:migration}} projesidir.\n\n' +
               'Numara yapısı da aynı derecede kalıcıdır: hesap numarasına ' +
               'anlam yüklediyseniz (`320.01` yurtiçi / `320.02` yurtdışı), ' +
               'sonradan bölmek **1:n problemidir** ve otomatik yapılamaz.\n\n' +
@@ -356,7 +356,7 @@ SAP.registerTopic({
               'eklenebilir, hesap numarası eklenemez.',
         tcodes:['OB13','FS00'] },
 
-      { ad:'{{belge-bolme}} — tek yönlü', en:'Document Splitting',
+      { ad:'{{belge-bolme}}: tek yönlü', en:'Document Splitting',
         aciklama:'Bilanço kalemlerinin kâr merkezi / segment bazında bölünmesi.',
         neZaman:'{{konu:new-gl}} kurulumunda.',
         ornek:'**Konunun en klasik tek yönlü kapısı.**\n\n' +
@@ -370,13 +370,13 @@ SAP.registerTopic({
               'kapalı kurup sonra pişman olmaktan **çok daha ucuzdur**.',
         tcodes:['FAGLL03'] },
 
-      { ad:'Şirket kodu para birimi — tek yönlü', en:'Company Code Currency',
+      { ad:'Şirket kodu para birimi: tek yönlü', en:'Company Code Currency',
         aciklama:'{{yerel-para-birimi}} ve varsa {{paralel-para-birimi}}ler.',
         neZaman:'Şirket kodu açılırken.',
         ornek:'Her kalem hem işlem hem yerel para biriminde saklanır. ' +
               'Yerel para birimini değiştirmek, **tüm geçmişin yeniden ' +
               'değerlenmesi** demektir.\n\n' +
-              'Paralel para birimi (grup para birimi) **sonradan eklenemez** — ' +
+              'Paralel para birimi (grup para birimi) **sonradan eklenemez**: ' +
               'daha doğrusu eklenir ama **geçmiş kayıtlarda boş kalır**, ' +
               'yani raporlama açısından işe yaramaz.\n\n' +
               'İhtiyaç ihtimali varsa **baştan** tanımlanır; ' +
@@ -384,22 +384,22 @@ SAP.registerTopic({
               'boş bırakmak ucuzdur.',
         tcodes:['OX02','OBY6'] },
 
-      { ad:'{{mali-yil-varyanti}} — tek yönlü', en:'Fiscal Year Variant',
+      { ad:'{{mali-yil-varyanti}}: tek yönlü', en:'Fiscal Year Variant',
         aciklama:'Mali yılın kaç dönemden oluştuğu ve ne zaman başladığı.',
         neZaman:'Şirket kodu açılırken.',
         ornek:'Dönem yapısı her belgenin `MONAT` alanına yazılmıştır. ' +
               'Varyantı değiştirmek geçmiş belgelerin **dönem atamasını** ' +
               'anlamsız kılar.\n\n' +
-              '{{ozel-donem}} sayısı da (13–16) buraya bağlıdır ve ' +
+              '{{ozel-donem}} sayısı da (13-16) buraya bağlıdır ve ' +
               'sonradan artırmak kapanış yapısını etkiler.',
         tcodes:['OB29'] },
 
-      { ad:'Defter yapısı ve {{amortisman-alani}} — tek yönlü', en:'Ledger / Depreciation Area',
+      { ad:'Defter yapısı ve {{amortisman-alani}}: tek yönlü', en:'Ledger / Depreciation Area',
         aciklama:'{{paralel-defter}} kurgusu ve {{degerleme-plani}} içindeki alanlar.',
         neZaman:'Kurulumda.',
         ornek:'Bir deftere sonradan geçmiş yazılamaz: IFRS defteri ' +
               'iki yıl sonra açılırsa, o iki yılın IFRS değerlemesi **yoktur**.\n\n' +
-              'Aynısı {{amortisman-alani}} için geçerlidir — yeni bir alan ' +
+              'Aynısı {{amortisman-alani}} için geçerlidir: yeni bir alan ' +
               'açılırsa geçmiş amortisman o alanda **hesaplanmamıştır** ' +
               've geriye dönük hesaplatmak özel bir programla, ' +
               'kısıtlı biçimde mümkündür.\n\n' +
@@ -407,12 +407,12 @@ SAP.registerTopic({
               'kullanılmayan defter maliyetsizdir.',
         tcodes:['FINSC_LEDGER','OADB'] },
 
-      { ad:'Kullanılmış {{vergi-kodu}}nun oranı — tek yönlü', en:'Tax Code Rate',
+      { ad:'Kullanılmış {{vergi-kodu}}nun oranı: tek yönlü', en:'Tax Code Rate',
         aciklama:'Bir vergi kodunun yüzdesi ve hesap ataması.',
-        neZaman:'Oran değişikliğinde — **yeni kod açılır, eski değiştirilmez**.',
+        neZaman:'Oran değişikliğinde: **yeni kod açılır, eski değiştirilmez**.',
         ornek:'Vergi kodu belgede **kod olarak** saklanır, oran olarak değil. ' +
               'Oranı değiştirirseniz **geçmiş belgeler de yeni oranla ' +
-              'yorumlanır** — beyan ve düzeltme hesaplamaları bozulur.\n\n' +
+              'yorumlanır**: beyan ve düzeltme hesaplamaları bozulur.\n\n' +
               '**Doğru yol:** yeni bir kod açılır (`A1` → `A2`), ' +
               'eskisi kapatılır. Bu, KDV oranı değiştiğinde ' +
               'her Türkiye kurulumunda yaşanan bir durumdur ' +
@@ -420,7 +420,7 @@ SAP.registerTopic({
         tcodes:['FTXP'] },
 
       /* --- ÇİFT YÖNLÜ KAPILAR --- */
-      { ad:'{{odeme-kosulu}}, tolerans, alan durumu — çift yönlü', en:'Reversible Settings',
+      { ad:'{{odeme-kosulu}}, tolerans, alan durumu: çift yönlü', en:'Reversible Settings',
         aciklama:'Her zaman değiştirilebilen, geçmişi etkilemeyen ayarlar.',
         neZaman:'İhtiyaç doğduğunda.',
         ornek:'Bunlar **hızlı** karar verilir ve gerekirse değiştirilir:\n\n' +
@@ -428,14 +428,14 @@ SAP.registerTopic({
               'ihtar prosedürü · kullanıcı yetkileri · rapor düzenleri ({{alv-duzeni}})\n\n' +
               '**Dikkat:** değiştirmek serbesttir ama **geçmişi düzeltmez**. ' +
               'Ödeme koşulunu düzeltmek, o koşulla açılmış faturaların ' +
-              'vadesini **değiştirmez** — onlar tek tek düzeltilir.\n\n' +
+              'vadesini **değiştirmez**: onlar tek tek düzeltilir.\n\n' +
               'Bu ayrım pratikte zaman kazandırır: proje toplantılarının ' +
               'çoğu bu listedeki kararlara harcanır, oysa ' +
               'gerçek risk **yukarıdaki listededir**.',
         tcodes:['OBB8','OBA4'] },
 
       /* --- TAŞIMA --- */
-      { ad:'{{tasima-istegi}} — küçük ve amaç odaklı', en:'Transport Request',
+      { ad:'{{tasima-istegi}}: küçük ve amaç odaklı', en:'Transport Request',
         aciklama:'Yapılandırma değişikliklerinin sistemler arası taşınma birimi.',
         neZaman:'Her yapılandırma değişikliğinde.',
         ornek:'**İyi istek:** tek bir amaç, birkaç nesne, açıklayıcı metin ' +
@@ -449,23 +449,23 @@ SAP.registerTopic({
               'İçerik {{E071}}’de görülür; çakışma teşhisi oradan yapılır.',
         tcodes:['SE09','STMS'] },
 
-      { ad:'{{akim-verisi}} — taşınmayan yapılandırma', en:'Current Settings',
+      { ad:'{{akim-verisi}}: taşınmayan yapılandırma', en:'Current Settings',
         aciklama:'Canlıda doğrudan değiştirilen, taşıma isteğine girmeyen tablolar.',
-        neZaman:'Sürekli — dönem açma, kur girişi.',
+        neZaman:'Sürekli: dönem açma, kur girişi.',
         ornek:'Örnekler: {{OB52}} dönem açma/kapama · {{TCURR}} döviz kurları · ' +
               'ihtar çalıştırma tarihleri.\n\n' +
-              '**"Test sisteminde çalışıyordu" şikâyetlerinin en sık sebebi budur** — ' +
+              '**"Test sisteminde çalışıyordu" şikâyetlerinin en sık sebebi budur**: ' +
               'ayar taşınmadı değil, **taşınacak bir şey yoktu**.\n\n' +
               'Bir yetki sorusu doğurur: canlıda özelleştirme kapalıdır ama ' +
               'akım verisi tablolarına yazma yetkisi **açık kalmak zorundadır**. ' +
-              'Kimin yazabileceği bilinçli seçilir — ' +
+              'Kimin yazabileceği bilinçli seçilir: ' +
               '{{OB52}} yetkisi, dönem disiplininin **tek** teknik dayanağıdır.',
         tcodes:['OB52','SM30'] },
 
       /* --- TEST --- */
-      { ad:'{{negatif-test}} — asıl değer burada', en:'Negative Testing',
+      { ad:'{{negatif-test}}: asıl değer burada', en:'Negative Testing',
         aciklama:'Sistemin yapılmaması gerekeni **engellediğini** doğrulayan test.',
-        neZaman:'Her kontrol kurulduğunda — **istisnasız**.',
+        neZaman:'Her kontrol kurulduğunda: **istisnasız**.',
         ornek:'Mutlu yolu herkes test eder. Ama bir kontrol ' +
               '**yalnızca ihlal edildiğinde** görünür.\n\n' +
               '**Test edilecekler:** kapalı döneme kayıt · zorunlu ' +
@@ -473,11 +473,11 @@ SAP.registerTopic({
               'dengesiz belge · yetkisiz şirket kodu.\n\n' +
               '**Neden zorunlu:** {{konu:dogrulama-ikame}}’de kural üç adımda ' +
               'kurulur ve **üçüncüsü (etkinleştirme) sık atlanır**. ' +
-              'Etkinleştirilmemiş kural sessizce hiçbir şey yapmaz — ' +
+              'Etkinleştirilmemiş kural sessizce hiçbir şey yapmaz: ' +
               've pozitif test bunu **göremez**.',
         tcodes:['GGB4','OBA5'] },
 
-      { ad:'{{regresyon-testi}} — paylaşımlı yapılandırma', en:'Regression Testing',
+      { ad:'{{regresyon-testi}}: paylaşımlı yapılandırma', en:'Regression Testing',
         aciklama:'Yeni değişikliğin **eskiden çalışanı** bozmadığını doğrular.',
         neZaman:'Her taşımadan sonra.',
         ornek:'FI’da kritiktir çünkü yapılandırma **paylaşımlıdır**: ' +
@@ -496,12 +496,12 @@ SAP.registerTopic({
     karsilastirma:[
       ['Örnek', '{{hesap-plani}} · {{belge-bolme}} · para birimi', '{{odeme-kosulu}} · tolerans · alan durumu'],
       ['Geri alınabilir mi?', '**Veri yazıldıktan sonra hayır**', 'Evet'],
-      ['Karar hızı', '**Yavaş** — yazılı, gerekçeli', 'Hızlı'],
-      ['Kim karar verir?', '**İş tarafı** — danışman bilgi verir', 'Danışman önerir, iş onaylar'],
+      ['Karar hızı', '**Yavaş**: yazılı, gerekçeli', 'Hızlı'],
+      ['Kim karar verir?', '**İş tarafı**: danışman bilgi verir', 'Danışman önerir, iş onaylar'],
       ['Yanlışsa maliyet', '**Yeni proje**', 'Bir ayar değişikliği'],
       ['Doğru soru', '*"Üç yıl içinde isteme ihtimali var mı?"*', '*"Bugün ne lazım?"*'],
       ['Şüphedeyken', '**Açık kur, kullanma**', 'Basit olanı seç'],
-      ['Toplantı süresi', 'Uzun — ve hak ediyor', 'Kısa tutulmalı'],
+      ['Toplantı süresi', 'Uzun: ve hak ediyor', 'Kısa tutulmalı'],
     ],
   },
 
@@ -518,30 +518,30 @@ SAP.registerTopic({
         amac:'Taşıma isteklerini görüntüler, serbest bırakır ve **içeriğini** gösterir.',
         neZaman:'Her taşımadan önce ve "test sisteminde çalışıyordu" teşhisinde.',
         adimlar:[
-          { baslik:'İsteklerini listele — kendi kullanıcın veya proje' },
-          { baslik:'**İçeriği aç** — nesne listesi ({{E071}})',
+          { baslik:'İsteklerini listele: kendi kullanıcın veya proje' },
+          { baslik:'**İçeriği aç**: nesne listesi ({{E071}})',
             aciklama:'Bir isteğin neyi taşıdığını görmenin en hızlı yolu.' },
-          { baslik:'Serbest bırak — önce **görev**, sonra **istek**',
+          { baslik:'Serbest bırak: önce **görev**, sonra **istek**',
             aciklama:'Görev serbest bırakılmadan istek bırakılamaz.' },
           { baslik:'Çakışma kontrolü: iki istek aynı nesneye dokunuyor mu?',
             aciklama:'{{tasima-sirasi}} sorunlarının teşhisi buradadır.' },
-          { baslik:'Taşıma günlüğünü oku — **dönüş kodu 8 hata demektir**' },
+          { baslik:'Taşıma günlüğünü oku: **dönüş kodu 8 hata demektir**' },
         ],
         ekranAkisi:[
           { ekran:'İstek listesi', islem:'3 açık istek görüldü' },
           { ekran:'İçerik', islem:'İstek A: `T007A` (vergi kodu) · İstek B: `T007A` + `T030K`' },
           { ekran:'Çakışma', islem:'**İkisi de `T007A`’ya dokunuyor** → sıra kritik' },
           { ekran:'Sıra', islem:'A önce serbest bırakıldı ama **B önce taşınmış**' },
-          { ekran:'Sonuç', islem:'A, B’nin değişikliğini **ezmiş** — hata mesajı yok' },
+          { ekran:'Sonuç', islem:'A, B’nin değişikliğini **ezmiş**: hata mesajı yok' },
           { ekran:'Düzeltme', islem:'B yeniden taşındı; sıra kuralı yazılı hâle getirildi' },
         ],
         alanlar:{
           zorunlu:['İstek türü','Kısa açıklama'],
           opsiyonel:['Görev sahipleri','Hedef sistem'] },
         hatalar:[
-          { mesaj:'"Nesne başka bir istekte kilitli"', sebep:'Aynı nesne serbest bırakılmamış başka bir istekte.', cozum:'Diğer istek serbest bırakılır veya nesne oradan çıkarılır. Bu kilit **koruyucudur** — {{tasima-sirasi}} çakışmasını önler.' },
-          { mesaj:'Taşındı ama canlıda etkisi yok', sebep:'Tablo {{akim-verisi}} olabilir — taşımaya hiç girmemiştir.', cozum:'Canlıda **ayrıca** ayarlanır ({{SM30}} / {{OB52}}).' },
-          { mesaj:'Dönüş kodu 8', sebep:'Taşıma hata verdi — bağımlı nesne eksik veya sözlük uyumsuzluğu.', cozum:'Günlük okunur. **Dönüş kodu 4 de masum değildir**: uyarıdır ama içerik eksik taşınmış olabilir.' },
+          { mesaj:'"Nesne başka bir istekte kilitli"', sebep:'Aynı nesne serbest bırakılmamış başka bir istekte.', cozum:'Diğer istek serbest bırakılır veya nesne oradan çıkarılır. Bu kilit **koruyucudur**: {{tasima-sirasi}} çakışmasını önler.' },
+          { mesaj:'Taşındı ama canlıda etkisi yok', sebep:'Tablo {{akim-verisi}} olabilir: taşımaya hiç girmemiştir.', cozum:'Canlıda **ayrıca** ayarlanır ({{SM30}} / {{OB52}}).' },
+          { mesaj:'Dönüş kodu 8', sebep:'Taşıma hata verdi: bağımlı nesne eksik veya sözlük uyumsuzluğu.', cozum:'Günlük okunur. **Dönüş kodu 4 de masum değildir**: uyarıdır ama içerik eksik taşınmış olabilir.' },
         ],
         ipucu:'**Taşımadan önce içeriğe bak, sonra değil.**\n\n' +
               'İki soru: *"bu istekte olmaması gereken bir şey var mı?"* ve ' +
@@ -554,11 +554,11 @@ SAP.registerTopic({
         neZaman:'Test ve canlıya aktarımda.',
         adimlar:[
           { baslik:'Hedef sistemin kuyruğunu aç' },
-          { baslik:'**Sırayı kontrol et** — serbest bırakılma sırası',
+          { baslik:'**Sırayı kontrol et**: serbest bırakılma sırası',
             aciklama:'{{tasima-sirasi}}: ters sıra **eski hâli yeniye ezdirir**.' },
-          { baslik:'İstekleri içe aktar — tekil veya toplu' },
-          { baslik:'Günlüğü oku — dönüş kodu 8 hatadır, 4 uyarıdır' },
-          { baslik:'Canlıda **doğrula** — taşındı ≠ çalışıyor' },
+          { baslik:'İstekleri içe aktar: tekil veya toplu' },
+          { baslik:'Günlüğü oku: dönüş kodu 8 hatadır, 4 uyarıdır' },
+          { baslik:'Canlıda **doğrula**: taşındı ≠ çalışıyor' },
         ],
         ekranAkisi:[
           { ekran:'Kuyruk', islem:'Canlı sistem kuyruğunda **14 istek** bekliyor' },
@@ -572,7 +572,7 @@ SAP.registerTopic({
           opsiyonel:['Zamanlama','Toplu içe aktarma'] },
         hatalar:[
           { mesaj:'Toplu aktarımda sıra karıştı', sebep:'İstekler tek tek ve keyfî sırada aktarılmış.', cozum:'Kuyruk **bütün olarak** aktarılır; seçmeli aktarım sırayı bozar.' },
-          { mesaj:'"Sistemde özelleştirme kapalı"', sebep:'{{SCC4}} istemci ayarı — canlıda doğru davranış.', cozum:'Değişiklik **geliştirme sisteminde** yapılıp taşınır. İstisna: {{akim-verisi}}.' },
+          { mesaj:'"Sistemde özelleştirme kapalı"', sebep:'{{SCC4}} istemci ayarı: canlıda doğru davranış.', cozum:'Değişiklik **geliştirme sisteminde** yapılıp taşınır. İstisna: {{akim-verisi}}.' },
         ],
         ipucu:'**Taşıma bir teslim değil, bir adımdır.** ' +
               'RC 0 dönmesi ayarın **çalıştığı** anlamına gelmez; ' +
@@ -585,9 +585,9 @@ SAP.registerTopic({
         neZaman:'Her yapılandırma işinde.',
         adimlar:[
           { baslik:'SAP Referans IMG’yi aç' },
-          { baslik:'Düğümdeki **işlem kodunu** oku — `OB*` ezberi gereksiz',
+          { baslik:'Düğümdeki **işlem kodunu** oku: `OB*` ezberi gereksiz',
             aciklama:'Kod düğümün yanında yazılıdır (bkz. {{konu:tcodes}}).' },
-          { baslik:'**Belgeyi () oku** — SAP’ın kendi açıklaması',
+          { baslik:'**Belgeyi () oku**: SAP’ın kendi açıklaması',
             aciklama:'Çoğu "bu ayar ne yapar?" sorusu burada cevaplanır.' },
           { baslik:'Değişikliği yap → {{tasima-istegi}}ne al' },
           { baslik:'İstek **küçük ve amaç odaklı** olsun' },
@@ -596,14 +596,14 @@ SAP.registerTopic({
           { ekran:'Ağaç', islem:'Mali Muhasebe → Ana Muhasebe → İş İşlemleri' },
           { ekran:'Düğüm', islem:'Yanında işlem kodu yazılı: `OB52`' },
           { ekran:'Belge', islem:'açıldı → *"bu tablo akım verisidir"* yazıyor' },
-          { ekran:'Sonuç', islem:'Taşıma isteği **beklenmedi** — canlıda ayrıca ayarlandı' },
+          { ekran:'Sonuç', islem:'Taşıma isteği **beklenmedi**: canlıda ayrıca ayarlandı' },
         ],
         alanlar:{
           zorunlu:['IMG düğümü'],
           opsiyonel:['Proje IMG (yalnızca kapsam)'] },
         hatalar:[
-          { mesaj:'"Değişiklik yapılamaz — istemci koruması"', sebep:'{{SCC4}} ayarı; canlıda beklenen davranıştır.', cozum:'Geliştirme sisteminde yapılır ve taşınır.' },
-          { mesaj:'Ayar yapıldı ama taşıma isteği sorulmadı', sebep:'Tablo **{{akim-verisi}}** olarak işaretli.', cozum:'Bu bir hata değildir. Ayar her sistemde **ayrı** yapılır — ve bu bilinerek yapılmalıdır.' },
+          { mesaj:'"Değişiklik yapılamaz: istemci koruması"', sebep:'{{SCC4}} ayarı; canlıda beklenen davranıştır.', cozum:'Geliştirme sisteminde yapılır ve taşınır.' },
+          { mesaj:'Ayar yapıldı ama taşıma isteği sorulmadı', sebep:'Tablo **{{akim-verisi}}** olarak işaretli.', cozum:'Bu bir hata değildir. Ayar her sistemde **ayrı** yapılır: ve bu bilinerek yapılmalıdır.' },
         ],
         ipucu:'**IMG belgesini okumak, bu konudaki en yüksek getirili alışkanlıktır.**\n\n' +
               'Her düğümün yanında bir belge simgesi vardır ve SAP orada ' +
@@ -622,7 +622,7 @@ SAP.registerTopic({
       '**"kim değiştirdi?"** ({{CDHDR}}/{{CDPOS}}).',
 
     liste:[
-      { ad:'E070', baslik:'Taşıma isteği başlığı — değişiklik zaman çizelgesi',
+      { ad:'E070', baslik:'Taşıma isteği başlığı: değişiklik zaman çizelgesi',
         tutar:'Her istek bir satır: sahibi, türü, durumu, serbest bırakılma zamanı.',
         olusturan:'{{SE09}}',
         anahtar:'TRKORR',
@@ -630,24 +630,24 @@ SAP.registerTopic({
         s4:'Değişmedi.',
         alanlar:[
           { ad:'TRKORR', aciklama:'İstek numarası' },
-          { ad:'AS4DATE', aciklama:'Serbest bırakılma tarihi — *"bu ayar canlıya ne zaman gitti?"*' },
-          { ad:'AS4USER', aciklama:'Sahibi — sorulacak kişi' },
-          { ad:'TRSTATUS', aciklama:'Durum — **R** serbest bırakılmış' },
+          { ad:'AS4DATE', aciklama:'Serbest bırakılma tarihi: *"bu ayar canlıya ne zaman gitti?"*' },
+          { ad:'AS4USER', aciklama:'Sahibi: sorulacak kişi' },
+          { ad:'TRSTATUS', aciklama:'Durum: **R** serbest bırakılmış' },
         ] },
 
-      { ad:'E071', baslik:'Taşıma isteği nesneleri — çakışma teşhisi',
+      { ad:'E071', baslik:'Taşıma isteği nesneleri: çakışma teşhisi',
         tutar:'Bir isteğin **tam olarak neyi** taşıdığı.',
         olusturan:'{{SE09}}',
         anahtar:'TRKORR + PGMID + OBJECT + OBJ_NAME',
         iliskiler:'{{E070}} başlığına bağlı.',
         s4:'Değişmedi.',
         alanlar:[
-          { ad:'OBJECT', aciklama:'Nesne türü — `TABU` tablo, `PROG` program' },
-          { ad:'OBJ_NAME', aciklama:'Nesne adı — **iki isteğin çakışıp çakışmadığı buradan**' },
+          { ad:'OBJECT', aciklama:'Nesne türü: `TABU` tablo, `PROG` program' },
+          { ad:'OBJ_NAME', aciklama:'Nesne adı: **iki isteğin çakışıp çakışmadığı buradan**' },
           { ad:'TRKORR', aciklama:'Hangi istekte' },
         ] },
 
-      { ad:'CDHDR', baslik:'Değişiklik belgesi — "dün çalışıyordu" sorusunun cevabı',
+      { ad:'CDHDR', baslik:'Değişiklik belgesi: "dün çalışıyordu" sorusunun cevabı',
         tutar:'Ana veri ve bazı yapılandırma değişikliklerinin başlığı.',
         olusturan:'Değişiklik yapan her işlem',
         anahtar:'OBJECTCLAS + OBJECTID + CHANGENR',
@@ -659,38 +659,38 @@ SAP.registerTopic({
           { ad:'TCODE', aciklama:'Hangi işlemle' },
         ] },
 
-      { ad:'TCURR', baslik:'Döviz kurları — akım verisi örneği',
+      { ad:'TCURR', baslik:'Döviz kurları: akım verisi örneği',
         tutar:'Kur tipi + para birimi çifti + tarih bazında kurlar.',
         olusturan:'{{OB08}} veya arayüz',
         anahtar:'KURST + FCURR + TCURR + GDATU',
         iliskiler:'{{konu:foreign-currency}} değerlemesi buradan okur.',
         s4:'Değişmedi.',
         alanlar:[
-          { ad:'GDATU', aciklama:'Tarih **ters** saklanır — doğrudan okumayı zorlaştırır' },
+          { ad:'GDATU', aciklama:'Tarih **ters** saklanır: doğrudan okumayı zorlaştırır' },
           { ad:'UKURS', aciklama:'Kur' },
-          { ad:'KURST', aciklama:'{{kur-tipi}} — M, B, G' },
+          { ad:'KURST', aciklama:'{{kur-tipi}}: M, B, G' },
         ] },
     ],
 
     er:{
       type:'er',
-      baslik:'Değişikliğin izi — kim, ne, ne zaman',
+      baslik:'Değişikliğin izi: kim, ne, ne zaman',
       varliklar:[
-        { ad:'E070', rol:'Başlık', hub:true, aciklama:'**Taşıma isteği** — ne zaman canlıya gitti',
+        { ad:'E070', rol:'Başlık', hub:true, aciklama:'**Taşıma isteği**: ne zaman canlıya gitti',
           alanlar:[{ ad:'TRKORR', tip:'pk' }, { ad:'AS4DATE' }, { ad:'AS4USER' }] },
-        { ad:'E071', rol:'Kalem', aciklama:'**Nesne listesi** — çakışma buradan görülür',
+        { ad:'E071', rol:'Kalem', aciklama:'**Nesne listesi**: çakışma buradan görülür',
           alanlar:[{ ad:'TRKORR', tip:'fk' }, { ad:'OBJ_NAME', tip:'pk' }] },
         { ad:'CDHDR', rol:'Ana veri', aciklama:'**Değişiklik belgesi** başlığı',
           alanlar:[{ ad:'CHANGENR', tip:'pk' }, { ad:'USERNAME' }, { ad:'UDATE' }] },
         { ad:'CDPOS', rol:'Alan', aciklama:'Eski ve yeni değer',
           alanlar:[{ ad:'CHANGENR', tip:'fk' }, { ad:'FNAME' }] },
-        { ad:'TCURR', rol:'Akım verisi', aciklama:'**Taşınmaz** — her sistemde ayrı',
+        { ad:'TCURR', rol:'Akım verisi', aciklama:'**Taşınmaz**: her sistemde ayrı',
           alanlar:[{ ad:'GDATU', tip:'pk' }, { ad:'UKURS' }] },
       ],
       iliskiler:[
         { from:'E070', to:'E071', alanlar:'TRKORR', not:'istek → nesneler' },
         { from:'CDHDR', to:'CDPOS', alanlar:'CHANGENR', not:'başlık → alan değişiklikleri' },
-        { from:'E071', to:'TCURR', alanlar:'—', not:'**bağlantı yok** — akım verisi' },
+        { from:'E071', to:'TCURR', alanlar:', ', not:'**bağlantı yok**, akım verisi' },
       ],
     },
   },
@@ -702,18 +702,18 @@ SAP.registerTopic({
       '**{{SE09}}** *"ne taşıyorum?"*, **{{STMS}}** *"sırayla mı gitti?"*',
 
     ekranlar:[
-      { ad:'{{SPRO}} — yapılandırma ağacı',
+      { ad:'{{SPRO}}: yapılandırma ağacı',
         aciklama:'Ayarın yapıldığı yer.',
         alanlar:[
           { ad:'**Belge simgesi ()**', zorunlu:false, aciklama:'SAP’ın kendi açıklaması. ' +
                    'Ayarın **geri alınabilir olup olmadığı** genelde burada yazar.' },
-          { ad:'Düğümdeki işlem kodu', zorunlu:false, aciklama:'Yazılıdır — `OB*` ezberi gereksiz.' },
+          { ad:'Düğümdeki işlem kodu', zorunlu:false, aciklama:'Yazılıdır: `OB*` ezberi gereksiz.' },
           { ad:'{{tasima-istegi}}', zorunlu:true, aciklama:'Sorulmadıysa tablo ' +
                    '**{{akim-verisi}}**dir.' },
         ],
         ipucu:'IMG belgesini okumak bu konudaki **en yüksek getirili alışkanlıktır**.' },
 
-      { ad:'{{SE09}} — istek içeriği',
+      { ad:'{{SE09}}: istek içeriği',
         aciklama:'Neyin taşındığı ve neyle çakıştığı.',
         alanlar:[
           { ad:'Nesne listesi', zorunlu:true, aciklama:'Taşımadan **önce** okunur.' },
@@ -722,12 +722,12 @@ SAP.registerTopic({
         ],
         ipucu:'İstek **küçük ve amaç odaklı** olmalı; "her şey içinde" tek istek geri alınamaz.' },
 
-      { ad:'{{STMS}} — kuyruk ve sıra',
+      { ad:'{{STMS}}: kuyruk ve sıra',
         aciklama:'Hedef sisteme aktarım.',
         alanlar:[
           { ad:'**Sıra**', zorunlu:true, aciklama:'Serbest bırakılma sırasıyla. ' +
                    'Ters sırada **eski hâl yeniyi ezer**.' },
-          { ad:'Dönüş kodu', zorunlu:true, aciklama:'8 hata · 4 uyarı — ' +
+          { ad:'Dönüş kodu', zorunlu:true, aciklama:'8 hata · 4 uyarı: ' +
                    '**4 de masum değildir**.' },
         ],
         ipucu:'Kuyruk **bütün olarak** aktarılır; seçmeli aktarım sırayı bozar.' },
@@ -737,9 +737,9 @@ SAP.registerTopic({
     opsiyonel:['Regresyon çekirdek kümesi','Karar tutanağı imzası'],
 
     hatalar:[
-      { mesaj:'"Test sisteminde çalışıyordu, canlıda çalışmıyor"', sebep:'En sık: tablo {{akim-verisi}} — taşımaya hiç girmedi.', cozum:'Canlıda **ayrıca** ayarlanır. Sonraki iki ihtimal: {{tasima-sirasi}} çakışması, bağımlı nesne eksik.' },
+      { mesaj:'"Test sisteminde çalışıyordu, canlıda çalışmıyor"', sebep:'En sık: tablo {{akim-verisi}}: taşımaya hiç girmedi.', cozum:'Canlıda **ayrıca** ayarlanır. Sonraki iki ihtimal: {{tasima-sirasi}} çakışması, bağımlı nesne eksik.' },
       { mesaj:'Taşıma RC 0 ama ayar canlıda eski hâlinde', sebep:'Başka bir istek **sonra** taşınıp üzerine yazmış.', cozum:'{{E071}}’de ortak nesne aranır; doğru sırayla yeniden taşınır.' },
-      { mesaj:'"Nesne başka bir istekte kilitli"', sebep:'Aynı nesne serbest bırakılmamış başka istekte.', cozum:'Bu kilit **koruyucudur** — çakışmayı önler. Diğer istek serbest bırakılır.' },
+      { mesaj:'"Nesne başka bir istekte kilitli"', sebep:'Aynı nesne serbest bırakılmamış başka istekte.', cozum:'Bu kilit **koruyucudur**: çakışmayı önler. Diğer istek serbest bırakılır.' },
       { mesaj:'Kural kurdum ama çalışmıyor', sebep:'{{konu:dogrulama-ikame}}: **etkinleştirme adımı** atlanmış ({{GGB4}}).', cozum:'{{negatif-test}} bunu yakalar; pozitif test **göremez**.' },
       { mesaj:'Uyarı çıkıyor, kullanıcılar geçiyor', sebep:'Mesaj tipi **W** bırakılmış.', cozum:'Kritik kontrol **E** yapılır ({{OBA5}}). W ile kurulan kural ilk yoğun günde fiilen kalkar.' },
       { mesaj:'Bir ayarı düzelttim ama geçmiş kayıtlar hâlâ yanlış', sebep:'Ayar geri alınabilir, **veri geri alınamaz**.', cozum:'Düzeltme/aktarım kaydı gerekir. Bu, kararın ne kadar "geri alınabilir" olduğunun gerçek ölçüsüdür.' },
@@ -749,12 +749,12 @@ SAP.registerTopic({
     ipuclari:[
       'Her ayarda tek soru: **"veri yazıldıktan sonra geri alınabilir mi?"**',
       'Tek yönlü kapıda doğru soru *"bugün istiyor muyuz?"* değil, **"üç yıl içinde?"**',
-      'Şüphedeyken **açık kur, kullanma** — kapatıp pişman olmaktan ucuz.',
+      'Şüphedeyken **açık kur, kullanma**: kapatıp pişman olmaktan ucuz.',
       'Kararı **gerekçesiyle** yaz: neyi çözüyor, ne elendi, hangi varsayım.',
       'Çözüm sırası: **standart ayar → {{badi}} → modifikasyon**.',
       '{{tasima-istegi}}ni **küçük ve amaç odaklı** tut.',
       'Taşımadan **önce** {{E071}} içeriğine bak, sonra değil.',
-      'Her kontrolde **{{negatif-test}}** yap — pozitif test kontrolü göremez.',
+      'Her kontrolde **{{negatif-test}}** yap: pozitif test kontrolü göremez.',
       'Kritik kontrol **W ise E yap**; {{OBA5}} susturma aracı değildir.',
       'Sabit bir {{regresyon-testi}} çekirdek kümesi tut ve her taşımadan sonra koş.',
       '{{akim-verisi}} tablolarını canlıda **ayrıca** ayarla ve **kimin yazabileceğini** seç.',
@@ -765,18 +765,18 @@ SAP.registerTopic({
   /* ===================================================== 8. TEKNİK === */
   teknik: {
     guncellenenTablolar:[
-      { tablo:'E070', ne:'Taşıma isteği başlığı — **ne zaman canlıya gitti**' },
-      { tablo:'E071', ne:'Nesne listesi — **çakışma teşhisi**' },
-      { tablo:'CDHDR', ne:'Değişiklik belgesi — kim, ne zaman' },
+      { tablo:'E070', ne:'Taşıma isteği başlığı: **ne zaman canlıya gitti**' },
+      { tablo:'E071', ne:'Nesne listesi: **çakışma teşhisi**' },
+      { tablo:'CDHDR', ne:'Değişiklik belgesi: kim, ne zaman' },
       { tablo:'CDPOS', ne:'Alan bazında eski/yeni değer' },
-      { tablo:'TCURR', ne:'{{akim-verisi}} — taşınmaz' },
+      { tablo:'TCURR', ne:'{{akim-verisi}}: taşınmaz' },
     ],
 
     commit:
       'Yapılandırma değişikliği **anında** yazılır ve {{tampon}}lanır. ' +
       'Bu iki sonuç doğurur:\n\n' +
       '**1.** Ayarı değiştirdiniz ama etkisini görmüyorsanız, ' +
-      'sebep tampon olabilir — `/$sync` ile temizlenir ' +
+      'sebep tampon olabilir: `/$sync` ile temizlenir ' +
       '(bkz. {{konu:tcodes}}).\n\n' +
       '**2.** Yapılandırma değişikliği **çalışan işlemleri etkilemez** ' +
       'ama bir sonraki kaydı etkiler. Bu yüzden canlıda yapılandırma ' +
@@ -797,9 +797,9 @@ SAP.registerTopic({
     postingLogic:
       'Yapılandırmanın kayda etkisi **üç katmanlıdır** ve teşhis bu sırayla yapılır:\n\n' +
       '**1. Var mı?** Hesap belirleme, numara aralığı, dönem. ' +
-      'Yoksa kayıt **durur** — konuşan hata.\n\n' +
+      'Yoksa kayıt **durur**: konuşan hata.\n\n' +
       '**2. Doğru mu?** {{mutabakat-hesabi}}, {{vergi-kodu}}, hesap ataması. ' +
-      'Yanlışsa kayıt **geçer** — sessiz hata.\n\n' +
+      'Yanlışsa kayıt **geçer**: sessiz hata.\n\n' +
       '**3. Zorlayıcı mı?** Doğrulama kuralları, mesaj tipi (W/E), ' +
       'yetkilendirme. Zayıfsa kural **fiilen yoktur**.\n\n' +
       'Danışman özenini bu sıraya göre dağıtır: birinci katman kendini ' +
@@ -820,7 +820,7 @@ SAP.registerTopic({
       'Numara aralıkları bir {{tek-yonlu-kapi}}ya yakındır: ' +
       'aralık **daraltılamaz** (kullanılmış numaralar vardır) ve ' +
       'aralıklar **çakışamaz**.\n\n' +
-      'Ayrıca numara aralıkları çoğu sistemde **taşınmaz** — ' +
+      'Ayrıca numara aralıkları çoğu sistemde **taşınmaz**: ' +
       'her sistemde ayrıca tanımlanır. Bu, "test sisteminde çalışıyordu" ' +
       'vakalarının bir başka sebebidir.\n\n' +
       'Aralık tükenmesi sessiz bir risktir: yıl sonunda ' +
@@ -839,11 +839,11 @@ SAP.registerTopic({
 
     tur:
       '**Karar türleri ve kim verir:**\n\n' +
-      '** Tek yönlü kapı** — kararı **iş tarafı** verir, danışman bilgi verir ' +
+      '** Tek yönlü kapı**: kararı **iş tarafı** verir, danışman bilgi verir ' +
       've yazılı hâle getirir.\n\n' +
-      '** Çift yönlü kapı** — danışman önerir, iş tarafı onaylar, ' +
+      '** Çift yönlü kapı**: danışman önerir, iş tarafı onaylar, ' +
       'hızlı geçilir.\n\n' +
-      '** Teknik karar** — danışmana aittir (istek büyüklüğü, ' +
+      '** Teknik karar**: danışmana aittir (istek büyüklüğü, ' +
       'test kapsamı, adlandırma).\n\n' +
       '**En sık karıştırılan:** teknik görünen bir kararın aslında ' +
       'birinci sınıfa ait olması. *"Hesap numarası kaç haneli olsun?"* ' +
@@ -859,7 +859,7 @@ SAP.registerTopic({
       '---\n\n' +
       '**Ve taşınmayan üç şey:** {{akim-verisi}} tabloları · ' +
       'numara aralıkları (çoğu durumda) · {{LSMW}} projeleri ' +
-      '(kendi dışa/içe aktarması var — bkz. {{konu:lsmw}}).',
+      '(kendi dışa/içe aktarması var: bkz. {{konu:lsmw}}).',
 
     img:[
       { yol:'SPRO → düğümdeki belge simgesi', not:'Ayarın geri alınabilirliği genelde burada yazar' },
@@ -869,7 +869,7 @@ SAP.registerTopic({
     ],
 
     ekstra:[
-      { ic:'🚪', baslik:'Tek yönlü kapı testi — dört soru', metin:
+      { ic:'🚪', baslik:'Tek yönlü kapı testi: dört soru', metin:
         'Bir ayarın hangi sınıfa ait olduğunu anlamak için ' +
         'listeyi ezberlemek gerekmez. **Dört soru** yeterlidir:\n\n' +
         '---\n\n' +
@@ -902,11 +902,11 @@ SAP.registerTopic({
         'Dokümantasyon tavsiyeleri genelde işe yaramaz çünkü ' +
         '**yanlış şeyi** yazmayı önerirler.\n\n' +
         'SAP **ne yapıldığını zaten tutuyor**:\n\n' +
-        '• {{CDHDR}}/{{CDPOS}} — ana veride hangi alan, ne zaman, kim tarafından\n' +
-        '• {{E070}}/{{E071}} — hangi ayar ne zaman canlıya gitti\n' +
-        '• {{SPRO}} — ayarın şu anki hâli zaten orada\n\n' +
+        '• {{CDHDR}}/{{CDPOS}}: ana veride hangi alan, ne zaman, kim tarafından\n' +
+        '• {{E070}}/{{E071}}: hangi ayar ne zaman canlıya gitti\n' +
+        '• {{SPRO}}: ayarın şu anki hâli zaten orada\n\n' +
         'Bunları bir Word belgesine kopyalamak **çift kayıt** üretir ve ' +
-        'ikisi zamanla ayrışır — ayrışınca da ikisi de güvenilmez olur.\n\n' +
+        'ikisi zamanla ayrışır: ayrışınca da ikisi de güvenilmez olur.\n\n' +
         '---\n\n' +
         '**Tutulması gereken tek şey: NEDEN.**\n\n' +
         'Üç satır yeter ve bir karar için şunları içerir:\n\n' +
@@ -917,30 +917,30 @@ SAP.registerTopic({
         '**③ Hangi varsayıma dayanıyor.** **En değerli satır budur.** ' +
         '*"Yalnızca iki bankayla çalışıldığı varsayımıyla."*\n\n' +
         'Üçüncü satır, kararın **ne zaman gözden geçirilmesi gerektiğini** ' +
-        'söyler. Üçüncü banka eklendiğinde bu karar yeniden bakılmalıdır — ' +
+        'söyler. Üçüncü banka eklendiğinde bu karar yeniden bakılmalıdır: ' +
         've yazılı olmasaydı kimse bilmezdi.\n\n' +
         'Bu, {{konu:dogrulama-ikame}}’deki *"kural 2024’te doğruydu"* ' +
         'vakasının **önleyicisidir**: o kuralın da bir varsayımı vardı ' +
         've yazılmamıştı.' },
 
-      { ic:'🧪', baslik:'Test senaryosu yazımı — üç kural', metin:
+      { ic:'🧪', baslik:'Test senaryosu yazımı: üç kural', metin:
         'FI test senaryolarının çoğu şöyle yazılır: ' +
         '*"{{FB60}} ile satıcı faturası gir, kaydet, belge oluştuğunu doğrula."*\n\n' +
         'Bu senaryo neredeyse hiçbir şey test etmez.\n\n' +
         '---\n\n' +
-        '**Kural 1 — Sonucu değil, DOĞRU sonucu doğrula.**\n\n' +
+        '**Kural 1: Sonucu değil, DOĞRU sonucu doğrula.**\n\n' +
         '*"Belge oluştu"* yetmez. *"`320` hesabına gitti mi?"*, ' +
         '*"KDV `191`’e mi düştü?"*, *"vade doğru hesaplandı mı?"* ' +
         '{{konu:mm-integration}}’deki OBYC hataları tam olarak ' +
         'bu eksiklik yüzünden canlıya çıkar.\n\n' +
-        '**Kural 2 — {{negatif-test}} olmadan test tamamlanmaz.**\n\n' +
+        '**Kural 2: {{negatif-test}} olmadan test tamamlanmaz.**\n\n' +
         'Kurulan her kontrol **bilerek ihlal edilir**: kapalı döneme kayıt ' +
         'denenir, zorunlu alan boş bırakılır, dört-göz kuralı tek ' +
         'kullanıcıyla test edilir.\n\n' +
         'Sebebi basit: bir kontrol **yalnızca ihlal edildiğinde** görünür. ' +
         'Etkinleştirilmemiş bir doğrulama kuralı pozitif testte ' +
         '**mükemmel** çalışıyor gibi durur.\n\n' +
-        '**Kural 3 — Test verisi "temiz" olmamalı.**\n\n' +
+        '**Kural 3: Test verisi "temiz" olmamalı.**\n\n' +
         'Gerçek hayatta veriler yuvarlak değildir. Test kümesine ' +
         'bilinçli olarak şunlar konur: kuruşlu tutarlar · dövizli belge · ' +
         'iskontolu fatura · çok kalemli belge · uzun satıcı adı · ' +
@@ -960,16 +960,16 @@ SAP.registerTopic({
         '• Ve en pahalısı: **{{konu:migration}}’da taşınma yükü**\n\n' +
         '---\n\n' +
         '**Üç seviye, üç farklı faiz oranı:**\n\n' +
-        '**① Özel rapor** — standardı değiştirmez, sürüm yükseltmede ' +
+        '**① Özel rapor**: standardı değiştirmez, sürüm yükseltmede ' +
         'genelde sorunsuzdur. **Faiz düşük.**\n' +
-        '**② {{badi}} / genişletme** — SAP’ın izin verdiği noktadan bağlanır. ' +
+        '**② {{badi}} / genişletme**: SAP’ın izin verdiği noktadan bağlanır. ' +
         '**Faiz orta.**\n' +
-        '**③ Modifikasyon** — standart kod değiştirilir. ' +
+        '**③ Modifikasyon**: standart kod değiştirilir. ' +
         'Her yükseltmede {{SPAU}} ile elle ele alınır. **Faiz yüksek.**\n\n' +
         '---\n\n' +
         '**Asıl sorun yazmak değil, envanteri kaybetmektir.** ' +
         'Beş yıl sonra hangi geliştirmenin hâlâ kullanıldığı bilinmez ve ' +
-        '**hepsi** yükseltmeye taşınır — kullanılmayanlar dahil.\n\n' +
+        '**hepsi** yükseltmeye taşınır: kullanılmayanlar dahil.\n\n' +
         'Basit önlem: her geliştirmenin **son kullanım tarihi** izlenir. ' +
         'Bir yıldır çalışmamış bir program, taşınmadan önce sorgulanır.' },
 
@@ -1002,14 +1002,14 @@ SAP.registerTopic({
       'yalnızca bir bakım maliyeti değil, aynı zamanda bir **geçiş engelidir**.',
 
     eccFarklari:[
-      { konu:'{{tek-yonlu-kapi}} kavramı', ecc:'Geçerli', s4:'**Aynen geçerli** — hatta bazıları arttı' },
-      { konu:'FI–CO mutabakatı', ecc:'Ayrı program ve kontrol', s4:'**Yapısal olarak gereksiz**' },
-      { konu:'{{toplam-tablosu}} tutarsızlığı', ecc:'Mutabakat programı gerekir', s4:'**Ortadan kalktı** — toplam hesaplanır' },
-      { konu:'{{z-gelistirme}}', ecc:'Bakım maliyeti', s4:'**Geçiş engeli** — {{basitlestirme-listesi}}’nde çıkar' },
+      { konu:'{{tek-yonlu-kapi}} kavramı', ecc:'Geçerli', s4:'**Aynen geçerli**: hatta bazıları arttı' },
+      { konu:'FI-CO mutabakatı', ecc:'Ayrı program ve kontrol', s4:'**Yapısal olarak gereksiz**' },
+      { konu:'{{toplam-tablosu}} tutarsızlığı', ecc:'Mutabakat programı gerekir', s4:'**Ortadan kalktı**: toplam hesaplanır' },
+      { konu:'{{z-gelistirme}}', ecc:'Bakım maliyeti', s4:'**Geçiş engeli**: {{basitlestirme-listesi}}’nde çıkar' },
       { konu:'Raporlama geliştirmesi', ecc:'Çoğu için ABAP rapor gerekir', s4:'{{cds-view}} + {{gomulu-analitik}}' },
-      { konu:'Taşıma disiplini', ecc:'{{STMS}} / {{E070}}', s4:'**Aynı** — değişmedi' },
-      { konu:'{{akim-verisi}}', ecc:'Var', s4:'**Aynı** — {{OB52}}, {{TCURR}} hâlâ taşınmaz' },
-      { konu:'Yeni tek yönlü kapı', ecc:'—', s4:'{{is-ortagi}} numaralandırma stratejisi' },
+      { konu:'Taşıma disiplini', ecc:'{{STMS}} / {{E070}}', s4:'**Aynı**: değişmedi' },
+      { konu:'{{akim-verisi}}', ecc:'Var', s4:'**Aynı**: {{OB52}}, {{TCURR}} hâlâ taşınmaz' },
+      { konu:'Yeni tek yönlü kapı', ecc:': ', s4:'{{is-ortagi}} numaralandırma stratejisi' },
     ],
 
     universalJournal:
@@ -1026,7 +1026,7 @@ SAP.registerTopic({
       'her ay boşuna zaman harcanıyor demektir.',
 
     kalkanTcodes:[
-      { eski:'FI–CO mutabakat programları', yeni:'**Gereksiz**', not:'Tek satır kaynağı' },
+      { eski:'FI-CO mutabakat programları', yeni:'**Gereksiz**', not:'Tek satır kaynağı' },
       { eski:'Toplam tablosu mutabakatı', yeni:'**Gereksiz**', not:'Toplamlar hesaplanıyor' },
       { eski:'Özel bakiye raporları', yeni:'{{cds-view}} / {{gomulu-analitik}}', not:'ABAP yazmadan' },
       { eski:'{{SE09}} / {{STMS}}', yeni:'**Aynen duruyor**', not:'Taşıma disiplini değişmedi' },
@@ -1034,18 +1034,18 @@ SAP.registerTopic({
 
     fiori:[
       { ad:'Manage Journal Entries', aciklama:'{{fiori}} arayüzü; ' +
-             'arka planda **aynı** yapılandırmayı kullanır — ' +
+             'arka planda **aynı** yapılandırmayı kullanır: ' +
              'bildiğiniz ayarlar aynen geçerli.' },
       { ad:'Rol tasarımı = arayüz tasarımı', aciklama:'Fiori’de kullanıcı ' +
              'yalnızca rolündeki uygulamaları görür. Yetkilendirme artık ' +
              'aynı zamanda bir **kullanılabilirlik** kararıdır.' },
       { ad:'Custom Fields and Logic', aciklama:'Alan ekleme ve basit mantık ' +
-             'için **modifikasyonsuz** yol — {{z-gelistirme}} borcunu düşürür.' },
+             'için **modifikasyonsuz** yol: {{z-gelistirme}} borcunu düşürür.' },
     ],
 
     compatibilityViews:[
       'Eski tabloları okuyan {{z-gelistirme}}ler {{uyumluluk-view}} ' +
-      'üzerinden çalışır ve **yavaşlayabilir** — geçiş sonrası ' +
+      'üzerinden çalışır ve **yavaşlayabilir**: geçiş sonrası ' +
       'performans şikâyetlerinin ana sebebi budur (bkz. {{konu:s4-yenilikleri}}).',
       'Bu, geliştirme envanteri tutmanın **somut** getirisidir: ' +
       'hangi programın hangi tabloyu okuduğunu bilen ekip, ' +
@@ -1065,18 +1065,18 @@ SAP.registerTopic({
 
     bestPractices:[
       '{{tek-yonlu-kapi}} listesi S/4HANA’da da **aynen geçerli**.',
-      'Gereksizleşen kontrolleri kapanış listesinden **çıkar** (FI–CO mutabakatı).',
-      '{{z-gelistirme}} envanteri tut — artık bir **geçiş engeli**.',
+      'Gereksizleşen kontrolleri kapanış listesinden **çıkar** (FI-CO mutabakatı).',
+      '{{z-gelistirme}} envanteri tut: artık bir **geçiş engeli**.',
       'Yeni raporlama ihtiyaçlarında önce {{cds-view}}’e bak, ABAP’a değil.',
-      'Alan ekleme için **Custom Fields and Logic** — modifikasyon değil.',
+      'Alan ekleme için **Custom Fields and Logic**: modifikasyon değil.',
       'Taşıma disiplini değişmedi: küçük istek, doğru sıra, bütün kuyruk.',
-      '{{akim-verisi}} hâlâ taşınmıyor — canlıda ayrıca ayarla.',
+      '{{akim-verisi}} hâlâ taşınmıyor: canlıda ayrıca ayarla.',
     ],
   },
 
   /* =================================================== 10. SENARYO === */
   senaryo: {
-    baslik:'"Segment raporu istemiyoruz" — sekiz ay sonra istendi',
+    baslik:'"Segment raporu istemiyoruz": sekiz ay sonra istendi',
     hikaye:
       '**Marmara Endüstri A.Ş.** iki iş kolunda çalışıyordu: ' +
       'ambalaj ve kimya. İkisi de aynı şirket kodunda, aynı hesap planında.\n\n' +
@@ -1094,18 +1094,18 @@ SAP.registerTopic({
       'Yatırımcının ilk isteği: *"kimya iş kolunun son iki yıllık ' +
       '**bilançosunu** görelim."*',
     veriler:[
-      { k:'Şirket kodu', v:'Tek — iki iş kolu içinde' },
+      { k:'Şirket kodu', v:'Tek: iki iş kolu içinde' },
       { k:'Belge bölme', v:'**Kapalı** (bilinçli karar)' },
-      { k:'Kâr merkezi', v:'Var — **gider tarafında**' },
+      { k:'Kâr merkezi', v:'Var: **gider tarafında**' },
       { k:'Canlıya geçiş', v:'01.01.2028' },
-      { k:'Talep', v:'Eylül 2028 — iş kolu **bilançosu**' },
+      { k:'Talep', v:'Eylül 2028: iş kolu **bilançosu**' },
       { k:'Mevcut', v:'İş kolu **gelir tablosu** ✓' },
       { k:'Olmayan', v:'İş kolu **bilançosu**' },
     ],
 
     adimlar:[
       { baslik:'Kâr merkezi bazlı bilanço alınamaz mı?', tcode:'FAGLB03',
-        aciklama:'İlk ihtimal — belki zaten vardır.',
+        aciklama:'İlk ihtimal: belki zaten vardır.',
         girdi:[
           { alan:'Gider hesapları (7xx)', deger:'Kâr merkezi **dolu**' },
           { alan:'Gelir hesapları (6xx)', deger:'Kâr merkezi **dolu**' },
@@ -1114,21 +1114,21 @@ SAP.registerTopic({
           { alan:'Bankalar (102)', deger:'**Boş**' },
         ],
         not:'**{{konu:new-gl}}’deki temel ayrım burada somutlaşıyor.**\n\n' +
-             'Gider ve gelir satırları kâr merkezini **zaten taşır** — ' +
+             'Gider ve gelir satırları kâr merkezini **zaten taşır**: ' +
              'kullanıcı girer veya {{OKB9}} türetir. Bu yüzden ' +
              'iş kolu **gelir tablosu** sorunsuz çıkıyor.\n\n' +
              'Sorun **bilanço satırlarındadır**: satıcı, müşteri, banka, vergi. ' +
-             'Bunlara kimse kâr merkezi girmez — ' +
+             'Bunlara kimse kâr merkezi girmez: ' +
              've {{belge-bolme}} kapalıysa sistem de **türetmez**.\n\n' +
              'Yani bilanço kalemlerinin iş kolu bilgisi ' +
              '**hiç oluşmamıştı**.' },
 
       { baslik:'Bölmeyi şimdi açsak?', tcode:'SPRO',
-        aciklama:'İkinci ihtimal — ayarı değiştirmek.',
+        aciklama:'İkinci ihtimal: ayarı değiştirmek.',
         girdi:[
           { alan:'Ayar değiştirilebilir mi?', deger:'Teknik olarak **evet**' },
           { alan:'Geçmiş belgeler bölünür mü?', deger:'**Hayır**' },
-          { alan:'{{FAGL_SPLINFO}} geçmiş kayıtlar', deger:'**Boş — ve doldurulamaz**' },
+          { alan:'{{FAGL_SPLINFO}} geçmiş kayıtlar', deger:'**Boş: ve doldurulamaz**' },
           { alan:'Etki', deger:'Yalnızca **açıldığı tarihten sonraki** belgeler' },
         ],
         not:'**Konunun tezi tam olarak burada.**\n\n' +
@@ -1141,27 +1141,27 @@ SAP.registerTopic({
              'Ve bir belgeyi geriye dönük bölmek mümkün değildir: ' +
              'bölme, kayıt anında bilinen bilgilerle (hangi gider hangi ' +
              'kâr merkezine gitti) yapılır. O bağlantı kaydedilmemişse ' +
-             'sonradan **yeniden kurulamaz** — hangi satıcı borcunun ' +
+             'sonradan **yeniden kurulamaz**: hangi satıcı borcunun ' +
              'hangi iş koluna ait olduğu artık bir tahmindir.' },
 
       { baslik:'Elle dağıtalım mı?', tcode:'FBL1N',
-        aciklama:'Üçüncü ihtimal — veriyi elle üretmek.',
+        aciklama:'Üçüncü ihtimal: veriyi elle üretmek.',
         girdi:[
           { alan:'Kapsam', deger:'20 ay · **~34.000 bilanço kalemi**' },
           { alan:'Satıcı borçları', deger:'Faturaya inip gider satırına bakmak gerekir' },
-          { alan:'Banka hareketleri', deger:'**Çoğu ortak** — ayrıştırılamaz' },
-          { alan:'Vergi kalemleri', deger:'Ortak — oransal dağıtım gerekir' },
-          { alan:'Sonuç', deger:'**Yaklaşık** bilanço — denetlenemez' },
+          { alan:'Banka hareketleri', deger:'**Çoğu ortak**: ayrıştırılamaz' },
+          { alan:'Vergi kalemleri', deger:'Ortak: oransal dağıtım gerekir' },
+          { alan:'Sonuç', deger:'**Yaklaşık** bilanço: denetlenemez' },
         ],
         not:'Teknik olarak kısmen mümkün: her satıcı faturasının ' +
              'gider satırındaki kâr merkezine bakılıp borç ona atanabilir.\n\n' +
              '**Ama iki grup kalem ayrıştırılamaz:**\n\n' +
-             '• **Ortak bankalar** — tek hesaptan iki iş kolunun ödemesi çıkmış\n' +
-             '• **Vergi kalemleri** — tek beyanname, oransal dağıtım gerekir\n\n' +
+             '• **Ortak bankalar**: tek hesaptan iki iş kolunun ödemesi çıkmış\n' +
+             '• **Vergi kalemleri**: tek beyanname, oransal dağıtım gerekir\n\n' +
              'Sonuç bir bilanço değil, bir **tahmindir**. ' +
              'Yatırımcı bunu kabul etmez; denetçi de onaylamaz.\n\n' +
              'Ve dikkat: bu işin maliyeti belge bölmeyi ' +
-             'baştan kurmanın maliyetinden **kat kat fazladır** — ' +
+             'baştan kurmanın maliyetinden **kat kat fazladır**: ' +
              'üstelik sonucu daha kötüdür.' },
 
       { baslik:'Ne yapıldı?', tcode:'FAGLL03',
@@ -1169,25 +1169,25 @@ SAP.registerTopic({
         girdi:[
           { alan:'Karar', deger:'Belge bölme **01.01.2029**’da açıldı' },
           { alan:'Geçmiş', deger:'2028 iş kolu bilançosu **üretilemedi**' },
-          { alan:'Yatırımcı', deger:'2029 bilançosunu bekledi — **bir yıl**' },
+          { alan:'Yatırımcı', deger:'2029 bilançosunu bekledi: **bir yıl**' },
           { alan:'Ek maliyet', deger:'Bölme kurulumu + test + yeniden eğitim' },
           { alan:'Görüşme', deger:'**Ertelendi**' },
         ],
-        not:'Bölme sonunda kuruldu — ama **bir yıl geç** ve ' +
+        not:'Bölme sonunda kuruldu: ama **bir yıl geç** ve ' +
              'canlı sistemde, çok daha zor koşullarda.\n\n' +
              'Kurulum sırasında ek bir sorun çıktı: bölme açıldığında ' +
              '**geçmiş açık kalemler** bölünmemiş olarak duruyordu. ' +
              'Onlar kapanana kadar (bazı satıcı bakiyeleri aylarca sürdü) ' +
              'segment bilançosu **karışık** kaldı: bir kısmı bölünmüş, ' +
              'bir kısmı bölünmemiş.\n\n' +
-             'Yani gecikmenin bedeli yalnızca bir yıl değildi — ' +
+             'Yani gecikmenin bedeli yalnızca bir yıl değildi: ' +
              '**geçiş dönemi** de cabası oldu.' },
     ],
 
     sonuc:
       '**Bu senaryoda verilen karar yanlış değildi. Eksik olan bilgiydi.**\n\n' +
       'Mali işler müdürü *"segment raporu istemiyoruz"* derken **doğruyu** ' +
-      'söylüyordu — o gün gerçekten istemiyorlardı. ' +
+      'söylüyordu: o gün gerçekten istemiyorlardı. ' +
       'Danışman da makul davrandı: gereksiz karmaşıklıktan kaçındı.\n\n' +
       'Masada olmayan tek şey şuydu: **bu kararın geri alınamaz olduğu.**\n\n' +
       '---\n\n' +
@@ -1224,29 +1224,29 @@ SAP.registerTopic({
       '{{tek-yonlu-kapi}} testi: *"bu ayar kapalıyken üretilmeyen bir veri var mı?"*',
       'Tek yönlü kapıda soru **"bugün istiyor muyuz?"** değil, ' +
       '**"üç yıl içinde isteme ihtimalimiz var mı?"**',
-      '**Şüphedeyken açık kur, kullanma** — kapatıp pişman olmaktan ucuz.',
+      '**Şüphedeyken açık kur, kullanma**: kapatıp pişman olmaktan ucuz.',
       '**Ayarın geri alınabilirliği ≠ hatanın düzeltilebilirliği.**',
       'Çözüm sırası: **standart ayar → {{badi}} → modifikasyon**; ' +
       '{{z-gelistirme}} bir maliyet değil **borçtur**.',
-      'SAP **ne yapıldığını** tutar; siz **neden**i tutun — ' +
+      'SAP **ne yapıldığını** tutar; siz **neden**i tutun: ' +
       'özellikle **hangi varsayıma** dayandığını.',
-      '{{akim-verisi}} taşınmaz — *"test sisteminde çalışıyordu"*nun en sık sebebi.',
+      '{{akim-verisi}} taşınmaz: *"test sisteminde çalışıyordu"*nun en sık sebebi.',
       '{{tasima-sirasi}} bozulursa **eski hâl yeniyi ezer** ve hata mesajı çıkmaz.',
-      '**{{negatif-test}} olmadan test tamamlanmaz** — kontrol yalnızca ' +
+      '**{{negatif-test}} olmadan test tamamlanmaz**: kontrol yalnızca ' +
       'ihlal edildiğinde görünür.',
       'Kritik kontrol **W ise E** yapılır; {{OBA5}} susturma aracı değildir.',
     ],
 
     onemliNoktalar:[
-      '**"Bir yapılandırma kararının riskli olup olmadığını nasıl anlarsın?"** Tek soru: **"bu ayar yanlış kurulursa, üzerine veri yazıldıktan sonra geri alınabilir mi?"** Dört alt kontrol: (1) ayar veriye yazılıyor mu (hesap, para birimi, dönem, vergi kodu) · (2) ayar kapalıyken **üretilmeyen bir veri** var mı · (3) değiştirirsem geçmiş taşınır mı (cevap hep hayır — asıl soru *taşınmaması ne kadar zarar verir*) · (4) **IMG belgesi ne diyor**.',
-      '**"FI\'daki tek yönlü kapılar neler?"** {{hesap-plani}} ve numaralandırma yapısı · şirket kodunun {{yerel-para-birimi}} ve {{paralel-para-birimi}}leri · {{mali-yil-varyanti}} · **{{belge-bolme}}** · defter yapısı ({{paralel-defter}}) · {{degerleme-plani}} ve {{amortisman-alani}} · kullanılmış {{vergi-kodu}}nun oranı. Karşıtı çift yönlü: {{odeme-kosulu}}, {{tolerans-grubu}}, {{alan-durumu}}, ihtar prosedürü — bunlar hızlı karar verilir, uzun tartışmak **zaman kaybıdır**.',
-      '**"Belge bölmeyi sonradan açabilir miyiz?"** **Ayar değişir ama işe yaramaz.** Bölme kapalıyken kaydedilen belgelerde {{FAGL_SPLINFO}} **hiç oluşmamıştır** ve geriye dönük **doldurulamaz** — bölme kayıt anındaki bilgiyle yapılır, o bağlantı kaydedilmemişse yeniden kurulamaz. Sonuç: segment bilançosu **yalnızca açıldığı tarihten sonrası için** anlamlıdır. Bu, "ayar geri alınabilir ama veri geri alınamaz" ilkesinin en net örneğidir.',
-      '**"Test sisteminde çalışıyordu, canlıda çalışmıyor. Nereden başlarsın?"** Üç sebep, **bu sırayla**: **①** tablo **{{akim-verisi}}** mi? ({{OB52}}, {{TCURR}}) — taşımaya hiç girmez, her sistemde ayrı ayarlanır. En sık sebep, en hızlı kontrol. **②** {{tasima-sirasi}} çakışması — {{E071}}\'de iki isteğin ortak nesnesi var mı? Ters sırada **eski hâl yeniyi ezer**, hata mesajı çıkmaz. **③** Bağımlı nesne taşınmamış (hesap, vergi kodu test sisteminde elle açılmıştı).',
-      '**"Test senaryosu nasıl yazılır?"** Üç kural: **①** Sonucu değil **doğru sonucu** doğrula — "belge oluştu" yetmez, *hangi hesaba gitti?* **②** **{{negatif-test}} olmadan test tamamlanmaz**: kurulan her kontrol **bilerek ihlal edilir**, çünkü kontrol yalnızca ihlal edildiğinde görünür (etkinleştirilmemiş bir doğrulama pozitif testte mükemmel görünür). **③** Test verisi **temiz olmamalı**: kuruşlu tutar, dövizli belge, **iskontolu fatura**, Türkçe karakter.',
+      '**"Bir yapılandırma kararının riskli olup olmadığını nasıl anlarsın?"** Tek soru: **"bu ayar yanlış kurulursa, üzerine veri yazıldıktan sonra geri alınabilir mi?"** Dört alt kontrol: (1) ayar veriye yazılıyor mu (hesap, para birimi, dönem, vergi kodu) · (2) ayar kapalıyken **üretilmeyen bir veri** var mı · (3) değiştirirsem geçmiş taşınır mı (cevap hep hayır: asıl soru *taşınmaması ne kadar zarar verir*) · (4) **IMG belgesi ne diyor**.',
+      '**"FI\'daki tek yönlü kapılar neler?"** {{hesap-plani}} ve numaralandırma yapısı · şirket kodunun {{yerel-para-birimi}} ve {{paralel-para-birimi}}leri · {{mali-yil-varyanti}} · **{{belge-bolme}}** · defter yapısı ({{paralel-defter}}) · {{degerleme-plani}} ve {{amortisman-alani}} · kullanılmış {{vergi-kodu}}nun oranı. Karşıtı çift yönlü: {{odeme-kosulu}}, {{tolerans-grubu}}, {{alan-durumu}}, ihtar prosedürü: bunlar hızlı karar verilir, uzun tartışmak **zaman kaybıdır**.',
+      '**"Belge bölmeyi sonradan açabilir miyiz?"** **Ayar değişir ama işe yaramaz.** Bölme kapalıyken kaydedilen belgelerde {{FAGL_SPLINFO}} **hiç oluşmamıştır** ve geriye dönük **doldurulamaz**: bölme kayıt anındaki bilgiyle yapılır, o bağlantı kaydedilmemişse yeniden kurulamaz. Sonuç: segment bilançosu **yalnızca açıldığı tarihten sonrası için** anlamlıdır. Bu, "ayar geri alınabilir ama veri geri alınamaz" ilkesinin en net örneğidir.',
+      '**"Test sisteminde çalışıyordu, canlıda çalışmıyor. Nereden başlarsın?"** Üç sebep, **bu sırayla**: **①** tablo **{{akim-verisi}}** mi? ({{OB52}}, {{TCURR}}): taşımaya hiç girmez, her sistemde ayrı ayarlanır. En sık sebep, en hızlı kontrol. **②** {{tasima-sirasi}} çakışması: {{E071}}\'de iki isteğin ortak nesnesi var mı? Ters sırada **eski hâl yeniyi ezer**, hata mesajı çıkmaz. **③** Bağımlı nesne taşınmamış (hesap, vergi kodu test sisteminde elle açılmıştı).',
+      '**"Test senaryosu nasıl yazılır?"** Üç kural: **①** Sonucu değil **doğru sonucu** doğrula: "belge oluştu" yetmez, *hangi hesaba gitti?* **②** **{{negatif-test}} olmadan test tamamlanmaz**: kurulan her kontrol **bilerek ihlal edilir**, çünkü kontrol yalnızca ihlal edildiğinde görünür (etkinleştirilmemiş bir doğrulama pozitif testte mükemmel görünür). **③** Test verisi **temiz olmamalı**: kuruşlu tutar, dövizli belge, **iskontolu fatura**, Türkçe karakter.',
       '**"Z geliştirme kararını nasıl verirsin?"** {{standarda-yakin}} ölçütü duygusal değil ticaridir: **"bu farklılık rekabet avantajı sağlıyor mu, yoksa alışkanlık mı?"** Sıra: standart ayar → {{badi}}/genişletme → son çare modifikasyon. Geliştirme bir maliyet değil **borçtur**: her destek paketinde kontrol, her yükseltmede {{SPAU}}, her yeni danışmana devir ve {{konu:migration}}\'da **geçiş engeli**. Asıl sorun yazmak değil **envanteri kaybetmektir**.',
-      '**"Ne dokümante edilir?"** **SAP "ne yapıldığını" zaten tutuyor** ({{CDHDR}}/{{CDPOS}}, {{E070}}/{{E071}}, {{SPRO}}); bunları kopyalamak **çift kayıt** üretir ve ikisi zamanla ayrışır. Tutulacak tek şey **NEDEN**: (1) neyi çözüyor (2) hangi alternatifler elendi (3) **hangi varsayıma dayanıyor** — en değerli satır budur, çünkü kararın **ne zaman gözden geçirileceğini** söyler.',
-      '**"Bir ayarı düzelttim ama geçmiş kayıtlar hâlâ yanlış."** **Ayarın geri alınabilirliği, hatanın düzeltilebilirliği değildir.** Örnek: satıcının `AKONT` {{mutabakat-hesabi}} {{FK02}} ile beş dakikada düzeltilir, ama **geçmiş kayıtlar taşınmaz** — eski hesapta kalırlar ve bir sınıflandırma aktarım kaydı gerekir. O kaydın da bedeli var: düzeltme G/L seviyesinde yapılır, satıcı kalemleri eski hesabın altında kalır ve {{FBL1N}} ile {{FS10N}} arasındaki köprü bozulur.',
-      '**"Taşıma disiplininin kuralları neler?"** **①** İstekler **küçük ve amaç odaklı** — geri alınabilirliğin ön koşulu; "her şey içinde" tek istek geri alınamaz çünkü iyi değişiklikler de geri gider. **②** **Sırayla taşı** — {{tasima-sirasi}} bozulursa eski hâl yeniyi ezer, **hata mesajı çıkmaz**. **③** Kuyruğu **bütün olarak** aktar; seçmeli aktarım sırayı bozar. Ve taşımadan **önce** {{E071}} içeriğine bak: *"olmaması gereken bir şey var mı?"* ve *"bu nesneye dokunan başka bekleyen istek var mı?"*',
+      '**"Ne dokümante edilir?"** **SAP "ne yapıldığını" zaten tutuyor** ({{CDHDR}}/{{CDPOS}}, {{E070}}/{{E071}}, {{SPRO}}); bunları kopyalamak **çift kayıt** üretir ve ikisi zamanla ayrışır. Tutulacak tek şey **NEDEN**: (1) neyi çözüyor (2) hangi alternatifler elendi (3) **hangi varsayıma dayanıyor**: en değerli satır budur, çünkü kararın **ne zaman gözden geçirileceğini** söyler.',
+      '**"Bir ayarı düzelttim ama geçmiş kayıtlar hâlâ yanlış."** **Ayarın geri alınabilirliği, hatanın düzeltilebilirliği değildir.** Örnek: satıcının `AKONT` {{mutabakat-hesabi}} {{FK02}} ile beş dakikada düzeltilir, ama **geçmiş kayıtlar taşınmaz**: eski hesapta kalırlar ve bir sınıflandırma aktarım kaydı gerekir. O kaydın da bedeli var: düzeltme G/L seviyesinde yapılır, satıcı kalemleri eski hesabın altında kalır ve {{FBL1N}} ile {{FS10N}} arasındaki köprü bozulur.',
+      '**"Taşıma disiplininin kuralları neler?"** **①** İstekler **küçük ve amaç odaklı**: geri alınabilirliğin ön koşulu; "her şey içinde" tek istek geri alınamaz çünkü iyi değişiklikler de geri gider. **②** **Sırayla taşı**: {{tasima-sirasi}} bozulursa eski hâl yeniyi ezer, **hata mesajı çıkmaz**. **③** Kuyruğu **bütün olarak** aktar; seçmeli aktarım sırayı bozar. Ve taşımadan **önce** {{E071}} içeriğine bak: *"olmaması gereken bir şey var mı?"* ve *"bu nesneye dokunan başka bekleyen istek var mı?"*',
     ],
 
     sikHatalar:[
@@ -1255,28 +1255,28 @@ SAP.registerTopic({
       { hata:'Ayarın değiştirilebilir olmasına bakıp "geri alınabilir" sanmak.', dogru:'**Ayar geri alınabilir, veri geri alınamaz.** Asıl soru: kapalıyken üretilmeyen veri var mı?' },
       { hata:'Şüphedeyken ayarı kapalı kurmak.', dogru:'**Açık kur, kullanma.** Kullanılmayan defter/bölme neredeyse maliyetsizdir.' },
       { hata:'Yalnızca mutlu yolu test etmek.', dogru:'Kontrol **yalnızca ihlal edildiğinde** görünür. {{negatif-test}} zorunludur.' },
-      { hata:'"Belge oluştu" görünce testi başarılı saymak.', dogru:'*Hangi hesaba gitti?* sorusu sorulmalı — hesap belirleme hataları böyle canlıya çıkar.' },
+      { hata:'"Belge oluştu" görünce testi başarılı saymak.', dogru:'*Hangi hesaba gitti?* sorusu sorulmalı: hesap belirleme hataları böyle canlıya çıkar.' },
       { hata:'Test verisini yuvarlak ve temiz seçmek.', dogru:'Kuruşlu, dövizli, **iskontolu** ve çok kalemli veri konur; hatalar orada saklıdır.' },
       { hata:'Kritik kontrolü uyarı (W) seviyesinde bırakmak.', dogru:'W ile kurulan kural ilk yoğun günde **fiilen kalkar**. Kritikse **E**.' },
-      { hata:'Üç haftalık her şeyi tek taşıma isteğine koymak.', dogru:'Sorun çıkınca **geri alınamaz** — iyi değişiklikler de geri gider.' },
+      { hata:'Üç haftalık her şeyi tek taşıma isteğine koymak.', dogru:'Sorun çıkınca **geri alınamaz**: iyi değişiklikler de geri gider.' },
       { hata:'Taşıma kuyruğundan seçmeli aktarım yapmak.', dogru:'Sırayı bozar. Kuyruk **bütün olarak** aktarılır.' },
       { hata:'"Taşındı" ile "çalışıyor"u aynı sanmak.', dogru:'RC 0 yalnızca **kopyalandığını** söyler. Canlıda doğrulama listesi kısa olabilir ama olmalıdır.' },
       { hata:'{{akim-verisi}} tablolarını taşımaya güvenmek.', dogru:'Taşınmazlar. {{OB52}} ve {{TCURR}} canlıda **ayrıca** ayarlanır.' },
       { hata:'SAP’ın zaten tuttuğu bilgiyi Word’e kopyalamak.', dogru:'Çift kayıt ayrışır ve **ikisi de güvenilmez** olur. Yalnızca **neden**i yaz.' },
       { hata:'Gerekçenin varsayım satırını atlamak.', dogru:'En değerli satır odur: kararın **ne zaman gözden geçirileceğini** söyler.' },
       { hata:'Z geliştirmeyi tek seferlik maliyetle değerlendirmek.', dogru:'Bir **borçtur**: destek paketi, {{SPAU}}, devir ve geçiş engeli.' },
-      { hata:'Gereksizleşen kontrolleri listede tutmak.', dogru:'S/4HANA’da FI–CO mutabakatı **yapısal olarak gereksiz** — her ay boşuna zaman.' },
+      { hata:'Gereksizleşen kontrolleri listede tutmak.', dogru:'S/4HANA’da FI-CO mutabakatı **yapısal olarak gereksiz**: her ay boşuna zaman.' },
     ],
 
     ipuclari:[
       'Her ayarda refleks soru: **"bu ayar veriye yazılıyor mu?"**',
-      'IMG düğümündeki ** belgeyi oku** — geri alınabilirlik genelde orada yazar.',
+      'IMG düğümündeki ** belgeyi oku**: geri alınabilirlik genelde orada yazar.',
       'Tek yönlü kapı kararlarını **tutanağa** geçir; iki yıl sonra karar gibi okunsun.',
       'Gerekçenin üç satırı: neyi çözüyor · ne elendi · **hangi varsayım**.',
       'Taşıma isteğini **küçük** tut ve açıklayıcı adlandır.',
       'Taşımadan önce {{E071}}’de **çakışma** kontrol et.',
       'Kuyruğu **bütün olarak** aktar.',
-      'Canlıda kısa bir **doğrulama listesi** tut — taşındı ≠ çalışıyor.',
+      'Canlıda kısa bir **doğrulama listesi** tut: taşındı ≠ çalışıyor.',
       'Her kontrol için bir **negatif test** yaz; kural ihlal edilerek denenir.',
       'Sabit bir {{regresyon-testi}} çekirdek kümesi: fatura · {{F110}} · tahsilat · {{AFAB}} · kapanış.',
       'Test verisine **iskontolu** ve **dövizli** örnek koy.',
@@ -1306,20 +1306,20 @@ SAP.registerTopic({
 
       { soru:'Müşteri "şimdilik segment raporu istemiyoruz" diyor. Doğru danışman tepkisi nedir?',
         secenekler:[
-          'Kabul edip belge bölmeyi kapalı kurmak — müşteri isteği esastır',
+          'Kabul edip belge bölmeyi kapalı kurmak: müşteri isteği esastır',
           'Israr edip açtırmak',
           '**Bilgiyi eklemek: "bu karar geri alınamaz; üç yıl içinde ihtimal var mı?" ve cevabı yazılı hâle getirmek**',
           'Kararı proje sonuna ertelemek',
         ], dogru:2,
         aciklama:'Danışmanın işi **kararı almak değil**, kararın ' +
                  '**doğru bilgiyle** alınmasını sağlamaktır.\n\n' +
-                 'Müşteri *"istemiyoruz"* derken doğruyu söylüyordur — ' +
+                 'Müşteri *"istemiyoruz"* derken doğruyu söylüyordur: ' +
                  'o gün gerçekten istemiyordur. Masada olmayan tek şey ' +
                  '**kararın geri alınamaz olduğudur**.\n\n' +
                  'Doğru tepkinin üç özelliği var:\n\n' +
-                 '**① Kararı almıyor** — müşteriye aittir.\n' +
-                 '**② Bilgiyi ekliyor** — "geri alınamaz" bilgisi eksikti.\n' +
-                 '**③ Yazılı hâle getiriyor** — iki yıl sonra bu bir hata değil, ' +
+                 '**① Kararı almıyor**: müşteriye aittir.\n' +
+                 '**② Bilgiyi ekliyor**: "geri alınamaz" bilgisi eksikti.\n' +
+                 '**③ Yazılı hâle getiriyor**: iki yıl sonra bu bir hata değil, ' +
                  'bir **karar** olarak okunacak.\n\n' +
                  'Ve tek yönlü kapıda soru değişir: *"bugün istiyor muyuz?"* ' +
                  'değil, **"üç yıl içinde isteme ihtimalimiz var mı?"**' },
@@ -1328,19 +1328,19 @@ SAP.registerTopic({
         secenekler:[
           'Taşıma isteği hata vermiş',
           'Yetki eksikliği',
-          '**Tablo akım verisidir — taşıma isteğine hiç girmez, her sistemde ayrı ayarlanır**',
+          '**Tablo akım verisidir: taşıma isteğine hiç girmez, her sistemde ayrı ayarlanır**',
           'Canlıda özelleştirme kapalı',
         ], dogru:2,
-        aciklama:'**{{akim-verisi}}** — ve teşhis sırasında **ilk** bakılacak yer, ' +
+        aciklama:'**{{akim-verisi}}**: ve teşhis sırasında **ilk** bakılacak yer, ' +
                  'çünkü hem en sık sebep hem en hızlı kontrol.\n\n' +
                  'Bazı yapılandırma tabloları taşıma isteğine **hiç girmez**: ' +
                  '{{OB52}} dönem açma, {{TCURR}} kurlar, ihtar tarihleri.\n\n' +
-                 'Yani ayar "taşınmadı" değil — **taşınacak bir şey yoktu**. ' +
+                 'Yani ayar "taşınmadı" değil: **taşınacak bir şey yoktu**. ' +
                  'Test sisteminde dönem açıktı, canlıda değil.\n\n' +
                  '**Diğer iki ihtimal, bu sırayla:**\n' +
-                 '**②** {{tasima-sirasi}} çakışması — {{E071}}’de ortak nesne var mı? ' +
+                 '**②** {{tasima-sirasi}} çakışması: {{E071}}’de ortak nesne var mı? ' +
                  'Ters sırada **eski hâl yeniyi ezer** ve hata mesajı çıkmaz.\n' +
-                 '**③** Bağımlı nesne taşınmamış — hesap veya vergi kodu ' +
+                 '**③** Bağımlı nesne taşınmamış: hesap veya vergi kodu ' +
                  'test sisteminde elle açılmıştı.' },
 
       { soru:'Bir doğrulama kuralı kurdunuz. Testi nasıl yaparsınız?',
@@ -1350,13 +1350,13 @@ SAP.registerTopic({
           'Yapılandırma ekranında ayarın kayıtlı olduğuna bakarım',
           'Kullanıcıya sorarım',
         ], dogru:1,
-        aciklama:'**{{negatif-test}} — ve bu, test senaryolarının ' +
+        aciklama:'**{{negatif-test}}: ve bu, test senaryolarının ' +
                  'asıl değerinin bulunduğu yerdir.**\n\n' +
                  'Bir kontrol **yalnızca ihlal edildiğinde** görünür. ' +
                  'Doğru veriyle kayıt atmak, kuralın çalıştığını ' +
-                 '**kanıtlamaz** — kural hiç yokken de o kayıt geçerdi.\n\n' +
+                 '**kanıtlamaz**: kural hiç yokken de o kayıt geçerdi.\n\n' +
                  'Somut örnek: {{konu:dogrulama-ikame}}’de kural üç adımda ' +
-                 'kurulur — tanımla → ata → **etkinleştir** ({{GGB4}}). ' +
+                 'kurulur: tanımla → ata → **etkinleştir** ({{GGB4}}). ' +
                  'Üçüncü adım sık atlanır ve etkinleştirilmemiş kural ' +
                  '**sessizce hiçbir şey yapmaz**.\n\n' +
                  'Pozitif test bunu **göremez**; negatif test ilk denemede yakalar.\n\n' +
@@ -1366,12 +1366,12 @@ SAP.registerTopic({
       { soru:'Satıcının mutabakat hesabı (AKONT) yanlış girilmiş; 20 faturası yanlış hesaba gitmiş. Ana veriyi düzeltmek yeterli mi?',
         secenekler:[
           'Evet, düzeltince geçmiş kayıtlar da taşınır',
-          '**Hayır — ayar düzelir ama geçmiş kayıtlar eski hesapta kalır; sınıflandırma düzeltme kaydı gerekir**',
+          '**Hayır: ayar düzelir ama geçmiş kayıtlar eski hesapta kalır; sınıflandırma düzeltme kaydı gerekir**',
           'Hayır, satıcıyı silip yeniden açmak gerekir',
           'Evet, bir gecelik toplu iş bunu düzeltir',
         ], dogru:1,
         aciklama:'**"Ayarın geri alınabilirliği ≠ hatanın düzeltilebilirliği."**\n\n' +
-                 '`AKONT` alanı {{FK02}} ile beş dakikada düzeltilir — ' +
+                 '`AKONT` alanı {{FK02}} ile beş dakikada düzeltilir: ' +
                  'bu bir **çift yönlü kapıdır**. Ama düzeltmeden **sonraki** ' +
                  'kayıtlar yeni hesaba gider; öncekiler eski hesapta **kalır**.\n\n' +
                  'Bir sınıflandırma aktarım kaydı gerekir ' +
@@ -1391,9 +1391,9 @@ SAP.registerTopic({
           'Taşıma isteği numaraları listesi',
         ], dogru:2,
         aciklama:'**SAP "ne yapıldığını" zaten tutuyor:**\n\n' +
-                 '{{CDHDR}}/{{CDPOS}} — ana veride hangi alan, ne zaman, kim\n' +
-                 '{{E070}}/{{E071}} — hangi ayar ne zaman canlıya gitti\n' +
-                 '{{SPRO}} — ayarın şu anki hâli\n\n' +
+                 '{{CDHDR}}/{{CDPOS}}: ana veride hangi alan, ne zaman, kim\n' +
+                 '{{E070}}/{{E071}}: hangi ayar ne zaman canlıya gitti\n' +
+                 '{{SPRO}}: ayarın şu anki hâli\n\n' +
                  'Bunları ayrıca yazmak **çift kayıt** üretir; ikisi zamanla ' +
                  'ayrışır ve ayrışınca **ikisi de güvenilmez** olur.\n\n' +
                  'Tutmadığı tek şey **neden**dir.\n\n' +
@@ -1415,7 +1415,7 @@ SAP.registerTopic({
                  'Taşıma sistemi isteğin **içeriğini** yazar; ' +
                  '"daha yeni mi?" diye sormaz. Önce serbest bırakılmış ' +
                  'ama **sonra** taşınan bir istek, aradaki değişikliği ' +
-                 '**ezer** — ve dönüş kodu **0** döner.\n\n' +
+                 '**ezer**: ve dönüş kodu **0** döner.\n\n' +
                  'Yani teknik olarak her şey başarılıdır; yalnızca ' +
                  'sonuç yanlıştır.\n\n' +
                  '**Teşhis:** {{E071}}’de iki isteğin ortak nesnesi var mı? ' +
@@ -1424,12 +1424,12 @@ SAP.registerTopic({
                  'tutulur, kuyruk **bütün olarak** aktarılır ve ' +
                  'seçmeli aktarımdan kaçınılır.\n\n' +
                  'SAP’ın "nesne başka istekte kilitli" uyarısı da ' +
-                 'tam olarak bunu önlemek içindir — o kilit **koruyucudur**.' },
+                 'tam olarak bunu önlemek içindir: o kilit **koruyucudur**.' },
 
       { soru:'Şüphedeyken (örneğin paralel defter ihtiyacı belirsizken) ne yapılır?',
         secenekler:[
           'Kapalı kurulur, ihtiyaç doğarsa açılır',
-          '**Açık kurulur ama kullanılmaz — sonradan açmak mümkün olmayabilir**',
+          '**Açık kurulur ama kullanılmaz: sonradan açmak mümkün olmayabilir**',
           'Karar proje sonuna ertelenir',
           'İki ayrı sistem kurulur',
         ], dogru:1,
@@ -1444,23 +1444,23 @@ SAP.registerTopic({
                  'Yeni bir defter açılırsa geçmiş yıllar o defterde ' +
                  '**değerlenmemiştir**; belge bölme açılırsa geçmiş belgeler ' +
                  '**bölünmez**.\n\n' +
-                 'Fazladan hazırlık **ucuz**, eksik hazırlık **pahalıdır** — ' +
+                 'Fazladan hazırlık **ucuz**, eksik hazırlık **pahalıdır**: ' +
                  've bu asimetri tek yönlü kapıların tamamında geçerlidir.' },
     ],
 
     flashcards:[
-      { on:'Konunun tezi — tek cümle', arka:'**Yapılandırma kararları ikiye ayrılır:**\n**geri alınabilenler** ve **veriyle mühürlenenler**\n\nRisk, ikincisinin **listesini bilmemekten** doğar\n\nSAP’ta hiçbir ayar "geri alınamaz" diye işaretli değildir' },
+      { on:'Konunun tezi: tek cümle', arka:'**Yapılandırma kararları ikiye ayrılır:**\n**geri alınabilenler** ve **veriyle mühürlenenler**\n\nRisk, ikincisinin **listesini bilmemekten** doğar\n\nSAP’ta hiçbir ayar "geri alınamaz" diye işaretli değildir' },
       { on:'Tek yönlü kapı testi', arka:'**"Bu ayar kapalıyken ÜRETİLMEYEN bir veri var mı?"**\n\nDört alt kontrol:\n① Ayar veriye yazılıyor mu?\n② Kapalıyken oluşmayan kayıt var mı?\n③ Değişirse geçmiş taşınır mı?\n④ **IMG belgesi ne diyor?**' },
       { on:'FI tek yönlü kapılar', arka:'{{hesap-plani}} + numaralandırma\n{{yerel-para-birimi}} / {{paralel-para-birimi}}\n{{mali-yil-varyanti}}\n**{{belge-bolme}}**\nDefter yapısı ({{paralel-defter}})\n{{degerleme-plani}} / {{amortisman-alani}}\nKullanılmış {{vergi-kodu}} oranı' },
-      { on:'Çift yönlü kapılar', arka:'{{odeme-kosulu}} · {{tolerans-grubu}} · {{alan-durumu}}\nihtar prosedürü · yetkiler · rapor düzeni\n\n**Hızlı karar ver, gerekirse değiştir**\n\nAma: değiştirmek **geçmişi düzeltmez**\n\nToplantı süresinin çoğu buraya harcanıyor — oysa risk diğer listede' },
+      { on:'Çift yönlü kapılar', arka:'{{odeme-kosulu}} · {{tolerans-grubu}} · {{alan-durumu}}\nihtar prosedürü · yetkiler · rapor düzeni\n\n**Hızlı karar ver, gerekirse değiştir**\n\nAma: değiştirmek **geçmişi düzeltmez**\n\nToplantı süresinin çoğu buraya harcanıyor: oysa risk diğer listede' },
       { on:'Doğru soru değişir', arka:'**Çift yönlü kapıda:**\n*"Bugün ne lazım?"*\n\n**Tek yönlü kapıda:**\n**"Üç yıl içinde isteme ihtimalimiz var mı?"**\n\nve şüphedeyken:\n**AÇIK KUR, KULLANMA**' },
       { on:'Ayar ≠ Hata', arka:'**"Ayarın geri alınabilirliği,\nhatanın düzeltilebilirliği DEĞİLDİR."**\n\n`AKONT` → {{FK02}} ile 5 dakika ✓\nAma geçmiş kayıtlar **eski hesapta kalır**\n→ sınıflandırma aktarım kaydı gerekir\n→ ve {{FBL1N}} ↔ {{FS10N}} köprüsü bozulur' },
-      { on:'"Test sisteminde çalışıyordu"', arka:'**① {{akim-verisi}}** — en sık, en hızlı kontrol\n{{OB52}} · {{TCURR}} → **taşımaya hiç girmez**\n\n**②** {{tasima-sirasi}} çakışması\n{{E071}}’de ortak nesne? → eski hâl yeniyi **ezer**\n\n**③** Bağımlı nesne taşınmamış' },
-      { on:'Taşıma disiplini — üç kural', arka:'**①** İstek **küçük ve amaç odaklı**\n(yoksa geri alınamaz)\n\n**②** **Sırayla taşı**\nters sıra → eski hâl yeniyi ezer, **hata mesajı yok**\n\n**③** Kuyruğu **bütün olarak** aktar\nseçmeli aktarım sırayı bozar' },
-      { on:'Test — üç kural', arka:'**①** Sonucu değil **DOĞRU sonucu** doğrula\n"belge oluştu" ✕ → *hangi hesaba gitti?* ✓\n\n**②** **{{negatif-test}}** — kural **bilerek ihlal edilir**\n(kontrol yalnızca ihlal edilince görünür)\n\n**③** Test verisi **temiz olmasın**\nkuruşlu · dövizli · **iskontolu** · Türkçe karakter' },
+      { on:'"Test sisteminde çalışıyordu"', arka:'**① {{akim-verisi}}**: en sık, en hızlı kontrol\n{{OB52}} · {{TCURR}} → **taşımaya hiç girmez**\n\n**②** {{tasima-sirasi}} çakışması\n{{E071}}’de ortak nesne? → eski hâl yeniyi **ezer**\n\n**③** Bağımlı nesne taşınmamış' },
+      { on:'Taşıma disiplini: üç kural', arka:'**①** İstek **küçük ve amaç odaklı**\n(yoksa geri alınamaz)\n\n**②** **Sırayla taşı**\nters sıra → eski hâl yeniyi ezer, **hata mesajı yok**\n\n**③** Kuyruğu **bütün olarak** aktar\nseçmeli aktarım sırayı bozar' },
+      { on:'Test, üç kural', arka:'**①** Sonucu değil **DOĞRU sonucu** doğrula\n"belge oluştu" ✕ → *hangi hesaba gitti?* ✓\n\n**②** **{{negatif-test}}**, kural **bilerek ihlal edilir**\n(kontrol yalnızca ihlal edilince görünür)\n\n**③** Test verisi **temiz olmasın**\nkuruşlu · dövizli · **iskontolu** · Türkçe karakter' },
       { on:'Ne dokümante edilir?', arka:'SAP **"ne"yi zaten tutuyor**:\n{{CDHDR}}/{{CDPOS}} · {{E070}}/{{E071}} · {{SPRO}}\n\nSiz **NEDEN**i tutun:\n① Neyi çözüyor\n② Ne elendi\n③ **Hangi varsayıma dayanıyor**\n\n→ ③ kararın **ne zaman gözden geçirileceğini** söyler' },
-      { on:'Z geliştirme = borç', arka:'Tek seferlik maliyet **değil**, faizli borç:\n• her destek paketi\n• her yükseltmede {{SPAU}}\n• her yeni danışmana devir\n• **geçiş engeli**\n\n① Özel rapor — faiz düşük\n② {{badi}} — faiz orta\n③ Modifikasyon — faiz yüksek\n\nAsıl sorun: **envanteri kaybetmek**' },
-      { on:'Senaryonun dersi', arka:'*"Segment raporu istemiyoruz"* → bölme **kapalı**\n8 ay sonra: iş kolu **bilançosu** istendi\n\nGider satırları kâr merkezi taşıyordu ✓\n**Bilanço satırları taşımıyordu** ✕\n\n{{FAGL_SPLINFO}} geçmişte **hiç oluşmamıştı**\n→ geriye dönük **doldurulamaz**\n\nKarar yanlış değildi — **eksik olan bilgiydi**' },
+      { on:'Z geliştirme = borç', arka:'Tek seferlik maliyet **değil**, faizli borç:\n• her destek paketi\n• her yükseltmede {{SPAU}}\n• her yeni danışmana devir\n• **geçiş engeli**\n\n① Özel rapor, faiz düşük\n② {{badi}}, faiz orta\n③ Modifikasyon, faiz yüksek\n\nAsıl sorun: **envanteri kaybetmek**' },
+      { on:'Senaryonun dersi', arka:'*"Segment raporu istemiyoruz"* → bölme **kapalı**\n8 ay sonra: iş kolu **bilançosu** istendi\n\nGider satırları kâr merkezi taşıyordu ✓\n**Bilanço satırları taşımıyordu** ✕\n\n{{FAGL_SPLINFO}} geçmişte **hiç oluşmamıştı**\n→ geriye dönük **doldurulamaz**\n\nKarar yanlış değildi: **eksik olan bilgiydi**' },
     ],
   },
 

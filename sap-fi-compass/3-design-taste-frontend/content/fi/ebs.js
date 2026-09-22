@@ -1,5 +1,5 @@
 /* ==========================================================================
-   content/fi/ebs.js — "Electronic Bank Statement (Elektronik Banka Ekstresi)"
+   content/fi/ebs.js: "Electronic Bank Statement (Elektronik Banka Ekstresi)"
    ========================================================================== */
 
 SAP.registerTopic({
@@ -23,7 +23,7 @@ SAP.registerTopic({
       '**Doğruluk.** Otomatik yorumlama, elle giriş hatalarını ortadan kaldırır ve ' +
       'bakiye kontrolü dosyadan gelir.\n\n' +
       '**Hız.** Manuel mutabakat günler sürerken EBS ile saatlere iner. ' +
-      'Tipik bir kurulumda satırların **%80–90’ı otomatik eşleşir**; insan yalnızca kalanla ilgilenir.\n\n' +
+      'Tipik bir kurulumda satırların **%80-90’ı otomatik eşleşir**; insan yalnızca kalanla ilgilenir.\n\n' +
       '**Nakit görünürlüğü.** Ekstre günlük yüklendiğinde banka bakiyesi neredeyse gerçek zamanlı bilinir.',
 
     sirketOnemi:
@@ -32,13 +32,13 @@ SAP.registerTopic({
       'Danışmanlık açısından EBS, "yapılandırması zor ama mantığı basit" bir konudur. ' +
       'Zorluk {{OT83}}’ün çok katmanlı yapısındadır: hesap sembolleri → sembol hesap ataması → ' +
       'kayıt kuralları → işlem kodu ataması. Bu dört katman doğru kurulmadan hiçbir satır otomatik kaydedilmez.\n\n' +
-      'Ayırt edici soru şudur: **"Hesap sembolü (account symbol) nedir, neden kullanılır?"** — ' +
+      'Ayırt edici soru şudur: **"Hesap sembolü (account symbol) nedir, neden kullanılır?"**: ' +
       'cevabı, EBS’in gerçekten kurulup kurulmadığını ele verir.',
 
     gercekHayat:
       'Bir perakende zinciri 4 bankada 11 hesap kullanıyor ve günde ortalama 340 ekstre satırı alıyor.\n\n' +
       'EBS öncesi: iki kişi tam zamanlı ekstre giriyor, mutabakat ay sonunda 4 gün sürüyor, ' +
-      'ara hesap bakiyesi sürekli 1–2 milyon TL arasında dolaşıyor.\n\n' +
+      'ara hesap bakiyesi sürekli 1-2 milyon TL arasında dolaşıyor.\n\n' +
       'EBS sonrası: dosyalar her sabah otomatik yükleniyor, 340 satırın 291’i (%86) kendiliğinden ' +
       'kaydediliyor. Kalan 49 satır {{FEBAN}}’da bir kişi tarafından 40 dakikada işleniyor. ' +
       'Mutabakat günlük yapılıyor ve ara hesap bakiyesi 50.000 TL’nin altına iniyor.\n\n' +
@@ -77,7 +77,7 @@ SAP.registerTopic({
 
     diyagram:{
       type:'flow',
-      baslik:'EBS günlük akışı — dosyadan mutabakata',
+      baslik:'EBS günlük akışı: dosyadan mutabakata',
       adimlar:[
         { ic:'🏦', rol:'Banka', baslik:'Ekstre dosyası üretilir',
           aciklama:'Standart format: **MT940** (SWIFT), **CAMT.053** (ISO20022 XML) veya **BAI2** (ABD). ' +
@@ -126,7 +126,7 @@ SAP.registerTopic({
 
     veriAkisi:{
       nereden:'Bankadan gelen standart formatlı dosya; {{OT83}} yapılandırması; ' +
-              '{{banka-ara-hesabi}}ndaki açık kalemler; {{T012K}}’den hesap–G/L bağı.',
+              '{{banka-ara-hesabi}}ndaki açık kalemler; {{T012K}}’den hesap-G/L bağı.',
       nereye:'{{FEBKO}}/{{FEBEP}} ekstre tablolarına; oradan FI belgelerine ({{BKPF}}/{{BSEG}}); ' +
              'kapatılan ara hesap kalemlerine ve gerçek banka hesabına.',
       tetikleyen:'Bankanın günlük ekstre dosyası. Genelde her sabah otomatik yüklenecek şekilde planlanır.',
@@ -135,11 +135,11 @@ SAP.registerTopic({
 
     notlar:[
       { tip:'tip', baslik:'Eşleşme oranı bir kalite göstergesidir', metin:
-        'Sağlıklı bir EBS kurulumunda satırların **%80–90’ı otomatik** eşleşir. ' +
+        'Sağlıklı bir EBS kurulumunda satırların **%80-90’ı otomatik** eşleşir. ' +
         'Oran bunun altındaysa üç yerde iyileştirme yapılabilir:\n\n' +
-        '**(1) Kayıt kuralları** — banka işlem kodlarının bir kısmı eşlenmemiş olabilir.\n' +
-        '**(2) Yorumlama algoritması** — açıklama metninden belge numarası çıkarma kuralı zayıf olabilir.\n' +
-        '**(3) Süreç** — müşterilere havale açıklamasına fatura numarası yazmaları hatırlatılabilir.\n\n' +
+        '**(1) Kayıt kuralları**: banka işlem kodlarının bir kısmı eşlenmemiş olabilir.\n' +
+        '**(2) Yorumlama algoritması**: açıklama metninden belge numarası çıkarma kuralı zayıf olabilir.\n' +
+        '**(3) Süreç**: müşterilere havale açıklamasına fatura numarası yazmaları hatırlatılabilir.\n\n' +
         'Üçüncüsü genelde en büyük kazancı sağlar ve teknik bir iş değildir.' },
     ],
   },
@@ -151,68 +151,68 @@ SAP.registerTopic({
       '**karşılığı olmayan** hareketler (doğrudan kaydedilir). Kayıt kuralları bu ayrımı yapar.',
 
     etkilenenHesaplar:[
-      { hesap:'102001 Bankalar — gerçek hesap', tur:'Bilanço — Varlık', neden:'**Her** ekstre satırında çalışır. Ekstre işlendikten sonra bakiyesi bankanın rakamıyla eşleşmelidir.' },
-      { hesap:'102091 / 102081 Ara hesaplar', tur:'Bilanço — Geçiş', neden:'Yalnızca **karşılığı olan** hareketlerde çalışır; kapatılarak sıfırlanır.' },
-      { hesap:'770 Banka masrafları', tur:'Gelir tablosu', neden:'Karşılığı yok — ilk kez ekstreden öğrenilir, doğrudan kaydedilir.' },
+      { hesap:'102001 Bankalar, gerçek hesap', tur:'Bilanço, Varlık', neden:'**Her** ekstre satırında çalışır. Ekstre işlendikten sonra bakiyesi bankanın rakamıyla eşleşmelidir.' },
+      { hesap:'102091 / 102081 Ara hesaplar', tur:'Bilanço: Geçiş', neden:'Yalnızca **karşılığı olan** hareketlerde çalışır; kapatılarak sıfırlanır.' },
+      { hesap:'770 Banka masrafları', tur:'Gelir tablosu', neden:'Karşılığı yok: ilk kez ekstreden öğrenilir, doğrudan kaydedilir.' },
       { hesap:'642 Faiz gelirleri / 780 Faiz giderleri', tur:'Gelir tablosu', neden:'Aynı şekilde doğrudan kaydedilir.' },
-      { hesap:'120 Alıcılar', tur:'Bilanço — Varlık', neden:'Eşleşen tahsilatlarda müşteri açık kalemi kapatılır.' },
+      { hesap:'120 Alıcılar', tur:'Bilanço: Varlık', neden:'Eşleşen tahsilatlarda müşteri açık kalemi kapatılır.' },
       { hesap:'Geçici fark hesabı', tur:'Bilanço', neden:'Eşleştirilemeyen ama kaydedilmesi gereken satırlar için ara depo; sonradan {{FEBAN}} ile düzeltilir.' },
     ],
 
     fisler:[
-      { baslik:'Durum 1 — Karşılığı olan: giden ödeme ekstreye yansıdı',
+      { baslik:'Durum 1: Karşılığı olan: giden ödeme ekstreye yansıdı',
         belgeTuru:'SB', tarih:'26.09.2026', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'102091', ad:'Banka ara hesabı — giden', borc:140000, not:'**Kapatıldı** — F110 kalemi eşleşti' },
-          { hesap:'102001', ad:'Bankalar — İŞB', alacak:140000, not:'Para fiilen çıktı' },
+          { hesap:'102091', ad:'Banka ara hesabı, giden', borc:140000, not:'**Kapatıldı**, F110 kalemi eşleşti' },
+          { hesap:'102001', ad:'Bankalar: İŞB', alacak:140000, not:'Para fiilen çıktı' },
         ],
         not:'Sistem açıklama metnindeki ödeme belgesi numarasını bulup ara hesaptaki kalemi kapattı. ' +
              'Bu, EBS’in en sık ürettiği kayıt tipidir ve **tamamen otomatiktir**.' },
 
-      { baslik:'Durum 2 — Karşılığı olan: müşteri tahsilatı eşleşti',
+      { baslik:'Durum 2: Karşılığı olan: müşteri tahsilatı eşleşti',
         belgeTuru:'SB', tarih:'26.09.2026', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'102001', ad:'Bankalar — İŞB', borc:98750, not:'Para girdi' },
-          { hesap:'120', ad:'Alıcılar — C-5001', alacak:98750, not:'**Açık kalem kapandı**' },
+          { hesap:'102001', ad:'Bankalar: İŞB', borc:98750, not:'Para girdi' },
+          { hesap:'120', ad:'Alıcılar: C-5001', alacak:98750, not:'**Açık kalem kapandı**' },
         ],
         not:'Müşteri havale açıklamasına fatura numarasını yazmış; sistem {{BSID}}’de o kalemi bulup kapattı. ' +
-             'Ara hesap kullanılmadı çünkü tahsilat **önceden kaydedilmemişti** — ilk kez ekstreden öğrenildi.' },
+             'Ara hesap kullanılmadı çünkü tahsilat **önceden kaydedilmemişti**: ilk kez ekstreden öğrenildi.' },
 
-      { baslik:'Durum 3 — Karşılığı olmayan: banka masrafı',
+      { baslik:'Durum 3: Karşılığı olmayan: banka masrafı',
         belgeTuru:'SB', tarih:'26.09.2026', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'770', ad:'Genel yönetim gideri — banka masrafı', borc:450, not:'Kayıt kuralından' },
-          { hesap:'102001', ad:'Bankalar — İŞB', alacak:450 },
+          { hesap:'770', ad:'Genel yönetim gideri: banka masrafı', borc:450, not:'Kayıt kuralından' },
+          { hesap:'102001', ad:'Bankalar: İŞB', alacak:450 },
         ],
         not:'İşlem kodu (örn. 835) doğrudan bir kayıt kuralına eşlenmiş; kural masraf hesabını söylüyor. ' +
-             '**Hiçbir açık kalem aranmaz** — bu bir bilgi kaydıdır.' },
+             '**Hiçbir açık kalem aranmaz**: bu bir bilgi kaydıdır.' },
 
-      { baslik:'Durum 4 — Eşleşmeyen tahsilat (geçici hesaba)',
+      { baslik:'Durum 4: Eşleşmeyen tahsilat (geçici hesaba)',
         belgeTuru:'SB', tarih:'26.09.2026', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'102001', ad:'Bankalar — İŞB', borc:80000, not:'Para girdi — kesin' },
+          { hesap:'102001', ad:'Bankalar, İŞB', borc:80000, not:'Para girdi, kesin' },
           { hesap:'102099', ad:'Banka geçici hesabı', alacak:80000, not:'**Kime ait olduğu bilinmiyor**' },
         ],
         not:'Havale geldi ama açıklama boş; hangi müşteriye ait olduğu anlaşılamadı. ' +
              'Sistem parayı geçici hesaba park etti. **Banka bakiyesi doğru**, yalnızca karşı taraf belirsiz. ' +
              '{{FEBAN}}’da elle düzeltilecek.' },
 
-      { baslik:'Durum 4 devamı — {{FEBAN}} ile düzeltme',
+      { baslik:'Durum 4 devamı: {{FEBAN}} ile düzeltme',
         belgeTuru:'SB', tarih:'26.09.2026', paraBirimi:'TRY',
         satirlar:[
           { hesap:'102099', ad:'Banka geçici hesabı', borc:80000, not:'Geçici hesap boşaltıldı' },
-          { hesap:'120', ad:'Alıcılar — C-5012', alacak:80000, not:'Doğru müşteriye bağlandı' },
+          { hesap:'120', ad:'Alıcılar: C-5012', alacak:80000, not:'Doğru müşteriye bağlandı' },
         ],
         not:'AR ekibi tutarı ve tarihi inceleyip müşteriyi buldu. Geçici hesap sıfırlandı. ' +
-             'Bu hesabın bakiyesi **günlük sıfıra inmelidir** — inmezse bekleyen iş var demektir.' },
+             'Bu hesabın bakiyesi **günlük sıfıra inmelidir**: inmezse bekleyen iş var demektir.' },
     ],
 
     tHesaplar:[
-      { hesap:'Bankalar — gerçek hesap', kod:'102001',
+      { hesap:'Bankalar: gerçek hesap', kod:'102001',
         borc:[{ ad:'Tahsilatlar', tutar:178750 }],
         alacak:[{ ad:'Ödemeler', tutar:140000 }, { ad:'Masraf', tutar:450 }],
         not:'Ekstre sonrası bankanın rakamıyla eşleşir' },
-      { hesap:'Banka ara hesabı — giden', kod:'102091',
+      { hesap:'Banka ara hesabı: giden', kod:'102091',
         borc:[{ ad:'Ekstre eşleşmesi', tutar:140000 }],
         alacak:[{ ad:'F110 ödemesi', tutar:140000 }],
         not:'EBS bu hesabı otomatik kapatır' },
@@ -225,7 +225,7 @@ SAP.registerTopic({
     notlar:[
       { tip:'tip', baslik:'Geçici hesap neden gerekli?', metin:
         'Eşleşmeyen bir satır için iki seçenek vardır: **kaydetme** veya **geçici hesaba kaydet**.\n\n' +
-        'Kaydetmemek banka bakiyesini yanlış bırakır — para bankada var ama muhasebede yok. ' +
+        'Kaydetmemek banka bakiyesini yanlış bırakır: para bankada var ama muhasebede yok. ' +
         'Geçici hesaba kaydetmek ise banka bakiyesini **doğru** tutar; yalnızca karşı taraf belirsiz kalır.\n\n' +
         'Bu yüzden çoğu kurulum geçici hesap kullanır. Kritik kural: bu hesabın bakiyesi ' +
         '**günlük sıfıra inmelidir**. Birikmesi, {{FEBAN}}’da işlenmemiş satır olduğunu gösterir.' },
@@ -257,7 +257,7 @@ SAP.registerTopic({
         aciklama:'ABD bankalarının kullandığı format.',
         neZaman:'ABD operasyonu olan şirketlerde.' },
 
-      { ad:'Manuel ekstre', en:'Manual Statement — FF67',
+      { ad:'Manuel ekstre', en:'Manual Statement: FF67',
         aciklama:'Dosya yok; satırlar elle girilir. Kayıt kuralları yine uygulanır.',
         neZaman:'Elektronik ekstre vermeyen bankalarda; yurtdışı küçük hesaplarda.',
         ornek:'Bkz. {{konu:bank-accounting}} konusu.',
@@ -265,7 +265,7 @@ SAP.registerTopic({
 
       { ad:'Açık kalem kapatan kural', en:'Posting Rule with Clearing',
         aciklama:'Kural, bir açık kalemi kapatmayı hedefler. Sistem açıklama metninde belge numarası arar.',
-        neZaman:'Bizim yaptığımız ödemeler ve kaydettiğimiz tahsilatlar için — ' +
+        neZaman:'Bizim yaptığımız ödemeler ve kaydettiğimiz tahsilatlar için: ' +
                 'yani {{banka-ara-hesabi}}nda karşılığı olan hareketlerde.',
         ornek:'İşlem kodu 051 (giden havale) → ara hesabı kapat.',
         tcodes:['OT83'] },
@@ -287,8 +287,8 @@ SAP.registerTopic({
     karsilastirmaBasliklar:['MT940', 'CAMT.053'],
     karsilastirma:[
       ['Format', 'Metin (SWIFT etiketli)', 'XML (ISO 20022)'],
-      ['Veri zenginliği', 'Sınırlı — açıklama tek serbest alan', '**Zengin** — yapılandırılmış referans alanları'],
-      ['Eşleşme oranı', 'Orta (%70–85)', '**Yüksek** (%85–95)'],
+      ['Veri zenginliği', 'Sınırlı, açıklama tek serbest alan', '**Zengin**, yapılandırılmış referans alanları'],
+      ['Eşleşme oranı', 'Orta (%70-85)', '**Yüksek** (%85-95)'],
       ['İş ortağı bilgisi', 'Serbest metinde gömülü', 'Ayrı yapılandırılmış alanlarda'],
       ['Yaygınlık', 'Neredeyse her banka', 'Giderek yaygınlaşıyor'],
       ['Yeni kurulumda', 'Kabul edilebilir', '**Tercih edilmeli**'],
@@ -312,7 +312,7 @@ SAP.registerTopic({
           { baslik:'Test modunda çalıştır (ilk kurulumda)',
             aciklama:'Hangi satırların hangi kurala eşleşeceğini kaydetmeden gösterir.' },
           { baslik:'Gerçek modda çalıştır ve sonuç listesini incele',
-            aciklama:'Kaç satır işlendi, kaç satır {{FEBAN}}’a düştü — eşleşme oranı buradan okunur.' },
+            aciklama:'Kaç satır işlendi, kaç satır {{FEBAN}}’a düştü: eşleşme oranı buradan okunur.' },
         ],
         ekranAkisi:[
           { ekran:'Giriş', islem:'Format: MT940 · Dosya: /usr/sap/interface/ekstre_20260926.txt' },
@@ -346,7 +346,7 @@ SAP.registerTopic({
                      'masraf/faiz ise doğrudan G/L hesabı girilir.' },
           { baslik:'Kayıt kuralını gerekirse değiştir',
             aciklama:'Sistem bir kural önerir; uygun değilse elle seçilir.' },
-          { baslik:'Kaydet — satır "işlendi" olur',
+          { baslik:'Kaydet: satır "işlendi" olur',
             aciklama:'FI belgesi oluşur ve geçici hesap varsa boşaltılır.' },
         ],
         ekranAkisi:[
@@ -381,7 +381,7 @@ SAP.registerTopic({
               'yüklenmemiş bir ekstre demektir ve mutabakatta açıklanamayan fark yaratır.',
         ilgili:['FF_5','FEBAN','FEBKO'] },
 
-      { kod:'OT83', ad:'EBS global ayarları — kayıt kuralları ve hesap sembolleri',
+      { kod:'OT83', ad:'EBS global ayarları: kayıt kuralları ve hesap sembolleri',
         amac:'EBS’in tüm yapılandırmasını dört katmanda toplar. **EBS’in kalbidir.**',
         neZaman:'Kurulumda ve her yeni banka/işlem kodu eklendiğinde.',
         adimlar:[
@@ -392,7 +392,7 @@ SAP.registerTopic({
           { baslik:'2) Hesap sembollerine hesap ata (Assign accounts to symbols)',
             aciklama:'Sembol → gerçek G/L hesabı. Maske kullanılır: `+++++++++0` gibi bir maske, ' +
                      'ev bankası hesabının G/L numarasını **otomatik yerine koyar**. ' +
-                     '**Tek tanım 11 banka hesabı için çalışır** — sembollerin varlık sebebi budur.' },
+                     '**Tek tanım 11 banka hesabı için çalışır**: sembollerin varlık sebebi budur.' },
           { baslik:'3) Kayıt kurallarını oluştur (Create posting rules)',
             aciklama:'Her kural bir muhasebe kaydı şablonudur: hangi sembol borç, hangi sembol alacak, ' +
                      'belge türü ne, kapatma yapılacak mı.' },
@@ -441,9 +441,9 @@ SAP.registerTopic({
         s4:'Değişmedi.',
         alanlar:[
           { ad:'KUKEY', aciklama:'Ekstre kimliği (iç anahtar)' },
-          { ad:'AZNUM', aciklama:'Ekstre numarası — **sıralı olmalıdır**' },
+          { ad:'AZNUM', aciklama:'Ekstre numarası: **sıralı olmalıdır**' },
           { ad:'AZDAT', aciklama:'Ekstre tarihi' },
-          { ad:'ASBTR / AEBTR', aciklama:'Açılış ve kapanış bakiyesi — dosyadan gelir' },
+          { ad:'ASBTR / AEBTR', aciklama:'Açılış ve kapanış bakiyesi: dosyadan gelir' },
           { ad:'HBKID / HKTID', aciklama:'Ev bankası ve hesap kimliği' },
         ] },
 
@@ -457,11 +457,11 @@ SAP.registerTopic({
         s4:'Değişmedi.',
         alanlar:[
           { ad:'ESNUM', aciklama:'Satır numarası' },
-          { ad:'VGEXT', aciklama:'**Dış işlem kodu** — bankanın gönderdiği kod (051, 835…). Kayıt kuralı buna göre seçilir.' },
-          { ad:'VGINT', aciklama:'İç işlem kodu — SAP’ın kendi sınıflandırması' },
+          { ad:'VGEXT', aciklama:'**Dış işlem kodu**: bankanın gönderdiği kod (051, 835…). Kayıt kuralı buna göre seçilir.' },
+          { ad:'VGINT', aciklama:'İç işlem kodu: SAP’ın kendi sınıflandırması' },
           { ad:'KWBTR', aciklama:'Satır tutarı' },
-          { ad:'VALUT', aciklama:'{{valor-tarihi}} — nakit yönetimi bunu kullanır' },
-          { ad:'SGTXT', aciklama:'Açıklama metni (not to payee) — **otomatik eşleştirmenin ana girdisi**' },
+          { ad:'VALUT', aciklama:'{{valor-tarihi}}: nakit yönetimi bunu kullanır' },
+          { ad:'SGTXT', aciklama:'Açıklama metni (not to payee): **otomatik eşleştirmenin ana girdisi**' },
           { ad:'ANWSO / Durum', aciklama:'Satırın işlenme durumu; işlenmemişse {{FEBAN}}’da görünür' },
         ] },
 
@@ -474,8 +474,8 @@ SAP.registerTopic({
         iliskiler:'{{FEBKO}} bu kayda bağlanır; hesap sembolü maskesi buradaki G/L hesabını kullanır.',
         s4:'Bank Account Management ile yönetilir.',
         alanlar:[
-          { ad:'BANKN / IBAN', aciklama:'**Dosyadakiyle birebir eşleşmelidir** — boşluk/format farkı yükleme hatası verir' },
-          { ad:'HKONT', aciklama:'G/L hesabı — hesap sembolü maskesi bunu kullanır' },
+          { ad:'BANKN / IBAN', aciklama:'**Dosyadakiyle birebir eşleşmelidir**: boşluk/format farkı yükleme hatası verir' },
+          { ad:'HKONT', aciklama:'G/L hesabı: hesap sembolü maskesi bunu kullanır' },
         ] },
 
       { ad:'BKPF', baslik:'EBS’in ürettiği FI belgeleri',
@@ -484,15 +484,15 @@ SAP.registerTopic({
         guncelleyen:'Ekstre işleme',
         s4:'Değişmedi.',
         alanlar:[
-          { ad:'BLART', aciklama:'Genelde SB (banka kaydı) — kayıt kuralında tanımlı' },
-          { ad:'XBLNR', aciklama:'Referans — genelde ekstre numarası yazılır' },
+          { ad:'BLART', aciklama:'Genelde SB (banka kaydı): kayıt kuralında tanımlı' },
+          { ad:'XBLNR', aciklama:'Referans: genelde ekstre numarası yazılır' },
         ] },
 
       { ad:'BSIS', baslik:'Ara hesap açık kalemleri',
         tutar:'{{banka-ara-hesabi}}ndaki kapanmamış kalemler. EBS bunları kapatmayı hedefler.',
         olusturan:'Ödeme/tahsilat kayıtları',
         guncelleyen:'EBS eşleştirmesi kalemleri kapatır',
-        s4:'{{uyumluluk-view}} — {{ACDOCA}}’dan üretilir.' },
+        s4:'{{uyumluluk-view}}: {{ACDOCA}}’dan üretilir.' },
     ],
 
     er:{
@@ -532,7 +532,7 @@ SAP.registerTopic({
       'Yapılandırma tarafında ise {{OT83}}’ün dört katmanı vardır ve sırası önemlidir.',
 
     ekranlar:[
-      { ad:'{{FF_5}} — yükleme ekranı',
+      { ad:'{{FF_5}}: yükleme ekranı',
         aciklama:'Dosya seçimi ve kayıt parametreleri.',
         alanlar:[
           { ad:'Dosya formatı', zorunlu:true, aciklama:'MT940 / CAMT.053 / BAI2. Yanlış format seçilirse ayrıştırma hatası alınır.' },
@@ -544,7 +544,7 @@ SAP.registerTopic({
         ipucu:'Sonuç listesindeki **"işlendi / işlenmedi"** sayıları eşleşme oranını verir. ' +
               'Bu oranı her gün not et; düşerse bir şey değişmiş demektir (banka kod değiştirmiş olabilir).' },
 
-      { ad:'{{FEBAN}} — düzeltme ekranı',
+      { ad:'{{FEBAN}}: düzeltme ekranı',
         aciklama:'İşlenmemiş satırların listesi ve eşleştirme paneli.',
         alanlar:[
           { ad:'Satır listesi', zorunlu:true, aciklama:'Durum göstergesi renklidir: yeşil işlendi, sarı kısmen, kırmızı işlenmedi.' },
@@ -556,7 +556,7 @@ SAP.registerTopic({
         ipucu:'Tutarı ve tarihi kullanarak {{FBL5N}}’de arama yapmak, açıklaması boş havalelerin ' +
               'müşterisini bulmanın en pratik yoludur.' },
 
-      { ad:'{{OT83}} — yapılandırma ekranı (dört katman)',
+      { ad:'{{OT83}}: yapılandırma ekranı (dört katman)',
         aciklama:'EBS’in tüm mantığı burada kurulur. Katmanların sırası önemlidir.',
         alanlar:[
           { ad:'1) Hesap sembolleri', zorunlu:true, aciklama:'Soyut roller: BANK, OUTGOING, INCOMING, CHARGES.' },
@@ -590,7 +590,7 @@ SAP.registerTopic({
       'her ay biraz daha az elle iş.',
       'Ekstre numaralarının sıralı olduğunu {{FEBA}} ile düzenli kontrol et; atlanan numara ' +
       'mutabakatta açıklanamayan fark yaratır.',
-      'Açıklaması boş havalelerde tutar + tarih ile {{FBL5N}}’de arama yap — müşteriyi bulmanın en hızlı yolu.',
+      'Açıklaması boş havalelerde tutar + tarih ile {{FBL5N}}’de arama yap: müşteriyi bulmanın en hızlı yolu.',
       'Müşterilere havale açıklamasına **fatura numarası** yazmalarını hatırlat. ' +
       'Teknik olmayan bu tek adım, eşleşme oranını en çok artıran şeydir.',
     ],
@@ -599,7 +599,7 @@ SAP.registerTopic({
   /* ===================================================== 8. TEKNİK === */
   teknik: {
     guncellenenTablolar:[
-      { tablo:'FEBKO', ne:'Ekstre başlığı — dosyadan okunan bakiyeler ve kimlik' },
+      { tablo:'FEBKO', ne:'Ekstre başlığı: dosyadan okunan bakiyeler ve kimlik' },
       { tablo:'FEBEP', ne:'Ekstre satırları; işlendikçe durum alanı güncellenir' },
       { tablo:'BKPF', ne:'Üretilen FI belgeleri (genelde SB türü)' },
       { tablo:'BSEG', ne:'Belge kalemleri; ara hesap kapatılırsa `AUGBL` dolar' },
@@ -610,9 +610,9 @@ SAP.registerTopic({
 
     commit:
       'EBS **iki aşamalı** çalışır ve bu ayrım kritiktir:\n\n' +
-      '**Aşama 1 — Veri yükleme:** dosya okunur, {{FEBKO}}/{{FEBEP}} yazılır. ' +
+      '**Aşama 1: Veri yükleme:** dosya okunur, {{FEBKO}}/{{FEBEP}} yazılır. ' +
       'Bu aşama başarılı olsa bile **hiçbir muhasebe kaydı oluşmamış** olabilir.\n\n' +
-      '**Aşama 2 — Muhasebeleştirme:** kayıt kuralları uygulanır ve FI belgeleri üretilir. ' +
+      '**Aşama 2: Muhasebeleştirme:** kayıt kuralları uygulanır ve FI belgeleri üretilir. ' +
       'Doğrudan kayıt modunda her satır ayrı LUW’dur; toplu iş oturumu modunda ' +
       'oturum {{SM35}} ile çalıştırılana kadar hiçbir belge oluşmaz.\n\n' +
       'Bu yüzden "ekstre yüklendi ama muhasebe kaydı yok" durumu normaldir ve ' +
@@ -621,17 +621,17 @@ SAP.registerTopic({
     belgeNo:
       'EBS’in ürettiği belgeler kayıt kuralında tanımlı belge türünden (genelde **SB**) ' +
       'numara alır. Bir ekstre satırı bazen **iki belge** üretir: biri banka hareketi, ' +
-      'diğeri açık kalem kapatması — kayıt kuralının yapısına bağlıdır.',
+      'diğeri açık kalem kapatması: kayıt kuralının yapısına bağlıdır.',
 
     postingLogic:
       'Bir ekstre satırının muhasebeleşme zinciri **beş adımdır**:\n\n' +
-      '**1. Dış işlem kodu okunur** ({{FEBEP}} `VGEXT`) — bankanın gönderdiği kod.\n' +
-      '**2. Kayıt kuralı bulunur** — {{OT83}} 4. katmandaki atama.\n' +
-      '**3. Hesap sembolleri çözümlenir** — sembol + maske → gerçek G/L hesabı. ' +
+      '**1. Dış işlem kodu okunur** ({{FEBEP}} `VGEXT`): bankanın gönderdiği kod.\n' +
+      '**2. Kayıt kuralı bulunur**: {{OT83}} 4. katmandaki atama.\n' +
+      '**3. Hesap sembolleri çözümlenir**: sembol + maske → gerçek G/L hesabı. ' +
       'Maske, o ev bankası hesabının {{T012K}}’deki G/L numarasını yerine koyar.\n' +
-      '**4. Yorumlama algoritması çalışır** — açıklama metninde ({{FEBEP}} `SGTXT`) ' +
+      '**4. Yorumlama algoritması çalışır**: açıklama metninde ({{FEBEP}} `SGTXT`) ' +
       'belge numarası, referans veya çek numarası aranır.\n' +
-      '**5. Kayıt yapılır** — bulunursa açık kalem kapatılarak, bulunmazsa geçici hesaba.',
+      '**5. Kayıt yapılır**: bulunursa açık kalem kapatılarak, bulunmazsa geçici hesaba.',
 
     belgeTuru:
       'Kayıt kuralında tanımlanır; genelde **SB** (banka kaydı) kullanılır. ' +
@@ -640,7 +640,7 @@ SAP.registerTopic({
 
     numberRange:
       'Kullanılan belge türünün {{FBN1}}’deki aralığından gelir. ' +
-      'Yüksek hacimli EBS kurulumlarında bu aralığın **geniş** tanımlanması gerekir — ' +
+      'Yüksek hacimli EBS kurulumlarında bu aralığın **geniş** tanımlanması gerekir: ' +
       'günde yüzlerce belge üretilebilir.',
 
     accountDetermination:
@@ -655,7 +655,7 @@ SAP.registerTopic({
     tur:
       '**Özelleştirme:** {{OT83}}’ün dört katmanı (hesap sembolleri, sembol-hesap ataması, ' +
       'kayıt kuralları, işlem kodu ataması), yorumlama algoritmaları.\n\n' +
-      '**Ana veri:** {{ev-bankasi}} hesapları ({{T012K}}) — S/4HANA’da BAM ile ana veri.\n\n' +
+      '**Ana veri:** {{ev-bankasi}} hesapları ({{T012K}}): S/4HANA’da BAM ile ana veri.\n\n' +
       '**Hareket verisi:** ekstreler ({{FEBKO}}/{{FEBEP}}) ve üretilen FI belgeleri.',
 
     transport:
@@ -665,19 +665,19 @@ SAP.registerTopic({
       'Ayrıca ev bankası hesapları taşınmadığı için hedef sistemde ayrıca tanımlanmalıdır.',
 
     img:[
-      { yol:'SPRO → Finansal Muhasebe → Banka Muhasebesi → İş İşlemleri → Ödeme İşlemleri → Elektronik Banka Ekstresi → Global Ayarları Yap', not:'{{OT83}} — dört katmanın tamamı' },
+      { yol:'SPRO → Finansal Muhasebe → Banka Muhasebesi → İş İşlemleri → Ödeme İşlemleri → Elektronik Banka Ekstresi → Global Ayarları Yap', not:'{{OT83}}: dört katmanın tamamı' },
       { yol:'… → Elektronik Banka Ekstresi → Global Ayarlar → Hesap Sembollerini Tanımla', not:'1. katman' },
-      { yol:'… → Elektronik Banka Ekstresi → Global Ayarlar → Hesapları Hesap Sembollerine Ata', not:'2. katman — **maske mantığı**' },
+      { yol:'… → Elektronik Banka Ekstresi → Global Ayarlar → Hesapları Hesap Sembollerine Ata', not:'2. katman: **maske mantığı**' },
       { yol:'… → Elektronik Banka Ekstresi → Global Ayarlar → Kayıt Kurallarını Oluştur', not:'3. katman' },
-      { yol:'… → Elektronik Banka Ekstresi → Global Ayarlar → Dış İşlemleri Kayıt Kurallarına Ata', not:'4. katman — **yorumlama algoritması burada**' },
+      { yol:'… → Elektronik Banka Ekstresi → Global Ayarlar → Dış İşlemleri Kayıt Kurallarına Ata', not:'4. katman: **yorumlama algoritması burada**' },
       { yol:'… → Elektronik Banka Ekstresi → Banka Hesaplarını İşlem Tiplerine Ata', not:'Hangi hesap hangi kural kümesini kullanır' },
     ],
 
     ekstra:[
-      { ic:'🔑', baslik:'Hesap sembolü ve maske — EBS’in en zarif fikri', metin:
+      { ic:'🔑', baslik:'Hesap sembolü ve maske: EBS’in en zarif fikri', metin:
         'Şirketin 11 banka hesabı var ve her biri farklı bir G/L hesabı kullanıyor: ' +
         '102001, 102002, 102003…\n\n' +
-        'Kayıt kuralında gerçek hesap yazsaydık **her hesap için ayrı kural** gerekirdi — ' +
+        'Kayıt kuralında gerçek hesap yazsaydık **her hesap için ayrı kural** gerekirdi: ' +
         '11 hesap × 8 işlem tipi = 88 kural.\n\n' +
         'Bunun yerine kuralda **"BANK"** sembolü kullanılır. Sembol-hesap atamasında ' +
         'maske verilir: `+++++++++0`. Sistem, işlenen satırın hangi ev bankası hesabına ait ' +
@@ -686,16 +686,16 @@ SAP.registerTopic({
         'değiştirmek gerekmez.\n\n' +
         '"Hesap sembolü nedir?" sorusuna bu cevabı verebiliyorsan EBS’i gerçekten kurmuşsun demektir.' },
 
-      { ic:'🔍', baslik:'Yorumlama algoritması — eşleşme oranının anahtarı', metin:
+      { ic:'🔍', baslik:'Yorumlama algoritması: eşleşme oranının anahtarı', metin:
         'Yorumlama algoritması (interpretation algorithm), açıklama metninde **ne aranacağını** belirler. ' +
         'Yaygın seçenekler:\n\n' +
-        '• **001 — Standart:** belge numarası arar.\n' +
-        '• **011 — Fatura numarası:** referans alanıyla eşleştirir.\n' +
-        '• **012 — Çek numarası:** {{PAYR}}’da arar.\n' +
-        '• **021 — Referans belge numarası:** `XBLNR` alanıyla eşleştirir.\n\n' +
+        '• **001: Standart:** belge numarası arar.\n' +
+        '• **011: Fatura numarası:** referans alanıyla eşleştirir.\n' +
+        '• **012: Çek numarası:** {{PAYR}}’da arar.\n' +
+        '• **021: Referans belge numarası:** `XBLNR` alanıyla eşleştirir.\n\n' +
         'Doğru algoritma seçimi eşleşme oranını doğrudan etkiler. ' +
         'Giden ödemelerde belge numarası (001) iyi çalışır çünkü ödeme dosyasına o numarayı biz yazarız. ' +
-        'Gelen tahsilatlarda ise müşterinin ne yazdığına bağlıdır — bu yüzden eşleşme oranı orada düşüktür.' },
+        'Gelen tahsilatlarda ise müşterinin ne yazdığına bağlıdır: bu yüzden eşleşme oranı orada düşüktür.' },
     ],
 
     notlar:[
@@ -716,12 +716,12 @@ SAP.registerTopic({
 
     eccFarklari:[
       { konu:'Yükleme', ecc:'{{FF_5}}', s4:'**Aynı** + Fiori "Import Bank Statements"' },
-      { konu:'Düzeltme', ecc:'{{FEBAN}} — klasik ALV', s4:'{{FEBAN}} çalışır + Fiori "Reprocess Bank Statement Items" (görsel iş listesi)' },
-      { konu:'Yapılandırma', ecc:'{{OT83}} dört katman', s4:'**Aynı** — değişmedi' },
-      { konu:'Tablolar', ecc:'{{FEBKO}} / {{FEBEP}}', s4:'**Aynı** — fiziksel tablo olarak duruyor' },
-      { konu:'Banka hesabı yönetimi', ecc:'{{FI12}} customizing', s4:'Bank Account Management — ana veri, onay akışı' },
+      { konu:'Düzeltme', ecc:'{{FEBAN}}: klasik ALV', s4:'{{FEBAN}} çalışır + Fiori "Reprocess Bank Statement Items" (görsel iş listesi)' },
+      { konu:'Yapılandırma', ecc:'{{OT83}} dört katman', s4:'**Aynı**: değişmedi' },
+      { konu:'Tablolar', ecc:'{{FEBKO}} / {{FEBEP}}', s4:'**Aynı**: fiziksel tablo olarak duruyor' },
+      { konu:'Banka hesabı yönetimi', ecc:'{{FI12}} customizing', s4:'Bank Account Management: ana veri, onay akışı' },
       { konu:'Eşleştirme desteği', ecc:'Yorumlama algoritması', s4:'+ **makine öğrenmesi** ile öneri (Cash Application)' },
-      { konu:'Nakit görünürlüğü', ecc:'Ayrı Cash Management', s4:'Entegre — ekstre yüklenince nakit tahmini anlık güncellenir' },
+      { konu:'Nakit görünürlüğü', ecc:'Ayrı Cash Management', s4:'Entegre: ekstre yüklenince nakit tahmini anlık güncellenir' },
     ],
 
     universalJournal:
@@ -731,20 +731,20 @@ SAP.registerTopic({
 
     kalkanTcodes:[
       { eski:'FF.5', yeni:'{{FF_5}}', not:'Aynı işlev, güncel sürüm' },
-      { eski:'—', yeni:'—', not:'{{FEBAN}}, {{FEBA}}, {{OT83}} kaldırılmadı; aynen çalışır' },
+      { eski:', ', yeni:', ', not:'{{FEBAN}}, {{FEBA}}, {{OT83}} kaldırılmadı; aynen çalışır' },
     ],
 
     fiori:[
       { ad:'Reprocess Bank Statement Items', aciklama:'{{FEBAN}} yerine; eşleşmeyen satırlar görsel iş listesi olarak, öneri destekli.' },
       { ad:'Import Bank Statements', aciklama:'{{FF_5}} yerine; sürükle-bırak dosya yükleme.' },
-      { ad:'Bank Statement Monitor', aciklama:'Hangi hesabın ekstresi yüklendi, hangisi eksik — **mutabakatın ilk kontrolü**.' },
+      { ad:'Bank Statement Monitor', aciklama:'Hangi hesabın ekstresi yüklendi, hangisi eksik: **mutabakatın ilk kontrolü**.' },
       { ad:'Cash Application (ML)', aciklama:'Makine öğrenmesiyle gelen tahsilatları müşterilerle eşleştirir; geçmiş eşleşmelerden öğrenir. Eşleşme oranını belirgin artırır.' },
       { ad:'Cash Flow Analyzer', aciklama:'Ekstre yüklenince nakit tahmini anlık güncellenir.' },
     ],
 
     compatibilityViews:[
-      '{{FEBKO}}, {{FEBEP}} — **fiziksel tablo olarak duruyor**, değişmedi.',
-      '{{BSIS}} — ara hesap açık kalemleri {{uyumluluk-view}}; EBS eşleştirmesi {{ACDOCA}} üzerinden çalışır.',
+      '{{FEBKO}}, {{FEBEP}}: **fiziksel tablo olarak duruyor**, değişmedi.',
+      '{{BSIS}}: ara hesap açık kalemleri {{uyumluluk-view}}; EBS eşleştirmesi {{ACDOCA}} üzerinden çalışır.',
       'EBS, S/4HANA’da tablo yapısı en az değişen FI alanlarından biridir.',
     ],
 
@@ -755,10 +755,10 @@ SAP.registerTopic({
 
     bestPractices:[
       'Yeni kurulumlarda bankadan **CAMT.053** iste; MT940’a göre eşleşme oranı belirgin şekilde yüksektir.',
-      'Cash Application (ML) özelliğini değerlendir — özellikle gelen tahsilat hacmi yüksekse.',
+      'Cash Application (ML) özelliğini değerlendir: özellikle gelen tahsilat hacmi yüksekse.',
       'Ekstre yüklemeyi **arka plan işi** olarak günlük planla; elle yükleme unutulabilir.',
       'Eşleşme oranını bir performans göstergesi olarak izle ve düşüşleri araştır.',
-      '{{OT83}} yapılandırmasını dokümante et — dört katmanlı yapı, devir teslimde en çok soru çıkaran konudur.',
+      '{{OT83}} yapılandırmasını dokümante et: dört katmanlı yapı, devir teslimde en çok soru çıkaran konudur.',
     ],
   },
 
@@ -778,20 +778,20 @@ SAP.registerTopic({
     ],
 
     adimlar:[
-      { baslik:'İlk yükleme — test modunda', tcode:'FF_5',
+      { baslik:'İlk yükleme: test modunda', tcode:'FF_5',
         aciklama:'Yapılandırma yapılmadan dosya test modunda yükleniyor. Amaç: ' +
                  '**banka hangi işlem kodlarını gönderiyor?** sorusunu cevaplamak.',
         girdi:[
           { alan:'Format / Dosya', deger:'MT940 · /usr/sap/interface/isb_20260901.txt' },
-          { alan:'Mod', deger:'**Test ✓** — kayıt yapılmayacak' },
+          { alan:'Mod', deger:'**Test ✓**: kayıt yapılmayacak' },
           { alan:'Sonuç', deger:'118 satır okundu · **0 satır eşleşti**' },
-          { alan:'Hata', deger:'"Posting rule not found" — tüm satırlar için' },
+          { alan:'Hata', deger:'"Posting rule not found": tüm satırlar için' },
           { alan:'**Kritik çıktı**', deger:'Kullanılan işlem kodları: 051, 052, 202, 835, 840, 951' },
         ],
         not:'Bu liste, {{OT83}} yapılandırmasının **yol haritasıdır**. ' +
              'Her kodun ne anlama geldiği bankaya sorulur veya ekstre açıklamalarından çıkarılır.' },
 
-      { baslik:'Katman 1 — Hesap sembolleri tanımlanır', tcode:'OT83',
+      { baslik:'Katman 1: Hesap sembolleri tanımlanır', tcode:'OT83',
         aciklama:'Soyut roller tanımlanıyor. Henüz gerçek hesap yok.',
         girdi:[
           { alan:'BANK', deger:'Gerçek banka hesabı' },
@@ -801,10 +801,10 @@ SAP.registerTopic({
           { alan:'INTEREST', deger:'Faiz geliri' },
           { alan:'TEMP', deger:'Geçici hesap (eşleşmeyenler için)' },
         ],
-        not:'Semboller **soyuttur**. "BANK" hangi hesap olduğunu henüz bilmiyor — ' +
+        not:'Semboller **soyuttur**. "BANK" hangi hesap olduğunu henüz bilmiyor: ' +
              'bu, bir sonraki katmanda maskeyle çözülecek.' },
 
-      { baslik:'Katman 2 — Sembollere hesap atanır (maske ile)', tcode:'OT83',
+      { baslik:'Katman 2: Sembollere hesap atanır (maske ile)', tcode:'OT83',
         aciklama:'EBS’in en zarif kısmı. Maske sayesinde tek tanım tüm banka hesapları için çalışacak.',
         girdi:[
           { alan:'BANK', deger:'Maske **`+++++++++`** → ev bankası hesabının G/L numarası yerine konur' },
@@ -815,22 +815,22 @@ SAP.registerTopic({
           { alan:'TEMP', deger:'Maske `+++++++99` → **102099**' },
         ],
         not:'Maske mantığı: `+` işaretleri {{T012K}}’deki G/L hesap numarasından doldurulur. ' +
-             'Şirket ikinci bir banka hesabı (102002) eklediğinde **hiçbir tanım değişmez** — ' +
+             'Şirket ikinci bir banka hesabı (102002) eklediğinde **hiçbir tanım değişmez**: ' +
              'maske otomatik olarak 102092, 102082, 102099 üretir.' },
 
-      { baslik:'Katman 3 — Kayıt kuralları oluşturulur', tcode:'OT83',
+      { baslik:'Katman 3: Kayıt kuralları oluşturulur', tcode:'OT83',
         aciklama:'Her kural bir muhasebe kaydı şablonu. Semboller kullanılıyor, gerçek hesap yazılmıyor.',
         girdi:[
-          { alan:'**Z01** — Giden ödeme', deger:'OUTGOING borç / BANK alacak · **kapatma var** · belge türü SB' },
-          { alan:'**Z02** — Gelen tahsilat (eşleşen)', deger:'BANK borç / müşteri alacak · **kapatma var** · SB' },
-          { alan:'**Z03** — Banka masrafı', deger:'CHARGES borç / BANK alacak · kapatma **yok** · SB' },
-          { alan:'**Z04** — Faiz geliri', deger:'BANK borç / INTEREST alacak · kapatma yok · SB' },
-          { alan:'**Z05** — Eşleşmeyen giriş', deger:'BANK borç / TEMP alacak · kapatma yok · SB' },
+          { alan:'**Z01**: Giden ödeme', deger:'OUTGOING borç / BANK alacak · **kapatma var** · belge türü SB' },
+          { alan:'**Z02**: Gelen tahsilat (eşleşen)', deger:'BANK borç / müşteri alacak · **kapatma var** · SB' },
+          { alan:'**Z03**: Banka masrafı', deger:'CHARGES borç / BANK alacak · kapatma **yok** · SB' },
+          { alan:'**Z04**: Faiz geliri', deger:'BANK borç / INTEREST alacak · kapatma yok · SB' },
+          { alan:'**Z05**: Eşleşmeyen giriş', deger:'BANK borç / TEMP alacak · kapatma yok · SB' },
         ],
         not:'Z05 kritiktir: eşleşmeyen para geçici hesaba yazılır. Böylece **banka bakiyesi doğru kalır**, ' +
              'yalnızca karşı taraf belirsizdir.' },
 
-      { baslik:'Katman 4 — İşlem kodları kurallara atanır', tcode:'OT83',
+      { baslik:'Katman 4: İşlem kodları kurallara atanır', tcode:'OT83',
         aciklama:'Bankanın kodları kurallara eşleniyor. Yorumlama algoritması da burada seçiliyor.',
         girdi:[
           { alan:'051 (giden havale)', deger:'→ Kural **Z01** · yorumlama algoritması **001** (belge numarası)' },
@@ -843,17 +843,17 @@ SAP.registerTopic({
         not:'Giden ödemelerde algoritma 001 iyi çalışır çünkü ödeme belgesi numarasını ' +
              '**biz** dosyaya yazarız. Gelen havalelerde ise müşterinin ne yazdığına bağlıdır.' },
 
-      { baslik:'İkinci yükleme — ilk gerçek sonuç', tcode:'FF_5',
+      { baslik:'İkinci yükleme: ilk gerçek sonuç', tcode:'FF_5',
         aciklama:'Yapılandırma tamamlandı, dosya yeniden yükleniyor.',
         girdi:[
           { alan:'Sonuç', deger:'118 satır · **74 eşleşti (%63)** · 44 satır {{FEBAN}}’a düştü' },
           { alan:'Eşleşenler', deger:'Tüm giden ödemeler (051, 052) · tüm masraf ve faiz satırları' },
-          { alan:'Eşleşmeyenler', deger:'**44 gelen havale** — açıklama metninde fatura numarası yok' },
+          { alan:'Eşleşmeyenler', deger:'**44 gelen havale**: açıklama metninde fatura numarası yok' },
         ],
-        fis:{ baslik:'Belge 1000006001 — Giden ödeme eşleşmesi', belgeTuru:'SB', tarih:'01.09.2026',
+        fis:{ baslik:'Belge 1000006001: Giden ödeme eşleşmesi', belgeTuru:'SB', tarih:'01.09.2026',
           satirlar:[
-            { hesap:'102091', ad:'Banka ara hesabı — giden', borc:140000, not:'F110 kalemi **otomatik kapatıldı**' },
-            { hesap:'102001', ad:'Bankalar — İŞB', alacak:140000 },
+            { hesap:'102091', ad:'Banka ara hesabı: giden', borc:140000, not:'F110 kalemi **otomatik kapatıldı**' },
+            { hesap:'102001', ad:'Bankalar: İŞB', alacak:140000 },
           ], not:'Algoritma 001, açıklama metnindeki ödeme belgesi numarasını buldu ve ara hesabı kapattı. ' +
                  'Hiç insan müdahalesi olmadan.' },
         tabloEtkisi:[
@@ -864,12 +864,12 @@ SAP.registerTopic({
       { baslik:'Eşleşmeyenler analiz edilir', tcode:'FEBAN',
         aciklama:'44 gelen havalenin açıklama metinleri inceleniyor. Üç desen çıkıyor.',
         girdi:[
-          { alan:'**Desen 1** — 19 satır', deger:'Açıklama: "FT2026000341" → **fatura numarası var** ama algoritma bulamıyor' },
-          { alan:'**Desen 2** — 14 satır', deger:'Açıklama: müşteri unvanı yazılmış, numara yok' },
-          { alan:'**Desen 3** — 11 satır', deger:'Açıklama boş veya "ODEME"' },
+          { alan:'**Desen 1**: 19 satır', deger:'Açıklama: "FT2026000341" → **fatura numarası var** ama algoritma bulamıyor' },
+          { alan:'**Desen 2**: 14 satır', deger:'Açıklama: müşteri unvanı yazılmış, numara yok' },
+          { alan:'**Desen 3**: 11 satır', deger:'Açıklama boş veya "ODEME"' },
         ],
-        not:'Desen 1 bir **yapılandırma sorunudur** — düzeltilebilir. ' +
-             'Desen 2 ve 3 ise **süreç sorunudur** — müşteriyle konuşmak gerekir.' },
+        not:'Desen 1 bir **yapılandırma sorunudur**: düzeltilebilir. ' +
+             'Desen 2 ve 3 ise **süreç sorunudur**: müşteriyle konuşmak gerekir.' },
 
       { baslik:'Yorumlama algoritması düzeltilir', tcode:'OT83',
         aciklama:'Desen 1 için algoritma değiştiriliyor: referans belge numarası yerine ' +
@@ -882,7 +882,7 @@ SAP.registerTopic({
         not:'Yorumlama algoritması seçimi eşleşme oranını doğrudan etkiler. ' +
              'İlk seçim yanlıştı ve tek bir ayar değişikliği %16 kazandırdı.' },
 
-      { baslik:'Süreç iyileştirmesi — müşterilere bilgilendirme', tcode:'FEBAN',
+      { baslik:'Süreç iyileştirmesi: müşterilere bilgilendirme', tcode:'FEBAN',
         aciklama:'Desen 2 ve 3 için teknik çözüm yok. AR ekibi, düzenli havale gönderen ' +
                  '18 müşteriye açıklama alanına **fatura numarası** yazmalarını bildiriyor.',
         girdi:[
@@ -892,7 +892,7 @@ SAP.registerTopic({
         not:'**En büyük kazanç teknik değil süreç iyileştirmesinden geldi.** ' +
              'EBS projelerinde sık gözden kaçan gerçek budur.' },
 
-      { baslik:'Üç hafta sonra — kararlı durum', tcode:'FF_5',
+      { baslik:'Üç hafta sonra: kararlı durum', tcode:'FF_5',
         aciklama:'Yapılandırma ve süreç iyileştirmeleri sonrası günlük rutin oturdu.',
         girdi:[
           { alan:'Günlük satır', deger:'~120' },
@@ -925,18 +925,18 @@ SAP.registerTopic({
       'EBS, bankadan gelen standart dosyanın yüklenip satırların **otomatik muhasebeleştirilmesidir**.',
       'Akış: dosya ({{FF_5}}) → otomatik kayıt (kurallar) → eşleşmeyenler elle ({{FEBAN}}).',
       '{{OT83}} dört katmandır: **hesap sembolleri → sembol-hesap ataması → kayıt kuralları → işlem kodu ataması**.',
-      '**Hesap sembolü + maske** sayesinde tek kural tüm banka hesapları için çalışır — EBS’in en özgün fikri.',
+      '**Hesap sembolü + maske** sayesinde tek kural tüm banka hesapları için çalışır: EBS’in en özgün fikri.',
       '**Yorumlama algoritması** açıklama metninde ne aranacağını belirler ve eşleşme oranını doğrudan etkiler.',
       'Karşılığı olan hareketler {{banka-ara-hesabi}}nı kapatır; karşılığı olmayanlar (masraf, faiz) doğrudan kaydedilir.',
-      'Eşleşmeyen satırlar **geçici hesaba** yazılır — banka bakiyesi doğru kalır, karşı taraf belirsiz olur.',
-      'Sağlıklı kurulumda eşleşme oranı **%80–90**; altındaysa kural, algoritma veya süreç iyileştirilmelidir.',
+      'Eşleşmeyen satırlar **geçici hesaba** yazılır: banka bakiyesi doğru kalır, karşı taraf belirsiz olur.',
+      'Sağlıklı kurulumda eşleşme oranı **%80-90**; altındaysa kural, algoritma veya süreç iyileştirilmelidir.',
     ],
 
     onemliNoktalar:[
       '**"Hesap sembolü nedir, neden kullanılır?"** Kayıt kuralında gerçek hesap yerine soyut rol ("BANK") yazılır; maske sayesinde her ev bankası hesabının G/L numarasına çözümlenir. **Tek kural tüm hesaplar için çalışır.** EBS’in en ayırt edici mülakat sorusudur.',
       '**"{{OT83}}’ün dört katmanı nedir?"** (1) hesap sembolleri, (2) sembollere hesap ataması (maske), (3) kayıt kuralları, (4) dış işlem kodu ataması + yorumlama algoritması.',
       '**"Yorumlama algoritması ne işe yarar?"** Açıklama metninde ne aranacağını belirler: belge numarası, fatura numarası, çek numarası, referans. Eşleşme oranını en çok etkileyen ayardır.',
-      '**"Eşleşmeyen satır ne olur?"** Geçici hesaba kaydedilir — banka bakiyesi doğru kalır. {{FEBAN}}’da elle düzeltilir. Geçici hesabın bakiyesi **günlük sıfıra inmelidir**.',
+      '**"Eşleşmeyen satır ne olur?"** Geçici hesaba kaydedilir: banka bakiyesi doğru kalır. {{FEBAN}}’da elle düzeltilir. Geçici hesabın bakiyesi **günlük sıfıra inmelidir**.',
       '**"Ekstre yüklendi ama kayıt yok. Neden?"** Yükleme ve muhasebeleştirme **iki ayrı aşamadır**. Satırlar {{FEBAN}}’da bekliyor olabilir veya toplu iş oturumu ({{SM35}}) çalıştırılmamıştır.',
       '**"MT940 ile CAMT.053 farkı?"** CAMT.053 XML tabanlı ve **yapılandırılmış referans alanları** içerir; eşleşme oranı belirgin şekilde yüksektir. Yeni kurulumlarda tercih edilmelidir.',
       '**"Banka masrafı neden ara hesap kullanmaz?"** Muhasebede önceden kaydedilmiş karşılığı yoktur; ilk kez ekstreden öğrenilir.',
@@ -956,13 +956,13 @@ SAP.registerTopic({
     ],
 
     ipuclari:[
-      'İlk kurulumda test modunda yükleyip **eşleşmeyen işlem kodlarının listesini** çıkar — ' +
+      'İlk kurulumda test modunda yükleyip **eşleşmeyen işlem kodlarının listesini** çıkar: ' +
       'bu, {{OT83}} yapılandırmasının yol haritasıdır.',
       'Eşleşme oranını günlük not et; ani düşüş bankanın kod değiştirdiğinin işaretidir.',
       '{{FEBAN}}’daki desenleri oku: tekrar eden bir şey varsa kural ekle, açıklama zayıfsa süreç iyileştir.',
-      'Geçici hesap bakiyesini gün sonunda kontrol et — sıfır olmalı.',
+      'Geçici hesap bakiyesini gün sonunda kontrol et: sıfır olmalı.',
       'Yeni kurulumda bankadan **CAMT.053** iste; MT940’a göre eşleşme oranı belirgin şekilde yüksektir.',
-      'Müşterilere havale açıklamasına fatura numarası yazmalarını hatırlat — ' +
+      'Müşterilere havale açıklamasına fatura numarası yazmalarını hatırlat: ' +
       'teknik olmayan bu adım eşleşme oranını en çok artıran şeydir.',
     ],
 
@@ -993,7 +993,7 @@ SAP.registerTopic({
       { soru:'Bir gelen havale eşleşmedi. Sistem ne yapmalıdır?',
         secenekler:[
           'Satırı atlar, kayıt yapmaz',
-          '**Geçici hesaba kaydeder — banka bakiyesi doğru kalır**',
+          '**Geçici hesaba kaydeder: banka bakiyesi doğru kalır**',
           'Hata verir ve tüm yüklemeyi durdurur',
           'Rastgele bir müşteriye bağlar',
         ], dogru:1,
@@ -1038,7 +1038,7 @@ SAP.registerTopic({
       { soru:'Banka masrafı satırı için kayıt kuralında neden kapatma (clearing) tanımlanmaz?',
         secenekler:[
           'Tutarı küçük olduğu için',
-          '**Muhasebede önceden kaydedilmiş bir karşılığı yok — ilk kez ekstreden öğreniliyor**',
+          '**Muhasebede önceden kaydedilmiş bir karşılığı yok: ilk kez ekstreden öğreniliyor**',
           'Gider hesabı olduğu için',
           'Vergiye tabi olmadığı için',
         ], dogru:1,
@@ -1059,18 +1059,18 @@ SAP.registerTopic({
     ],
 
     flashcards:[
-      { on:'EBS akışı üç adımda nedir?', arka:'1. **Dosya yükleme** (FF_5) → FEBKO/FEBEP\n2. **Otomatik kayıt** — kayıt kuralları uygulanır\n3. **Elle düzeltme** (FEBAN) — eşleşmeyenler\n\nSağlıklı kurulumda 3. adım küçük kalır.' },
-      { on:'OT83’ün dört katmanı nedir?', arka:'1. **Hesap sembolleri** (BANK, OUTGOING, CHARGES)\n2. **Sembollere hesap ataması** — maske ile\n3. **Kayıt kuralları** — sembol borç/alacak\n4. **Dış işlem kodu ataması** + yorumlama algoritması' },
+      { on:'EBS akışı üç adımda nedir?', arka:'1. **Dosya yükleme** (FF_5) → FEBKO/FEBEP\n2. **Otomatik kayıt**: kayıt kuralları uygulanır\n3. **Elle düzeltme** (FEBAN): eşleşmeyenler\n\nSağlıklı kurulumda 3. adım küçük kalır.' },
+      { on:'OT83’ün dört katmanı nedir?', arka:'1. **Hesap sembolleri** (BANK, OUTGOING, CHARGES)\n2. **Sembollere hesap ataması**: maske ile\n3. **Kayıt kuralları**: sembol borç/alacak\n4. **Dış işlem kodu ataması** + yorumlama algoritması' },
       { on:'Hesap sembolü + maske neden zarif bir çözümdür?', arka:'Kuralda gerçek hesap yerine **"BANK"** yazılır.\n\nMaske (`+++++++91`) o ev bankası hesabının G/L numarasını yerine koyar.\n\n**6 kural, 11 banka hesabı.** Yeni hesap eklendiğinde hiçbir tanım değişmez.' },
       { on:'Yorumlama algoritması ne yapar?', arka:'Açıklama metninde (**not to payee**) **ne aranacağını** belirler:\n• 001 belge numarası\n• 011 fatura/referans\n• 012 çek numarası\n• 021 referans belge no\n\nEşleşme oranını en çok etkileyen ayardır.' },
       { on:'Eşleşmeyen satır ne olur?', arka:'**Geçici hesaba** kaydedilir (örn. 102099).\n\nBanka bakiyesi **doğru kalır**; yalnızca karşı taraf belirsizdir.\n\nFEBAN’da elle düzeltilir. Geçici hesap bakiyesi **günlük sıfıra inmelidir**.' },
-      { on:'"Ekstre yüklendi ama kayıt yok" — neden?', arka:'EBS **iki aşamalıdır**:\n1. Veri yükleme (FEBKO/FEBEP)\n2. Muhasebeleştirme\n\nSatırlar FEBAN’da bekliyor olabilir, veya toplu iş oturumu (SM35) çalıştırılmamıştır.\n\nFEBA = yüklendi mi · FEBAN = işlendi mi' },
-      { on:'MT940 ile CAMT.053 farkı nedir?', arka:'**MT940** — SWIFT metin formatı, açıklama tek serbest alan, eşleşme %70–85\n\n**CAMT.053** — ISO 20022 XML, **yapılandırılmış referans alanları**, eşleşme %85–95\n\nYeni kurulumda CAMT.053 tercih edilmeli.' },
+      { on:'"Ekstre yüklendi ama kayıt yok": neden?', arka:'EBS **iki aşamalıdır**:\n1. Veri yükleme (FEBKO/FEBEP)\n2. Muhasebeleştirme\n\nSatırlar FEBAN’da bekliyor olabilir, veya toplu iş oturumu (SM35) çalıştırılmamıştır.\n\nFEBA = yüklendi mi · FEBAN = işlendi mi' },
+      { on:'MT940 ile CAMT.053 farkı nedir?', arka:'**MT940**, SWIFT metin formatı, açıklama tek serbest alan, eşleşme %70-85\n\n**CAMT.053**, ISO 20022 XML, **yapılandırılmış referans alanları**, eşleşme %85-95\n\nYeni kurulumda CAMT.053 tercih edilmeli.' },
       { on:'Hangi hareketler ara hesap kullanır, hangileri kullanmaz?', arka:'**Kullanır** (karşılığı var): bizim yaptığımız ödemeler, kaydettiğimiz tahsilatlar → ara hesap kapatılır.\n\n**Kullanmaz** (karşılığı yok): banka masrafı, faiz, beklenmedik havale → doğrudan gerçek hesaba.' },
-      { on:'Sağlıklı bir EBS’te eşleşme oranı ne olmalı?', arka:'**%80–90.**\n\nAltındaysa üç yerde iyileştirme:\n1. **Kayıt kuralları** — eksik işlem kodu\n2. **Yorumlama algoritması** — yanlış arama\n3. **Süreç** — müşteri açıklamaya numara yazmıyor\n\nÜçüncüsü genelde en büyük kazancı verir.' },
+      { on:'Sağlıklı bir EBS’te eşleşme oranı ne olmalı?', arka:'**%80-90.**\n\nAltındaysa üç yerde iyileştirme:\n1. **Kayıt kuralları**: eksik işlem kodu\n2. **Yorumlama algoritması**: yanlış arama\n3. **Süreç**: müşteri açıklamaya numara yazmıyor\n\nÜçüncüsü genelde en büyük kazancı verir.' },
       { on:'"House bank could not be determined" hatası neden alınır?', arka:'Dosyadaki hesap numarası/IBAN, **T012K**’deki kayıtla eşleşmiyor.\n\nEn sık sebep: boşluk, tire veya format farkı.\n\nFI12’de hesap numarasını dosyadakiyle **birebir** aynı yap.' },
       { on:'FEBAN’da tekrar eden bir desen görürsen ne yapmalısın?', arka:'Bu bir **yapılandırma fırsatıdır**.\n\nOT83’te kural ekleyerek o deseni otomatikleştir.\n\nEBS’in olgunlaşması böyle olur: her ay biraz daha az elle iş.' },
-      { on:'S/4HANA’da EBS’te ne değişti?', arka:'**Mantık ve tablolar değişmedi** (FEBKO/FEBEP duruyor, OT83 aynı).\n\nEklenenler:\n• Fiori "Reprocess Bank Statement Items"\n• **Cash Application (ML)** — geçmiş eşleşmelerden öğrenerek öneri\n• Bank Account Management entegrasyonu' },
+      { on:'S/4HANA’da EBS’te ne değişti?', arka:'**Mantık ve tablolar değişmedi** (FEBKO/FEBEP duruyor, OT83 aynı).\n\nEklenenler:\n• Fiori "Reprocess Bank Statement Items"\n• **Cash Application (ML)**: geçmiş eşleşmelerden öğrenerek öneri\n• Bank Account Management entegrasyonu' },
     ],
   },
 

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   content/fi/document-posting.js — "Document Posting (Belge Kaydı)"
+   content/fi/document-posting.js: "Document Posting (Belge Kaydı)"
    ========================================================================== */
 
 SAP.registerTopic({
@@ -11,7 +11,7 @@ SAP.registerTopic({
   tanim: {
     nedir:
       'Belge kaydı (document posting), bir ekonomik olayın SAP’ta **muhasebe belgesine dönüşme** ' +
-      'sürecidir. Nereden gelirse gelsin — elle girilmiş, MM’den düşmüş, SD’den akmış — ' +
+      'sürecidir. Nereden gelirse gelsin, elle girilmiş, MM’den düşmüş, SD’den akmış, ' +
       'sonuç hep aynı yapıdadır: bir başlık ({{BKPF}}) + en az iki dengeli kalem ({{BSEG}}).\n\n' +
       'Bu konu FI’ın **mekaniğidir**. Diğer konular "ne kaydedilir"i anlatır; bu konu ' +
       '"nasıl kaydedilir"i anlatır: hangi belge türü, hangi kayıt anahtarı, hangi alan zorunlu, ' +
@@ -23,14 +23,14 @@ SAP.registerTopic({
       '**Tutarlılık için.** Her belge aynı kurallardan geçer; şirket kodu, dönem ve hesap tipi ' +
       'kontrolleri istisnasız uygulanır.\n\n' +
       '**Kontrol için.** {{belge-turu}} hangi hesap tipine kayıt yapılabileceğini sınırlar; ' +
-      '{{alan-durumu}} hangi bilginin zorunlu olduğunu belirler. Bunlar yapısal kontrollerdir — ' +
+      '{{alan-durumu}} hangi bilginin zorunlu olduğunu belirler. Bunlar yapısal kontrollerdir: ' +
       'kullanıcı disiplinine bırakılmaz.\n\n' +
       '**İzlenebilirlik için.** Her belge kimin, ne zaman, neye dayanarak kaydettiğini taşır. ' +
       'Muhasebede kayıt **silinmez**; yanlış kayıt {{ters-kayit}} ile düzeltilir ve iz korunur.',
 
     sirketOnemi:
       'Belge kaydı mekaniği doğru kurulmazsa iki tür sorun çıkar: ya kullanıcılar sürekli hata alır ' +
-      've iş durur, ya da **yanlış veri hatasız biçimde** sisteme girer — ikincisi çok daha tehlikelidir.\n\n' +
+      've iş durur, ya da **yanlış veri hatasız biçimde** sisteme girer: ikincisi çok daha tehlikelidir.\n\n' +
       'Örnek: gider hesabında maliyet yeri zorunlu değilse kullanıcı boş bırakır, kayıt sorunsuz geçer, ' +
       'ama o gider hiçbir departmana yüklenmez ve CO raporları eksik çıkar. Kimse hata mesajı görmez.\n\n' +
       'Danışmanlık açısından: {{alan-durumu}}, {{belge-turu}} ve {{numara-araligi}} tasarımı ' +
@@ -48,11 +48,11 @@ SAP.registerTopic({
 
     muhasebeMantigi:
       'Bir FI belgesi **iki katmandan** oluşur:\n\n' +
-      '**Başlık ({{BKPF}}):** belgenin kimliği — numara, {{belge-turu}}, tarihler, para birimi, ' +
+      '**Başlık ({{BKPF}}):** belgenin kimliği: numara, {{belge-turu}}, tarihler, para birimi, ' +
       'kullanıcı, kaynak belge referansı. Belge başına **bir** satır.\n\n' +
       '**Kalemler ({{BSEG}}):** satır satır hesap, tutar, borç/alacak yönü ve ek boyutlar. ' +
       'Belge başına **en az iki** satır ve borç toplamı = alacak toplamı.\n\n' +
-      'S/4HANA’da bir üçüncü katman daha var: **{{ACDOCA}}** — aynı kalemler evrensel formatta, ' +
+      'S/4HANA’da bir üçüncü katman daha var: **{{ACDOCA}}**: aynı kalemler evrensel formatta, ' +
       'her aktif {{defter}} için ayrı satır kümesiyle.\n\n' +
       '{{belge-denkligi}} kuralı yumuşatılamaz: denk olmayan belge kaydedilemez, ' +
       'yalnızca {{park-etme}} ile kenara konabilir.',
@@ -79,7 +79,7 @@ SAP.registerTopic({
 
     diyagram:{
       type:'flow',
-      baslik:'Kaydet tuşuna basıldığında ne olur? — yedi kontrol',
+      baslik:'Kaydet tuşuna basıldığında ne olur? - yedi kontrol',
       adimlar:[
         { ic:'📝', rol:'Kullanıcı', baslik:'Veri girilir',
           aciklama:'Başlık alanları (tarihler, şirket kodu, belge türü) ve kalemler (hesap, tutar, yön).',
@@ -115,13 +115,13 @@ SAP.registerTopic({
     },
 
     adimlar:[
-      { rol:'Kullanıcı', eylem:'Belge başlığını girer', sistem:'{{FB50}}, {{FB60}}, {{F-02}} — tarihler, şirket kodu, tür' },
+      { rol:'Kullanıcı', eylem:'Belge başlığını girer', sistem:'{{FB50}}, {{FB60}}, {{F-02}}: tarihler, şirket kodu, tür' },
       { rol:'Kullanıcı', eylem:'Kalemleri girer', sistem:'Hesap, borç/alacak, tutar, ek alanlar' },
-      { rol:'Kullanıcı', eylem:'Simülasyon yapar', sistem:'Belge → Simüle et — sistemin ekleyeceği satırlar görünür' },
+      { rol:'Kullanıcı', eylem:'Simülasyon yapar', sistem:'Belge → Simüle et: sistemin ekleyeceği satırlar görünür' },
       { rol:'Sistem', eylem:'Yedi kontrolü uygular', sistem:'Dönem → tür → anahtar → alan durumu → kural → denge → numara' },
       { rol:'Sistem', eylem:'Tabloları yazar', sistem:'{{BKPF}}, {{BSEG}}, {{ACDOCA}}, {{BSET}}, indeksler' },
       { rol:'Kullanıcı', eylem:'Belgeyi görüntüler / kontrol eder', sistem:'{{FB03}}' },
-      { rol:'Kullanıcı', eylem:'Yanlışsa ters kaydeder', sistem:'{{FB08}} — silme yok' },
+      { rol:'Kullanıcı', eylem:'Yanlışsa ters kaydeder', sistem:'{{FB08}}: silme yok' },
       { rol:'Kullanıcı', eylem:'Değiştirilebilir alanları günceller', sistem:'{{FB02}}, {{FB09}}' },
     ],
 
@@ -135,7 +135,7 @@ SAP.registerTopic({
     },
 
     notlar:[
-      { tip:'tip', baslik:'Simülasyon — en az kullanılan en değerli özellik', metin:
+      { tip:'tip', baslik:'Simülasyon: en az kullanılan en değerli özellik', metin:
         '*Belge → Simüle et*, sistemin **senin girdiğin satırlara ek olarak** üreteceği tüm satırları ' +
         'kaydetmeden gösterir: vergi satırı, {{belge-bolme}} satırları, kur farkı, otomatik fark hesapları.\n\n' +
         'İki satır girdiğin bir belgenin altı satıra dönüştüğünü orada görürsün. ' +
@@ -151,7 +151,7 @@ SAP.registerTopic({
       'ters kaydın nasıl çalıştığını görüyorsun.',
 
     etkilenenHesaplar:[
-      { hesap:'Kullanıcının girdiği hesaplar', tur:'Değişken', neden:'Gider, gelir, varlık — kullanıcı seçer. {{alan-durumu}} hangi ek bilginin isteneceğini belirler.' },
+      { hesap:'Kullanıcının girdiği hesaplar', tur:'Değişken', neden:'Gider, gelir, varlık: kullanıcı seçer. {{alan-durumu}} hangi ek bilginin isteneceğini belirler.' },
       { hesap:'Vergi hesapları (191 / 391)', tur:'Bilanço', neden:'{{vergi-kodu}} girildiğinde SAP satırı **otomatik** ekler ve {{BSET}}’e ayrıca yazar. Elle yazılmaz.' },
       { hesap:'{{mutabakat-hesabi}}', tur:'Bilanço', neden:'Satıcı/müşteri numarası girildiğinde SAP ana veriden bulup otomatik yazar.' },
       { hesap:'Belge bölme satırları', tur:'Değişken', neden:'{{belge-bolme}} açıksa ortak satırlar (satıcı, vergi) gider satırlarının kâr merkezi dağılımına göre bölünür.' },
@@ -159,56 +159,56 @@ SAP.registerTopic({
     ],
 
     fisler:[
-      { baslik:'Kullanıcının girdiği — 2 satır',
+      { baslik:'Kullanıcının girdiği: 2 satır',
         belgeTuru:'KR', tarih:'15.11.2026', paraBirimi:'TRY',
         satirlar:[
           { hesap:'770', ad:'Genel yönetim gideri', borc:50000, not:'Kullanıcı girdi' },
-          { hesap:'320', ad:'Satıcılar — V-2001', alacak:60000, not:'Satıcı numarasından otomatik' },
+          { hesap:'320', ad:'Satıcılar: V-2001', alacak:60000, not:'Satıcı numarasından otomatik' },
         ],
         not:'Bu **denk değil** (50.000 ≠ 60.000). Kullanıcı vergi kodunu girdi ama vergi satırını yazmadı. ' +
              'Sistem simülasyonda eksik satırı ekleyecek.' },
 
-      { baslik:'Simülasyondan sonra — sistemin tamamladığı belge',
+      { baslik:'Simülasyondan sonra: sistemin tamamladığı belge',
         belgeTuru:'KR', tarih:'15.11.2026', paraBirimi:'TRY',
         satirlar:[
           { hesap:'770', ad:'Genel yönetim gideri', borc:50000, not:'Kullanıcı · maliyet yeri 1200' },
-          { hesap:'191', ad:'İndirilecek KDV', borc:10000, not:'**Sistem ekledi** — vergi kodundan' },
-          { hesap:'320', ad:'Satıcılar — V-2001', alacak:60000, not:'{{mutabakat-hesabi}}' },
+          { hesap:'191', ad:'İndirilecek KDV', borc:10000, not:'**Sistem ekledi**: vergi kodundan' },
+          { hesap:'320', ad:'Satıcılar: V-2001', alacak:60000, not:'{{mutabakat-hesabi}}' },
         ],
         not:'Sistem vergi satırını otomatik ekledi ve belge denkleşti. ' +
              'Ayrıca {{BSET}} tablosuna vergi kaydı (matrah 50.000, vergi 10.000) yazıldı.' },
 
-      { baslik:'Belge bölme açıkken — aynı belge 5 satıra çıkar',
+      { baslik:'Belge bölme açıkken: aynı belge 5 satıra çıkar',
         belgeTuru:'KR', tarih:'15.11.2026', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'770', ad:'Gider — kâr merkezi 1000', borc:30000, not:'Kullanıcı girdi' },
-          { hesap:'770', ad:'Gider — kâr merkezi 2000', borc:20000, not:'Kullanıcı girdi' },
-          { hesap:'191', ad:'KDV — kâr merkezi 1000', borc:6000, not:'**Bölündü** (30/50 oranında)' },
-          { hesap:'191', ad:'KDV — kâr merkezi 2000', borc:4000, not:'**Bölündü** (20/50 oranında)' },
-          { hesap:'320', ad:'Satıcılar — kâr merkezi 1000', alacak:36000, not:'**Bölündü**' },
-          { hesap:'320', ad:'Satıcılar — kâr merkezi 2000', alacak:24000, not:'**Bölündü**' },
+          { hesap:'770', ad:'Gider: kâr merkezi 1000', borc:30000, not:'Kullanıcı girdi' },
+          { hesap:'770', ad:'Gider: kâr merkezi 2000', borc:20000, not:'Kullanıcı girdi' },
+          { hesap:'191', ad:'KDV: kâr merkezi 1000', borc:6000, not:'**Bölündü** (30/50 oranında)' },
+          { hesap:'191', ad:'KDV: kâr merkezi 2000', borc:4000, not:'**Bölündü** (20/50 oranında)' },
+          { hesap:'320', ad:'Satıcılar: kâr merkezi 1000', alacak:36000, not:'**Bölündü**' },
+          { hesap:'320', ad:'Satıcılar: kâr merkezi 2000', alacak:24000, not:'**Bölündü**' },
         ],
         not:'{{belge-bolme}} açıksa vergi ve satıcı satırları, gider satırlarının kâr merkezi dağılımına ' +
              'göre **otomatik bölünür**. Amaç: her kâr merkezi için ayrı ayrı denk (bilanço çıkarılabilir) veri. ' +
-             'Kullanıcı 2 satır girdi, belge 6 satır oldu — simülasyonda bunu görmek önemlidir.' },
+             'Kullanıcı 2 satır girdi, belge 6 satır oldu: simülasyonda bunu görmek önemlidir.' },
 
-      { baslik:'Ters kayıt ({{FB08}}) — orijinalin aynadaki hâli',
+      { baslik:'Ters kayıt ({{FB08}}): orijinalin aynadaki hâli',
         belgeTuru:'KR', tarih:'20.11.2026', paraBirimi:'TRY',
         satirlar:[
           { hesap:'770', ad:'Genel yönetim gideri', alacak:50000, not:'Yön **tersine döndü**' },
           { hesap:'191', ad:'İndirilecek KDV', alacak:10000, not:'Yön tersine döndü' },
-          { hesap:'320', ad:'Satıcılar — V-2001', borc:60000, not:'Yön tersine döndü' },
+          { hesap:'320', ad:'Satıcılar: V-2001', borc:60000, not:'Yön tersine döndü' },
         ],
         not:'Ters kayıt **yeni bir belgedir**; orijinal silinmez. İki belge de kayıtlarda kalır ve ' +
              '{{BKPF}}’de birbirine bağlanır: orijinalin `STBLG` alanına ters kaydın numarası yazılır. ' +
-             'Denetimde her iki belge de görünür — muhasebede izin korunması budur.' },
+             'Denetimde her iki belge de görünür: muhasebede izin korunması budur.' },
     ],
 
     tHesaplar:[
       { hesap:'Genel yönetim gideri', kod:'770',
         borc:[{ ad:'Orijinal kayıt', tutar:50000 }],
         alacak:[{ ad:'Ters kayıt (FB08)', tutar:50000 }],
-        not:'Net etki sıfır — ama iki kayıt da görünür' },
+        not:'Net etki sıfır: ama iki kayıt da görünür' },
       { hesap:'Satıcılar', kod:'320',
         borc:[{ ad:'Ters kayıt', tutar:60000 }],
         alacak:[{ ad:'Orijinal kayıt', tutar:60000 }],
@@ -218,8 +218,8 @@ SAP.registerTopic({
     notlar:[
       { tip:'warn', baslik:'Ters kayıt tarihi nereye düşer?', metin:
         '{{FB08}}’de **iptal nedeni** (reversal reason) ters kaydın hangi tarihe düşeceğini belirler:\n\n' +
-        '• **Neden 01** — orijinal belge tarihine düşer (aynı döneme).\n' +
-        '• **Neden 02** — girilen alternatif tarihe düşer (farklı döneme).\n\n' +
+        '• **Neden 01**: orijinal belge tarihine düşer (aynı döneme).\n' +
+        '• **Neden 02**: girilen alternatif tarihe düşer (farklı döneme).\n\n' +
         'Orijinal dönem kapalıysa neden 01 çalışmaz; alternatif tarih gerektiren bir neden seçilmelidir. ' +
         'Bu ayrım, ay sonu kapanışlarında sık karşılaşılan bir engeldir.' },
     ],
@@ -232,7 +232,7 @@ SAP.registerTopic({
       '**belge durumu** (park mı, kalıcı mı), **belge türü** ve **düzeltme yöntemi**.',
 
     liste:[
-      { ad:'Klasik giriş', en:'Classic Entry — F-02',
+      { ad:'Klasik giriş', en:'Classic Entry: F-02',
         aciklama:'Satır satır ilerler; her satır için {{kayit-anahtari}} ve hesap **elle** girilir. ' +
                  'Sonraki satıra geçmeden mevcut satır tamamlanır.',
         neZaman:'Özel ana muhasebe kayıtlarında, karmaşık çok satırlı belgelerde, ' +
@@ -240,7 +240,7 @@ SAP.registerTopic({
         ornek:'Kayıt anahtarı 40 (G/L borç) → hesap → tutar → Enter → kayıt anahtarı 50 (G/L alacak) → …',
         tcodes:['F-02','F-43','FB01'] },
 
-      { ad:'Enter view (tablo görünümü)', en:'Enter View — FB50 / FB60 / FB70',
+      { ad:'Enter view (tablo görünümü)', en:'Enter View: FB50 / FB60 / FB70',
         aciklama:'Tüm satırlar tek ekranda tablo hâlinde girilir. Kayıt anahtarı **sorulmaz**; ' +
                  'borç/alacak seçilir, sistem anahtarı arka planda belirler.',
         neZaman:'Günlük rutin kayıtlarda. Klasik girişten belirgin şekilde hızlıdır.',
@@ -266,14 +266,14 @@ SAP.registerTopic({
         ornek:'Aylık 50.000 TL kira → şablon bir kez tanımlanır, 12 ay otomatik üretilir.',
         tcodes:['FBD1','F.14','FAGLGA35'] },
 
-      { ad:'Ters kayıt (iptal)', en:'Reversal — FB08',
+      { ad:'Ters kayıt (iptal)', en:'Reversal: FB08',
         aciklama:'Muhasebeleşmiş belgeyi **silmez**; tersini kaydederek etkisini sıfırlar. ' +
                  'İki belge de kayıtlarda kalır ve birbirine bağlanır.',
         neZaman:'Yanlış kaydedilmiş her belgede. Muhasebede tek doğru düzeltme yöntemidir.',
         ornek:'{{FB08}} tek belge, {{F.80}} toplu ters kayıt.',
         tcodes:['FB08','F.80'] },
 
-      { ad:'Belge değiştirme', en:'Change Document — FB02',
+      { ad:'Belge değiştirme', en:'Change Document: FB02',
         aciklama:'Kaydedilmiş belgede **yalnızca değiştirilebilir alanlar** güncellenir: vade, ' +
                  '{{odeme-blogu}}, metin, atama. **Tutar ve hesap değiştirilemez.**',
         neZaman:'Vade düzeltmesi, ödeme bloğu koyma/kaldırma, açıklama ekleme.',
@@ -283,10 +283,10 @@ SAP.registerTopic({
 
     karsilastirmaBasliklar:['Park (Park)', 'Beklet (Hold)'],
     karsilastirma:[
-      ['Belge numarası', '**Verilir** — numara tüketilir', 'Verilmez'],
-      ['Tabloya yazılır mı', 'Evet — {{BKPF}}/{{BSEG}}’e park durumuyla', 'Hayır — geçici saklama'],
-      ['Başkası görebilir mi', '**Evet** — iş listesinde görünür', 'Hayır — yalnızca sahibi'],
-      ['Denge zorunlu mu', 'Hayır — dengesiz park edilebilir', 'Hayır'],
+      ['Belge numarası', '**Verilir**: numara tüketilir', 'Verilmez'],
+      ['Tabloya yazılır mı', 'Evet, {{BKPF}}/{{BSEG}}’e park durumuyla', 'Hayır, geçici saklama'],
+      ['Başkası görebilir mi', '**Evet**, iş listesinde görünür', 'Hayır, yalnızca sahibi'],
+      ['Denge zorunlu mu', 'Hayır: dengesiz park edilebilir', 'Hayır'],
       ['Onay akışı', '**Destekler** ({{FBV4}})', 'Desteklemez'],
       ['Raporlarda görünür mü', 'Park edilmiş belge raporlarında', 'Hiçbir yerde'],
       ['Ne zaman kullanılır', 'Onay bekleyen gerçek belgeler', '"Yarım kaldım, sonra bakarım"'],
@@ -296,7 +296,7 @@ SAP.registerTopic({
   /* ===================================================== 5. TCODES === */
   tcodes: {
     liste:[
-      { kod:'FB03', ad:'Belge görüntüleme — FI’ın röntgen cihazı',
+      { kod:'FB03', ad:'Belge görüntüleme: FI’ın röntgen cihazı',
         amac:'Bir FI belgesini başlığı, kalemleri, vergi satırları ve bağlı belgeleriyle gösterir.',
         neZaman:'Her hata analizinde, her mutabakatta, "bu rakam nereden geldi?" sorusunun sorulduğu her anda.',
         adimlar:[
@@ -308,7 +308,7 @@ SAP.registerTopic({
           { baslik:'*Ortam → Belge akışı / İlgili belgeler*',
             aciklama:'Belgenin hangi MM/SD belgesinden doğduğunu ve hangi CO belgesini ürettiğini gösterir.' },
           { baslik:'*Ortam → Değişiklik belgeleri*',
-            aciklama:'Kimin neyi ne zaman değiştirdiği — {{CDHDR}}/{{CDPOS}} tablolarından.' },
+            aciklama:'Kimin neyi ne zaman değiştirdiği: {{CDHDR}}/{{CDPOS}} tablolarından.' },
         ],
         ekranAkisi:[
           { ekran:'Giriş', islem:'Şirket kodu 1000 · Belge 1900000234 · Mali yıl 2026' },
@@ -330,7 +330,7 @@ SAP.registerTopic({
         neZaman:'Yanlış kaydedilmiş her belgede. Muhasebede tek doğru düzeltme yöntemidir.',
         adimlar:[
           { baslik:'Şirket kodu, belge numarası ve mali yılı gir' },
-          { baslik:'**İptal nedenini** seç — en kritik alan',
+          { baslik:'**İptal nedenini** seç: en kritik alan',
             aciklama:'**01** orijinal belge tarihine düşer (aynı dönem). **02** girilen alternatif tarihe düşer ' +
                      '(farklı dönem). Orijinal dönem kapalıysa 01 çalışmaz.' },
           { baslik:'Gerekirse kayıt tarihi ve dönemi gir',
@@ -342,7 +342,7 @@ SAP.registerTopic({
           zorunlu:['Şirket kodu','Belge numarası','Mali yıl','İptal nedeni'],
           opsiyonel:['Kayıt tarihi','Kayıt dönemi'] },
         hatalar:[
-          { mesaj:'Reversal not possible — document contains cleared items', sebep:'Belgenin kalemleri kapatılmış (ödenmiş).', cozum:'Önce {{FBRA}} ile kapatmayı geri al, sonra ters kaydet.' },
+          { mesaj:'Reversal not possible: document contains cleared items', sebep:'Belgenin kalemleri kapatılmış (ödenmiş).', cozum:'Önce {{FBRA}} ile kapatmayı geri al, sonra ters kaydet.' },
           { mesaj:'Posting period ... is not open', sebep:'İptal nedeni 01 seçildi ama orijinal dönem kapalı.', cozum:'Alternatif tarih gerektiren bir neden seç ve açık bir döneme yönlendir.' },
           { mesaj:'Document was already reversed with document ...', sebep:'Belge zaten ters kaydedilmiş.', cozum:'{{FB03}} ile `STBLG` alanına bak; ikinci kez ters kaydetmeye gerek yok.' },
           { mesaj:'Reversal of document from MM/SD not possible in FI', sebep:'Belge MM veya SD’den doğmuş.', cozum:'Kaynak modülden iptal et: {{MIRO}} faturası için MR8M, SD faturası için VF11. FI’dan iptal, kaynak belgeyi tutarsız bırakır.' },
@@ -359,14 +359,14 @@ SAP.registerTopic({
           { baslik:'Şirket kodu, belge numarası ve mali yılı gir' },
           { baslik:'Değiştirilecek kaleme çift tıkla' },
           { baslik:'Açık (değiştirilebilir) alanları güncelle',
-            aciklama:'**Tutar, hesap, borç/alacak yönü ve şirket kodu değiştirilemez** — bunlar için ters kayıt gerekir.' },
-          { baslik:'Kaydet — değişiklik {{CDHDR}}/{{CDPOS}}’a yazılır' },
+            aciklama:'**Tutar, hesap, borç/alacak yönü ve şirket kodu değiştirilemez**: bunlar için ters kayıt gerekir.' },
+          { baslik:'Kaydet: değişiklik {{CDHDR}}/{{CDPOS}}’a yazılır' },
         ],
         hatalar:[
           { mesaj:'Field ... cannot be changed', sebep:'Alan değiştirilebilir alanlar listesinde değil.', cozum:'Tutar/hesap değişikliği için {{FB08}} ile ters kaydet ve doğrusunu gir. Alan kuralları IMG’de "Belge Değişiklik Kuralları"nda tanımlıdır.' },
           { mesaj:'Document is already cleared', sebep:'Kapatılmış kalemde bazı alanlar kilitlenir.', cozum:'Gerekirse {{FBRA}} ile kapatmayı aç, değişikliği yap, yeniden kapat.' },
         ],
-        ipucu:'Tek bir kalemde hızlı değişiklik için {{FB09}} daha pratiktir — doğrudan kalem ekranına açar.',
+        ipucu:'Tek bir kalemde hızlı değişiklik için {{FB09}} daha pratiktir: doğrudan kalem ekranına açar.',
         ilgili:['FB09','FB03','FB08'] },
 
       { kod:'OBA7', ad:'Belge türü tanımı',
@@ -378,14 +378,14 @@ SAP.registerTopic({
             aciklama:'Birden çok tür aynı aralığı paylaşabilir; bu, numara sürekliliği açısından bilinçli bir tercihtir.' },
           { baslik:'İzin verilen hesap tiplerini işaretle',
             aciklama:'**S** ana muhasebe, **D** müşteri, **K** satıcı, **A** duran varlık, **M** malzeme. ' +
-                     'İşaretlenmeyen tipe kayıt yapılamaz — yapısal bir kontroldür.' },
+                     'İşaretlenmeyen tipe kayıt yapılamaz: yapısal bir kontroldür.' },
           { baslik:'Ters kayıt belge türünü belirle',
             aciklama:'Boş bırakılırsa aynı tür kullanılır.' },
         ],
         ipucu:'Standart türleri (KR, DR, SA, AB…) değiştirmek yerine kopyalayıp **Z ile başlayan** ' +
               'kendi türünü oluştur. Yükseltmelerde standart tanımların üzerine yazılma riski ortadan kalkar.',
         hatalar:[
-          { mesaj:'Account type K is not allowed for document type SA', sebep:'Belge türü satıcı hesabına izin vermiyor.', cozum:'Doğru türü kullan (KR) veya {{OBA7}}’de hesap tipini işaretle — ikincisi kontrolü zayıflatır, dikkatli düşün.' },
+          { mesaj:'Account type K is not allowed for document type SA', sebep:'Belge türü satıcı hesabına izin vermiyor.', cozum:'Doğru türü kullan (KR) veya {{OBA7}}’de hesap tipini işaretle: ikincisi kontrolü zayıflatır, dikkatli düşün.' },
         ],
         ilgili:['FBN1','OB41','FB50'] },
 
@@ -399,10 +399,10 @@ SAP.registerTopic({
           { baslik:'İç veya dış atama seç',
             aciklama:'İç atamada sistem numarayı verir; dış atamada kullanıcı girer ve tekillik kontrol edilir.' },
           { baslik:'Toplu kopyalama için {{OBH1}} kullan',
-            aciklama:'Mevcut yılın tüm aralıklarını yeni yıla tek işlemde kopyalar — yılbaşı rutininin standart adımı.' },
+            aciklama:'Mevcut yılın tüm aralıklarını yeni yıla tek işlemde kopyalar: yılbaşı rutininin standart adımı.' },
         ],
         hatalar:[
-          { mesaj:'Document number ... was already assigned', sebep:'Sayaç ({{NRIV}} `NRLEVEL`) mevcut en yüksek belge numarasının altında — genelde veri geçişi sonrası.', cozum:'{{FBN1}} ile aralığın güncel numarasını mevcut en yüksek belgenin üstüne çek.' },
+          { mesaj:'Document number ... was already assigned', sebep:'Sayaç ({{NRIV}} `NRLEVEL`) mevcut en yüksek belge numarasının altında: genelde veri geçişi sonrası.', cozum:'{{FBN1}} ile aralığın güncel numarasını mevcut en yüksek belgenin üstüne çek.' },
           { mesaj:'Number range ... does not exist for fiscal year ...', sebep:'Yeni yıl için aralık açılmamış.', cozum:'{{OBH1}} ile önceki yıldan kopyala. **Yılbaşında kaydın durmasının bir numaralı sebebidir.**' },
         ],
         ipucu:'Numara aralığı **tanımı** taşıma isteğiyle taşınabilir ama **güncel sayaç değeri taşınmaz**. ' +
@@ -432,13 +432,13 @@ SAP.registerTopic({
             aciklama:'Şirket kodu bir dönem varyantına atanmıştır ({{OBY6}}); birden çok şirket aynı varyantı paylaşabilir.' },
           { baslik:'Hesap tipi satırlarını ayrı ayrı ayarla',
             aciklama:'**+** tüm tipler, **S** ana muhasebe, **D** müşteri, **K** satıcı, **A** duran varlık, **M** malzeme. ' +
-                     'Her satır bağımsızdır — S’yi açmak D’yi açmaz.' },
+                     'Her satır bağımsızdır: S’yi açmak D’yi açmaz.' },
           { baslik:'İki dönem aralığı gir',
             aciklama:'**1. aralık** normal kullanıcılar için, **2. aralık** yetki grubu olan kullanıcılar için ' +
                      '(kapanış ekibinin ayrıcalıklı erişimi böyle sağlanır).' },
         ],
         hatalar:[
-          { mesaj:'Posting period 011 2026 is not open for account type K', sebep:'Yalnızca S satırı açılmış.', cozum:'**K** satırında da dönemi aç. Hesap tipleri ayrı ayrı yönetilir — en sık yapılan hatadır.' },
+          { mesaj:'Posting period 011 2026 is not open for account type K', sebep:'Yalnızca S satırı açılmış.', cozum:'**K** satırında da dönemi aç. Hesap tipleri ayrı ayrı yönetilir: en sık yapılan hatadır.' },
         ],
         ipucu:'Ay sonunda dönemi kapatırken **tüm hesap tiplerini** kapat. Yalnızca S kapatılırsa ' +
               'satıcı ve müşteri kayıtları girmeye devam eder ve kapanış tutarları değişir.',
@@ -452,8 +452,8 @@ SAP.registerTopic({
             aciklama:'Çağrı noktası: **1** belge başlığı, **2** kalem, **3** tam belge. ' +
                      'Kural neyi kontrol edecekse ona uygun nokta seçilir.' },
           { baslik:'Ön koşul (prerequisite) tanımla',
-            aciklama:'"Şirket kodu 1000 ve hesap 770000 ise" gibi — kuralın ne zaman çalışacağı.' },
-          { baslik:'Kontrol (check) tanımla', aciklama:'"Maliyet yeri 1000–1999 aralığında olmalı" gibi.' },
+            aciklama:'"Şirket kodu 1000 ve hesap 770000 ise" gibi: kuralın ne zaman çalışacağı.' },
+          { baslik:'Kontrol (check) tanımla', aciklama:'"Maliyet yeri 1000-1999 aralığında olmalı" gibi.' },
           { baslik:'Mesaj tipini belirle: hata (E) veya uyarı (W)' },
         ],
         ipucu:'Doğrulama **engeller**, {{OBBH}} yerine koyma **düzeltir**. Kullanıcıya iş yükü ' +
@@ -479,12 +479,12 @@ SAP.registerTopic({
         s4:'Yapısı korundu; raporlama {{ACDOCA}}’ya taşındı.',
         alanlar:[
           { ad:'BLART', aciklama:'{{belge-turu}}' },
-          { ad:'BUDAT', aciklama:'**Kayıt tarihi — dönemi belirler.** En kritik alan.' },
-          { ad:'BLDAT', aciklama:'Belge tarihi — faturanın üstündeki tarih' },
-          { ad:'MONAT', aciklama:'Kayıt dönemi — BUDAT’tan türetilir' },
-          { ad:'STBLG', aciklama:'**Ters kayıt belgesi** — doluysa bu belge iptal edilmiştir' },
-          { ad:'AWTYP / AWKEY', aciklama:'Kaynak belge tipi ve anahtarı — entegrasyon izini verir' },
-          { ad:'USNAM / CPUDT', aciklama:'Kaydeden kullanıcı ve giriş tarihi — denetim izi' },
+          { ad:'BUDAT', aciklama:'**Kayıt tarihi: dönemi belirler.** En kritik alan.' },
+          { ad:'BLDAT', aciklama:'Belge tarihi: faturanın üstündeki tarih' },
+          { ad:'MONAT', aciklama:'Kayıt dönemi: BUDAT’tan türetilir' },
+          { ad:'STBLG', aciklama:'**Ters kayıt belgesi**: doluysa bu belge iptal edilmiştir' },
+          { ad:'AWTYP / AWKEY', aciklama:'Kaynak belge tipi ve anahtarı: entegrasyon izini verir' },
+          { ad:'USNAM / CPUDT', aciklama:'Kaydeden kullanıcı ve giriş tarihi: denetim izi' },
         ] },
 
       { ad:'BSEG', baslik:'Belge kalemleri',
@@ -495,11 +495,11 @@ SAP.registerTopic({
         iliskiler:'{{SKB1}} hesap, {{LFA1}}/{{KNA1}} iş ortağı, {{ANLA}} varlık bağlantısı.',
         s4:'Cluster tablodur (RFBLG içinde); doğrudan sorgulanması yavaştır. Raporlar {{ACDOCA}}’dan okur.',
         alanlar:[
-          { ad:'BUZEI', aciklama:'Kalem numarası — **3 hane, azami 999 kalem**' },
+          { ad:'BUZEI', aciklama:'Kalem numarası: **3 hane, azami 999 kalem**' },
           { ad:'BSCHL', aciklama:'{{kayit-anahtari}}' },
           { ad:'SHKZG', aciklama:'S = borç (Soll), H = alacak (Haben)' },
           { ad:'HKONT', aciklama:'Ana muhasebe hesabı' },
-          { ad:'AUGBL', aciklama:'Kapatma belgesi — boşsa kalem açık' },
+          { ad:'AUGBL', aciklama:'Kapatma belgesi: boşsa kalem açık' },
         ] },
 
       { ad:'ACDOCA', baslik:'Evrensel Kayıt Defteri',
@@ -510,8 +510,8 @@ SAP.registerTopic({
         iliskiler:'{{BKPF}} ile belge numarası üzerinden.',
         s4:'S/4HANA’nın tek gerçek kaynağı.',
         alanlar:[
-          { ad:'DOCLN', aciklama:'**6 haneli kalem numarası** — {{BSEG}}’in 999 sınırını aşar' },
-          { ad:'RLDNR', aciklama:'{{defter}} — aynı belge her defterde ayrı satırlarla' },
+          { ad:'DOCLN', aciklama:'**6 haneli kalem numarası**: {{BSEG}}’in 999 sınırını aşar' },
+          { ad:'RLDNR', aciklama:'{{defter}}: aynı belge her defterde ayrı satırlarla' },
         ] },
 
       { ad:'T003', baslik:'Belge türü tanımı',
@@ -546,7 +546,7 @@ SAP.registerTopic({
         iliskiler:'{{T003}}.NUMKR buraya bağlanır.',
         s4:'Değişmedi. **Veri geçişi sonrası sayaç güncellenmezse numara çakışması yaşanır.**',
         alanlar:[
-          { ad:'NRLEVEL', aciklama:'**Güncel sayaç** — sonraki belge bunun üstünden alınır' },
+          { ad:'NRLEVEL', aciklama:'**Güncel sayaç**: sonraki belge bunun üstünden alınır' },
           { ad:'FROMNUMBER / TONUMBER', aciklama:'Aralık sınırları' },
         ] },
 
@@ -557,8 +557,8 @@ SAP.registerTopic({
         s4:'Değişmedi.',
         alanlar:[
           { ad:'KOART', aciklama:'Hesap tipi (+, S, D, K, A, M)' },
-          { ad:'FRPE1 / TOPE1', aciklama:'1. dönem aralığı — normal kullanıcılar' },
-          { ad:'FRPE2 / TOPE2', aciklama:'2. dönem aralığı — yetki grubu olanlar' },
+          { ad:'FRPE1 / TOPE1', aciklama:'1. dönem aralığı: normal kullanıcılar' },
+          { ad:'FRPE2 / TOPE2', aciklama:'2. dönem aralığı: yetki grubu olanlar' },
         ] },
 
       { ad:'CDHDR', baslik:'Değişiklik belgesi başlığı',
@@ -607,11 +607,11 @@ SAP.registerTopic({
   sapSurec: {
     anlatim:
       'Belge kaydı ekranları iki bloktan oluşur: **başlık** ve **kalem tablosu**. ' +
-      'Alan mantığını bir kez kavradığında {{FB50}}, {{FB60}}, {{FB70}} ve diğerleri tanıdık gelir — ' +
+      'Alan mantığını bir kez kavradığında {{FB50}}, {{FB60}}, {{FB70}} ve diğerleri tanıdık gelir: ' +
       'hepsi aynı iskelettir.',
 
     ekranlar:[
-      { ad:'Başlık bloğu — tarihlerin kritik olduğu yer',
+      { ad:'Başlık bloğu: tarihlerin kritik olduğu yer',
         aciklama:'Ekranın üst kısmı. Buradaki iki tarih en çok hata yapılan alanlardır.',
         alanlar:[
           { ad:'Belge tarihi (`BLDAT`)', zorunlu:true, aciklama:'Faturanın/dekontun üstündeki tarih. Raporlamada referanstır ama **dönemi belirlemez**.' },
@@ -646,7 +646,7 @@ SAP.registerTopic({
         ipucu:'{{belge-bolme}} açık sistemlerde 2 satırlık girdinin 6 satıra dönüştüğünü **yalnızca burada** ' +
               'görürsün. Kaydetmeden önce her zaman simüle et.' },
 
-      { ad:'{{FB08}} — ters kayıt ekranı',
+      { ad:'{{FB08}}: ters kayıt ekranı',
         aciklama:'Düzeltmenin yapıldığı yer. İptal nedeni seçimi kritiktir.',
         alanlar:[
           { ad:'Belge numarası / Şirket kodu / Mali yıl', zorunlu:true, aciklama:'İptal edilecek belge.' },
@@ -663,12 +663,12 @@ SAP.registerTopic({
       { mesaj:'Account ... cannot be directly posted to', sebep:'Hesap {{mutabakat-hesabi}} ({{SKB1}} `MITKZ` dolu).', cozum:'Satıcı/müşteri üzerinden kaydet: {{FB60}} veya {{FB70}}.' },
       { mesaj:'Field Cost Center is a required field for G/L account ...', sebep:'{{alan-durumu}} zorunlu kılıyor.', cozum:'Maliyet yerini gir; kalıcı çözüm için {{OKB9}} ile varsayılan CO nesnesi tanımla.' },
       { mesaj:'Balance in transaction currency', sebep:'{{belge-denkligi}} sağlanmamış.', cozum:'Satırları kontrol et; belgeyi saklamak istiyorsan {{FV50}} ile park et.' },
-      { mesaj:'Document number ... was already assigned', sebep:'{{NRIV}} sayacı mevcut en yüksek belgenin altında — genelde veri geçişi sonrası.', cozum:'{{FBN1}} ile sayacı güncelle.' },
+      { mesaj:'Document number ... was already assigned', sebep:'{{NRIV}} sayacı mevcut en yüksek belgenin altında: genelde veri geçişi sonrası.', cozum:'{{FBN1}} ile sayacı güncelle.' },
       { mesaj:'Number range ... does not exist for fiscal year 2027', sebep:'Yeni yıl için aralık açılmamış.', cozum:'{{OBH1}} ile önceki yıldan kopyala. **Yılbaşı rutininin ilk maddesidir.**' },
       { mesaj:'Account type D is not allowed for document type SA', sebep:'{{belge-turu}} müşteri hesabına izin vermiyor.', cozum:'Doğru türü kullan (DR) veya {{OBA7}}’de hesap tipini işaretle.' },
       { mesaj:'Tax code A1 does not exist in company code 1000', sebep:'{{vergi-kodu}} o ülke için tanımlı değil.', cozum:'{{FTXP}} ile doğru ülke anahtarında tanımla veya doğru kodu kullan.' },
-      { mesaj:'Ledger 0L: document splitting error — item not assigned', sebep:'{{belge-bolme}} kuralları satırı sınıflandıramadı.', cozum:'Belge bölme karakteristiklerini ve kalem kategorisi atamalarını IMG’de kontrol et.' },
-      { mesaj:'Reversal not possible — document contains cleared items', sebep:'Kalemler kapatılmış.', cozum:'Önce {{FBRA}} ile kapatmayı geri al, sonra {{FB08}}.' },
+      { mesaj:'Ledger 0L: document splitting error: item not assigned', sebep:'{{belge-bolme}} kuralları satırı sınıflandıramadı.', cozum:'Belge bölme karakteristiklerini ve kalem kategorisi atamalarını IMG’de kontrol et.' },
+      { mesaj:'Reversal not possible: document contains cleared items', sebep:'Kalemler kapatılmış.', cozum:'Önce {{FBRA}} ile kapatmayı geri al, sonra {{FB08}}.' },
     ],
 
     ipuclari:[
@@ -687,7 +687,7 @@ SAP.registerTopic({
   /* ===================================================== 8. TEKNİK === */
   teknik: {
     guncellenenTablolar:[
-      { tablo:'BKPF', ne:'1 başlık satırı — numara, tür, tarihler, kullanıcı, kaynak referansı' },
+      { tablo:'BKPF', ne:'1 başlık satırı: numara, tür, tarihler, kullanıcı, kaynak referansı' },
       { tablo:'BSEG', ne:'Her giriş satırı için 1 kalem + sistemin eklediği vergi/bölme satırları' },
       { tablo:'ACDOCA', ne:'Aynı kalemler evrensel formatta; her aktif defter için ayrı satır kümesi' },
       { tablo:'BSET', ne:'Vergi kodu varsa vergi satırları (matrah, vergi tutarı, hesap anahtarı)' },
@@ -701,7 +701,7 @@ SAP.registerTopic({
       'toplanır ve `COMMIT WORK` ile atomik olarak yazılır: ya hepsi ya hiçbiri.\n\n' +
       '**Ama numara ataması ayrı çalışır.** Numara aralığı sayacı ({{NRIV}}), ana LUW’dan bağımsız bir ' +
       'işlemde artırılır. Sonucu: **iptal edilen bir kayıtta bile belge numarası tüketilmiş olabilir** ' +
-      've numaralarda boşluk oluşur. Bu normaldir, hata değildir — denetçiye de böyle açıklanır.\n\n' +
+      've numaralarda boşluk oluşur. Bu normaldir, hata değildir: denetçiye de böyle açıklanır.\n\n' +
       'Asenkron güncelleme takılırsa "belge numarası verildi ama kayıt yok" durumu oluşur; ' +
       '{{SM13}} ile bakılır.',
 
@@ -714,14 +714,14 @@ SAP.registerTopic({
 
     postingLogic:
       'Kaydın izlediği yedi halkalı zincir:\n\n' +
-      '**1. Dönem kontrolü** — `BUDAT`’tan dönem hesaplanır, {{T001B}}’de hesap tipi bazında bakılır.\n' +
-      '**2. Belge türü** — {{T003}}’te izin verilen hesap tipleri kontrol edilir.\n' +
-      '**3. Kayıt anahtarı** — borç/alacak seçimi {{TBSL}}’den anahtara dönüşür.\n' +
-      '**4. Alan durumu** — hesabın grubu ({{SKB1}} `FSTAG`) + kayıt anahtarının alan durumu; ' +
+      '**1. Dönem kontrolü**: `BUDAT`’tan dönem hesaplanır, {{T001B}}’de hesap tipi bazında bakılır.\n' +
+      '**2. Belge türü**: {{T003}}’te izin verilen hesap tipleri kontrol edilir.\n' +
+      '**3. Kayıt anahtarı**: borç/alacak seçimi {{TBSL}}’den anahtara dönüşür.\n' +
+      '**4. Alan durumu**: hesabın grubu ({{SKB1}} `FSTAG`) + kayıt anahtarının alan durumu; ' +
       '**en kısıtlayıcı kazanır**.\n' +
-      '**5. Doğrulama / yerine koyma** — {{OB28}} kuralları kontrol eder, {{OBBH}} alan doldurur.\n' +
-      '**6. Denge kontrolü** — {{belge-denkligi}}; {{belge-bolme}} açıksa her defter ve boyut için ayrı.\n' +
-      '**7. Numara ve yazma** — {{NRIV}}’den numara, sonra tablolar.',
+      '**5. Doğrulama / yerine koyma**: {{OB28}} kuralları kontrol eder, {{OBBH}} alan doldurur.\n' +
+      '**6. Denge kontrolü**: {{belge-denkligi}}; {{belge-bolme}} açıksa her defter ve boyut için ayrı.\n' +
+      '**7. Numara ve yazma**: {{NRIV}}’den numara, sonra tablolar.',
 
     belgeTuru:
       '{{belge-turu}} üç şey belirler: izin verilen {{hesap-tipi}} kümesi, kullanılacak {{numara-araligi}} ' +
@@ -747,12 +747,12 @@ SAP.registerTopic({
       '{{kayit-anahtari}} ({{OB41}}), {{alan-durumu}} grupları ve varyantı, dönem kontrolü ({{OB52}}), ' +
       'doğrulama/yerine koyma ({{OB28}}/{{OBBH}}), belge değişiklik kuralları.\n\n' +
       '**Hareket verisi:** belgelerin kendisi.\n\n' +
-      'Bu konuda ana veri yoktur — belge kaydı tamamen yapılandırma + hareket verisi konusudur.',
+      'Bu konuda ana veri yoktur: belge kaydı tamamen yapılandırma + hareket verisi konusudur.',
 
     transport:
       'Belge türleri, kayıt anahtarları, alan durumu grupları, doğrulama ve yerine koyma kuralları taşınır. ' +
       'Belgeler taşınmaz.\n\n' +
-      '**İstisna:** {{numara-araligi}} tanımı taşınabilir ama **sayaç değeri taşınmaz** — ' +
+      '**İstisna:** {{numara-araligi}} tanımı taşınabilir ama **sayaç değeri taşınmaz**: ' +
       'her sistemde ayrıca kontrol edilmelidir.',
 
     img:[
@@ -766,10 +766,10 @@ SAP.registerTopic({
     ],
 
     ekstra:[
-      { ic:'⚖️', baslik:'Alan durumu çakışması — en kısıtlayıcı kazanır', metin:
+      { ic:'⚖️', baslik:'Alan durumu çakışması: en kısıtlayıcı kazanır', metin:
         '{{alan-durumu}} **iki kaynaktan** gelir ve ikisi birlikte değerlendirilir:\n\n' +
-        '**1. Hesabın alan durumu grubu** ({{SKB1}} `FSTAG`) — "bu hesaba kayıt yapılırken hangi alanlar gerekli?"\n' +
-        '**2. Kayıt anahtarının alan durumu** ({{OB41}}) — "bu tür bir satırda hangi alanlar gerekli?"\n\n' +
+        '**1. Hesabın alan durumu grubu** ({{SKB1}} `FSTAG`): "bu hesaba kayıt yapılırken hangi alanlar gerekli?"\n' +
+        '**2. Kayıt anahtarının alan durumu** ({{OB41}}): "bu tür bir satırda hangi alanlar gerekli?"\n\n' +
         'Çakışma kuralı: **en kısıtlayıcı olan kazanır.** Sıralama (kısıtlayıcıdan gevşeğe): ' +
         '**Gizli > Zorunlu > Opsiyonel**.\n\n' +
         'Yani biri "gizli" diyorsa diğeri "zorunlu" dese bile alan **görünmez**. ' +
@@ -783,7 +783,7 @@ SAP.registerTopic({
         'Bu SAP’ta normaldir. Denetçi "neden 1900000234 ile 1900000236 arasında 235 yok?" diye sorarsa ' +
         'cevap: iptal edilmiş bir giriş denemesi.\n\n' +
         'Boşluk kabul edilemez bir mevzuat varsa çözüm **dış numara atama** (external numbering) veya ' +
-        'ayrı bir yasal numaralandırma katmanıdır — ama bu, performans ve kilitlenme maliyeti getirir.' },
+        'ayrı bir yasal numaralandırma katmanıdır: ama bu, performans ve kilitlenme maliyeti getirir.' },
     ],
 
     notlar:[
@@ -798,7 +798,7 @@ SAP.registerTopic({
   /* ==================================================== 9. S/4HANA === */
   s4hana: {
     ozet:
-      'Belge kaydının **mantığı değişmedi** — yedi kontrol zinciri, belge türü, kayıt anahtarı ve ' +
+      'Belge kaydının **mantığı değişmedi**: yedi kontrol zinciri, belge türü, kayıt anahtarı ve ' +
       'alan durumu aynı. Değişen, belgenin **nereye yazıldığı** ve kalem sayısı sınırının kalkmasıdır.',
 
     eccFarklari:[
@@ -807,7 +807,7 @@ SAP.registerTopic({
       { konu:'Para birimi sayısı', ecc:'2 (yerel + ek)', s4:'**10’a kadar** paralel para birimi' },
       { konu:'Defter bazlı kayıt', ecc:'Yeni G/L ile sınırlı', s4:'Her belge her aktif {{defter}} için ayrı satır kümesi' },
       { konu:'Giriş ekranları', ecc:'{{FB50}}, {{FB60}}, {{F-02}}', s4:'**Aynı** + Fiori uygulamaları' },
-      { konu:'Kilitlenme', ecc:'Toplam tablosu satırı kilitlenir', s4:'Toplam tablosu yok — eşzamanlı kayıt hızlanır' },
+      { konu:'Kilitlenme', ecc:'Toplam tablosu satırı kilitlenir', s4:'Toplam tablosu yok: eşzamanlı kayıt hızlanır' },
     ],
 
     universalJournal:
@@ -819,8 +819,8 @@ SAP.registerTopic({
       'FI ve CO satırı aynı kayıttır.',
 
     kalkanTcodes:[
-      { eski:'—', yeni:'—', not:'Belge kaydı işlem kodlarının hiçbiri kaldırılmadı; {{FB50}}, {{FB60}}, {{F-02}}, {{FB08}} aynen çalışır' },
-      { eski:'Toplam tablosu yeniden oluşturma programları', yeni:'—', not:'Toplam tablosu olmadığı için gereksizleşti' },
+      { eski:', ', yeni:', ', not:'Belge kaydı işlem kodlarının hiçbiri kaldırılmadı; {{FB50}}, {{FB60}}, {{F-02}}, {{FB08}} aynen çalışır' },
+      { eski:'Toplam tablosu yeniden oluşturma programları', yeni:': ', not:'Toplam tablosu olmadığı için gereksizleşti' },
     ],
 
     fiori:[
@@ -828,14 +828,14 @@ SAP.registerTopic({
       { ad:'Display Journal Entries', aciklama:'{{FB03}} yerine; belge ve tüm ilişkili nesneler tek ekranda.' },
       { ad:'Manage Journal Entries', aciklama:'Park edilmiş ve tamamlanmamış belgeleri iş listesi olarak yönetir.' },
       { ad:'Reverse Journal Entries', aciklama:'{{FB08}} yerine; toplu ters kayıt destekler.' },
-      { ad:'Upload General Journal Entries', aciklama:'Excel/CSV dosyasından toplu belge yükleme — {{LSMW}} ihtiyacını azaltır.' },
-      { ad:'Verify General Journal Entries', aciklama:'Onay akışı — dört-göz prensibi için.' },
+      { ad:'Upload General Journal Entries', aciklama:'Excel/CSV dosyasından toplu belge yükleme: {{LSMW}} ihtiyacını azaltır.' },
+      { ad:'Verify General Journal Entries', aciklama:'Onay akışı: dört-göz prensibi için.' },
     ],
 
     compatibilityViews:[
-      '{{BSIS}}, {{BSAS}}, {{BSIK}}, {{BSAK}}, {{BSID}}, {{BSAD}} — indeks tabloları {{uyumluluk-view}}.',
-      '{{GLT0}}, {{FAGLFLEXT}} — toplam tabloları da view.',
-      '{{BKPF}}, {{BSEG}}, {{T003}}, {{TBSL}}, {{NRIV}} — **fiziksel tablo olarak duruyor**, değişmedi.',
+      '{{BSIS}}, {{BSAS}}, {{BSIK}}, {{BSAK}}, {{BSID}}, {{BSAD}}: indeks tabloları {{uyumluluk-view}}.',
+      '{{GLT0}}, {{FAGLFLEXT}}: toplam tabloları da view.',
+      '{{BKPF}}, {{BSEG}}, {{T003}}, {{TBSL}}, {{NRIV}}: **fiziksel tablo olarak duruyor**, değişmedi.',
       'Belge kaydı açısından önemli sonuç: kayıt mantığına dokunan yapılandırma tabloları korundu, ' +
       'yalnızca okuma amaçlı türev tablolar view’e dönüştü.',
     ],
@@ -847,7 +847,7 @@ SAP.registerTopic({
       'arşivleme stratejisi buna göre planlanmalıdır.',
 
     bestPractices:[
-      'Standart belge türlerini değiştirmek yerine **Z ile başlayan** kendi türlerini oluştur — ' +
+      'Standart belge türlerini değiştirmek yerine **Z ile başlayan** kendi türlerini oluştur: ' +
       'yükseltmelerde standart tanımlar korunur.',
       'Doğrulama ({{OB28}}) yerine mümkün olduğunca yerine koyma ({{OBBH}}) kullan: ' +
       'kullanıcıyı engellemek yerine alanı otomatik doldur.',
@@ -863,7 +863,7 @@ SAP.registerTopic({
     baslik:'Aralık faturası, Ocak’ta girildi: bir tarih hatasının anatomisi',
     hikaye:
       '**Marmara Tekstil A.Ş.**’de 3 Ocak 2027. Muhasebe uzmanı, 31 Aralık 2026 tarihli 50.000 TL’lik ' +
-      'kira faturasını giriyor. Kayıt sorunsuz geçiyor — hata yok, uyarı yok.\n\n' +
+      'kira faturasını giriyor. Kayıt sorunsuz geçiyor: hata yok, uyarı yok.\n\n' +
       'Üç hafta sonra mali müşavir soruyor: "Aralık kira gideri neden 50.000 TL eksik?"\n\n' +
       'Bu senaryo, belge kaydı mekaniğindeki tek bir alanın nasıl mali tabloları bozduğunu ve ' +
       'nasıl düzeltildiğini adım adım gösteriyor.',
@@ -876,26 +876,26 @@ SAP.registerTopic({
     ],
 
     adimlar:[
-      { baslik:'Fatura girilir — kayıt tarihi atlanır', tcode:'FB60',
+      { baslik:'Fatura girilir: kayıt tarihi atlanır', tcode:'FB60',
         aciklama:'Uzman belge tarihini doğru giriyor ama **kayıt tarihini varsayılan olarak bırakıyor**. ' +
                  'Sistem bugünün tarihini kullanıyor: 03.01.2027.',
         girdi:[
           { alan:'Satıcı', deger:'V-2001' },
           { alan:'Belge tarihi (`BLDAT`)', deger:'31.12.2026 ✓ doğru' },
           { alan:'**Kayıt tarihi (`BUDAT`)**', deger:'03.01.2027 **varsayılan bırakıldı**' },
-          { alan:'Dönem göstergesi', deger:'01 / 2027 — ekranda görünüyordu ama fark edilmedi' },
+          { alan:'Dönem göstergesi', deger:'01 / 2027: ekranda görünüyordu ama fark edilmedi' },
           { alan:'Tutar / Vergi', deger:'60.000 TL brüt / %20' },
         ],
-        fis:{ baslik:'Belge 1900000341 — Kira faturası', belgeTuru:'KR', tarih:'03.01.2027',
+        fis:{ baslik:'Belge 1900000341: Kira faturası', belgeTuru:'KR', tarih:'03.01.2027',
           satirlar:[
-            { hesap:'770', ad:'Genel yönetim gideri — kira', borc:50000, not:'**Ocak 2027’ye düştü**' },
+            { hesap:'770', ad:'Genel yönetim gideri: kira', borc:50000, not:'**Ocak 2027’ye düştü**' },
             { hesap:'191', ad:'İndirilecek KDV', borc:10000 },
-            { hesap:'320', ad:'Satıcılar — V-2001', alacak:60000 },
+            { hesap:'320', ad:'Satıcılar: V-2001', alacak:60000 },
           ], not:'Kayıt teknik olarak **kusursuz**: denk, hesaplar doğru, vergi doğru. ' +
                  'Tek sorun **hangi döneme düştüğü**.' },
         tabloEtkisi:[
           { tablo:'BKPF', ne:'`BLDAT` = 31.12.2026, **`BUDAT` = 03.01.2027**, `MONAT` = 01, `GJAHR` = 2027' },
-          { tablo:'BSEG', ne:'3 kalem — hepsi 2027 mali yılında' },
+          { tablo:'BSEG', ne:'3 kalem: hepsi 2027 mali yılında' },
           { tablo:'ACDOCA', ne:'Kalemler 2027 döneminde' },
         ],
         not:'Sistem neden uyarmadı? Çünkü **yapacak bir şey yoktu**: kayıt tarihi geçerli, dönem açık, ' +
@@ -906,7 +906,7 @@ SAP.registerTopic({
         aciklama:'Mali müşavir Aralık kira giderini kontrol ediyor. 770 hesabında Aralık’ta ' +
                  'beklenen kayıt yok; Ocak’ta iki kira gideri var.',
         girdi:[
-          { alan:'Hesap / Dönem', deger:'770000 · 01.12.2026–31.12.2026' },
+          { alan:'Hesap / Dönem', deger:'770000 · 01.12.2026-31.12.2026' },
           { alan:'Bulgu', deger:'Aralık kira gideri: **50.000 TL eksik**' },
           { alan:'Ocak kontrolü', deger:'Ocak’ta 2 kira gideri var: Aralık’ınki + Ocak’ınki' },
           { alan:'Teşhis', deger:'{{FB03}} → belge başlığı → `BLDAT` 31.12 ama `BUDAT` 03.01' },
@@ -914,33 +914,33 @@ SAP.registerTopic({
         not:'Teşhis {{FB03}} → *Belge başlığı* ekranında saniyeler sürüyor. ' +
              'İki tarihi yan yana görmek sorunu anında ortaya koyuyor.' },
 
-      { baslik:'Düzeltme denemesi — FB02 çalışmıyor', tcode:'FB02',
+      { baslik:'Düzeltme denemesi: FB02 çalışmıyor', tcode:'FB02',
         aciklama:'Uzman kayıt tarihini düzeltmeyi deniyor. **Mümkün değil.**',
         girdi:[
           { alan:'Deneme', deger:'{{FB02}} → kayıt tarihi alanını değiştir' },
-          { alan:'Sonuç', deger:'**Alan değiştirilemez** — gri, giriş kabul etmiyor' },
+          { alan:'Sonuç', deger:'**Alan değiştirilemez**: gri, giriş kabul etmiyor' },
           { alan:'Sebep', deger:'Kayıt tarihi dönemi belirler; değiştirilmesi bakiyeleri geriye dönük bozardı' },
         ],
         not:'{{FB02}} yalnızca **değiştirilebilir alanları** günceller: vade, ödeme bloğu, metin, atama. ' +
              'Tutar, hesap ve **kayıt tarihi** değiştirilemez. Bunlar için tek yol ters kayıttır.' },
 
-      { baslik:'Ters kayıt yapılır — iptal nedeni kritik', tcode:'FB08',
+      { baslik:'Ters kayıt yapılır: iptal nedeni kritik', tcode:'FB08',
         aciklama:'Belge iptal ediliyor. **İptal nedeni** seçimi burada belirleyici.',
         girdi:[
           { alan:'Belge', deger:'1900000341 · Şirket kodu 1000 · Mali yıl 2027' },
-          { alan:'Deneme 1 — neden 01', deger:'"Orijinal belge tarihine" → **03.01.2027**’ye düşer' },
-          { alan:'Sorun', deger:'Ters kayıt da Ocak’a düşerse Ocak’ta net etki sıfır olur — **doğru**' },
+          { alan:'Deneme 1: neden 01', deger:'"Orijinal belge tarihine" → **03.01.2027**’ye düşer' },
+          { alan:'Sorun', deger:'Ters kayıt da Ocak’a düşerse Ocak’ta net etki sıfır olur: **doğru**' },
           { alan:'Seçim', deger:'**Neden 01** kullanıldı; ters kayıt 03.01.2027 tarihli' },
         ],
-        fis:{ baslik:'Belge 1900000389 — Ters kayıt', belgeTuru:'KR', tarih:'03.01.2027',
+        fis:{ baslik:'Belge 1900000389: Ters kayıt', belgeTuru:'KR', tarih:'03.01.2027',
           satirlar:[
-            { hesap:'770', ad:'Genel yönetim gideri — kira', alacak:50000, not:'Yön tersine döndü' },
+            { hesap:'770', ad:'Genel yönetim gideri: kira', alacak:50000, not:'Yön tersine döndü' },
             { hesap:'191', ad:'İndirilecek KDV', alacak:10000 },
-            { hesap:'320', ad:'Satıcılar — V-2001', borc:60000 },
+            { hesap:'320', ad:'Satıcılar: V-2001', borc:60000 },
           ], not:'Ocak’taki yanlış kayıt nötrlendi. Orijinal belge **silinmedi**; ' +
                  '{{BKPF}}’de `STBLG` = 1900000389 olarak işaretlendi ve ikisi birbirine bağlandı.' },
         tabloEtkisi:[
-          { tablo:'BKPF', ne:'Orijinal belgenin `STBLG` alanı dolu — iptal edildiği görünüyor' },
+          { tablo:'BKPF', ne:'Orijinal belgenin `STBLG` alanı dolu: iptal edildiği görünüyor' },
           { tablo:'BSIK', ne:'Satıcı açık kalemi otomatik kapandı (iki kayıt birbirini götürdü)' },
         ] },
 
@@ -948,31 +948,31 @@ SAP.registerTopic({
         aciklama:'Doğru kayıt Aralık’a yapılacak ama dönem kapalı. Muhasebe müdürü geçici olarak açıyor.',
         girdi:[
           { alan:'Dönem varyantı', deger:'1000' },
-          { alan:'Hesap tipi **K** satırı', deger:'2. aralık: dönem 12/2026–12/2026, yetki grubu FI01' },
+          { alan:'Hesap tipi **K** satırı', deger:'2. aralık: dönem 12/2026-12/2026, yetki grubu FI01' },
           { alan:'Hesap tipi **S** satırı', deger:'Aynı şekilde açıldı' },
           { alan:'Neden 2. aralık?', deger:'Yalnızca yetki grubu olan kapanış ekibi kayıt yapabilsin diye' },
         ],
         not:'**İki hesap tipi de açılmalı:** satıcı kalemi için K, gider ve KDV satırları için S. ' +
-             'Yalnızca S açılırsa "Posting period not open for account type K" hatası alınır — ' +
+             'Yalnızca S açılırsa "Posting period not open for account type K" hatası alınır: ' +
              'en sık yapılan dönem hatası budur.' },
 
       { baslik:'Doğru kayıt Aralık’a girilir', tcode:'FB60',
         aciklama:'Fatura bu kez **kayıt tarihi elle 31.12.2026** yapılarak giriliyor.',
         girdi:[
           { alan:'Belge tarihi', deger:'31.12.2026' },
-          { alan:'**Kayıt tarihi**', deger:'**31.12.2026** — elle düzeltildi' },
+          { alan:'**Kayıt tarihi**', deger:'**31.12.2026**: elle düzeltildi' },
           { alan:'Dönem göstergesi', deger:'12 / 2026 ✓ kontrol edildi' },
           { alan:'Referans', deger:'KIRA-2026-12 (satıcı fatura no)' },
         ],
-        fis:{ baslik:'Belge 1900000342 — Kira faturası (doğru dönem)', belgeTuru:'KR', tarih:'31.12.2026',
+        fis:{ baslik:'Belge 1900000342: Kira faturası (doğru dönem)', belgeTuru:'KR', tarih:'31.12.2026',
           satirlar:[
-            { hesap:'770', ad:'Genel yönetim gideri — kira', borc:50000, not:'**Aralık 2026’ya düştü** ✓' },
+            { hesap:'770', ad:'Genel yönetim gideri: kira', borc:50000, not:'**Aralık 2026’ya düştü** ✓' },
             { hesap:'191', ad:'İndirilecek KDV', borc:10000 },
-            { hesap:'320', ad:'Satıcılar — V-2001', alacak:60000 },
+            { hesap:'320', ad:'Satıcılar: V-2001', alacak:60000 },
           ] },
         tabloEtkisi:[
           { tablo:'BKPF', ne:'`BUDAT` = 31.12.2026, `MONAT` = 12, `GJAHR` = **2026**' },
-          { tablo:'NRIV', ne:'2026 aralığından numara alındı — 2027 aralığından değil' },
+          { tablo:'NRIV', ne:'2026 aralığından numara alındı: 2027 aralığından değil' },
         ],
         not:'Belge numarası **2026 mali yılının** aralığından geldi. FI numara aralığı ' +
              'şirket kodu + mali yıl bazlı olduğu için bu otomatik gerçekleşti.' },
@@ -980,19 +980,19 @@ SAP.registerTopic({
       { baslik:'Dönem yeniden kapatılır ve kontrol edilir', tcode:'OB52',
         aciklama:'Düzeltme tamamlandı; Aralık dönemi tekrar kapatılıyor ve sonuç doğrulanıyor.',
         girdi:[
-          { alan:'{{OB52}}', deger:'2. aralık kaldırıldı — Aralık 2026 tekrar kapalı' },
-          { alan:'Kontrol 1 — {{FBL3N}}', deger:'770 hesabı Aralık: kira gideri **var** ✓' },
-          { alan:'Kontrol 2 — Ocak', deger:'Net etki sıfır (yanlış kayıt + ters kayıt) ✓' },
-          { alan:'Kontrol 3 — {{FBL1N}}', deger:'V-2001’de tek açık kalem: 1900000342 ✓' },
+          { alan:'{{OB52}}', deger:'2. aralık kaldırıldı: Aralık 2026 tekrar kapalı' },
+          { alan:'Kontrol 1: {{FBL3N}}', deger:'770 hesabı Aralık: kira gideri **var** ✓' },
+          { alan:'Kontrol 2: Ocak', deger:'Net etki sıfır (yanlış kayıt + ters kayıt) ✓' },
+          { alan:'Kontrol 3: {{FBL1N}}', deger:'V-2001’de tek açık kalem: 1900000342 ✓' },
         ] },
     ],
 
     sonuc:
       '**Sonuç:** üç belge oluştu (yanlış kayıt, ters kayıt, doğru kayıt), Aralık gideri yerine oturdu ve ' +
-      'Ocak’ta net etki sıfırlandı. Denetim izi tamamen korundu — üç belge de kayıtlarda görünüyor.\n\n' +
+      'Ocak’ta net etki sıfırlandı. Denetim izi tamamen korundu: üç belge de kayıtlarda görünüyor.\n\n' +
       '**Dört kritik ders:**\n\n' +
       '**1. Kayıt tarihi (`BUDAT`) dönemi belirler, belge tarihi (`BLDAT`) belirlemez.** ' +
-      'Bu, FI’da en sık ve en pahalı hatadır çünkü sistem **uyarı vermez** — kayıt teknik olarak kusursuzdur.\n\n' +
+      'Bu, FI’da en sık ve en pahalı hatadır çünkü sistem **uyarı vermez**: kayıt teknik olarak kusursuzdur.\n\n' +
       '**2. Kayıt tarihi sonradan değiştirilemez.** {{FB02}} yalnızca vade, ödeme bloğu, metin gibi ' +
       'alanları günceller. Tarih, tutar ve hesap için tek yol {{ters-kayit}}tır.\n\n' +
       '**3. Dönem açarken tüm ilgili hesap tiplerini aç.** Satıcı faturası için hem **K** (satıcı) ' +
@@ -1010,7 +1010,7 @@ SAP.registerTopic({
       'Kaydet tuşuna basıldığında yedi kontrol çalışır: dönem → belge türü → kayıt anahtarı → alan durumu → doğrulama → denge → numara.',
       '{{belge-turu}} üç şey belirler: izin verilen {{hesap-tipi}}, {{numara-araligi}} ve ters kayıt türü.',
       '{{alan-durumu}} iki kaynaktan gelir (hesap grubu + kayıt anahtarı); **en kısıtlayıcı kazanır** (Gizli > Zorunlu > Opsiyonel).',
-      'Numara **kaydetme anında** verilir; iptal edilen işlemde bile tüketilebilir — **numara boşluğu normaldir**.',
+      'Numara **kaydetme anında** verilir; iptal edilen işlemde bile tüketilebilir: **numara boşluğu normaldir**.',
       'Muhasebede kayıt silinmez: {{FB08}} ile {{ters-kayit}} yapılır, iki belge de kayıtlarda kalır.',
       '{{FB02}} yalnızca değiştirilebilir alanları günceller; **tutar, hesap ve kayıt tarihi değiştirilemez**.',
     ],
@@ -1032,7 +1032,7 @@ SAP.registerTopic({
       { hata:'Kayıt tarihini {{FB02}} ile düzeltmeye çalışmak.', dogru:'Değiştirilemez. {{FB08}} ile ters kaydet ve doğrusunu gir.' },
       { hata:'MM/SD belgesini {{FB08}} ile iptal etmek.', dogru:'Kaynak modülden: MIRO için MR8M, SD faturası için VF11. `AWTYP` kaynağı söyler.' },
       { hata:'Kaydetmeden önce simüle etmemek.', dogru:'Sistemin ekleyeceği vergi ve {{belge-bolme}} satırları yalnızca simülasyonda görünür.' },
-      { hata:'Yılbaşında numara aralığı açmayı unutmak.', dogru:'{{OBH1}} ile tüm aralıklar yeni yıla kopyalanır — Aralık ayı kontrol listesinin ilk maddesi.' },
+      { hata:'Yılbaşında numara aralığı açmayı unutmak.', dogru:'{{OBH1}} ile tüm aralıklar yeni yıla kopyalanır: Aralık ayı kontrol listesinin ilk maddesi.' },
       { hata:'Numara boşluğunu hata sanmak.', dogru:'Numara ana LUW’dan bağımsız atanır; iptal edilen girişte tüketilir. Normaldir.' },
       { hata:'Standart belge türlerini değiştirmek.', dogru:'Kopyalanıp **Z** ile başlayan kendi türü oluşturulur; yükseltmede standart korunur.' },
       { hata:'Kapatılmış belgeyi doğrudan ters kaydetmeye çalışmak.', dogru:'Önce {{FBRA}} ile kapatma geri alınır, sonra {{FB08}}.' },
@@ -1052,8 +1052,8 @@ SAP.registerTopic({
     quiz:[
       { soru:'31.12.2026 tarihli fatura 03.01.2027’de girildi ve kayıt tarihi varsayılan bırakıldı. Gider hangi döneme düşer?',
         secenekler:[
-          'Aralık 2026 — belge tarihi belirler',
-          '**Ocak 2027 — kayıt tarihi (`BUDAT`) belirler**',
+          'Aralık 2026: belge tarihi belirler',
+          '**Ocak 2027: kayıt tarihi (`BUDAT`) belirler**',
           'Her ikisine yarı yarıya',
           'Sistem uyarı verir ve kaydetmez',
         ], dogru:1,
@@ -1064,7 +1064,7 @@ SAP.registerTopic({
       { soru:'Bir alan hesabın alan durumu grubunda "zorunlu", kayıt anahtarında "gizli" tanımlı. Ne olur?',
         secenekler:[
           'Alan zorunlu olur',
-          '**Alan gizlenir — en kısıtlayıcı kazanır**',
+          '**Alan gizlenir: en kısıtlayıcı kazanır**',
           'Alan opsiyonel olur',
           'Hata mesajı verilir',
         ], dogru:1,
@@ -1085,9 +1085,9 @@ SAP.registerTopic({
 
       { soru:'Belge numaralarında boşluk var (…234, …236 var ama 235 yok). Bu nedir?',
         secenekler:[
-          'Veri kaybı — araştırılmalı',
+          'Veri kaybı: araştırılmalı',
           'Belge silinmiş',
-          '**Normal — numara ana LUW’dan bağımsız atanır, iptal edilen girişte tüketilir**',
+          '**Normal: numara ana LUW’dan bağımsız atanır, iptal edilen girişte tüketilir**',
           'Numara aralığı hatası',
         ], dogru:2,
         aciklama:'Numara ataması ({{NRIV}} sayacı) ana kayıt LUW’undan **bağımsız** çalışır. ' +

@@ -1,6 +1,6 @@
 /* ==========================================================================
-   content/fi-en/s4-yenilikleri.js — English body for "S/4HANA Innovations"
-   Same conventions as content/fi-en/gl-accounting.js — see that file's
+   content/fi-en/s4-yenilikleri.js: English body for "S/4HANA Innovations"
+   Same conventions as content/fi-en/gl-accounting.js: see that file's
    header comment.
    ========================================================================== */
 
@@ -29,25 +29,25 @@ SAP.registerTopic({
       'key ({{BSIK}}, {{BSID}}, {{BSIS}}).\n\n' +
       'On an in-memory database that constraint disappeared. Once the constraint ' +
       'was gone, **the solution became unnecessary**.\n\n' +
-      '**Bottom line:** most of S/4HANA\'s simplifications aren\'t a new feature — ' +
+      '**Bottom line:** most of S/4HANA\'s simplifications aren\'t a new feature: ' +
       '**they\'re the removal of a solution that\'s no longer needed.**',
 
     neden:
       '**Space savings.** Totals and index tables took up a large share of the ' +
       'database. They were removed.\n\n' +
       '**The real payoff: consistency.** A stored total can **diverge** from the ' +
-      'line items — if an update stops halfway, the trial balance and the detail ' +
+      'line items: if an update stops halfway, the trial balance and the detail ' +
       'no longer match. A calculated total can\'t diverge. Some reconciliation ' +
       'programs became **unnecessary** for exactly this reason.\n\n' +
       '**A single source of line items.** FI, CO, asset, and material values all ' +
-      'meet in {{ACDOCA}}; an FI–CO mismatch became **structurally impossible**.\n\n' +
+      'meet in {{ACDOCA}}; an FI-CO mismatch became **structurally impossible**.\n\n' +
       '**Real-time reporting.** Because totals are calculated, overnight batch ' +
       'jobs are no longer needed ({{gomulu-analitik}}).\n\n' +
       '**Richer dimensions.** {{ACDOCA}} carries every dimension on every line: ' +
       'ledger, profit center, segment, functional area, and up to eight currencies.',
 
     sirketOnemi:
-      'For a company, S/4HANA isn\'t a **software upgrade** — it\'s a change in ' +
+      'For a company, S/4HANA isn\'t a **software upgrade**: it\'s a change in ' +
       'reporting capability.\n\n' +
       'A concrete example: in ECC, the question *"what was vendor aging as of last ' +
       'Wednesday?"* was **practically unanswerable**, because that day\'s totals ' +
@@ -56,7 +56,7 @@ SAP.registerTopic({
       '**But the most common misconception sits right here:**\n\n' +
       '*"S/4HANA is fast, so our reports will get faster."*\n\n' +
       '**No.** Your custom reports that read the old tables ' +
-      '({{z-gelistirme}}) now run through a {{uyumluluk-view}} — ' +
+      '({{z-gelistirme}}) now run through a {{uyumluluk-view}}: ' +
       'and that **can be slower**, because a table that used to sit ready ' +
       'is now **calculated on every call**.\n\n' +
       '**Speed comes in proportion to how much code gets adapted.** ' +
@@ -68,14 +68,14 @@ SAP.registerTopic({
       'An executive asks: *"What do we gain by moving to S/4HANA?"*\n\n' +
       'A weak answer: *"It\'ll be faster, the interface will be modern, ' +
       '{{ACDOCA}} is a single table."*\n\n' +
-      'That answer isn\'t technical or persuasive — and its first claim is only ' +
+      'That answer isn\'t technical or persuasive: and its first claim is only ' +
       '**conditionally true**.\n\n' +
       '---\n\n' +
       '**A strong answer is three concrete changes:**\n\n' +
-      '**1.** *"Part of your month-end reconciliation steps will **disappear** — ' +
-      'an FI–CO mismatch is no longer possible."*\n\n' +
+      '**1.** *"Part of your month-end reconciliation steps will **disappear**: ' +
+      'an FI-CO mismatch is no longer possible."*\n\n' +
       '**2.** *"You\'ll be able to ask questions you can\'t ask today: ' +
-      'the balance as of any past date, broken down by any dimension — ' +
+      'the balance as of any past date, broken down by any dimension: ' +
       'because the total isn\'t stored, it\'s calculated."*\n\n' +
       '**3.** *"But some of your existing custom reports will **slow down if ' +
       'they aren\'t adapted**, and some will **silently produce the wrong ' +
@@ -84,8 +84,8 @@ SAP.registerTopic({
 
     muhasebeMantigi:
       'From an accounting standpoint, **nothing changed**: double-entry, ' +
-      'the debit–credit balance, {{mutabakat-hesabi}} logic, ' +
-      'period close — all the same.\n\n' +
+      'the debit-credit balance, {{mutabakat-hesabi}} logic, ' +
+      'period close: all the same.\n\n' +
       'What changed is **where these records are stored**.\n\n' +
       '---\n\n' +
       '**When a vendor invoice was posted in ECC:**\n\n' +
@@ -93,14 +93,14 @@ SAP.registerTopic({
       '{{LFC1}} vendor balance · {{GLT0}}/{{FAGLFLEXT}} G/L totals · ' +
       '`COEP` CO line\n\n' +
       '**The same invoice in S/4HANA:**\n\n' +
-      '{{BKPF}} header · {{ACDOCA}} items — **that\'s it.**\n\n' +
+      '{{BKPF}} header · {{ACDOCA}} items: **that\'s it.**\n\n' +
       '---\n\n' +
       '**The practical result for accountants:** the *"the trial balance and the ' +
       'detail don\'t match"* problem **is gone**. Because the trial balance is now ' +
       'calculated **from the line-item detail itself**, not from a separate table.\n\n' +
       '**But one thing did change, and it matters:** in {{BSEG}}, amounts ' +
       'were **always positive**, with direction held in a separate field ' +
-      '(`SHKZG`: S debit / H credit). In {{ACDOCA}} amounts are **signed** — ' +
+      '(`SHKZG`: S debit / H credit). In {{ACDOCA}} amounts are **signed**: ' +
       'a credit is negative.\n\n' +
       'This doesn\'t change the accounting logic, but it changes **every query**. ' +
       'It\'s this topic\'s most expensive detail, and you\'ll run into it in the ' +
@@ -114,19 +114,19 @@ SAP.registerTopic({
   surec: {
     anlatim:
       'A document\'s **journey** is what shows the difference between ECC and ' +
-      'S/4HANA most concretely. The same invoice, the same accounting — ' +
+      'S/4HANA most concretely. The same invoice, the same accounting: ' +
       'a different number of stops.',
 
     roller:[
-      { rol:'User', gorev:'Enters the invoice — the screen is **the same** ({{FB60}} or {{fiori}}).' },
-      { rol:'System', gorev:'Validation and account determination — **unchanged**.' },
-      { rol:'System', gorev:'Writes the {{BKPF}} header — **unchanged**.' },
-      { rol:'System', gorev:'Writes the items to **{{ACDOCA}}** — a single table.' },
-      { rol:'System', gorev:'**Doesn\'t write** totals tables — they no longer exist.' },
-      { rol:'System', gorev:'**Doesn\'t write** index tables — they are now views.' },
-      { rol:'System', gorev:'**Doesn\'t write a separate** CO line — the same line carries the CO fields.' },
-      { rol:'User', gorev:'Pulls the {{FBL1N}} item list — **calculated** from the line items.' },
-      { rol:'User', gorev:'Pulls the {{FS10N}} balance — calculated from **the same line items**.' },
+      { rol:'User', gorev:'Enters the invoice: the screen is **the same** ({{FB60}} or {{fiori}}).' },
+      { rol:'System', gorev:'Validation and account determination: **unchanged**.' },
+      { rol:'System', gorev:'Writes the {{BKPF}} header: **unchanged**.' },
+      { rol:'System', gorev:'Writes the items to **{{ACDOCA}}**: a single table.' },
+      { rol:'System', gorev:'**Doesn\'t write** totals tables: they no longer exist.' },
+      { rol:'System', gorev:'**Doesn\'t write** index tables: they are now views.' },
+      { rol:'System', gorev:'**Doesn\'t write a separate** CO line: the same line carries the CO fields.' },
+      { rol:'User', gorev:'Pulls the {{FBL1N}} item list: **calculated** from the line items.' },
+      { rol:'User', gorev:'Pulls the {{FS10N}} balance: calculated from **the same line items**.' },
     ],
 
     diyagram:{
@@ -135,39 +135,39 @@ SAP.registerTopic({
       adimlar:[
         { ic:'📝', rol:'User', baslik:'The invoice is entered',
           aciklama:'The screen and the accounting logic **haven\'t changed**. ' +
-                   'Tax code, account determination, validation rules — all the same.',
+                   'Tax code, account determination, validation rules: all the same.',
           cikti:'A posting request', ok:'gets validated' },
-        { ic:'🧾', rol:'System', baslik:'{{BKPF}} — the document header',
+        { ic:'🧾', rol:'System', baslik:'{{BKPF}}: the document header',
           aciklama:'Document number, date, document type, currency. ' +
                    '**This table hasn\'t changed.**',
           cikti:'Header record', ok:'items are written' },
-        { ic:'⭐', rol:'System', baslik:'{{ACDOCA}} — **the single item table**',
+        { ic:'⭐', rol:'System', baslik:'{{ACDOCA}}: **the single item table**',
           aciklama:'FI items, CO objects, the asset dimension, ledger, segment, ' +
-                   'functional area, and **up to eight currencies** — ' +
+                   'functional area, and **up to eight currencies**: ' +
                    'all on **the same line**.\n\n' +
                    'Amounts are **signed**: a credit is negative.',
           cikti:'Item lines', ok:'in ECC it would have continued' },
-        { ic:'🚫', rol:'Existed in ECC', baslik:'{{BSIK}} / {{BSID}} — the open-item copy',
+        { ic:'🚫', rol:'Existed in ECC', baslik:'{{BSIK}} / {{BSID}}: the open-item copy',
           aciklama:'In ECC, the same item was written a **second time under a ' +
                    'different key**: the {{BSEG}} key starts with the document ' +
                    'number, the {{BSIK}} key starts with `LIFNR`.\n\n' +
-                   'In S/4HANA it **isn\'t written** — these became {{uyumluluk-view}}s.',
-          cikti:'—', ok:'and would have continued' },
-        { ic:'🚫', rol:'Existed in ECC', baslik:'{{GLT0}} / {{FAGLFLEXT}} — the totals tables',
+                   'In S/4HANA it **isn\'t written**: these became {{uyumluluk-view}}s.',
+          cikti:': ', ok:'and would have continued' },
+        { ic:'🚫', rol:'Existed in ECC', baslik:'{{GLT0}} / {{FAGLFLEXT}}: the totals tables',
           aciklama:'Balances by account and period used to be **pre-calculated** ' +
                    'and stored.\n\n' +
                    'They had two downsides: they took up space and ' +
                    'could **diverge from the line items**.\n\n' +
-                   'In S/4HANA they **aren\'t written** — the balance is calculated ' +
+                   'In S/4HANA they **aren\'t written**: the balance is calculated ' +
                    'from the line items.',
-          cikti:'—', ok:'and would have continued' },
-        { ic:'🚫', rol:'Existed in ECC', baslik:'`COEP` — a separate CO line',
+          cikti:': ', ok:'and would have continued' },
+        { ic:'🚫', rol:'Existed in ECC', baslik:'`COEP`: a separate CO line',
           aciklama:'The same expense used to be recorded **a second time** on the ' +
                    'CO side, and could diverge from FI; that\'s why a reconciliation ' +
                    'ledger existed.\n\n' +
                    'In S/4HANA the same {{ACDOCA}} line carries **both FI and CO** ' +
                    'fields → divergence is **impossible**.',
-          cikti:'—', ok:'the read side' },
+          cikti:': ', ok:'the read side' },
         { ic:'📊', rol:'User', baslik:'{{FBL1N}} item list · {{FS10N}} balance',
           aciklama:'**Both are calculated from the same source** ({{ACDOCA}}).\n\n' +
                    'This is why the *"the trial balance and the detail don\'t ' +
@@ -183,9 +183,9 @@ SAP.registerTopic({
     },
 
     adimlar:[
-      { rol:'User', eylem:'Enters the invoice', sistem:'{{FB60}} / {{fiori}} — **same**' },
-      { rol:'System', eylem:'Writes the header', sistem:'{{BKPF}} — **same**' },
-      { rol:'System', eylem:'Writes the items', sistem:'{{ACDOCA}} — **a single table**' },
+      { rol:'User', eylem:'Enters the invoice', sistem:'{{FB60}} / {{fiori}}: **same**' },
+      { rol:'System', eylem:'Writes the header', sistem:'{{BKPF}}: **same**' },
+      { rol:'System', eylem:'Writes the items', sistem:'{{ACDOCA}}: **a single table**' },
       { rol:'System', eylem:'Writes no totals', sistem:'No {{GLT0}} / {{FAGLFLEXT}}' },
       { rol:'System', eylem:'Writes no index', sistem:'{{BSIK}} / {{BSID}} are views' },
       { rol:'System', eylem:'Writes no CO line', sistem:'The same line carries CO' },
@@ -194,7 +194,7 @@ SAP.registerTopic({
 
     veriAkisi:{
       nereden:'User entry or integrated modules (MM, SD, AA).',
-      nereye:'{{BKPF}} + {{ACDOCA}} — and nowhere else.',
+      nereye:'{{BKPF}} + {{ACDOCA}}: and nowhere else.',
       tetikleyen:'Every accounting posting.',
       sonraki:'Reports and {{gomulu-analitik}} read from the same lines.',
     },
@@ -213,16 +213,16 @@ SAP.registerTopic({
         '| Reconciliation ledger | Two copies could diverge | Only one copy exists |\n' +
         '| Overnight batch jobs | Reports needed prep work | Calculated instantly |\n\n' +
         '---\n\n' +
-        '**A general principle — not just for SAP:** a significant part of the ' +
+        '**A general principle: not just for SAP:** a significant part of the ' +
         'complexity in a system is the leftover of a constraint that no longer ' +
         'applies.\n\n' +
         'That\'s why the answer to *"why was it built this way?"* is usually ' +
-        '*"the hardware of the time didn\'t allow anything else"* — ' +
+        '*"the hardware of the time didn\'t allow anything else"*: ' +
         'and once the constraint disappears, **the solution needs re-examining ' +
         'too**.\n\n' +
         'But removing it **isn\'t free**: everything tied to the old structure ' +
         '(custom code, screens, habits) needs to be adapted. ' +
-        'The {{uyumluluk-view}} **postpones** that cost — it doesn\'t eliminate it.' },
+        'The {{uyumluluk-view}} **postpones** that cost: it doesn\'t eliminate it.' },
     ],
   },
 
@@ -230,24 +230,24 @@ SAP.registerTopic({
   muhasebe: {
     anlatim:
       'The accounting logic hasn\'t changed; the postings below would be ' +
-      'identical in ECC. What changed is **where they get written** — and, as ' +
+      'identical in ECC. What changed is **where they get written**: and, as ' +
       'with the last two postings, **how many times they get written**.',
 
     etkilenenHesaplar:[
       { hesap:'770 General administrative expenses', tur:'Income statement', neden:'In S/4 the G/L account **and** the {{masraf-turu}} are one object.' },
-      { hesap:'320 Trade payables', tur:'Balance sheet — Liability', neden:'{{acik-kalem}}; there\'s no more {{BSIK}} copy.' },
-      { hesap:'191 Deductible VAT', tur:'Balance sheet — Asset', neden:'The tax logic hasn\'t changed ({{BSET}} still exists).' },
-      { hesap:'257 Accumulated depreciation', tur:'Balance sheet — Asset (−)', neden:'Every {{amortisman-alani}} writes **to its own ledger** in real time.' },
+      { hesap:'320 Trade payables', tur:'Balance sheet: Liability', neden:'{{acik-kalem}}; there\'s no more {{BSIK}} copy.' },
+      { hesap:'191 Deductible VAT', tur:'Balance sheet: Asset', neden:'The tax logic hasn\'t changed ({{BSET}} still exists).' },
+      { hesap:'257 Accumulated depreciation', tur:'Balance sheet: Asset (−)', neden:'Every {{amortisman-alani}} writes **to its own ledger** in real time.' },
     ],
 
     fisler:[
-      { baslik:'① Vendor invoice — **same posting, fewer tables**',
+      { baslik:'① Vendor invoice: **same posting, fewer tables**',
         belgeTuru:'KR', tarih:'14.05.2028', paraBirimi:'TRY',
         satirlar:[
           { hesap:'770', ad:'General administrative expenses', borc:50000,
             not:'profit center 4100 · functional area · segment' },
           { hesap:'191', ad:'Deductible VAT 20%', borc:10000 },
-          { hesap:'320', ad:'Trade payables — consulting', alacak:60000 },
+          { hesap:'320', ad:'Trade payables: consulting', alacak:60000 },
         ],
         not:'**In ECC this posting would write to six tables:**\n\n' +
              '{{BKPF}} · {{BSEG}} (3 lines) · {{BSIK}} (open-item copy) · ' +
@@ -262,13 +262,13 @@ SAP.registerTopic({
              '**A critical detail:** the `320` line\'s amount sits in {{ACDOCA}} ' +
              'as **−60,000**. In {{BSEG}} it was +60,000 with `SHKZG = H`.' },
 
-      { baslik:'② FI–CO divergence — **now impossible**',
+      { baslik:'② FI-CO divergence: **now impossible**',
         belgeTuru:'KR', tarih:'20.05.2028', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'770', ad:'General administrative expense — cost center 4100', borc:120000 },
+          { hesap:'770', ad:'General administrative expense: cost center 4100', borc:120000 },
           { hesap:'320', ad:'Trade payables', alacak:120000 },
         ],
-        not:'**This posting\'s biggest innovation in S/4HANA doesn\'t show — ' +
+        not:'**This posting\'s biggest innovation in S/4HANA doesn\'t show: ' +
              'because the innovation is something *not happening*.**\n\n' +
              '**In ECC:** the expense line was written **separately** to FI\'s ' +
              '{{BSEG}} and CO\'s `COEP`. The two records were supposed to always ' +
@@ -279,26 +279,26 @@ SAP.registerTopic({
              '**In S/4HANA:** a single {{ACDOCA}} line carries both the ' +
              '`RACCT` (G/L account) and `RCNTR` (cost center) fields. There are ' +
              'no two records to diverge.\n\n' +
-             '**Practical result:** the "FI–CO reconciliation" step in your ' +
+             '**Practical result:** the "FI-CO reconciliation" step in your ' +
              'month-end checklist **should be deleted**. If it\'s still there, ' +
              'time is being wasted on it every month for nothing (see ' +
              '{{konu:best-practices}}).' },
 
-      { baslik:'③ Depreciation — **local ledger (0L)**',
+      { baslik:'③ Depreciation: **local ledger (0L)**',
         belgeTuru:'AF', tarih:'31.05.2028', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'770', ad:'Depreciation expense — VUK, 5 years', borc:100000 },
+          { hesap:'770', ad:'Depreciation expense: VUK, 5 years', borc:100000 },
           { hesap:'257', ad:'Accumulated depreciation', alacak:100000 },
         ],
         not:'In New Asset Accounting, **{{amortisman-alani}} = ledger**. ' +
              'The local area (01) writes to the {{lider-defter}} (`0L`).\n\n' +
-             'This posting was the same in ECC too — the difference is in the ' +
+             'This posting was the same in ECC too: the difference is in the ' +
              'next one.' },
 
-      { baslik:'④ The same asset, **IFRS ledger (2L)** — real time',
+      { baslik:'④ The same asset, **IFRS ledger (2L)**: real time',
         belgeTuru:'AF', tarih:'31.05.2028', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'770', ad:'Depreciation expense — IFRS, 8 years', borc:62500 },
+          { hesap:'770', ad:'Depreciation expense: IFRS, 8 years', borc:62500 },
           { hesap:'257', ad:'Accumulated depreciation', alacak:62500 },
         ],
         not:'**This is where New Asset Accounting\'s real change is.**\n\n' +
@@ -319,35 +319,35 @@ SAP.registerTopic({
     ],
 
     tHesaplar:[
-      { hesap:'Accumulated depreciation — **leading ledger 0L**', kod:'257 · VUK',
+      { hesap:'Accumulated depreciation: **leading ledger 0L**', kod:'257 · VUK',
         borc:[],
         alacak:[{ ad:'May depreciation (5 years)', tutar:100000 }],
-        not:'Per local statutory rules — {{amortisman-alani}} 01' },
-      { hesap:'Accumulated depreciation — **IFRS ledger 2L**', kod:'257 · IFRS',
+        not:'Per local statutory rules: {{amortisman-alani}} 01' },
+      { hesap:'Accumulated depreciation: **IFRS ledger 2L**', kod:'257 · IFRS',
         borc:[],
         alacak:[{ ad:'May depreciation (8 years)', tutar:62500 }],
-        not:'**Real time** — in ECC this was periodic and delta-based' },
+        not:'**Real time**: in ECC this was periodic and delta-based' },
     ],
 
     notlar:[
-      { tip:'err', baslik:'The SHKZG trap — the topic\'s most expensive detail', metin:
+      { tip:'err', baslik:'The SHKZG trap: the topic\'s most expensive detail', metin:
         'The accounting logic hasn\'t changed, but **how the amount is stored** ' +
         'has. That single difference affects every migrated query.\n\n' +
         '---\n\n' +
-        '**{{BSEG}} — the old world**\n\n' +
+        '**{{BSEG}}: the old world**\n\n' +
         'Amounts are **always positive** (`DMBTR`). ' +
         'Direction is stored in a separate field: `SHKZG` = **S** (debit) or ' +
         '**H** (credit).\n\n' +
         'To sum a total, the direction logic is applied **by hand**:\n' +
         '`IF SHKZG = "H". amount = amount * -1. ENDIF.`\n\n' +
-        '**{{ACDOCA}} — the new world**\n\n' +
+        '**{{ACDOCA}}: the new world**\n\n' +
         'Amounts are **signed** (`HSL`): a credit is stored as **negative**. ' +
-        'No extra logic is needed to sum — it\'s summed directly.\n\n' +
+        'No extra logic is needed to sum: it\'s summed directly.\n\n' +
         '---\n\n' +
         '**The danger:** when an old query is migrated to the new table and ' +
         'the `SHKZG` logic **isn\'t removed**, the sign gets applied **twice**. ' +
         'Credit lines flip back to positive and the totals become ' +
-        'meaningless — often coming out **close to zero**.\n\n' +
+        'meaningless: often coming out **close to zero**.\n\n' +
         '**And this error is silent:** the program doesn\'t crash, ' +
         'it **produces the wrong number**. The report looks empty or odd; ' +
         'if nobody compares it against the trial balance, it can go unnoticed ' +
@@ -357,7 +357,7 @@ SAP.registerTopic({
       { tip:'warn', baslik:'The cost element merged with the G/L account', metin:
         'In ECC, an expense was two separate objects: the **G/L account** ' +
         '({{SKA1}}) and the **{{masraf-turu}}** ({{CSKB}}). They were opened and ' +
-        'maintained separately — and could become **inconsistent**: if the ' +
+        'maintained separately: and could become **inconsistent**: if the ' +
         'G/L account existed but the cost element didn\'t, no CO record was ' +
         'created.\n\n' +
         '**In S/4HANA there\'s a single object:** the cost element is a ' +
@@ -365,7 +365,7 @@ SAP.registerTopic({
         'revenue, secondary cost, balance sheet, etc.).\n\n' +
         '**Three practical consequences:**\n\n' +
         '**1.** Opening a cost element is now **the same as opening a G/L ' +
-        'account** — two steps became one.\n' +
+        'account**: two steps became one.\n' +
         '**2.** **Ownership changed:** the chart of accounts used to belong ' +
         'to accounting, cost elements to controlling. Now there\'s a ' +
         '**single list**, and who owns it **must be explicitly decided**.\n' +
@@ -386,20 +386,20 @@ SAP.registerTopic({
       /* --- CLUSTER 1: DATA ARCHITECTURE --- */
       { ad:'Universal Journal',
         aciklama:'The single source of line items for FI, CO, asset, and material values.',
-        neZaman:'On every accounting posting — no exceptions.',
+        neZaman:'On every accounting posting: no exceptions.',
         ornek:'**What merged:** {{BSEG}} (FI items) · `COEP` (CO lines) · ' +
               '{{ANLC}} (asset values) · material valuation\n\n' +
               '**What every line carries:** ledger (`RLDNR`) · G/L account ' +
               '(`RACCT`) · cost center (`RCNTR`) · profit center (`PRCTR`) · ' +
               'segment · functional area · **up to eight currencies**\n\n' +
               '**The biggest payoff isn\'t speed, it\'s consistency:** ' +
-              'an FI–CO divergence is **structurally impossible**.\n\n' +
-              'Amounts are **signed** — unlike {{BSEG}}.',
+              'an FI-CO divergence is **structurally impossible**.\n\n' +
+              'Amounts are **signed**: unlike {{BSEG}}.',
         tcodes:['FAGLL03','SE16N'] },
 
       { ad:'Removed Aggregates',
         aciklama:'Balances that used to be pre-calculated and stored.',
-        neZaman:'Never anymore — the balance is calculated from the line items.',
+        neZaman:'Never anymore: the balance is calculated from the line items.',
         ornek:'**What was removed:** {{GLT0}} (classic G/L totals) · ' +
               '{{FAGLFLEXT}} (New G/L totals) · ' +
               '{{KNC1}} / {{LFC1}} (customer / vendor balances)\n\n' +
@@ -413,7 +413,7 @@ SAP.registerTopic({
 
       { ad:'Removed Index Tables',
         aciklama:'A second copy of the same item under a different key.',
-        neZaman:'Never anymore — they became {{uyumluluk-view}}s.',
+        neZaman:'Never anymore: they became {{uyumluluk-view}}s.',
         ornek:'**Open items:** {{BSIK}} (vendor) · {{BSID}} (customer) · {{BSIS}} (G/L)\n' +
               '**Cleared items:** {{BSAK}} · {{BSAD}} · {{BSAS}}\n\n' +
               '**Why they existed:** the {{BSEG}} key starts with the ' +
@@ -421,7 +421,7 @@ SAP.registerTopic({
               'table. The {{BSIK}} key starts with `LIFNR` (see ' +
               '{{konu:sap-tables}}).\n\n' +
               '**They can be read but NOT WRITTEN.** An old load program that ' +
-              'tries to write to them **fails** — an open item is now created ' +
+              'tries to write to them **fails**: an open item is now created ' +
               '**by the posting itself**.',
         tcodes:['FBL1N','FBL5N'] },
 
@@ -435,7 +435,7 @@ SAP.registerTopic({
               'apart** over time.\n\n' +
               '**The fix:** one identity ({{BUT000}}), many roles.\n\n' +
               '**A commonly missed point:** company-code data **didn\'t ' +
-              'disappear** — it still lives in {{LFB1}} / {{KNB1}}, and ' +
+              'disappear**: it still lives in {{LFB1}} / {{KNB1}}, and ' +
               '`AKONT` ({{mutabakat-hesabi}}) is there too. What changed is ' +
               '**the identity layer**.\n\n' +
               'In a {{brownfield}} migration, {{cvi}} conversion is a ' +
@@ -452,7 +452,7 @@ SAP.registerTopic({
               'one step**\n\n' +
               '**An ownership question arises:** the chart of accounts used to ' +
               'belong to accounting, cost elements to controlling. Now there\'s ' +
-              'a single list — who owns it **must be explicitly decided**.\n\n' +
+              'a single list: who owns it **must be explicitly decided**.\n\n' +
               'In a brownfield migration, cost elements that don\'t line up ' +
               '**stop the conversion**.',
         tcodes:['FS00'] },
@@ -463,10 +463,10 @@ SAP.registerTopic({
         neZaman:'On every depreciation run.',
         ornek:'**ECC:** only area 01 posted to FI in real time. ' +
               'The others were transferred **periodically**, through **delta** ' +
-              'postings — the IFRS ledger was **incomplete** mid-month.\n\n' +
+              'postings: the IFRS ledger was **incomplete** mid-month.\n\n' +
               '**S/4:** every area writes **the full amount, instantly**, to ' +
               'its own ledger. The delta logic **is gone**.\n\n' +
-              'Also, **planned depreciation is calculated on the fly** — ' +
+              'Also, **planned depreciation is calculated on the fly**: ' +
               'not from a total stored in {{ANLC}}. That\'s why the {{AW01N}} ' +
               'asset explorer is always current.\n\n' +
               'A single {{AFAB}} run feeds **every ledger** at once ' +
@@ -497,12 +497,12 @@ SAP.registerTopic({
               'once).\n' +
               'Fiori is **task**-centric: one app, one job.\n\n' +
               '**It has two consequences for a consultant:**\n\n' +
-              '**1.** Role design is now also **interface design** — ' +
+              '**1.** Role design is now also **interface design**: ' +
               'a user only sees the apps in their role.\n' +
               '**2.** Many Fiori apps call the **same** transaction code in ' +
-              'the background — the configuration you already know **applies ' +
+              'the background: the configuration you already know **applies ' +
               'exactly as before**.\n\n' +
-              'Classic transactions weren\'t removed — they can still be ' +
+              'Classic transactions weren\'t removed: they can still be ' +
               'launched from the launchpad.' },
 
       { ad:'Central Finance',
@@ -522,17 +522,17 @@ SAP.registerTopic({
     karsilastirmaBasliklar:['ECC', 'S/4HANA'],
     karsilastirma:[
       ['FI items', '{{BSEG}}', '**{{ACDOCA}}**'],
-      ['CO lines', '`COEP` — **a separate record**', 'On the same {{ACDOCA}} line'],
-      ['FI–CO divergence', 'Possible — needs reconciliation', '✓ **Structurally impossible**'],
+      ['CO lines', '`COEP`: **a separate record**', 'On the same {{ACDOCA}} line'],
+      ['FI-CO divergence', 'Possible: needs reconciliation', '✓ **Structurally impossible**'],
       ['G/L balances', '{{GLT0}} / {{FAGLFLEXT}} **stored**', '**Calculated**'],
-      ['Open items', '{{BSIK}} / {{BSID}} physical table', '{{uyumluluk-view}} — **not writable**'],
+      ['Open items', '{{BSIK}} / {{BSID}} physical table', '{{uyumluluk-view}}: **not writable**'],
       ['Amount sign', 'Always positive + `SHKZG`', '**Signed** (credit negative)'],
       ['Vendor / customer', '{{LFA1}} / {{KNA1}} independent', '**{{is-ortagi}} mandatory**'],
-      ['Cost element', '{{CSKB}} — a separate object', 'The G/L account\'s **type**'],
+      ['Cost element', '{{CSKB}}: a separate object', 'The G/L account\'s **type**'],
       ['Depreciation areas', 'Only 01 in real time', '**All of them** in real time'],
       ['Currencies', '2 (+ extra fields)', '**Up to 8**'],
-      ['Reporting', 'Separate warehouse / overnight extract', '{{gomulu-analitik}} — live'],
-      ['Accounting logic', 'Double-entry', '**Same — unchanged**'],
+      ['Reporting', 'Separate warehouse / overnight extract', '{{gomulu-analitik}}: live'],
+      ['Accounting logic', 'Double-entry', '**Same: unchanged**'],
     ],
   },
 
@@ -546,36 +546,36 @@ SAP.registerTopic({
       'slow* ({{SAT}}), *what state is the ledger in* ({{FINSC_LEDGER}}).',
 
     liste:[
-      { kod:'SE16N', ad:'Table display — through S/4 eyes',
+      { kod:'SE16N', ad:'Table display: through S/4 eyes',
         amac:'Displays a table\'s content; the fastest way to tell whether ' +
              'something in S/4HANA is a **view or a table**.',
-        neZaman:'For diagnosis — *"where does this data actually live?"*',
+        neZaman:'For diagnosis: *"where does this data actually live?"*',
         adimlar:[
-          { baslik:'Look at {{ACDOCA}} — the real item table',
+          { baslik:'Look at {{ACDOCA}}: the real item table',
             aciklama:'Filter a document with `RBUKRS` + `GJAHR` + `BELNR`.' },
-          { baslik:'Pay attention to the `HSL` field — a **signed** amount',
+          { baslik:'Pay attention to the `HSL` field: a **signed** amount',
             aciklama:'Credit lines are **negative**. That wasn\'t the case in {{BSEG}}.' },
-          { baslik:'Look at {{BSIK}} — the same data, through a **view**',
+          { baslik:'Look at {{BSIK}}: the same data, through a **view**',
             aciklama:'A result comes back but it\'s calculated behind the scenes from {{ACDOCA}}.' },
           { baslik:'Compare: the same item, **opposite sign**, in two places',
             aciklama:'This is the proof of why migrated queries break.' },
-          { baslik:'Confirm the object type with {{SE11}} — table or view?' },
+          { baslik:'Confirm the object type with {{SE11}}: table or view?' },
         ],
         ekranAkisi:[
           { ekran:'{{ACDOCA}}', islem:'Document 1900004417 → 3 lines · `HSL`: +50,000 · +10,000 · **−60,000**' },
           { ekran:'{{BSIK}}', islem:'The same vendor item → amount **+60,000**, `SHKZG` = **H**' },
-          { ekran:'Takeaway', islem:'**Same item, two different representations** — query logic must account for this' },
+          { ekran:'Takeaway', islem:'**Same item, two different representations**: query logic must account for this' },
           { ekran:'{{SE11}}', islem:'{{BSIK}} → object type: **view** (not a table)' },
         ],
         alanlar:{
           zorunlu:['Table/view name'],
           opsiyonel:['Filter fields','Output layout'] },
         hatalar:[
-          { mesaj:'A program trying to write to {{BSIK}} throws an error', sebep:'It\'s now a **view** — it can\'t be written to.', cozum:'An open item is created **by the posting itself**; the program needs adapting.' },
-          { mesaj:'The query result differs from what ECC produced', sebep:'`SHKZG` semantics — the amount is **signed** in {{ACDOCA}}.', cozum:'Remove the direction logic from the migrated query; otherwise the sign gets applied twice.' },
+          { mesaj:'A program trying to write to {{BSIK}} throws an error', sebep:'It\'s now a **view**: it can\'t be written to.', cozum:'An open item is created **by the posting itself**; the program needs adapting.' },
+          { mesaj:'The query result differs from what ECC produced', sebep:'`SHKZG` semantics: the amount is **signed** in {{ACDOCA}}.', cozum:'Remove the direction logic from the migrated query; otherwise the sign gets applied twice.' },
           { mesaj:'Reading from the view is very slow', sebep:'A {{uyumluluk-view}} is **calculated** at read time.', cozum:'Critical programs are migrated to {{ACDOCA}}. The view is a **bridge**, not a permanent fix.' },
         ],
-        ipucu:'**{{SE16N}} isn\'t handed to end users** — its authorization ' +
+        ipucu:'**{{SE16N}} isn\'t handed to end users**: its authorization ' +
               'checks are weak and raw data is misleading (see ' +
               '{{konu:sap-tables}}).\n\n' +
               'For a consultant, though, it\'s indispensable for one thing: ' +
@@ -587,10 +587,10 @@ SAP.registerTopic({
         amac:'Measures where a program spends its time (formerly SE30).',
         neZaman:'Post-migration, on the *"why did it get slower?"* question.',
         adimlar:[
-          { baslik:'Find the suspect program in {{SM37}} — the longest-running jobs' },
-          { baslik:'Take a measurement with {{SAT}} — using **real data**' },
+          { baslik:'Find the suspect program in {{SM37}}: the longest-running jobs' },
+          { baslik:'Take a measurement with {{SAT}}: using **real data**' },
           { baslik:'Separate out database time: which table/view is being read?' },
-          { baslik:'Confirm with an {{ST05}} SQL trace — see the actual query generated',
+          { baslik:'Confirm with an {{ST05}} SQL trace: see the actual query generated',
             aciklama:'A {{uyumluluk-view}} read shows up **clearly** here.' },
           { baslik:'Decide: is a view being read, and should it move to {{ACDOCA}}?' },
         ],
@@ -611,7 +611,7 @@ SAP.registerTopic({
         ipucu:'**After a migration, the first question in any performance ' +
               'complaint is: "which table is this program reading?"**\n\n' +
               'If the answer is a {{uyumluluk-view}}, the problem is found. ' +
-              'Views are a **bridge** — they make the migration possible, ' +
+              'Views are a **bridge**: they make the migration possible, ' +
               'not a permanent fix.',
         ilgili:['ST05','SM37','SE16N'] },
 
@@ -619,8 +619,8 @@ SAP.registerTopic({
         amac:'Manages ledgers, currencies, and company-code assignments.',
         neZaman:'During setup, and when reviewing the ledger structure.',
         adimlar:[
-          { baslik:'List the ledgers — the {{lider-defter}} `0L` and any additional ledgers' },
-          { baslik:'Look at the currency columns — **up to eight**',
+          { baslik:'List the ledgers: the {{lider-defter}} `0L` and any additional ledgers' },
+          { baslik:'Look at the currency columns: **up to eight**',
             aciklama:'In ECC there were two (plus extra fields).' },
           { baslik:'Check the company-code assignments' },
           { baslik:'The ledger structure is a {{tek-yonlu-kapi}}',
@@ -637,11 +637,11 @@ SAP.registerTopic({
           opsiyonel:['Fiscal year variant (per ledger)'] },
         hatalar:[
           { mesaj:'The IFRS report comes out incomplete', sebep:'The ledger assignment or {{amortisman-alani}} bridge is missing.', cozum:'Check the area → ledger mapping in {{OADB}}.' },
-          { mesaj:'We opened a new ledger but there\'s no history', sebep:'**Expected behavior** — the ledger structure is a one-way door.', cozum:'History can\'t be written retroactively. That\'s why ledgers are opened **from the start**; an unused ledger is essentially free.' },
+          { mesaj:'We opened a new ledger but there\'s no history', sebep:'**Expected behavior**: the ledger structure is a one-way door.', cozum:'History can\'t be written retroactively. That\'s why ledgers are opened **from the start**; an unused ledger is essentially free.' },
         ],
         ipucu:'**An empty currency slot is free; a currency added later ' +
               'stays empty in the past.**\n\n' +
-              'The same principle applies to ledgers — ' +
+              'The same principle applies to ledgers: ' +
               'this is the most concrete S/4HANA application of the ' +
               '*"when in doubt, open it, don\'t use it"* rule from ' +
               '{{konu:best-practices}}.',
@@ -659,46 +659,46 @@ SAP.registerTopic({
       '{{LFB1}}).',
 
     liste:[
-      { ad:'ACDOCA', baslik:'Universal Journal — the single source of line items',
+      { ad:'ACDOCA', baslik:'Universal Journal: the single source of line items',
         tutar:'FI items + CO objects + the asset dimension + material valuation.',
         olusturan:'**Every** transaction that produces an accounting posting',
         anahtar:'RLDNR + RBUKRS + GJAHR + BELNR + DOCLN',
         iliskiler:'Header in {{BKPF}}; the old tables are produced from here as {{uyumluluk-view}}s.',
-        s4:'**New and central.** Never written directly — every line arises from a posting.',
+        s4:'**New and central.** Never written directly: every line arises from a posting.',
         alanlar:[
-          { ad:'RLDNR', aciklama:'**Ledger** — the first part of the key; this is where parallel ledgers separate' },
+          { ad:'RLDNR', aciklama:'**Ledger**: the first part of the key; this is where parallel ledgers separate' },
           { ad:'RACCT', aciklama:'G/L account' },
-          { ad:'RCNTR', aciklama:'Cost center — **not in a separate CO table, right here**' },
+          { ad:'RCNTR', aciklama:'Cost center: **not in a separate CO table, right here**' },
           { ad:'PRCTR', aciklama:'Profit center' },
-          { ad:'HSL', aciklama:'Local currency amount — **SIGNED**, credit negative' },
-          { ad:'DRCRK', aciklama:'Debit/credit indicator — informational only; **the amount is already signed**' },
+          { ad:'HSL', aciklama:'Local currency amount: **SIGNED**, credit negative' },
+          { ad:'DRCRK', aciklama:'Debit/credit indicator: informational only; **the amount is already signed**' },
         ] },
 
-      { ad:'GLT0', baslik:'The removed totals table — why it existed, why it\'s gone',
+      { ad:'GLT0', baslik:'The removed totals table: why it existed, why it\'s gone',
         tutar:'Classic G/L: balances **pre-calculated** by account and period.',
         olusturan:'Used to be updated with every FI posting in ECC',
         anahtar:'BUKRS + RACCT + RYEAR',
         iliskiler:'A summary of {{BSEG}} items in ECC.',
-        s4:'**A {{uyumluluk-view}}** — readable, not writable. The balance is calculated from {{ACDOCA}}.',
+        s4:'**A {{uyumluluk-view}}**: readable, not writable. The balance is calculated from {{ACDOCA}}.',
         alanlar:[
-          { ad:'HSL01–HSL16', aciklama:'Balance by period — **16 columns**; this structure existed to speed up calculation' },
+          { ad:'HSL01-HSL16', aciklama:'Balance by period: **16 columns**; this structure existed to speed up calculation' },
           { ad:'RACCT', aciklama:'Account' },
           { ad:'Lesson', aciklama:'A stored total **can diverge**; a calculated total can\'t' },
         ] },
 
-      { ad:'BSIK', baslik:'The removed index table — the key question',
-        tutar:'Open vendor items — a **second copy** of the same item.',
+      { ad:'BSIK', baslik:'The removed index table: the key question',
+        tutar:'Open vendor items: a **second copy** of the same item.',
         olusturan:'Used to be written on every vendor posting in ECC',
         anahtar:'LIFNR + BUKRS + BELNR',
         iliskiler:'The vendor-based copy of {{BSEG}} in ECC.',
-        s4:'**A view** — readable, **not writable**.',
+        s4:'**A view**: readable, **not writable**.',
         alanlar:[
-          { ad:'LIFNR', aciklama:'**The first part of the key** — this was the reason it existed: {{BSEG}} starts with the document number' },
-          { ad:'SHKZG', aciklama:'Debit/credit — the amount is **positive**, direction is here. Not so in {{ACDOCA}}' },
+          { ad:'LIFNR', aciklama:'**The first part of the key**: this was the reason it existed: {{BSEG}} starts with the document number' },
+          { ad:'SHKZG', aciklama:'Debit/credit: the amount is **positive**, direction is here. Not so in {{ACDOCA}}' },
           { ad:'ZFBDT', aciklama:'Baseline date for payment' },
         ] },
 
-      { ad:'BUT000', baslik:'Business Partner — the new identity layer',
+      { ad:'BUT000', baslik:'Business Partner: the new identity layer',
         tutar:'General data for the {{is-ortagi}}.',
         olusturan:'{{BP}} or {{cvi}} conversion',
         anahtar:'PARTNER',
@@ -707,18 +707,18 @@ SAP.registerTopic({
         alanlar:[
           { ad:'PARTNER', aciklama:'Business partner number' },
           { ad:'TYPE', aciklama:'Person / Organization / Group' },
-          { ad:'Note', aciklama:'`AKONT` is **not here** — it\'s in {{LFB1}}. The identity layer and the company-code data are separate' },
+          { ad:'Note', aciklama:'`AKONT` is **not here**: it\'s in {{LFB1}}. The identity layer and the company-code data are separate' },
         ] },
 
       { ad:'MATDOC', baslik:'The same pattern, outside FI',
-        tutar:'Material documents — a single table in S/4.',
+        tutar:'Material documents: a single table in S/4.',
         olusturan:'{{MIGO}} and every transaction that produces a stock movement',
         anahtar:'MBLNR + MJAHR + ZEILE',
         iliskiler:'The MM counterpart of the **same architectural decision** as {{ACDOCA}} on the FI side.',
         s4:'New. Outside this topic\'s scope, but it **proves the pattern**.',
         alanlar:[
           { ad:'MBLNR', aciklama:'Material document' },
-          { ad:'Lesson', aciklama:'MKPF + MSEG + MARD + MBEW merged; totals are **calculated** — the same principle as FI' },
+          { ad:'Lesson', aciklama:'MKPF + MSEG + MARD + MBEW merged; totals are **calculated**: the same principle as FI' },
         ] },
     ],
 
@@ -726,23 +726,23 @@ SAP.registerTopic({
       type:'er',
       baslik:'What stayed, what was removed, what arrived',
       varliklar:[
-        { ad:'ACDOCA', rol:'Hub', hub:true, aciklama:'**The single source of line items** — FI + CO + AA',
+        { ad:'ACDOCA', rol:'Hub', hub:true, aciklama:'**The single source of line items**: FI + CO + AA',
           alanlar:[{ ad:'BELNR', tip:'pk' }, { ad:'RLDNR', tip:'pk' }, { ad:'RACCT' }, { ad:'HSL' }] },
-        { ad:'BKPF', rol:'Stayed', aciklama:'Document header — **unchanged**',
+        { ad:'BKPF', rol:'Stayed', aciklama:'Document header: **unchanged**',
           alanlar:[{ ad:'BELNR', tip:'pk' }, { ad:'BLART' }] },
-        { ad:'BSIK', rol:'View', aciklama:'**Not writable** — produced from {{ACDOCA}}',
+        { ad:'BSIK', rol:'View', aciklama:'**Not writable**: produced from {{ACDOCA}}',
           alanlar:[{ ad:'LIFNR', tip:'fk' }, { ad:'SHKZG' }] },
         { ad:'GLT0', rol:'View', aciklama:'The total is **calculated**, not stored',
           alanlar:[{ ad:'RACCT', tip:'fk' }, { ad:'HSL' }] },
         { ad:'BUT000', rol:'New', aciklama:'The **{{is-ortagi}}** identity',
           alanlar:[{ ad:'PARTNER', tip:'pk' }] },
-        { ad:'LFB1', rol:'Stayed', aciklama:'Company-code data — `AKONT` is **still here**',
+        { ad:'LFB1', rol:'Stayed', aciklama:'Company-code data: `AKONT` is **still here**',
           alanlar:[{ ad:'LIFNR', tip:'fk' }, { ad:'AKONT' }] },
       ],
       iliskiler:[
         { from:'BKPF', to:'ACDOCA', alanlar:'BELNR', not:'header → items' },
-        { from:'ACDOCA', to:'BSIK', alanlar:'—', not:'the view is **produced from here**' },
-        { from:'ACDOCA', to:'GLT0', alanlar:'—', not:'the total is **calculated**' },
+        { from:'ACDOCA', to:'BSIK', alanlar:': ', not:'the view is **produced from here**' },
+        { from:'ACDOCA', to:'GLT0', alanlar:': ', not:'the total is **calculated**' },
         { from:'BUT000', to:'LFB1', alanlar:'PARTNER', not:'{{cvi}} mapping' },
       ],
     },
@@ -757,21 +757,21 @@ SAP.registerTopic({
       'structure is managed through {{FINSC_LEDGER}}.',
 
     ekranlar:[
-      { ad:'{{BP}} — Business Partner',
+      { ad:'{{BP}}: Business Partner',
         aciklama:'The **single** maintenance screen for both vendor and customer.',
         alanlar:[
           { ad:'Business partner role', zorunlu:true, aciklama:'Vendor, customer, or **both**. ' +
                    'Adding a role isn\'t opening a new record.' },
-          { ad:'Company-code data', zorunlu:true, aciklama:'Still a separate layer — ' +
+          { ad:'Company-code data', zorunlu:true, aciklama:'Still a separate layer: ' +
                    '`AKONT` ({{mutabakat-hesabi}}) is here.' },
           { ad:'Numbering', zorunlu:true, aciklama:'The business partner number doesn\'t ' +
-                   '**have to match** the vendor number — the strategy is chosen up front.' },
+                   '**have to match** the vendor number: the strategy is chosen up front.' },
         ],
         ipucu:'{{XK01}}/{{XD01}} still work but write to {{BUT000}} through ' +
               '{{cvi}} in the background. **{{BP}} is the only correct entry ' +
               'path.**' },
 
-      { ad:'{{SE16N}} — "table or view?"',
+      { ad:'{{SE16N}}: "table or view?"',
         aciklama:'The starting point for diagnosis.',
         alanlar:[
           { ad:'`HSL` sign', zorunlu:false, aciklama:'In {{ACDOCA}} a credit is **negative**. ' +
@@ -782,7 +782,7 @@ SAP.registerTopic({
         ipucu:'Seeing the same item side by side in {{ACDOCA}} and {{BSIK}} is ' +
               'the fastest way to explain the `SHKZG` difference.' },
 
-      { ad:'{{FINSC_LEDGER}} — ledger and currency',
+      { ad:'{{FINSC_LEDGER}}: ledger and currency',
         aciklama:'A single-screen view of the ledger structure.',
         alanlar:[
           { ad:'Ledgers', zorunlu:true, aciklama:'The {{lider-defter}} `0L` plus any additional ledgers.' },
@@ -790,7 +790,7 @@ SAP.registerTopic({
                    'An empty slot is free; a currency added later stays ' +
                    '**empty** in the past.' },
         ],
-        ipucu:'The ledger structure is a {{tek-yonlu-kapi}} — ' +
+        ipucu:'The ledger structure is a {{tek-yonlu-kapi}}: ' +
               'history **isn\'t written** into a ledger opened later.' },
     ],
 
@@ -799,24 +799,24 @@ SAP.registerTopic({
 
     hatalar:[
       { mesaj:'Program can\'t write to {{BSIK}}', sebep:'It\'s now a **view**.', cozum:'An open item is created **through the posting**; the load program needs adapting.' },
-      { mesaj:'A migrated report gives the wrong total (close to zero)', sebep:'The `SHKZG` logic was applied **twice** — the {{ACDOCA}} amount is already signed.', cozum:'Remove the direction logic from the query. This error is **silent**: the program doesn\'t crash, it just produces the wrong number.' },
+      { mesaj:'A migrated report gives the wrong total (close to zero)', sebep:'The `SHKZG` logic was applied **twice**: the {{ACDOCA}} amount is already signed.', cozum:'Remove the direction logic from the query. This error is **silent**: the program doesn\'t crash, it just produces the wrong number.' },
       { mesaj:'Closing took longer after the migration', sebep:'Custom programs are reading a {{uyumluluk-view}}.', cozum:'Measure with {{SAT}}/{{ST05}}; migrate the critical programs to {{ACDOCA}}.' },
-      { mesaj:'"Cost element not found"', sebep:'In S/4 a cost element isn\'t a separate object — it\'s the G/L account\'s **type**.', cozum:'Check the account type in {{FS00}}.' },
-      { mesaj:'Vendor can\'t be opened — "business partner mandatory"', sebep:'Using {{is-ortagi}} is mandatory.', cozum:'Open it with {{BP}}. In a {{brownfield}} migration, {{cvi}} must already be complete.' },
-      { mesaj:'The IFRS ledger looks incomplete mid-month', sebep:'An ECC habit — periodic transfer used to be required there.', cozum:'In S/4 it\'s **real time**; if it\'s incomplete, check the ledger/{{amortisman-alani}} assignment ({{OADB}}).' },
+      { mesaj:'"Cost element not found"', sebep:'In S/4 a cost element isn\'t a separate object: it\'s the G/L account\'s **type**.', cozum:'Check the account type in {{FS00}}.' },
+      { mesaj:'Vendor can\'t be opened: "business partner mandatory"', sebep:'Using {{is-ortagi}} is mandatory.', cozum:'Open it with {{BP}}. In a {{brownfield}} migration, {{cvi}} must already be complete.' },
+      { mesaj:'The IFRS ledger looks incomplete mid-month', sebep:'An ECC habit: periodic transfer used to be required there.', cozum:'In S/4 it\'s **real time**; if it\'s incomplete, check the ledger/{{amortisman-alani}} assignment ({{OADB}}).' },
       { mesaj:'We added a new currency but the past is empty', sebep:'Expected behavior.', cozum:'It isn\'t filled in retroactively. Currency slots are opened **from the start**.' },
     ],
 
     ipuclari:[
-      'Remember the thesis: **"instead of storing the total, calculate it"** — everything else follows from that.',
+      'Remember the thesis: **"instead of storing the total, calculate it"**: everything else follows from that.',
       'Amounts in {{ACDOCA}} are **signed**; **remove** the `SHKZG` logic from any migrated query.',
-      '{{uyumluluk-view}}s are readable, **not writable** — and they **aren\'t free**.',
+      '{{uyumluluk-view}}s are readable, **not writable**: and they **aren\'t free**.',
       'The first question post-migration: *"which table is this program reading?"*',
-      'Take the FI–CO reconciliation step **out of** the closing checklist.',
+      'Take the FI-CO reconciliation step **out of** the closing checklist.',
       '{{is-ortagi}} is the single entry path; company-code data still lives in {{LFB1}}.',
-      'A cost element is now the G/L account\'s **type** — clarify ownership.',
+      'A cost element is now the G/L account\'s **type**: clarify ownership.',
       'Every {{amortisman-alani}} writes **in real time**; the IFRS report is correct every day.',
-      'Open currency and ledger slots **from the start** — the past can\'t be filled in later.',
+      'Open currency and ledger slots **from the start**: the past can\'t be filled in later.',
       '{{fiori}} uses the same configuration behind the scenes; what you know **applies as-is**.',
       'The sentence "S/4HANA is fast" is true **in proportion to how much code was adapted**.',
     ],
@@ -825,12 +825,12 @@ SAP.registerTopic({
   /* ===================================================== 8. TECHNICAL DETAIL === */
   teknik: {
     guncellenenTablolar:[
-      { tablo:'BKPF', ne:'Document header — **unchanged**' },
-      { tablo:'ACDOCA', ne:'Items — FI + CO + AA **on a single line**' },
-      { tablo:'BSIK', ne:'Now a **view** — not written' },
-      { tablo:'GLT0', ne:'Now a **view** — the total is calculated' },
+      { tablo:'BKPF', ne:'Document header: **unchanged**' },
+      { tablo:'ACDOCA', ne:'Items: FI + CO + AA **on a single line**' },
+      { tablo:'BSIK', ne:'Now a **view**: not written' },
+      { tablo:'GLT0', ne:'Now a **view**: the total is calculated' },
       { tablo:'BUT000', ne:'The {{is-ortagi}} identity' },
-      { tablo:'LFB1', ne:'Company-code data — **stayed**' },
+      { tablo:'LFB1', ne:'Company-code data: **stayed**' },
     ],
 
     commit:
@@ -841,7 +841,7 @@ SAP.registerTopic({
       '{{guncelleme-hatasi}} also **narrowed**: previously, if the totals ' +
       'table failed to update, the line items and the balance would diverge. ' +
       'Now there\'s no second place to diverge into.\n\n' +
-      'But checking {{SM13}} is **still necessary** — an update error hasn\'t ' +
+      'But checking {{SM13}} is **still necessary**: an update error hasn\'t ' +
       'disappeared, only its consequence got less destructive.',
 
     belgeNo:
@@ -850,27 +850,27 @@ SAP.registerTopic({
       'the key.\n\n' +
       'What changed is item numbering: in {{BSEG}}, `BUZEI` was ' +
       '**three digits** (a 999-item limit). In {{ACDOCA}}, `DOCLN` is ' +
-      '**six digits** — necessary because document splitting and multi-ledger ' +
+      '**six digits**: necessary because document splitting and multi-ledger ' +
       'postings produce far more lines.\n\n' +
       'Custom programs that hit the old `BUZEI` limit need to account for ' +
       'this difference.',
 
     postingLogic:
       'The posting logic stayed the same **layer by layer**:\n\n' +
-      '**1.** Validation and {{konu:dogrulama-ikame}} rules — same\n' +
-      '**2.** Account determination ({{T030}}, {{OBYC}}, {{VKOA}}) — same\n' +
-      '**3.** Tax calculation ({{BSET}}) — same\n' +
-      '**4.** {{belge-bolme}} — same logic, the result gets written into {{ACDOCA}}\n' +
-      '**5.** Writing — **this is where it changed**: a single table\n\n' +
+      '**1.** Validation and {{konu:dogrulama-ikame}} rules: same\n' +
+      '**2.** Account determination ({{T030}}, {{OBYC}}, {{VKOA}}): same\n' +
+      '**3.** Tax calculation ({{BSET}}): same\n' +
+      '**4.** {{belge-bolme}}: same logic, the result gets written into {{ACDOCA}}\n' +
+      '**5.** Writing: **this is where it changed**: a single table\n\n' +
       '**That\'s why your FI configuration knowledge applies exactly as ' +
-      'before.** S/4HANA isn\'t a new accounting system — it\'s the same ' +
+      'before.** S/4HANA isn\'t a new accounting system: it\'s the same ' +
       'accounting, **stored differently**.',
 
     belgeTuru:
       'Document type logic hasn\'t changed. The one difference: because ' +
       '{{ACDOCA}} lines multiply **by ledger**, the same document produces ' +
       'lines in multiple ledgers, and `RLDNR` is part of the key.\n\n' +
-      'So `BELNR` + `DOCLN` alone **doesn\'t identify** a line — `RLDNR` is ' +
+      'So `BELNR` + `DOCLN` alone **doesn\'t identify** a line: `RLDNR` is ' +
       'needed too. This is a detail custom reports often miss, and it ' +
       '**multiplies amounts by the number of ledgers** when they do.',
 
@@ -885,13 +885,13 @@ SAP.registerTopic({
 
     tur:
       '**Four clusters, one cause:**\n\n' +
-      '**① Data architecture** — {{ACDOCA}}, the removed {{toplam-tablosu}}s ' +
+      '**① Data architecture**: {{ACDOCA}}, the removed {{toplam-tablosu}}s ' +
       'and index tables. The direct consequence of the thesis.\n\n' +
-      '**② Master data** — {{is-ortagi}}, the cost-element merge. ' +
+      '**② Master data**: {{is-ortagi}}, the cost-element merge. ' +
       'The same unification logic applied to master data.\n\n' +
-      '**③ Process** — New Asset Accounting, {{gomulu-analitik}}. ' +
+      '**③ Process**: New Asset Accounting, {{gomulu-analitik}}. ' +
       'Things that became real-time once calculation got cheap.\n\n' +
-      '**④ Interface and deployment** — {{fiori}}, the cloud editions, ' +
+      '**④ Interface and deployment**: {{fiori}}, the cloud editions, ' +
       '{{merkezi-finans}}. **This cluster is independent of the thesis** and ' +
       'is evaluated separately.',
 
@@ -900,7 +900,7 @@ SAP.registerTopic({
       '{{E070}}/{{E071}}). The {{akim-verisi}} concept also remains exactly ' +
       'as it was.\n\n' +
       'The only thing that changed is **how much code needs transporting**: ' +
-      'the {{z-gelistirme}} inventory is no longer just a maintenance burden — ' +
+      'the {{z-gelistirme}} inventory is no longer just a maintenance burden: ' +
       'it\'s a **migration blocker** that shows up in the ' +
       '{{basitlestirme-listesi}} (see {{konu:best-practices}}).',
 
@@ -916,13 +916,13 @@ SAP.registerTopic({
         'This is the S/4HANA migration\'s **cheapest-looking, most expensive** ' +
         'detail.\n\n' +
         '---\n\n' +
-        '**The old world — {{BSEG}}.`DMBTR`**\n\n' +
+        '**The old world: {{BSEG}}.`DMBTR`**\n\n' +
         'The amount is **always positive**. Direction is a separate field: ' +
         '`SHKZG` = S / H.\n\n' +
         'ABAP code to calculate a vendor balance used to look like this:\n\n' +
         '`LOOP AT items. IF SHKZG = "H". total = total - DMBTR. ` ' +
         '`ELSE. total = total + DMBTR. ENDIF. ENDLOOP.`\n\n' +
-        '**The new world — {{ACDOCA}}.`HSL`**\n\n' +
+        '**The new world: {{ACDOCA}}.`HSL`**\n\n' +
         'The amount is **signed**. Credit is already negative. The total is:\n\n' +
         '`SELECT SUM( HSL ) FROM ACDOCA WHERE ...`\n\n' +
         '---\n\n' +
@@ -934,9 +934,9 @@ SAP.registerTopic({
         '**Result: the debits and credits cancel each other out and the ' +
         'total comes out close to zero.**\n\n' +
         '**And this error is silent:**\n\n' +
-        '• The program **doesn\'t crash** — no dump\n' +
-        '• The query **runs** — no error message\n' +
-        '• The result **looks plausible** — especially in control reports, ' +
+        '• The program **doesn\'t crash**: no dump\n' +
+        '• The query **runs**: no error message\n' +
+        '• The result **looks plausible**: especially in control reports, ' +
         'a near-zero difference reads as "everything ties out"\n\n' +
         'This is the S/4HANA-migration-specific form of the **② silent ' +
         'error** class described in {{konu:error-handling}}, and in the real ' +
@@ -946,7 +946,7 @@ SAP.registerTopic({
         'trial balance.' },
 
       { ic:'🌉', baslik:'A compatibility view is a bridge, not a solution', metin:
-        '{{uyumluluk-view}}s are what **makes the migration possible** — ' +
+        '{{uyumluluk-view}}s are what **makes the migration possible**: ' +
         'thousands of custom programs that read the old tables keep running ' +
         'after the migration.\n\n' +
         'But two things go **unsaid**, and both matter:\n\n' +
@@ -956,11 +956,11 @@ SAP.registerTopic({
         'In S/4HANA the same name is a **view** and gets **calculated** from ' +
         '{{ACDOCA}} on every call.\n\n' +
         'A one-off query won\'t notice the difference. But if it\'s called ' +
-        '**inside a loop**, the cost multiplies — and old ABAP code is used ' +
+        '**inside a loop**, the cost multiplies: and old ABAP code is used ' +
         'to reading inside a loop.\n\n' +
         '**2. They aren\'t a one-to-one match.**\n\n' +
         'The view keeps the field **names**, but {{ACDOCA}}\'s semantics ' +
-        'are different. `SHKZG` is the most visible example — ' +
+        'are different. `SHKZG` is the most visible example: ' +
         'but not the only one: the ledger dimension (`RLDNR`) ' +
         'was **never present** in old queries either, and if it\'s ignored, ' +
         'amounts get **multiplied by the number of ledgers**.\n\n' +
@@ -969,7 +969,7 @@ SAP.registerTopic({
         '**first day** of go-live. After that, critical programs ' +
         '(closing, reconciliation, statutory reports) are **measured** and ' +
         'migrated to {{ACDOCA}}.\n\n' +
-        'The ones not migrated can stay — but they should stay ' +
+        'The ones not migrated can stay: but they should stay ' +
         '**deliberately**, not because they were forgotten.' },
 
       { ic:'🔢', baslik:'Eight currencies, and the "an empty slot is free" rule', metin:
@@ -980,7 +980,7 @@ SAP.registerTopic({
         'an **ease-of-decision** change.\n\n' +
         '---\n\n' +
         '**Why it matters:** currency is a {{tek-yonlu-kapi}}. ' +
-        'A currency added later **stays empty in past records** — ' +
+        'A currency added later **stays empty in past records**: ' +
         'meaning it\'s useless for reporting.\n\n' +
         'In ECC there were two slots and both were usually full; ' +
         'the question *"will we need a group currency?"* was debated ' +
@@ -996,12 +996,12 @@ SAP.registerTopic({
     ],
 
     notlar:[
-      { tip:'tip', baslik:'What S/4HANA did NOT change — and why that\'s good news', metin:
+      { tip:'tip', baslik:'What S/4HANA did NOT change: and why that\'s good news', metin:
         'The biggest time-waster in migration projects is ' +
         '**assuming that things that didn\'t change, changed too**.\n\n' +
         '---\n\n' +
         '**Everything that stayed exactly the same:**\n\n' +
-        '• Double-entry and the debit–credit balance\n' +
+        '• Double-entry and the debit-credit balance\n' +
         '• {{mutabakat-hesabi}} logic and `AKONT` (in {{LFB1}})\n' +
         '• Account-determination tables ({{T030}}, {{OBYC}}, {{VKOA}}, {{T030K}})\n' +
         '• Tax logic and {{BSET}}\n' +
@@ -1013,7 +1013,7 @@ SAP.registerTopic({
         '• {{acik-kalem}} management and clearing logic\n\n' +
         '---\n\n' +
         '**So the bulk of your FI knowledge carries over directly.** ' +
-        'What needs learning isn\'t new accounting — ' +
+        'What needs learning isn\'t new accounting: ' +
         'it\'s **where the data sits** and what that means for queries.\n\n' +
         'That every innovation in this topic traces back to **this one ' +
         'sentence** is itself the thesis.' },
@@ -1029,24 +1029,24 @@ SAP.registerTopic({
 
     eccFarklari:[
       { konu:'Deployment', ecc:'On-premise only', s4:'On-premise · Private cloud · **Public cloud**' },
-      { konu:'Configuration access', ecc:'Full {{SPRO}}', s4:'**Restricted** in the public cloud — guided configuration' },
-      { konu:'{{z-gelistirme}}', ecc:'Unrestricted', s4:'**Extension only** in the public cloud — no modification' },
+      { konu:'Configuration access', ecc:'Full {{SPRO}}', s4:'**Restricted** in the public cloud: guided configuration' },
+      { konu:'{{z-gelistirme}}', ecc:'Unrestricted', s4:'**Extension only** in the public cloud: no modification' },
       { konu:'Version upgrade', ecc:'Customer\'s choice', s4:'**Mandatory and regular** in the public cloud' },
-      { konu:'Data migration tool', ecc:'{{LSMW}}', s4:'{{LTMC}} — the **only path** in the public cloud' },
-      { konu:'Turkish localization', ecc:'Add-ons and custom development common', s4:'Add-ons **restricted** in the cloud — {{konu:e-donusum}} needs planning' },
+      { konu:'Data migration tool', ecc:'{{LSMW}}', s4:'{{LTMC}}: the **only path** in the public cloud' },
+      { konu:'Turkish localization', ecc:'Add-ons and custom development common', s4:'Add-ons **restricted** in the cloud: {{konu:e-donusum}} needs planning' },
       { konu:'Accounting logic', ecc:'Same', s4:'**Same across all three editions**' },
     ],
 
     universalJournal:
       '{{evrensel-kayit-defteri}} is **identical across all three deployment ' +
       'models**. The difference between cloud and on-premise isn\'t in the ' +
-      'data model — it\'s in **freedom of access and change**.\n\n' +
+      'data model: it\'s in **freedom of access and change**.\n\n' +
       'That\'s good news for learning: {{ACDOCA}} knowledge ' +
       'holds regardless of which edition you\'re working in.',
 
     kalkanTcodes:[
       { eski:'Reports reading {{GLT0}}', yeni:'{{FAGLL03}} / {{FS10N}}', not:'Same result, from {{ACDOCA}}' },
-      { eski:'FI–CO reconciliation programs', yeni:'**Unnecessary**', not:'Structurally impossible' },
+      { eski:'FI-CO reconciliation programs', yeni:'**Unnecessary**', not:'Structurally impossible' },
       { eski:'{{XK01}} / {{XD01}} (as the only path)', yeni:'**{{BP}}**', not:'The old ones still work, but {{BP}} is the only correct path' },
       { eski:'{{CSKB}} cost-element maintenance', yeni:'{{FS00}} account type', not:'A single object' },
       { eski:'Periodic depreciation transfer', yeni:'**Real time**', not:'Every ledger, instantly' },
@@ -1055,11 +1055,11 @@ SAP.registerTopic({
     fiori:[
       { ad:'Manage Journal Entries', aciklama:'Posting entry and display; ' +
              'the **same** configuration behind it.' },
-      { ad:'Trial Balance', aciklama:'An {{gomulu-analitik}} example — ' +
+      { ad:'Trial Balance', aciklama:'An {{gomulu-analitik}} example: ' +
              'the trial balance comes from **live data**, no extraction.' },
       { ad:'Display Line Items', aciklama:'The counterpart of {{FBL1N}}/{{FBL5N}}; ' +
              'items are read from {{ACDOCA}}.' },
-      { ad:'Custom Fields and Logic', aciklama:'Adding fields without modification — ' +
+      { ad:'Custom Fields and Logic', aciklama:'Adding fields without modification: ' +
              'reduces the {{z-gelistirme}} burden (see {{konu:best-practices}}).' },
     ],
 
@@ -1067,7 +1067,7 @@ SAP.registerTopic({
       '**The same rule holds across all three deployment models:** old ' +
       'tables are read as a {{uyumluluk-view}}, **never written**.',
       'In the public cloud, raw table access through {{SE16N}} is also ' +
-      '**restricted** — diagnostic habits change; {{cds-view}}s and Fiori ' +
+      '**restricted**: diagnostic habits change; {{cds-view}}s and Fiori ' +
       'apps are used instead.',
       'Views make the migration possible but **aren\'t a permanent fix**: ' +
       'critical programs get measured and migrated to {{ACDOCA}}.',
@@ -1077,11 +1077,11 @@ SAP.registerTopic({
       '**The most common misconception in this topic:** *"S/4HANA is fast, ' +
       'so everything will speed up."*\n\n' +
       'The reality has three parts:\n\n' +
-      '**1. Standard transactions** — generally get faster; totals-table ' +
+      '**1. Standard transactions**: generally get faster; totals-table ' +
       'updates are gone.\n\n' +
-      '**2. Standard reports** — get faster; they read directly from ' +
+      '**2. Standard reports**: get faster; they read directly from ' +
       '{{ACDOCA}}.\n\n' +
-      '**3. Custom programs** — **can slow down if they aren\'t adapted**. ' +
+      '**3. Custom programs**: **can slow down if they aren\'t adapted**. ' +
       'Code that reads the old tables runs through a {{uyumluluk-view}} ' +
       'and the result is calculated at read time.\n\n' +
       '**Don\'t guess without measuring:** measure with {{SAT}} and {{ST05}} ' +
@@ -1092,7 +1092,7 @@ SAP.registerTopic({
       'Learn the thesis, not the list: **"instead of storing the total, calculate it."**',
       '**Remove** the `SHKZG` logic from every migrated query.',
       'Compare every migrated report against {{FS10N}} **once**, after go-live.',
-      '**Take FI–CO reconciliation out of** the closing checklist.',
+      '**Take FI-CO reconciliation out of** the closing checklist.',
       'Measure critical programs with {{SAT}} in the first 30 days after go-live.',
       'Open ledger and currency slots **from the start**.',
       'Decide the {{is-ortagi}} numbering strategy **before** the migration.',
@@ -1102,7 +1102,7 @@ SAP.registerTopic({
 
   /* =================================================== 10. REAL SCENARIO === */
   senaryo: {
-    baslik:'"We migrated but closing got longer" — and a report that was wrong for eight months',
+    baslik:'"We migrated but closing got longer": and a report that was wrong for eight months',
     hikaye:
       '**Trakya Cam Sanayi Inc.** migrated to S/4HANA using the {{brownfield}} ' +
       'approach. The conversion was technically clean; users recognized their ' +
@@ -1113,21 +1113,21 @@ SAP.registerTopic({
       'A measurement was taken at the end of the first three months:\n\n' +
       '**Closing before: 3 days**\n' +
       '**Closing after: 4.5 days**\n\n' +
-      'Closing hadn\'t gotten shorter — it had **gotten longer**.\n\n' +
+      'Closing hadn\'t gotten shorter: it had **gotten longer**.\n\n' +
       'The CFO fairly asked: ' +
       '*"Wasn\'t this supposed to be fast?"*',
     veriler:[
-      { k:'Approach', v:'{{brownfield}} — system conversion' },
+      { k:'Approach', v:'{{brownfield}}: system conversion' },
       { k:'Number of custom programs', v:'**214** (`Z_FI_*`)' },
-      { k:'Closing — before', v:'3 days' },
-      { k:'Closing — after', v:'**4.5 days**' },
+      { k:'Closing: before', v:'3 days' },
+      { k:'Closing: after', v:'**4.5 days**' },
       { k:'Expectation', v:'Shorter' },
-      { k:'Error message', v:'**None** — everything runs' },
+      { k:'Error message', v:'**None**: everything runs' },
     ],
 
     adimlar:[
       { baslik:'Where is the time going?', tcode:'SM37',
-        aciklama:'Start with measurement — not a guess.',
+        aciklama:'Start with measurement: not a guess.',
         girdi:[
           { alan:'Closing jobs', deger:'**41 background jobs** total' },
           { alan:'Top 3 longest', deger:'**71%** of the total time' },
@@ -1136,7 +1136,7 @@ SAP.registerTopic({
         ],
         not:'**The first finding confirms the thesis.**\n\n' +
              'Standard jobs ({{AFAB}}, {{F.05}}, {{FAGLGVTR}}) really had ' +
-             '**gotten faster** — the totals-table updates were gone.\n\n' +
+             '**gotten faster**: the totals-table updates were gone.\n\n' +
              'Only the **custom programs** had slowed down, and ' +
              'they were taking most of the time.\n\n' +
              'So the sentence *"S/4HANA is fast"* was true; ' +
@@ -1156,21 +1156,21 @@ SAP.registerTopic({
              'reading it was cheap.\n\n' +
              'In S/4HANA the same name is a **view** and gets **calculated** ' +
              'from {{ACDOCA}} on every call.\n\n' +
-             'And all three programs were doing this **inside a loop** — ' +
+             'And all three programs were doing this **inside a loop**: ' +
              'an old ABAP habit. A cost that wouldn\'t register on a single ' +
              'query got multiplied across thousands of calls.\n\n' +
              'An {{ST05}} SQL trace confirmed it: every call generated ' +
              'a full {{ACDOCA}} scan.' },
 
       { baslik:'Migrating the programs turned up one more thing', tcode:'SE16N',
-        aciklama:'Z_FI_MIZAN is migrated to {{ACDOCA}} — and the result is compared.',
+        aciklama:'Z_FI_MIZAN is migrated to {{ACDOCA}}: and the result is compared.',
         girdi:[
           { alan:'New version\'s result', deger:'Total debit 84,200,000' },
           { alan:'Old version\'s result', deger:'Total debit **1,340,000**' },
           { alan:'{{FS10N}} trial balance', deger:'84,200,000 ✓' },
           { alan:'Conclusion', deger:'**The old report had been wrong for eight months**' },
         ],
-        not:'**The real finding was here — and no one was looking for it.**\n\n' +
+        not:'**The real finding was here: and no one was looking for it.**\n\n' +
              'The program applied `SHKZG` logic when reading {{BSIS}}: ' +
              '*"if it\'s a credit, subtract it."* That was correct in ECC, ' +
              'because amounts were **always positive**.\n\n' +
@@ -1180,8 +1180,8 @@ SAP.registerTopic({
              'flipping them positive, and they cancel out against the ' +
              'debits. The total comes out **close to zero**.\n\n' +
              '**Why it went unnoticed for eight months:**\n\n' +
-             '• The program **didn\'t crash** — no dump\n' +
-             '• The query **ran** — no error message\n' +
+             '• The program **didn\'t crash**: no dump\n' +
+             '• The query **ran**: no error message\n' +
              '• It was a **control** report, and a near-zero difference ' +
              'read as *"everything ties out"*\n' +
              '• Nobody **compared** the result against the {{FS10N}} trial balance' },
@@ -1197,7 +1197,7 @@ SAP.registerTopic({
           { alan:'Step 3', deger:'Every migrated report **compared** against {{FS10N}}' },
         ],
         not:'Closing came in even better than expected: **from 3 days to ' +
-             '2**. So the S/4HANA promise was true — **once the code was ' +
+             '2**. So the S/4HANA promise was true: **once the code was ' +
              'adapted**.\n\n' +
              'But that wasn\'t the real payoff: the sweep found **nine ' +
              'wrong reports**. Three of them were used in management ' +
@@ -1214,21 +1214,21 @@ SAP.registerTopic({
       'other.**\n\n' +
       'The visible error was **performance**, and it got complained about. ' +
       'The invisible error was **the wrong report**, and nobody complained ' +
-      'for eight months — because the report produced a number, and the ' +
+      'for eight months: because the report produced a number, and the ' +
       'number looked plausible.\n\n' +
       '---\n\n' +
       '**Three lasting lessons:**\n\n' +
-      '**1. The removed table wasn\'t brought back — it was imitated.**\n' +
+      '**1. The removed table wasn\'t brought back: it was imitated.**\n' +
       'And an imitation promises neither of two things: being **free** and ' +
       'being a **one-to-one match**.\n\n' +
       'It isn\'t free, because it\'s calculated at read time. ' +
       'It isn\'t a one-to-one match, because the `SHKZG` semantics changed.\n\n' +
-      '**And the second difference is silent** — the first one produces a ' +
+      '**And the second difference is silent**: the first one produces a ' +
       'complaint, the second doesn\'t.\n\n' +
       '**2. The sentence "S/4HANA is fast" has a missing half.**\n' +
       'The whole sentence is: **"fast, for adapted code."** ' +
       'For code that hasn\'t been adapted, the {{uyumluluk-view}} is a ' +
-      '**bridge** — it makes the migration possible, it doesn\'t make it ' +
+      '**bridge**: it makes the migration possible, it doesn\'t make it ' +
       'free.\n\n' +
       'That\'s why adapting code is a line item in the migration budget, ' +
       'not a post-go-live surprise.\n\n' +
@@ -1240,8 +1240,8 @@ SAP.registerTopic({
       '**every silent-error class gets turned into a control query.**\n\n' +
       '---\n\n' +
       'And note: nothing found in this scenario required **new SAP ' +
-      'knowledge**. All that was needed was knowing the topic\'s thesis — ' +
-      '**"the total is no longer stored, it\'s calculated"** — and asking ' +
+      'knowledge**. All that was needed was knowing the topic\'s thesis: ' +
+      '**"the total is no longer stored, it\'s calculated"**: and asking ' +
       'what that does to queries.',
   },
 

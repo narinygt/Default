@@ -1,5 +1,5 @@
 /* ==========================================================================
-   content/fi/foreign-currency.js — "Foreign Currency Valuation"
+   content/fi/foreign-currency.js: "Foreign Currency Valuation"
    ========================================================================== */
 
 SAP.registerTopic({
@@ -21,7 +21,7 @@ SAP.registerTopic({
 
     neden:
       '**Gerçeği göstermek için.** 10.000 EUR’luk borç 35,00 kuruyla kaydedildi; bugün kur 38,80. ' +
-      'Bilançoda 350.000 TL yazmak yanıltıcıdır — gerçek yükümlülük 388.000 TL’dir.\n\n' +
+      'Bilançoda 350.000 TL yazmak yanıltıcıdır: gerçek yükümlülük 388.000 TL’dir.\n\n' +
       '**Yasal zorunluluk.** Muhasebe standartları dövizli kalemlerin dönem sonu kuruyla ' +
       'değerlenmesini zorunlu kılar.\n\n' +
       '**Risk görünürlüğü.** Değerleme, kur riskinin büyüklüğünü ortaya çıkarır. ' +
@@ -40,7 +40,7 @@ SAP.registerTopic({
     gercekHayat:
       'Bir ithalatçı Ocak’ta 100.000 EUR’luk mal alıyor. Kur 35,00 → borç 3.500.000 TL kaydediliyor.\n\n' +
       '**31 Ocak:** kur 38,80. Borç hâlâ ödenmedi. Değerleme yapılır: 388.000 TL ek yükümlülük görünür ve ' +
-      '380.000 TL kambiyo zararı yazılır. Ama bu fark **gerçekleşmemiştir** — kur geri düşebilir. ' +
+      '380.000 TL kambiyo zararı yazılır. Ama bu fark **gerçekleşmemiştir**: kur geri düşebilir. ' +
       'Bu yüzden 1 Şubat’ta ters kaydedilir.\n\n' +
       '**15 Şubat:** borç ödenir, kur 37,20. Gerçek fark: (37,20 − 35,00) × 100.000 = **220.000 TL zarar**. ' +
       'Bu **gerçekleşmiştir** ve kalıcıdır.\n\n' +
@@ -79,7 +79,7 @@ SAP.registerTopic({
 
     diyagram:{
       type:'flow',
-      baslik:'Kur yönetimi — beslemeden gerçekleşmeye',
+      baslik:'Kur yönetimi: beslemeden gerçekleşmeye',
       adimlar:[
         { ic:'📡', rol:'BT / Hazine', baslik:'Kurlar beslenir',
           aciklama:'Merkez bankası veya veri sağlayıcıdan günlük kurlar {{TCURR}} tablosuna yazılır ' +
@@ -88,9 +88,9 @@ SAP.registerTopic({
         { ic:'🧾', rol:'Muhasebe', baslik:'Dövizli işlem kaydedilir (çevrim)',
           aciklama:'Belge para birimi EUR girilir; sistem {{TCURR}}’dan kuru bulup **yerel para karşılığını** ' +
                    'hesaplar. Her iki tutar da {{BSEG}}’de saklanır.',
-          cikti:'FI belgesi — döviz + yerel tutar', ok:'dönem sonu gelir' },
+          cikti:'FI belgesi: döviz + yerel tutar', ok:'dönem sonu gelir' },
         { ic:'📅', rol:'Ana muhasebe', baslik:'Dönem sonu değerlemesi çalıştırılır',
-          aciklama:'{{F.05}} / {{FAGL_FC_VAL}} — açık kalemler ve bakiyeler dönem sonu kuruyla yeniden ölçülür. ' +
+          aciklama:'{{F.05}} / {{FAGL_FC_VAL}}: açık kalemler ve bakiyeler dönem sonu kuruyla yeniden ölçülür. ' +
                    'Fark **gerçekleşmemiştir**.',
           cikti:'Değerleme belgesi', ok:'sonraki dönem' },
         { ic:'↩', rol:'Sistem', baslik:'Değerleme ters kaydedilir',
@@ -107,12 +107,12 @@ SAP.registerTopic({
     },
 
     adimlar:[
-      { rol:'BT', eylem:'Kurları besler', sistem:'{{OB08}} → {{TCURR}} — genelde otomatik' },
-      { rol:'Muhasebe', eylem:'Dövizli belge kaydeder', sistem:'{{FB60}}, {{FB70}}, {{MIRO}} — kur otomatik' },
+      { rol:'BT', eylem:'Kurları besler', sistem:'{{OB08}} → {{TCURR}}: genelde otomatik' },
+      { rol:'Muhasebe', eylem:'Dövizli belge kaydeder', sistem:'{{FB60}}, {{FB70}}, {{MIRO}}: kur otomatik' },
       { rol:'Ana muhasebe', eylem:'Dönem sonu değerlemesi yapar', sistem:'{{F.05}} / {{FAGL_FC_VAL}}' },
-      { rol:'Sistem', eylem:'Değerlemeyi ters kaydeder', sistem:'Otomatik — ters kayıt tarihinde' },
+      { rol:'Sistem', eylem:'Değerlemeyi ters kaydeder', sistem:'Otomatik: ters kayıt tarihinde' },
       { rol:'AP / AR', eylem:'Kalemi kapatır', sistem:'{{F110}}, {{F-28}} → gerçekleşmiş fark' },
-      { rol:'Muhasebe müdürü', eylem:'Kur etkisini raporlar', sistem:'{{FBL3N}} — kur farkı hesapları' },
+      { rol:'Muhasebe müdürü', eylem:'Kur etkisini raporlar', sistem:'{{FBL3N}}: kur farkı hesapları' },
     ],
 
     veriAkisi:{
@@ -127,11 +127,11 @@ SAP.registerTopic({
     notlar:[
       { tip:'warn', baslik:'Kur beslemesi sessiz bir arıza noktasıdır', metin:
         'Kurlar genelde otomatik beslenir ve kimse günlük kontrol etmez. Besleme koparsa ' +
-        '**hiçbir hata mesajı çıkmaz** — sadece o günün kuru {{TCURR}}’da olmaz.\n\n' +
+        '**hiçbir hata mesajı çıkmaz**: sadece o günün kuru {{TCURR}}’da olmaz.\n\n' +
         'Sorun kapanışta patlar: {{F.05}} "Exchange rate not found" hatası verir ve ' +
         'kapanış durur. Kontrol listesine **"kurlar güncel mi?"** maddesi eklenmelidir.\n\n' +
         'Daha sinsi bir durum: dövizli fatura girilirken kur bulunamazsa sistem son mevcut kuru ' +
-        'kullanabilir — **yanlış kurla kayıt** oluşur ve fark edilmez.' },
+        'kullanabilir: **yanlış kurla kayıt** oluşur ve fark edilmez.' },
     ],
   },
 
@@ -143,66 +143,66 @@ SAP.registerTopic({
 
     etkilenenHesaplar:[
       { hesap:'320 Satıcılar / 120 Alıcılar', tur:'Bilanço', neden:'Dövizli borç/alacak. Döviz tutarı sabit kalır; **yerel para karşılığı** değerlemeyle değişir.' },
-      { hesap:'656 Kambiyo zararı', tur:'Gelir tablosu — Gider', neden:'Kur aleyhte hareket ettiğinde. Hem gerçekleşmiş hem gerçekleşmemiş fark buraya yazılabilir (ayrı hesaplar da kullanılabilir).' },
-      { hesap:'646 Kambiyo kârı', tur:'Gelir tablosu — Gelir', neden:'Kur lehte hareket ettiğinde.' },
-      { hesap:'Değerleme düzeltme hesabı', tur:'Bilanço', neden:'Bazı kurulumlar değerleme farkını mutabakat hesabına değil ayrı bir düzeltme hesabına yazar — mutabakat hesabının muavin defterle uyumunu korumak için.' },
-      { hesap:'102 Bankalar (dövizli)', tur:'Bilanço — Varlık', neden:'Dövizli banka hesapları da değerlenir; bakiye değerlemesi ({{F.05}} bakiye seçeneği).' },
-      { hesap:'646.01 / 656.01 Gerçekleşmemiş kur farkı', tur:'Gelir tablosu', neden:'Değerlemeden doğan, **ters kaydedilecek** fark. Ayrı alt hesapta izlenmesi önerilir — vergi matrahına farklı girer.' },
+      { hesap:'656 Kambiyo zararı', tur:'Gelir tablosu: Gider', neden:'Kur aleyhte hareket ettiğinde. Hem gerçekleşmiş hem gerçekleşmemiş fark buraya yazılabilir (ayrı hesaplar da kullanılabilir).' },
+      { hesap:'646 Kambiyo kârı', tur:'Gelir tablosu: Gelir', neden:'Kur lehte hareket ettiğinde.' },
+      { hesap:'Değerleme düzeltme hesabı', tur:'Bilanço', neden:'Bazı kurulumlar değerleme farkını mutabakat hesabına değil ayrı bir düzeltme hesabına yazar: mutabakat hesabının muavin defterle uyumunu korumak için.' },
+      { hesap:'102 Bankalar (dövizli)', tur:'Bilanço: Varlık', neden:'Dövizli banka hesapları da değerlenir; bakiye değerlemesi ({{F.05}} bakiye seçeneği).' },
+      { hesap:'646.01 / 656.01 Gerçekleşmemiş kur farkı', tur:'Gelir tablosu', neden:'Değerlemeden doğan, **ters kaydedilecek** fark. Ayrı alt hesapta izlenmesi önerilir: vergi matrahına farklı girer.' },
       { hesap:'646.02 / 656.02 Gerçekleşmiş kur farkı', tur:'Gelir tablosu', neden:'Ödeme/tahsilat anında **kesinleşen** fark. Kalıcıdır, ters kaydedilmez.' },
-      { hesap:'391 Hesaplanan KDV', tur:'Bilanço — Kaynak', neden:'**{{kur-farki-faturasi}}** düzenlendiğinde. Muhasebe kaydından ayrı bir yükümlülüktür ve SAP bunu otomatik üretmez.' },
+      { hesap:'391 Hesaplanan KDV', tur:'Bilanço: Kaynak', neden:'**{{kur-farki-faturasi}}** düzenlendiğinde. Muhasebe kaydından ayrı bir yükümlülüktür ve SAP bunu otomatik üretmez.' },
       { hesap:'159 / 340 Avanslar', tur:'Bilanço', neden:'**Parasal olmayan** kalemlerdir → {{parasal-kalem}} olmadıkları için **değerlenmez**. Değerleme listesine dâhil edilmemelidir.' },
-      { hesap:'258 Yapılmakta olan yatırımlar', tur:'Bilanço — Varlık', neden:'Yatırım dönemindeki kur farkları **maliyete eklenebilir** (aşağıdaki teknik bloğa bakın).' },
+      { hesap:'258 Yapılmakta olan yatırımlar', tur:'Bilanço: Varlık', neden:'Yatırım dönemindeki kur farkları **maliyete eklenebilir** (aşağıdaki teknik bloğa bakın).' },
     ],
 
     fisler:[
-      { baslik:'Adım 1 — Dövizli fatura kaydedilir (çevrim) · 100.000 EUR @ 35,00',
+      { baslik:'Adım 1: Dövizli fatura kaydedilir (çevrim) · 100.000 EUR @ 35,00',
         belgeTuru:'KR', tarih:'15.01.2027', paraBirimi:'EUR',
         satirlar:[
           { hesap:'153', ad:'Ticari mallar', borc:3500000, not:'100.000 EUR × 35,00' },
-          { hesap:'320', ad:'Satıcılar — V-9001', alacak:3500000, not:'Döviz: 100.000 EUR' },
+          { hesap:'320', ad:'Satıcılar: V-9001', alacak:3500000, not:'Döviz: 100.000 EUR' },
         ],
         not:'{{BSEG}}’de **iki tutar** saklanır: `WRBTR` = 100.000 (belge para birimi EUR) ve ' +
              '`DMBTR` = 3.500.000 (yerel para TRY). Kur {{TCURR}}’dan otomatik geldi.\n\n' +
              'Bu bir **çevrimdir**, değerleme değil. Kayıt anında bir kez yapılır.' },
 
-      { baslik:'Adım 2 — Dönem sonu değerlemesi ({{F.05}}) · 31.01 kuru 38,80',
+      { baslik:'Adım 2: Dönem sonu değerlemesi ({{F.05}}) · 31.01 kuru 38,80',
         belgeTuru:'SA', tarih:'31.01.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'656', ad:'Kambiyo zararı (gerçekleşmemiş)', borc:380000, not:'(38,80 − 35,00) × 100.000' },
-          { hesap:'320', ad:'Satıcılar — değerleme düzeltmesi', alacak:380000, not:'Yerel para yükümlülüğü arttı' },
+          { hesap:'320', ad:'Satıcılar: değerleme düzeltmesi', alacak:380000, not:'Yerel para yükümlülüğü arttı' },
         ],
-        not:'**Döviz tarafında hiçbir şey değişmedi** — borç hâlâ 100.000 EUR. ' +
+        not:'**Döviz tarafında hiçbir şey değişmedi**: borç hâlâ 100.000 EUR. ' +
              'Değişen yalnızca yerel para karşılığı: 3.500.000 → 3.880.000 TL.\n\n' +
              'Orijinal kalem **değişmedi**; fark ayrı bir düzeltme kaydında tutuluyor. ' +
              'Bu yüzden {{BSIK}}’teki açık kalem hâlâ 3.500.000 TL gösterir.' },
 
-      { baslik:'Adım 3 — Değerleme ters kaydedilir · 01.02.2027',
+      { baslik:'Adım 3: Değerleme ters kaydedilir · 01.02.2027',
         belgeTuru:'SA', tarih:'01.02.2027', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'320', ad:'Satıcılar — değerleme düzeltmesi', borc:380000, not:'Düzeltme geri alındı' },
+          { hesap:'320', ad:'Satıcılar: değerleme düzeltmesi', borc:380000, not:'Düzeltme geri alındı' },
           { hesap:'656', ad:'Kambiyo zararı (gerçekleşmemiş)', alacak:380000 },
         ],
-        not:'Fark **gerçekleşmemişti** — kur geri düşebilirdi. Bu yüzden değerleme geçicidir ve ' +
+        not:'Fark **gerçekleşmemişti**: kur geri düşebilirdi. Bu yüzden değerleme geçicidir ve ' +
              'sonraki dönemin ilk günü otomatik geri alınır. Şubat tekrar sıfırdan değerlenecek.' },
 
-      { baslik:'Adım 4 — Ödeme yapılır ({{F110}}) · 15.02 kuru 37,20 · GERÇEKLEŞME',
+      { baslik:'Adım 4: Ödeme yapılır ({{F110}}) · 15.02 kuru 37,20 · GERÇEKLEŞME',
         belgeTuru:'KZ', tarih:'15.02.2027', paraBirimi:'EUR',
         satirlar:[
-          { hesap:'320', ad:'Satıcılar — V-9001 (kapatıldı)', borc:3500000, not:'Kayıt kurundan: 100.000 × 35,00' },
+          { hesap:'320', ad:'Satıcılar: V-9001 (kapatıldı)', borc:3500000, not:'Kayıt kurundan: 100.000 × 35,00' },
           { hesap:'102', ad:'Bankalar (100.000 EUR @ 37,20)', alacak:3720000, not:'Ödeme günü kurundan' },
           { hesap:'656', ad:'Kambiyo zararı (gerçekleşmiş)', borc:220000, not:'(37,20 − 35,00) × 100.000' },
         ],
         not:'**Döviz tarafı denk:** 100.000 EUR borç, 100.000 EUR ödeme. ' +
-             'Fark yalnızca yerel paradadır ve **gerçekleşmiştir** — kalem kapandı, kur kesinleşti. ' +
+             'Fark yalnızca yerel paradadır ve **gerçekleşmiştir**: kalem kapandı, kur kesinleşti. ' +
              'Bu kayıt **ters kaydedilmez**.\n\n' +
              'Ocak’ta 380.000 TL zarar tahmin edilmişti; gerçekleşen 220.000 TL oldu. ' +
              'Aradaki 160.000 TL fark, Ocak ters kaydı sayesinde otomatik düzeldi.' },
 
-      { baslik:'**{{kur-farki-faturasi}}** — tahsilatta lehte fark · Türkiye’ye özgü',
+      { baslik:'**{{kur-farki-faturasi}}**: tahsilatta lehte fark · Türkiye’ye özgü',
         belgeTuru:'DR', tarih:'15.02.2027', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'120', ad:'Alıcılar — kur farkı faturası', borc:264000, not:'220.000 + KDV' },
-          { hesap:'601', ad:'Yurtdışı satışlar — kur farkı', alacak:220000, not:'Lehte oluşan fark' },
+          { hesap:'120', ad:'Alıcılar: kur farkı faturası', borc:264000, not:'220.000 + KDV' },
+          { hesap:'601', ad:'Yurtdışı satışlar: kur farkı', alacak:220000, not:'Lehte oluşan fark' },
           { hesap:'391', ad:'Hesaplanan KDV (%20)', alacak:44000, not:'**Asıl işlemin oranıyla**' },
         ],
         not:'**Bu, muhasebe kaydından ayrı bir belge yükümlülüğüdür.**\n\n' +
@@ -216,7 +216,7 @@ SAP.registerTopic({
              '*Uygulama esasları KDV Genel Uygulama Tebliği ile belirlenir; ' +
              'güncel düzenleme mali müşavire teyit ettirilmelidir.*' },
 
-      { baslik:'**Yanlış** — verilen avansın değerlenmesi',
+      { baslik:'**Yanlış**: verilen avansın değerlenmesi',
         belgeTuru:'SA', tarih:'31.01.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'159', ad:'Verilen sipariş avansları (dövizli)', borc:190000, not:'**Yapılmamalı**' },
@@ -225,14 +225,14 @@ SAP.registerTopic({
         not:'**Bu kayıt yanlıştır.** Verilen avans bir {{parasal-kalem}} **değildir**: ' +
              'karşılığında para değil **mal** alınacaktır.\n\n' +
              'Satıcıya 50.000 EUR avans verdiysen, kur ne olursa olsun sana ' +
-             '50.000 EUR’luk **mal** gelecek — geri para gelmeyecek. ' +
+             '50.000 EUR’luk **mal** gelecek: geri para gelmeyecek. ' +
              'Dolayısıyla kur riski **yoktur** ve kur farkı doğmaz.\n\n' +
              'Avans, **verildiği günün kuruyla** kayda alınır ve o değerde kalır.\n\n' +
              '**SAP’ta önlem:** avans hesapları ({{F.05}} seçim ekranında ve {{OBA1}}’de) ' +
              'değerleme listesine **dâhil edilmemelidir**. ' +
              'Dâhil edilirse her dönem sahte kur farkı üretilir.' },
 
-      { baslik:'Yatırım dönemi kur farkı — **maliyete eklenir**',
+      { baslik:'Yatırım dönemi kur farkı: **maliyete eklenir**',
         belgeTuru:'SA', tarih:'30.09.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'258', ad:'Yapılmakta olan yatırımlar', borc:340000, not:'Gidere değil **maliyete**' },
@@ -247,10 +247,10 @@ SAP.registerTopic({
              'yatırım dönemine ait olanların 258’e aktarılması **elle** yapılır. ' +
              'Dönem sonu kontrol listesine konmalıdır.' },
 
-      { baslik:'Alternatif — dövizli banka hesabı bakiye değerlemesi',
+      { baslik:'Alternatif: dövizli banka hesabı bakiye değerlemesi',
         belgeTuru:'SA', tarih:'31.01.2027', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'102', ad:'Bankalar — EUR hesabı (değerleme)', borc:190000, not:'50.000 EUR × (38,80 − 35,00)' },
+          { hesap:'102', ad:'Bankalar: EUR hesabı (değerleme)', borc:190000, not:'50.000 EUR × (38,80 − 35,00)' },
           { hesap:'646', ad:'Kambiyo kârı (gerçekleşmemiş)', alacak:190000, not:'Varlık olduğu için kur artışı **kâr**' },
         ],
         not:'Dikkat: aynı kur hareketi **borçta zarar, varlıkta kâr** yaratır. ' +
@@ -270,7 +270,7 @@ SAP.registerTopic({
       { hesap:'Kambiyo kârı', kod:'646 (gelir)',
         borc:[{ ad:'Ters kayıt', tutar:190000 }],
         alacak:[{ ad:'Banka bakiye değerlemesi', tutar:190000 }],
-        not:'Gerçekleşmemiş — ters kaydedildi' },
+        not:'Gerçekleşmemiş: ters kaydedildi' },
     ],
 
     notlar:[
@@ -287,7 +287,7 @@ SAP.registerTopic({
         'gerçekleşmemiş **kâr** kaydedilmez.\n\n' +
         'Yani dövizli borcun yerel karşılığı artmışsa zarar yazılır; azalmışsa kâr yazılmaz. ' +
         '{{OB59}}’da değerleme ilkesi olarak "düşük değerle değerleme" (lowest value principle) seçilir.\n\n' +
-        'IFRS ise genelde **her zaman değerle** ilkesini kullanır — hem kâr hem zarar kaydedilir. ' +
+        'IFRS ise genelde **her zaman değerle** ilkesini kullanır: hem kâr hem zarar kaydedilir. ' +
         'Bu yüzden aynı şirket, farklı defterlerde farklı değerleme yöntemi kullanabilir.' },
     ],
   },
@@ -312,7 +312,7 @@ SAP.registerTopic({
       { ad:'Açık kalem değerlemesi', en:'Open Item Valuation',
         aciklama:'Satıcı ve müşteri açık kalemleri tek tek değerlenir. Her kalemin kendi kayıt kuru ' +
                  'ile dönem sonu kuru karşılaştırılır.',
-        neZaman:'Dövizli AP ve AR kalemleri için — en yaygın kullanım.',
+        neZaman:'Dövizli AP ve AR kalemleri için: en yaygın kullanım.',
         ornek:'{{F.05}}’te "satıcı açık kalemleri" ve "müşteri açık kalemleri" seçenekleri.',
         tcodes:['F.05','FAGL_FC_VAL'] },
 
@@ -350,7 +350,7 @@ SAP.registerTopic({
     karsilastirma:[
       ['Ne zaman oluşur', 'Dönem sonu **değerlemesinde**', 'Kalem **kapandığında** (ödeme/tahsilat)'],
       ['Kalem durumu', 'Hâlâ açık', 'Kapalı'],
-      ['Kalıcı mı', '**Hayır** — ters kaydedilir', '**Evet** — kalıcıdır'],
+      ['Kalıcı mı', '**Hayır**, ters kaydedilir', '**Evet**, kalıcıdır'],
       ['Hesap anahtarı', 'KDF', 'KDB'],
       ['Vergi etkisi', 'Genelde vergiye tabi değil (mevzuata bağlı)', 'Vergiye tabi'],
       ['İşlem', '{{F.05}} / {{FAGL_FC_VAL}}', '{{F110}}, {{F-28}}, kapatma işlemleri'],
@@ -380,7 +380,7 @@ SAP.registerTopic({
         ],
         ipucu:'Sistem, işlem tarihine **eşit veya ondan önceki en yakın** kuru kullanır. ' +
               'Yani 31 Ocak kuru girilmemişse 28 Ocak kuru kullanılır ve **hata vermez**. ' +
-              'Bu, yanlış kurla kayıt yapılmasının sessiz sebebidir — besleme düzenli kontrol edilmelidir.',
+              'Bu, yanlış kurla kayıt yapılmasının sessiz sebebidir: besleme düzenli kontrol edilmelidir.',
         ilgili:['TCURR','TCURV','F.05','OB59'] },
 
       { kod:'F.05', ad:'Yabancı para değerlemesi',
@@ -394,7 +394,7 @@ SAP.registerTopic({
                      'ters kaydedilecek mi. Yöntem seçimi sonucu tamamen belirler.' },
           { baslik:'Değerlenecek kalem tiplerini işaretle',
             aciklama:'**G/L bakiyeleri** (dövizli banka/kasa), **satıcı açık kalemleri**, ' +
-                     '**müşteri açık kalemleri** — ayrı ayrı seçilir.' },
+                     '**müşteri açık kalemleri**: ayrı ayrı seçilir.' },
           { baslik:'Ters kayıt tarihini gir', aciklama:'Genelde sonraki dönemin ilk günü.' },
           { baslik:'**Önce test modunda çalıştır**',
             aciklama:'Değerleme çok sayıda belge üretir; sonucu görmeden gerçek modda çalıştırma.' },
@@ -414,7 +414,7 @@ SAP.registerTopic({
           { mesaj:'Exchange rate for EUR/TRY on 31.01.2027 not found', sebep:'{{TCURR}}’da o tarihe ait kur yok.', cozum:'{{OB08}} ile kuru gir; otomatik beslemenin neden koptuğunu araştır.' },
           { mesaj:'Account determination for KDF not possible', sebep:'{{OBA1}}’de gerçekleşmemiş kur farkı hesabı tanımsız.', cozum:'{{OBA1}} → KDF hesap anahtarı → ilgili mutabakat hesabı için kâr/zarar hesaplarını tanımla.' },
           { mesaj:'Valuation method ... does not exist', sebep:'{{OB59}}’da yöntem tanımlı değil.', cozum:'Değerleme yöntemini tanımla: kur tipi, ilke, ters kayıt ayarı.' },
-          { mesaj:'Posting period is not open', sebep:'Değerleme veya ters kayıt tarihinin dönemi kapalı.', cozum:'{{OB52}} ile aç. Ters kayıt tarihi sonraki dönemdeyse o dönemin de açık olması gerekmez — kayıt yine yapılır.' },
+          { mesaj:'Posting period is not open', sebep:'Değerleme veya ters kayıt tarihinin dönemi kapalı.', cozum:'{{OB52}} ile aç. Ters kayıt tarihi sonraki dönemdeyse o dönemin de açık olması gerekmez: kayıt yine yapılır.' },
         ],
         ipucu:'{{F.05}} **tüm dövizli işlemler kaydedildikten sonra** çalıştırılmalıdır. ' +
               'Sonradan gelen bir dövizli fatura değerlenmemiş kalır ve kapanış tekrarlanır. ' +
@@ -427,15 +427,15 @@ SAP.registerTopic({
         adimlar:[
           { baslik:'Yöntem anahtarı ve açıklama gir' },
           { baslik:'**Değerleme ilkesini** seç',
-            aciklama:'**Düşük değerle değerleme** (yalnız zarar kaydedilir — ihtiyatlılık), ' +
-                     '**yalnız yükselt**, veya **her zaman değerle** (kâr ve zarar — IFRS).' },
+            aciklama:'**Düşük değerle değerleme** (yalnız zarar kaydedilir: ihtiyatlılık), ' +
+                     '**yalnız yükselt**, veya **her zaman değerle** (kâr ve zarar: IFRS).' },
           { baslik:'{{kur-tipi}} belirle', aciklama:'Genelde M (ortalama). Alış/satış kuru gerekiyorsa B/G.' },
           { baslik:'Ters kayıt davranışını seç',
             aciklama:'Değerleme kaydı sonraki dönem ters kaydedilecek mi, yoksa **fark bazlı** mı çalışacak.' },
         ],
         ipucu:'{{paralel-defter}} kullanılıyorsa **her defter için ayrı yöntem** tanımlanır: ' +
               'yerel defterde "düşük değerle değerleme" (ihtiyatlılık), IFRS defterinde "her zaman değerle". ' +
-              'Aynı kalem iki defterde farklı kur farkı üretir — bu doğrudur, hata değildir.',
+              'Aynı kalem iki defterde farklı kur farkı üretir: bu doğrudur, hata değildir.',
         hatalar:[
           { mesaj:'Valuation procedure not consistent', sebep:'İlke ile ters kayıt ayarı uyumsuz.', cozum:'Düşük değerle değerleme genelde ters kayıt gerektirir; ayarları gözden geçir.' },
         ],
@@ -446,9 +446,9 @@ SAP.registerTopic({
         neZaman:'Kurulumda ve "Account determination for KDF not possible" hatasında.',
         adimlar:[
           { baslik:'Hesap anahtarını seç',
-            aciklama:'**KDF** — gerçekleşmemiş kur farkı (değerleme). ' +
-                     '**KDB** — gerçekleşmiş kur farkı (kapatma anında). ' +
-                     '**KDW** — değerleme düzeltme hesabı (bazı kurulumlarda).' },
+            aciklama:'**KDF**: gerçekleşmemiş kur farkı (değerleme). ' +
+                     '**KDB**: gerçekleşmiş kur farkı (kapatma anında). ' +
+                     '**KDW**: değerleme düzeltme hesabı (bazı kurulumlarda).' },
           { baslik:'Şirket kodu ve mutabakat hesabını gir',
             aciklama:'Her mutabakat hesabı için ayrı tanım yapılabilir: 320 satıcılar için farklı, ' +
                      '120 müşteriler için farklı kur farkı hesabı.' },
@@ -497,9 +497,9 @@ SAP.registerTopic({
         s4:'Değişmedi.',
         alanlar:[
           { ad:'KURST', aciklama:'{{kur-tipi}}: M ortalama, B alış, G satış' },
-          { ad:'GDATU', aciklama:'Geçerlilik tarihi — **ters formatta saklanır** (99999999 − tarih)' },
+          { ad:'GDATU', aciklama:'Geçerlilik tarihi: **ters formatta saklanır** (99999999 − tarih)' },
           { ad:'UKURS', aciklama:'Kur değeri' },
-          { ad:'FFACT / TFACT', aciklama:'Çarpan/bölen — yüksek değerli para birimlerinde kullanılır' },
+          { ad:'FFACT / TFACT', aciklama:'Çarpan/bölen: yüksek değerli para birimlerinde kullanılır' },
         ] },
 
       { ad:'TCURV', baslik:'Kur tipi tanımı',
@@ -509,7 +509,7 @@ SAP.registerTopic({
         anahtar:'KURST',
         s4:'Değişmedi.' },
 
-      { ad:'BSEG', baslik:'Belge kalemleri — çok para birimli tutarlar',
+      { ad:'BSEG', baslik:'Belge kalemleri: çok para birimli tutarlar',
         tutar:'Her kalem **birden çok para biriminde** saklanır: belge para birimi, yerel para, ' +
               've varsa {{paralel-para-birimi}}ler.',
         olusturan:'FI belgesi üreten her işlem',
@@ -518,27 +518,27 @@ SAP.registerTopic({
         s4:'S/4HANA’da {{ACDOCA}} **10’a kadar** paralel para birimi destekler (ECC’de 3).',
         alanlar:[
           { ad:'WRBTR', aciklama:'**Belge para birimi** tutarı (örn. 100.000 EUR)' },
-          { ad:'DMBTR', aciklama:'**Yerel para** (şirket kodu para birimi) tutarı — çevrim sonucu' },
+          { ad:'DMBTR', aciklama:'**Yerel para** (şirket kodu para birimi) tutarı: çevrim sonucu' },
           { ad:'DMBE2 / DMBE3', aciklama:'2. ve 3. paralel para birimi tutarları (grup para birimi vb.)' },
-          { ad:'KURSF', aciklama:'Kullanılan kur — belgede saklanır' },
+          { ad:'KURSF', aciklama:'Kullanılan kur: belgede saklanır' },
         ] },
 
-      { ad:'BKPF', baslik:'Belge başlığı — para birimi ve kur',
+      { ad:'BKPF', baslik:'Belge başlığı: para birimi ve kur',
         tutar:'Belgenin para birimi, kullanılan kur ve kur tarihi.',
         olusturan:'FI belgesi üreten her işlem',
         guncelleyen:'Kayıt işlemleri',
         s4:'Değişmedi.',
         alanlar:[
           { ad:'WAERS', aciklama:'Belge para birimi' },
-          { ad:'KURSF', aciklama:'Kur — elle girilmemişse {{TCURR}}’dan gelir' },
-          { ad:'WWERT', aciklama:'**Kur tarihi** — hangi tarihin kuru kullanılacak. Boşsa belge tarihi kullanılır.' },
+          { ad:'KURSF', aciklama:'Kur: elle girilmemişse {{TCURR}}’dan gelir' },
+          { ad:'WWERT', aciklama:'**Kur tarihi**: hangi tarihin kuru kullanılacak. Boşsa belge tarihi kullanılır.' },
         ] },
 
-      { ad:'ACDOCA', baslik:'Evrensel Kayıt Defteri — çok para birimi',
+      { ad:'ACDOCA', baslik:'Evrensel Kayıt Defteri: çok para birimi',
         tutar:'Kalemler defter ve para birimi boyutlarıyla birlikte.',
         olusturan:'Muhasebeleşen her işlem',
         guncelleyen:'FI/CO işlemleri',
-        s4:'**10’a kadar paralel para birimi** — ECC’nin 3 sınırını aşar. ' +
+        s4:'**10’a kadar paralel para birimi**: ECC’nin 3 sınırını aşar. ' +
             'Değerleme her defter ve her para birimi için ayrı hesaplanabilir.',
         alanlar:[
           { ad:'HSL', aciklama:'Şirket kodu para birimi tutarı' },
@@ -547,7 +547,7 @@ SAP.registerTopic({
           { ad:'OSL', aciklama:'Ek para birimi tutarı' },
         ] },
 
-      { ad:'BSIK', baslik:'Satıcı açık kalemleri — değerleme hedefi',
+      { ad:'BSIK', baslik:'Satıcı açık kalemleri: değerleme hedefi',
         tutar:'Dövizli açık kalemler; {{F.05}} bunları tarar.',
         olusturan:'Satıcıya yapılan kayıtlar',
         guncelleyen:'Değerleme kalemin kendisini **değiştirmez**; ayrı düzeltme kaydı üretir',
@@ -591,7 +591,7 @@ SAP.registerTopic({
       '**{{OBA1}}** (hesap belirleme). Üçü de kapanışta hata kaynağı olabilir.',
 
     ekranlar:[
-      { ad:'{{OB08}} — kur giriş ekranı',
+      { ad:'{{OB08}}: kur giriş ekranı',
         aciklama:'Basit görünür ama iki tuzağı vardır: geçerlilik tarihi mantığı ve kotasyon yönü.',
         alanlar:[
           { ad:'{{kur-tipi}}', zorunlu:true, aciklama:'M ortalama (standart), B alış, G satış. Değerleme yöntemi hangisini kullanacağını belirtir.' },
@@ -603,12 +603,12 @@ SAP.registerTopic({
               '28 Ocak kurunu kullanır. Yani yanlış kurla kayıt yapılır ve kimse fark etmez. ' +
               'Bu yüzden kur beslemesi düzenli kontrol edilmelidir.' },
 
-      { ad:'{{F.05}} — değerleme ekranı',
+      { ad:'{{F.05}}: değerleme ekranı',
         aciklama:'Kapanışın en çok belge üreten programı. Test modu vazgeçilmezdir.',
         alanlar:[
           { ad:'Değerleme anahtar tarihi', zorunlu:true, aciklama:'Genelde ayın son günü. Bu tarihteki kur kullanılır.' },
           { ad:'**Değerleme yöntemi**', zorunlu:true, aciklama:'{{OB59}}’da tanımlı. Sonucu tamamen belirler: ilke, kur tipi, ters kayıt.' },
-          { ad:'Kalem tipi seçimi', zorunlu:true, aciklama:'G/L bakiyeleri · satıcı açık kalemleri · müşteri açık kalemleri — ayrı ayrı işaretlenir.' },
+          { ad:'Kalem tipi seçimi', zorunlu:true, aciklama:'G/L bakiyeleri · satıcı açık kalemleri · müşteri açık kalemleri: ayrı ayrı işaretlenir.' },
           { ad:'Ters kayıt tarihi', zorunlu:false, aciklama:'Genelde sonraki dönemin ilk günü.' },
           { ad:'Test modu', zorunlu:false, aciklama:'**Her zaman önce.** Program yüzlerce belge üretebilir.' },
           { ad:'Belge türü', zorunlu:false, aciklama:'Değerleme belgeleri için ayrı tür kullanmak, sonradan ayırt etmeyi kolaylaştırır.' },
@@ -617,7 +617,7 @@ SAP.registerTopic({
               'Büyük sapma varsa iki ihtimal: kur gerçekten çok hareket etmiş, veya ' +
               '{{TCURR}}’da yanlış/eksik kur var.' },
 
-      { ad:'{{OBA1}} — kur farkı hesap belirleme',
+      { ad:'{{OBA1}}: kur farkı hesap belirleme',
         aciklama:'Hangi farkın hangi hesaba gideceğini tanımlar. Eksikse değerleme durur.',
         alanlar:[
           { ad:'Hesap anahtarı', zorunlu:true, aciklama:'**KDF** gerçekleşmemiş (değerleme), **KDB** gerçekleşmiş (kapatma).' },
@@ -634,20 +634,20 @@ SAP.registerTopic({
     opsiyonel:['Ters kayıt tarihi','Test modu','Belge türü','Bilanço düzeltme hesabı','Çarpan/bölen oranı'],
 
     hatalar:[
-      { mesaj:'Exchange rate for EUR/TRY on 31.01.2027 not found', sebep:'{{TCURR}}’da o tarihe kur yok — otomatik besleme kopmuş olabilir.', cozum:'{{OB08}} ile gir; besleme işini kontrol et. Kontrol listesine "kurlar güncel mi?" maddesi ekle.' },
+      { mesaj:'Exchange rate for EUR/TRY on 31.01.2027 not found', sebep:'{{TCURR}}’da o tarihe kur yok: otomatik besleme kopmuş olabilir.', cozum:'{{OB08}} ile gir; besleme işini kontrol et. Kontrol listesine "kurlar güncel mi?" maddesi ekle.' },
       { mesaj:'Account determination for entry ... KDF not possible', sebep:'{{OBA1}}’de gerçekleşmemiş kur farkı hesabı tanımsız.', cozum:'{{OBA1}} → KDF → ilgili mutabakat hesabı için kâr/zarar hesaplarını gir.' },
-      { mesaj:'Account determination for entry ... KDB not possible', sebep:'Gerçekleşmiş kur farkı hesabı tanımsız — ödeme sırasında alınır.', cozum:'{{OBA1}} → KDB tanımını tamamla.' },
+      { mesaj:'Account determination for entry ... KDB not possible', sebep:'Gerçekleşmiş kur farkı hesabı tanımsız: ödeme sırasında alınır.', cozum:'{{OBA1}} → KDB tanımını tamamla.' },
       { mesaj:'Valuation method ... does not exist', sebep:'{{OB59}}’da yöntem yok.', cozum:'Değerleme yöntemini tanımla.' },
       { mesaj:'Ratio for currency conversion is missing (TCURF)', sebep:'Para birimi çifti için çarpan/bölen oranı tanımsız.', cozum:'IMG → kur çevrim oranlarını tanımla.' },
       { mesaj:'Valuation area ... not assigned to ledger', sebep:'{{FAGL_FC_VAL}}’de değerleme alanı defterle eşlenmemiş.', cozum:'IMG → değerleme alanı - defter atamasını yap. {{paralel-defter}} kurulumlarında sık görülür.' },
-      { mesaj:'Document currency and local currency are identical', sebep:'Değerlenecek dövizli kalem yok — belge zaten yerel para biriminde.', cozum:'Uyarıdır; seçim kriterlerini kontrol et.' },
+      { mesaj:'Document currency and local currency are identical', sebep:'Değerlenecek dövizli kalem yok: belge zaten yerel para biriminde.', cozum:'Uyarıdır; seçim kriterlerini kontrol et.' },
     ],
 
     ipuclari:[
       '{{F.05}}’i **tüm dövizli işlemler kaydedildikten sonra** çalıştır. Sonradan gelen fatura ' +
       'değerlenmemiş kalır ve kapanış tekrarlanır.',
       'Test sonucundaki toplam kur farkını geçen ayla karşılaştır; sapma açıklanabilir olmalıdır.',
-      'Değerleme farkını **bilanço düzeltme hesabına** yaz, mutabakat hesabına değil — ' +
+      'Değerleme farkını **bilanço düzeltme hesabına** yaz, mutabakat hesabına değil: ' +
       'muavin defter mutabakatı bozulmasın.',
       'Değerleme belgeleri için **ayrı belge türü** kullan; ay sonunda hangilerinin ters kaydedileceğini ' +
       'bir raporla görürsün.',
@@ -661,11 +661,11 @@ SAP.registerTopic({
   /* ===================================================== 8. TEKNİK === */
   teknik: {
     guncellenenTablolar:[
-      { tablo:'TCURR', ne:'Kur kayıtları — {{OB08}} veya otomatik besleme' },
+      { tablo:'TCURR', ne:'Kur kayıtları: {{OB08}} veya otomatik besleme' },
       { tablo:'BKPF', ne:'Değerleme belgesi başlığı; kullanılan kur ve kur tarihi' },
       { tablo:'BSEG', ne:'Değerleme farkı kalemleri; dövizli kalemlerde çok para birimli tutarlar' },
       { tablo:'ACDOCA', ne:'Evrensel kalemler; 10’a kadar paralel para birimi' },
-      { tablo:'BSIK / BSID', ne:'Açık kalemler taranır ama **değiştirilmez** — fark ayrı kayıtta' },
+      { tablo:'BSIK / BSID', ne:'Açık kalemler taranır ama **değiştirilmez**: fark ayrı kayıtta' },
     ],
 
     commit:
@@ -676,7 +676,7 @@ SAP.registerTopic({
       'iptal edip yenisini yazar (değerleme yöntemine bağlı). Mükerrer değerleme oluşmaz.',
 
     belgeNo:
-      'Değerleme belgeleri kendi belge türlerinin aralığından numara alır — genelde **SA** veya ' +
+      'Değerleme belgeleri kendi belge türlerinin aralığından numara alır: genelde **SA** veya ' +
       'özel bir tür (örn. **ZV**). Ayrı tür kullanmak, ay sonunda değerleme belgelerini ' +
       'raporla ayırt etmeyi kolaylaştırır.',
 
@@ -699,83 +699,83 @@ SAP.registerTopic({
 
     numberRange:
       'Değerleme belge türünün aralığı da her mali yıl için açılmalıdır. ' +
-      'Yüksek hacimli kurulumlarda değerleme yüzlerce belge üretebilir — aralık geniş tutulmalıdır.',
+      'Yüksek hacimli kurulumlarda değerleme yüzlerce belge üretebilir: aralık geniş tutulmalıdır.',
 
     accountDetermination:
       '{{OBA1}} kur farkı hesap belirlemesinin merkezidir. Anahtarlar:\n\n' +
-      '**KDF** — gerçekleşmemiş kur farkı (değerleme). Girdi: şirket kodu + mutabakat hesabı + ' +
+      '**KDF**: gerçekleşmemiş kur farkı (değerleme). Girdi: şirket kodu + mutabakat hesabı + ' +
       'para birimi (opsiyonel). Çıktı: kâr hesabı, zarar hesabı, bilanço düzeltme hesabı.\n\n' +
-      '**KDB** — gerçekleşmiş kur farkı (kapatma anında). Aynı yapı.\n\n' +
-      '**KDW / KDV** — bazı kurulumlarda kullanılan ek düzeltme anahtarları.\n\n' +
+      '**KDB**: gerçekleşmiş kur farkı (kapatma anında). Aynı yapı.\n\n' +
+      '**KDW / KDV**: bazı kurulumlarda kullanılan ek düzeltme anahtarları.\n\n' +
       'Her mutabakat hesabı için ayrı tanım yapılabilir: satıcı kur farkı ile müşteri kur farkı ' +
       'ayrı hesaplarda izlenebilir.',
 
     tur:
       '**Özelleştirme:** {{kur-tipi}} tanımları ({{TCURV}}), çarpan/bölen oranları (TCURF), ' +
       '{{OB59}} değerleme yöntemleri, {{OBA1}} hesap belirleme, {{paralel-para-birimi}} yapısı.\n\n' +
-      '**Ana veri sayılabilecek:** kurların kendisi ({{TCURR}}) — teknik olarak yapılandırma tablosudur ' +
+      '**Ana veri sayılabilecek:** kurların kendisi ({{TCURR}}): teknik olarak yapılandırma tablosudur ' +
       'ama günlük değişen bir veridir ve genelde otomatik beslenir.\n\n' +
       '**Hareket verisi:** değerleme belgeleri.',
 
     transport:
       'Kur tipleri, çevrim oranları, değerleme yöntemleri ve hesap belirleme **taşınır**.\n\n' +
-      '**Kurların kendisi ({{TCURR}}) taşınmaz** — her sistemde ayrı beslenir. ' +
+      '**Kurların kendisi ({{TCURR}}) taşınmaz**: her sistemde ayrı beslenir. ' +
       'Bu mantıklıdır: test sisteminde güncel kur gerekmez. ' +
       'Ama canlıya geçişte kur beslemesinin kurulmuş olması **zorunludur**; ' +
       'yoksa ilk dövizli işlem hata verir.',
 
     img:[
-      { yol:'SPRO → SAP NetWeaver → Genel Ayarlar → Para Birimleri → Kur Tiplerini Kontrol Et', not:'{{TCURV}} — M/B/G tanımları' },
-      { yol:'SPRO → SAP NetWeaver → Genel Ayarlar → Para Birimleri → Çevrim Oranlarını Tanımla', not:'TCURF — çarpan/bölen' },
+      { yol:'SPRO → SAP NetWeaver → Genel Ayarlar → Para Birimleri → Kur Tiplerini Kontrol Et', not:'{{TCURV}}: M/B/G tanımları' },
+      { yol:'SPRO → SAP NetWeaver → Genel Ayarlar → Para Birimleri → Çevrim Oranlarını Tanımla', not:'TCURF: çarpan/bölen' },
       { yol:'SPRO → SAP NetWeaver → Genel Ayarlar → Para Birimleri → Kurları Gir', not:'{{OB08}} → {{TCURR}}' },
       { yol:'SPRO → Finansal Muhasebe → Ana Muhasebe → İş İşlemleri → Kapanış → Değerleme → Yabancı Para Değerlemesi → Değerleme Yöntemlerini Tanımla', not:'{{OB59}}' },
-      { yol:'SPRO → … → Kapanış → Değerleme → Yabancı Para Değerlemesi → Kur Farkları İçin Hesapları Hazırla', not:'{{OBA1}} — KDF/KDB' },
+      { yol:'SPRO → … → Kapanış → Değerleme → Yabancı Para Değerlemesi → Kur Farkları İçin Hesapları Hazırla', not:'{{OBA1}}: KDF/KDB' },
       { yol:'SPRO → Finansal Muhasebe → Finansal Muhasebe Genel Ayarları → Şirket Kodu → Paralel Para Birimleri', not:'{{paralel-para-birimi}} yapısı' },
     ],
 
     ekstra:[
-      { ic:'💰', baslik:'Kur farkının hesapları — hangi fark nereye yazılır?', metin:
+      { ic:'💰', baslik:'Kur farkının hesapları: hangi fark nereye yazılır?', metin:
         '**Temel ikili (TDHP):**\n\n' +
-        '`646` **Kambiyo kârları** — kur lehte hareket etti\n' +
-        '`656` **Kambiyo zararları** — kur aleyhte hareket etti\n\n' +
+        '`646` **Kambiyo kârları**: kur lehte hareket etti\n' +
+        '`656` **Kambiyo zararları**: kur aleyhte hareket etti\n\n' +
         'Döviz tutarı **hiç değişmez**; değişen yalnızca yerel para karşılığıdır. ' +
         '320 hesabındaki 100.000 EUR, kur ne olursa olsun 100.000 EUR kalır.\n\n' +
         '---\n\n' +
         '**Neden alt hesap ayrımı önerilir?**\n\n' +
-        '`646.01 / 656.01` **gerçekleşmemiş** — {{F.05}} değerlemesinden doğar, ' +
+        '`646.01 / 656.01` **gerçekleşmemiş**: {{F.05}} değerlemesinden doğar, ' +
         '**ertesi gün ters kaydedilir**\n' +
-        '`646.02 / 656.02` **gerçekleşmiş** — ödeme/tahsilatta kesinleşir, **kalıcıdır**\n\n' +
+        '`646.02 / 656.02` **gerçekleşmiş**: ödeme/tahsilatta kesinleşir, **kalıcıdır**\n\n' +
         'Ayrım iki işe yarar:\n\n' +
         '**1. Vergi matrahı.** Gerçekleşmemiş fark geçici bir değerleme sonucudur; ' +
         'mali müşavir bunu ayrı görebilmelidir.\n\n' +
         '**2. Kontrol.** Dönem başında gerçekleşmemiş hesapların **sıfırlanmış** olması gerekir ' +
-        '(ters kayıt çalıştıysa). Sıfır değilse ters kayıt atlanmıştır — ' +
+        '(ters kayıt çalıştıysa). Sıfır değilse ters kayıt atlanmıştır: ' +
         'dönem sonu kontrol listesinin basit ve etkili bir maddesidir.\n\n' +
         '---\n\n' +
         '**SAP tarafında hesaplar nereye bağlanır?**\n\n' +
         '{{OBA1}} ile iki anahtar kullanılır:\n\n' +
-        '**KDF** — açık kalem değerlemesi (satıcı, müşteri, dövizli krediler)\n' +
-        '**KDB** — bakiye değerlemesi (dövizli banka hesapları)\n\n' +
+        '**KDF**: açık kalem değerlemesi (satıcı, müşteri, dövizli krediler)\n' +
+        '**KDB**: bakiye değerlemesi (dövizli banka hesapları)\n\n' +
         'Her anahtarda **kâr hesabı**, **zarar hesabı** ve gerekiyorsa ' +
         '**bilanço düzeltme hesabı** ayrı ayrı tanımlanır.\n\n' +
         'Düzeltme hesabı neden var? Değerleme farkını doğrudan 320 hesabına yazmak, ' +
         '{{mutabakat-hesabi}} ile satıcı muavin defteri arasında fark yaratırdı. ' +
         'Bunun yerine ayrı bir düzeltme hesabı kullanılır ve bilançoda 320 ile birlikte gösterilir.' },
 
-      { ic:'⚖️', baslik:'Hangi kalem değerlenir? — parasal / parasal olmayan ayrımı', metin:
+      { ic:'⚖️', baslik:'Hangi kalem değerlenir? - parasal / parasal olmayan ayrımı', metin:
         '**En sık yapılan kur farkı hatası, yanlış kalemi değerlemektir.**\n\n' +
-        '**Değerlenir — {{parasal-kalem}}ler:**\n\n' +
+        '**Değerlenir: {{parasal-kalem}}ler:**\n\n' +
         '`102` dövizli banka · `320` satıcılar · `120` alıcılar · ' +
         '`300/400` krediler · `121/321` senetler\n\n' +
         'Ortak özellik: karşılığında **belirli tutarda para** alınacak veya ödenecek. ' +
         'Kur değişince alacağın/borcun TL karşılığı değişir → **gerçek bir kur riski vardır**.\n\n' +
-        '**Değerlenmez — parasal olmayanlar:**\n\n' +
+        '**Değerlenmez: parasal olmayanlar:**\n\n' +
         '`153` stoklar · `253` duran varlıklar · `159` verilen avanslar · `340` alınan avanslar\n\n' +
         'Ortak özellik: karşılığında **mal veya hizmet** alınacak/verilecek, para değil.\n\n' +
         '---\n\n' +
-        '**Avans neden değerlenmez? — kavramın kilit noktası**\n\n' +
+        '**Avans neden değerlenmez? - kavramın kilit noktası**\n\n' +
         'Satıcıya 50.000 EUR avans verdin. Kur 35’ten 40’a çıktı. Kâr ettin mi?\n\n' +
-        '**Hayır.** Çünkü sana geri **para** gelmeyecek — 50.000 EUR’luk **mal** gelecek. ' +
+        '**Hayır.** Çünkü sana geri **para** gelmeyecek: 50.000 EUR’luk **mal** gelecek. ' +
         'Malın döviz fiyatı değişmediği sürece senin durumun değişmedi.\n\n' +
         'Avansı değerlersen **gerçekte var olmayan bir kâr** yaratırsın; ' +
         'mal geldiğinde bu kâr geri alınır ve iki dönem birden yanlış olur.\n\n' +
@@ -786,7 +786,7 @@ SAP.registerTopic({
         'değerlemeye tabi hesaplar listelenir. **Avans hesapları bu listeye konmamalıdır.** ' +
         'Konursa her dönem sahte kur farkı üretilir ve fark ancak yıllar sonra fark edilir.' },
 
-      { ic:'🧾', baslik:'Kur farkı faturası — SAP’ın yapmadığı, mevzuatın istediği', metin:
+      { ic:'🧾', baslik:'Kur farkı faturası: SAP’ın yapmadığı, mevzuatın istediği', metin:
         '**Türkiye’ye özgü ve sık atlanan bir yükümlülüktür.**\n\n' +
         'Muhasebede kur farkı zaten `646`/`656` hesabına kaydedilir. ' +
         'Ama KDV açısından ayrı bir soru vardır: *"bedelin kendisi değişti mi?"*\n\n' +
@@ -800,7 +800,7 @@ SAP.registerTopic({
         '---\n\n' +
         '**Danışmanlık açısından kritik nokta**\n\n' +
         '{{F110}} ödemeyi yapar, SAP kur farkını `656`’ya yazar, muhasebe kaydı **tamamdır**. ' +
-        'Ama kur farkı faturası **düzenlenmemiştir** — çünkü SAP bunu üretmez.\n\n' +
+        'Ama kur farkı faturası **düzenlenmemiştir**: çünkü SAP bunu üretmez.\n\n' +
         'Sonuç: muhasebe doğru, **KDV eksik**. Fark ancak incelemede ortaya çıkar.\n\n' +
         '**Önlem:** dövizli satışların tahsilatlarında oluşan lehte kur farklarını ' +
         'listeleyen bir rapor kurulmalı ve aylık gözden geçirilmelidir. ' +
@@ -808,12 +808,12 @@ SAP.registerTopic({
         '*Uygulama esasları KDV Genel Uygulama Tebliği ile belirlenir; ' +
         'güncel düzenleme mali müşavire teyit ettirilmelidir.*' },
 
-      { ic:'🏗️', baslik:'Yatırım dönemi kur farkı — gider mi, maliyet mi?', metin:
+      { ic:'🏗️', baslik:'Yatırım dönemi kur farkı: gider mi, maliyet mi?', metin:
         'Yurtdışından 2.000.000 EUR’ya makine alındı, borç henüz ödenmedi, kur yükseldi. ' +
         'Oluşan kur farkı **gider mi yazılır, makinenin maliyetine mi eklenir?**\n\n' +
         '**VUK uygulaması:** yatırımın **aktifleştirildiği dönemin sonuna kadar** oluşan ' +
         'kur farkları varlığın **maliyetine eklenir**. Sonraki dönemlerde oluşanların ' +
-        'maliyete eklenmesi ise **ihtiyaridir** — gider de yazılabilir.\n\n' +
+        'maliyete eklenmesi ise **ihtiyaridir**: gider de yazılabilir.\n\n' +
         '**Neden önemli:**\n\n' +
         'Maliyete eklenirse → 340.000 TL gider yazılmaz, **amortisman yoluyla** yıllara yayılır. ' +
         'O yılın kârı daha yüksek, sonraki yılların kârı daha düşük görünür.\n\n' +
@@ -822,27 +822,27 @@ SAP.registerTopic({
         'seçim tutarlı uygulanmalıdır.\n\n' +
         '---\n\n' +
         '**SAP bunu otomatik ayırmaz.**\n\n' +
-        '{{F.05}} tüm açık kalemleri değerler ve farkı `656`’ya yazar — ' +
+        '{{F.05}} tüm açık kalemleri değerler ve farkı `656`’ya yazar: ' +
         'yatırıma ait olanla normal ticari borcu **ayırt etmez**.\n\n' +
         'Yatırım dönemine ait farkların {{yatirim-devam}} hesabına (258) aktarılması ' +
         '**elle** yapılır. Dönem sonu kontrol listesine konmalıdır:\n\n' +
         '*"Dövizli yatırım borcu var mı? Varsa bu dönemin kur farkı 258’e aktarıldı mı?"*' },
 
-      { ic:'💱', baslik:'Paralel para birimi — aynı belge, üç tutar', metin:
+      { ic:'💱', baslik:'Paralel para birimi: aynı belge, üç tutar', metin:
         'Bir şirket üç para biriminde raporlamak isteyebilir: **yerel** (TRY, yasal), ' +
         '**grup** (EUR, konsolidasyon), **sabit** (USD, enflasyondan bağımsız karşılaştırma).\n\n' +
         'SAP bunu **paralel para birimi** ile çözer: her belge kaydedilirken üç tutar birden hesaplanır ' +
         've saklanır ({{BSEG}} `DMBTR`, `DMBE2`, `DMBE3`).\n\n' +
-        'Her para birimi kendi {{kur-tipi}} ve kur tarihini kullanabilir — bu, yapılandırmada belirlenir.\n\n' +
+        'Her para birimi kendi {{kur-tipi}} ve kur tarihini kullanabilir: bu, yapılandırmada belirlenir.\n\n' +
         'S/4HANA’da {{ACDOCA}} bu sınırı **10 para birimine** çıkardı. ' +
         'Değerleme de her para birimi için ayrı yapılabilir.' },
 
       { ic:'⚖️', baslik:'Değerleme farkı nereye yazılmalı?', metin:
         'İki seçenek vardır ve seçim önemlidir:\n\n' +
-        '**Seçenek 1 — mutabakat hesabına yaz.** Basittir ama **muavin defter mutabakatını bozar**: ' +
+        '**Seçenek 1: mutabakat hesabına yaz.** Basittir ama **muavin defter mutabakatını bozar**: ' +
         '320 hesabının bakiyesi 3.880.000 TL olurken {{FBL1N}} muavin defter toplamı 3.500.000 TL kalır. ' +
         'Aradaki fark açıklanabilir ama her ay kontrol gerektirir.\n\n' +
-        '**Seçenek 2 — ayrı bilanço düzeltme hesabına yaz.** Mutabakat hesabı dokunulmamış kalır; ' +
+        '**Seçenek 2: ayrı bilanço düzeltme hesabına yaz.** Mutabakat hesabı dokunulmamış kalır; ' +
         'düzeltme hesabı bilançoda mutabakat hesabının yanında gösterilir.\n\n' +
         'Çoğu kurulum **seçenek 2**’yi tercih eder. {{OBA1}}’de "bilanço düzeltme hesabı" alanıyla tanımlanır.' },
     ],
@@ -864,9 +864,9 @@ SAP.registerTopic({
       'defter bazlı değerlemenin standartlaşması ve Fiori arayüzleri.',
 
     eccFarklari:[
-      { konu:'Paralel para birimi', ecc:'**3** (yerel + 2 ek)', s4:'**10’a kadar** — {{ACDOCA}} sayesinde' },
+      { konu:'Paralel para birimi', ecc:'**3** (yerel + 2 ek)', s4:'**10’a kadar**: {{ACDOCA}} sayesinde' },
       { konu:'Değerleme programı', ecc:'{{F.05}} (klasik) / {{FAGL_FC_VAL}} (yeni G/L)', s4:'{{FAGL_FC_VAL}} standart; defter bazlı' },
-      { konu:'Defter bazlı değerleme', ecc:'Yeni G/L ile mümkün', s4:'**Standart** — her defter kendi yöntemiyle' },
+      { konu:'Defter bazlı değerleme', ecc:'Yeni G/L ile mümkün', s4:'**Standart**: her defter kendi yöntemiyle' },
       { konu:'Kur verisi', ecc:'{{TCURR}}', s4:'Değişmedi' },
       { konu:'Hesap belirleme', ecc:'{{OBA1}}', s4:'Değişmedi' },
       { konu:'Raporlama', ecc:'Klasik raporlar', s4:'Fiori + anlık çok para birimli raporlama' },
@@ -875,7 +875,7 @@ SAP.registerTopic({
     universalJournal:
       '{{ACDOCA}} her kalemi **çok para birimli** olarak saklar: `HSL` (şirket kodu), `WSL` (belge), ' +
       '`KSL` (grup), `OSL` (ek) ve devamı. Toplam 10 para birimine kadar.\n\n' +
-      'Pratik sonucu: konsolidasyon için ayrı çevrim yapmaya gerek kalmaz — grup para birimi tutarı ' +
+      'Pratik sonucu: konsolidasyon için ayrı çevrim yapmaya gerek kalmaz: grup para birimi tutarı ' +
       'zaten her satırda hazırdır. Ayrıca değerleme her defter ve her para birimi için ' +
       'bağımsız çalıştırılabilir.',
 
@@ -891,8 +891,8 @@ SAP.registerTopic({
     ],
 
     compatibilityViews:[
-      '{{TCURR}}, {{TCURV}} — **fiziksel tablo olarak duruyor**, değişmedi.',
-      '{{BSEG}} — duruyor; çok para birimli alanlar korundu ama {{ACDOCA}} daha fazlasını taşıyor.',
+      '{{TCURR}}, {{TCURV}}: **fiziksel tablo olarak duruyor**, değişmedi.',
+      '{{BSEG}}: duruyor; çok para birimli alanlar korundu ama {{ACDOCA}} daha fazlasını taşıyor.',
       'Kur konusu, S/4HANA’da tablo yapısı en az değişen alanlardan biridir.',
     ],
 
@@ -906,7 +906,7 @@ SAP.registerTopic({
       'ECC’de yapılamayan raporlamaları mümkün kılabilir.',
       '{{paralel-defter}} kullanılıyorsa her deftere **kendi değerleme yöntemini** ata: ' +
       'yerel defterde ihtiyatlılık, IFRS defterinde simetrik değerleme.',
-      'Kur beslemesini otomatikleştir ve **izlemeye al** — kopukluk sessizdir.',
+      'Kur beslemesini otomatikleştir ve **izlemeye al**: kopukluk sessizdir.',
       'Değerleme farkını bilanço düzeltme hesabına yaz; mutabakat hesabını dokunulmamış bırak.',
       'Değerleme belgeleri için ayrı belge türü kullan; raporlamada ayırt edilebilir olsun.',
     ],
@@ -925,30 +925,30 @@ SAP.registerTopic({
       { k:'Satıcı', v:'V-9001 (Almanya) · Ödeme koşulu 30 gün' },
       { k:'Tutar', v:'100.000 EUR' },
       { k:'Kurlar', v:'15.01: **35,00** · 31.01: **38,80** · 15.02: **37,20**' },
-      { k:'Değerleme yöntemi', v:'Z001 — ortalama kur (M), düşük değerle değerleme, ters kaydedilecek' },
+      { k:'Değerleme yöntemi', v:'Z001: ortalama kur (M), düşük değerle değerleme, ters kaydedilecek' },
     ],
 
     adimlar:[
-      { baslik:'15 Ocak — fatura kaydedilir (çevrim)', tcode:'MIRO',
+      { baslik:'15 Ocak: fatura kaydedilir (çevrim)', tcode:'MIRO',
         aciklama:'Belge para birimi EUR girilir; sistem {{TCURR}}’dan 15.01 kurunu bulup yerel karşılığı hesaplar.',
         girdi:[
           { alan:'Satıcı / Tutar', deger:'V-9001 · 100.000 EUR' },
           { alan:'Belge para birimi', deger:'EUR' },
-          { alan:'Kur — **otomatik**', deger:'35,00 ({{TCURR}}’dan, 15.01 kuru)' },
+          { alan:'Kur: **otomatik**', deger:'35,00 ({{TCURR}}’dan, 15.01 kuru)' },
           { alan:'Yerel karşılık', deger:'3.500.000 TL' },
         ],
-        fis:{ baslik:'Belge 5100000891 — İthalat faturası', belgeTuru:'RE', tarih:'15.01.2027', paraBirimi:'EUR',
+        fis:{ baslik:'Belge 5100000891: İthalat faturası', belgeTuru:'RE', tarih:'15.01.2027', paraBirimi:'EUR',
           satirlar:[
             { hesap:'153', ad:'Ticari mallar', borc:3500000, not:'100.000 EUR × 35,00' },
-            { hesap:'320', ad:'Satıcılar — V-9001', alacak:3500000, not:'Döviz: 100.000 EUR' },
+            { hesap:'320', ad:'Satıcılar: V-9001', alacak:3500000, not:'Döviz: 100.000 EUR' },
           ], not:'Bu bir **çevrimdir**. Kayıt anında bir kez yapılır ve belgede saklanır.' },
         tabloEtkisi:[
           { tablo:'BSEG', ne:'`WRBTR` = 100.000 (EUR) · `DMBTR` = 3.500.000 (TRY) · `KURSF` = 35,00' },
-          { tablo:'BSIK', ne:'Dövizli açık kalem oluştu — değerleme hedefi' },
+          { tablo:'BSIK', ne:'Dövizli açık kalem oluştu: değerleme hedefi' },
           { tablo:'BKPF', ne:'`WAERS` = EUR · `KURSF` = 35,00' },
         ] },
 
-      { baslik:'31 Ocak — kur bulunamıyor', tcode:'F.05',
+      { baslik:'31 Ocak: kur bulunamıyor', tcode:'F.05',
         aciklama:'Değerleme çalıştırılıyor ama hata veriyor. Otomatik besleme kopmuş.',
         girdi:[
           { alan:'Hata', deger:'"Exchange rate for EUR/TRY on 31.01.2027 not found"' },
@@ -959,7 +959,7 @@ SAP.registerTopic({
              'girilseydi, sistem **hata vermeden** 28 Ocak kurunu kullanacaktı. ' +
              'Kur beslemesi kontrol listesine eklendi.' },
 
-      { baslik:'31 Ocak — değerleme yapılır', tcode:'F.05',
+      { baslik:'31 Ocak: değerleme yapılır', tcode:'F.05',
         aciklama:'Açık kalem 38,80 kuruyla yeniden ölçülüyor. Fark **gerçekleşmemiş** zarardır.',
         girdi:[
           { alan:'Anahtar tarih / Yöntem', deger:'31.01.2027 · Z001' },
@@ -968,28 +968,28 @@ SAP.registerTopic({
           { alan:'**Fark**', deger:'**380.000 TL zarar** (gerçekleşmemiş)' },
           { alan:'Ters kayıt tarihi', deger:'01.02.2027' },
         ],
-        fis:{ baslik:'Belge 1000009012 — Kur değerlemesi', belgeTuru:'SA', tarih:'31.01.2027',
+        fis:{ baslik:'Belge 1000009012: Kur değerlemesi', belgeTuru:'SA', tarih:'31.01.2027',
           satirlar:[
             { hesap:'656', ad:'Kambiyo zararı (gerçekleşmemiş)', borc:380000, not:'{{OBA1}} → KDF' },
-            { hesap:'321', ad:'Satıcılar — değerleme düzeltmesi', alacak:380000, not:'Bilanço düzeltme hesabı' },
+            { hesap:'321', ad:'Satıcılar: değerleme düzeltmesi', alacak:380000, not:'Bilanço düzeltme hesabı' },
           ], not:'Düzeltme **320’ye değil 321’e** yazıldı. Böylece 320 hesabının bakiyesi ' +
                  '{{FBL1N}} muavin defter toplamıyla uyumlu kalıyor ve mutabakat bozulmuyor.\n\n' +
                  'Bilançoda ikisi birlikte gösterilir: 3.500.000 + 380.000 = 3.880.000 TL gerçek yükümlülük.' },
         tabloEtkisi:[
-          { tablo:'BSIK', ne:'**Değişmedi** — açık kalem hâlâ 3.500.000 TL. Değerleme kalemin kendisine dokunmaz.' },
+          { tablo:'BSIK', ne:'**Değişmedi**: açık kalem hâlâ 3.500.000 TL. Değerleme kalemin kendisine dokunmaz.' },
           { tablo:'BKPF', ne:'Ters kayıt tarihi 01.02.2027 olarak işaretlendi' },
         ] },
 
-      { baslik:'1 Şubat — değerleme ters kaydedilir', tcode:'F.05',
+      { baslik:'1 Şubat: değerleme ters kaydedilir', tcode:'F.05',
         aciklama:'Fark gerçekleşmemişti; kur geri dönebilir. Değerleme otomatik geri alınıyor.',
-        fis:{ baslik:'Belge 1000009156 — Değerleme ters kaydı', belgeTuru:'SA', tarih:'01.02.2027',
+        fis:{ baslik:'Belge 1000009156: Değerleme ters kaydı', belgeTuru:'SA', tarih:'01.02.2027',
           satirlar:[
-            { hesap:'321', ad:'Satıcılar — değerleme düzeltmesi', borc:380000 },
+            { hesap:'321', ad:'Satıcılar: değerleme düzeltmesi', borc:380000 },
             { hesap:'656', ad:'Kambiyo zararı (gerçekleşmemiş)', alacak:380000 },
-          ], not:'Ocak bilançosu doğru gösterildi; şimdi sıfırlandı. Şubat sonunda **yeniden** değerlenecek — ' +
+          ], not:'Ocak bilançosu doğru gösterildi; şimdi sıfırlandı. Şubat sonunda **yeniden** değerlenecek: ' +
                  'o zamanki kurla.' } },
 
-      { baslik:'15 Şubat — ödeme yapılır (gerçekleşme)', tcode:'F110',
+      { baslik:'15 Şubat: ödeme yapılır (gerçekleşme)', tcode:'F110',
         aciklama:'Borç ödeniyor. Kur 37,20. Fark artık **gerçekleşiyor** ve kalıcı oluyor.',
         girdi:[
           { alan:'Ödeme tutarı', deger:'100.000 EUR' },
@@ -997,13 +997,13 @@ SAP.registerTopic({
           { alan:'Kapatılan kalem', deger:'3.500.000 TL (kayıt kurundan)' },
           { alan:'**Gerçekleşmiş fark**', deger:'**220.000 TL zarar**' },
         ],
-        fis:{ baslik:'Belge 2000002341 — Ödeme', belgeTuru:'KZ', tarih:'15.02.2027', paraBirimi:'EUR',
+        fis:{ baslik:'Belge 2000002341: Ödeme', belgeTuru:'KZ', tarih:'15.02.2027', paraBirimi:'EUR',
           satirlar:[
-            { hesap:'320', ad:'Satıcılar — V-9001 (kapatıldı)', borc:3500000, not:'100.000 EUR @ 35,00 (kayıt kuru)' },
+            { hesap:'320', ad:'Satıcılar: V-9001 (kapatıldı)', borc:3500000, not:'100.000 EUR @ 35,00 (kayıt kuru)' },
             { hesap:'102', ad:'Bankalar (100.000 EUR @ 37,20)', alacak:3720000, not:'Ödeme günü kuru' },
             { hesap:'656', ad:'Kambiyo zararı (gerçekleşmiş)', borc:220000, not:'{{OBA1}} → KDB' },
           ], not:'**Döviz tarafı denk:** 100.000 EUR borç, 100.000 EUR ödeme. ' +
-                 'Fark yalnızca yerel paradadır ve **kalıcıdır** — kalem kapandı, kur kesinleşti.\n\n' +
+                 'Fark yalnızca yerel paradadır ve **kalıcıdır**: kalem kapandı, kur kesinleşti.\n\n' +
                  'Bu kayıt ters kaydedilmez.' },
         tabloEtkisi:[
           { tablo:'BSIK', ne:'Kalem silindi' },
@@ -1019,21 +1019,21 @@ SAP.registerTopic({
           { alan:'15.02 ödeme', deger:'+220.000 TL zarar (gerçekleşmiş)' },
           { alan:'**Net kalıcı etki**', deger:'**220.000 TL zarar**' },
         ],
-        not:'Ocak bilançosu 380.000 TL zarar gösterdi — **o tarihte doğruydu**. ' +
+        not:'Ocak bilançosu 380.000 TL zarar gösterdi: **o tarihte doğruydu**. ' +
              'Gerçekleşen 220.000 TL oldu. Aradaki 160.000 TL fark, ters kayıt sayesinde ' +
              'otomatik olarak düzeldi; elle düzeltme gerekmedi.' },
     ],
 
     sonuc:
       '**Aynı işlem, üç farklı an, üç farklı rakam:**\n\n' +
-      '• **15 Ocak (çevrim):** 3.500.000 TL — işlem kaydedildi\n' +
-      '• **31 Ocak (değerleme):** 3.880.000 TL — bilanço gerçeği yansıttı, 380.000 TL gerçekleşmemiş zarar\n' +
-      '• **15 Şubat (gerçekleşme):** 3.720.000 TL ödendi — 220.000 TL gerçekleşmiş zarar\n\n' +
+      '• **15 Ocak (çevrim):** 3.500.000 TL: işlem kaydedildi\n' +
+      '• **31 Ocak (değerleme):** 3.880.000 TL: bilanço gerçeği yansıttı, 380.000 TL gerçekleşmemiş zarar\n' +
+      '• **15 Şubat (gerçekleşme):** 3.720.000 TL ödendi: 220.000 TL gerçekleşmiş zarar\n\n' +
       '**Dört kritik ders:**\n\n' +
       '**1. Döviz tutarı hiç değişmedi.** Borç baştan sona 100.000 EUR’ydu. Değişen yalnızca ' +
       'yerel para karşılığıydı. Değerleme kaydı döviz tarafında sıfırdır.\n\n' +
       '**2. Değerleme bir tahmindir, gerçek rakam ödemede belli olur.** ' +
-      'Bu yüzden gerçekleşmemiş fark ters kaydedilir — aksi hâlde tahmin ile gerçek üst üste binerdi.\n\n' +
+      'Bu yüzden gerçekleşmemiş fark ters kaydedilir: aksi hâlde tahmin ile gerçek üst üste binerdi.\n\n' +
       '**3. Değerleme farkı ayrı bir düzeltme hesabına yazılmalı.** ' +
       'Doğrudan 320’ye yazılsaydı ana muhasebe bakiyesi ile muavin defter toplamı uyuşmayacak ve ' +
       'mutabakat kalıcı olarak bozulacaktı.\n\n' +
@@ -1051,14 +1051,14 @@ SAP.registerTopic({
       'Değerleme açık kalemin **kendisini değiştirmez**; fark ayrı bir düzeltme kaydında tutulur.',
       'Yapılandırma üç katmandır: {{OB08}} kurlar → {{OB59}} değerleme yöntemi → {{OBA1}} hesap belirleme.',
       'Hesap anahtarları: **KDF** gerçekleşmemiş, **KDB** gerçekleşmiş kur farkı.',
-      'Sistem eksik kurda **hata vermez** — en yakın önceki kuru kullanır. Besleme izlenmelidir.',
+      'Sistem eksik kurda **hata vermez**: en yakın önceki kuru kullanır. Besleme izlenmelidir.',
       'S/4HANA’da paralel para birimi **10’a** çıktı (ECC’de 3) ve değerleme defter bazlıdır.',
     ],
 
     onemliNoktalar:[
       '**"Gerçekleşmiş ve gerçekleşmemiş kur farkı arasındaki fark nedir?"** Gerçekleşmemiş: kalem hâlâ açık, değerleme sonucu, **ters kaydedilir** (KDF). Gerçekleşmiş: kalem kapandı, kur kesinleşti, **kalıcıdır** (KDB). **En çok sorulan sorudur.**',
       '**"Değerleme açık kalemi değiştirir mi?"** Hayır. Orijinal kalem kayıt kuruyla durmaya devam eder; fark ayrı bir düzeltme kaydındadır.',
-      '**"Değerleme farkı hangi hesaba yazılmalı?"** Mutabakat hesabına değil, **ayrı bir bilanço düzeltme hesabına** — yoksa muavin defter mutabakatı bozulur.',
+      '**"Değerleme farkı hangi hesaba yazılmalı?"** Mutabakat hesabına değil, **ayrı bir bilanço düzeltme hesabına**: yoksa muavin defter mutabakatı bozulur.',
       '**"Kur bulunamazsa ne olur?"** Sistem **hata vermez**; işlem tarihine eşit veya ondan önceki en yakın kuru kullanır. Yanlış kurla kayıt sessizce oluşur.',
       '**"Düşük değerle değerleme nedir?"** İhtiyatlılık ilkesi: gerçekleşmemiş **zarar** kaydedilir, gerçekleşmemiş **kâr** kaydedilmez. {{OB59}}’da seçilir.',
       '**"Aynı kur hareketi neden bazen kâr bazen zarar?"** Dövizli **borcun** yerel karşılığı artarsa zarar; dövizli **varlığın** yerel karşılığı artarsa kâr.',
@@ -1078,12 +1078,12 @@ SAP.registerTopic({
     ],
 
     ipuclari:[
-      'Kur beslemesini kapanış kontrol listesine **madde olarak** ekle — kopukluk sessizdir.',
+      'Kur beslemesini kapanış kontrol listesine **madde olarak** ekle: kopukluk sessizdir.',
       '{{F.05}} test sonucundaki toplam kur farkını geçen ayla karşılaştır; sapma açıklanabilir olmalıdır.',
       'Değerleme belgeleri için **ayrı belge türü** kullan; ters kaydedilecekleri raporla ayırt edersin.',
       'Değerleme farkını bilanço düzeltme hesabına yaz; mutabakat hesabını dokunulmamış bırak.',
       'Net döviz pozisyonunu (dövizli varlık − dövizli borç) izle; kur riskinin büyüklüğü budur.',
-      'Paralel defter varsa her defterin kendi değerleme yöntemi olduğunu doğrula — ' +
+      'Paralel defter varsa her defterin kendi değerleme yöntemi olduğunu doğrula: ' +
       'aynı kalemin iki defterde farklı fark üretmesi **doğrudur**.',
     ],
 
@@ -1091,12 +1091,12 @@ SAP.registerTopic({
       { soru:'Satıcıya verilen 50.000 EUR avans dönem sonunda değerlenmeli midir?',
         secenekler:[
           'Evet, tüm dövizli kalemler değerlenir',
-          '**Hayır — avans parasal olmayan bir kalemdir**',
+          '**Hayır: avans parasal olmayan bir kalemdir**',
           'Yalnızca kur düşmüşse',
           'Yalnızca yıl sonunda',
         ], dogru:1,
         aciklama:'Avansın karşılığında **para değil mal** alınacaktır. ' +
-                 'Kur ne olursa olsun 50.000 EUR’luk mal gelecek — geri para gelmeyecek. ' +
+                 'Kur ne olursa olsun 50.000 EUR’luk mal gelecek: geri para gelmeyecek. ' +
                  'Dolayısıyla **kur riski yoktur**.\n\n' +
                  'Değerlenirse gerçekte var olmayan bir kâr/zarar yaratılır ve ' +
                  'mal geldiğinde geri alınır → iki dönem birden yanlış olur.\n\n' +
@@ -1114,7 +1114,7 @@ SAP.registerTopic({
                  '**KDV’ye tabidir**. KDV oranı asıl işlemle aynıdır.\n\n' +
                  'Kur yükseldi → satıcı düzenler. Kur düştü → alıcı düzenler.\n\n' +
                  '**SAP kur farkını otomatik kaydeder ama bu faturayı üretmez.** ' +
-                 'Muhasebe doğru, KDV eksik kalır — ayrı takip gerekir.' },
+                 'Muhasebe doğru, KDV eksik kalır: ayrı takip gerekir.' },
 
       { soru:'Yatırım (henüz aktifleştirilmemiş makine) borcunun kur farkı nereye yazılır?',
         secenekler:[
@@ -1126,7 +1126,7 @@ SAP.registerTopic({
         aciklama:'VUK uygulamasında yatırımın **aktifleştirildiği dönemin sonuna kadar** ' +
                  'oluşan kur farkları **maliyete eklenir**; sonrakiler ihtiyaridir.\n\n' +
                  'Sonucu: gider yazılmaz, **amortisman yoluyla** yıllara yayılır.\n\n' +
-                 '**SAP bunu otomatik ayırmaz** — {{F.05}} farkı 656’ya yazar. ' +
+                 '**SAP bunu otomatik ayırmaz**: {{F.05}} farkı 656’ya yazar. ' +
                  'Yatırıma ait kısmın 258’e aktarılması **elle** yapılır ve ' +
                  'dönem sonu kontrol listesine konmalıdır.' },
 
@@ -1145,7 +1145,7 @@ SAP.registerTopic({
                  'somut faydasıdır: basit ve etkili bir dönem sonu kontrolü sağlar.' },
 
       { soru:'10.000 EUR’luk borç 35,00 kuruyla kaydedildi. Dönem sonunda kur 38,80. Değerleme sonrası borcun döviz tutarı nedir?',
-        secenekler:['10.000 EUR','11.086 EUR','**10.000 EUR — değişmez**','9.021 EUR'],
+        secenekler:['10.000 EUR','11.086 EUR','**10.000 EUR: değişmez**','9.021 EUR'],
         dogru:2,
         aciklama:'**Döviz tutarı hiç değişmez.** Borç 10.000 EUR olarak kalır; değişen yalnızca ' +
                  'yerel para karşılığıdır (350.000 → 388.000 TL). Değerleme kaydı döviz tarafında sıfırdır.' },
@@ -1153,7 +1153,7 @@ SAP.registerTopic({
       { soru:'Dönem sonu değerlemesinde oluşan kur farkı neden ters kaydedilir?',
         secenekler:[
           'Vergi mevzuatı gerektirdiği için',
-          '**Fark gerçekleşmemiştir — kalem henüz kapanmadı, kur geri dönebilir**',
+          '**Fark gerçekleşmemiştir: kalem henüz kapanmadı, kur geri dönebilir**',
           'Teknik bir zorunluluk',
           'Mutabakat hesabını korumak için',
         ], dogru:1,
@@ -1175,7 +1175,7 @@ SAP.registerTopic({
       { soru:'{{TCURR}}’da 31 Ocak kuru yoksa dövizli bir fatura girildiğinde ne olur?',
         secenekler:[
           'Hata verir ve kayıt yapılamaz',
-          '**Hata vermez — en yakın önceki tarihin kuru kullanılır**',
+          '**Hata vermez: en yakın önceki tarihin kuru kullanılır**',
           'Kur 1,00 kabul edilir',
           'Kullanıcıdan kur girmesi istenir',
         ], dogru:1,
@@ -1191,7 +1191,7 @@ SAP.registerTopic({
           'Değerleme yapılmaz',
         ], dogru:1,
         aciklama:'İhtiyatlılık ilkesidir: olası zarar hemen kaydedilir, olası kâr gerçekleşene kadar beklenir. ' +
-                 '{{OB59}}’da seçilir. IFRS ise genelde **her zaman değerle** ilkesini kullanır — ' +
+                 '{{OB59}}’da seçilir. IFRS ise genelde **her zaman değerle** ilkesini kullanır: ' +
                  'bu yüzden aynı şirket farklı defterlerde farklı yöntem kullanabilir.' },
 
       { soru:'{{OBA1}}’deki KDF ve KDB hesap anahtarları ne için kullanılır?',
@@ -1208,7 +1208,7 @@ SAP.registerTopic({
       { soru:'Dövizli bir **banka hesabının** yerel karşılığı kur artışıyla yükseldi. Muhasebe etkisi nedir?',
         secenekler:[
           'Kambiyo zararı',
-          '**Kambiyo kârı — varlık olduğu için**',
+          '**Kambiyo kârı: varlık olduğu için**',
           'Etki yok',
           'Yalnızca döviz tutarı değişir',
         ], dogru:1,
@@ -1225,23 +1225,23 @@ SAP.registerTopic({
     ],
 
     flashcards:[
-      { on:'Kur farkı hangi hesaplara yazılır?', arka:'`646` **Kambiyo kârları** — kur lehte\n`656` **Kambiyo zararları** — kur aleyhte\n\nDöviz tutarı **hiç değişmez**; yalnızca TL karşılığı değişir.\n\nAlt hesap ayrımı önerilir:\n`.01` gerçekleşmemiş (ters kaydedilir)\n`.02` gerçekleşmiş (kalıcı)' },
+      { on:'Kur farkı hangi hesaplara yazılır?', arka:'`646` **Kambiyo kârları**, kur lehte\n`656` **Kambiyo zararları**, kur aleyhte\n\nDöviz tutarı **hiç değişmez**; yalnızca TL karşılığı değişir.\n\nAlt hesap ayrımı önerilir:\n`.01` gerçekleşmemiş (ters kaydedilir)\n`.02` gerçekleşmiş (kalıcı)' },
       { on:'Hangi kalemler değerlenir?', arka:'**Değerlenir (parasal):**\n102 banka · 320 satıcı · 120 alıcı · krediler · senetler\n→ karşılığında **para** alınacak/ödenecek\n\n**Değerlenmez (parasal olmayan):**\n153 stok · 253 duran varlık · **159/340 avanslar**\n→ karşılığında **mal/hizmet**' },
-      { on:'Avans neden değerlenmez?', arka:'50.000 EUR avans verdin, kur 35→40 oldu. Kâr ettin mi?\n\n**HAYIR** — sana **para** değil **mal** gelecek.\n\nDeğerlersen **var olmayan kâr** yaratırsın; mal gelince geri alınır → **iki dönem yanlış**.\n\nF.05/OBA1 listesine avans hesapları **konmaz**.' },
-      { on:'Kur farkı faturası nedir? (Türkiye)', arka:'Dövizli satışta tahsilat günü **lehte** oluşan fark için düzenlenir ve **KDV hesaplanır**.\n\nKur yükseldi → **satıcı** düzenler\nKur düştü → **alıcı** düzenler\n\nKDV oranı asıl işlemle aynı.\n\n**SAP bunu üretmez** — muhasebe doğru, KDV eksik kalır.' },
-      { on:'Yatırım dönemi kur farkı nereye?', arka:'**Aktifleştirme dönemi sonuna kadar → maliyete (258)**\nSonraki dönemler → **ihtiyari**\n\nSonuç: gider yazılmaz, **amortismanla** yayılır.\n\nSAP ayırmaz — F.05 hepsini 656’ya yazar. 258’e aktarım **elle**.' },
+      { on:'Avans neden değerlenmez?', arka:'50.000 EUR avans verdin, kur 35→40 oldu. Kâr ettin mi?\n\n**HAYIR**: sana **para** değil **mal** gelecek.\n\nDeğerlersen **var olmayan kâr** yaratırsın; mal gelince geri alınır → **iki dönem yanlış**.\n\nF.05/OBA1 listesine avans hesapları **konmaz**.' },
+      { on:'Kur farkı faturası nedir? (Türkiye)', arka:'Dövizli satışta tahsilat günü **lehte** oluşan fark için düzenlenir ve **KDV hesaplanır**.\n\nKur yükseldi → **satıcı** düzenler\nKur düştü → **alıcı** düzenler\n\nKDV oranı asıl işlemle aynı.\n\n**SAP bunu üretmez**: muhasebe doğru, KDV eksik kalır.' },
+      { on:'Yatırım dönemi kur farkı nereye?', arka:'**Aktifleştirme dönemi sonuna kadar → maliyete (258)**\nSonraki dönemler → **ihtiyari**\n\nSonuç: gider yazılmaz, **amortismanla** yayılır.\n\nSAP ayırmaz: F.05 hepsini 656’ya yazar. 258’e aktarım **elle**.' },
       { on:'Gerçekleşmemiş kur farkı hesabı dönem başında sıfır değilse?', arka:'**Ters kayıt çalıştırılmamıştır** → fark **çift sayılmış**.\n\nDeğerleme geçicidir, ertesi gün ters kaydedilir.\n\nBu kontrol, gerçekleşmiş/gerçekleşmemiş farkı **ayrı alt hesapta** izlemenin somut faydasıdır.' },
 
-      { on:'Çevrim, değerleme ve gerçekleşme farkı nedir?', arka:'**Çevrim** — kayıt anında yerel paraya dönüştürme (bir kez)\n\n**Değerleme** — dönem sonunda güncel kurla yeniden ölçme (gerçekleşmemiş, ters kaydedilir)\n\n**Gerçekleşme** — kalem kapandığında farkın kesinleşmesi (kalıcı)' },
-      { on:'Değerleme döviz tutarını değiştirir mi?', arka:'**Hayır — hiç değişmez.**\n\n10.000 EUR borç, 10.000 EUR olarak kalır.\n\nDeğişen yalnızca **yerel para karşılığıdır**. Değerleme kaydı döviz tarafında sıfırdır.' },
+      { on:'Çevrim, değerleme ve gerçekleşme farkı nedir?', arka:'**Çevrim**, kayıt anında yerel paraya dönüştürme (bir kez)\n\n**Değerleme**, dönem sonunda güncel kurla yeniden ölçme (gerçekleşmemiş, ters kaydedilir)\n\n**Gerçekleşme**, kalem kapandığında farkın kesinleşmesi (kalıcı)' },
+      { on:'Değerleme döviz tutarını değiştirir mi?', arka:'**Hayır: hiç değişmez.**\n\n10.000 EUR borç, 10.000 EUR olarak kalır.\n\nDeğişen yalnızca **yerel para karşılığıdır**. Değerleme kaydı döviz tarafında sıfırdır.' },
       { on:'Gerçekleşmemiş kur farkı neden ters kaydedilir?', arka:'Kalem henüz **kapanmadı**; kur geri dönebilir. Değerleme bir tahmindir.\n\nTers kaydedilmezse:\n• Her ay değerleme mükerrer birikir\n• Ödeme anında çift sayım olur' },
       { on:'Değerleme farkı hangi hesaba yazılmalı?', arka:'**Ayrı bir bilanço düzeltme hesabına** (örn. 321), mutabakat hesabına (320) **değil**.\n\nSebep: 320’ye yazılırsa ana muhasebe bakiyesi ile FBL1N muavin defter toplamı uyuşmaz ve mutabakat bozulur.' },
-      { on:'OBA1’de KDF ve KDB nedir?', arka:'**KDF** — gerçekleşmemiş kur farkı (F.05 değerlemesi)\n**KDB** — gerçekleşmiş kur farkı (ödeme/tahsilat kapatması)\n\nHer ikisinde kâr ve zarar hesapları ayrı tanımlanır.' },
+      { on:'OBA1’de KDF ve KDB nedir?', arka:'**KDF**, gerçekleşmemiş kur farkı (F.05 değerlemesi)\n**KDB**, gerçekleşmiş kur farkı (ödeme/tahsilat kapatması)\n\nHer ikisinde kâr ve zarar hesapları ayrı tanımlanır.' },
       { on:'TCURR’da kur yoksa sistem ne yapar?', arka:'**Hata vermez.**\n\nİşlem tarihine **eşit veya ondan önceki en yakın** kuru kullanır.\n\nSonuç: besleme koparsa yanlış kurla kayıt sessizce oluşur. Bu yüzden besleme izlenmelidir.' },
-      { on:'Düşük değerle değerleme ilkesi nedir?', arka:'**İhtiyatlılık:** gerçekleşmemiş **zarar** kaydedilir, gerçekleşmemiş **kâr** kaydedilmez.\n\nOB59’da seçilir.\n\nIFRS genelde "her zaman değerle" kullanır — aynı şirket farklı defterlerde farklı yöntem kullanabilir.' },
+      { on:'Düşük değerle değerleme ilkesi nedir?', arka:'**İhtiyatlılık:** gerçekleşmemiş **zarar** kaydedilir, gerçekleşmemiş **kâr** kaydedilmez.\n\nOB59’da seçilir.\n\nIFRS genelde "her zaman değerle" kullanır: aynı şirket farklı defterlerde farklı yöntem kullanabilir.' },
       { on:'Aynı kur hareketi neden bazen kâr bazen zarar?', arka:'**Dövizli borç** → yerel karşılık artarsa **zarar** (daha çok ödeyeceksin)\n\n**Dövizli varlık** → yerel karşılık artarsa **kâr** (elindeki daha değerli)\n\nNet döviz pozisyonu = varlık − borç' },
-      { on:'BSEG’de hangi tutar alanları vardır?', arka:'**WRBTR** — belge para birimi (100.000 EUR)\n**DMBTR** — yerel para (3.500.000 TL)\n**DMBE2 / DMBE3** — paralel para birimleri\n**KURSF** — kullanılan kur\n\nS/4HANA’da ACDOCA 10 para birimine kadar.' },
-      { on:'Kur yapılandırmasının üç katmanı nedir?', arka:'1. **OB08** → TCURR — kurların kendisi\n2. **OB59** → değerleme yöntemi (kur tipi, ilke, ters kayıt)\n3. **OBA1** → kur farkı hesap belirleme (KDF/KDB)\n\nHerhangi biri eksikse değerleme durur.' },
+      { on:'BSEG’de hangi tutar alanları vardır?', arka:'**WRBTR**, belge para birimi (100.000 EUR)\n**DMBTR**, yerel para (3.500.000 TL)\n**DMBE2 / DMBE3**, paralel para birimleri\n**KURSF**, kullanılan kur\n\nS/4HANA’da ACDOCA 10 para birimine kadar.' },
+      { on:'Kur yapılandırmasının üç katmanı nedir?', arka:'1. **OB08** → TCURR: kurların kendisi\n2. **OB59** → değerleme yöntemi (kur tipi, ilke, ters kayıt)\n3. **OBA1** → kur farkı hesap belirleme (KDF/KDB)\n\nHerhangi biri eksikse değerleme durur.' },
       { on:'F.05 ne zaman çalıştırılmalı?', arka:'**Tüm dövizli işlemler kaydedildikten sonra**, mali tablolardan önce.\n\nSonradan gelen bir dövizli fatura değerlenmemiş kalır ve kapanış tekrarlanır.\n\nHer zaman **önce test modu**.' },
       { on:'Paralel defter varsa değerleme nasıl yapılır?', arka:'**Her defter için ayrı** çalıştırılır (FAGL_FC_VAL).\n\nHer defter kendi yöntemini kullanabilir: yerel defterde ihtiyatlılık, IFRS defterinde simetrik.\n\nAynı kalemin iki defterde farklı fark üretmesi **doğrudur**.' },
     ],

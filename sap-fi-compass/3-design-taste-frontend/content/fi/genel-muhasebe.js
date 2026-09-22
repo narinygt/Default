@@ -1,5 +1,5 @@
 /* ==========================================================================
-   content/fi/genel-muhasebe.js — "Genel Muhasebe" konusunun derin içeriği
+   content/fi/genel-muhasebe.js: "Genel Muhasebe" konusunun derin içeriği
    --------------------------------------------------------------------------
    catalog.js'teki aynı id'li stub ile MERGE edilir; kart bilgileri oradan gelir.
    Bölüm şeması için CLAUDE.md §4'e bak.
@@ -14,7 +14,7 @@ SAP.registerTopic({
   tanim: {
     nedir:
       'Genel muhasebe, bir şirketin para ile ölçülebilen tüm olaylarını belirli kurallara göre kaydeden, ' +
-      'sınıflayan, özetleyen ve raporlayan sistemdir. SAP FI bu sistemin yazılıma dökülmüş hâlidir — ' +
+      'sınıflayan, özetleyen ve raporlayan sistemdir. SAP FI bu sistemin yazılıma dökülmüş hâlidir: ' +
       'yani SAP yeni bir muhasebe icat etmez, yüzlerce yıllık muhasebe kurallarını uygular.\n\n' +
       'Bu konuyu atlayıp doğrudan işlem kodlarına geçmek, en sık yapılan hatadır. {{FB50}} ekranını ezberleyebilirsin ' +
       'ama "bu satır neden borç?" sorusuna cevap veremezsen ilk gerçek hatada tıkanırsın.',
@@ -30,7 +30,7 @@ SAP.registerTopic({
     sirketOnemi:
       'Muhasebe, şirketin **tek gerçek kaydıdır**. Satış ekibi "bu ay çok sattık" der, üretim "kapasitemiz doldu" der; ' +
       'bunların hepsi ancak muhasebeye düştüğünde ölçülebilir bir gerçeğe dönüşür.\n\n' +
-      'SAP açısından kritik sonuç şudur: MM’de mal girişi, SD’de fatura, HR’da bordro — hepsi eninde sonunda ' +
+      'SAP açısından kritik sonuç şudur: MM’de mal girişi, SD’de fatura, HR’da bordro: hepsi eninde sonunda ' +
       'FI’a bir muhasebe belgesi olarak düşer. FI, tüm modüllerin buluştuğu son duraktır. Bu yüzden FI danışmanı ' +
       'diğer modülleri de anlamak zorundadır.',
 
@@ -39,7 +39,7 @@ SAP.registerTopic({
       'kahve çekirdeği siparişi verdi, faturası gelmedi. Kirası 20.000 TL, ayın 5’inde ödenecek. Kahve makinesi ' +
       '60.000 TL’ye alındı, 5 yıl kullanılacak.\n\n' +
       'Kasadaki para "kâr" değildir. Gerçek kârı görmek için: gelen siparişin borcunu, kiranın o güne düşen payını ve ' +
-      'makinenin yıpranmasını da hesaba katmak gerekir. Muhasebenin varlık sebebi tam olarak budur — ' +
+      'makinenin yıpranmasını da hesaba katmak gerekir. Muhasebenin varlık sebebi tam olarak budur: ' +
       '**nakit hareketi ile kâr aynı şey değildir.**',
 
     muhasebeMantigi:
@@ -72,7 +72,7 @@ SAP.registerTopic({
 
     diyagram: {
       type: 'flow',
-      baslik: 'Muhasebe döngüsü — bir dönemin başından sonuna',
+      baslik: 'Muhasebe döngüsü: bir dönemin başından sonuna',
       adimlar: [
         { ic:'📄', rol:'İş birimi', baslik:'Belgeye dayanan bir olay gerçekleşir',
           aciklama:'Fatura, dekont, bordro, mal kabul fişi… Muhasebede belgesi olmayan kayıt yapılmaz.',
@@ -111,7 +111,7 @@ SAP.registerTopic({
     veriAkisi: {
       nereden: 'Kaynak belgeler: satıcı faturası, müşteri faturası, banka ekstresi, bordro, mal hareketi. SAP’ta bunların çoğu MM, SD ve HR modüllerinden otomatik akar.',
       nereye: 'Hesap bakiyelerine, oradan {{mizan}}’a ve mali tablolara. Ayrıca CO tarafında {{maliyet-yeri}} raporlarına.',
-      tetikleyen: 'Ekonomik olayın belgesi. Belge yoksa kayıt yapılmaz — muhasebenin "belge olmadan kayıt olmaz" kuralı SAP’ta da geçerlidir.',
+      tetikleyen: 'Ekonomik olayın belgesi. Belge yoksa kayıt yapılmaz: muhasebenin "belge olmadan kayıt olmaz" kuralı SAP’ta da geçerlidir.',
       sonraki: 'Vergi beyanı, konsolidasyon, yönetim raporlaması ve denetim.',
     },
 
@@ -138,7 +138,7 @@ SAP.registerTopic({
     ],
 
     fisler: [
-      { baslik:'Örnek 1 — Peşin satış (10.000 TL + %20 KDV)',
+      { baslik:'Örnek 1: Peşin satış (10.000 TL + %20 KDV)',
         belgeTuru:'SA', tarih:'01.03.2026', paraBirimi:'TRY',
         satirlar: [
           { hesap:'100', ad:'Kasa', borc:12000, not:'Varlık arttı → borç' },
@@ -147,7 +147,7 @@ SAP.registerTopic({
         ],
         not:'KDV şirketin geliri değildir; devlet adına tahsil edilir ve bir **borç** olarak durur. Bu yüzden 600 hesabına 12.000 değil 10.000 yazılır.' },
 
-      { baslik:'Örnek 2 — Vadeli mal alımı (50.000 TL + %20 KDV)',
+      { baslik:'Örnek 2: Vadeli mal alımı (50.000 TL + %20 KDV)',
         belgeTuru:'KR', tarih:'05.03.2026', paraBirimi:'TRY',
         satirlar: [
           { hesap:'153', ad:'Ticari mallar', borc:50000, not:'Stok (varlık) arttı → borç' },
@@ -156,10 +156,10 @@ SAP.registerTopic({
         ],
         not:'Bu belge SAP’ta {{FB60}} veya {{MIRO}} ile girilir. 320 satırı {{mutabakat-hesabi}} olduğu için doğrudan değil, satıcı ana verisi üzerinden yazılır.' },
 
-      { baslik:'Örnek 3 — Ay sonu amortisman kaydı',
+      { baslik:'Örnek 3: Ay sonu amortisman kaydı',
         belgeTuru:'AF', tarih:'31.03.2026', paraBirimi:'TRY',
         satirlar: [
-          { hesap:'770', ad:'Genel yönetim gideri — amortisman', borc:1000, not:'Gider arttı → borç' },
+          { hesap:'770', ad:'Genel yönetim gideri: amortisman', borc:1000, not:'Gider arttı → borç' },
           { hesap:'257', ad:'Birikmiş amortisman', alacak:1000, not:'Varlığı azaltan hesap → alacak' },
         ],
         not:'Bu kayıtta **hiç para hareket etmez**. {{tahakkuk-esasi}}’nın en net örneğidir: makine yıprandı, gider doğdu, ama kasadan kuruş çıkmadı. SAP’ta {{AFAB}} bu kaydı otomatik üretir.' },
@@ -200,12 +200,12 @@ SAP.registerTopic({
     anlatim: 'Muhasebe tek bir şey değildir; kime hitap ettiğine göre farklı türleri vardır. SAP’ta bu ayrım modül ayrımına karşılık gelir.',
     liste: [
       { ad:'Finansal muhasebe', en:'Financial Accounting (FI)',
-        aciklama:'Dışarıya — vergi dairesine, bankaya, ortaklara — rapor üretir. Kuralları mevzuatla belirlenir, esneklik yoktur.',
+        aciklama:'Dışarıya, vergi dairesine, bankaya, ortaklara, rapor üretir. Kuralları mevzuatla belirlenir, esneklik yoktur.',
         neZaman:'Yasal defter ve mali tablo gerektiğinde. SAP’ta karşılığı **FI** modülüdür.',
         tcodes:['FB50','F.01','FBL3N'] },
 
       { ad:'Yönetim muhasebesi', en:'Management / Controlling (CO)',
-        aciklama:'İçeriye — yöneticiye — rapor üretir. Hangi ürün kârlı, hangi departman ne harcıyor gibi soruları cevaplar. Kuralları şirket kendi belirler.',
+        aciklama:'İçeriye, yöneticiye, rapor üretir. Hangi ürün kârlı, hangi departman ne harcıyor gibi soruları cevaplar. Kuralları şirket kendi belirler.',
         neZaman:'Karar desteği gerektiğinde. SAP’ta karşılığı **CO** modülüdür; {{maliyet-yeri}} ve {{kar-merkezi}} buranın nesneleridir.',
         tcodes:['KSB1','KS01'] },
 
@@ -222,7 +222,7 @@ SAP.registerTopic({
     karsilastirmaBasliklar: ['Finansal muhasebe (FI)', 'Yönetim muhasebesi (CO)'],
     karsilastirma: [
       ['Kime hitap eder', 'Dışarıya: devlet, banka, ortak', 'İçeriye: yönetim'],
-      ['Kuralları kim koyar', 'Mevzuat — zorunlu ve tek tip', 'Şirket kendisi — esnek'],
+      ['Kuralları kim koyar', 'Mevzuat, zorunlu ve tek tip', 'Şirket kendisi, esnek'],
       ['Zaman odağı', 'Geçmiş (olan biteni raporlar)', 'Gelecek (bütçe, tahmin)'],
       ['Detay seviyesi', 'Şirket geneli', 'Ürün, departman, proje bazında'],
       ['SAP karşılığı', 'FI modülü, {{ana-muhasebe}}', 'CO modülü, {{maliyet-yeri}}'],
@@ -236,20 +236,20 @@ SAP.registerTopic({
       'Bu konu teoriktir ama teorinin SAP’taki karşılığını görmek öğrenmeyi hızlandırır. ' +
       'Aşağıdaki üç işlem kodu, yukarıda anlatılan kavramları ekranda görmeni sağlar.',
     liste: [
-      { kod:'FB50', ad:'G/L kaydı — borç/alacak mantığını ekranda görmek',
+      { kod:'FB50', ad:'G/L kaydı: borç/alacak mantığını ekranda görmek',
         amac:'Ana muhasebe kaydını tablo görünümünde girer. Her satırda hesap, borç/alacak seçimi ve tutar vardır.',
         neZaman:'Muhasebe mantığını denemek ve elle düzeltme kaydı girmek için. Yukarıdaki üç örnek fiş de bu ekrandan girilebilir.',
         adimlar: [
           { baslik:'Şirket kodunu ve tarihleri gir', aciklama:'Belge tarihi faturanın üstündeki tarih, kayıt tarihi ise **döneme karar veren** tarihtir. İkisi farklı olabilir.' },
           { baslik:'Satırları gir', aciklama:'Her satırda hesap numarası, **B/A** (borç/alacak) seçimi ve tutar. SAP burada {{kayit-anahtari}} sormaz, arka planda kendisi belirler.' },
-          { baslik:'Ekranın sağ üstündeki bakiye göstergesine bak', aciklama:'Borç ve alacak eşitlenmeden gösterge kırmızıdır. Yeşile dönmeden kayıt yapılamaz — {{belge-denkligi}} kuralı burada görünür hâle gelir.' },
+          { baslik:'Ekranın sağ üstündeki bakiye göstergesine bak', aciklama:'Borç ve alacak eşitlenmeden gösterge kırmızıdır. Yeşile dönmeden kayıt yapılamaz: {{belge-denkligi}} kuralı burada görünür hâle gelir.' },
           { baslik:'Simüle et', aciklama:'*Belge → Simüle et* ile sistemin üreteceği tüm satırları (vergi satırı dâhil) kaydetmeden görürsün. Kaydetmeden önce her zaman simüle et.' },
           { baslik:'Kaydet', aciklama:'Belge numarası verilir ve kayıt geri alınamaz hâle gelir. Yanlışsa silinmez, {{FB08}} ile {{ters-kayit}} yapılır.' },
         ],
         ipucu:'Simülasyon ekranı, muhasebe öğrenmek için en iyi araçtır: girdiğin iki satıra karşılık SAP’ın otomatik eklediği vergi ve fark satırlarını görürsün.',
         ilgili:['F-02','FB03','FB08'] },
 
-      { kod:'FBL3N', ad:'G/L kalem listesi — büyük defteri görmek',
+      { kod:'FBL3N', ad:'G/L kalem listesi: büyük defteri görmek',
         amac:'Bir hesabın tüm hareketlerini listeler. Elle muhasebedeki "defter-i kebir sayfası" tam olarak budur.',
         neZaman:'Bir hesabın bakiyesinin neden o tutarda olduğunu anlamak için.',
         adimlar: [
@@ -280,15 +280,15 @@ SAP.registerTopic({
     liste: [
       { ad:'BKPF', baslik:'Yevmiye maddesinin başlığı',
         tutar:'Belgenin kimlik bilgisi: numara, {{belge-turu}}, tarih, para birimi, kaydı yapan kullanıcı.',
-        olusturan:'Muhasebeleşen her işlem — {{FB50}}, {{FB60}}, {{MIRO}}, {{VF01}}…',
+        olusturan:'Muhasebeleşen her işlem: {{FB50}}, {{FB60}}, {{MIRO}}, {{VF01}}…',
         guncelleyen:'{{FB50}}, {{FB60}}, {{FB70}}, {{F-02}}, {{FB08}}',
         anahtar:'BUKRS + BELNR + GJAHR',
         iliskiler:'Bir başlığa karşılık {{BSEG}}’de birden çok kalem vardır (1-n ilişkisi).',
         s4:'Değişmedi, hâlâ yazılır. Ancak raporlama artık {{ACDOCA}} üzerinden yapılır.',
         alanlar:[
-          { ad:'BLART', aciklama:'{{belge-turu}} — belgenin ne tür bir işlem olduğunu söyler' },
-          { ad:'BUDAT', aciklama:'Kayıt tarihi — **dönemi bu tarih belirler**, belge tarihi değil' },
-          { ad:'BLDAT', aciklama:'Belge tarihi — faturanın üstündeki tarih' },
+          { ad:'BLART', aciklama:'{{belge-turu}}: belgenin ne tür bir işlem olduğunu söyler' },
+          { ad:'BUDAT', aciklama:'Kayıt tarihi: **dönemi bu tarih belirler**, belge tarihi değil' },
+          { ad:'BLDAT', aciklama:'Belge tarihi: faturanın üstündeki tarih' },
         ] },
 
       { ad:'BSEG', baslik:'Yevmiye maddesinin satırları',
@@ -312,7 +312,7 @@ SAP.registerTopic({
         iliskiler:'{{BKPF}} ile belge numarası üzerinden eşleşir; {{defter}} alanı sayesinde aynı belge birden çok standarda göre saklanabilir.',
         s4:'S/4HANA ile gelen tablodur. ECC’de karşılığı yoktur.',
         alanlar:[
-          { ad:'RLDNR', aciklama:'{{defter}} — {{paralel-defter}} mantığının anahtarı' },
+          { ad:'RLDNR', aciklama:'{{defter}}: {{paralel-defter}} mantığının anahtarı' },
           { ad:'HSL', aciklama:'Şirket kodu para birimi tutarı' },
           { ad:'RACCT', aciklama:'Hesap numarası' },
         ] },
@@ -355,7 +355,7 @@ SAP.registerTopic({
 
     numberRange:
       'FI’da numara aralığı **şirket kodu + mali yıl** bazlıdır. Her yıl için ayrı satır tanımlanmazsa yılbaşında ' +
-      '"Document number ... not within range" hatası alınır — canlıya geçen her projede yılbaşında yaşanan klasik olaydır.',
+      '"Document number ... not within range" hatası alınır: canlıya geçen her projede yılbaşında yaşanan klasik olaydır.',
 
     commit:
       'Kaydet tuşuna basıldığında SAP tüm veritabanı değişikliklerini tek bir LUW (mantıksal iş birimi) içinde toplar. ' +
@@ -397,13 +397,13 @@ SAP.registerTopic({
   /* ==================================================== 9. S/4HANA === */
   s4hana: {
     ozet:
-      'Muhasebenin kuralları S/4HANA ile değişmedi — değişen, bu kuralların **nerede saklandığıdır**. ' +
+      'Muhasebenin kuralları S/4HANA ile değişmedi: değişen, bu kuralların **nerede saklandığıdır**. ' +
       'ECC’de aynı veri onlarca tabloya dağıtılıp sürekli mutabakat gerektirirken, S/4HANA’da tek tabloda toplanır.',
 
     eccFarklari: [
-      { konu:'Verinin yeri', ecc:'{{BSEG}}, {{FAGLFLEXA}}, {{GLT0}}, COEP, {{ANEP}} — ayrı ayrı', s4:'{{ACDOCA}} — tek satırda hepsi' },
+      { konu:'Verinin yeri', ecc:'{{BSEG}}, {{FAGLFLEXA}}, {{GLT0}}, COEP, {{ANEP}}, ayrı ayrı', s4:'{{ACDOCA}}, tek satırda hepsi' },
       { konu:'Toplamlar', ecc:'Ayrı toplam tablolarında ({{FAGLFLEXT}}) önceden hesaplanır', s4:'Kalem verisinden anlık hesaplanır; toplam tablosu yok' },
-      { konu:'FI–CO mutabakatı', ecc:'Ayrı tablolar olduğu için periyodik mutabakat gerekir', s4:'Aynı satırda oldukları için yapısal olarak mutabık' },
+      { konu:'FI-CO mutabakatı', ecc:'Ayrı tablolar olduğu için periyodik mutabakat gerekir', s4:'Aynı satırda oldukları için yapısal olarak mutabık' },
       { konu:'Hesap ve masraf türü', ecc:'İki ayrı ana veri: G/L hesabı + {{masraf-turu}}', s4:'Tek ana veri: G/L hesabı, tipi "Primary Costs" seçilerek' },
     ],
 
@@ -429,7 +429,7 @@ SAP.registerTopic({
       '**Aroma Kahve A.Ş.** Mart 2026’da kuruldu. Ortaklar 200.000 TL sermaye koydu. Şirket bir kahve makinesi aldı, ' +
       'çekirdek satın aldı, satış yaptı ve ay sonunda tablolarını çıkardı. Aşağıda ayın tamamı adım adım muhasebeleştirilmiştir.',
     veriler: [
-      { k:'Şirket', v:'Aroma Kahve A.Ş. — şirket kodu 1000' },
+      { k:'Şirket', v:'Aroma Kahve A.Ş. - şirket kodu 1000' },
       { k:'Dönem', v:'Mart 2026 (dönem 03)' },
       { k:'Para birimi', v:'TRY' },
       { k:'KDV oranı', v:'%20' },
@@ -441,10 +441,10 @@ SAP.registerTopic({
         girdi:[
           { alan:'Belge tarihi / Kayıt tarihi', deger:'01.03.2026 / 01.03.2026' },
           { alan:'Belge türü', deger:'SA (genel muhasebe belgesi)' },
-          { alan:'Satır 1', deger:'102 Bankalar — Borç 200.000' },
-          { alan:'Satır 2', deger:'500 Sermaye — Alacak 200.000' },
+          { alan:'Satır 1', deger:'102 Bankalar: Borç 200.000' },
+          { alan:'Satır 2', deger:'500 Sermaye: Alacak 200.000' },
         ],
-        fis:{ baslik:'Belge 100000001 — Sermaye girişi', belgeTuru:'SA', tarih:'01.03.2026',
+        fis:{ baslik:'Belge 100000001: Sermaye girişi', belgeTuru:'SA', tarih:'01.03.2026',
           satirlar:[
             { hesap:'102', ad:'Bankalar', borc:200000 },
             { hesap:'500', ad:'Sermaye', alacak:200000 },
@@ -456,7 +456,7 @@ SAP.registerTopic({
         ] },
 
       { baslik:'Kahve makinesi alındı (60.000 TL + KDV)', tcode:'ABZON',
-        aciklama:'Makine 5 yıl kullanılacak, bu yüzden gider değil **varlık** olarak kaydedilir — buna {{aktiflestirme}} denir. ' +
+        aciklama:'Makine 5 yıl kullanılacak, bu yüzden gider değil **varlık** olarak kaydedilir: buna {{aktiflestirme}} denir. ' +
                  'SAP’ta duran varlık kaydı önce {{AS01}} ile açılır, sonra edinim kaydedilir.',
         girdi:[
           { alan:'Varlık numarası', deger:'100001 (Varlık sınıfı: Makine ve tesisat)' },
@@ -464,7 +464,7 @@ SAP.registerTopic({
           { alan:'Aktifleştirme tarihi', deger:'05.03.2026' },
           { alan:'Faydalı ömür', deger:'5 yıl' },
         ],
-        fis:{ baslik:'Belge 100000002 — Makine alımı', belgeTuru:'AA', tarih:'05.03.2026',
+        fis:{ baslik:'Belge 100000002: Makine alımı', belgeTuru:'AA', tarih:'05.03.2026',
           satirlar:[
             { hesap:'253', ad:'Tesis, makine ve cihazlar', borc:60000, not:'Duran varlık (aktifleştirildi)' },
             { hesap:'191', ad:'İndirilecek KDV', borc:12000 },
@@ -477,28 +477,28 @@ SAP.registerTopic({
         ],
         not:'Aktifleştirme tarihi 05.03 olduğu için amortisman Mart ayından itibaren işlemeye başlar.' },
 
-      { baslik:'Çekirdek satın alındı — vadeli (25.000 TL + KDV)', tcode:'FB60',
-        aciklama:'Satıcıya borçlanıldı. Para henüz çıkmadı ama borç doğdu — {{tahakkuk-esasi}} gereği kayıt şimdi yapılır.',
+      { baslik:'Çekirdek satın alındı: vadeli (25.000 TL + KDV)', tcode:'FB60',
+        aciklama:'Satıcıya borçlanıldı. Para henüz çıkmadı ama borç doğdu: {{tahakkuk-esasi}} gereği kayıt şimdi yapılır.',
         girdi:[
           { alan:'Satıcı', deger:'V-1001 Anadolu Kahve Ltd.' },
           { alan:'Fatura tarihi / Kayıt tarihi', deger:'10.03.2026 / 10.03.2026' },
           { alan:'Tutar / Vergi kodu', deger:'30.000 TL brüt / KDV %20' },
           { alan:'Ödeme koşulu', deger:'30 gün net → vade 09.04.2026' },
         ],
-        fis:{ baslik:'Belge 190000001 — Satıcı faturası', belgeTuru:'KR', tarih:'10.03.2026',
+        fis:{ baslik:'Belge 190000001: Satıcı faturası', belgeTuru:'KR', tarih:'10.03.2026',
           satirlar:[
             { hesap:'153', ad:'Ticari mallar', borc:25000 },
             { hesap:'191', ad:'İndirilecek KDV', borc:5000 },
             { hesap:'320', ad:'Satıcılar (V-1001)', alacak:30000, not:'{{mutabakat-hesabi}} üzerinden' },
           ], not:'320 satırı doğrudan girilmez; satıcı numarası girilir, SAP satıcının ana verisindeki mutabakat hesabını kendisi bulur.' },
         tabloEtkisi:[
-          { tablo:'BSIK', ne:'Yeni bir **açık kalem** oluştu — henüz ödenmedi' },
+          { tablo:'BSIK', ne:'Yeni bir **açık kalem** oluştu: henüz ödenmedi' },
           { tablo:'BSEG', ne:'Satıcı satırında LIFNR = V-1001, AUGBL boş (açık)' },
         ] },
 
       { baslik:'Ay boyunca satış yapıldı (peşin, toplam 48.000 TL brüt)', tcode:'FB70',
         aciklama:'Satış geliri doğdu ve karşılığında kasaya para girdi.',
-        fis:{ baslik:'Belge 180000001 — Satış', belgeTuru:'DR', tarih:'31.03.2026',
+        fis:{ baslik:'Belge 180000001: Satış', belgeTuru:'DR', tarih:'31.03.2026',
           satirlar:[
             { hesap:'100', ad:'Kasa', borc:48000 },
             { hesap:'600', ad:'Yurtiçi satışlar', alacak:40000 },
@@ -510,7 +510,7 @@ SAP.registerTopic({
 
       { baslik:'Satılan malın maliyeti kaydedildi', tcode:'FB50',
         aciklama:'Gelirle **aynı dönemde** onun maliyetini de yazmak gerekir. Buna dönemsellik/eşleştirme ilkesi denir.',
-        fis:{ baslik:'Belge 100000003 — Satılan malın maliyeti', belgeTuru:'SA', tarih:'31.03.2026',
+        fis:{ baslik:'Belge 100000003: Satılan malın maliyeti', belgeTuru:'SA', tarih:'31.03.2026',
           satirlar:[
             { hesap:'621', ad:'Satılan ticari mal maliyeti', borc:18000 },
             { hesap:'153', ad:'Ticari mallar', alacak:18000 },
@@ -524,9 +524,9 @@ SAP.registerTopic({
           { alan:'Dönem', deger:'03' },
           { alan:'Çalıştırma tipi', deger:'Önce deneme (test), sonra gerçek' },
         ],
-        fis:{ baslik:'Belge 100000004 — Mart amortismanı', belgeTuru:'AF', tarih:'31.03.2026',
+        fis:{ baslik:'Belge 100000004: Mart amortismanı', belgeTuru:'AF', tarih:'31.03.2026',
           satirlar:[
-            { hesap:'770', ad:'Genel yönetim gideri — amortisman', borc:1000 },
+            { hesap:'770', ad:'Genel yönetim gideri: amortisman', borc:1000 },
             { hesap:'257', ad:'Birikmiş amortisman', alacak:1000 },
           ], not:'253 hesabı 60.000 TL olarak durur; azalma 257 hesabında birikir. {{net-defter-degeri}} = 60.000 − 1.000 = 59.000 TL.' },
         tabloEtkisi:[
@@ -633,7 +633,7 @@ SAP.registerTopic({
           '{{FB08}} ile ters kaydedilir, sonra doğrusu girilir',
           'Dönem kapatılıp yeniden açılır',
         ], dogru:2,
-        aciklama:'Muhasebeleşmiş belgede tutar ve hesap **değiştirilemez**; {{FB02}} yalnızca vade, metin gibi alanları günceller. Doğru yöntem {{ters-kayit}}’tır ({{FB08}}) — iz kaybolmaz, denetimde her iki belge de görünür.' },
+        aciklama:'Muhasebeleşmiş belgede tutar ve hesap **değiştirilemez**; {{FB02}} yalnızca vade, metin gibi alanları günceller. Doğru yöntem {{ters-kayit}}’tır ({{FB08}}): iz kaybolmaz, denetimde her iki belge de görünür.' },
 
       { soru:'Gelir tablosu hesaplarının yıl sonundaki durumu nedir?',
         secenekler:[
@@ -652,10 +652,10 @@ SAP.registerTopic({
       { on:'Kayıt tarihi (BUDAT) ile belge tarihi (BLDAT) farkı nedir?', arka:'**BLDAT** = faturanın üstündeki tarih.\n**BUDAT** = kaydın hangi muhasebe dönemine düşeceğini belirleyen tarih.\n\nDönemi belirleyen her zaman BUDAT’tır.' },
       { on:'Tahakkuk esası nedir?', arka:'Gelir ve giderin **para hareketinden bağımsız olarak** doğduğu dönemde kaydedilmesi.\n\nAralık’ta kullanılan elektrik, faturası Ocak’ta gelse bile Aralık gideridir.' },
       { on:'Neden kâr ile nakit farklıdır?', arka:'Kâr = gelir − gider (tahakkuk ettiği dönemde).\nNakit = fiilî tahsilat − fiilî ödeme.\n\nVadeli satış kârı artırır ama nakdi artırmaz. Amortisman kârı düşürür ama nakdi azaltmaz.' },
-      { on:'Mutabakat hesabı (reconciliation account) ne işe yarar?', arka:'Muavin defterdeki (satıcı/müşteri/varlık) hareketlerin ana muhasebeye otomatik yansıdığı G/L hesabıdır.\n\nBu hesaba **doğrudan kayıt yapılamaz** — yalnızca muavin defter üzerinden yazılır.' },
-      { on:'Muhasebeleşmiş bir belge nasıl düzeltilir?', arka:'Silinmez. **FB08** ile ters kayıt (reversal) yapılır, sonra doğrusu girilir.\n\nHer iki belge de kayıtlarda kalır — denetlenebilirlik esastır.' },
+      { on:'Mutabakat hesabı (reconciliation account) ne işe yarar?', arka:'Muavin defterdeki (satıcı/müşteri/varlık) hareketlerin ana muhasebeye otomatik yansıdığı G/L hesabıdır.\n\nBu hesaba **doğrudan kayıt yapılamaz**: yalnızca muavin defter üzerinden yazılır.' },
+      { on:'Muhasebeleşmiş bir belge nasıl düzeltilir?', arka:'Silinmez. **FB08** ile ters kayıt (reversal) yapılır, sonra doğrusu girilir.\n\nHer iki belge de kayıtlarda kalır: denetlenebilirlik esastır.' },
       { on:'KDV neden gelir değildir?', arka:'Devlet adına tahsil edilir. Şirketin kasasından geçer ama malı değildir.\n\nHesaplanan KDV bir **borç**, indirilecek KDV bir **alacak**tır.' },
-      { on:'S/4HANA’da muhasebe verisi nerede tutulur?', arka:'**ACDOCA** — Evrensel Kayıt Defteri.\n\nFI, CO, duran varlık ve malzeme defteri tek satırda birleşir. Ayrı toplam tabloları ve FI–CO mutabakatı ortadan kalkar.' },
+      { on:'S/4HANA’da muhasebe verisi nerede tutulur?', arka:'**ACDOCA**: Evrensel Kayıt Defteri.\n\nFI, CO, duran varlık ve malzeme defteri tek satırda birleşir. Ayrı toplam tabloları ve FI-CO mutabakatı ortadan kalkar.' },
     ],
   },
 

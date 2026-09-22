@@ -1,6 +1,6 @@
 /* ==========================================================================
-   content/fi-en/asset-accounting.js — English body for "Asset Accounting"
-   Same conventions as content/fi-en/gl-accounting.js — see that file's
+   content/fi-en/asset-accounting.js: English body for "Asset Accounting"
+   Same conventions as content/fi-en/gl-accounting.js: see that file's
    header comment.
    ========================================================================== */
 
@@ -12,14 +12,14 @@ SAP.registerTopic({
   /* ====================================================== 1. WHAT IT IS === */
   tanim: {
     nedir:
-      'Asset Accounting (FI-AA) is the FI sub-component that tracks a company\'s **multi-year assets** — ' +
-      'machinery, buildings, vehicles, computers — from birth to disposal.\n\n' +
+      'Asset Accounting (FI-AA) is the FI sub-component that tracks a company\'s **multi-year assets**: ' +
+      'machinery, buildings, vehicles, computers: from birth to disposal.\n\n' +
       'AA is a {{muavin-defter}}: the detail of every asset (acquisition value, accumulated depreciation, ' +
       'useful life, cost center) is held here; it is reflected in the general ledger **as a summary** through a ' +
       '{{mutabakat-hesabi}}. The balance sheet reads "253 Plant, machinery and equipment 12,400,000 TRY"; ' +
       'the identity of the 1,847 assets behind that figure lives in AA.\n\n' +
       'What sets AA apart from the other sub-components is its **time dimension**: an invoice ends in a single ' +
-      'event, an asset produces a posting **every month for 5–40 years**.',
+      'event, an asset produces a posting **every month for 5-40 years**.',
 
     neden:
       '**To spread cost over the correct period.** Expensing a 60,000 TRY machine in the month it\'s bought ' +
@@ -27,7 +27,7 @@ SAP.registerTopic({
       '**To comply with different regulations at the same time.** Commercial accounting says 5 years, tax law ' +
       'says 4 years, IFRS wants another method entirely. Thanks to {{amortisman-alani}}, the same asset is ' +
       'valued three different ways and produces three separate reports.\n\n' +
-      '**For inventory control.** Which asset is where, whose responsibility it is, and what it\'s worth — ' +
+      '**For inventory control.** Which asset is where, whose responsibility it is, and what it\'s worth: ' +
       'insurance, audit, and tax inspection all ask for this information.',
 
     sirketOnemi:
@@ -35,7 +35,7 @@ SAP.registerTopic({
       'manufacturing and energy. A badly configured AA means years of misreported profit.\n\n' +
       'From a consulting standpoint, AA is the FI area that **demands the most configuration**: ' +
       '{{degerleme-plani}}, {{amortisman-alani}}, {{varlik-sinifi}}, account determination ({{AO90}}), ' +
-      '{{amortisman-anahtari}} — all of it has to be right before go-live. Fixing it afterward means ' +
+      '{{amortisman-anahtari}}: all of it has to be right before go-live. Fixing it afterward means ' +
       'revaluing thousands of already-opened assets.\n\n' +
       'The distinguishing question is: **"What is the relationship between a depreciation area and a ' +
       'ledger?"** The answer reveals whether parallel accounting is genuinely understood.',
@@ -57,7 +57,7 @@ SAP.registerTopic({
       '**1. {{aktiflestirme}}:** the expenditure is recorded not as an expense but as an **asset**. The ' +
       'balance sheet grows; profit is unaffected.\n\n' +
       '**2. {{amortisman}}:** each period, the portion of benefit consumed is expensed. There is **no cash ' +
-      'outflow** — the money already left at the time of purchase.\n\n' +
+      'outflow**: the money already left at the time of purchase.\n\n' +
       '**3. Disposal:** the asset is sold, scrapped, or transferred. The difference between ' +
       '{{net-defter-degeri}} and the sale proceeds is recorded as a gain or loss.\n\n' +
       '**4. Closing:** at year-end, asset accounting is closed ({{AJAB}}) and the new year is opened ' +
@@ -126,10 +126,10 @@ SAP.registerTopic({
     },
 
     adimlar:[
-      { rol:'Purchasing', eylem:'Opens the asset purchase order (account assignment A)', sistem:'{{ME21N}} — no FI posting' },
+      { rol:'Purchasing', eylem:'Opens the asset purchase order (account assignment A)', sistem:'{{ME21N}}: no FI posting' },
       { rol:'Fixed asset accountant', eylem:'Opens the asset master record', sistem:'{{AS01}} → {{ANLA}}, {{ANLB}}' },
       { rol:'Fixed asset accountant', eylem:'Records the acquisition', sistem:'{{ABZON}}, {{F-90}} or {{MIRO}}' },
-      { rol:'System', eylem:'Monthly depreciation is run', sistem:'{{AFAB}} — test first, then real' },
+      { rol:'System', eylem:'Monthly depreciation is run', sistem:'{{AFAB}}: test first, then real' },
       { rol:'Fixed asset accountant', eylem:'Monitors asset values', sistem:'{{AW01N}}, {{AR01}}, {{AR02}}' },
       { rol:'Fixed asset accountant', eylem:'Records transfer / disposal', sistem:'{{ABUMN}}, {{ABAVN}}, {{F-92}}' },
       { rol:'Project accounting', eylem:'Capitalizes the investment', sistem:'{{AIAB}} + {{AIBU}}' },
@@ -146,7 +146,7 @@ SAP.registerTopic({
     },
 
     notlar:[
-      { tip:'tip', baslik:'Expense or asset? — the capitalization threshold', metin:
+      { tip:'tip', baslik:'Expense or asset? - the capitalization threshold', metin:
         'Not every purchase is capitalized. Companies set a **capitalization threshold** (e.g. 10,000 TRY) ' +
         'and purchases below it are expensed directly. The reason is practical: producing five years of ' +
         'depreciation postings for a 400 TRY keyboard costs more than the accuracy it delivers.\n\n' +
@@ -166,21 +166,21 @@ SAP.registerTopic({
       'account (257). On the balance sheet the two are netted to find {{net-defter-degeri}}.',
 
     etkilenenHesaplar:[
-      { hesap:'253 Plant, machinery and equipment', tur:'Balance sheet — Asset', neden:'Acquisition value. Debited on {{aktiflestirme}}, credited only on **disposal**. Depreciation never touches this account.' },
-      { hesap:'257 Accumulated depreciation', tur:'Balance sheet — Contra-asset', neden:'Total depreciation posted to date. Credited every period; zeroed out by a debit on disposal.' },
+      { hesap:'253 Plant, machinery and equipment', tur:'Balance sheet: Asset', neden:'Acquisition value. Debited on {{aktiflestirme}}, credited only on **disposal**. Depreciation never touches this account.' },
+      { hesap:'257 Accumulated depreciation', tur:'Balance sheet: Contra-asset', neden:'Total depreciation posted to date. Credited every period; zeroed out by a debit on disposal.' },
       { hesap:'770 / 730 Depreciation expense', tur:'Income statement', neden:'The period\'s depreciation. Depending on where the asset is used, it becomes general administrative, production, or marketing expense.' },
-      { hesap:'258 Assets under construction', tur:'Balance sheet — Asset', neden:'{{yatirim-devam}}. Costs from different sources **accumulate** here; **no depreciation is posted**; once complete, it\'s transferred to 252/253. Shown on a separate balance-sheet line — the reader can see "this asset isn\'t contributing to production yet."' },
-      { hesap:'259 Down payments on investment orders', tur:'Balance sheet — Asset', neden:'Advance paid to the vendor for an investment. Tracked **separately from 258**: an advance isn\'t a cost yet, it\'s a right to a claim.' },
-      { hesap:'252 Buildings', tur:'Balance sheet — Asset', neden:'AuC capitalization\'s most common target. Transferred from 258 here with {{AIBU}}, and **depreciation starts on that date**.' },
+      { hesap:'258 Assets under construction', tur:'Balance sheet: Asset', neden:'{{yatirim-devam}}. Costs from different sources **accumulate** here; **no depreciation is posted**; once complete, it\'s transferred to 252/253. Shown on a separate balance-sheet line: the reader can see "this asset isn\'t contributing to production yet."' },
+      { hesap:'259 Down payments on investment orders', tur:'Balance sheet: Asset', neden:'Advance paid to the vendor for an investment. Tracked **separately from 258**: an advance isn\'t a cost yet, it\'s a right to a claim.' },
+      { hesap:'252 Buildings', tur:'Balance sheet: Asset', neden:'AuC capitalization\'s most common target. Transferred from 258 here with {{AIBU}}, and **depreciation starts on that date**.' },
       { hesap:'679 / 689 Gain/loss on sale of fixed assets', tur:'Income statement', neden:'The difference between the sale proceeds and {{net-defter-degeri}}.' },
-      { hesap:'120 Trade receivables / 102 Banks', tur:'Balance sheet — Asset', neden:'The counterparty in an asset sale.' },
+      { hesap:'120 Trade receivables / 102 Banks', tur:'Balance sheet: Asset', neden:'The counterparty in an asset sale.' },
     ],
 
     fisler:[
-      { baslik:'Step 1 — Acquisition ({{ABZON}}) · a 600,000 TRY machine',
+      { baslik:'Step 1: Acquisition ({{ABZON}}) · a 600,000 TRY machine',
         belgeTuru:'AA', tarih:'01.03.2026', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'253', ad:'Plant, machinery and equipment', borc:600000, not:'{{hareket-turu}} 100 — acquisition' },
+          { hesap:'253', ad:'Plant, machinery and equipment', borc:600000, not:'{{hareket-turu}} 100: acquisition' },
           { hesap:'191', ad:'Deductible VAT', borc:120000 },
           { hesap:'320', ad:'Trade payables', alacak:720000 },
         ],
@@ -188,22 +188,22 @@ SAP.registerTopic({
              'completely unaffected at this stage. Because the capitalization date is 01.03, depreciation ' +
              'will run starting in March.' },
 
-      { baslik:'Step 2 — Monthly depreciation ({{AFAB}}) · 10-year useful life',
+      { baslik:'Step 2: Monthly depreciation ({{AFAB}}) · 10-year useful life',
         belgeTuru:'AF', tarih:'31.03.2026', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'770', ad:'General administrative expense — depreciation', borc:5000, not:'600,000 / 120 months' },
+          { hesap:'770', ad:'General administrative expense: depreciation', borc:5000, not:'600,000 / 120 months' },
           { hesap:'257', ad:'Accumulated depreciation', alacak:5000, not:'Contra-asset account' },
         ],
         not:'**Not a cent left the till.** The money was already paid at the start of March. This is the ' +
-             'only major expense line that doesn\'t create a cash outflow — it\'s added back to profit in ' +
+             'only major expense line that doesn\'t create a cash outflow: it\'s added back to profit in ' +
              'the cash flow statement.\n\n' +
              'Account 253 is still 600,000 TRY. {{net-defter-degeri}} = 600,000 − 5,000 = **595,000 TRY**.' },
 
-      { baslik:'Step 3 — sale after 3 years ({{F-92}}) · book value 420,000, sale price 500,000',
+      { baslik:'Step 3: sale after 3 years ({{F-92}}) · book value 420,000, sale price 500,000',
         belgeTuru:'AA', tarih:'31.03.2029', paraBirimi:'TRY',
         satirlar:[
           { hesap:'120', ad:'Trade receivables', borc:590000, not:'500,000 + 18% VAT' },
-          { hesap:'257', ad:'Accumulated depreciation', borc:180000, not:'36 months × 5,000 — **zeroed out**' },
+          { hesap:'257', ad:'Accumulated depreciation', borc:180000, not:'36 months × 5,000: **zeroed out**' },
           { hesap:'253', ad:'Plant, machinery and equipment', alacak:600000, not:'The **entire** acquisition value comes off' },
           { hesap:'391', ad:'VAT payable', alacak:90000 },
           { hesap:'679', ad:'Gain on sale of fixed assets', alacak:80000, not:'500,000 − 420,000' },
@@ -213,7 +213,7 @@ SAP.registerTopic({
              '{{net-defter-degeri}} (420,000) and the sale price (500,000) is recorded as a gain. SAP ' +
              'calculates this **automatically**.' },
 
-      { baslik:'Alternative — scrapping ({{ABAVN}}) · disposal with no proceeds',
+      { baslik:'Alternative: scrapping ({{ABAVN}}) · disposal with no proceeds',
         belgeTuru:'AA', tarih:'31.03.2029', paraBirimi:'TRY',
         satirlar:[
           { hesap:'257', ad:'Accumulated depreciation', borc:180000 },
@@ -223,10 +223,10 @@ SAP.registerTopic({
         not:'Since there\'s no proceeds, the entire {{net-defter-degeri}} is recorded as a **loss**. That\'s ' +
              'why a scrapping decision made while the book value is still high has a serious impact on profit.' },
 
-      { baslik:'**Pro-rata depreciation** — a passenger car bought on April 15 · first year',
+      { baslik:'**Pro-rata depreciation**: a passenger car bought on April 15 · first year',
         belgeTuru:'AF', tarih:'31.12.2027', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'770', ad:'Depreciation expense — passenger car (9/12)', borc:180000, not:'240,000 × **9/12**' },
+          { hesap:'770', ad:'Depreciation expense: passenger car (9/12)', borc:180000, not:'240,000 × **9/12**' },
           { hesap:'257', ad:'Accumulated depreciation', alacak:180000 },
         ],
         not:'Vehicle: 1,200,000 TRY · useful life 5 years · normal annual depreciation **240,000 TRY**.\n\n' +
@@ -234,27 +234,27 @@ SAP.registerTopic({
              '240,000 × 9/12 = **180,000 TRY**.\n\n' +
              'The unposted 60,000 TRY (3/12) is **not lost**: it\'s completed as an expense in year 6. So the ' +
              'vehicle spreads over **6 calendar years** instead of 5.\n\n' +
-             'A **machine** bought on the same day would have received a full year (240,000 TRY) — ' +
+             'A **machine** bought on the same day would have received a full year (240,000 TRY): ' +
              'pro-rata applies **only** to passenger cars.' },
 
-      { baslik:'**Pro-rata depreciation** — final year · the carryover from the first year is completed',
+      { baslik:'**Pro-rata depreciation**: final year · the carryover from the first year is completed',
         belgeTuru:'AF', tarih:'31.12.2032', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'770', ad:'Depreciation expense — remaining 3 months', borc:60000, not:'The **3/12** carried over from the first year' },
+          { hesap:'770', ad:'Depreciation expense: remaining 3 months', borc:60000, not:'The **3/12** carried over from the first year' },
           { hesap:'257', ad:'Accumulated depreciation', alacak:60000 },
         ],
         not:'In year 6, the remaining **60,000 TRY** from the first year is expensed and the asset is fully ' +
              'written off.\n\n' +
              'Total check: 180,000 + (4 × 240,000) + 60,000 = **1,200,000 TRY** ✓\n\n' +
-             '**Total depreciation didn\'t change** — it was only shifted to a different year. Pro-rata ' +
+             '**Total depreciation didn\'t change**: it was only shifted to a different year. Pro-rata ' +
              'depreciation isn\'t a *reduction*, it\'s a *timing* rule.' },
 
-      { baslik:'**Declining balance** — first three years · on net book value',
-        belgeTuru:'AF', tarih:'2027–2029', paraBirimi:'TRY',
+      { baslik:'**Declining balance**: first three years · on net book value',
+        belgeTuru:'AF', tarih:'2027-2029', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'770', ad:'Year 1 — 600,000 × 40%', borc:240000, not:'Base: acquisition value' },
-          { hesap:'770', ad:'Year 2 — 360,000 × 40%', borc:144000, not:'Base: **NBV** 600,000−240,000' },
-          { hesap:'770', ad:'Year 3 — 216,000 × 40%', borc:86400, not:'Base: NBV 360,000−144,000' },
+          { hesap:'770', ad:'Year 1: 600,000 × 40%', borc:240000, not:'Base: acquisition value' },
+          { hesap:'770', ad:'Year 2: 360,000 × 40%', borc:144000, not:'Base: **NBV** 600,000−240,000' },
+          { hesap:'770', ad:'Year 3: 216,000 × 40%', borc:86400, not:'Base: NBV 360,000−144,000' },
           { hesap:'257', ad:'Accumulated depreciation (3-year total)', alacak:470400 },
         ],
         not:'Machine 600,000 TRY · useful life 5 years → normal rate **20%** → declining-balance rate ' +
@@ -265,22 +265,22 @@ SAP.registerTopic({
              'In the first three years the declining method expensed **110,400 TRY more** → ' +
              'giving **tax deferral**.' },
 
-      { baslik:'**Declining balance** — final year · the whole remaining balance is posted',
+      { baslik:'**Declining balance**: final year · the whole remaining balance is posted',
         belgeTuru:'AF', tarih:'31.12.2031', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'770', ad:'Year 5 — **the entirety** of the remaining NBV', borc:77760, not:'Not 40% — **the whole remainder**' },
+          { hesap:'770', ad:'Year 5, **the entirety** of the remaining NBV', borc:77760, not:'Not 40%, **the whole remainder**' },
           { hesap:'257', ad:'Accumulated depreciation', alacak:77760 },
         ],
         not:'The net book value remaining at the end of year 4: 129,600 − 51,840 = **77,760 TRY**.\n\n' +
-             '**In the final year, 40% is not applied — the entire remaining balance is posted.** ' +
+             '**In the final year, 40% is not applied: the entire remaining balance is posted.** ' +
              'Otherwise, since 40% of the remainder would be taken every year, the asset would ' +
              '**mathematically never reach zero**.\n\n' +
              'In SAP, this behavior is achieved through the **"zero out the remaining value at end of ' +
-             'life"** setting in the {{AFAMR}} base method — if this setting is forgotten, the asset sits ' +
+             'life"** setting in the {{AFAMR}} base method: if this setting is forgotten, the asset sits ' +
              'with a small balance on the books forever.\n\n' +
              'Total check: 240,000 + 144,000 + 86,400 + 51,840 + 77,760 = **600,000 TRY** ✓' },
 
-      { baslik:'AuC step 1 — an investment advance is paid · **259, not 258**',
+      { baslik:'AuC step 1: an investment advance is paid · **259, not 258**',
         belgeTuru:'KZ', tarih:'10.02.2026', paraBirimi:'TRY',
         satirlar:[
           { hesap:'259', ad:'Down payments on investment orders', borc:600000, not:'Not yet a **cost**' },
@@ -291,21 +291,21 @@ SAP.registerTopic({
              'receive goods/services in the future*. Mixing the two overstates the investment\'s cost.\n\n' +
              'As progress invoices come in, the advance is offset and the cost moves to 258.' },
 
-      { baslik:'AuC step 2 — a progress invoice · cost starts accumulating in 258',
+      { baslik:'AuC step 2: a progress invoice · cost starts accumulating in 258',
         belgeTuru:'KR', tarih:'15.05.2026', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'258', ad:'Assets under construction — AuC 4000012', borc:1200000, not:'**No** depreciation' },
+          { hesap:'258', ad:'Assets under construction: AuC 4000012', borc:1200000, not:'**No** depreciation' },
           { hesap:'191', ad:'Deductible VAT', borc:240000 },
           { hesap:'320', ad:'Trade payables (construction company)', alacak:1440000 },
         ],
         not:'The building is under construction; because it isn\'t delivering benefit yet, it isn\'t ' +
              'subject to depreciation. Costs accumulate on the AuC asset ({{ANLA}}) and in account 258.\n\n' +
-             'The posting is an ordinary vendor invoice — the only difference is that the offsetting line ' +
+             'The posting is an ordinary vendor invoice: the only difference is that the offsetting line ' +
              'goes to the **AuC asset number**. The system finds account 258 through {{AO90}} account ' +
              'determination via {{varlik-sinifi}}.' },
 
-      { baslik:'AuC step 3 — cost accumulates from **three separate sources**',
-        belgeTuru:'Various', tarih:'June–September 2026', paraBirimi:'TRY',
+      { baslik:'AuC step 3: cost accumulates from **three separate sources**',
+        belgeTuru:'Various', tarih:'June-September 2026', paraBirimi:'TRY',
         satirlar:[
           { hesap:'258', ad:'Vendor invoices (construction, installation)', borc:1900000, not:'{{MIRO}} / {{F-90}}' },
           { hesap:'258', ad:'Material issued from the warehouse', borc:280000, not:'MM movement type **241**' },
@@ -321,19 +321,19 @@ SAP.registerTopic({
              'asset would look cheaper than it is, and that period\'s expense would look higher than it is.\n\n' +
              'Total AuC balance: 1,200,000 + 2,300,000 = **3,500,000 TRY**.' },
 
-      { baslik:'AuC step 4 — capitalization ({{AIBU}}) · construction is finished',
+      { baslik:'AuC step 4: capitalization ({{AIBU}}) · construction is finished',
         belgeTuru:'AA', tarih:'01.10.2026', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'252', ad:'Buildings — asset 1200034', borc:3500000, not:'{{hareket-turu}} **336** — AuC transfer' },
-          { hesap:'258', ad:'Assets under construction — AuC 4000012', alacak:3500000, not:'AuC **emptied out**' },
+          { hesap:'252', ad:'Buildings, asset 1200034', borc:3500000, not:'{{hareket-turu}} **336**, AuC transfer' },
+          { hesap:'258', ad:'Assets under construction: AuC 4000012', alacak:3500000, not:'AuC **emptied out**' },
         ],
         not:'The building is now ready for use. **Depreciation starts from this date.**\n\n' +
              'Note: **the balance sheet total didn\'t change.** The asset moved from one line to another; ' +
              'no gain, no loss arose. Capitalization is a **reclassification**, not a gain event.\n\n' +
-             'Critical field: the capitalization date (01.10.2026). **This date** — not the invoice dates — ' +
+             'Critical field: the capitalization date (01.10.2026). **This date**, not the invoice dates, ' +
              'determines when depreciation begins.' },
 
-      { baslik:'AuC step 5 — **line-item settlement**: one AuC, three different assets',
+      { baslik:'AuC step 5: **line-item settlement**: one AuC, three different assets',
         belgeTuru:'AA', tarih:'01.10.2026', paraBirimi:'TRY',
         satirlar:[
           { hesap:'252', ad:'Buildings (50-year depreciation)', borc:2600000, not:'Construction cost' },
@@ -350,10 +350,10 @@ SAP.registerTopic({
              'item goes to which target asset. That\'s why the AuC asset class needs to be set to **line-item ' +
              'settlement**.' },
 
-      { baslik:'AuC step 6 — **partial capitalization**: one section is put into use',
+      { baslik:'AuC step 6: **partial capitalization**: one section is put into use',
         belgeTuru:'AA', tarih:'01.08.2026', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'253', ad:'Plant, machinery and equipment — production line 1', borc:1400000, not:'Put into use' },
+          { hesap:'253', ad:'Plant, machinery and equipment: production line 1', borc:1400000, not:'Put into use' },
           { hesap:'258', ad:'Assets under construction', alacak:1400000, not:'The remaining **2,100,000** stays in AuC' },
         ],
         not:'The factory\'s first production line went into operation in August; the second is still under ' +
@@ -361,7 +361,7 @@ SAP.registerTopic({
              '**Partial capitalization** is performed: the part put into use is transferred to 253 and its ' +
              'depreciation **starts in August**; the rest waits in AuC.\n\n' +
              'If this isn\'t done, the running line produces for months without any depreciation being ' +
-             'posted — costs are understated and profit looks higher than it is.\n\n' +
+             'posted: costs are understated and profit looks higher than it is.\n\n' +
              '**This is the most commonly skipped step in practice:** people wait for the project to be ' +
              '"completely finished," and the accounting consequence of partial go-live gets overlooked.' },
     ],
@@ -389,14 +389,14 @@ SAP.registerTopic({
       { tip:'warn', baslik:'Why isn\'t the acquisition value reduced?', metin:
         'The asset\'s **original cost** must be preserved as information. If depreciation were deducted ' +
         'from account 253, the question "what was this machine originally bought for?" couldn\'t be ' +
-        'answered — and it would cause problems in insurance and tax audits.\n\n' +
+        'answered: and it would cause problems in insurance and tax audits.\n\n' +
         'That\'s why the decrease accumulates in a separate **contra account** (257). On the balance sheet ' +
         'it\'s shown net: "253 Machinery 600,000 / 257 Accumulated depreciation (−180,000) = 420,000."' },
       { tip:'tip', baslik:'Which account does depreciation expense go to?', metin:
         'It depends on **where the asset is used**: a production machine goes to 730 production expense, a ' +
         'sales vehicle to 760 marketing expense, an office computer to 770 general administrative expense.\n\n' +
         'SAP resolves this through {{AO90}} account determination and the asset\'s {{maliyet-yeri}} ' +
-        'assignment. That\'s why the cost center must be entered correctly in the asset master — if it\'s ' +
+        'assignment. That\'s why the cost center must be entered correctly in the asset master: if it\'s ' +
         'wrong, the expense lands in the wrong department.' },
     ],
   },
@@ -405,26 +405,26 @@ SAP.registerTopic({
   cesitler: {
     anlatim:
       'In AA, variation happens along three axes, and the list below is grouped into these three:\n\n' +
-      '**Asset transactions** — what happens to the asset? *(acquisition, transfer, disposal, AuC)*\n' +
-      '**Calculation methods** — how is the amount determined? *(straight-line, declining, SYD, units of ' +
+      '**Asset transactions**: what happens to the asset? *(acquisition, transfer, disposal, AuC)*\n' +
+      '**Calculation methods**: how is the amount determined? *(straight-line, declining, SYD, units of ' +
       'production, residual value)*\n' +
-      '**Turkish tax-law (VUK) applications** — the law\'s special rules *(pro-rata, extraordinary, ' +
+      '**Turkish tax-law (VUK) applications**: the law\'s special rules *(pro-rata, extraordinary, ' +
       'leasehold improvement…)*\n\n' +
       '---\n\n' +
-      '### Calculation methods — same asset, five results\n\n' +
+      '### Calculation methods: same asset, five results\n\n' +
       'The fastest way to understand the methods is to **calculate the same asset five times**.\n\n' +
       '**Asset:** 600,000 TRY · useful life **5 years**\n\n' +
-      '**① Straight-line** — `Amount ÷ Useful life`\n' +
+      '**① Straight-line**: `Amount ÷ Useful life`\n' +
       '120,000 → 120,000 → 120,000 → 120,000 → 120,000\n\n' +
-      '**② Declining balance (40%)** — `NBV × (normal rate × 2)`\n' +
+      '**② Declining balance (40%)**: `NBV × (normal rate × 2)`\n' +
       '240,000 → 144,000 → 86,400 → 51,840 → **77,760** *(the entire remainder in the final year)*\n\n' +
-      '**③ Sum-of-the-years\' digits** — `Amount × (remaining life ÷ 15)`\n' +
+      '**③ Sum-of-the-years\' digits**: `Amount × (remaining life ÷ 15)`\n' +
       '200,000 → 160,000 → 120,000 → 80,000 → 40,000\n\n' +
-      '**④ Units of production** — `(Amount ÷ total output) × period output`\n' +
+      '**④ Units of production**: `(Amount ÷ total output) × period output`\n' +
       '160,000 → 140,000 → 120,000 → 100,000 → 80,000 *(2 TRY/unit)*\n\n' +
-      '**⑤ With residual value** — `(Amount − residual) ÷ useful life`\n' +
+      '**⑤ With residual value**: `(Amount − residual) ÷ useful life`\n' +
       '100,000 → 100,000 → 100,000 → 100,000 → 100,000 *(residual value 100,000)*\n\n' +
-      '**The one thing to understand:** for ①②③④, **total depreciation is the same — 600,000 TRY**. Only ' +
+      '**The one thing to understand:** for ①②③④, **total depreciation is the same: 600,000 TRY**. Only ' +
       'which year gets how much changes. So choosing a method is a *tax deferral* decision, not a *tax ' +
       'reduction* one.\n\n' +
       '⑤ is the exception: because the depreciable amount itself is smaller, the total comes to **500,000 ' +
@@ -440,23 +440,23 @@ SAP.registerTopic({
                  'goods receipt → invoice).',
         neZaman:'{{ABZON}} for simple purchases; {{F-90}} when the vendor invoice will be entered directly; ' +
                 'the MM route for investments tracked through a purchase order.',
-        ornek:'{{hareket-turu}} **100** — external acquisition. Posting: 253 debit / 320 credit.',
+        ornek:'{{hareket-turu}} **100**: external acquisition. Posting: 253 debit / 320 credit.',
         tcodes:['ABZON','F-90','MIGO','MIRO'] },
 
-      { ad:'Scrapping — ABAVN',
+      { ad:'Scrapping: ABAVN',
         aciklama:'A disposal with no proceeds. The entire {{net-defter-degeri}} is recorded as a **loss**.',
         neZaman:'When the asset becomes unusable, is destroyed, or is stolen.',
         ornek:'{{hareket-turu}} **200/250**. A book value of 420,000 means a 420,000 TRY loss.',
         tcodes:['ABAVN'] },
 
-      { ad:'Retirement with Revenue — F-92 / ABAON',
+      { ad:'Retirement with Revenue: F-92 / ABAON',
         aciklama:'A disposal with proceeds. The sale proceeds are compared against {{net-defter-degeri}}; ' +
                  'the difference becomes a gain or loss.',
         neZaman:'When the asset is sold to a third party.',
         ornek:'Book value 420,000, sale price 500,000 → **80,000 TRY gain** (account 679).',
         tcodes:['F-92','ABAON'] },
 
-      { ad:'AuC — Summary Settlement',
+      { ad:'AuC: Summary Settlement',
         aciklama:'The entire AuC cost is transferred to **a single target asset**. Line items aren\'t ' +
                  'tracked separately, the total is moved.',
         neZaman:'When the investment produces a single asset: one building, one machine, one vehicle.',
@@ -464,14 +464,14 @@ SAP.registerTopic({
               'one line. **This is the default choice.**',
         tcodes:['AIBU','ABUMN'] },
 
-      { ad:'AuC — Line Item Settlement',
+      { ad:'AuC: Line Item Settlement',
         aciklama:'AuC cost is transferred **split across multiple target assets**. Each cost item is ' +
                  'tracked separately and goes to its own target.',
         neZaman:'When the investment produces assets with **different useful lives**: building + machine + ' +
                 'fixtures all coming out of the same project.',
         ornek:'3,500,000 TRY → 2,600,000 building (50 years) + 700,000 machine (10 years) + ' +
               '200,000 fixtures (5 years). The rule is defined with {{AIAB}}.\n\n' +
-              '**Must be selected up front in the asset class** — it can\'t be changed afterward.',
+              '**Must be selected up front in the asset class**: it can\'t be changed afterward.',
         tcodes:['AIAB','AIBU'] },
 
       { ad:'Partial Capitalization',
@@ -480,7 +480,7 @@ SAP.registerTopic({
                 'second is still under construction.',
         ornek:'1,400,000 TRY of a 3,500,000 TRY AuC is capitalized; depreciation starts **only for that ' +
               'portion**. The remaining 2,100,000 TRY waits in AuC without depreciation.\n\n' +
-              '**The most commonly skipped step** — people wait for the project to be "completely finished."',
+              '**The most commonly skipped step**: people wait for the project to be "completely finished."',
         tcodes:['AIBU'] },
 
       { ad:'Down Payment on Investment',
@@ -492,14 +492,14 @@ SAP.registerTopic({
               'incurred*. Mixing the two overstates the investment.',
         tcodes:['F-48','F-54'] },
 
-      { ad:'Transfer — ABUMN',
+      { ad:'Transfer: ABUMN',
         aciklama:'Moving an asset to another asset, class, or company code. The most common use is ' +
                  'converting a {{yatirim-devam}} into a real asset.',
         neZaman:'On AuC capitalization, class correction, intercompany transfer.',
         ornek:'{{hareket-turu}} **300/336**. 258 credit / 252 debit.',
         tcodes:['ABUMN','AIBU','AIAB'] },
 
-      { ad:'Straight-line — VUK md. 315',
+      { ad:'Straight-line: VUK md. 315',
         aciklama:'The acquisition value is divided **equally** over {{faydali-omur}}. Same amount every ' +
                  'period. Rate = 1 / useful life.',
         neZaman:'**VUK\'s default method.** Usable for any asset whose benefit spreads evenly over time; ' +
@@ -510,19 +510,19 @@ SAP.registerTopic({
               'the Ministry of Finance\'s list (VUK General Communiqué no. 333).',
         tcodes:['AFAMA','AFAMR'] },
 
-      { ad:'Declining Balance — VUK mük. md. 315',
+      { ad:'Declining Balance: VUK mük. md. 315',
         aciklama:'Depreciation is calculated with a fixed rate **on {{net-defter-degeri}}, not on the ' +
                  'acquisition value**. Because the base shrinks, the amount decreases every year.',
         neZaman:'For assets whose benefit is concentrated in the early years; for **tax deferral** ' +
                 'purposes. Only taxpayers keeping books **on a balance-sheet basis** can apply it.',
         ornek:'Rate = **2×** the normal rate, capped at **50%**.\n\n' +
               '600,000 × 20% = 120,000 (year 1) → 480,000 × 20% = 96,000 (year 2) → …\n\n' +
-              '**In the final year the entire remaining net book value** is posted — otherwise the asset ' +
+              '**In the final year the entire remaining net book value** is posted: otherwise the asset ' +
               'would never reach zero. **You can switch from declining to straight-line, not the other way ' +
               'around.**',
         tcodes:['AFAMD','AFAMS'] },
 
-      { ad:'Pro-rata — VUK md. 320/2',
+      { ad:'Pro-rata: VUK md. 320/2',
         aciklama:'For the year the asset is put into service, depreciation is posted **not for the full ' +
                  'year but for the months it was actually used**. In VUK this is the **exception, not the ' +
                  'rule**.',
@@ -535,7 +535,7 @@ SAP.registerTopic({
               'passenger cars (car rental, driving schools) don\'t apply pro-rata.',
         tcodes:['AFAMP'] },
 
-      { ad:'Sum-of-the-Years\' Digits — IFRS',
+      { ad:'Sum-of-the-Years\' Digits: IFRS',
         aciklama:'An accelerated method calculated on a fixed base with **a rate that decreases every ' +
                  'year**.',
         neZaman:'In IFRS reporting; for assets where benefit is front-loaded but declining balance would ' +
@@ -544,18 +544,18 @@ SAP.registerTopic({
               '5 years → denominator 15 → 200,000 / 160,000 / 120,000 / 80,000 / 40,000\n\n' +
               '**Difference from declining balance:** the base is **fixed**, the rate changes → no special ' +
               'rule is needed for the final year.\n\n' +
-              '**Not in VUK** — in Turkey it exists only in the IFRS {{amortisman-alani}}.' },
+              '**Not in VUK**: in Turkey it exists only in the IFRS {{amortisman-alani}}.' },
 
-      { ad:'Units of Production — IFRS',
+      { ad:'Units of Production: IFRS',
         aciklama:'Depreciation is calculated based on **actual output, not the passage of time**.',
-        neZaman:'Presses, dies, mining equipment — assets that don\'t wear when idle.',
+        neZaman:'Presses, dies, mining equipment: assets that don\'t wear when idle.',
         ornek:'`Unit rate = Amount ÷ total estimated output` → `Period amount = Unit rate × that period\'s ' +
               'output`\n\n' +
               '600,000 ÷ 300,000 units = **2 TRY/unit**. 80,000 units a year → **160,000 TRY**.\n\n' +
               '**The catch:** actual output has to be entered into the system every period.\n\n' +
               'Not a general VUK method; a similar logic exists for mining (art. 316).' },
 
-      { ad:'Residual Value — IFRS (IAS 16)',
+      { ad:'Residual Value: IFRS (IAS 16)',
         aciklama:'The expected sale value at the end of the useful life is **deducted** from the ' +
                  'depreciable amount.',
         neZaman:'In IFRS reporting; for assets like vehicles and heavy equipment with meaningful ' +
@@ -563,39 +563,39 @@ SAP.registerTopic({
         ornek:'`Depreciable amount = Acquisition value − residual value`\n\n' +
               '(600,000 − 100,000) ÷ 5 = **100,000/year**. After 5 years {{net-defter-degeri}} is **not ' +
               'zero, but 100,000 TRY**.\n\n' +
-              '**VUK has no concept of residual value** — the asset is fully written off to zero. Under ' +
+              '**VUK has no concept of residual value**: the asset is fully written off to zero. Under ' +
               'IFRS it is **reviewed every period**.\n\n' +
               'This difference is one of the most concrete examples of why {{paralel-defter}} is needed.' },
 
-      { ad:'Extraordinary — VUK md. 317',
+      { ad:'Extraordinary: VUK md. 317',
         aciklama:'Depreciation above the normal rate in cases of abnormal value loss.',
         neZaman:'Three cases: **disaster** (fire, earthquake, flood), reduced technical efficiency due to ' +
                 '**new inventions**, excessive wear from **forced operation**.',
-        ornek:'The rate isn\'t free — it\'s set **separately for each business** by the Ministry of Finance ' +
+        ornek:'The rate isn\'t free: it\'s set **separately for each business** by the Ministry of Finance ' +
               'and **requires an application**. It can\'t be applied on one\'s own.\n\n' +
               'In SAP it\'s entered as a special depreciation type via {{ABMA}}.',
         tcodes:['ABMA'] },
 
-      { ad:'Depletion — VUK md. 316',
+      { ad:'Depletion: VUK md. 316',
         aciklama:'Amortization of mines and quarries, and of concession or cost value, **based on the ' +
                  'operating period**.',
         neZaman:'In mining activities.',
         ornek:'Rates are set by the **Ministries of Finance and Industry**. Because it depends on how fast ' +
               'the reserve is depleted, a standard useful-life list isn\'t used.' },
 
-      { ad:'Leasehold Improvements — VUK md. 327',
+      { ad:'Leasehold Improvements: VUK md. 327',
         aciklama:'Amortization of improvements made to a leased property that don\'t belong to the lessee.',
         neZaman:'A leased store/office fit-out, a suspended ceiling, air-conditioning installation.',
-        ornek:'Amortized in **equal percentages over the lease term** — not based on the asset\'s own ' +
+        ornek:'Amortized in **equal percentages over the lease term**: not based on the asset\'s own ' +
               'useful life.\n\n' +
               '• Lease term 5 years → amortized over 5 years\n' +
               '• **If the term isn\'t set → 5 years**\n' +
               '• If vacated before the term ends, the **unamortized portion is expensed that year**' },
 
-      { ad:'Low Value Assets — VUK md. 313',
+      { ad:'Low Value Assets: VUK md. 313',
         aciklama:'Tools, equipment, furnishings, and goodwill items below a set threshold can be ' +
                  '**expensed directly**.',
-        neZaman:'For low-value items in large numbers — when the cost of tracking them exceeds the ' +
+        neZaman:'For low-value items in large numbers: when the cost of tracking them exceeds the ' +
                 'accuracy it provides.',
         ornek:'The threshold is **updated every year with the revaluation rate**; check the relevant VUK ' +
               'general communiqué for the current amount.\n\n' +
@@ -603,7 +603,7 @@ SAP.registerTopic({
               'posts **100% immediate depreciation**.',
         tcodes:['AFAMA'] },
 
-      { ad:'Non-depreciable Assets — VUK md. 314',
+      { ad:'Non-depreciable Assets: VUK md. 314',
         aciklama:'Assets not subject to depreciation because they don\'t wear out.',
         neZaman:'**Vacant land and plots.** Also {{yatirim-devam}} (not yet ready for use).',
         ornek:'Land is **never** subject to depreciation; a building on it is a separate asset and is ' +
@@ -611,7 +611,7 @@ SAP.registerTopic({
               'on agricultural operations are depreciable.)*\n\n' +
               'In SAP this is achieved by assigning depreciation key **0000**.' },
 
-      { ad:'Renewal Fund — VUK md. 328–329',
+      { ad:'Renewal Fund: VUK md. 328-329',
         aciklama:'Deferring taxation of the profit on a sold asset for the purpose of **renewing** it.',
         neZaman:'When renewal is mandatory or has been decided and initiated.',
         ornek:'The sale profit is held on the liabilities side (account 549 Special funds) for **at most 3 ' +
@@ -620,7 +620,7 @@ SAP.registerTopic({
               '**It\'s tax deferral, not a deduction.** Not a standard AA function in SAP; tracked with a ' +
               'manual G/L posting.' },
 
-      { ad:'Unplanned Depreciation — ABAA',
+      { ad:'Unplanned Depreciation: ABAA',
         aciklama:'Depreciation recorded manually, outside the planned schedule, due to impairment.',
         neZaman:'Damage, technological obsolescence, a permanent drop in market value.',
         ornek:'A machine damaged in a fire has its value reduced by 200,000 TRY.',
@@ -629,7 +629,7 @@ SAP.registerTopic({
       { ad:'Depreciation Area',
         aciklama:'The same asset being valued differently for different purposes. Each area has its own ' +
                  '{{amortisman-anahtari}} and {{faydali-omur}}.',
-        neZaman:'When commercial accounting, tax law, IFRS, and group reporting are all needed at once — ' +
+        neZaman:'When commercial accounting, tax law, IFRS, and group reporting are all needed at once: ' +
                 'that is, in almost every corporate company.',
         ornek:'Area 01 commercial (10 years, normal) · Area 15 tax (8 years, declining) · Area 32 IFRS ' +
               '(component-based).',
@@ -643,10 +643,10 @@ SAP.registerTopic({
       ['Rate', '1 / useful life', 'Normal rate **× 2**, capped at 50%'],
       ['Period amount', '**Same** every period', 'High in the early years, then falls'],
       ['Year 1 (600,000, 5 years)', '120,000 TRY (20%)', '**240,000 TRY** (40%)'],
-      ['Year 5 (final)', '120,000 TRY', '**The entire remaining balance** — 77,760 TRY'],
+      ['Year 5 (final)', '120,000 TRY', '**The entire remaining balance**: 77,760 TRY'],
       ['Who can apply it', 'Everyone', 'Only those keeping books **on a balance-sheet basis**'],
       ['Switching methods', '**Can\'t switch** to declining', '**Can switch** to normal'],
-      ['Tax effect', 'Tax spreads evenly', 'Early years **less tax** — a cash advantage'],
+      ['Tax effect', 'Tax spreads evenly', 'Early years **less tax**: a cash advantage'],
       ['In SAP', '{{AFAMR}} base method', '{{AFAMD}} + final-year zero-out setting'],
     ],
   },
@@ -656,7 +656,7 @@ SAP.registerTopic({
     liste:[
       { kod:'AS01', ad:'Create fixed asset',
         amac:'Opens a new asset master record based on {{varlik-sinifi}}.',
-        neZaman:'For every purchase to be capitalized — **before the acquisition posting**.',
+        neZaman:'For every purchase to be capitalized: **before the acquisition posting**.',
         adimlar:[
           { baslik:'Enter the asset class and company code',
             aciklama:'As soon as the class is selected, account determination, the number range, and ' +
@@ -672,7 +672,7 @@ SAP.registerTopic({
                      '{{amortisman-alani}}. Differences like commercial 10 years vs. tax 8 years are ' +
                      'defined here.' },
           { baslik:'Save',
-            aciklama:'An asset number is assigned. **Its value is still zero** — the acquisition is a ' +
+            aciklama:'An asset number is assigned. **Its value is still zero**: the acquisition is a ' +
                      'separate transaction.' },
         ],
         ekranAkisi:[
@@ -693,7 +693,7 @@ SAP.registerTopic({
               'You won\'t have to rethink the depreciation settings, and it keeps things consistent.',
         ilgili:['AS02','AS03','AS11','ABZON','AW01N','OAOA'] },
 
-      { kod:'AW01N', ad:'Asset Explorer — AA\'s control panel',
+      { kod:'AW01N', ad:'Asset Explorer: AA\'s control panel',
         amac:'Shows an asset\'s entire life on a single screen: value areas, planned/posted depreciation, ' +
              'all transactions, and the linked FI documents.',
         neZaman:'For every question about an asset. Diagnosis in AA starts here.',
@@ -708,7 +708,7 @@ SAP.registerTopic({
           { baslik:'*Posted values* tab',
             aciklama:'Depreciation actually posted, period by period. Compared against the planned figures.' },
           { baslik:'*Comparisons* tab',
-            aciklama:'How the value develops year over year — how the asset\'s value erodes over its life.' },
+            aciklama:'How the value develops year over year: how the asset\'s value erodes over its life.' },
           { baslik:'Double-click a transaction line → drill into the FI document' },
         ],
         ekranAkisi:[
@@ -730,7 +730,7 @@ SAP.registerTopic({
         neZaman:'For simple purchases; when the vendor invoice will be handled separately in AP; for opening balances during data migration.',
         adimlar:[
           { baslik:'Enter the asset number and document dates' },
-          { baslik:'Choose {{hareket-turu}} (usually 100 — external acquisition)',
+          { baslik:'Choose {{hareket-turu}} (usually 100: external acquisition)',
             aciklama:'The transaction type determines which value areas are affected and which accounts ' +
                      'are triggered.' },
           { baslik:'Enter the amount and the **capitalization date**',
@@ -745,21 +745,21 @@ SAP.registerTopic({
           { mesaj:'Posting period ... is not open for account type A', sebep:'The period is closed for asset account type (A).', cozum:'Open the period on the **A** line in {{OB52}}.' },
           { mesaj:'Asset ... is blocked for acquisition', sebep:'The asset is blocked with {{AS05}}.', cozum:'Remove the block or choose the correct asset.' },
           { mesaj:'Depreciation area 15 must be posted to G/L', sebep:'Depreciation area configuration is inconsistent.', cozum:'Check the area\'s ledger-posting setting with {{OADB}}.' },
-          { mesaj:'Fiscal year ... is already closed for asset accounting', sebep:'The year has been closed with {{AJAB}}.', cozum:'Postings can\'t be made to a closed year; post to the current year, or reopen the year (carefully — it has audit implications).' },
+          { mesaj:'Fiscal year ... is already closed for asset accounting', sebep:'The year has been closed with {{AJAB}}.', cozum:'Postings can\'t be made to a closed year; post to the current year, or reopen the year (carefully: it has audit implications).' },
         ],
         ipucu:'Don\'t confuse the capitalization date with the posting date. The posting date decides the ' +
               'accounting period; **the capitalization date decides when depreciation starts**. If a ' +
               'machine was bought in March but entered in April, the capitalization date should still be March.',
         ilgili:['F-90','AS01','AW01N','AFAB'] },
 
-      { kod:'AFAMA', ad:'Depreciation key — the answer package to SAP\'s five questions',
+      { kod:'AFAMA', ad:'Depreciation key: the answer package to SAP\'s five questions',
         amac:'Telling an asset "post depreciation" isn\'t enough. SAP wants to know **five things**. ' +
              'The depreciation key is these five answers, packaged together.',
         neZaman:'During configuration; whenever a new depreciation behavior is needed (e.g. pro-rata for passenger cars).',
         adimlar:[
           { baslik:'1⃣ "What logic should I calculate with?"',
             aciklama:'Straight-line or declining balance? Should I give the rate, or should it be ' +
-                     'calculated from {{faydali-omur}}? **What happens when the useful life ends** — does ' +
+                     'calculated from {{faydali-omur}}? **What happens when the useful life ends**: does ' +
                      'it stop, or does it zero out the remainder?\n\n' +
                      'The answer is written into the **base method** ({{AFAMR}}).' },
           { baslik:'2⃣ "If it\'s declining balance, how fast?"',
@@ -771,7 +771,7 @@ SAP.registerTopic({
             aciklama:'Is there a schedule like *"40% for the first 4 years, then 25%"*? The **switch from ' +
                      'declining to normal** under VUK is defined here.\n\n' +
                      'The answer is written into the **multi-level method** ({{AFAMS}}). Left blank if not needed.' },
-          { baslik:'4⃣ "When should it start, when should it end?" — **the most critical step**',
+          { baslik:'4⃣ "When should it start, when should it end?": **the most critical step**',
             aciklama:'If the asset was bought in April, should depreciation start **in January** or **in ' +
                      'April**? Should the last month count on disposal?\n\n' +
                      'The answer is written into the **period control method** ({{AFAMP}}). **This is ' +
@@ -786,24 +786,24 @@ SAP.registerTopic({
         ekranAkisi:[
           { ekran:'**Example: `Z_GENEL`**', islem:'Straight-line, full-year depreciation for general assets' },
           { ekran:'1 · Base method', islem:'Straight-line · calculate **from useful life** · **stop** when the life ends' },
-          { ekran:'2 · Declining balance', islem:'*(blank — straight-line key)*' },
-          { ekran:'3 · Multi-level', islem:'*(blank — rate is fixed)*' },
+          { ekran:'2 · Declining balance', islem:'*(blank: straight-line key)*' },
+          { ekran:'3 · Multi-level', islem:'*(blank: rate is fixed)*' },
           { ekran:'4 · **Period control**', islem:'Acquisition: **from the start of the year** → full year' },
           { ekran:'5 · Maximum amount', islem:'*(blank)*' },
-          { ekran:'— — —', islem:'— — —' },
+          { ekran:', , ', islem:', , ' },
           { ekran:'**Example: `Z_BINEK`**', islem:'Straight-line, **pro-rata** depreciation for passenger cars' },
-          { ekran:'1 · Base method', islem:'Straight-line · from useful life · stop when the life ends — **same as Z_GENEL**' },
-          { ekran:'2 · Declining balance', islem:'*(blank)* — **same**' },
-          { ekran:'3 · Multi-level', islem:'*(blank)* — **same**' },
+          { ekran:'1 · Base method', islem:'Straight-line · from useful life · stop when the life ends: **same as Z_GENEL**' },
+          { ekran:'2 · Declining balance', islem:'*(blank)*: **same**' },
+          { ekran:'3 · Multi-level', islem:'*(blank)*: **same**' },
           { ekran:'4 · **Period control**', islem:'Acquisition: **prorated from the acquisition month** → **THE ONLY DIFFERENCE**' },
-          { ekran:'5 · Maximum amount', islem:'*(blank)* — **same**' },
+          { ekran:'5 · Maximum amount', islem:'*(blank)*: **same**' },
         ],
         alanlar:{
           zorunlu:['Key code','Base method','Period control method'],
           opsiyonel:['Declining-balance method','Multi-level method','Maximum-amount method'] },
         hatalar:[
           { mesaj:'Asset is not posting any depreciation', sebep:'Key is **0000** (no depreciation), or was copied from an {{yatirim-devam}} class.', cozum:'Check the asset\'s key with {{AW01N}}.' },
-          { mesaj:'Asset is not zeroing out at the end of its life, a small balance remains', sebep:'The base method is missing the **"zero out the remainder at end of life"** setting — typical for declining balance.', cozum:'Fix the end-of-life behavior in the {{AFAMR}} base method.' },
+          { mesaj:'Asset is not zeroing out at the end of its life, a small balance remains', sebep:'The base method is missing the **"zero out the remainder at end of life"** setting: typical for declining balance.', cozum:'Fix the end-of-life behavior in the {{AFAMR}} base method.' },
           { mesaj:'A passenger car is receiving full-year depreciation', sebep:'The general key was used; the period control is full-year.', cozum:'Define a separate key with pro-rata period control and assign it to vehicles.' },
         ],
         ipucu:'**The easiest way to understand a key is to put two of them side by side.**\n\n' +
@@ -828,7 +828,7 @@ SAP.registerTopic({
                      '(selected assets only), **restart** (resume an interrupted run).' },
           { baslik:'**Run in test mode first**',
             aciklama:'Shows how much depreciation each asset will get without posting it. This step must ' +
-                     'never be skipped — the real run can\'t be undone.' },
+                     'never be skipped: the real run can\'t be undone.' },
           { baslik:'Review the result',
             aciklama:'For unexpected amounts, drill into that asset with {{AW01N}}: check the depreciation ' +
                      'key, useful life, and capitalization date.' },
@@ -845,7 +845,7 @@ SAP.registerTopic({
           zorunlu:['Company code','Fiscal year','Posting period','Run reason'],
           opsiyonel:['Asset range','Test mode','List detail level'] },
         hatalar:[
-          { mesaj:'Depreciation already posted for period 03', sebep:'The period has already been run.', cozum:'Choose the "repeat" run reason — only the changed assets get a delta posting.' },
+          { mesaj:'Depreciation already posted for period 03', sebep:'The period has already been run.', cozum:'Choose the "repeat" run reason: only the changed assets get a delta posting.' },
           { mesaj:'Posting period for asset accounting is not open', sebep:'Account type A is closed in {{OB52}}.', cozum:'Open the period.' },
           { mesaj:'Error in account determination for asset ...', sebep:'The depreciation expense or accumulated depreciation account is undefined in {{AO90}}.', cozum:'Complete the asset class\'s account determination.' },
           { mesaj:'Depreciation run terminated', sebep:'Timeout, or an error on a single asset.', cozum:'Run with the "restart" reason; find the failing asset in the log.' },
@@ -860,7 +860,7 @@ SAP.registerTopic({
         neZaman:'When the asset becomes unusable, is destroyed, or is stolen.',
         adimlar:[
           { baslik:'Enter the asset number and disposal date' },
-          { baslik:'Choose the transaction type (200/250 — scrapping)' },
+          { baslik:'Choose the transaction type (200/250: scrapping)' },
           { baslik:'State whether it\'s a full or partial disposal',
             aciklama:'For a partial disposal, a quantity or amount ratio is entered; part of the asset ' +
                      'stays on the books.' },
@@ -869,7 +869,7 @@ SAP.registerTopic({
                      'book value as a loss.' },
         ],
         ipucu:'The **decision** to scrap isn\'t an accounting decision, it\'s a business decision. ' +
-              'Scrapping an asset with a high book value cuts that period\'s profit significantly — which ' +
+              'Scrapping an asset with a high book value cuts that period\'s profit significantly: which ' +
               'is usually why it needs management approval.',
         hatalar:[
           { mesaj:'Retirement date is before capitalization date', sebep:'The disposal date is before the capitalization date.', cozum:'Check the dates; if the capitalization was wrong, fix it first.' },
@@ -892,7 +892,7 @@ SAP.registerTopic({
               'because it drives account determination and the number range.',
         ilgili:['AIAB','AIBU','ABAVN','AS01'] },
 
-      { kod:'AIAB', ad:'Define AuC settlement rule — **the first step of capitalization**',
+      { kod:'AIAB', ad:'Define AuC settlement rule: **the first step of capitalization**',
         amac:'Defines which assets, and in what proportion, the costs on an asset under construction will be transferred to (a settlement rule).',
         neZaman:'**Before** capitalization. {{AIBU}} won\'t run without a rule.',
         adimlar:[
@@ -906,7 +906,7 @@ SAP.registerTopic({
           { baslik:'Enter the distribution ratio or amount',
             aciklama:'A percentage, a fixed amount, or an equivalence number. The total **must be 100%**, ' +
                      'or the remainder stays in AuC.' },
-          { baslik:'Save — the rule is now usable by {{AIBU}}' },
+          { baslik:'Save: the rule is now usable by {{AIBU}}' },
         ],
         ekranAkisi:[
           { ekran:'Entry', islem:'AuC asset 4000012 · company 1000' },
@@ -920,7 +920,7 @@ SAP.registerTopic({
         hatalar:[
           { mesaj:'Settlement rule is incomplete / total is not 100%', sebep:'The distribution ratios don\'t add up to 100%.', cozum:'Fix the ratios. Any remaining amount isn\'t capitalized and stays stuck in AuC.' },
           { mesaj:'Receiver asset does not exist', sebep:'The target asset hasn\'t been opened.', cozum:'First open the target asset in the correct {{varlik-sinifi}} with {{AS01}}.' },
-          { mesaj:'Line item settlement not allowed for this asset class', sebep:'The AuC asset class is set to summary settlement.', cozum:'**The class setting can\'t be changed afterward.** If line-item settlement is needed, a new AuC has to be opened and the cost transferred — which is why this decision must be made up front.' },
+          { mesaj:'Line item settlement not allowed for this asset class', sebep:'The AuC asset class is set to summary settlement.', cozum:'**The class setting can\'t be changed afterward.** If line-item settlement is needed, a new AuC has to be opened and the cost transferred: which is why this decision must be made up front.' },
         ],
         ipucu:'**The settlement rule design determines the useful life.** If a building and a machine ' +
               'accumulate in the same AuC and are transferred to a single "building" asset, the machine ' +
@@ -930,12 +930,12 @@ SAP.registerTopic({
               'If the answer is more than one, the AuC class needs to be set to **line-item settlement**.',
         ilgili:['AIBU','AS01','ABUMN','AW01N'] },
 
-      { kod:'AIBU', ad:'Capitalize the AuC — **the moment depreciation begins**',
+      { kod:'AIBU', ad:'Capitalize the AuC: **the moment depreciation begins**',
         amac:'Transfers the AuC cost to the target assets according to the rule defined with {{AIAB}}.',
         neZaman:'When the investment is ready for use; at each stage in a partial go-live.',
         adimlar:[
           { baslik:'Enter the AuC asset number and the **capitalization date**',
-            aciklama:'**This date determines when depreciation begins** — not the invoice dates. It ' +
+            aciklama:'**This date determines when depreciation begins**: not the invoice dates. It ' +
                      'should be the day the asset actually became ready for use.' },
           { baslik:'Validate the settlement rule',
             aciklama:'The targets and ratios defined with {{AIAB}} are displayed.' },
@@ -960,11 +960,11 @@ SAP.registerTopic({
           { mesaj:'No settlement rule maintained', sebep:'No rule has been defined with {{AIAB}}.', cozum:'Run {{AIAB}} first. **The order can\'t be reversed.**' },
           { mesaj:'Asset ... is not an asset under construction', sebep:'The asset isn\'t in an AuC class.', cozum:'An asset that wasn\'t opened as AuC can\'t be capitalized with {{AIBU}}; use {{ABUMN}} for a normal transfer.' },
           { mesaj:'Posting period is not open for account type A', sebep:'The period is closed for the asset account type.', cozum:'Open account type **A** in {{OB52}}.' },
-          { mesaj:'Capitalization was posted but depreciation did not start', sebep:'The capitalization date is in the future, or the target asset\'s depreciation key is 0000.', cozum:'Check the target asset\'s depreciation key with {{AW01N}} — it may have been copied from the AuC class.' },
+          { mesaj:'Capitalization was posted but depreciation did not start', sebep:'The capitalization date is in the future, or the target asset\'s depreciation key is 0000.', cozum:'Check the target asset\'s depreciation key with {{AW01N}}: it may have been copied from the AuC class.' },
         ],
         ipucu:'**The most critical field is the capitalization date.** The system asks for it because ' +
               'only a person can know the answer to *"when did the asset actually become ready for ' +
-              'use?"* — invoice dates don\'t show that.\n\n' +
+              'use?"*: invoice dates don\'t show that.\n\n' +
               'A wrong date hurts in either direction: too early posts depreciation on an asset not yet ' +
               'in use; too late hides the cost of a running asset and overstates that period\'s profit.',
         ilgili:['AIAB','AW01N','AFAB','ABUMN'] },
@@ -1002,27 +1002,27 @@ SAP.registerTopic({
         guncelleyen:'{{AS01}}, {{AS02}}, {{ABUMN}} (on transfer)',
         anahtar:'BUKRS + ANLN1 + ANLN2',
         iliskiler:'{{ANLB}} depreciation settings, {{ANLC}} annual values, {{ANEP}} transactions, ' +
-                  '{{ANLZ}} time-dependent assignments — all of these hang off this record.',
+                  '{{ANLZ}} time-dependent assignments: all of these hang off this record.',
         s4:'Master data structure preserved; values moved to {{ACDOCA}}.',
         alanlar:[
           { ad:'ANLN1', aciklama:'Main asset number' },
-          { ad:'ANLN2', aciklama:'Sub-asset number — for tracking components separately ({{AS11}})' },
-          { ad:'ANLKL', aciklama:'**{{varlik-sinifi}}** — drives account determination and the number range' },
-          { ad:'AKTIV', aciklama:'**{{aktiflestirme}} date** — when depreciation starts' },
-          { ad:'DEAKT', aciklama:'Deactivation date — filled in on disposal' },
+          { ad:'ANLN2', aciklama:'Sub-asset number: for tracking components separately ({{AS11}})' },
+          { ad:'ANLKL', aciklama:'**{{varlik-sinifi}}**: drives account determination and the number range' },
+          { ad:'AKTIV', aciklama:'**{{aktiflestirme}} date**: when depreciation starts' },
+          { ad:'DEAKT', aciklama:'Deactivation date: filled in on disposal' },
         ] },
 
       { ad:'ANLB', baslik:'Asset depreciation area data',
         tutar:'{{amortisman-anahtari}} and {{faydali-omur}} for each {{amortisman-alani}}.',
-        olusturan:'{{AS01}} — defaults come from the asset class',
+        olusturan:'{{AS01}}: defaults come from the asset class',
         guncelleyen:'{{AS02}}',
         anahtar:'BUKRS + ANLN1 + ANLN2 + AFABE + BDATU',
-        iliskiler:'A child of {{ANLA}}. **One asset has multiple rows** — one for each area.',
+        iliskiler:'A child of {{ANLA}}. **One asset has multiple rows**: one for each area.',
         s4:'Unchanged.',
         alanlar:[
           { ad:'AFABE', aciklama:'Depreciation area number (01 commercial, 15 tax, 32 IFRS)' },
           { ad:'AFASL', aciklama:'{{amortisman-anahtari}}' },
-          { ad:'NDJAR / NDPER', aciklama:'Useful life — years and periods' },
+          { ad:'NDJAR / NDPER', aciklama:'Useful life: years and periods' },
         ] },
 
       { ad:'ANLC', baslik:'Asset annual value totals',
@@ -1046,24 +1046,24 @@ SAP.registerTopic({
         iliskiler:'Linked to the document header via {{ANEK}}, and from there to the FI document.',
         s4:'Moved to {{ACDOCA}}; ANEP is a {{uyumluluk-view}}.',
         alanlar:[
-          { ad:'BWASL', aciklama:'**{{hareket-turu}}** — 100 acquisition, 200 disposal, 300 transfer' },
+          { ad:'BWASL', aciklama:'**{{hareket-turu}}**: 100 acquisition, 200 disposal, 300 transfer' },
           { ad:'ANBTR', aciklama:'Transaction amount' },
-          { ad:'BZDAT', aciklama:'Value date — used in the depreciation calculation' },
+          { ad:'BZDAT', aciklama:'Value date: used in the depreciation calculation' },
         ] },
 
       { ad:'ANLZ', baslik:'Asset time-dependent data',
         tutar:'Assignments that can **change over time**, such as {{maliyet-yeri}}, plant, and person responsible.',
         olusturan:'{{AS01}}',
-        guncelleyen:'{{AS02}} — every change creates a new validity interval',
+        guncelleyen:'{{AS02}}: every change creates a new validity interval',
         anahtar:'BUKRS + ANLN1 + ANLN2 + BDATU',
         iliskiler:'A child of {{ANLA}}.',
         s4:'Unchanged.',
         alanlar:[
-          { ad:'KOSTL', aciklama:'{{maliyet-yeri}} — the CO object the depreciation expense goes to' },
+          { ad:'KOSTL', aciklama:'{{maliyet-yeri}}: the CO object the depreciation expense goes to' },
           { ad:'BDATU / ADATU', aciklama:'Validity start and end dates' },
         ] },
 
-      { ad:'ANEA', baslik:'Asset transaction — depreciation portion',
+      { ad:'ANEA', baslik:'Asset transaction: depreciation portion',
         tutar:'On disposal transactions, how much of the accumulated depreciation is to be removed.',
         olusturan:'{{ABAVN}}, {{F-92}}, {{ABUMN}}',
         guncelleyen:'Disposal and transfer transactions',
@@ -1114,13 +1114,13 @@ SAP.registerTopic({
     anlatim:
       'Day-to-day work in AA happens on three screens: **opening an asset** ({{AS01}}), **monitoring ' +
       'values** ({{AW01N}}), and **running depreciation** ({{AFAB}}). What they all have in common is the ' +
-      'concept of {{amortisman-alani}} — no figure can be interpreted without knowing which area you\'re in.',
+      'concept of {{amortisman-alani}}: no figure can be interpreted without knowing which area you\'re in.',
 
     ekranlar:[
-      { ad:'{{AS01}} — Asset class selection screen',
+      { ad:'{{AS01}}: Asset class selection screen',
         aciklama:'The single decision that determines the asset\'s entire fate is made here.',
         alanlar:[
-          { ad:'Asset class', zorunlu:true, aciklama:'Brings in account determination, the number range, and the default depreciation settings. **Can\'t be changed afterward** — fixing it requires a transfer with {{ABUMN}}.' },
+          { ad:'Asset class', zorunlu:true, aciklama:'Brings in account determination, the number range, and the default depreciation settings. **Can\'t be changed afterward**: fixing it requires a transfer with {{ABUMN}}.' },
           { ad:'Company code', zorunlu:true, aciklama:'The {{degerleme-plani}} the company code belongs to determines which depreciation areas open.' },
           { ad:'Reference asset', zorunlu:false, aciklama:'The asset number to be copied as a template. Recommended for consistency.' },
           { ad:'Number of similar assets', zorunlu:false, aciklama:'Opens several identical assets at once (like 10 identical computers).' },
@@ -1128,7 +1128,7 @@ SAP.registerTopic({
         ipucu:'If the asset class is chosen wrong, the accounts are wrong, and the only fix is transferring ' +
               'to a new asset in the correct class with {{ABUMN}}. That\'s why class selection is the one step not to rush.' },
 
-      { ad:'{{AS01}} — Depreciation areas tab',
+      { ad:'{{AS01}}: Depreciation areas tab',
         aciklama:'How the same asset will be valued under different regulations is set up here.',
         alanlar:[
           { ad:'Depreciation area', zorunlu:true, aciklama:'Areas coming from the chart of depreciation are listed: 01 commercial, 15 tax, 32 IFRS…' },
@@ -1140,7 +1140,7 @@ SAP.registerTopic({
               'reporting only. Which area posts to FI is defined in {{OADB}}, and without knowing this, ' +
               '"why did a depreciation posting happen twice?" can\'t be answered.' },
 
-      { ad:'{{AW01N}} — Asset Explorer',
+      { ad:'{{AW01N}}: Asset Explorer',
         aciklama:'AA\'s control panel. Area selection on the left, values and transactions on the right.',
         alanlar:[
           { ad:'Depreciation area selection (left panel)', zorunlu:true, aciklama:'**Each area shows different values.** Looking at the wrong area and saying "the values don\'t match" is the most common mistake.' },
@@ -1149,11 +1149,11 @@ SAP.registerTopic({
           { ad:'Transactions tab', zorunlu:false, aciklama:'All {{hareket-turu}} records; double-click drills into the FI document.' },
         ] },
 
-      { ad:'{{AFAB}} — Run depreciation screen',
+      { ad:'{{AFAB}}: Run depreciation screen',
         aciklama:'The center of the monthly routine. Choosing the run reason is critical.',
         alanlar:[
           { ad:'Fiscal year / Posting period', zorunlu:true, aciklama:'Which period\'s depreciation will be calculated.' },
-          { ad:'Run reason', zorunlu:true, aciklama:'**Planned** (normal), **repeat** (rerun the same period — posts the delta), **restricted** (selected assets), **restart** (resume an interrupted run).' },
+          { ad:'Run reason', zorunlu:true, aciklama:'**Planned** (normal), **repeat** (rerun the same period: posts the delta), **restricted** (selected assets), **restart** (resume an interrupted run).' },
           { ad:'Test mode', zorunlu:false, aciklama:'**Always checked first.** The real run can\'t be undone.' },
           { ad:'Asset range', zorunlu:false, aciklama:'Specific assets are selected for a restricted run.' },
         ],
@@ -1179,7 +1179,7 @@ SAP.registerTopic({
       'you\'re in the right area, then check the depreciation key and useful life.',
       'Always run {{AFAB}} in **test mode first** and compare the total to last month\'s. An unexpected ' +
       'deviation means a new acquisition or a useful-life change.',
-      'When opening a new asset, **copy a similar one as a template** — the depreciation settings come ready-made.',
+      'When opening a new asset, **copy a similar one as a template**: the depreciation settings come ready-made.',
       'Be careful choosing the asset class correctly; the only way to fix it afterward is a transfer with {{ABUMN}}.',
       'Year-end order: **{{AJRW}} → (run {{AFAB}} through the year) → {{AJAB}}**. Postings can\'t be made ' +
       'to the new year until AJRW has been run.',
@@ -1191,13 +1191,13 @@ SAP.registerTopic({
   /* ===================================================== 8. TECHNICAL DETAIL === */
   teknik: {
     guncellenenTablolar:[
-      { tablo:'ANLA', ne:'Asset master record — created by {{AS01}}' },
+      { tablo:'ANLA', ne:'Asset master record: created by {{AS01}}' },
       { tablo:'ANLB', ne:'One row per depreciation area: key and useful life' },
       { tablo:'ANLZ', ne:'Cost center and time-dependent assignments' },
       { tablo:'ANEP', ne:'One line item per transaction (with {{hareket-turu}})' },
       { tablo:'ANEA', ne:'The accumulated depreciation portion removed on disposal' },
       { tablo:'ANLC', ne:'Annual value totals are updated' },
-      { tablo:'ANEK', ne:'Asset document header — bridge to the FI document' },
+      { tablo:'ANEK', ne:'Asset document header: bridge to the FI document' },
       { tablo:'BKPF', ne:'FI document header (AA document type)' },
       { tablo:'BSEG', ne:'FI line items; `ANLN1` is filled on the asset line' },
       { tablo:'ACDOCA', ne:'In S/4HANA, asset values are held **here**; ANEP/ANLC are a compatibility view' },
@@ -1208,7 +1208,7 @@ SAP.registerTopic({
       'document ({{BKPF}}/{{BSEG}}) are created together.\n\n' +
       '{{AFAB}} is different: it **runs in bulk for thousands of assets** and usually produces multiple FI ' +
       'documents (because of the line-item limit per document). If a run is interrupted, it resumes where ' +
-      'it left off with the "restart" reason — so an interrupted run isn\'t dangerous.',
+      'it left off with the "restart" reason: so an interrupted run isn\'t dangerous.',
 
     belgeNo:
       'An asset transaction produces **two numbers**: the AA document number ({{ANEK}}) and the FI ' +
@@ -1227,24 +1227,24 @@ SAP.registerTopic({
       'If any link in this chain is missing, you get "account determination not possible."',
 
     belgeTuru:
-      'FI document types used in AA: **AA** (asset posting — acquisition, disposal, transfer) and ' +
+      'FI document types used in AA: **AA** (asset posting: acquisition, disposal, transfer) and ' +
       '**AF** (depreciation). These are defined in {{OBA7}} and are allowed to post to the fixed-asset ' +
       '(A) account type.',
 
     numberRange:
       'There are two separate number ranges: the **asset number** (tied to {{varlik-sinifi}}, defined in ' +
       '{{OAOA}}) and the **FI document number** ({{FBN1}}). The asset number range is per company code and ' +
-      '**not** tied to fiscal year — that\'s the difference from the document number.',
+      '**not** tied to fiscal year: that\'s the difference from the document number.',
 
     accountDetermination:
       '{{AO90}} is AA\'s account determination hub. Input: the **account determination key** (comes from ' +
       '{{varlik-sinifi}}) + the **depreciation area**. Output:\n\n' +
-      '• **Balance sheet account** (253 — acquisition value)\n' +
-      '• **Accumulated depreciation account** (257 — contra-asset)\n' +
+      '• **Balance sheet account** (253: acquisition value)\n' +
+      '• **Accumulated depreciation account** (257: contra-asset)\n' +
       '• **Depreciation expense account** (770/730)\n' +
       '• **Sale gain/loss accounts** (679/689)\n' +
       '• **Scrapping loss account**\n\n' +
-      'A separate definition can be made for each depreciation area — the tax area can post to different accounts.',
+      'A separate definition can be made for each depreciation area: the tax area can post to different accounts.',
 
     tur:
       '**Configuration:** {{degerleme-plani}}, {{amortisman-alani}} definitions ({{OADB}}), ' +
@@ -1255,24 +1255,24 @@ SAP.registerTopic({
 
     transport:
       'The chart of depreciation, depreciation areas, asset classes, account determination, and ' +
-      'depreciation keys transport. Asset records don\'t — they\'re opened separately in every system, or ' +
+      'depreciation keys transport. Asset records don\'t: they\'re opened separately in every system, or ' +
       'loaded with {{LTMC}}.\n\n' +
       '**Critical:** {{degerleme-plani}} is country-specific and assigned to a company code. Assets can\'t ' +
       'be opened until this assignment is made; it\'s the first thing to check at go-live.',
 
     img:[
-      { yol:'SPRO → Financial Accounting → Asset Accounting → Organizational Structures → Copy Reference Chart of Depreciation/Depreciation Areas', not:'{{degerleme-plani}} — copied from a country template' },
-      { yol:'SPRO → … → Asset Accounting → Valuation → Depreciation Areas → Define Depreciation Areas', not:'{{OADB}} — which area posts to the ledger' },
+      { yol:'SPRO → Financial Accounting → Asset Accounting → Organizational Structures → Copy Reference Chart of Depreciation/Depreciation Areas', not:'{{degerleme-plani}}: copied from a country template' },
+      { yol:'SPRO → … → Asset Accounting → Valuation → Depreciation Areas → Define Depreciation Areas', not:'{{OADB}}: which area posts to the ledger' },
       { yol:'SPRO → … → Asset Accounting → Organizational Structures → Asset Classes → Define Asset Classes', not:'{{varlik-sinifi}} ({{OAOA}})' },
-      { yol:'SPRO → … → Asset Accounting → Integration with General Ledger Accounting → Assign G/L Accounts', not:'{{AO90}} — AA\'s most critical configuration' },
+      { yol:'SPRO → … → Asset Accounting → Integration with General Ledger Accounting → Assign G/L Accounts', not:'{{AO90}}: AA\'s most critical configuration' },
       { yol:'SPRO → … → Asset Accounting → Depreciation → Valuation Methods → Depreciation Key → Define Depreciation Keys', not:'{{AFAMA}}' },
       { yol:'SPRO → … → Asset Accounting → Periodic Processing → Fiscal Year Change / Year-End Closing', not:'{{AJAB}} / {{AJRW}} settings' },
     ],
 
     ekstra:[
-      { ic:'🔑', baslik:'What is a depreciation key? — a worked example', metin:
+      { ic:'🔑', baslik:'What is a depreciation key? - a worked example', metin:
         '**Let\'s start with the question:** what happens when you tell the system *"post depreciation on ' +
-        'this machine"*? Nothing — because the system doesn\'t know **how** to post it.\n\n' +
+        'this machine"*? Nothing: because the system doesn\'t know **how** to post it.\n\n' +
         'There are five things it needs to know:\n\n' +
         '**1.** What logic? *(straight-line / declining)*\n' +
         '**2.** If declining, how fast? *(multiplier, cap)*\n' +
@@ -1292,7 +1292,7 @@ SAP.registerTopic({
         '**5 → Blank.**\n\n' +
         'This package is named `Z_GENEL`. It\'s assigned to the machine. Done.\n\n' +
         '**Now a passenger car**\n\n' +
-        'We want the same things — straight-line, from useful life, stop when the life ends. The only ' +
+        'We want the same things: straight-line, from useful life, stop when the life ends. The only ' +
         'difference: because {{kist-amortisman}} is required, **it must start from the acquisition month**.\n\n' +
         'The new key `Z_BINEK`: **1, 2, 3, and 5 are the same**, only **4** changes.\n\n' +
         '**This is exactly the answer to "why five parts?"**\n\n' +
@@ -1301,17 +1301,17 @@ SAP.registerTopic({
         'On the same logic, a third key (`Z_AZALAN`) would change only 1, 2, and 3, taking period control ' +
         'unchanged from `Z_GENEL`.\n\n' +
         '*The SAP definition screens for these five parts: {{AFAMR}} · {{AFAMD}} · {{AFAMS}} · ' +
-        '{{AFAMP}} · maximum amount. The screen that combines them all is {{AFAMA}} — see its card for the ' +
+        '{{AFAMP}} · maximum amount. The screen that combines them all is {{AFAMA}}: see its card for the ' +
         'step-by-step example.*' },
 
       { ic:'⚙️', baslik:'What exactly is inside the five parts?', metin:
         'In the example above we said "1 → straight-line, from useful life, stop when the life ends." ' +
         'Every phrase in that line is a setting. Here\'s what\'s inside each part:\n\n' +
-        '**① Base method ({{AFAMR}}) — the calculation skeleton**\n\n' +
+        '**① Base method ({{AFAMR}}): the calculation skeleton**\n\n' +
         '• *Depreciation type:* ordinary, or special/extraordinary\n' +
-        '• *Calculation base — four options:*\n' +
+        '• *Calculation base: four options:*\n' +
         '→ **By percentage:** I give the rate myself (e.g. 20%)\n' +
-        '→ **From useful life:** the system calculates it (1 ÷ 5 = 20%) — *most common*\n' +
+        '→ **From useful life:** the system calculates it (1 ÷ 5 = 20%): *most common*\n' +
         '→ **Total percentage:** use a staged rate table\n' +
         '→ **Immediate (100%):** all at once, for low-value assets\n' +
         '• *Base value:* acquisition value, **{{net-defter-degeri}}** (used by declining balance), or the ' +
@@ -1320,26 +1320,26 @@ SAP.registerTopic({
         '→ **If "zero out the remainder" isn\'t selected on declining balance, the asset never reaches ' +
         'zero.** This is the most commonly overlooked setting.\n' +
         '• *Retirement-year behavior:* should depreciation be posted in the year of sale\n\n' +
-        '**② Declining-balance method ({{AFAMD}}) — acceleration settings**\n\n' +
+        '**② Declining-balance method ({{AFAMD}}): acceleration settings**\n\n' +
         '• *Multiplier:* how many times the normal rate → **2** under VUK\n' +
         '• *Maximum percentage:* the cap → **50%** under VUK\n' +
         '• *Minimum percentage:* a floor\n\n' +
         '*Example: for a 5-year asset the normal rate is 20% → multiplier 2 → 40%. For a 2-year asset, ' +
         '50% × 2 = 100% would result, but the 50% cap kicks in.*\n\n' +
-        '**③ Multi-level method ({{AFAMS}}) — staged rates**\n\n' +
-        'Defined line by line: *"years 1–4 → 40%"*, *"from year 5 → spread the remainder evenly"*.\n\n' +
+        '**③ Multi-level method ({{AFAMS}}): staged rates**\n\n' +
+        'Defined line by line: *"years 1-4 → 40%"*, *"from year 5 → spread the remainder evenly"*.\n\n' +
         'The **switch from declining to normal** under VUK is modeled exactly this way.\n\n' +
-        '**④ Period control ({{AFAMP}}) — timing**\n\n' +
+        '**④ Period control ({{AFAMP}}): timing**\n\n' +
         'A rule is defined **separately** for four events:\n\n' +
         '*acquisition* · *subsequent addition* · *retirement* · *transfer*\n\n' +
         'Common rules: `01` prorated from the start of the period · `06` **from the start of the year ' +
         '(full year)** · `08` from the start of the following year · `11` **from the following month**.\n\n' +
-        '**⑤ Maximum amount — a cap**\n\n' +
+        '**⑤ Maximum amount: a cap**\n\n' +
         'Prevents annual depreciation from exceeding a set amount. Blank in most keys.' },
 
       { ic:'📅', baslik:'Pro-rata depreciation: the most misunderstood VUK rule, and its SAP counterpart', metin:
         '**The common assumption is wrong.** It\'s widely believed that "an asset bought mid-year gets ' +
-        'prorated depreciation" — under VUK **this is not the general rule**.\n\n' +
+        'prorated depreciation": under VUK **this is not the general rule**.\n\n' +
         '**General rule (VUK md. 320/1):** whatever month of the year an asset is bought, the **full ' +
         'year\'s** depreciation can be posted for that year. **A machine bought on December 28 gets a ' +
         'full year of depreciation for that year.**\n\n' +
@@ -1351,37 +1351,37 @@ SAP.registerTopic({
         '**What can\'t be posted in year 1 isn\'t lost:** it\'s completed as an expense in the **final ' +
         'year** of the useful life. So total depreciation doesn\'t change, it\'s only **shifted by one year**.\n\n' +
         '**Exception to the exception:** businesses whose activity is **renting or operating** passenger ' +
-        'cars (car rental companies, driving schools) don\'t apply pro-rata — for them, the car isn\'t an ' +
+        'cars (car rental companies, driving schools) don\'t apply pro-rata: for them, the car isn\'t an ' +
         'operating asset, it\'s the subject of the business.\n\n' +
         '**Numerical example**\n\n' +
         'A vehicle at 1,200,000 TRY, useful life 5 years → annual depreciation **240,000 TRY**.\n\n' +
         'Bought April 15 → 9 months **including** April → first year **180,000 TRY** (9/12).\n' +
-        'Years 2–5 → **240,000 TRY** each year.\n' +
+        'Years 2-5 → **240,000 TRY** each year.\n' +
         'Year 6 → the **60,000 TRY** carried over from year 1.\n\n' +
         'Total: 180,000 + 960,000 + 60,000 = **1,200,000 TRY** ✓\n\n' +
-        '**Total depreciation didn\'t change** — it spread over 6 calendar years instead of 5. Pro-rata ' +
+        '**Total depreciation didn\'t change**: it spread over 6 calendar years instead of 5. Pro-rata ' +
         'is a *timing* rule, not a *reduction*.\n\n' +
         '**How SAP achieves it**\n\n' +
         'Through the depreciation key\'s **fourth part**, period control ({{AFAMP}}). General assets get ' +
         '"from the start of the year"; passenger cars get "prorated from the acquisition month."\n\n' +
-        'So **two separate keys are needed**, and that\'s the only difference between them — the concrete ' +
+        'So **two separate keys are needed**, and that\'s the only difference between them: the concrete ' +
         'example is the `Z_GENEL` / `Z_BINEK` comparison on the {{AFAMA}} card.\n\n' +
         '**A common configuration mistake:** assigning a single key to every asset, so passenger cars ' +
         'also get full-year depreciation. The trial balance ties out, the document is balanced, no error ' +
-        'message appears — but **the tax base is calculated wrong**, and the gap only surfaces during a ' +
+        'message appears: but **the tax base is calculated wrong**, and the gap only surfaces during a ' +
         'tax inspection.' },
 
       { ic:'🗂️', baslik:'Standard depreciation keys, and what VUK requires', metin:
         'The keys SAP ships with are **general-purpose** and mostly designed for German/US regulations. ' +
         'The common ones:\n\n' +
-        '`0000` — **no depreciation**. For {{yatirim-devam}} and land/plots. The AuC asset class brings ' +
+        '`0000`: **no depreciation**. For {{yatirim-devam}} and land/plots. The AuC asset class brings ' +
         'this in automatically.\n\n' +
-        '`LINA` — straight-line, **from the acquisition value**, prorated by period.\n\n' +
-        '`LINR` — straight-line, calculated **from the remaining useful life**. If the life is later ' +
+        '`LINA`: straight-line, **from the acquisition value**, prorated by period.\n\n' +
+        '`LINR`: straight-line, calculated **from the remaining useful life**. If the life is later ' +
         'changed, it spreads the remaining value over the remaining life.\n\n' +
-        '`DG20` / `DG30` — declining balance, multiplier **×2** / **×3**.\n\n' +
-        '`GWG` — low-value asset: **100% immediate** depreciation.\n\n' +
-        '`MANU` — **manual** depreciation; the system doesn\'t calculate, the user enters it with {{ABMA}}.\n\n' +
+        '`DG20` / `DG30`: declining balance, multiplier **×2** / **×3**.\n\n' +
+        '`GWG`: low-value asset: **100% immediate** depreciation.\n\n' +
+        '`MANU`: **manual** depreciation; the system doesn\'t calculate, the user enters it with {{ABMA}}.\n\n' +
         '**But these aren\'t enough for VUK.** Turkish setups need:\n\n' +
         '**1.** A straight-line key with **full-year** period control for general assets.\n' +
         '**2.** A separate key with **pro-rata** period control for passenger cars.\n' +
@@ -1392,7 +1392,7 @@ SAP.registerTopic({
         'That\'s why **custom (`Z*`) keys** are defined in practice. Copying a standard key and changing ' +
         'period control is the most common approach.\n\n' +
         '**A consulting note:** key design must be finished **before go-live**. Changing the parameters ' +
-        'of a key that\'s already in use affects the future depreciation of **every asset** using it — ' +
+        'of a key that\'s already in use affects the future depreciation of **every asset** using it: ' +
         'past postings don\'t change, but inconsistency results. If a change is needed, open a **new key** ' +
         'and assign it to the assets.' },
 
@@ -1400,12 +1400,12 @@ SAP.registerTopic({
         '**The problem it solves**\n\n' +
         'A factory building takes 18 months to finish. Dozens of invoices arrive in that time: earthworks, ' +
         'concrete, steel, electrical wiring, engineering, labor. These expenditures are **neither an ' +
-        'expense nor a ready-to-use asset**. Accounting needs a third place — {{yatirim-devam}} is exactly ' +
+        'expense nor a ready-to-use asset**. Accounting needs a third place: {{yatirim-devam}} is exactly ' +
         'that place.\n\n' +
         'Without AuC there would be two bad options:\n\n' +
-        '**a)** **Expense** the costs — the construction years\' profit would look artificially low, and ' +
+        '**a)** **Expense** the costs: the construction years\' profit would look artificially low, and ' +
         'the years of use artificially high. The matching principle would be violated.\n\n' +
-        '**b)** Open it as a normal asset — {{AFAB}} would **start posting depreciation** on a building ' +
+        '**b)** Open it as a normal asset: {{AFAB}} would **start posting depreciation** on a building ' +
         'that isn\'t used yet. The cost of an asset delivering no benefit would appear to be depleting.\n\n' +
         '**Three concrete benefits**\n\n' +
         '**1. Depreciation starts at the right time.** The AuC asset class brings in **0000** (no ' +
@@ -1420,20 +1420,20 @@ SAP.registerTopic({
         'assets**. If they all went to a single asset, the machine would also spread over 50 years and ' +
         'depreciation would be understated for years.\n\n' +
         '**The accounts in play**\n\n' +
-        '`259` **Down payments on investments** — the advance paid to the vendor. Not yet a cost, a right ' +
+        '`259` **Down payments on investments**: the advance paid to the vendor. Not yet a cost, a right ' +
         'to a claim. Tracked **separately** from 258.\n\n' +
-        '`258` **Assets under construction** — costs already incurred accumulate here. Shown on a ' +
+        '`258` **Assets under construction**: costs already incurred accumulate here. Shown on a ' +
         'separate balance-sheet line; the reader can see "this asset isn\'t contributing to production ' +
         'yet."\n\n' +
-        '`252/253/255` **Target asset accounts** — debited on capitalization.\n\n' +
-        '`320` vendors, `153` inventory, `770` labor — the offsetting accounts the cost comes from.\n\n' +
+        '`252/253/255` **Target asset accounts**: debited on capitalization.\n\n' +
+        '`320` vendors, `153` inventory, `770` labor: the offsetting accounts the cost comes from.\n\n' +
         'Account determination links {{AO90}} to the AuC {{varlik-sinifi}}; the system finds account 258 ' +
         'from there.\n\n' +
         '**The accounting nature of capitalization**\n\n' +
         'Capitalization is **not a gain event**. In the 258 credit / 252 debit posting, the balance sheet ' +
         'total **doesn\'t change** and the income statement **isn\'t affected**. What happens is only a ' +
         '**reclassification**: an asset moves from "in progress" status to "in use" status.\n\n' +
-        'The only thing that changes is that **depreciation starts being posted** from that date — and ' +
+        'The only thing that changes is that **depreciation starts being posted** from that date: and ' +
         'that affects the income statement for years to come.' },
 
       { ic:'⚠️', baslik:'The three most expensive mistakes with AuC', metin:
@@ -1448,7 +1448,7 @@ SAP.registerTopic({
         'transferred to the "building" asset. 900,000 TRY of machinery and fixtures gets **spread over 50 years**.\n\n' +
         'Annual depreciation gap: the machine should be 70,000/year over 10 years but instead comes to ' +
         '14,000/year over 50 years. The gap compounds every year and fixing it requires an asset transfer.\n\n' +
-        '**Prevention:** ask at the start of the project — *"how many different useful lives will this ' +
+        '**Prevention:** ask at the start of the project: *"how many different useful lives will this ' +
         'investment produce assets in?"* If more than one, the AuC class needs to be set to **line-item ' +
         'settlement**. This setting **can\'t be changed afterward**.\n\n' +
         '**3. Posting the investment advance to 258**\n\n' +
@@ -1457,7 +1457,7 @@ SAP.registerTopic({
         'The correct account is **259**; as progress invoices arrive, the advance is offset and the cost ' +
         'moves to 258.' },
 
-      { ic:'📚', baslik:'What is a depreciation area? — one machine, three figures', metin:
+      { ic:'📚', baslik:'What is a depreciation area? - one machine, three figures', metin:
         '**The problem is this:** the same machine needs three different figures.\n\n' +
         'A factory buys a weaving machine for 2,400,000 TRY:\n\n' +
         '• **Commercial accounting** says 10 years → **240,000 TRY** a year\n' +
@@ -1474,17 +1474,17 @@ SAP.registerTopic({
         'calculates **all three at once**.\n\n' +
         '**A depreciation area is just an angle from which the same asset is valued.** That\'s all it is.\n\n' +
         '**The most common mistake in practice:** looking at an asset in {{AW01N}} without paying ' +
-        'attention to **which area** you\'re in. Selecting the area from the left panel — area 01 shows ' +
+        'attention to **which area** you\'re in. Selecting the area from the left panel: area 01 shows ' +
         '240,000, area 15 shows 300,000. Most cases of "the values don\'t match" come down to exactly this.' },
 
-      { ic:'🔗', baslik:'Area or ledger? — why they\'re separate concepts', metin:
+      { ic:'🔗', baslik:'Area or ledger? - why they\'re separate concepts', metin:
         'They get mixed up often because both produce "a different result under a different standard." ' +
         'But they answer different questions:\n\n' +
         '**Depreciation area → "how will this asset be valued?"**\n' +
         'Lives only inside the fixed asset. Area 15 says the machine is written off over 8 years under ' +
         'tax rules.\n\n' +
         '**{{defter}} → "which accounting will the posting go to?"**\n' +
-        'Covers all of FI — a vendor invoice goes to a ledger, so does a bank posting. Ledger 0L carries ' +
+        'Covers all of FI: a vendor invoice goes to a ledger, so does a bank posting. Ledger 0L carries ' +
         'local accounting, 2L carries IFRS.\n\n' +
         '**How they connect:** each area is **linked** to a ledger ({{OADB}}).\n\n' +
         '`Area 01` → `Ledger 0L` *(local)*\n' +
@@ -1495,7 +1495,7 @@ SAP.registerTopic({
         'A vendor invoice has no "depreciation area" but it **does** have a ledger.\n\n' +
         '*Note: in S/4HANA, every posting area **must** be mapped to a ledger. See {{konu:parallel-ledger}} for details.*' },
 
-      { ic:'📅', baslik:'When does depreciation start? — the period control method', metin:
+      { ic:'📅', baslik:'When does depreciation start? - the period control method', metin:
         'A machine is bought on the 20th of the month. Full depreciation that month, half, or none at all?\n\n' +
         'The answer comes from the **period control method**, defined inside the {{amortisman-anahtari}}. ' +
         'Common options:\n\n' +
@@ -1504,7 +1504,7 @@ SAP.registerTopic({
         '• **Following month:** no depreciation at all in the month of acquisition, starting from the next month.\n' +
         '• **Mid-year:** half depreciation in the first year.\n\n' +
         'In Turkey, tax law generally uses a **full-year** basis: whatever month of the year the asset is ' +
-        'bought, the full year\'s depreciation is posted for that year (except passenger cars — pro-rata ' +
+        'bought, the full year\'s depreciation is posted for that year (except passenger cars: pro-rata ' +
         'applies there).' },
     ],
 
@@ -1524,10 +1524,10 @@ SAP.registerTopic({
       'mapped** to ledgers and values move to {{ACDOCA}}.',
 
     eccFarklari:[
-      { konu:'Where values live', ecc:'In tables {{ANLC}} and {{ANEP}}', s4:'In {{ACDOCA}} — ANEP/ANLC are a {{uyumluluk-view}}' },
-      { konu:'Depreciation area ↔ ledger', ecc:'A loose link; areas other than 01 are often statistical', s4:'**Mandatory mapping** — every posting area is linked to a {{defter}}' },
-      { konu:'Real-time posting', ecc:'Only area 01 posts in real time; the others post at period-end', s4:'**All areas post in real time** — no need to wait for period-end' },
-      { konu:'Technical clearing accounts', ecc:'None', s4:'A **Technical Clearing Account** is mandatory — on acquisition, area-independent and area-dependent portions are split' },
+      { konu:'Where values live', ecc:'In tables {{ANLC}} and {{ANEP}}', s4:'In {{ACDOCA}}: ANEP/ANLC are a {{uyumluluk-view}}' },
+      { konu:'Depreciation area ↔ ledger', ecc:'A loose link; areas other than 01 are often statistical', s4:'**Mandatory mapping**: every posting area is linked to a {{defter}}' },
+      { konu:'Real-time posting', ecc:'Only area 01 posts in real time; the others post at period-end', s4:'**All areas post in real time**: no need to wait for period-end' },
+      { konu:'Technical clearing accounts', ecc:'None', s4:'A **Technical Clearing Account** is mandatory: on acquisition, area-independent and area-dependent portions are split' },
       { konu:'Depreciation run', ecc:'{{AFAB}}', s4:'FAA_DEPRECIATION_POST; {{AFAB}} redirects to this program' },
       { konu:'Number of documents', ecc:'A single document on acquisition', s4:'**Two documents** on acquisition: operational + valuation-based' },
       { konu:'Year-end', ecc:'{{AJAB}} mandatory', s4:'Simplified; some steps are automatic' },
@@ -1542,7 +1542,7 @@ SAP.registerTopic({
 
     kalkanTcodes:[
       { eski:'{{AFAB}}', yeni:'FAA_DEPRECIATION_POST', not:'AFAB redirects to the new program when run' },
-      { eski:'ASKB (periodic posting)', yeni:'—', not:'Made unnecessary; all areas now post in real time' },
+      { eski:'ASKB (periodic posting)', yeni:': ', not:'Made unnecessary; all areas now post in real time' },
       { eski:'AT01 and other old asset reports', yeni:'Fiori / {{AR01}}', not:'The new reports are preferred' },
     ],
 
@@ -1556,8 +1556,8 @@ SAP.registerTopic({
     ],
 
     compatibilityViews:[
-      '{{ANEP}}, {{ANEA}}, {{ANLC}}, {{ANEK}} — the value and transaction tables are now views produced from {{ACDOCA}}.',
-      '{{ANLA}}, {{ANLB}}, {{ANLZ}} — **the master data tables still exist physically**, unchanged.',
+      '{{ANEP}}, {{ANEA}}, {{ANLC}}, {{ANEK}}: the value and transaction tables are now views produced from {{ACDOCA}}.',
+      '{{ANLA}}, {{ANLB}}, {{ANLZ}}: **the master data tables still exist physically**, unchanged.',
       'This distinction matters: master data was preserved while the values moved to the universal ledger.',
       'Old Z-programs writing directly to {{ANEP}} break during migration; they need to be scanned for.',
     ],
@@ -1565,13 +1565,13 @@ SAP.registerTopic({
     performans:
       'Because asset value reports run over {{ACDOCA}}, large asset portfolios see a marked speed-up. The ' +
       'depreciation run is also faster thanks to parallel processing support. On the other hand, because ' +
-      'two documents are produced on acquisition, document volume increases — this should be factored ' +
+      'two documents are produced on acquisition, document volume increases: this should be factored ' +
       'into the archiving strategy.',
 
     bestPractices:[
       'Review the {{degerleme-plani}} and {{amortisman-alani}} structure before migration; loose ECC ' +
       'definitions won\'t work once the area-ledger mapping is **mandatory** in S/4HANA.',
-      'Define the Technical Clearing Account correctly during migration — acquisition postings won\'t work without it.',
+      'Define the Technical Clearing Account correctly during migration: acquisition postings won\'t work without it.',
       'Clean up unused depreciation areas during migration; every area means extra documents and extra processing.',
       'Migrate the asset master data with {{LTMC}}; opening values and accumulated depreciation are loaded separately.',
       'Scan custom programs that write to {{ANEP}}/{{ANLC}} before migration and rewrite them on {{ACDOCA}}.',
@@ -1589,11 +1589,11 @@ SAP.registerTopic({
       'why that\'s not an error but a design.',
     veriler:[
       { k:'Company code', v:'1000 · Chart of depreciation TR' },
-      { k:'Asset class', v:'3000 — Machinery and plant' },
+      { k:'Asset class', v:'3000: Machinery and plant' },
       { k:'Acquisition', v:'600,000 TRY + 20% VAT · 01.03.2026' },
-      { k:'Depreciation area 01', v:'Commercial — 10 years, normal method → **leading ledger 0L**' },
-      { k:'Depreciation area 15', v:'Tax — 8 years, normal method → **tax ledger**' },
-      { k:'Cost center', v:'3100 — Production' },
+      { k:'Depreciation area 01', v:'Commercial: 10 years, normal method → **leading ledger 0L**' },
+      { k:'Depreciation area 15', v:'Tax: 8 years, normal method → **tax ledger**' },
+      { k:'Cost center', v:'3100: Production' },
     ],
 
     adimlar:[
@@ -1603,7 +1603,7 @@ SAP.registerTopic({
         girdi:[
           { alan:'Asset class / Company code', deger:'3000 / 1000' },
           { alan:'Description', deger:'Weaving machine Model X · Inventory no MAK-2026-018' },
-          { alan:'Cost center (time-dependent)', deger:'3100 — Production' },
+          { alan:'Cost center (time-dependent)', deger:'3100: Production' },
           { alan:'Area 01 (commercial)', deger:'Key LINR (normal) · **10 years**' },
           { alan:'Area 15 (tax)', deger:'Key LINR (normal) · **8 years**' },
           { alan:'Result', deger:'Asset number **100018-0** created · **value is still zero**' },
@@ -1620,24 +1620,24 @@ SAP.registerTopic({
         aciklama:'The machine is capitalized. The capitalization date determines when depreciation begins.',
         girdi:[
           { alan:'Asset', deger:'100018-0' },
-          { alan:'Transaction type', deger:'**100** — external acquisition' },
+          { alan:'Transaction type', deger:'**100**: external acquisition' },
           { alan:'Amount / VAT', deger:'600,000 TRY + 120,000 TRY' },
           { alan:'**Capitalization date**', deger:'01.03.2026' },
         ],
-        fis:{ baslik:'Document 3000000123 — Machine acquisition', belgeTuru:'AA', tarih:'01.03.2026',
+        fis:{ baslik:'Document 3000000123: Machine acquisition', belgeTuru:'AA', tarih:'01.03.2026',
           satirlar:[
             { hesap:'253', ad:'Plant, machinery and equipment', borc:600000, not:'{{AO90}} account determination' },
             { hesap:'191', ad:'Deductible VAT', borc:120000 },
             { hesap:'320', ad:'Trade payables', alacak:720000 },
           ], not:'**No expense was posted.** Profit was completely unaffected at this stage; the balance sheet grew by 600,000 TRY.' },
         tabloEtkisi:[
-          { tablo:'ANLA', ne:'`AKTIV` = 01.03.2026 — depreciation start determined' },
+          { tablo:'ANLA', ne:'`AKTIV` = 01.03.2026: depreciation start determined' },
           { tablo:'ANEP', ne:'Transaction record: BWASL = 100, ANBTR = 600,000 · **a separate line for each area**' },
           { tablo:'ANLC', ne:'Annual values: acquisition 600,000 (separately for areas 01 and 15)' },
           { tablo:'ACDOCA', ne:'Values live here in S/4HANA; `ANLN1` = 100018 on the same line' },
         ] },
 
-      { baslik:'March depreciation — two areas, two different amounts', tcode:'AFAB',
+      { baslik:'March depreciation: two areas, two different amounts', tcode:'AFAB',
         aciklama:'The first depreciation run. The same asset produces **different** depreciation in the ' +
                  'two areas.',
         girdi:[
@@ -1645,12 +1645,12 @@ SAP.registerTopic({
           { alan:'Area 01 calculation', deger:'600,000 / 120 months = **5,000 TRY/month**' },
           { alan:'Area 15 calculation', deger:'600,000 / 96 months = **6,250 TRY/month**' },
         ],
-        fis:{ baslik:'Document 1000004521 — March depreciation (leading ledger 0L)', belgeTuru:'AF', tarih:'31.03.2026',
+        fis:{ baslik:'Document 1000004521: March depreciation (leading ledger 0L)', belgeTuru:'AF', tarih:'31.03.2026',
           satirlar:[
-            { hesap:'730', ad:'General production expense — depreciation', borc:5000, not:'Falls on cost center 3100' },
+            { hesap:'730', ad:'General production expense: depreciation', borc:5000, not:'Falls on cost center 3100' },
             { hesap:'257', ad:'Accumulated depreciation', alacak:5000 },
           ], not:'**A separate document forms in the tax ledger**: 6,250 TRY. Two ledgers, two different ' +
-                 'expenses — this isn\'t an error, it\'s parallel accounting itself.' },
+                 'expenses: this isn\'t an error, it\'s parallel accounting itself.' },
         tabloEtkisi:[
           { tablo:'ANLC', ne:'Area 01: accumulated 5,000 · Area 15: accumulated 6,250' },
           { tablo:'ACDOCA', ne:'A separate set of lines for each ledger (different `RLDNR`)' },
@@ -1664,13 +1664,13 @@ SAP.registerTopic({
         girdi:[
           { alan:'**Area 01 (commercial)**', deger:'Acquisition 600,000 · Accumulated 180,000 (36×5,000) · **NBV 420,000**' },
           { alan:'**Area 15 (tax)**', deger:'Acquisition 600,000 · Accumulated 225,000 (36×6,250) · **NBV 375,000**' },
-          { alan:'Difference', deger:'45,000 TRY — the tax area posted depreciation faster' },
+          { alan:'Difference', deger:'45,000 TRY: the tax area posted depreciation faster' },
         ],
-        not:'This is exactly the situation people call "the values don\'t match" — but they\'re ' +
+        not:'This is exactly the situation people call "the values don\'t match": but they\'re ' +
              '**supposed to** not match. Different regulation, different useful life, different result. ' +
              'No figure in {{AW01N}} can be interpreted without checking which area you\'re in.' },
 
-      { baslik:'The machine is sold — 500,000 TRY', tcode:'F-92',
+      { baslik:'The machine is sold: 500,000 TRY', tcode:'F-92',
         aciklama:'The sale price is the same in both areas, but because {{net-defter-degeri}} differs, ' +
                  '**the gain differs too**.',
         girdi:[
@@ -1678,17 +1678,17 @@ SAP.registerTopic({
           { alan:'Sale price', deger:'500,000 TRY + 18% VAT = 590,000 TRY' },
           { alan:'Customer', deger:'C-7001 (machine buyer)' },
         ],
-        fis:{ baslik:'Document 3000000876 — Machine sale (leading ledger 0L)', belgeTuru:'AA', tarih:'28.02.2029',
+        fis:{ baslik:'Document 3000000876: Machine sale (leading ledger 0L)', belgeTuru:'AA', tarih:'28.02.2029',
           satirlar:[
-            { hesap:'120', ad:'Trade receivables — C-7001', borc:590000 },
+            { hesap:'120', ad:'Trade receivables: C-7001', borc:590000 },
             { hesap:'257', ad:'Accumulated depreciation', borc:180000, not:'**Fully zeroed out**' },
             { hesap:'253', ad:'Plant, machinery and equipment', alacak:600000, not:'The **entire** acquisition value comes off' },
             { hesap:'391', ad:'VAT payable', alacak:90000 },
             { hesap:'679', ad:'Gain on sale of fixed assets', alacak:80000, not:'500,000 − 420,000' },
           ], not:'**80,000 TRY gain** in the commercial ledger. In the tax ledger, because NBV is 375,000, ' +
-                 'the gain comes to **125,000 TRY** — the tax base is calculated from this figure.' },
+                 'the gain comes to **125,000 TRY**: the tax base is calculated from this figure.' },
         tabloEtkisi:[
-          { tablo:'ANLA', ne:'`DEAKT` = 28.02.2029 — asset deactivated' },
+          { tablo:'ANLA', ne:'`DEAKT` = 28.02.2029: asset deactivated' },
           { tablo:'ANEP', ne:'Disposal transaction (BWASL = 210)' },
           { tablo:'ANEA', ne:'The removed accumulated-depreciation portion was recorded' },
         ],
@@ -1714,7 +1714,7 @@ SAP.registerTopic({
       '**Three critical lessons:**\n\n' +
       '**1. The total effect is the same, the distribution differs.** In both ledgers the three-year net ' +
       'effect is −100,000 TRY (600,000 purchase − 500,000 sale). What changes is how that amount is ' +
-      'spread over the years. The tax area expensed more upfront and showed more gain at sale — the ' +
+      'spread over the years. The tax area expensed more upfront and showed more gain at sale: the ' +
       'result landed in the same place. This shows that depreciation creates a **timing difference**, not ' +
       'a permanent one.\n\n' +
       '**2. The answer to "the values don\'t match" is usually "which area are you in?"** No figure in ' +

@@ -1,6 +1,6 @@
 /* ==========================================================================
-   content/fi-en/f110.js — English body for "Automatic Payment Program (F110)"
-   Same conventions as content/fi-en/gl-accounting.js — see that file's
+   content/fi-en/f110.js: English body for "Automatic Payment Program (F110)"
+   Same conventions as content/fi-en/gl-accounting.js: see that file's
    header comment.
    ========================================================================== */
 
@@ -18,7 +18,7 @@ SAP.registerTopic({
       'evaluates {{iskonto}} opportunities, decides which bank to pay from, and produces the payment file. Work ' +
       'that would take days by hand shrinks to minutes.\n\n' +
       'F110\'s distinguishing feature is that it is **two-staged**: first a **proposal**, then a **payment run**. ' +
-      'Human approval sits between them — because real money leaves the company from here.',
+      'Human approval sits between them: because real money leaves the company from here.',
 
     neden:
       '**Volume.** Paying 300 invoices by hand with {{F-53}} isn\'t practical.\n\n' +
@@ -40,7 +40,7 @@ SAP.registerTopic({
       'A manufacturing company runs a payment cycle on the 10th and 25th of each month. On the morning of ' +
       'September 25th, the treasury specialist opens F110: enters the parameters, runs the proposal.\n\n' +
       'The system scans 340 open items: 47 are blocked (excluded), 61 aren\'t yet due (carried to the next run), ' +
-      '232 are to be paid. 18 of these are within their discount period — the program brings them forward. The ' +
+      '232 are to be paid. 18 of these are within their discount period: the program brings them forward. The ' +
       '232 items, for 89 vendors, are merged into **89 payments**.\n\n' +
       'The accounting manager reviews the proposal and removes 3 vendors with open disputes. The payment run is ' +
       'executed: 86 payment documents and a single bank file are generated. The file is sent to the bank, the ' +
@@ -49,7 +49,7 @@ SAP.registerTopic({
     muhasebeMantigi:
       'The entry F110 produces is extremely simple:\n\n' +
       '**The vendor is debited** (the payable decreases) **/ the bank is credited** (money goes out).\n\n' +
-      'Two other things also happen: **{{kapatma}}** — the paid invoices move from {{BSIK}} to {{BSAK}}; and, ' +
+      'Two other things also happen: **{{kapatma}}**: the paid invoices move from {{BSIK}} to {{BSAK}}; and, ' +
       'where applicable, **{{iskonto}}** income and **{{kur-farki}}** are recorded on separate lines.\n\n' +
       'The entry usually goes to a {{banka-ara-hesabi}} rather than directly to the bank account. The reason: the ' +
       'moment you record the payment and the moment the money actually leaves the bank aren\'t the same. The ' +
@@ -78,7 +78,7 @@ SAP.registerTopic({
 
     diyagram:{
       type:'flow',
-      baslik:'F110 — a four-stage payment run',
+      baslik:'F110: a four-stage payment run',
       adimlar:[
         { ic:'🧹', rol:'AP accounting', baslik:'Pre-run preparation',
           aciklama:'Blocked invoices are resolved ({{MRBR}}), items with an {{odeme-blogu}} are reviewed, ' +
@@ -90,7 +90,7 @@ SAP.registerTopic({
           cikti:'Parameter record ({{REGUV}})', ok:'the proposal is run' },
         { ic:'📋', rol:'System', baslik:'2. The proposal is generated',
           aciklama:'Items falling due are selected, grouped by vendor, the bank is determined. ' +
-                   '**No accounting entry is made** — written to {{REGUH}} with `XVORL = X`.',
+                   '**No accounting entry is made**: written to {{REGUH}} with `XVORL = X`.',
           cikti:'Proposal list + exception list', ok:'reviewed' },
         { ic:'👁️', rol:'Accounting manager', baslik:'3. The proposal is reviewed and edited',
           aciklama:'An item can be removed, blocked, or have its payment method or bank changed. The ' +
@@ -114,9 +114,9 @@ SAP.registerTopic({
     adimlar:[
       { rol:'AP accounting', eylem:'Resolves blocks, cleans up the pool', sistem:'{{MRBR}}, {{FBL1N}}, {{FB09}}' },
       { rol:'Treasury', eylem:'Enters the parameters', sistem:'{{F110}} → Parameter tab → {{REGUV}}' },
-      { rol:'System', eylem:'Generates the proposal', sistem:'{{REGUH}}/{{REGUP}} — `XVORL` = X' },
+      { rol:'System', eylem:'Generates the proposal', sistem:'{{REGUH}}/{{REGUP}}: `XVORL` = X' },
       { rol:'Accounting manager', eylem:'Reviews and edits the proposal', sistem:'{{F110}} → Edit proposal' },
-      { rol:'Treasury', eylem:'Runs the payment', sistem:'{{F110}} → Run payment — document type KZ' },
+      { rol:'Treasury', eylem:'Runs the payment', sistem:'{{F110}} → Run payment: document type KZ' },
       { rol:'System', eylem:'Generates the payment medium', sistem:'{{FBPM}} or RFFO* programs' },
       { rol:'AP accounting', eylem:'Processes the bank statement', sistem:'{{FEBAN}}, {{FF_5}}' },
     ],
@@ -132,7 +132,7 @@ SAP.registerTopic({
 
     notlar:[
       { tip:'warn', baslik:'The gap between the proposal and the payment is vital', metin:
-        '**The proposal makes no accounting entry at all** — it\'s just a "here\'s what I\'m going to pay" list ' +
+        '**The proposal makes no accounting entry at all**: it\'s just a "here\'s what I\'m going to pay" list ' +
         'and it can be undone freely (deleting the proposal is unrestricted). **Running the payment produces a ' +
         'real entry**, and undoing it is hard: every payment document must be reversed one by one, and clearings ' +
         'must be undone with {{FBRA}}. That\'s why the approval step should never be skipped.' },
@@ -151,31 +151,31 @@ SAP.registerTopic({
       'several invoices merge into one payment, how it shows up in the entry changes.',
 
     etkilenenHesaplar:[
-      { hesap:'320 Trade payables (reconciliation)', tur:'Balance sheet — Liability', neden:'**Debited** by the payment (the payable decreases). By the total of the invoices cleared.' },
-      { hesap:'102 Bank clearing account', tur:'Balance sheet — Asset', neden:'Credited when the payment is recorded. The real bank account only moves once the statement arrives.' },
-      { hesap:'602 Discounts received', tur:'Income statement — Income', neden:'The discount earned when payment is made within the {{iskonto}} period is recorded as income.' },
-      { hesap:'191 Deductible VAT', tur:'Balance sheet — Asset', neden:'VAT is also adjusted by the discount amount (depending on the discount-base setting).' },
+      { hesap:'320 Trade payables (reconciliation)', tur:'Balance sheet: Liability', neden:'**Debited** by the payment (the payable decreases). By the total of the invoices cleared.' },
+      { hesap:'102 Bank clearing account', tur:'Balance sheet: Asset', neden:'Credited when the payment is recorded. The real bank account only moves once the statement arrives.' },
+      { hesap:'602 Discounts received', tur:'Income statement: Income', neden:'The discount earned when payment is made within the {{iskonto}} period is recorded as income.' },
+      { hesap:'191 Deductible VAT', tur:'Balance sheet: Asset', neden:'VAT is also adjusted by the discount amount (depending on the discount-base setting).' },
       { hesap:'646 / 656 Exchange difference', tur:'Income statement', neden:'When a foreign-currency invoice is paid at a rate different from the one it was posted at, a realized {{kur-farki}} arises.' },
-      { hesap:'159 Down payments made', tur:'Balance sheet — Asset', neden:'If an {{avans}} request ({{F-47}}) is paid by F110, the special G/L account is used.' },
+      { hesap:'159 Down payments made', tur:'Balance sheet: Asset', neden:'If an {{avans}} request ({{F-47}}) is paid by F110, the special G/L account is used.' },
     ],
 
     fisler:[
-      { baslik:'Example 1 — Plain payment · three invoices merged into one payment',
+      { baslik:'Example 1: Plain payment · three invoices merged into one payment',
         belgeTuru:'KZ', tarih:'25.09.2026', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'320', ad:'Trade payables — V-4001 (invoice 1)', borc:60000, not:'Cleared' },
-          { hesap:'320', ad:'Trade payables — V-4001 (invoice 2)', borc:45000, not:'Cleared' },
-          { hesap:'320', ad:'Trade payables — V-4001 (invoice 3)', borc:35000, not:'Cleared' },
+          { hesap:'320', ad:'Trade payables: V-4001 (invoice 1)', borc:60000, not:'Cleared' },
+          { hesap:'320', ad:'Trade payables: V-4001 (invoice 2)', borc:45000, not:'Cleared' },
+          { hesap:'320', ad:'Trade payables: V-4001 (invoice 3)', borc:35000, not:'Cleared' },
           { hesap:'102', ad:'Bank clearing account', alacak:140000, not:'A single payment' },
         ],
         not:'The three invoices were cleared as separate lines, but a **single payment** went out to the bank. ' +
-             'The {{REGUP}} table keeps track of which three invoices this payment cleared — that information is ' +
+             'The {{REGUP}} table keeps track of which three invoices this payment cleared: that information is ' +
              'vital for reconciliation.' },
 
-      { baslik:'Example 2 — Discounted payment · paid within a 2% discount period',
+      { baslik:'Example 2: Discounted payment · paid within a 2% discount period',
         belgeTuru:'KZ', tarih:'22.09.2026', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'320', ad:'Trade payables — V-4001', borc:120000, not:'The **entire** debt was cleared' },
+          { hesap:'320', ad:'Trade payables: V-4001', borc:120000, not:'The **entire** debt was cleared' },
           { hesap:'102', ad:'Bank clearing account', alacak:117600, not:'The amount actually paid' },
           { hesap:'602', ad:'Discounts received (income)', alacak:2000, not:'100,000 × 2% (on the net amount)' },
           { hesap:'191', ad:'Deductible VAT adjustment', alacak:400, not:'VAT adjustment for the discount' },
@@ -183,34 +183,34 @@ SAP.registerTopic({
         not:'The entire debt (120,000) was cleared but only 117,600 was paid. The difference **is income**. F110 ' +
              'knows the discount period from the {{odeme-kosulu}} and picks the most profitable day on its own.' },
 
-      { baslik:'Example 3 — Foreign-currency payment · the rate changed',
+      { baslik:'Example 3: Foreign-currency payment · the rate changed',
         belgeTuru:'KZ', tarih:'25.09.2026', paraBirimi:'EUR',
         satirlar:[
-          { hesap:'320', ad:'Trade payables — V-7001 (10,000 EUR @ 35.00)', borc:350000, not:'At the invoice rate' },
+          { hesap:'320', ad:'Trade payables: V-7001 (10,000 EUR @ 35.00)', borc:350000, not:'At the invoice rate' },
           { hesap:'102', ad:'Bank clearing account (10,000 EUR @ 36.20)', alacak:362000, not:'At the payment-day rate' },
           { hesap:'656', ad:'Foreign exchange loss', borc:12000, not:'Realized {{kur-farki}}' },
         ],
-        not:'The debt was cleared at exactly **10,000 EUR** in foreign currency — no difference on the foreign' +
+        not:'The debt was cleared at exactly **10,000 EUR** in foreign currency: no difference on the foreign' +
              '-currency side. The difference is in local currency: the invoice was posted at a rate of 35.00, the ' +
              'payment was made at 36.20. The 12,000 TRY gap is a **realized** exchange difference and is expensed.' },
 
-      { baslik:'Example 4 — Partial payment (edited by hand in the proposal)',
+      { baslik:'Example 4: Partial payment (edited by hand in the proposal)',
         belgeTuru:'KZ', tarih:'25.09.2026', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'320', ad:'Trade payables — V-5001 (partial payment item)', borc:40000 },
+          { hesap:'320', ad:'Trade payables: V-5001 (partial payment item)', borc:40000 },
           { hesap:'102', ad:'Bank clearing account', alacak:40000 },
         ],
         not:'On the proposal screen, the item amount was manually reduced to 40,000. The original 100,000 TRY ' +
              'item **stays open**; the payment stands as a separate item ({{kismi-kapatma}}).' },
 
-      { baslik:'When the statement arrives — the clearing account is closed ({{FEBAN}})',
+      { baslik:'When the statement arrives: the clearing account is closed ({{FEBAN}})',
         belgeTuru:'SB', tarih:'26.09.2026', paraBirimi:'TRY',
         satirlar:[
           { hesap:'102', ad:'Bank clearing account', borc:140000, not:'The clearing account was cleared' },
-          { hesap:'102', ad:'Banks — real account', alacak:140000, not:'The money actually left' },
+          { hesap:'102', ad:'Banks: real account', alacak:140000, not:'The money actually left' },
         ],
         not:'The cash outflow is only confirmed **here**. If the {{banka-ara-hesabi}}\'s balance keeps growing, ' +
-             'either the statement isn\'t being processed or the payments never went through at the bank — ' +
+             'either the statement isn\'t being processed or the payments never went through at the bank: ' +
              'either way it needs to be investigated.' },
     ],
 
@@ -237,7 +237,7 @@ SAP.registerTopic({
       { tip:'tip', baslik:'How does F110 decide on the discount?', metin:
         'For every item, the program works out: "If I pay today, I earn a 2% discount. If I wait until the due ' +
         'date, I hold on to the money 20 days longer."\n\n' +
-        'A 2% gain in 20 days works out to roughly **36%** annualized — higher than most companies\' deposit ' +
+        'A 2% gain in 20 days works out to roughly **36%** annualized: higher than most companies\' deposit ' +
         'rate. That\'s why the **maximum cash discount rate** setting defined in {{FBZP}} matters: the program ' +
         'never misses a discount above that threshold.' },
       { tip:'warn', baslik:'What happens if a clearing account isn\'t used?', metin:
@@ -258,7 +258,7 @@ SAP.registerTopic({
       { ad:'Proposal Run',
         aciklama:'Calculates and lists which items will be paid. **Makes no accounting entry at all.** Written ' +
                  'to {{REGUH}}/{{REGUP}} with `XVORL = X` and can be deleted freely.',
-        neZaman:'Always — a mandatory step before the payment run. It can technically be skipped, but shouldn\'t be.',
+        neZaman:'Always: a mandatory step before the payment run. It can technically be skipped, but shouldn\'t be.',
         ornek:'232 items selected, merged into 89 payments, 47 items on the exception list.',
         tcodes:['F110'] },
 
@@ -269,7 +269,7 @@ SAP.registerTopic({
         ornek:'86 payment documents (KZ) were created, the items moved to {{BSAK}}.',
         tcodes:['F110'] },
 
-      { ad:'Scheduled Run — F110S',
+      { ad:'Scheduled Run: F110S',
         aciklama:'Starts F110 automatically at specific days and times. It runs overnight and the proposal is ' +
                  'ready by morning.',
         neZaman:'At companies with a regular payment calendar and high volume.',
@@ -291,7 +291,7 @@ SAP.registerTopic({
         neZaman:'Still used in older installations. Not recommended for new projects.',
         ornek:'RFFOAVIS (payment advice), RFFOUS_C (check).' },
 
-      { ad:'Payment Medium Workbench — FBPM',
+      { ad:'Payment Medium Workbench: FBPM',
         aciklama:'The modern payment medium generation tool. Country and bank formats are defined flexibly via a ' +
                  'format tree; standards like SEPA and ISO20022 are supported.',
         neZaman:'The **standard choice** in new installations. Used in place of the classic programs.',
@@ -306,11 +306,11 @@ SAP.registerTopic({
 
     karsilastirmaBasliklar:['Proposal', 'Payment Run'],
     karsilastirma:[
-      ['Accounting entry', '**None** — no account moves at all', '**Yes** — vendor debit / bank credit'],
+      ['Accounting entry', '**None**, no account moves at all', '**Yes**, vendor debit / bank credit'],
       ['Table record', '{{REGUH}}/{{REGUP}}, `XVORL` = **X**', 'Same tables, `XVORL` = **blank**'],
       ['Open item', 'Stays open', 'Moves from {{BSIK}} to {{BSAK}}'],
-      ['Undoing it', 'The proposal is deleted — unrestricted', 'Every document is reversed one by one, {{FBRA}} is needed'],
-      ['Editable', '**Yes** — remove items, change amounts, change the bank', 'No'],
+      ['Undoing it', 'The proposal is deleted: unrestricted', 'Every document is reversed one by one, {{FBRA}} is needed'],
+      ['Editable', '**Yes**: remove items, change amounts, change the bank', 'No'],
       ['Bank file', 'Not generated', 'Generated ({{FBPM}})'],
       ['Purpose', 'Control and approval', 'Execution'],
     ],
@@ -321,7 +321,7 @@ SAP.registerTopic({
     liste:[
       { kod:'F110', ad:'Automatic payment program',
         amac:'Selects due debts in bulk, produces a proposal, records the payment, and generates the bank file.',
-        neZaman:'In routine payment runs — the standard payment method for corporate companies.',
+        neZaman:'In routine payment runs: the standard payment method for corporate companies.',
         adimlar:[
           { baslik:'Enter the run date and identification',
             aciklama:'This pair (`LAUFD` + `LAUFI`) makes the run unique. A different identification is given for a second run on the same day.' },
@@ -329,7 +329,7 @@ SAP.registerTopic({
             aciklama:'The **payment posting date** (the date the documents fall on), the **docs entered up to** ' +
                      'date (documents entered by this date are included), the **company codes**, the **payment ' +
                      'methods**, the **next payment date**, and the vendor range.' },
-          { baslik:'Enter the *next payment date* correctly — the most critical field',
+          { baslik:'Enter the *next payment date* correctly: the most critical field',
             aciklama:'The program asks: "can this item wait until the next run?" If it can\'t (because the due ' +
                      'date or discount period would pass), it **pays today**. Get this field wrong and you\'ll ' +
                      'either pay early or miss a discount.' },
@@ -341,7 +341,7 @@ SAP.registerTopic({
                      'press refresh on the *Status* tab.' },
           { baslik:'Display and edit the proposal',
             aciklama:'There are two lists: **items to be paid** and **exceptions**. The exception list explains, ' +
-                     'via a code, why each item won\'t be paid — the main source for diagnosis.' },
+                     'via a code, why each item won\'t be paid: the main source for diagnosis.' },
           { baslik:'Run the payment',
             aciklama:'The accounting entries are created here. The status becomes "Payment run completed."' },
           { baslik:'Generate the payment medium',
@@ -365,14 +365,14 @@ SAP.registerTopic({
           { mesaj:'Item is blocked for payment', sebep:'There\'s an {{odeme-blogu}} on the item ({{BSEG}} `ZLSPR`) or the vendor ({{LFB1}} `ZAHLS`).', cozum:'Investigate why it\'s blocked; remove it with {{FB09}} or {{BP}} if it\'s justified. For an MM invoice, use {{MRBR}}.' },
           { mesaj:'Payment amount is below minimum', sebep:'A minimum payment amount is set in the {{FBZP}} company code settings.', cozum:'A deliberate setting; small amounts accumulate for the next run. Lower the threshold if needed.' },
           { mesaj:'Proposal has already been created', sebep:'A proposal already exists for the same date + identification.', cozum:'Delete the proposal and rerun, or use a new identification.' },
-          { mesaj:'Payment run already carried out — parameters cannot be changed', sebep:'The payment has already been run; parameters can\'t be changed.', cozum:'Open a new run. If the payment needs to be undone, reverse the documents with {{FB08}} and reopen the clearings with {{FBRA}}.' },
+          { mesaj:'Payment run already carried out: parameters cannot be changed', sebep:'The payment has already been run; parameters can\'t be changed.', cozum:'Open a new run. If the payment needs to be undone, reverse the documents with {{FB08}} and reopen the clearings with {{FBRA}}.' },
         ],
         ipucu:'**Always turn on the additional log.** The answer to "why wasn\'t this item selected?" is found ' +
               'only there, and this question is behind the majority of F110 complaints. Leaving the log off ' +
               'leaves you blind.',
         ilgili:['FBZP','F110S','FBPM','F-53','FBL1N','FEBAN'] },
 
-      { kod:'FBZP', ad:'Payment program configuration — F110\'s brain',
+      { kod:'FBZP', ad:'Payment program configuration: F110\'s brain',
         amac:'Gathers the five settings that determine all of F110\'s behavior on one screen.',
         neZaman:'During setup, and every time the question "why is/isn\'t F110 doing this?" comes up.',
         adimlar:[
@@ -445,25 +445,25 @@ SAP.registerTopic({
   /* ================================================== 6. TABLES === */
   tablolar: {
     anlatim:
-      'F110\'s table structure has three layers: **control** ({{REGUV}} — the run\'s status), **payment ' +
-      'headers** ({{REGUH}} — who gets how much), and **paid items** ({{REGUP}} — which invoices). This trio is ' +
+      'F110\'s table structure has three layers: **control** ({{REGUV}}: the run\'s status), **payment ' +
+      'headers** ({{REGUH}}, who gets how much), and **paid items** ({{REGUP}}, which invoices). This trio is ' +
       'the single source for "which invoices did this payment clear?"',
 
     liste:[
-      { ad:'REGUV', baslik:'Payment run — control record',
+      { ad:'REGUV', baslik:'Payment run: control record',
         tutar:'The run\'s status: were parameters entered, was the proposal generated, was payment made, was the file produced.',
-        olusturan:'{{F110}} — when parameters are entered',
+        olusturan:'{{F110}}: when parameters are entered',
         guncelleyen:'{{F110}} at every stage',
         anahtar:'LAUFD + LAUFI',
         iliskiler:'{{REGUH}} and {{REGUP}} link to this run.',
         s4:'Unchanged.',
         alanlar:[
           { ad:'LAUFD', aciklama:'Run date' },
-          { ad:'LAUFI', aciklama:'Run identification — together with the date, makes the run unique' },
+          { ad:'LAUFI', aciklama:'Run identification: together with the date, makes the run unique' },
           { ad:'XVORL', aciklama:'Whether it\'s in the proposal stage' },
         ] },
 
-      { ad:'REGUH', baslik:'Payment run — payment headers',
+      { ad:'REGUH', baslik:'Payment run: payment headers',
         tutar:'Each payment\'s header: recipient, amount, currency, payment method, house bank, payment document number.',
         olusturan:'{{F110}} proposal and payment run',
         guncelleyen:'{{F110}}',
@@ -471,14 +471,14 @@ SAP.registerTopic({
         iliskiler:'Links to items via {{REGUP}}, to the vendor via {{LFA1}}, to the bank account via {{T012K}}.',
         s4:'Unchanged.',
         alanlar:[
-          { ad:'XVORL', aciklama:'**If X, it\'s only a proposal** — not an actual payment. The most critical distinguishing field.' },
+          { ad:'XVORL', aciklama:'**If X, it\'s only a proposal**: not an actual payment. The most critical distinguishing field.' },
           { ad:'RWBTR', aciklama:'Payment amount' },
-          { ad:'VBLNR', aciklama:'Payment document number — filled in after the payment run' },
-          { ad:'HBKID / HKTID', aciklama:'House bank and account ID — the result of bank determination' },
+          { ad:'VBLNR', aciklama:'Payment document number: filled in after the payment run' },
+          { ad:'HBKID / HKTID', aciklama:'House bank and account ID: the result of bank determination' },
           { ad:'ZALDT', aciklama:'Payment date' },
         ] },
 
-      { ad:'REGUP', baslik:'Payment run — paid items',
+      { ad:'REGUP', baslik:'Payment run: paid items',
         tutar:'Which invoice items each payment cleared. A single payment can clear many invoices.',
         olusturan:'{{F110}}',
         guncelleyen:'{{F110}}',
@@ -491,7 +491,7 @@ SAP.registerTopic({
           { ad:'SKNTO', aciklama:'The {{iskonto}} earned on this item' },
         ] },
 
-      { ad:'T042', baslik:'Payment program — company code settings',
+      { ad:'T042', baslik:'Payment program: company code settings',
         tutar:'Configuration entered in {{FBZP}}: paying company code, tolerance days, minimum amount.',
         olusturan:'{{FBZP}}',
         guncelleyen:'{{FBZP}}',
@@ -505,15 +505,15 @@ SAP.registerTopic({
         iliskiler:'{{REGUH}} points here via `HBKID`/`HKTID`.',
         s4:'Managed via Bank Account Management (BAM) in S/4HANA.' },
 
-      { ad:'BSIK', baslik:'Vendor open items — F110\'s selection pool',
+      { ad:'BSIK', baslik:'Vendor open items: F110\'s selection pool',
         tutar:'Unpaid vendor invoices. F110 selects items from here.',
         olusturan:'Every posting made to a vendor',
         guncelleyen:'The item moves to {{BSAK}} after payment',
-        s4:'{{uyumluluk-view}} — data is produced from {{ACDOCA}}.',
+        s4:'{{uyumluluk-view}}: data is produced from {{ACDOCA}}.',
         alanlar:[
-          { ad:'ZFBDT / ZBD1T', aciklama:'Baseline date and discount day — F110 calculates the payment day from these' },
-          { ad:'ZLSPR', aciklama:'{{odeme-blogu}} — if filled, the item isn\'t selected' },
-          { ad:'ZLSCH', aciklama:'Payment method at item level — overrides the vendor master' },
+          { ad:'ZFBDT / ZBD1T', aciklama:'Baseline date and discount day: F110 calculates the payment day from these' },
+          { ad:'ZLSPR', aciklama:'{{odeme-blogu}}: if filled, the item isn\'t selected' },
+          { ad:'ZLSCH', aciklama:'Payment method at item level: overrides the vendor master' },
         ] },
 
       { ad:'PAYR', baslik:'Check register',
@@ -525,7 +525,7 @@ SAP.registerTopic({
 
     er:{
       type:'er',
-      baslik:'F110 table relationships — from run to cleared item',
+      baslik:'F110 table relationships: from run to cleared item',
       varliklar:[
         { ad:'REGUV', rol:'Control', aciklama:'The run\'s status',
           alanlar:[{ ad:'LAUFD', tip:'pk' }, { ad:'LAUFI', tip:'pk' }, { ad:'XVORL' }] },
@@ -571,7 +571,7 @@ SAP.registerTopic({
           { ad:'Status text', zorunlu:false, aciklama:'Follows the sequence "Parameters not entered" → "Proposal created" → "Payment completed."' },
         ],
         ipucu:'The status doesn\'t refresh on its own. The screen may still show the old status once the ' +
-              'proposal is done — press refresh. This is the number-one reason newcomers think "the proposal ' +
+              'proposal is done: press refresh. This is the number-one reason newcomers think "the proposal ' +
               'didn\'t run."' },
 
       { ad:'Parameter tab',
@@ -614,15 +614,15 @@ SAP.registerTopic({
           { ad:'Program and variant', zorunlu:false, aciklama:'A format tree if PMW is used, or the RFFO* program and variant if classic.' },
         ],
         ipucu:'If no variant is defined, the payment is recorded but **no file is generated**. This is the cause ' +
-              'of "the payment was made but nothing went to the bank" — it\'s generated afterward with {{FBPM}}.' },
+              'of "the payment was made but nothing went to the bank": it\'s generated afterward with {{FBPM}}.' },
     ],
 
     zorunlu:['Run date','Identification','Payment posting date','Docs entered up to','Company code','Payment method','Next payment date'],
     opsiyonel:['Vendor range','Free selection criteria','Additional log settings','Print variant','Payment advice form'],
 
     hatalar:[
-      { mesaj:'No valid payment method found', sebep:'The vendor\'s {{LFB1}} `ZWELS` list doesn\'t include the method used, or the method is undefined at company code level ({{FBZP}} step 4).', cozum:'Turn on the additional log and note the vendor — the log tells you exactly which check it failed. Then fix the gap in {{BP}} or {{FBZP}}.' },
-      { mesaj:'No suitable house bank found', sebep:'In {{FBZP}} bank determination, the ranking order or an available amount is missing.', cozum:'Check the available amounts section — **leaving it blank doesn\'t mean "unlimited," it means "none."**' },
+      { mesaj:'No valid payment method found', sebep:'The vendor\'s {{LFB1}} `ZWELS` list doesn\'t include the method used, or the method is undefined at company code level ({{FBZP}} step 4).', cozum:'Turn on the additional log and note the vendor: the log tells you exactly which check it failed. Then fix the gap in {{BP}} or {{FBZP}}.' },
+      { mesaj:'No suitable house bank found', sebep:'In {{FBZP}} bank determination, the ranking order or an available amount is missing.', cozum:'Check the available amounts section: **leaving it blank doesn\'t mean "unlimited," it means "none."**' },
       { mesaj:'Item blocked for payment', sebep:'There\'s a block on the item ({{BSEG}} `ZLSPR`) or the vendor ({{LFB1}} `ZAHLS`); for an MM invoice, {{RBKP}} `ZLSPR`.', cozum:'Remove the block with {{FB09}}, {{BP}}, or {{MRBR}}.' },
       { mesaj:'Amount is less than minimum amount', sebep:'There\'s a minimum payment threshold set in {{FBZP}}.', cozum:'A deliberate setting; small amounts accumulate. Review the threshold.' },
       { mesaj:'No documents found for the specified selection', sebep:'No item is due; the "next payment date" may have been entered too close.', cozum:'Fix the date to match the payment calendar; use {{FBL1N}} to check whether an item is really due.' },
@@ -640,7 +640,7 @@ SAP.registerTopic({
       'what\'s instructive is the reasoning behind the ones that aren\'t.',
       '**Always** generate and approve the proposal. Running the payment directly is technically possible but ' +
       'not acceptable from an internal-control standpoint, and it\'s very hard to undo.',
-      'When testing F110 on a test system, **remove the payment medium variant** — this prevents accidentally ' +
+      'When testing F110 on a test system, **remove the payment medium variant**: this prevents accidentally ' +
       'generating and sending a real bank file.',
       'Keep an eye on the {{banka-ara-hesabi}}\'s balance after payment. If it keeps growing, the statement isn\'t ' +
       'being processed and reconciliation is broken.',
@@ -650,7 +650,7 @@ SAP.registerTopic({
   /* ===================================================== 8. TECHNICAL DETAIL === */
   teknik: {
     guncellenenTablolar:[
-      { tablo:'REGUV', ne:'The run\'s status — updated at every stage' },
+      { tablo:'REGUV', ne:'The run\'s status: updated at every stage' },
       { tablo:'REGUH', ne:'Payment headers; `XVORL` = X in the proposal, blank and `VBLNR` filled at payment' },
       { tablo:'REGUP', ne:'Paid items; which payment cleared which invoice' },
       { tablo:'BKPF', ne:'Payment document header (document type KZ)' },
@@ -665,12 +665,12 @@ SAP.registerTopic({
       'F110 runs **two separate LUW chains**. During the proposal stage, only {{REGUV}}/{{REGUH}}/{{REGUP}} are ' +
       'written; no FI document is produced and there\'s no accounting effect.\n\n' +
       'During the payment stage, a separate posting LUW runs for each payment: the FI document, the clearing, ' +
-      'and the index update are all written together. If one payment fails, **the others aren\'t affected** — ' +
+      'and the index update are all written together. If one payment fails, **the others aren\'t affected**: ' +
       'which is why a partially completed run is possible, and which payments failed is read from the log.',
 
     belgeNo:
       'Payment documents get their number from the document type **KZ** (vendor payment), from the range ' +
-      'defined in {{FBN1}}. Every payment gets its own document number — 86 payments = 86 documents. No ' +
+      'defined in {{FBN1}}. Every payment gets its own document number: 86 payments = 86 documents. No ' +
       'document number is assigned during the proposal stage; the {{REGUH}} `VBLNR` field is only filled in ' +
       'after the payment run.',
 
@@ -695,7 +695,7 @@ SAP.registerTopic({
 
     numberRange:
       'A range must be defined in {{FBN1}} for the KZ document type by company code + fiscal year. If it isn\'t ' +
-      'opened at year start, the first payment run of the year stops — copied in bulk with {{OBH1}}.',
+      'opened at year start, the first payment run of the year stops: copied in bulk with {{OBH1}}.',
 
     accountDetermination:
       'In F110, accounts come from three sources:\n\n' +
@@ -714,26 +714,26 @@ SAP.registerTopic({
 
     transport:
       'The {{FBZP}} settings transport. **But watch out:** the bank determination settings reference ' +
-      'system-specific {{ev-bankasi}} records. Because house banks are master data, they don\'t transport — so ' +
+      'system-specific {{ev-bankasi}} records. Because house banks are master data, they don\'t transport: so ' +
       'bank determination **must be checked** in the target system after FBZP is transported. Available amounts ' +
       'are also usually set separately in each system.',
 
     img:[
-      { yol:'SPRO → Financial Accounting → Accounts Payable → Business Transactions → Outgoing Payments → Automatic Outgoing Payments → Payment Method/Bank Selection for Payment Program', not:'{{FBZP}} — all five steps' },
+      { yol:'SPRO → Financial Accounting → Accounts Payable → Business Transactions → Outgoing Payments → Automatic Outgoing Payments → Payment Method/Bank Selection for Payment Program', not:'{{FBZP}}: all five steps' },
       { yol:'SPRO → … → Automatic Outgoing Payments → Payment Media → Payment Medium Workbench → Create Format Trees', not:'PMW format definition ({{FBPM}})' },
       { yol:'SPRO → Financial Accounting → Bank Accounting → Bank Accounts → Define House Banks', not:'{{ev-bankasi}} and account IDs ({{FI12}})' },
       { yol:'SPRO → … → Outgoing Payments → Automatic Outgoing Payments → Payment Media → Check Management → Define Number Ranges for Checks', not:'Check number range ({{FCHI}})' },
     ],
 
     ekstra:[
-      { ic:'🏦', baslik:'How does bank determination work? — four sections', metin:
+      { ic:'🏦', baslik:'How does bank determination work? - four sections', metin:
         '{{FBZP}}\'s step 5 consists of four sub-sections, run in order:\n\n' +
         '**1. Ranking order:** the order in which banks are tried for a payment method + currency. ' +
         '"İş Bankası first, then Garanti if it\'s not enough."\n\n' +
         '**2. Bank accounts:** the G/L account and the clearing account corresponding to the combination of ' +
         'payment method + house bank + account ID.\n\n' +
         '**3. Available amounts:** the maximum that can go out of each bank account in that run. **Leaving it ' +
-        'blank doesn\'t mean "unlimited," it means "none"** — the most common configuration mistake.\n\n' +
+        'blank doesn\'t mean "unlimited," it means "none"**: the most common configuration mistake.\n\n' +
         '**4. Value date and charges:** the value-date and bank-charge settings.\n\n' +
         'The program proceeds through 1 to 4 in order. If any of them lacks a definition, "No suitable house ' +
         'bank found" is raised.' },
@@ -741,10 +741,10 @@ SAP.registerTopic({
       { ic:'🔄', baslik:'How is a wrong payment run undone?', metin:
         'If it\'s still at the proposal stage, it\'s easy: **delete the proposal**, and no trace remains.\n\n' +
         'If the payment has already run, undoing it is laborious and done in order:\n' +
-        '**1.** If the bank file has already **been sent**, call the bank and stop it first — a correction in ' +
+        '**1.** If the bank file has already **been sent**, call the bank and stop it first: a correction in ' +
         'the system doesn\'t bring the money back.\n' +
         '**2.** Reverse the payment documents with {{FB08}} (or {{F.80}} for bulk).\n' +
-        '**3.** If the reversal doesn\'t automatically reopen the clearing, undo the clearings with {{FBRA}} — ' +
+        '**3.** If the reversal doesn\'t automatically reopen the clearing, undo the clearings with {{FBRA}}: ' +
         'the items go back to {{BSIK}}.\n' +
         '**4.** If checks were generated, cancel them with {{FCH8}}/{{FCH9}}.\n\n' +
         'This effort explains why the proposal approval should never be skipped.' },
@@ -761,24 +761,24 @@ SAP.registerTopic({
   /* ==================================================== 9. S/4HANA === */
   s4hana: {
     ozet:
-      'F110 was **not removed and its logic hasn\'t changed** in S/4HANA — it\'s still the core of the payment ' +
+      'F110 was **not removed and its logic hasn\'t changed** in S/4HANA: it\'s still the core of the payment ' +
       'process. What changed: Fiori-based proposal management, {{ev-bankasi}} management moving to Bank Account ' +
       'Management, and PMW becoming the standard for the payment medium.',
 
     eccFarklari:[
-      { konu:'F110 itself', ecc:'The core payment program', s4:'**The same** — not removed, logic unchanged' },
-      { konu:'House bank management', ecc:'{{FI12}} — configuration-like', s4:'Bank Account Management (BAM) — master data + approval workflow' },
-      { konu:'Proposal management', ecc:'Classic ALV lists', s4:'Fiori "Manage Automatic Payments" — visual, filterable' },
-      { konu:'Payment medium', ecc:'Classic RFFO* programs common', s4:'**PMW is standard** — SEPA/ISO20022 format trees' },
-      { konu:'Vendor master data', ecc:'{{XK01}}/{{FK01}}', s4:'{{BP}} — payment method and bank details via BP' },
-      { konu:'Open item selection', ecc:'The physical {{BSIK}} table is scanned', s4:'Via {{ACDOCA}} — noticeably faster' },
-      { konu:'Cash visibility', ecc:'A separate Cash Management module', s4:'Integrated Cash Management — the payment run is reflected in the cash forecast instantly' },
+      { konu:'F110 itself', ecc:'The core payment program', s4:'**The same**: not removed, logic unchanged' },
+      { konu:'House bank management', ecc:'{{FI12}}, configuration-like', s4:'Bank Account Management (BAM), master data + approval workflow' },
+      { konu:'Proposal management', ecc:'Classic ALV lists', s4:'Fiori "Manage Automatic Payments": visual, filterable' },
+      { konu:'Payment medium', ecc:'Classic RFFO* programs common', s4:'**PMW is standard**: SEPA/ISO20022 format trees' },
+      { konu:'Vendor master data', ecc:'{{XK01}}/{{FK01}}', s4:'{{BP}}: payment method and bank details via BP' },
+      { konu:'Open item selection', ecc:'The physical {{BSIK}} table is scanned', s4:'Via {{ACDOCA}}: noticeably faster' },
+      { konu:'Cash visibility', ecc:'A separate Cash Management module', s4:'Integrated Cash Management: the payment run is reflected in the cash forecast instantly' },
     ],
 
     universalJournal:
       'Payment documents are also written to {{ACDOCA}}, and the vendor, bank account, and cost center sit on ' +
       'the same line. Because item selection runs via {{ACDOCA}} instead of {{BSIK}}, proposal generation is ' +
-      'noticeably faster for large vendor portfolios — this step was the biggest bottleneck in ECC.',
+      'noticeably faster for large vendor portfolios: this step was the biggest bottleneck in ECC.',
 
     kalkanTcodes:[
       { eski:'{{FI12}}', yeni:'FI12_HBANK / BAM', not:'House bank management moved to Fiori and to master data' },
@@ -795,20 +795,20 @@ SAP.registerTopic({
     ],
 
     compatibilityViews:[
-      '{{BSIK}}, {{BSAK}} — {{uyumluluk-view}}s; F110 now works via {{ACDOCA}}.',
-      '{{REGUH}}, {{REGUP}}, {{REGUV}} — **remain physical tables**, unchanged.',
+      '{{BSIK}}, {{BSAK}}: {{uyumluluk-view}}s; F110 now works via {{ACDOCA}}.',
+      '{{REGUH}}, {{REGUP}}, {{REGUV}}: **remain physical tables**, unchanged.',
       'This distinction matters: while the payment run tables are preserved, the open-item indexes turned into views.',
     ],
 
     performans:
       'Proposal generation is noticeably faster than in ECC because item selection runs through the ' +
-      'column-based {{ACDOCA}}. There\'s no major difference on the payment-posting side — there the bottleneck ' +
+      'column-based {{ACDOCA}}. There\'s no major difference on the payment-posting side: there the bottleneck ' +
       'isn\'t the database, it\'s that a separate LUW runs for each payment.',
 
     bestPractices:[
       'Use **PMW** for the payment medium in new installations; don\'t build new development on the classic ' +
       'RFFO* programs.',
-      'Move house bank management to BAM and tie bank account changes to an approval workflow — the most ' +
+      'Move house bank management to BAM and tie bank account changes to an approval workflow: the most ' +
       'effective control against payment fraud.',
       'Make proposal approval a **mandatory** process step; its being technically skippable doesn\'t justify ' +
       'running without approval.',
@@ -826,9 +826,9 @@ SAP.registerTopic({
       'September 25th the treasury specialist opens the run. This scenario shows every stage of the run and how ' +
       'the three problems that came up were resolved.',
     veriler:[
-      { k:'Company code', v:'1000 — Marmara Textiles Inc.' },
+      { k:'Company code', v:'1000: Marmara Textiles Inc.' },
       { k:'Run', v:'Run date 25.09.2026 · Identification AP01' },
-      { k:'Payment method', v:'H — bank transfer' },
+      { k:'Payment method', v:'H: bank transfer' },
       { k:'Next payment date', v:'10.10.2026 (the next run)' },
       { k:'House banks', v:'İŞB (rank 1, limit 5,000,000) · GRNT (rank 2, limit 3,000,000)' },
       { k:'Open item pool', v:'340 items, totaling 8,900,000 TRY' },
@@ -854,7 +854,7 @@ SAP.registerTopic({
           { alan:'Payment posting date', deger:'25.09.2026 (period 09 open ✓)' },
           { alan:'Docs entered up to', deger:'25.09.2026' },
           { alan:'Company code / Payment method', deger:'1000 / H' },
-          { alan:'**Next payment date**', deger:'10.10.2026 — the next run\'s date' },
+          { alan:'**Next payment date**', deger:'10.10.2026: the next run\'s date' },
           { alan:'Additional log', deger:'Payment method selection + per item + bank determination **turned on**' },
         ],
         tabloEtkisi:[
@@ -867,29 +867,29 @@ SAP.registerTopic({
         aciklama:'The system scans 340 items and selects the ones to be paid. **No accounting entry is made.**',
         girdi:[
           { alan:'Scanned', deger:'340 open items / 8,900,000 TRY' },
-          { alan:'Blocked (excluded)', deger:'8 items — item or vendor block' },
-          { alan:'Not yet due (excluded)', deger:'61 items — can wait until 10.10' },
-          { alan:'Other exceptions', deger:'39 items — to be reviewed below' },
+          { alan:'Blocked (excluded)', deger:'8 items: item or vendor block' },
+          { alan:'Not yet due (excluded)', deger:'61 items: can wait until 10.10' },
+          { alan:'Other exceptions', deger:'39 items: to be reviewed below' },
           { alan:'**To be paid**', deger:'232 items → 89 vendors → **89 payments**' },
           { alan:'Discount opportunity', deger:'18 items within the discount period → brought forward, a gain of 34,200 TRY' },
         ],
         tabloEtkisi:[
           { tablo:'REGUH', ne:'89 payment headers, **`XVORL` = X** (proposal only)' },
-          { tablo:'REGUP', ne:'232 item lines — which payment will clear which invoice' },
-          { tablo:'BSIK', ne:'**Unchanged** — the items are still open' },
+          { tablo:'REGUP', ne:'232 item lines: which payment will clear which invoice' },
+          { tablo:'BSIK', ne:'**Unchanged**: the items are still open' },
         ],
         not:'The proposal can be undone: deleting it leaves no trace. Accounting hasn\'t been affected at all yet.' },
 
-      { baslik:'The exception list is reviewed — three problems are found', tcode:'F110',
+      { baslik:'The exception list is reviewed: three problems are found', tcode:'F110',
         aciklama:'The reasons for the 39 exceptions are read from the **additional log**. Three different ' +
                  'problems come up.',
         girdi:[
-          { alan:'**Problem 1** — 14 items', deger:'"No valid payment method found" → `ZWELS` is blank on the vendors' },
+          { alan:'**Problem 1**: 14 items', deger:'"No valid payment method found" → `ZWELS` is blank on the vendors' },
           { alan:'Root cause', deger:'Newly opened vendors have no payment method entered ({{BP}} → {{LFB1}})' },
-          { alan:'**Problem 2** — 6 items', deger:'"No suitable house bank found" → EUR payments' },
+          { alan:'**Problem 2**: 6 items', deger:'"No suitable house bank found" → EUR payments' },
           { alan:'Root cause', deger:'In {{FBZP}} bank determination, **no available amount was entered** for EUR (blank = zero)' },
-          { alan:'**Problem 3** — 19 items', deger:'"Item is blocked for payment" → disputes at 3 vendors' },
-          { alan:'Root cause', deger:'A deliberate block — a price dispute is unresolved, shouldn\'t be paid' },
+          { alan:'**Problem 3**: 19 items', deger:'"Item is blocked for payment" → disputes at 3 vendors' },
+          { alan:'Root cause', deger:'A deliberate block: a price dispute is unresolved, shouldn\'t be paid' },
         ],
         not:'The exception list is **more instructive** than the proposal list. The items being paid are already ' +
              'as expected; what\'s instructive is the reasoning behind the ones that aren\'t.' },
@@ -899,7 +899,7 @@ SAP.registerTopic({
         girdi:[
           { alan:'Problem 1 fix', deger:'{{BP}} → payment method "H" added to 14 vendors' },
           { alan:'Problem 2 fix', deger:'{{FBZP}} → Bank determination → Available amounts → İŞB/EUR: 500,000 EUR entered' },
-          { alan:'Problem 3 decision', deger:'Left as is — won\'t be paid until the dispute is resolved' },
+          { alan:'Problem 3 decision', deger:'Left as is: won\'t be paid until the dispute is resolved' },
           { alan:'Proposal', deger:'Deleted and rerun → **252 items / 97 payments**' },
         ],
         not:'In {{FBZP}}, leaving the available amount **blank doesn\'t mean "unlimited," it means "none."** ' +
@@ -916,7 +916,7 @@ SAP.registerTopic({
         ],
         not:'Changing an amount on the proposal screen produces a {{kismi-kapatma}}: the original item stays open.' },
 
-      { baslik:'The payment is run — accounting entries are created', tcode:'F110',
+      { baslik:'The payment is run: accounting entries are created', tcode:'F110',
         aciklama:'**The real entries are produced here.** 95 payment documents are created and the invoices are ' +
                  'cleared.',
         girdi:[
@@ -925,12 +925,12 @@ SAP.registerTopic({
           { alan:'Total payment', deger:'6,290,000 TRY' },
           { alan:'Discount earned', deger:'34,200 TRY (recorded as income)' },
         ],
-        fis:{ baslik:'Document 2000001234 — V-4001 payment (3 invoices merged)', belgeTuru:'KZ', tarih:'25.09.2026',
+        fis:{ baslik:'Document 2000001234: V-4001 payment (3 invoices merged)', belgeTuru:'KZ', tarih:'25.09.2026',
           satirlar:[
-            { hesap:'320', ad:'Trade payables — V-4001 (invoice 1)', borc:60000 },
-            { hesap:'320', ad:'Trade payables — V-4001 (invoice 2)', borc:45000 },
-            { hesap:'320', ad:'Trade payables — V-4001 (invoice 3)', borc:35000 },
-            { hesap:'102', ad:'Bank clearing account — İŞB', alacak:139200, not:'The amount actually paid' },
+            { hesap:'320', ad:'Trade payables: V-4001 (invoice 1)', borc:60000 },
+            { hesap:'320', ad:'Trade payables: V-4001 (invoice 2)', borc:45000 },
+            { hesap:'320', ad:'Trade payables: V-4001 (invoice 3)', borc:35000 },
+            { hesap:'102', ad:'Bank clearing account: İŞB', alacak:139200, not:'The amount actually paid' },
             { hesap:'602', ad:'Discounts received', alacak:667, not:'Invoice 2 was within the discount period' },
             { hesap:'191', ad:'Deductible VAT adjustment', alacak:133 },
           ], not:'The three invoices were cleared on separate lines but a **single payment** went out to the ' +
@@ -945,27 +945,27 @@ SAP.registerTopic({
       { baslik:'The bank file is generated and sent', tcode:'FBPM',
         aciklama:'A payment file in ISO20022 format is generated with PMW.',
         girdi:[
-          { alan:'Format tree', deger:'ISO20022 PAIN.001 — İş Bankası' },
+          { alan:'Format tree', deger:'ISO20022 PAIN.001: İş Bankası' },
           { alan:'File', deger:'95 payment instructions, 6,290,000 TRY' },
           { alan:'Sent', deger:'Delivered to the bank' },
         ],
-        not:'If no variant had been defined, the payment would be recorded but no file generated — this is ' +
+        not:'If no variant had been defined, the payment would be recorded but no file generated: this is ' +
              'exactly the "the payment was made but nothing went to the bank" situation.' },
 
-      { baslik:'The next day — the bank statement is processed', tcode:'FEBAN',
+      { baslik:'The next day: the bank statement is processed', tcode:'FEBAN',
         aciklama:'The statement arrives and the {{banka-ara-hesabi}} is cleared. The cash outflow is only ' +
                  'confirmed **here**.',
-        fis:{ baslik:'Document 1000004567 — Bank statement', belgeTuru:'SB', tarih:'26.09.2026',
+        fis:{ baslik:'Document 1000004567: Bank statement', belgeTuru:'SB', tarih:'26.09.2026',
           satirlar:[
-            { hesap:'102', ad:'Bank clearing account — İŞB', borc:6290000, not:'The clearing account was cleared' },
-            { hesap:'102', ad:'Banks — İŞB real account', alacak:6290000, not:'The money actually left' },
+            { hesap:'102', ad:'Bank clearing account: İŞB', borc:6290000, not:'The clearing account was cleared' },
+            { hesap:'102', ad:'Banks: İŞB real account', alacak:6290000, not:'The money actually left' },
           ] },
         tabloEtkisi:[
           { tablo:'FEBKO', ne:'Statement header' },
-          { tablo:'FEBEP', ne:'Statement items — matched with the payment file' },
+          { tablo:'FEBEP', ne:'Statement items: matched with the payment file' },
         ],
         not:'The clearing account\'s balance was zeroed. If it isn\'t, either the statement was processed ' +
-             'incompletely or some payments didn\'t actually happen at the bank — both need investigating.' },
+             'incompletely or some payments didn\'t actually happen at the bank: both need investigating.' },
     ],
 
     sonuc:
@@ -977,7 +977,7 @@ SAP.registerTopic({
       '**2. The exception list is more valuable than the proposal list.** The items being paid are already as ' +
       'expected; what the system has to teach is in the reasoning behind the ones that aren\'t.\n\n' +
       '**3. The gap between the proposal and the payment is vital.** Three problems were found and fixed at the ' +
-      'proposal stage — no accounting entry was ever disturbed. Had the payment been run directly, 39 items ' +
+      'proposal stage: no accounting entry was ever disturbed. Had the payment been run directly, 39 items ' +
       'would have been paid incorrectly and fixing it would have required reversing 95 documents.',
   },
 

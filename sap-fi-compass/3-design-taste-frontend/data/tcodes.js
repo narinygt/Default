@@ -1,9 +1,9 @@
 /* ==========================================================================
-   data/tcodes.js — SAP FI işlem kodu (transaction code) sözlüğü
+   data/tcodes.js: SAP FI işlem kodu (transaction code) sözlüğü
    --------------------------------------------------------------------------
    Metinde {{FB50}} yazıldığında buradaki kayıt bulunur ve tıklanabilir çipe
    dönüşür. Alanlar:
-     kod       İşlem kodu (SAP'ta birebir böyle yazılır — çevrilmez)
+     kod       İşlem kodu (SAP'ta birebir böyle yazılır: çevrilmez)
      ad        Türkçe adı
      aciklama  Ne işe yarar / ne zaman kullanılır
      modul     FI-GL, FI-AP, FI-AR, FI-AA, FI-BL, FI-CA, CO, TEKNİK…
@@ -19,9 +19,9 @@ SAP.registerTcodes([
   { kod:'FS00', ad:'G/L hesabı merkezi bakım', modul:'FI-GL', tur:'Ana Veri', konu:'master-data',
     aciklama:'Ana muhasebe hesabının hem hesap planı hem şirket kodu seviyesini tek ekranda oluşturur, değiştirir ve görüntüler. FI ana verisinin başlangıç noktasıdır.',
     fiori:'Manage G/L Account Master Data' },
-  { kod:'FSP0', ad:'G/L hesabı — hesap planı seviyesi', modul:'FI-GL', tur:'Ana Veri', konu:'master-data',
+  { kod:'FSP0', ad:'G/L hesabı: hesap planı seviyesi', modul:'FI-GL', tur:'Ana Veri', konu:'master-data',
     aciklama:'Hesabın yalnızca hesap planına ait bölümünü (numara, ad, hesap grubu, bilanço/gelir-gider ayrımı) yönetir.' },
-  { kod:'FSS0', ad:'G/L hesabı — şirket kodu seviyesi', modul:'FI-GL', tur:'Ana Veri', konu:'master-data',
+  { kod:'FSS0', ad:'G/L hesabı: şirket kodu seviyesi', modul:'FI-GL', tur:'Ana Veri', konu:'master-data',
     aciklama:'Hesabın şirket koduna özgü bölümünü (para birimi, vergi kategorisi, mutabakat hesabı, alan durumu grubu) yönetir.' },
   { kod:'FS10N', ad:'G/L hesap bakiyesi görüntüleme', modul:'FI-GL', tur:'Rapor', konu:'reporting',
     aciklama:'Bir ana muhasebe hesabının dönem dönem borç, alacak ve bakiye toplamlarını gösterir; satırdan kalem listesine inilir.' },
@@ -76,8 +76,8 @@ SAP.registerTcodes([
   { kod:'FBV0', ad:'Park edilmiş belgeyi kaydet / sil', modul:'FI', tur:'İşlem', konu:'document-parking',
     aciklama:'Park edilmiş belgeyi kontrol edip muhasebeleştirir veya siler. Park aşamasında silinen belge numarası boşa gider.' },
   { kod:'FBV2', ad:'Park edilmiş belgeyi değiştir', modul:'FI', tur:'İşlem', konu:'document-parking',
-    aciklama:'Park aşamasındaki belgede tutar dâhil her alan değiştirilebilir — muhasebeleşmiş belgeden farkı budur.' },
-  /* FBV3 aşağıda ayrıntılı tanımlı — çift kayıt kaldırıldı (bkz. Ders #26). */
+    aciklama:'Park aşamasındaki belgede tutar dâhil her alan değiştirilebilir: muhasebeleşmiş belgeden farkı budur.' },
+  /* FBV3 aşağıda ayrıntılı tanımlı: çift kayıt kaldırıldı (bkz. Ders #26). */
   { kod:'FBV4', ad:'Park edilmiş belgeyi onayla', modul:'FI', tur:'İşlem', konu:'document-parking',
     aciklama:'Tutar onay limiti tanımlıysa belgeyi onaylar; onaysız belge muhasebeleşemez.' },
 
@@ -125,10 +125,10 @@ SAP.registerTcodes([
     s4:'S/4HANA’da BP işlemine yönlendirir; klasik ekranlar kullanım dışıdır.' },
   { kod:'FK02', ad:'Satıcı ana verisi değiştir (muhasebe)', modul:'FI-AP', tur:'Ana Veri', konu:'master-data',
     aciklama:'Satıcının şirket kodu bölümünü günceller: ödeme koşulu, ödeme bloğu, mutabakat hesabı.',
-    s4:'S/4HANA’da kaldırıldı — BP kullanılır.' },
+    s4:'S/4HANA’da kaldırıldı: BP kullanılır.' },
   { kod:'FK03', ad:'Satıcı ana verisi görüntüle', modul:'FI-AP', tur:'Ana Veri', konu:'master-data',
     aciklama:'Satıcı muhasebe verisini salt okunur gösterir.',
-    s4:'S/4HANA’da kaldırıldı — BP kullanılır.' },
+    s4:'S/4HANA’da kaldırıldı: BP kullanılır.' },
   { kod:'XK02', ad:'Satıcı ana verisi değiştir (merkezi)', modul:'FI-AP', tur:'Ana Veri', konu:'master-data',
     aciklama:'Satıcının genel, şirket kodu ve satın alma bölümlerini birlikte günceller.',
     s4:'S/4HANA’da BP işlemine yönlendirir.' },
@@ -136,7 +136,7 @@ SAP.registerTcodes([
     aciklama:'Satıcının tüm bölümlerini salt okunur gösterir.' },
   { kod:'FD02', ad:'Müşteri ana verisi değiştir (muhasebe)', modul:'FI-AR', tur:'Ana Veri', konu:'master-data',
     aciklama:'Müşterinin şirket kodu bölümünü günceller: ödeme koşulu, ihtar prosedürü, ihtar bloğu.',
-    s4:'S/4HANA’da kaldırıldı — BP kullanılır.' },
+    s4:'S/4HANA’da kaldırıldı: BP kullanılır.' },
   { kod:'FD03', ad:'Müşteri ana verisi görüntüle', modul:'FI-AR', tur:'Ana Veri', konu:'master-data',
     aciklama:'Müşteri muhasebe verisini salt okunur gösterir.' },
   { kod:'XD02', ad:'Müşteri ana verisi değiştir (merkezi)', modul:'FI-AR', tur:'Ana Veri', konu:'master-data',
@@ -144,7 +144,7 @@ SAP.registerTcodes([
     s4:'S/4HANA’da BP işlemine yönlendirir.' },
   { kod:'XD03', ad:'Müşteri ana verisi görüntüle (merkezi)', modul:'FI-AR', tur:'Ana Veri', konu:'master-data',
     aciklama:'Müşterinin tüm bölümlerini salt okunur gösterir.' },
-  /* FS10N burada da tanımlıydı — çift kayıt kaldırıldı (bkz. Ders #26). */
+  /* FS10N burada da tanımlıydı: çift kayıt kaldırıldı (bkz. Ders #26). */
   { kod:'FBL3H', ad:'G/L kalem listesi (HANA optimize)', modul:'FI-GL', tur:'Rapor', konu:'reporting',
     aciklama:'{{FBL3N}}’in HANA için optimize edilmiş sürümü; büyük veri kümelerinde belirgin şekilde hızlıdır.' },
   { kod:'SE16H', ad:'Tablo görüntüleyici (HANA)', modul:'TEKNİK', tur:'Teknik', konu:'sap-tables',
@@ -165,7 +165,7 @@ SAP.registerTcodes([
     aciklama:'Bir şirket kodunun numara aralıklarını başka bir şirket koduna kopyalar.' },
   { kod:'BP', ad:'İş ortağı bakımı', modul:'FI', tur:'Ana Veri', konu:'master-data',
     aciklama:'S/4HANA’da müşteri ve satıcı ana verisinin tek giriş noktası. Rol (role) kavramıyla aynı kişi hem müşteri hem satıcı olabilir.',
-    s4:'S/4HANA’da zorunlu tek yaklaşım (Customer/Vendor Integration — CVI).',
+    s4:'S/4HANA’da zorunlu tek yaklaşım (Customer/Vendor Integration: CVI).',
     fiori:'Maintain Business Partner' },
   { kod:'FBL1N', ad:'Satıcı kalem listesi', modul:'FI-AP', tur:'Rapor', konu:'accounts-payable',
     aciklama:'Satıcının açık ve kapalı kalemlerini listeler; borç yaşlandırma ve mutabakatın temel raporu.',
@@ -173,7 +173,7 @@ SAP.registerTcodes([
   { kod:'FK10N', ad:'Satıcı bakiye görüntüleme', modul:'FI-AP', tur:'Rapor', konu:'accounts-payable',
     aciklama:'Satıcının dönemsel borç/alacak toplamlarını ve bakiyesini gösterir.' },
   { kod:'MIRO', ad:'Lojistik fatura doğrulama', modul:'MM-IV', tur:'İşlem', konu:'mm-integration',
-    aciklama:'Satınalma siparişine ve mal girişine dayalı satıcı faturasını kaydeder; üç yönlü eşleştirmeyi (sipariş–mal girişi–fatura) burada yapar.' },
+    aciklama:'Satınalma siparişine ve mal girişine dayalı satıcı faturasını kaydeder; üç yönlü eşleştirmeyi (sipariş-mal girişi-fatura) burada yapar.' },
   { kod:'MIR4', ad:'Lojistik faturayı görüntüle/değiştir', modul:'MM-IV', tur:'Rapor', konu:'accounts-payable',
     aciklama:'{{MIRO}} ile girilen MM fatura belgesini açar. {{MIRO}} iki numara üretir (MM faturası ve FI belgesi); MM numarası {{FB03}}’te aranmaz, buradan açılıp *Takip belgeleri* ile FI belgesine geçilir.' },
   { kod:'MIR5', ad:'Lojistik fatura listesi', modul:'MM-IV', tur:'Rapor', konu:'accounts-payable',
@@ -181,7 +181,7 @@ SAP.registerTcodes([
   { kod:'MIGO', ad:'Mal hareketi', modul:'MM-IM', tur:'İşlem', konu:'mm-integration',
     aciklama:'Mal girişi/çıkışı kaydeder. Mal girişi FI’da stok ve GR/IR kaydını otomatik doğurur.' },
   { kod:'MR8M', ad:'Lojistik faturayı iptal et', modul:'MM-IV', tur:'İşlem', konu:'mm-integration',
-    aciklama:'{{MIRO}} ile girilmiş faturayı iptal eder ve FI belgesini ters kaydeder. **MM faturası FI’dan ({{FB08}}) iptal edilmemelidir** — MM tarafı tutarsız kalır.' },
+    aciklama:'{{MIRO}} ile girilmiş faturayı iptal eder ve FI belgesini ters kaydeder. **MM faturası FI’dan ({{FB08}}) iptal edilmemelidir**: MM tarafı tutarsız kalır.' },
   { kod:'MM03', ad:'Malzeme ana verisi görüntüle', modul:'MM', tur:'Ana Veri', konu:'mm-integration',
     aciklama:'Malzemenin muhasebe görünümünü gösterir: {{degerleme-sinifi}}, {{fiyat-kontrolu}} (S/V), standart ve hareketli ortalama fiyat.' },
   { kod:'MB51', ad:'Malzeme belgesi listesi', modul:'MM-IM', tur:'Rapor', konu:'mm-integration',
@@ -238,7 +238,7 @@ SAP.registerTcodes([
     aciklama:'{{FBL5N}}’in HANA için optimize edilmiş sürümü.' },
   { kod:'FD01', ad:'Müşteri ana verisi oluştur (muhasebe)', modul:'FI-AR', tur:'Ana Veri', konu:'master-data',
     aciklama:'Müşterinin şirket kodu bölümünü oluşturur.',
-    s4:'S/4HANA’da kaldırıldı — BP kullanılır.' },
+    s4:'S/4HANA’da kaldırıldı: BP kullanılır.' },
   { kod:'XD01', ad:'Müşteri ana verisi oluştur (merkezi)', modul:'FI-AR', tur:'Ana Veri', konu:'master-data',
     aciklama:'Genel, şirket kodu ve satış alanı bölümlerini birlikte oluşturur.',
     s4:'S/4HANA’da BP’ye yönlendirir.' },
@@ -250,7 +250,7 @@ SAP.registerTcodes([
   { kod:'VF01', ad:'Fatura oluştur (SD)', modul:'SD-BIL', tur:'İşlem', konu:'sd-integration',
     aciklama:'Satış siparişi/teslimat üzerinden SD faturası keser; kaydedildiğinde FI’da müşteri alacağı ve gelir kaydı otomatik oluşur.' },
   { kod:'VF11', ad:'SD faturasını iptal et', modul:'SD-BIL', tur:'İşlem', konu:'sd-integration',
-    aciklama:'SD faturasını iptal eder ve FI belgesini ters kaydeder. **SD faturası FI’dan ({{FB08}}) iptal edilmemelidir** — SD tarafı "faturalanmış" kalır.' },
+    aciklama:'SD faturasını iptal eder ve FI belgesini ters kaydeder. **SD faturası FI’dan ({{FB08}}) iptal edilmemelidir**: SD tarafı "faturalanmış" kalır.' },
   { kod:'VF02', ad:'Faturayı değiştir / muhasebeye aktar', modul:'SD-BIL', tur:'İşlem', konu:'sd-integration',
     aciklama:'Muhasebeye aktarılamamış SD faturasını yeniden aktarmak için kullanılır; hesap belirleme hatalarının çözüm noktası.' },
   /* ------------------------------------------------ Kontrolörlük (CO) --- */
@@ -275,10 +275,10 @@ SAP.registerTcodes([
   { kod:'KSV5', ad:'Maliyet yeri devri (assessment)', modul:'CO', tur:'Toplu İşlem', konu:'cost-center',
     aciklama:'Masrafları **devir masraf türü** (kategori 42) altında toplayarak hedeflere aktarır; orijinal türler görünmez.' },
   { kod:'KB11N', ad:'CO içi elle yeniden kayıt', modul:'CO', tur:'İşlem', konu:'cost-center',
-    aciklama:'Yanlış maliyet yerine düşen gideri CO içinde taşır. **FI belgesi oluşmaz** — mizan değişmez, yalnızca CO nesnesi değişir.' },
+    aciklama:'Yanlış maliyet yerine düşen gideri CO içinde taşır. **FI belgesi oluşmaz**: mizan değişmez, yalnızca CO nesnesi değişir.' },
   { kod:'KP06', ad:'Maliyet yeri planlaması', modul:'CO', tur:'İşlem', konu:'cost-center',
-    aciklama:'Maliyet yeri ve masraf türü bazında bütçe/plan değeri girer; plan–gerçek karşılaştırmasının kaynağıdır.' },
-  /* KSB1 aşağıda ayrıntılı tanımlı — çift kayıt kaldırıldı (bkz. Ders #26). */
+    aciklama:'Maliyet yeri ve masraf türü bazında bütçe/plan değeri girer; plan-gerçek karşılaştırmasının kaynağıdır.' },
+  /* KSB1 aşağıda ayrıntılı tanımlı: çift kayıt kaldırıldı (bkz. Ders #26). */
   { kod:'S_ALR_87013611', ad:'Maliyet yeri plan/gerçek karşılaştırma', modul:'CO', tur:'Rapor', konu:'cost-center',
     aciklama:'Maliyet yeri bazında plan, gerçek ve sapmayı masraf türü kırılımıyla gösterir; yönetim raporlamasının temel çıktısıdır.' },
   { kod:'OKKP', ad:'Kontrol alanı ayarları', modul:'CO', tur:'Özelleştirme', konu:'co-integration',
@@ -299,26 +299,26 @@ SAP.registerTcodes([
   { kod:'OB45', ad:'Kredi kontrol alanı tanımla', modul:'FI-AR', tur:'Özelleştirme', konu:'org-yapisi',
     aciklama:'{{kredi-limiti}} kontrolünün yapıldığı organizasyon birimini tanımlar; şirket kodlarına atanır.' },
   /* ------------------------------------------------------- E-Dönüşüm --- */
-  { kod:'EDOC_COCKPIT', ad:'eDocument Cockpit — e-belge izleme merkezi', modul:'FI', tur:'Rapor', konu:'e-donusum',
-    aciklama:'E-belgelerin **statüsünü** gösteren ana ekran: oluştu, gönderildi, kabul, **red**, hata. Muhasebe belgesi başarılı olsa bile e-belge burada **hata** durumunda olabilir — bu yüzden günlük kontrol edilir.' },
+  { kod:'EDOC_COCKPIT', ad:'eDocument Cockpit: e-belge izleme merkezi', modul:'FI', tur:'Rapor', konu:'e-donusum',
+    aciklama:'E-belgelerin **statüsünü** gösteren ana ekran: oluştu, gönderildi, kabul, **red**, hata. Muhasebe belgesi başarılı olsa bile e-belge burada **hata** durumunda olabilir: bu yüzden günlük kontrol edilir.' },
   { kod:'EDOC_RESUBMIT', ad:'Başarısız e-belgeyi yeniden gönder', modul:'FI', tur:'İşlem', konu:'e-donusum',
     aciklama:'Hata durumundaki e-belgeleri **toplu** yeniden gönderir. Geçici iletişim hatalarında kullanılır; kalıcı veri hatasında önce **kaynak veri** düzeltilmelidir.' },
 
   { kod:'OBC4', ad:'Alan durumu değişkeni ve grupları', modul:'FI-GL', tur:'Özelleştirme', konu:'error-handling',
-    aciklama:'G/L hesaplarının **alan durumu gruplarını** tanımlar: hangi alan zorunlu, opsiyonel veya gizli. {{OB41}} kayıt anahtarı alan durumuyla birlikte değerlendirilir — **daha kısıtlayıcı olan kazanır**.' },
+    aciklama:'G/L hesaplarının **alan durumu gruplarını** tanımlar: hangi alan zorunlu, opsiyonel veya gizli. {{OB41}} kayıt anahtarı alan durumuyla birlikte değerlendirilir: **daha kısıtlayıcı olan kazanır**.' },
   { kod:'F.03', ad:'FI mutabakat (ECC)', modul:'FI-GL', tur:'Rapor', konu:'error-handling',
-    aciklama:'ECC’de belge, indeks ve toplam tabloları arasındaki tutarsızlıkları arardı. **S/4HANA’da gereksizdir** — {{ACDOCA}} tek kaynak olduğu için tutarsızlık yapısal olarak imkânsızdır.' },
+    aciklama:'ECC’de belge, indeks ve toplam tabloları arasındaki tutarsızlıkları arardı. **S/4HANA’da gereksizdir**: {{ACDOCA}} tek kaynak olduğu için tutarsızlık yapısal olarak imkânsızdır.' },
   { kod:'OBB8', ad:'Ödeme koşullarını tanımla', modul:'FI', tur:'Özelleştirme', konu:'master-data',
-    aciklama:'Vade hesaplama ve iskonto kurallarını tanımlar. Veri geçişinde eski sistemdeki ödeme koşulu kodu burada **tanımlı değilse** yükleme o satırlarda durur — {{konu:lsmw}}’de sık görülen bir veri temizliği kalemidir.' },
-  { kod:'SE37', ad:'Fonksiyon modülü — test ve inceleme', modul:'TEKNİK', tur:'Teknik', konu:'data-upload',
-    aciklama:'{{bapi}}’ları **tek kayıtla test etmenin** yeridir. Test ederken `BAPI_TRANSACTION_COMMIT` çağrılmazsa kayıt **yazılmaz** — BAPI’nin en sık atlanan kuralı.' },
+    aciklama:'Vade hesaplama ve iskonto kurallarını tanımlar. Veri geçişinde eski sistemdeki ödeme koşulu kodu burada **tanımlı değilse** yükleme o satırlarda durur: {{konu:lsmw}}’de sık görülen bir veri temizliği kalemidir.' },
+  { kod:'SE37', ad:'Fonksiyon modülü: test ve inceleme', modul:'TEKNİK', tur:'Teknik', konu:'data-upload',
+    aciklama:'{{bapi}}’ları **tek kayıtla test etmenin** yeridir. Test ederken `BAPI_TRANSACTION_COMMIT` çağrılmazsa kayıt **yazılmaz**: BAPI’nin en sık atlanan kuralı.' },
   { kod:'WE20', ad:'Partner profilleri', modul:'TEKNİK', tur:'Özelleştirme', konu:'data-upload',
-    aciklama:'Hangi partnerden hangi {{idoc}} mesaj tipinin kabul edileceğini tanımlar. Profil yoksa IDoc **statü 56** ile reddedilir — *"IDoc geldi ama işlenmedi"* vakasının en sık sebebi.' },
+    aciklama:'Hangi partnerden hangi {{idoc}} mesaj tipinin kabul edileceğini tanımlar. Profil yoksa IDoc **statü 56** ile reddedilir: *"IDoc geldi ama işlenmedi"* vakasının en sık sebebi.' },
   { kod:'SM21', ad:'Sistem günlüğü (system log)', modul:'TEKNİK', tur:'Teknik', konu:'error-handling',
     aciklama:'Sistem seviyesindeki olayları gösterir: kilitlenme, veritabanı sorunu, işlem sonlanması. **Uygulama hatası değil sistem hatası** aranıyorsa buraya bakılır.' },
   { kod:'SU01', ad:'Kullanıcı bakımı', modul:'TEKNİK', tur:'Teknik', konu:'error-handling',
     aciklama:'Kullanıcının rollerini, geçerlilik tarihini ve kilit durumunu gösterir. *"Dün çalışıyordu bugün çalışmıyor"* vakalarında **rol geçerlilik tarihi** ilk bakılacak yerdir.' },
-  { kod:'SU3', ad:'Kendi kullanıcı verisi — varsayılan parametreler', modul:'TEKNİK', tur:'Teknik', konu:'tcodes',
+  { kod:'SU3', ad:'Kendi kullanıcı verisi: varsayılan parametreler', modul:'TEKNİK', tur:'Teknik', konu:'tcodes',
     aciklama:'**Parametreler** sekmesinde alan varsayılanları tanımlanır: `BUK` şirket kodu, `GJR` mali yıl, `CAC` kontrol alanı. Her ekranda aynı değeri yazmayı bitirir.' },
   { kod:'SMEN', ad:'SAP Easy Access menüsüne dön', modul:'TEKNİK', tur:'Teknik', konu:'tcodes',
     aciklama:'Ana menüye döner. İşlem kodunu bilmediğinde **menü ağacında gezinmek** kodu bulmanın en güvenilir yoludur.' },
@@ -361,7 +361,7 @@ SAP.registerTcodes([
   { kod:'OB46', ad:'Faiz hesaplama tipi tanımı', modul:'FI-AR', tur:'Özelleştirme', konu:'dunning',
     aciklama:'Gecikme faizi hesaplama tiplerini ve oranlarını tanımlar; {{F.2B}} bu ayarları kullanır.' },
   { kod:'PFCG', ad:'Rol yönetimi (yetkilendirme)', modul:'TEKNİK', tur:'Teknik', konu:'document-parking',
-    aciklama:'Kullanıcı rollerini ve işlem yetkilerini tanımlar. **Dört-göz prensibi burada kurulur** — park eden kullanıcıda {{FBV0}} yetkisi olmamalıdır.' },
+    aciklama:'Kullanıcı rollerini ve işlem yetkilerini tanımlar. **Dört-göz prensibi burada kurulur**: park eden kullanıcıda {{FBV0}} yetkisi olmamalıdır.' },
 
   { kod:'FBV3', ad:'Ön kayıtlı belgeyi görüntüle', modul:'FI-GL', tur:'Rapor', konu:'document-parking',
     aciklama:'Park edilmiş belgeyi salt okunur gösterir; onay öncesi inceleme için kullanılır.' },
@@ -388,7 +388,7 @@ SAP.registerTcodes([
   { kod:'ABAA', ad:'Olağandışı amortisman', modul:'FI-AA', tur:'İşlem', konu:'asset-accounting',
     aciklama:'Planlanan amortismanın dışında, değer düşüklüğü nedeniyle elle amortisman kaydeder (hasar, teknolojik eskime).' },
   { kod:'AFAMA', ad:'Amortisman anahtarı tanımı', modul:'FI-AA', tur:'Özelleştirme', konu:'asset-accounting',
-    aciklama:'Amortismanın nasıl hesaplanacağını tanımlar. Kendisi hesaplama yapmaz — **beş hesaplama yöntemini birleştirir**: temel ({{AFAMR}}), azalan bakiyeler ({{AFAMD}}), çok seviyeli ({{AFAMS}}), dönem kontrolü ({{AFAMP}}), azami tutar.' },
+    aciklama:'Amortismanın nasıl hesaplanacağını tanımlar. Kendisi hesaplama yapmaz: **beş hesaplama yöntemini birleştirir**: temel ({{AFAMR}}), azalan bakiyeler ({{AFAMD}}), çok seviyeli ({{AFAMS}}), dönem kontrolü ({{AFAMP}}), azami tutar.' },
   { kod:'AFAMR', ad:'Temel yöntem (base method) tanımı', modul:'FI-AA', tur:'Özelleştirme', konu:'asset-accounting',
     aciklama:'Amortismanın temel mantığını belirler: doğrusal mı azalan mı, oran mı {{faydali-omur}} mü esas, **ömür bittiğinde ne olacak**, çıkış yılında nasıl davranılacak.' },
   { kod:'AFAMD', ad:'Azalan bakiyeler yöntemi tanımı', modul:'FI-AA', tur:'Özelleştirme', konu:'asset-accounting',
@@ -438,7 +438,7 @@ SAP.registerTcodes([
     aciklama:'Varlık sınıfına göre hangi bilanço, amortisman ve satış kâr/zarar hesaplarının kullanılacağını tanımlar.' },
 
   /* ---------------------------------------------- Banka / Nakit (FI-BL) --- */
-  /* OB28 / OBBH burada tanımlıydı — dogrulama-ikame konusundaki ayrıntılı
+  /* OB28 / OBBH burada tanımlıydı: dogrulama-ikame konusundaki ayrıntılı
      kayıtlarla ÇİFTLENİYORDU. Tek kayıt bırakıldı (bkz. Ders #26). */
   { kod:'FI01', ad:'Banka ana verisi oluştur', modul:'FI-BL', tur:'Ana Veri', konu:'bank-accounting',
     aciklama:'Ülke + banka anahtarı bazında banka kaydı açar ({{BNKA}}). Hem şirketin hem iş ortaklarının bankaları buraya yazılır.' },
@@ -514,7 +514,7 @@ SAP.registerTcodes([
 
   /* -------------------------------------------------- Yapılandırma ----- */
   { kod:'OBYC', ad:'MM otomatik hesap belirleme', modul:'MM-FI', tur:'Özelleştirme', konu:'mm-integration',
-    aciklama:'Mal hareketlerinin hangi G/L hesaplarına gideceğini işlem anahtarı (BSX, WRX, GBB, PRD…) bazında tanımlar. MM–FI entegrasyonunun merkezidir.' },
+    aciklama:'Mal hareketlerinin hangi G/L hesaplarına gideceğini işlem anahtarı (BSX, WRX, GBB, PRD…) bazında tanımlar. MM-FI entegrasyonunun merkezidir.' },
   { kod:'VKOA', ad:'SD gelir hesabı belirleme', modul:'SD-FI', tur:'Özelleştirme', konu:'sd-integration',
     aciklama:'SD faturasının gelir, iskonto ve navlun tutarlarının hangi G/L hesabına gideceğini tanımlar.' },
   { kod:'OBA7', ad:'Belge türü tanımı', modul:'FI', tur:'Özelleştirme', konu:'document-posting',
@@ -595,9 +595,9 @@ SAP.registerTcodes([
   { kod:'FINSC_LEDGER', ad:'Defter tanımı (S/4HANA)', modul:'FI-GL', tur:'Özelleştirme', konu:'parallel-ledger',
     aciklama:'Lider ve ek defterleri, defter gruplarını, para birimlerini ve mali yıl varyantlarını tanımlar. S/4HANA’da defter mimarisinin tek giriş noktasıdır.',
     s4:'ECC’deki ayrı defter tanımı işlemlerinin yerini aldı.' },
-  { kod:'FB01L', ad:'Belge kaydet — defter grubu ile', modul:'FI-GL', tur:'İşlem', konu:'parallel-ledger',
+  { kod:'FB01L', ad:'Belge kaydet: defter grubu ile', modul:'FI-GL', tur:'İşlem', konu:'parallel-ledger',
     aciklama:'Yalnızca belirli bir deftere (veya defter grubuna) kayıt atar; IFRS/yerel farklarının girildiği ekrandır.' },
-  { kod:'FB50L', ad:'G/L kaydı — defter grubu ile', modul:'FI-GL', tur:'İşlem', konu:'parallel-ledger',
+  { kod:'FB50L', ad:'G/L kaydı: defter grubu ile', modul:'FI-GL', tur:'İşlem', konu:'parallel-ledger',
     aciklama:'{{FB50}}’nin defter grubu alanı eklenmiş hâli; defter bazlı düzeltme kayıtları için kullanılır.' },
 
   /* ------------------------------------------- Özel ana muhasebe (SGL) --- */
@@ -611,7 +611,7 @@ SAP.registerTcodes([
 
   /* ------------------------------------ Veri geçişi ve taşıma partisi --- */
   { kod:'AS91', ad:'Devir varlığı oluştur (eski veriden)', modul:'FI-AA', tur:'Ana Veri', konu:'migration',
-    aciklama:'Geçişte varlığı **birikmiş amortismanıyla birlikte** açar; normal {{AS01}}\u2019den farkı, geçmiş değerlerin elle girilmesidir. Bakiyeler G/L tarafına ayrıca aktarılır — bu işlem muhasebe kaydı üretmez.' },
+    aciklama:'Geçişte varlığı **birikmiş amortismanıyla birlikte** açar; normal {{AS01}}\u2019den farkı, geçmiş değerlerin elle girilmesidir. Bakiyeler G/L tarafına ayrıca aktarılır: bu işlem muhasebe kaydı üretmez.' },
 
   { kod:'SE09', ad:'Taşıma organizatörü', modul:'Teknik', tur:'Teknik', konu:'best-practices',
     aciklama:'Taşıma isteklerini görüntüler, serbest bırakır ve içeriğini ({{E071}}) gösterir. Bir isteğin neyi taşıdığını görmenin en hızlı yolu.' },
@@ -626,13 +626,13 @@ SAP.registerTcodes([
     aciklama:'Sürüm yükseltme sırasında **veri sözlüğü** nesnelerindeki (tablo, alan) müşteri değişikliklerini uyarlar. Bu adım atlanırsa veri kaybı olabilir; {{SPAU}}\u2019dan önce gelir.' },
 
   { kod:'SPAU', ad:'Program nesnelerinde modifikasyon uyarlaması', modul:'Teknik', tur:'Teknik', konu:'migration',
-    aciklama:'Sürüm yükseltmede program, ekran ve fonksiyon modüllerindeki müşteri değişikliklerini uyarlar. {{brownfield}} geçişinin en çok emek isteyen adımlarından biridir — {{z-gelistirme}} ne kadar çoksa o kadar uzar.' },
+    aciklama:'Sürüm yükseltmede program, ekran ve fonksiyon modüllerindeki müşteri değişikliklerini uyarlar. {{brownfield}} geçişinin en çok emek isteyen adımlarından biridir: {{z-gelistirme}} ne kadar çoksa o kadar uzar.' },
 
   { kod:'SAT', ad:'Çalışma zamanı analizi', modul:'Teknik', tur:'Teknik', konu:'s4-yenilikleri',
     aciklama:'Bir programın zamanı nerede harcadığını ölçer (eski adı SE30). S/4HANA sonrası *\u201cneden yavaşladı?\u201d* sorusunda {{ST05}} ile birlikte kullanılır: {{uyumluluk-view}} okuyan kod burada görünür.' },
 
   { kod:'SCC4', ad:'İstemci ayarları ve koruma', modul:'Teknik', tur:'Teknik', konu:'best-practices',
-    aciklama:'Her istemcinin özelleştirmeye açık olup olmadığını belirler. Canlı istemcide özelleştirme **kapalıdır** — bu bir hata değil, koruma. Tek istisna {{akim-verisi}} tablolarıdır; onlar canlıda da değiştirilir.' },
+    aciklama:'Her istemcinin özelleştirmeye açık olup olmadığını belirler. Canlı istemcide özelleştirme **kapalıdır**: bu bir hata değil, koruma. Tek istisna {{akim-verisi}} tablolarıdır; onlar canlıda da değiştirilir.' },
 
   /* ------------------------------------------ Geliştirme / genişletme ---
      BAPI ve BAdI konularının dayandığı kodlar. FI danışmanı bunları
@@ -640,11 +640,11 @@ SAP.registerTcodes([
      hangi genişletmenin nerede durduğunu okuyabilmelidir. */
   { kod:'BAPI', ad:'BAPI Explorer', modul:'Teknik', tur:'Teknik', konu:'bapi',
     aciklama:'Bütün {{bapi}}’leri iş nesnesine göre ağaç halinde gösterir: parametreler, dokümantasyon ve örnek kullanım tek ekranda. Hangi BAPI’nin var olduğunu aramanın doğru yeri burasıdır; {{SE37}} yalnızca adını bildiğin fonksiyonu açar.' },
-  /* SE37 zaten yukarıda (satır ~313) tanımlı — çift kayıt YOK (Ders #26). */
+  /* SE37 zaten yukarıda (satır ~313) tanımlı: çift kayıt YOK (Ders #26). */
   { kod:'SE80', ad:'Nesne gezgini (Object Navigator)', modul:'Teknik', tur:'Teknik', konu:'badi',
     aciklama:'Paket, program, sınıf, fonksiyon grubu ve genişletmelerin tek ağaçta gezildiği geliştirme ortamı. Bir {{badi}} uygulamasının hangi pakete ait olduğunu ve kimin taşıdığını buradan görürsün.' },
   { kod:'SE18', ad:'BAdI tanımı (definition)', modul:'Teknik', tur:'Teknik', konu:'badi',
-    aciklama:'SAP’ın bıraktığı **kancanın tanımını** gösterir: arayüz, metotlar, çoklu uygulamaya izin verip vermediği ve filtre desteği. Genişletme yazmadan önce bakılacak ilk ekran — "burada bir kanca var mı?" sorusunun cevabı.' },
+    aciklama:'SAP’ın bıraktığı **kancanın tanımını** gösterir: arayüz, metotlar, çoklu uygulamaya izin verip vermediği ve filtre desteği. Genişletme yazmadan önce bakılacak ilk ekran: "burada bir kanca var mı?" sorusunun cevabı.' },
   { kod:'SE19', ad:'BAdI uygulaması (implementation)', modul:'Teknik', tur:'Teknik', konu:'badi',
     aciklama:'Tanımlı bir {{badi}}’ye **kendi kodunu** bağlar ve aktif/pasif eder. Canlıda beklenmedik davranışın kaynağı sıklıkla burada duran, kimsenin haberdar olmadığı aktif bir uygulamadır.' },
   { kod:'SE24', ad:'Sınıf oluşturucu (Class Builder)', modul:'Teknik', tur:'Teknik', konu:'badi',

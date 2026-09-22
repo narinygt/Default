@@ -1,5 +1,5 @@
 /* ==========================================================================
-   content/fi/parallel-ledger.js — "Parallel Ledger (Paralel Defter)"
+   content/fi/parallel-ledger.js: "Parallel Ledger (Paralel Defter)"
    ========================================================================== */
 
 SAP.registerTopic({
@@ -26,7 +26,7 @@ SAP.registerTopic({
       '**Yasal zorunluluk.** Halka açık şirketler ve büyük ölçekli işletmeler ' +
       'hem yerel mevzuata hem uluslararası standartlara göre rapor verir.\n\n' +
       '**Farklı değerleme kuralları.** Amortisman süresi, karşılık ölçütleri, ' +
-      'kiralama muhasebesi, gelir tanıma zamanı — standartlara göre değişir.\n\n' +
+      'kiralama muhasebesi, gelir tanıma zamanı: standartlara göre değişir.\n\n' +
       '**Tek sistem, tek doğruluk kaynağı.** Alternatif, ikinci bir muhasebe sistemi ' +
       'veya Excel’de düzeltme tabloları tutmaktır; ikisi de denetlenebilir değildir.\n\n' +
       '**İzlenebilirlik.** Her farkın hangi defterde, hangi belgeyle, hangi gerekçeyle ' +
@@ -34,7 +34,7 @@ SAP.registerTopic({
 
     sirketOnemi:
       'Paralel defter, bir şirketin **muhasebe olgunluk seviyesinin göstergesidir**. ' +
-      'Kurulumu zordur, işletmesi disiplin ister — ama alternatifi ' +
+      'Kurulumu zordur, işletmesi disiplin ister: ama alternatifi ' +
       '"IFRS düzeltmelerini Excel’de tutmak"tır ve bu, denetimde en çok eleştirilen uygulamadır.\n\n' +
       'Danışman açısından bu konu **{{new-gl}} ile {{asset-accounting}} arasındaki köprüdür**: ' +
       'paralel defterin gerçek hayattaki en yoğun kullanım alanı duran varlıklardır, ' +
@@ -49,11 +49,11 @@ SAP.registerTopic({
       '**IFRS:** makinenin gerçek faydalı ömrü 8 yıl → yılda 150.000 TL.\n\n' +
       'Aynı varlık, aynı maliyet, **farklı gider**. Fark yılda 30.000 TL.\n\n' +
       'Bu farkı nasıl yönetirsiniz? Üç yol vardır:\n\n' +
-      '**1. Excel’de tutmak** — denetlenebilir değil, hata riski yüksek, ' +
+      '**1. Excel’de tutmak**: denetlenebilir değil, hata riski yüksek, ' +
       'her ay elle güncellenir.\n\n' +
-      '**2. İki ayrı varlık kaydı açmak** — varlık iki kez görünür, envanter bozulur, ' +
+      '**2. İki ayrı varlık kaydı açmak**: varlık iki kez görünür, envanter bozulur, ' +
       'satışta iki kayıt kapatılır.\n\n' +
-      '**3. Paralel defter** — tek varlık, iki {{amortisman-alani}}, her alan bir deftere yazar. ' +
+      '**3. Paralel defter**: tek varlık, iki {{amortisman-alani}}, her alan bir deftere yazar. ' +
       'Satın alma tek kayıt (tüm defterlere), amortisman defter bazlı. **Doğru çözüm budur.**',
 
     muhasebeMantigi:
@@ -82,7 +82,7 @@ SAP.registerTopic({
       'Günlük işlemlerin %95’i birinci soruya "evet" der ve hiçbir ek çaba gerektirmez.',
 
     roller:[
-      { rol:'Kullanıcı', gorev:'Normal işlemleri girer — **defter alanına dokunmaz**, kayıt tüm defterlere gider.' },
+      { rol:'Kullanıcı', gorev:'Normal işlemleri girer: **defter alanına dokunmaz**, kayıt tüm defterlere gider.' },
       { rol:'Ana muhasebe', gorev:'Standart farkı olan kayıtları {{FB01L}} / {{FB50L}} ile **tek deftere** girer.' },
       { rol:'Duran varlık muhasebesi', gorev:'{{AFAB}} çalıştırır; her {{amortisman-alani}} kendi defterine yazar.' },
       { rol:'FI danışmanı', gorev:'{{FINSC_LEDGER}} ile defterleri, defter gruplarını ve alan↔defter eşleşmesini tasarlar.' },
@@ -98,7 +98,7 @@ SAP.registerTopic({
           aciklama:'Satış, alış, tahsilat, ödeme → **evet**. ' +
                    'Amortisman, karşılık, kiralama, değerleme → **hayır**.',
           cikti:'Karar', ok:'aynıysa' },
-        { ic:'📝', rol:'Kullanıcı', baslik:'Normal kayıt — **defter grubu boş**',
+        { ic:'📝', rol:'Kullanıcı', baslik:'Normal kayıt: **defter grubu boş**',
           aciklama:'{{FB60}} / {{FB70}} / {{MIRO}} ile normal giriş. ' +
                    'Defter grubu boş olduğu için kayıt **tüm defterlere** gider.',
           cikti:'Tüm defterlerde aynı kayıt', ok:'farklıysa' },
@@ -106,7 +106,7 @@ SAP.registerTopic({
           aciklama:'Defter grubu **belirtilir**; kayıt yalnızca o deftere gider. ' +
                    'Diğer defterler etkilenmez.',
           cikti:'Tek defterde kayıt', ok:'varlıklarda' },
-        { ic:'🏭', rol:'Duran varlık', baslik:'{{AFAB}} — alanlar defterlere yazar',
+        { ic:'🏭', rol:'Duran varlık', baslik:'{{AFAB}}: alanlar defterlere yazar',
           aciklama:'Her {{amortisman-alani}} bir defter grubuna bağlıdır. ' +
                    'Alan 01 → lider defter, alan 32 → IFRS defteri.',
           cikti:'Defter bazlı amortisman', ok:'dönem sonu' },
@@ -122,18 +122,18 @@ SAP.registerTopic({
 
     adimlar:[
       { rol:'Danışman', eylem:'Defterleri tanımlar', sistem:'{{FINSC_LEDGER}} → {{T881}}' },
-      { rol:'Danışman', eylem:'Amortisman alanlarını defterlere bağlar', sistem:'{{OADB}} — AA ↔ defter köprüsü' },
+      { rol:'Danışman', eylem:'Amortisman alanlarını defterlere bağlar', sistem:'{{OADB}}: AA ↔ defter köprüsü' },
       { rol:'Kullanıcı', eylem:'Normal işlemleri girer', sistem:'Defter grubu **boş** → tüm defterler' },
       { rol:'Ana muhasebe', eylem:'Standart farkını girer', sistem:'{{FB01L}} / {{FB50L}} → tek defter' },
       { rol:'Duran varlık', eylem:'Amortisman çalıştırır', sistem:'{{AFAB}} → alan bazında defterler' },
       { rol:'Raporlama', eylem:'Defter bazlı rapor alır', sistem:'{{FAGLB03}}, {{FAGLL03}}' },
-      { rol:'Ana muhasebe', eylem:'Bakiye devrini yapar', sistem:'{{FAGLGVTR}} — **her defter için**' },
+      { rol:'Ana muhasebe', eylem:'Bakiye devrini yapar', sistem:'{{FAGLGVTR}}: **her defter için**' },
     ],
 
     veriAkisi:{
       nereden:'Defter tanımları ({{T881}}), amortisman alanı ↔ defter eşleşmesi, ' +
               'kullanıcının seçtiği defter grubu.',
-      nereye:'{{ACDOCA}} — her satır `RLDNR` (defter) alanı taşır; defter bazlı raporlar.',
+      nereye:'{{ACDOCA}}: her satır `RLDNR` (defter) alanı taşır; defter bazlı raporlar.',
       tetikleyen:'Her kayıt. Defter grubu boşsa tüm defterlere, doluysa yalnızca o gruba.',
       sonraki:'Defter bazlı kapanış, standart bazlı mali tablolar, denetim.',
     },
@@ -161,16 +161,16 @@ SAP.registerTopic({
       'iki defterde **farklı kâr/zarar** çıkar.',
 
     etkilenenHesaplar:[
-      { hesap:'253 Tesis, makine ve cihazlar', tur:'Bilanço — Varlık', neden:'Satın alma her iki defterde aynı — **olgu tektir**.' },
-      { hesap:'257 Birikmiş amortisman', tur:'Bilanço — Varlık (eksi)', neden:'**Defterlere göre farklı** — değerleme yargısı.' },
+      { hesap:'253 Tesis, makine ve cihazlar', tur:'Bilanço, Varlık', neden:'Satın alma her iki defterde aynı, **olgu tektir**.' },
+      { hesap:'257 Birikmiş amortisman', tur:'Bilanço, Varlık (eksi)', neden:'**Defterlere göre farklı**, değerleme yargısı.' },
       { hesap:'770 Amortisman gideri', tur:'Gelir tablosu', neden:'Her defter kendi tutarını taşır.' },
-      { hesap:'Karşılık hesapları', tur:'Bilanço — Kaynak', neden:'IFRS ve yerel mevzuat farklı ölçütler kullanır.' },
-      { hesap:'Kullanım hakkı varlığı (IFRS 16)', tur:'Bilanço — Varlık', neden:'Yalnızca IFRS defterinde bulunur; yerel defterde yoktur.' },
+      { hesap:'Karşılık hesapları', tur:'Bilanço: Kaynak', neden:'IFRS ve yerel mevzuat farklı ölçütler kullanır.' },
+      { hesap:'Kullanım hakkı varlığı (IFRS 16)', tur:'Bilanço: Varlık', neden:'Yalnızca IFRS defterinde bulunur; yerel defterde yoktur.' },
       { hesap:'689 / 649 Diğer gider-gelir', tur:'Gelir tablosu', neden:'Varlık satışında iki defterde farklı kâr/zarar doğar.' },
     ],
 
     fisler:[
-      { baslik:'Adım 1 — Makine satın alınır · **tüm defterlere** (defter grubu boş)',
+      { baslik:'Adım 1: Makine satın alınır · **tüm defterlere** (defter grubu boş)',
         belgeTuru:'KR', tarih:'02.01.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'253', ad:'Tesis, makine ve cihazlar', borc:1200000, not:'Her iki defterde **aynı**' },
@@ -182,7 +182,7 @@ SAP.registerTopic({
              'Doğru davranış budur: "1.200.000 TL’ye makine alındı" bir **olgudur**, ' +
              'hiçbir standart bunu farklı görmez.' },
 
-      { baslik:'Adım 2a — Yıllık amortisman · **lider defter (0L)** · 10 yıl',
+      { baslik:'Adım 2a: Yıllık amortisman · **lider defter (0L)** · 10 yıl',
         belgeTuru:'AF', tarih:'31.12.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'770', ad:'Amortisman gideri', borc:120000, not:'Amortisman alanı **01** → defter 0L' },
@@ -191,18 +191,18 @@ SAP.registerTopic({
         not:'Yerel mevzuata göre 10 yıl → 1.200.000 / 10 = **120.000 TL**.\n\n' +
              'Bu kayıt yalnızca **lider deftere** gitti; IFRS defteri etkilenmedi.' },
 
-      { baslik:'Adım 2b — Yıllık amortisman · **IFRS defteri (2L)** · 8 yıl',
+      { baslik:'Adım 2b: Yıllık amortisman · **IFRS defteri (2L)** · 8 yıl',
         belgeTuru:'AF', tarih:'31.12.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'770', ad:'Amortisman gideri', borc:150000, not:'Amortisman alanı **32** → defter 2L' },
           { hesap:'257', ad:'Birikmiş amortisman', alacak:150000 },
         ],
         not:'IFRS’e göre faydalı ömür 8 yıl → 1.200.000 / 8 = **150.000 TL**.\n\n' +
-             '**Aynı {{AFAB}} çalıştırması** her iki kaydı da üretti — kullanıcı iki kez ' +
+             '**Aynı {{AFAB}} çalıştırması** her iki kaydı da üretti: kullanıcı iki kez ' +
              'çalıştırmadı. Her {{amortisman-alani}} kendi defterine yazdı.\n\n' +
              'Yıllık fark: 150.000 − 120.000 = **30.000 TL**.' },
 
-      { baslik:'Adım 3 — IFRS 16 kiralama · **yalnızca IFRS defterinde**',
+      { baslik:'Adım 3: IFRS 16 kiralama · **yalnızca IFRS defterinde**',
         belgeTuru:'SA', tarih:'01.03.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'264', ad:'Kullanım hakkı varlığı', borc:800000, not:'{{FB01L}} → defter grubu **2L**' },
@@ -210,11 +210,11 @@ SAP.registerTopic({
         ],
         not:'IFRS 16, operasyonel kiralamaları **bilançoya alır**. Yerel mevzuat almayabilir.\n\n' +
              'Bu kayıt {{FB01L}} ile **yalnızca 2L defterine** girildi. ' +
-             'Lider defterde bu varlık ve yükümlülük **hiç yok** — kira gideri olarak izleniyor.\n\n' +
+             'Lider defterde bu varlık ve yükümlülük **hiç yok**: kira gideri olarak izleniyor.\n\n' +
              'Defter grubu **boş bırakılsaydı** bu kayıt yerel deftere de gidecek ve ' +
              'yerel bilanço bozulacaktı.' },
 
-      { baslik:'Adım 4 — Makine 3. yıl sonunda satılır · lider defterdeki sonuç',
+      { baslik:'Adım 4: Makine 3. yıl sonunda satılır · lider defterdeki sonuç',
         belgeTuru:'AA', tarih:'31.12.2029', paraBirimi:'TRY',
         satirlar:[
           { hesap:'102', ad:'Banka (satış bedeli)', borc:900000 },
@@ -225,7 +225,7 @@ SAP.registerTopic({
         not:'Lider defterde net defter değeri: 1.200.000 − 360.000 = **840.000 TL**. ' +
              '900.000’e satıldığı için **60.000 TL kâr**.' },
 
-      { baslik:'Adım 4 (devamı) — aynı satış · **IFRS defterindeki sonuç**',
+      { baslik:'Adım 4 (devamı): aynı satış · **IFRS defterindeki sonuç**',
         belgeTuru:'AA', tarih:'31.12.2029', paraBirimi:'TRY',
         satirlar:[
           { hesap:'102', ad:'Banka (satış bedeli)', borc:900000 },
@@ -237,19 +237,19 @@ SAP.registerTopic({
              'Aynı 900.000’e satıldığı için **150.000 TL kâr**.\n\n' +
              '**Aynı satış, iki defterde 90.000 TL farklı kâr.** ' +
              'Bu bir hata değil, iki standardın farklı değerleme yargısının ' +
-             'kaçınılmaz sonucudur — ve paralel defterin var oluş sebebidir.' },
+             'kaçınılmaz sonucudur: ve paralel defterin var oluş sebebidir.' },
     ],
 
     tHesaplar:[
-      { hesap:'Birikmiş amortisman — **Lider defter (0L)**', kod:'257 / 0L',
+      { hesap:'Birikmiş amortisman: **Lider defter (0L)**', kod:'257 / 0L',
         borc:[{ ad:'Satışta kapatma', tutar:360000 }],
         alacak:[{ ad:'3 yıl × 120.000', tutar:360000 }],
         not:'10 yıl · yerel mevzuat' },
-      { hesap:'Birikmiş amortisman — **IFRS defteri (2L)**', kod:'257 / 2L',
+      { hesap:'Birikmiş amortisman: **IFRS defteri (2L)**', kod:'257 / 2L',
         borc:[{ ad:'Satışta kapatma', tutar:450000 }],
         alacak:[{ ad:'3 yıl × 150.000', tutar:450000 }],
-        not:'8 yıl · IFRS — **aynı hesap, farklı defter, farklı tutar**' },
-      { hesap:'Kullanım hakkı varlığı — yalnızca 2L', kod:'264 / 2L',
+        not:'8 yıl · IFRS: **aynı hesap, farklı defter, farklı tutar**' },
+      { hesap:'Kullanım hakkı varlığı: yalnızca 2L', kod:'264 / 2L',
         borc:[{ ad:'IFRS 16 kiralama', tutar:800000 }],
         alacak:[],
         not:'Lider defterde bu hesap **hiç hareket görmez**' },
@@ -265,7 +265,7 @@ SAP.registerTopic({
         'lider defter gelir ve kullanıcı IFRS bakiyesini hiç görmez.\n\n' +
         '**Pratik sonuç:** paralel defterli bir sistemde her rapor sorgusunda ' +
         '"hangi defter?" sorusu sorulmalıdır. Rapor başlığında defter kodunun ' +
-        'görünmesi iyi bir uygulamadır — aksi hâlde iki farklı rapor karıştırılır.' },
+        'görünmesi iyi bir uygulamadır: aksi hâlde iki farklı rapor karıştırılır.' },
     ],
   },
 
@@ -290,7 +290,7 @@ SAP.registerTopic({
 
       { ad:'{{lider-defter}} (0L)', en:'Leading Ledger',
         aciklama:'Sistemde **tek** olan, tüm şirket kodları için geçerli ana defter.',
-        neZaman:'Her zaman vardır — kaldırılamaz.',
+        neZaman:'Her zaman vardır: kaldırılamaz.',
         ornek:'Şirket kodunun mali yıl varyantını ve para birimlerini kullanır; ' +
               '**CO ile entegre çalışan defterdir**.' },
 
@@ -307,7 +307,7 @@ SAP.registerTopic({
 
       { ad:'Boş defter grubu', en:'Blank Ledger Group',
         aciklama:'Kayıt **tüm defterlere** gider.',
-        neZaman:'Günlük işlemlerin %95’inde — satış, alış, tahsilat, ödeme.',
+        neZaman:'Günlük işlemlerin %95’inde: satış, alış, tahsilat, ödeme.',
         ornek:'**Varsayılan davranış budur** ve doğrudur: olgular tüm standartlarda aynıdır.' },
 
       { ad:'Defter bazlı belge', en:'Ledger-Specific Document',
@@ -318,7 +318,7 @@ SAP.registerTopic({
 
       { ad:'{{amortisman-alani}} ↔ defter bağlantısı', en:'Depreciation Area to Ledger',
         aciklama:'Her amortisman alanı bir defter grubuna bağlanır; alan o deftere yazar.',
-        neZaman:'Duran varlık paralel muhasebesinde — **en yoğun kullanım alanı**.',
+        neZaman:'Duran varlık paralel muhasebesinde: **en yoğun kullanım alanı**.',
         ornek:'Alan 01 → 0L (yerel), alan 32 → 2L (IFRS). ' +
               'Tek {{AFAB}} çalıştırması her iki defteri de besler.',
         tcodes:['AFAB','OADB'] },
@@ -326,7 +326,7 @@ SAP.registerTopic({
 
     karsilastirmaBasliklar:['Paralel defter', 'Paralel hesap'],
     karsilastirma:[
-      ['Hesap planı', '**Tek** — sade kalır', 'Şişer — her standart için ayrı hesaplar'],
+      ['Hesap planı', '**Tek**, sade kalır', 'Şişer, her standart için ayrı hesaplar'],
       ['Aynı hesabın bakiyesi', 'Deftere göre **değişir**', 'Hesap adı farklı olduğu için sabit'],
       ['Mali tablo yapısı', 'Defter başına aynı yapı', 'Standart başına **ayrı yapı** gerekir'],
       ['Yeni standart ekleme', 'Yeni defter tanımla', 'Onlarca yeni hesap aç'],
@@ -340,19 +340,19 @@ SAP.registerTopic({
   /* ===================================================== 5. TCODES === */
   tcodes: {
     liste:[
-      { kod:'FINSC_LEDGER', ad:'Defter tanımı — paralel muhasebenin merkezi',
+      { kod:'FINSC_LEDGER', ad:'Defter tanımı: paralel muhasebenin merkezi',
         amac:'Lider ve ek defterleri, defter gruplarını, para birimlerini ve mali yıl varyantlarını tanımlar.',
         neZaman:'Kurulumda; yeni bir raporlama standardı eklendiğinde.',
         adimlar:[
           { baslik:'Defteri tanımla', aciklama:'Kod (2L) ve ad (IFRS Defteri). ' +
                    '**Lider defter yalnızca bir tane** olabilir ve genelde 0L’dir.' },
           { baslik:'Şirket kodlarına ata',
-            aciklama:'Ek defter **seçili şirket kodlarında** açılabilir — ' +
+            aciklama:'Ek defter **seçili şirket kodlarında** açılabilir: ' +
                      'yalnızca IFRS raporlayan şirketler için tanımlanır.' },
           { baslik:'Mali yıl varyantını belirle',
             aciklama:'Ek defter **farklı bir varyant** kullanabilir; grup takvimi farklıysa gereklidir.' },
           { baslik:'Para birimlerini ayarla',
-            aciklama:'S/4HANA’da sekize kadar. **Sonradan eklemek çok zordur** — baştan planla.' },
+            aciklama:'S/4HANA’da sekize kadar. **Sonradan eklemek çok zordur**: baştan planla.' },
           { baslik:'Defter grubunu doğrula',
             aciklama:'Her defter için otomatik olarak aynı adda bir grup oluşur.' },
         ],
@@ -375,12 +375,12 @@ SAP.registerTopic({
               'sonradan eklemekten çok daha ucuzdur.',
         ilgili:['FB01L','FAGLL03','T881'] },
 
-      { kod:'FB01L', ad:'Belge kaydet — defter grubu ile',
+      { kod:'FB01L', ad:'Belge kaydet: defter grubu ile',
         amac:'Yalnızca belirli bir deftere kayıt atar; standart farklarının girildiği ekran.',
         neZaman:'IFRS/yerel farkı olan her kayıtta: karşılık farkı, IFRS 16, değerleme farkı.',
         adimlar:[
           { baslik:'**Defter grubunu gir**',
-            aciklama:'Bu alan {{FB01}}’de **yoktur** — {{FB01L}}’in tek farkı budur. ' +
+            aciklama:'Bu alan {{FB01}}’de **yoktur**: {{FB01L}}’in tek farkı budur. ' +
                      '**Boş bırakılırsa kayıt tüm defterlere gider.**' },
           { baslik:'Belge türünü seç',
             aciklama:'Defter bazlı kayıtlar için **ayrı belge türü** tanımlamak iyi pratiktir; ' +
@@ -402,7 +402,7 @@ SAP.registerTopic({
               'aylarca fark edilmez ve yıl sonunda yerel mali tablo bozuk çıkar.',
         ilgili:['FB50L','FAGLL03','FINSC_LEDGER'] },
 
-      { kod:'FB50L', ad:'G/L kaydı — defter grubu ile',
+      { kod:'FB50L', ad:'G/L kaydı: defter grubu ile',
         amac:'{{FB50}}’nin defter grubu alanı eklenmiş hâli; hızlı G/L girişleri için.',
         neZaman:'Yalnızca G/L hesaplarını içeren defter bazlı düzeltmelerde.',
         adimlar:[
@@ -433,7 +433,7 @@ SAP.registerTopic({
         ],
         ilgili:['FAGLL03','FS10N'] },
 
-      { kod:'FAGLGVTR', ad:'Bakiye devri — her defter için',
+      { kod:'FAGLGVTR', ad:'Bakiye devri: her defter için',
         amac:'Bilanço hesaplarının bakiyelerini sonraki yıla devreder.',
         neZaman:'Yıl sonunda, **her defter için ayrı ayrı**.',
         adimlar:[
@@ -455,10 +455,10 @@ SAP.registerTopic({
     anlatim:
       'Paralel defterin tablo mimarisi tek bir alana dayanır: **{{ACDOCA}} `RLDNR`**. ' +
       'Her satır hangi deftere ait olduğunu bu alanda taşır. ' +
-      'Defter ayrımı için ayrı tablo yoktur — **aynı tablo, farklı satırlar**.',
+      'Defter ayrımı için ayrı tablo yoktur: **aynı tablo, farklı satırlar**.',
 
     liste:[
-      { ad:'ACDOCA', baslik:'Evrensel kayıt defteri — defter alanıyla',
+      { ad:'ACDOCA', baslik:'Evrensel kayıt defteri: defter alanıyla',
         tutar:'Tüm FI/CO satırları; her satır `RLDNR` (defter) taşır.',
         olusturan:'Her FI/CO belgesi',
         guncelleyen:'Belge kaydı; defter grubu boşsa **her defter için ayrı satır** yazılır',
@@ -466,9 +466,9 @@ SAP.registerTopic({
         iliskiler:'{{T881}} ile defter tanımı; {{BKPF}} ile belge başlığı.',
         s4:'Paralel defterin **tek veri kaynağı**.',
         alanlar:[
-          { ad:'RLDNR', aciklama:'**Defter kodu** — 0L lider, 2L IFRS. Anahtarın ilk alanı.', tip:'pk' },
-          { ad:'RACCT', aciklama:'G/L hesabı — defterler arasında **aynı** hesap kullanılır' },
-          { ad:'HSL', aciklama:'Yerel para birimi tutarı — defterlere göre **farklı olabilir**' },
+          { ad:'RLDNR', aciklama:'**Defter kodu**: 0L lider, 2L IFRS. Anahtarın ilk alanı.', tip:'pk' },
+          { ad:'RACCT', aciklama:'G/L hesabı: defterler arasında **aynı** hesap kullanılır' },
+          { ad:'HSL', aciklama:'Yerel para birimi tutarı: defterlere göre **farklı olabilir**' },
           { ad:'BELNR', aciklama:'Belge numarası', tip:'fk' },
           { ad:'DOCLN', aciklama:'Satır numarası' },
         ] },
@@ -482,7 +482,7 @@ SAP.registerTopic({
         s4:'{{FINSC_LEDGER}} ile yönetilir.',
         alanlar:[
           { ad:'RLDNR', aciklama:'Defter kodu', tip:'pk' },
-          { ad:'XLEADING', aciklama:'**Lider defter işareti** — sistemde yalnızca bir tane' },
+          { ad:'XLEADING', aciklama:'**Lider defter işareti**: sistemde yalnızca bir tane' },
         ] },
 
       { ad:'BKPF', baslik:'Belge başlığı',
@@ -491,31 +491,31 @@ SAP.registerTopic({
         s4:'Duruyor.',
         alanlar:[
           { ad:'BELNR', aciklama:'Belge numarası', tip:'pk' },
-          { ad:'BLART', aciklama:'Belge türü — defter bazlı kayıtlar için ayrı tür önerilir' },
+          { ad:'BLART', aciklama:'Belge türü: defter bazlı kayıtlar için ayrı tür önerilir' },
         ] },
 
       { ad:'ANLB', baslik:'Duran varlık amortisman alanları',
-        tutar:'Her varlığın amortisman alanı bazında ayarları — **alan ↔ defter köprüsü**.',
+        tutar:'Her varlığın amortisman alanı bazında ayarları: **alan ↔ defter köprüsü**.',
         olusturan:'{{AS01}} (varlık sınıfından türetilir)',
         guncelleyen:'{{AS02}}',
         anahtar:'BUKRS + ANLN1 + ANLN2 + AFABE',
         iliskiler:'Her alan bir defter grubuna bağlıdır; {{AFAB}} bu eşleşmeye göre yazar.',
         s4:'Duruyor.',
         alanlar:[
-          { ad:'AFABE', aciklama:'**Amortisman alanı** — 01 yerel, 32 IFRS', tip:'pk' },
-          { ad:'AFASL', aciklama:'Amortisman anahtarı — alana göre farklı olabilir' },
-          { ad:'NDJAR', aciklama:'Faydalı ömür (yıl) — **alanlar arasında farklı**' },
+          { ad:'AFABE', aciklama:'**Amortisman alanı**: 01 yerel, 32 IFRS', tip:'pk' },
+          { ad:'AFASL', aciklama:'Amortisman anahtarı: alana göre farklı olabilir' },
+          { ad:'NDJAR', aciklama:'Faydalı ömür (yıl): **alanlar arasında farklı**' },
         ] },
 
       { ad:'BSEG', baslik:'Belge kalemleri',
-        tutar:'Giriş görünümü. **Defter ayrımını taşımaz** — bu yüzden paralel defter analizinde kullanılmaz.',
+        tutar:'Giriş görünümü. **Defter ayrımını taşımaz**: bu yüzden paralel defter analizinde kullanılmaz.',
         olusturan:'Belge kaydı',
         s4:'{{uyumluluk-view}}.' },
     ],
 
     er:{
       type:'er',
-      baslik:'Defter mimarisi — RLDNR her şeyi ayırır',
+      baslik:'Defter mimarisi: RLDNR her şeyi ayırır',
       varliklar:[
         { ad:'T881', rol:'Özelleştirme', aciklama:'Defter tanımı',
           alanlar:[{ ad:'RLDNR', tip:'pk' }, { ad:'XLEADING' }] },
@@ -547,20 +547,20 @@ SAP.registerTopic({
       'Ama o tek alan, doğru kullanılmazsa tüm mali tabloları bozabilir.',
 
     ekranlar:[
-      { ad:'{{FINSC_LEDGER}} — defter tanımı',
+      { ad:'{{FINSC_LEDGER}}: defter tanımı',
         aciklama:'Defterlerin, gruplarının ve para birimlerinin tanımlandığı merkezi ekran.',
         alanlar:[
           { ad:'Defter kodu', zorunlu:true, aciklama:'2 karakter. 0L lider, 2L/3L ek defterler.' },
           { ad:'Lider defter işareti', zorunlu:true, aciklama:'**Yalnızca bir defterde** işaretli olabilir.' },
           { ad:'Şirket kodu ataması', zorunlu:true, aciklama:'Ek defter seçili şirket kodlarında açılabilir.' },
           { ad:'Mali yıl varyantı', zorunlu:true, aciklama:'Ek defter **farklı varyant** kullanabilir.' },
-          { ad:'Para birimleri', zorunlu:false, aciklama:'S/4’te 8’e kadar. **Sonradan eklenemez** — baştan planla.' },
+          { ad:'Para birimleri', zorunlu:false, aciklama:'S/4’te 8’e kadar. **Sonradan eklenemez**: baştan planla.' },
         ],
         ipucu:'Lider defter, **şirket kodunun** mali yıl varyantını kullanmak zorundadır ve ' +
-              'CO ile entegre çalışan defterdir. Ek defterler bu kısıtlara tabi değildir — ' +
+              'CO ile entegre çalışan defterdir. Ek defterler bu kısıtlara tabi değildir: ' +
               'bu esneklik, grup takvimi farklı olan şirketler için tasarlanmıştır.' },
 
-      { ad:'{{FB01L}} / {{FB50L}} — defter grubu alanı',
+      { ad:'{{FB01L}} / {{FB50L}}: defter grubu alanı',
         aciklama:'Standart farklarının girildiği ekran; tek fark defter grubu alanıdır.',
         alanlar:[
           { ad:'Defter grubu', zorunlu:false, aciklama:'**Kritik alan.** Boş = tüm defterler. ' +
@@ -575,7 +575,7 @@ SAP.registerTopic({
               'o türün varsayılan defter grubunu ayarla; ayrıca ay sonunda ' +
               'o belge türündeki kayıtları gözden geçir.' },
 
-      { ad:'{{FAGLB03}} / {{FAGLL03}} — defter seçimi',
+      { ad:'{{FAGLB03}} / {{FAGLL03}}: defter seçimi',
         aciklama:'Raporlarda defter filtresi; paralel defterin görüldüğü yer.',
         alanlar:[
           { ad:'Defter', zorunlu:false, aciklama:'**Boş bırakılırsa lider defter gelir.** ' +
@@ -604,10 +604,10 @@ SAP.registerTopic({
       '**Defter bazlı kayıtlar için ayrı belge türü tanımla.** Raporda ayrışır, ' +
       'kontrol edilebilir, "yanlışlıkla tüm defterlere gitti" hatası kolay yakalanır.',
       'Her defter bazlı kayıttan sonra **iki kontrol** yap: hedef defterde var mı, diğerinde yok mu?',
-      '{{FAGLGVTR}} bakiye devrini **her defter için** çalıştır — en sık unutulan kapanış adımıdır.',
+      '{{FAGLGVTR}} bakiye devrini **her defter için** çalıştır: en sık unutulan kapanış adımıdır.',
       'Para birimlerini **baştan** planla; sonradan eklemek migrasyon projesidir.',
       'Rapor çıktısında defter kodunun görünmesini sağla; iki rapor karışmasın.',
-      'Duran varlıkta {{amortisman-alani}} ↔ defter eşleşmesini kurulumda test et — ' +
+      'Duran varlıkta {{amortisman-alani}} ↔ defter eşleşmesini kurulumda test et: ' +
       'tek {{AFAB}} çalıştırmasının **her iki deftere de** yazdığını doğrula.',
     ],
   },
@@ -616,15 +616,15 @@ SAP.registerTopic({
   teknik: {
     guncellenenTablolar:[
       { tablo:'ACDOCA', ne:'Her satır `RLDNR` taşır; defter grubu boşsa **her defter için ayrı satır**' },
-      { tablo:'BKPF', ne:'Belge başlığı — ortak' },
-      { tablo:'BSEG', ne:'Giriş görünümü — **defter ayrımı yok**' },
+      { tablo:'BKPF', ne:'Belge başlığı: ortak' },
+      { tablo:'BSEG', ne:'Giriş görünümü: **defter ayrımı yok**' },
       { tablo:'T881', ne:'Defter tanımları' },
-      { tablo:'ANLB', ne:'Amortisman alanı ayarları — alan ↔ defter köprüsü' },
+      { tablo:'ANLB', ne:'Amortisman alanı ayarları: alan ↔ defter köprüsü' },
       { tablo:'FAGLFLEXA', ne:'ECC’de defter bazlı kalemler' },
     ],
 
     commit:
-      'Defter grubu boş bırakılan bir kayıtta sistem **her defter için ayrı satır** yazar — ' +
+      'Defter grubu boş bırakılan bir kayıtta sistem **her defter için ayrı satır** yazar: ' +
       'ama **tek LUW’da**. Yani 2 defterli bir sistemde 3 satırlık bir belge ' +
       '{{ACDOCA}}’da 6 satır üretir ve hepsi aynı commit’te yazılır.\n\n' +
       'Bu, veri tutarlılığını garanti eder: bir defterde kayıt olup diğerinde olmaması ' +
@@ -645,7 +645,7 @@ SAP.registerTopic({
       '**1.** Defter grubu **dolu mu?** Doluysa yalnızca o gruptaki defterlere yazılır.\n' +
       '**2.** Defter grubu **boşsa** → şirket koduna atanmış **tüm defterlere** yazılır.\n' +
       '**3.** Duran varlık kayıtlarında ({{AFAB}}) her {{amortisman-alani}} ' +
-      'kendi defter grubuna yazar — kullanıcı defter seçmez, eşleşme ana veriden gelir.\n' +
+      'kendi defter grubuna yazar: kullanıcı defter seçmez, eşleşme ana veriden gelir.\n' +
       '**4.** CO kaynaklı kayıtlar **yalnızca lider deftere** gider ' +
       '(CO tek bir standartla çalışır).\n\n' +
       '4. maddenin sonucu önemlidir: masraf yeri dağıtımları, iç sipariş kapatmaları ve ' +
@@ -667,27 +667,27 @@ SAP.registerTopic({
       'Yılbaşında tüm aralıkların açılması normal kapanış rutininin parçasıdır.',
 
     accountDetermination:
-      'Paralel defterin kendi hesap belirlemesi yoktur — **aynı hesaplar** kullanılır. ' +
+      'Paralel defterin kendi hesap belirlemesi yoktur: **aynı hesaplar** kullanılır. ' +
       'Fark, hesaplarda değil **tutarlardadır**.\n\n' +
       'İstisna duran varlıktır: {{AO90}} ile amortisman alanı bazında ' +
-      '**farklı hesaplar** tanımlanabilir. Ama bu genelde tercih edilmez — ' +
+      '**farklı hesaplar** tanımlanabilir. Ama bu genelde tercih edilmez: ' +
       'aynı hesabı kullanıp defterle ayırmak daha temizdir ve ' +
       'mali tablo yapısını tek tutar.',
 
     tur:
       '**Özelleştirme:** defter tanımları, defter grupları, mali yıl varyantı atamaları, ' +
       'amortisman alanı ↔ defter eşleşmeleri, belge türleri.\n\n' +
-      '**Ana veri:** varlık ana verisindeki alan bazlı ayarlar ({{ANLB}} — faydalı ömür, ' +
+      '**Ana veri:** varlık ana verisindeki alan bazlı ayarlar ({{ANLB}}: faydalı ömür, ' +
       'amortisman anahtarı).\n\n' +
       '**Hareket verisi:** {{ACDOCA}} satırları (`RLDNR` ile ayrışmış).',
 
     transport:
       'Defter tanımları taşınır. **İki kritik uyarı:**\n\n' +
-      '**1.** Şirket kodu atamaları hedef sistemde farklı olabilir — ' +
+      '**1.** Şirket kodu atamaları hedef sistemde farklı olabilir: ' +
       'ek defter canlıda bazı şirket kodlarında **açılmamış** olabilir.\n\n' +
       '**2. Para birimi ayarları kayıt başladıktan sonra değiştirilemez.** ' +
       'Test sisteminde eklenen bir para birimi canlıda **eklenemeyebilir**. ' +
-      'Bu, transport’un çözemediği bir kısıttır — planlama sorunudur.\n\n' +
+      'Bu, transport’un çözemediği bir kısıttır: planlama sorunudur.\n\n' +
       'Amortisman alanı ↔ defter eşleşmeleri de taşınır ama ' +
       'hedef sistemdeki varlık sınıfı ayarlarıyla tutarlı olması doğrulanmalıdır.',
 
@@ -695,7 +695,7 @@ SAP.registerTopic({
       { yol:'SPRO → Finansal Muhasebe → Finansal Muhasebe Genel Ayarları → Defterler → Defter → Defterleri Tanımla', not:'{{FINSC_LEDGER}} → {{T881}}' },
       { yol:'SPRO → … → Defterler → Defter → Defter Gruplarını Tanımla', not:'{{defter-grubu}}' },
       { yol:'SPRO → … → Defterler → Mali Yıl ve Kayıt Dönemleri → Defter Başına Varyant Ata', not:'Ek defter farklı varyant kullanabilir' },
-      { yol:'SPRO → Finansal Muhasebe → Duran Varlık Muhasebesi → Değerleme → Amortisman Alanları → Defter Gruplarını Amortisman Alanlarına Ata', not:'{{OADB}} — **AA ↔ paralel defter köprüsü**' },
+      { yol:'SPRO → Finansal Muhasebe → Duran Varlık Muhasebesi → Değerleme → Amortisman Alanları → Defter Gruplarını Amortisman Alanlarına Ata', not:'{{OADB}}: **AA ↔ paralel defter köprüsü**' },
     ],
 
     ekstra:[
@@ -723,7 +723,7 @@ SAP.registerTopic({
         '**c)** Kârlılık analizi (CO-PA) lider defter mantığıyla çalışır; ' +
         'IFRS kârlılığı ayrıca hesaplanmalıdır.\n\n' +
         'Bu, paralel defterin **bilinen ve kabul edilen sınırıdır**. ' +
-        'Çoğu şirkette maliyet muhasebesi farkları önemsiz olduğu için sorun yaratmaz — ' +
+        'Çoğu şirkette maliyet muhasebesi farkları önemsiz olduğu için sorun yaratmaz: ' +
         'ama IFRS ile yerel maliyetleme kuralları ciddi farklıysa ' +
         'bu, projede baştan konuşulması gereken bir konudur.' },
     ],
@@ -750,12 +750,12 @@ SAP.registerTopic({
       'paralel para birimi desteği 3’ten **8’e** çıktı.',
 
     eccFarklari:[
-      { konu:'Defter tanımı', ecc:'Birden çok ayrı işlem', s4:'**{{FINSC_LEDGER}}** — tek nokta' },
-      { konu:'Defter verisi', ecc:'{{FAGLFLEXA}} `RLDNR`', s4:'**{{ACDOCA}}** `RLDNR` — anahtarın ilk alanı' },
+      { konu:'Defter tanımı', ecc:'Birden çok ayrı işlem', s4:'**{{FINSC_LEDGER}}**: tek nokta' },
+      { konu:'Defter verisi', ecc:'{{FAGLFLEXA}} `RLDNR`', s4:'**{{ACDOCA}}** `RLDNR`: anahtarın ilk alanı' },
       { konu:'Paralel para birimi', ecc:'3 para birimi', s4:'**8’e kadar**' },
       { konu:'Defter bazlı kayıt', ecc:'{{FB01L}}', s4:'Aynı + Fiori' },
       { konu:'Duran varlık entegrasyonu', ecc:'Alan ↔ defter grubu', s4:'**Aynı**, ama alan sayısı sınırı gevşedi' },
-      { konu:'Genişletilmiş defter', ecc:'Yok', s4:'**Extension Ledger** — yalnızca farkları tutan hafif defter' },
+      { konu:'Genişletilmiş defter', ecc:'Yok', s4:'**Extension Ledger**: yalnızca farkları tutan hafif defter' },
     ],
 
     universalJournal:
@@ -763,26 +763,26 @@ SAP.registerTopic({
       'sonucu şudur: defter bazlı sorgular son derece hızlıdır, ' +
       'çünkü veri fiziksel olarak deftere göre ayrışır.\n\n' +
       'ECC’de defter ayrımı {{FAGLFLEXA}}’da vardı ama CO verisi ayrı tablodaydı. ' +
-      'S/4HANA’da FI ve CO aynı tabloda olduğu için **defter boyutu CO verisini de kapsar** — ' +
+      'S/4HANA’da FI ve CO aynı tabloda olduğu için **defter boyutu CO verisini de kapsar**: ' +
       'ancak CO kayıtları hâlâ yalnızca lider deftere yazılır ' +
       '(bu mantıksal bir kısıttır, teknik değil).',
 
     kalkanTcodes:[
       { eski:'ECC defter tanım işlemleri', yeni:'{{FINSC_LEDGER}}', not:'Tek yönetim noktası' },
-      { eski:'—', yeni:'—', not:'{{FB01L}}, {{FB50L}}, {{FAGLL03}}, {{FAGLB03}} **kaldırılmadı**' },
+      { eski:', ', yeni:', ', not:'{{FB01L}}, {{FB50L}}, {{FAGLL03}}, {{FAGLB03}} **kaldırılmadı**' },
     ],
 
     fiori:[
       { ad:'Manage Ledgers', aciklama:'Defter tanımlarını görüntüler ve yönetir.' },
       { ad:'Post General Journal Entries', aciklama:'{{FB50L}} yerine; defter grubu alanı içerir.' },
       { ad:'Display Line Items in General Ledger', aciklama:'Defter filtreli kalem raporu.' },
-      { ad:'Trial Balance', aciklama:'Defter bazlı mizan — iki standart yan yana karşılaştırılabilir.' },
+      { ad:'Trial Balance', aciklama:'Defter bazlı mizan: iki standart yan yana karşılaştırılabilir.' },
       { ad:'Asset Accounting Overview', aciklama:'Amortisman alanı ↔ defter eşleşmesini görsel gösterir.' },
     ],
 
     compatibilityViews:[
-      '{{FAGLFLEXA}} — {{ACDOCA}}’dan türetilen görünüm.',
-      '{{BSEG}} — defter ayrımı **taşımaz**; paralel defter analizinde kullanılamaz.',
+      '{{FAGLFLEXA}}: {{ACDOCA}}’dan türetilen görünüm.',
+      '{{BSEG}}: defter ayrımı **taşımaz**; paralel defter analizinde kullanılamaz.',
       'Defter bazlı raporlar {{ACDOCA}}’yı doğrudan okumalıdır.',
     ],
 
@@ -795,7 +795,7 @@ SAP.registerTopic({
     bestPractices:[
       '**Extension Ledger’ı değerlendir:** yalnızca farkları tutan hafif defter, ' +
       'tam bir ek defterden daha az veri üretir ve simülasyon senaryoları için idealdir.',
-      'Para birimlerini geçişte yeniden planla — S/4 sekize kadar destekler ve ' +
+      'Para birimlerini geçişte yeniden planla: S/4 sekize kadar destekler ve ' +
       '**bu, sonradan değiştirilemeyen bir karardır**.',
       'Defter bazlı kayıtlar için ayrı belge türü tanımla; Fiori’de filtreleme kolaylaşır.',
       'Duran varlıkta alan ↔ defter eşleşmesini geçişte **test et**; ' +
@@ -827,14 +827,14 @@ SAP.registerTopic({
     ],
 
     adimlar:[
-      { baslik:'Sorun doğrulanır — gerçekten sıfır mı?', tcode:'FAGLB03',
+      { baslik:'Sorun doğrulanır: gerçekten sıfır mı?', tcode:'FAGLB03',
         aciklama:'Önce raporun doğru okunduğundan emin olunuyor. ' +
                  '(Defter alanı boş bırakılmışsa lider defter gelir ve yanlış alarm verilir.)',
         girdi:[
           { alan:'Hesap', deger:'770100 Amortisman gideri' },
           { alan:'Defter **0L**', deger:'4.200.000 TL ✓' },
           { alan:'Defter **2L**', deger:'**0 TL** ' },
-          { alan:'Kontrol', deger:'Defter alanı bilinçli olarak 2L girildi — okuma hatası **yok**' },
+          { alan:'Kontrol', deger:'Defter alanı bilinçli olarak 2L girildi: okuma hatası **yok**' },
         ],
         not:'İlk adım her zaman budur: **rapor doğru mu okunuyor?** ' +
              '{{FAGLB03}}’te defter alanı boş bırakılırsa lider defter gelir ve ' +
@@ -843,14 +843,14 @@ SAP.registerTopic({
       { baslik:'IFRS defterinde başka kayıt var mı?', tcode:'FAGLL03',
         aciklama:'Defterin tamamen mi boş olduğu yoksa yalnızca amortismanın mı eksik olduğu kontrol ediliyor.',
         girdi:[
-          { alan:'Defter 2L — satış/alış kayıtları', deger:'**Var** ✓ — 6 aylık tüm faturalar' },
-          { alan:'Defter 2L — açılış bakiyeleri', deger:'**Var** ✓' },
-          { alan:'Defter 2L — amortisman', deger:'**Yok** ' },
+          { alan:'Defter 2L, satış/alış kayıtları', deger:'**Var** ✓, 6 aylık tüm faturalar' },
+          { alan:'Defter 2L: açılış bakiyeleri', deger:'**Var** ✓' },
+          { alan:'Defter 2L: amortisman', deger:'**Yok** ' },
           { alan:'Çıkarım', deger:'Defter çalışıyor; sorun **yalnızca duran varlık tarafında**' },
         ],
         not:'Bu ayrım teşhisi daraltıyor: defter tanımı doğru, kayıtlar akıyor, ' +
              'defter grubu boş bırakılan normal işlemler her iki deftere de gidiyor.\n\n' +
-             'Eksik olan **yalnızca {{AFAB}} kaynaklı kayıtlar** — ' +
+             'Eksik olan **yalnızca {{AFAB}} kaynaklı kayıtlar**: ' +
              'yani sorun {{amortisman-alani}} ↔ defter eşleşmesindedir.' },
 
       { baslik:'Amortisman alanları incelenir', tcode:'OADB',
@@ -862,10 +862,10 @@ SAP.registerTopic({
           { alan:'**Kök sebep**', deger:'Alan 32 hiçbir deftere **bağlanmamış**' },
         ],
         not:'**Kök sebep bulundu.** Alan 32 kurulumda tanımlanmış, varlık sınıflarına eklenmiş, ' +
-             'değerleri (daha kısa faydalı ömürlerle) düzgün hesaplanıyor — ' +
+             'değerleri (daha kısa faydalı ömürlerle) düzgün hesaplanıyor: ' +
              'ama **hiçbir deftere yazmıyor**.\n\n' +
              'Bu, paralel defter kurulumunun en sinsi hatasıdır: her şey doğru görünür, ' +
-             '{{AS03}}’te alan 32 değerleri görünür, {{AW01N}}’de amortisman planı doğrudur — ' +
+             '{{AS03}}’te alan 32 değerleri görünür, {{AW01N}}’de amortisman planı doğrudur: ' +
              'ama muhasebeye hiç düşmez.' },
 
       { baslik:'Eksik eşleşme tanımlanır', tcode:'OADB',
@@ -878,58 +878,58 @@ SAP.registerTopic({
         not:'Yapılandırma düzeltmesi **iki dakika** sürdü. ' +
              'Ama asıl iş şimdi başlıyor: geçmiş altı ay ne olacak?' },
 
-      { baslik:'Geriye dönük düzeltme — üç seçenek değerlendirilir', tcode:'AFAB',
+      { baslik:'Geriye dönük düzeltme: üç seçenek değerlendirilir', tcode:'AFAB',
         aciklama:'Altı aylık eksik amortismanın nasıl tamamlanacağına karar veriliyor.',
         girdi:[
           { alan:'Seçenek 1', deger:'{{AFAB}}’ı Ocak’tan itibaren **tekrarlama modunda** çalıştır' },
           { alan:'Seçenek 2', deger:'Temmuz’da **toplu yakalama** (catch-up) kaydı at' },
           { alan:'Seçenek 3', deger:'Her ay için ayrı ayrı {{FB50L}} ile elle gir' },
-          { alan:'**Seçilen**', deger:'**Seçenek 1** — dönemler açık, {{AFAB}} tekrarlanabilir' },
+          { alan:'**Seçilen**', deger:'**Seçenek 1**: dönemler açık, {{AFAB}} tekrarlanabilir' },
         ],
-        not:'Ocak–Haziran dönemleri IFRS defteri için hâlâ **açıktı** ' +
+        not:'Ocak-Haziran dönemleri IFRS defteri için hâlâ **açıktı** ' +
              '(yalnızca lider defter kapatılmıştı). Bu, şansa değil ' +
              '{{OB52}}’de defter bazlı dönem kontrolü yapılabildiği için mümkün oldu.\n\n' +
              'Dönemler kapalı olsaydı Seçenek 2 seçilecek ve altı aylık amortisman ' +
-             'tek bir Temmuz kaydına sıkışacaktı — teknik olarak doğru ama ' +
+             'tek bir Temmuz kaydına sıkışacaktı: teknik olarak doğru ama ' +
              'aylık IFRS gelir tablosu **tamamen bozuk** görünecekti.' },
 
       { baslik:'Amortisman geriye dönük çalıştırılır', tcode:'AFAB',
         aciklama:'Ocak’tan Haziran’a kadar her dönem için tekrar çalıştırılıyor.',
         girdi:[
-          { alan:'Dönemler', deger:'01–06 / 2027 · defter 2L' },
+          { alan:'Dönemler', deger:'01-06 / 2027 · defter 2L' },
           { alan:'Mod', deger:'Tekrarlama (repeat) · **önce test modunda**' },
           { alan:'Etkilenen varlık', deger:'1.850' },
           { alan:'Toplam kayıt', deger:'**5.130.000 TL**' },
         ],
-        fis:{ baslik:'Ocak 2027 amortismanı — IFRS defteri (2L)', belgeTuru:'AF', tarih:'31.01.2027',
+        fis:{ baslik:'Ocak 2027 amortismanı: IFRS defteri (2L)', belgeTuru:'AF', tarih:'31.01.2027',
           satirlar:[
             { hesap:'770', ad:'Amortisman gideri', borc:855000, not:'Alan 32 → defter **2L**' },
             { hesap:'257', ad:'Birikmiş amortisman', alacak:855000 },
-          ], not:'Kayıt tarihi **Ocak** — Temmuz değil. Her ay kendi dönemine yazıldı, ' +
+          ], not:'Kayıt tarihi **Ocak**: Temmuz değil. Her ay kendi dönemine yazıldı, ' +
                  'böylece aylık IFRS gelir tablosu doğru oldu.\n\n' +
                  'Aynı ay lider defterde 700.000 TL kaydedilmişti; ' +
-                 'IFRS’te 855.000 TL — fark **155.000 TL/ay**, kısa faydalı ömürlerden.' },
+                 'IFRS’te 855.000 TL: fark **155.000 TL/ay**, kısa faydalı ömürlerden.' },
         tabloEtkisi:[
           { tablo:'ACDOCA', ne:'6 dönem × 1.850 varlık için `RLDNR` = **2L** satırları' },
           { tablo:'ANLC', ne:'Alan 32 birikmiş amortisman değerleri güncellendi' },
         ],
         not:'Toplam **5.130.000 TL**, beklenen ~5.100.000 TL ile uyumlu. ' +
-             'Lider defterle fark: 5.130.000 − 4.200.000 = **930.000 TL** — ' +
+             'Lider defterle fark: 5.130.000 − 4.200.000 = **930.000 TL**: ' +
              'altı aylık IFRS/yerel amortisman farkı.' },
 
-      { baslik:'Doğrulama — iki defter karşılaştırılır', tcode:'FAGLB03',
+      { baslik:'Doğrulama: iki defter karşılaştırılır', tcode:'FAGLB03',
         aciklama:'Düzeltmenin doğru çalıştığı kontrol ediliyor.',
         girdi:[
           { alan:'770100 · defter **0L**', deger:'4.200.000 TL' },
           { alan:'770100 · defter **2L**', deger:'**5.130.000 TL** ✓' },
-          { alan:'Fark', deger:'930.000 TL — gerekçelendirilmiş' },
+          { alan:'Fark', deger:'930.000 TL: gerekçelendirilmiş' },
           { alan:'257 birikmiş amortisman', deger:'0L: 4.200.000 · 2L: 5.130.000 ✓' },
         ],
-        not:'Aynı hesap, iki defterde iki farklı bakiye — **ve ikisi de doğru**. ' +
+        not:'Aynı hesap, iki defterde iki farklı bakiye: **ve ikisi de doğru**. ' +
              'Fark, faydalı ömür farkının kaçınılmaz sonucu ve ' +
              'denetime **açıklanabilir** durumda.' },
 
-      { baslik:'Önlem — kurulum kontrol listesi güncellenir', tcode:'OADB',
+      { baslik:'Önlem: kurulum kontrol listesi güncellenir', tcode:'OADB',
         aciklama:'Aynı hatanın tekrarlanmaması için kalıcı önlem alınıyor.',
         girdi:[
           { alan:'Önlem 1', deger:'Her yeni amortisman alanı için **defter grubu ataması zorunlu adım**' },
@@ -944,7 +944,7 @@ SAP.registerTopic({
     ],
 
     sonuc:
-      '**Altı ay boyunca IFRS defterinde amortisman yoktu** — ve hiçbir hata mesajı çıkmadı.\n\n' +
+      '**Altı ay boyunca IFRS defterinde amortisman yoktu**: ve hiçbir hata mesajı çıkmadı.\n\n' +
       '**Dört kritik ders:**\n\n' +
       '**1. Amortisman alanı ↔ defter eşleşmesi paralel defterin en kritik ve en sessiz ayarıdır.** ' +
       'Alan tanımlıysa, varlıklarda görünüyorsa ve değerleri doğru hesaplanıyorsa her şey ' +
@@ -960,7 +960,7 @@ SAP.registerTopic({
       'Dönemler kapalı olsaydı altı aylık amortisman tek bir aya sıkışacak, ' +
       'aylık IFRS gelir tablosu kullanılamaz hâle gelecekti.\n\n' +
       '**4. Aynı hesabın iki defterde iki bakiyesi olması normaldir.** ' +
-      '770100 hesabı lider defterde 4.200.000, IFRS defterinde 5.130.000 TL — ' +
+      '770100 hesabı lider defterde 4.200.000, IFRS defterinde 5.130.000 TL: ' +
       'ikisi de doğru. Klasik "bir hesabın bir bakiyesi olur" alışkanlığı ' +
       'paralel defterli sistemde geçerli değildir ve ' +
       'bu, ekibe **kurulumda öğretilmesi gereken** ilk şeydir.',
@@ -971,27 +971,27 @@ SAP.registerTopic({
     ozet:[
       'Paralel defter, **aynı işlemi birden çok muhasebe standardına göre** kaydetme yöntemidir.',
       '**{{lider-defter}} (0L)** sistemde tektir, tüm şirket kodlarında geçerlidir ve **CO ile entegre** çalışır.',
-      '**Defter grubu boş** bırakılırsa kayıt **tüm defterlere** gider — en temel davranış.',
+      '**Defter grubu boş** bırakılırsa kayıt **tüm defterlere** gider: en temel davranış.',
       'Standart farkı olan kayıtlar {{FB01L}} / {{FB50L}} ile **tek deftere** girilir.',
       'İlke: **olguyu tüm defterlere yaz, değerleme yargısını defter bazlı yaz.**',
       'Duran varlıkta her {{amortisman-alani}} bir deftere bağlanır; **tek {{AFAB}}** ikisini de besler.',
-      'Aynı hesabın **deftere göre farklı bakiyesi** olur — ikisi de doğrudur.',
+      'Aynı hesabın **deftere göre farklı bakiyesi** olur: ikisi de doğrudur.',
       '{{FAGLGVTR}} bakiye devri **her defter için ayrı** çalıştırılmalıdır.',
     ],
 
     onemliNoktalar:[
       '**"Defter grubu boş bırakılırsa ne olur?"** Kayıt **tüm defterlere** gider. "Hiçbiri" veya "yalnızca lider" değil. Paralel defterin en temel davranışıdır ve yanlış bilinirse tüm mimari yanlış kurulur.',
       '**"Lider defterin özellikleri nelerdir?"** Sistemde **tektir**, tüm şirket kodları için geçerlidir, **şirket kodunun** mali yıl varyantını kullanır ve **CO ile entegre** çalışan defterdir. Ek defterler bu kısıtlara tabi değildir.',
-      '**"Duran varlıkta paralel defter nasıl çalışır?"** Her {{amortisman-alani}} bir defter grubuna bağlanır ({{OADB}}). Tek {{AFAB}} çalıştırması her iki defteri de besler — kullanıcı defter seçmez.',
+      '**"Duran varlıkta paralel defter nasıl çalışır?"** Her {{amortisman-alani}} bir defter grubuna bağlanır ({{OADB}}). Tek {{AFAB}} çalıştırması her iki defteri de besler: kullanıcı defter seçmez.',
       '**"CO hangi defterle çalışır?"** **Yalnızca lider defterle.** Masraf yeri dağıtımları, iç sipariş kapatmaları IFRS defterinde görünmez; gerekiyorsa elle defter bazlı kayıt girilir.',
       '**"Paralel defter mi, paralel hesap mı?"** Paralel defter tercih edilir: hesap planı **tek** kalır, mali tablo yapısı sade olur, yeni standart eklemek yalnızca yeni defter tanımlamaktır.',
       '**"Aynı hesabın iki farklı bakiyesi olabilir mi?"** **Evet ve normaldir.** 257 hesabı lider defterde 360.000, IFRS defterinde 450.000 olabilir. Rapor sorgusunda defter belirtilmezse **lider defter** gelir.',
-      '**"Paralel para birimi sonradan eklenebilir mi?"** **Hayır** — kayıt başladıktan sonra migrasyon gerektirir. S/4HANA 8’e kadar destekler; ihtiyaç belirsiz olsa bile **baştan tanımlamak** doğrudur.',
+      '**"Paralel para birimi sonradan eklenebilir mi?"** **Hayır**: kayıt başladıktan sonra migrasyon gerektirir. S/4HANA 8’e kadar destekler; ihtiyaç belirsiz olsa bile **baştan tanımlamak** doğrudur.',
       '**"Bakiye devri nasıl yapılır?"** {{FAGLGVTR}} **her defter için ayrı** çalıştırılır. Unutulursa o defterde açılış bakiyeleri sıfır çıkar. Tekrar çalıştırılabilir, fark oluşmaz.',
     ],
 
     sikHatalar:[
-      { hata:'Defter bazlı kaydı defter grubunu boş bırakarak girmek.', dogru:'Kayıt tüm defterlere gider ve yerel mali tablo bozulur. **Hata mesajı çıkmaz** — bu yüzden en tehlikeli hatadır.' },
+      { hata:'Defter bazlı kaydı defter grubunu boş bırakarak girmek.', dogru:'Kayıt tüm defterlere gider ve yerel mali tablo bozulur. **Hata mesajı çıkmaz**: bu yüzden en tehlikeli hatadır.' },
       { hata:'{{amortisman-alani}}’nı defter grubuna bağlamayı unutmak.', dogru:'Alan değerleri hesaplanır ama muhasebeye hiç düşmez. Kurulumda tek {{AFAB}} çalıştırıp her iki defter kontrol edilmelidir.' },
       { hata:'{{FAGLGVTR}} bakiye devrini yalnızca lider defter için çalıştırmak.', dogru:'Her defter için ayrı çalıştırılır; unutulursa ek defterde açılış bakiyeleri sıfır çıkar.' },
       { hata:'Raporda defter alanını boş bırakıp IFRS bakiyesi gördüğünü sanmak.', dogru:'Boş bırakılırsa **lider defter** gelir. Rapor çıktısında defter kodu görünür olmalıdır.' },
@@ -1044,7 +1044,7 @@ SAP.registerTopic({
         ], dogru:2,
         aciklama:'{{lider-defter}} (0L) sistemde **yalnızca bir tane** olabilir, ' +
                  'şirket kodunun mali yıl varyantını kullanmak zorundadır ve ' +
-                 '**CO’nun çalıştığı defterdir**. Ek defterler bu kısıtlara tabi değildir — ' +
+                 '**CO’nun çalıştığı defterdir**. Ek defterler bu kısıtlara tabi değildir: ' +
                  'farklı mali yıl varyantı bile kullanabilirler.' },
 
       { soru:'IFRS defterinde amortisman hiç görünmüyor. En olası sebep?',
@@ -1055,7 +1055,7 @@ SAP.registerTopic({
           'Dönem kapalı',
         ], dogru:2,
         aciklama:'Bu, paralel defter kurulumunun **en sinsi hatasıdır**: alan tanımlıdır, ' +
-                 'varlıklarda görünür, değerleri doğru hesaplanır — ama defter grubu ' +
+                 'varlıklarda görünür, değerleri doğru hesaplanır: ama defter grubu ' +
                  'atanmadığı için **muhasebeye hiç düşmez**. ' +
                  '{{OADB}} ile eşleşme tanımlanmalıdır.' },
 
@@ -1079,7 +1079,7 @@ SAP.registerTopic({
         ], dogru:1,
         aciklama:'CO tek bir standartla çalışır ve o **lider defterdir**. ' +
                  'Bu, paralel defterin bilinen ve kabul edilen sınırıdır. ' +
-                 'IFRS tarafında maliyet farkı gerekiyorsa {{FB50L}} ile elle girilmelidir — ' +
+                 'IFRS tarafında maliyet farkı gerekiyorsa {{FB50L}} ile elle girilmelidir: ' +
                  'projede baştan konuşulması gereken bir konudur.' },
 
       { soru:'Paralel defter ile paralel hesap yaklaşımı arasındaki temel fark?',
@@ -1103,23 +1103,23 @@ SAP.registerTopic({
         ], dogru:2,
         aciklama:'{{FAGLGVTR}} yalnızca çalıştırıldığı defter için devir yapar. ' +
                  '**En sık unutulan kapanış adımıdır.** ' +
-                 'İyi haber: tekrar çalıştırılabilir ve fark oluşmaz — ' +
+                 'İyi haber: tekrar çalıştırılabilir ve fark oluşmaz: ' +
                  'her defter için çalıştırmak kapanış listesine eklenmelidir.' },
     ],
 
     flashcards:[
-      { on:'Paralel defter nedir?', arka:'**Aynı işlemi birden çok muhasebe standardına göre kaydetme.**\n\n0L lider defter (yerel)\n2L/3L ek defterler (IFRS, vergi)\n\nVeri çoğaltılmaz — **fark kaydedilir**.' },
-      { on:'Defter grubu boş bırakılırsa?', arka:'Kayıt **TÜM DEFTERLERE** gider.\n\n"Hiçbiri" veya "yalnızca lider" **değil**.\n\nIFRS farkı olan kaydı defter grubu belirtmeden girmek, farkı yerel deftere de yazar — **hata mesajı çıkmaz**.' },
+      { on:'Paralel defter nedir?', arka:'**Aynı işlemi birden çok muhasebe standardına göre kaydetme.**\n\n0L lider defter (yerel)\n2L/3L ek defterler (IFRS, vergi)\n\nVeri çoğaltılmaz: **fark kaydedilir**.' },
+      { on:'Defter grubu boş bırakılırsa?', arka:'Kayıt **TÜM DEFTERLERE** gider.\n\n"Hiçbiri" veya "yalnızca lider" **değil**.\n\nIFRS farkı olan kaydı defter grubu belirtmeden girmek, farkı yerel deftere de yazar: **hata mesajı çıkmaz**.' },
       { on:'Lider defterin özellikleri?', arka:'• Sistemde **tek** (kod 0L)\n• **Tüm** şirket kodlarında geçerli\n• **Şirket kodunun** mali yıl varyantını kullanır\n• **CO ile entegre** çalışan defterdir\n\nEk defterler bu kısıtlara tabi değildir.' },
       { on:'Paralel defterin temel ilkesi?', arka:'**Olguyu tüm defterlere yaz, değerleme yargısını defter bazlı yaz.**\n\n"1.200.000 TL’ye makine alındı" = olgu → tüm defterler\n"Kaç yılda tükenir?" = yargı → defter bazlı' },
       { on:'Duran varlıkta paralel defter nasıl çalışır?', arka:'Her **amortisman alanı** bir defter grubuna bağlanır (**OADB**).\n\nAlan 01 → 0L (yerel, 10 yıl)\nAlan 32 → 2L (IFRS, 8 yıl)\n\n**Tek AFAB** çalıştırması her iki defteri de besler.' },
-      { on:'IFRS defterinde amortisman sıfır — sebep?', arka:'**Amortisman alanı defter grubuna bağlanmamış.**\n\nEn sinsi kurulum hatası: alan tanımlı, varlıklarda görünür, değerleri hesaplanır — ama **muhasebeye hiç düşmez**.\n\nOADB ile eşleşme tanımlanmalı.' },
+      { on:'IFRS defterinde amortisman sıfır, sebep?', arka:'**Amortisman alanı defter grubuna bağlanmamış.**\n\nEn sinsi kurulum hatası: alan tanımlı, varlıklarda görünür, değerleri hesaplanır, ama **muhasebeye hiç düşmez**.\n\nOADB ile eşleşme tanımlanmalı.' },
       { on:'FAGLB03’te defter boş bırakılırsa?', arka:'**Lider defter** gelir.\n\nSessiz tuzak: kullanıcı IFRS bakiyesini istediğini sanır, lider defteri görür, yanlış rapor hazırlar.\n\nRapor çıktısında **defter kodu görünmeli**.' },
       { on:'CO hangi defterle çalışır?', arka:'**Yalnızca lider defterle.**\n\nMasraf yeri dağıtımları, iç sipariş kapatmaları IFRS defterinde **görünmez**.\n\nIFRS maliyet farkı gerekiyorsa **FB50L** ile elle girilir. Projede baştan konuşulmalı.' },
-      { on:'FB01L ile FB01 farkı?', arka:'**Tek fark: defter grubu alanı.**\n\nFB01L o alanı içerir → tek deftere yazabilir.\n\nFB50L = FB50 + defter grubu (yalnız G/L, daha hızlı — ay sonu IFRS düzeltmelerinde tercih edilir).' },
-      { on:'Bakiye devri nasıl yapılır?', arka:'**FAGLGVTR — her defter için AYRI.**\n\nUnutulursa o defterde açılış bakiyeleri **sıfır** çıkar.\n\nEn sık unutulan kapanış adımıdır. ✓ Tekrar çalıştırılabilir, fark oluşmaz.' },
+      { on:'FB01L ile FB01 farkı?', arka:'**Tek fark: defter grubu alanı.**\n\nFB01L o alanı içerir → tek deftere yazabilir.\n\nFB50L = FB50 + defter grubu (yalnız G/L, daha hızlı: ay sonu IFRS düzeltmelerinde tercih edilir).' },
+      { on:'Bakiye devri nasıl yapılır?', arka:'**FAGLGVTR: her defter için AYRI.**\n\nUnutulursa o defterde açılış bakiyeleri **sıfır** çıkar.\n\nEn sık unutulan kapanış adımıdır. ✓ Tekrar çalıştırılabilir, fark oluşmaz.' },
       { on:'Paralel defter mi, paralel hesap mı?', arka:'**Paralel defter tercih edilir:**\n• Hesap planı **tek** kalır\n• Mali tablo yapısı sade\n• Yeni standart = yeni defter\n\nParalel hesap: hesap planı şişer, her standart için ayrı yapı gerekir.' },
-      { on:'Aynı hesabın iki bakiyesi olabilir mi?', arka:'**Evet ve normaldir.**\n\n257 hesabı: 0L’de 360.000, 2L’de 450.000 — **ikisi de doğru**.\n\n"Bir hesabın bir bakiyesi olur" alışkanlığı paralel defterde geçerli değildir. Ekibe kurulumda öğretilmeli.' },
+      { on:'Aynı hesabın iki bakiyesi olabilir mi?', arka:'**Evet ve normaldir.**\n\n257 hesabı: 0L’de 360.000, 2L’de 450.000: **ikisi de doğru**.\n\n"Bir hesabın bir bakiyesi olur" alışkanlığı paralel defterde geçerli değildir. Ekibe kurulumda öğretilmeli.' },
     ],
   },
 

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   content/fi/document-parking.js — "Document Parking (Ön Kayıt)"
+   content/fi/document-parking.js: "Document Parking (Ön Kayıt)"
    ========================================================================== */
 
 SAP.registerTopic({
@@ -11,20 +11,20 @@ SAP.registerTopic({
   tanim: {
     nedir:
       'Ön kayıt (parking), bir belgeyi **muhasebeleştirmeden** sisteme kaydetmektir. ' +
-      'Belge numarası alır, kalemleri saklanır, üzerinde çalışılabilir — ' +
+      'Belge numarası alır, kalemleri saklanır, üzerinde çalışılabilir: ' +
       'ama **mizanı etkilemez**, bakiyelere yansımaz, raporlarda görünmez.\n\n' +
       'Park edilen belge {{VBKPF}} ve {{VBSEG}} tablolarında durur. ' +
       'Muhasebeleştirildiğinde ({{FBV0}}) veri {{BKPF}}/{{BSEG}}’ye taşınır ve ' +
       '**park anında verilen belge numarası korunur**.\n\n' +
       'İki temel kullanım amacı vardır:\n\n' +
-      '**1. Dört-göz prensibi** — giren kişi ile onaylayan kişi farklı olsun.\n' +
-      '**2. Eksik bilgi** — belge tam değil ama kaybolmasın, sonra tamamlansın.\n\n' +
+      '**1. Dört-göz prensibi**: giren kişi ile onaylayan kişi farklı olsun.\n' +
+      '**2. Eksik bilgi**: belge tam değil ama kaybolmasın, sonra tamamlansın.\n\n' +
       'Ön kaydın kardeşi **tutma (hold)** işlemidir ve karıştırılır: ' +
       'tutulan belge **kişiseldir**, başkası göremez ve **denetim izi bırakmaz**.',
 
     neden:
       '**İç kontrol.** Fatura girenin onaylayan olmaması, en temel muhasebe kontrolüdür.\n\n' +
-      '**Eksik bilgiyle çalışabilme.** Maliyet yeri belli değil, onay bekleniyor — ' +
+      '**Eksik bilgiyle çalışabilme.** Maliyet yeri belli değil, onay bekleniyor: ' +
       'belge kaybolmasın diye park edilir.\n\n' +
       '**Yetki ayrımı.** Veri girişi düşük yetkili personele, muhasebeleştirme ' +
       'yetkiliye bırakılabilir.\n\n' +
@@ -55,7 +55,7 @@ SAP.registerTopic({
       'Çözüm olarak ön kayıt devreye alınıyor: asistan {{FV60}} ile faturayı **park ediyor**, ' +
       'muhasebe müdürü {{FBV0}} ile inceleyip **muhasebeleştiriyor**.\n\n' +
       'Ama ilk ay sonunda denetçi tekrar bakıyor ve aynı bulguyu yazıyor. Neden?\n\n' +
-      'Çünkü asistanın yetkisi değişmemiş — hem park edebiliyor hem ' +
+      'Çünkü asistanın yetkisi değişmemiş: hem park edebiliyor hem ' +
       'muhasebeleştirebiliyor. Yoğun günlerde kendi park ettiği belgeyi ' +
       'kendisi muhasebeleştiriyor.\n\n' +
       '**Ders:** park etme bir *imkân* sunar, kontrolü **yetkilendirme** kurar. ' +
@@ -64,11 +64,11 @@ SAP.registerTopic({
     muhasebeMantigi:
       'Ön kaydın muhasebe mantığı **tahakkuk zamanlamasıyla** ilgilidir: ' +
       'park edilen belge **henüz bir muhasebe olayı değildir**.\n\n' +
-      'Bir fatura eline geçtiğinde kaydedilmesi gerekir — ama ' +
+      'Bir fatura eline geçtiğinde kaydedilmesi gerekir: ama ' +
       '"kaydedilmesi gereken an" ile "kaydedilebilir hâle geldiği an" farklı olabilir: ' +
       'maliyet yeri belirsizdir, tutar tartışmalıdır, onay beklenmektedir.\n\n' +
       'Park bu boşluğu **belge kaybolmadan** doldurur: bilgi sistemdedir, ' +
-      'aranabilir, raporlanabilir — ama mali tabloya girmemiştir.\n\n' +
+      'aranabilir, raporlanabilir: ama mali tabloya girmemiştir.\n\n' +
       '**Kritik sonuç:** dönem sonunda park edilmiş belgeler **mizanda yoktur**. ' +
       'Eğer bunlar o döneme ait giderlerse, dönem **eksik** kapanır. ' +
       'Bu yüzden kapanış kontrol listesinde "park edilmiş belge kaldı mı?" ' +
@@ -86,7 +86,7 @@ SAP.registerTopic({
 
     roller:[
       { rol:'Muhasebe asistanı', gorev:'Faturayı park eder ({{FV60}} / {{FV50}}). **Muhasebeleştirme yetkisi olmamalıdır.**' },
-      { rol:'Bölüm sorumlusu', gorev:'Eksik bilgiyi tamamlar (maliyet yeri, açıklama) — {{FBV2}}.' },
+      { rol:'Bölüm sorumlusu', gorev:'Eksik bilgiyi tamamlar (maliyet yeri, açıklama): {{FBV2}}.' },
       { rol:'Muhasebe müdürü', gorev:'İnceler ({{FBV3}}) ve muhasebeleştirir ({{FBV0}}).' },
       { rol:'Onaylayan (iş akışı varsa)', gorev:'Tutar limitine göre onay verir ({{FBV4}}).' },
       { rol:'Ana muhasebe', gorev:'Dönem sonunda park edilmiş belge kalmadığını doğrular.' },
@@ -102,9 +102,9 @@ SAP.registerTopic({
           cikti:'Park edilmiş belge', ok:'eksik varsa' },
         { ic:'✏️', rol:'Sorumlu', baslik:'Eksikler tamamlanır ({{FBV2}})',
           aciklama:'Maliyet yeri, açıklama, tutar düzeltmesi. ' +
-                   'Belge **serbestçe değiştirilebilir** — muhasebeleşmemiş çünkü.',
+                   'Belge **serbestçe değiştirilebilir**: muhasebeleşmemiş çünkü.',
           cikti:'Tam belge', ok:'onay gerekiyorsa' },
-        { ic:'✓', rol:'Onaylayan', baslik:'Onay verilir ({{FBV4}}) — *isteğe bağlı*',
+        { ic:'✓', rol:'Onaylayan', baslik:'Onay verilir ({{FBV4}}): *isteğe bağlı*',
           aciklama:'Tutar limitine göre onay akışı. Onaysız belge muhasebeleştirilemez.',
           cikti:'Onaylı belge', ok:'inceleme' },
         { ic:'🔍', rol:'Müdür', baslik:'İncelenir ({{FBV3}})',
@@ -115,7 +115,7 @@ SAP.registerTopic({
                    '**Aynı belge numarası korunur.** Artık mizanda.',
           cikti:'Muhasebe belgesi', ok:'hatalıysa' },
         { ic:'🗑️', rol:'Müdür', baslik:'Veya silinir ({{FBV0}} → sil)',
-          aciklama:'Yanlış park edilen belge **silinebilir** — ters kayıt gerekmez, ' +
+          aciklama:'Yanlış park edilen belge **silinebilir**: ters kayıt gerekmez, ' +
                    'iz bırakmaz. Muhasebeleşmiş belgede bu mümkün değildir.',
           cikti:'Silinmiş belge' },
       ],
@@ -123,10 +123,10 @@ SAP.registerTopic({
 
     adimlar:[
       { rol:'Asistan', eylem:'Faturayı park eder', sistem:'{{FV60}} satıcı · {{FV50}} G/L' },
-      { rol:'Sistem', eylem:'Belge numarası verir', sistem:'{{VBKPF}} — normal aralıktan' },
+      { rol:'Sistem', eylem:'Belge numarası verir', sistem:'{{VBKPF}}: normal aralıktan' },
       { rol:'Sorumlu', eylem:'Eksikleri tamamlar', sistem:'{{FBV2}}' },
       { rol:'Onaylayan', eylem:'Onay verir (varsa)', sistem:'{{FBV4}}' },
-      { rol:'Müdür', eylem:'Belgeyi inceler', sistem:'{{FBV3}} — salt okunur' },
+      { rol:'Müdür', eylem:'Belgeyi inceler', sistem:'{{FBV3}}: salt okunur' },
       { rol:'Müdür', eylem:'Muhasebeleştirir', sistem:'{{FBV0}} → {{BKPF}}/{{BSEG}}' },
       { rol:'Müdür', eylem:'Veya siler', sistem:'{{FBV0}} → sil · **iz bırakmaz**' },
       { rol:'Ana muhasebe', eylem:'Dönem sonu kontrolü', sistem:'Park edilmiş belge kaldı mı?' },
@@ -147,7 +147,7 @@ SAP.registerTopic({
         '**mizanda yok**. Eğer bunlar Aralık ayına ait giderlerse, ' +
         'Aralık **eksik kapanır** ve gider bir sonraki döneme kayar.\n\n' +
         'Daha sinsi bir varyantı: belge Aralık’ta park edilir, Ocak’ta muhasebeleştirilir. ' +
-        'Kayıt tarihi **muhasebeleştirme anında** belirlenir — ' +
+        'Kayıt tarihi **muhasebeleştirme anında** belirlenir: ' +
         'belgede yazan tarih Aralık olsa bile dönem kapalıysa kayıt Ocak’a düşer.\n\n' +
         '**Önlem:** kapanış kontrol listesine "park edilmiş belge var mı?" maddesini ekle. ' +
         '{{FBV3}} veya park edilmiş belge raporuyla kontrol edilir; ' +
@@ -163,42 +163,42 @@ SAP.registerTopic({
       'Aradaki fark, belgenin **ne zaman mali tabloya girdiğidir**.',
 
     etkilenenHesaplar:[
-      { hesap:'Park aşamasında — **hiçbiri**', tur:'Etki yok', neden:'{{VBKPF}}/{{VBSEG}} muhasebe tablosu değildir; mizan etkilenmez.' },
-      { hesap:'320 Satıcılar', tur:'Bilanço — Kaynak', neden:'Muhasebeleştirme anında normal satıcı faturası gibi işler.' },
-      { hesap:'770 / 153 vb. gider veya stok', tur:'Değişken', neden:'Faturanın karşı satırı — muhasebeleştirmede oluşur.' },
-      { hesap:'191 İndirilecek KDV', tur:'Bilanço — Varlık', neden:'Vergi de muhasebeleştirme anında {{BSET}}’e yazılır.' },
+      { hesap:'Park aşamasında: **hiçbiri**', tur:'Etki yok', neden:'{{VBKPF}}/{{VBSEG}} muhasebe tablosu değildir; mizan etkilenmez.' },
+      { hesap:'320 Satıcılar', tur:'Bilanço: Kaynak', neden:'Muhasebeleştirme anında normal satıcı faturası gibi işler.' },
+      { hesap:'770 / 153 vb. gider veya stok', tur:'Değişken', neden:'Faturanın karşı satırı: muhasebeleştirmede oluşur.' },
+      { hesap:'191 İndirilecek KDV', tur:'Bilanço: Varlık', neden:'Vergi de muhasebeleştirme anında {{BSET}}’e yazılır.' },
     ],
 
     fisler:[
-      { baslik:'Park anı ({{FV60}}) — **muhasebe kaydı yok**',
+      { baslik:'Park anı ({{FV60}}): **muhasebe kaydı yok**',
         belgeTuru:'KR (park)', tarih:'20.12.2027', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'—', ad:'Belge 1900008801 park edildi — {{VBKPF}}/{{VBSEG}}’de duruyor', borc:0, alacak:0,
+          { hesap:', ', ad:'Belge 1900008801 park edildi, {{VBKPF}}/{{VBSEG}}’de duruyor', borc:0, alacak:0,
             not:'Mizan **etkilenmez**' },
         ],
         not:'Belge numarası **verildi** (1900008801) ama muhasebe kaydı **yok**.\n\n' +
-             'Belge {{FB03}}’te aranırsa bulunmaz — {{FBV3}} ile görüntülenir. ' +
+             'Belge {{FB03}}’te aranırsa bulunmaz: {{FBV3}} ile görüntülenir. ' +
              'Bakiyelerde, mizanda, {{FBL1N}}’de **hiç görünmez**.\n\n' +
              '*(Tabloda 0/0 gösterimi, kaydın G/L etkisi olmadığını vurgulamak içindir.)*' },
 
-      { baslik:'Muhasebeleştirme ({{FBV0}}) — **aynı numarayla** gerçek kayıt',
+      { baslik:'Muhasebeleştirme ({{FBV0}}): **aynı numarayla** gerçek kayıt',
         belgeTuru:'KR', tarih:'22.12.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'770', ad:'Genel yönetim gideri', borc:85000, not:'Maliyet yeri parkta tamamlandı' },
           { hesap:'191', ad:'İndirilecek KDV', borc:17000 },
-          { hesap:'320', ad:'Satıcılar — V-3012', alacak:102000 },
+          { hesap:'320', ad:'Satıcılar: V-3012', alacak:102000 },
         ],
-        not:'Belge numarası **1900008801** — park anında verilen numaranın **aynısı**.\n\n' +
+        not:'Belge numarası **1900008801**: park anında verilen numaranın **aynısı**.\n\n' +
              'Bu, ön kaydın önemli bir özelliğidir: numara park anında rezerve edilir ve ' +
              'muhasebeleştirmede korunur. Böylece park aşamasında verilen referans ' +
              '(örneğin satıcıya bildirilen numara) geçerliliğini sürdürür.\n\n' +
-             '**Kayıt tarihi muhasebeleştirme anında belirlenir** — parktaki tarih değil.' },
+             '**Kayıt tarihi muhasebeleştirme anında belirlenir**: parktaki tarih değil.' },
 
-      { baslik:'Dengesiz park — sistem izin verir',
+      { baslik:'Dengesiz park: sistem izin verir',
         belgeTuru:'KR (park)', tarih:'20.12.2027', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'770', ad:'Gider — kısmen girilmiş', borc:85000 },
-          { hesap:'320', ad:'Satıcılar', alacak:60000, not:'**Eksik** — 25.000 TL fark' },
+          { hesap:'770', ad:'Gider: kısmen girilmiş', borc:85000 },
+          { hesap:'320', ad:'Satıcılar', alacak:60000, not:'**Eksik**: 25.000 TL fark' },
         ],
         not:'**Park edilen belgenin dengeli olması zorunlu değildir.** ' +
              'Sistem uyarır ama kaydeder.\n\n' +
@@ -209,27 +209,27 @@ SAP.registerTopic({
              '{{FBV0}} dengesiz belgeyi **reddeder** ve hata verir. ' +
              'Bu, parkın esnek, muhasebenin katı olduğu tasarımın örneğidir.' },
 
-      { baslik:'Yanlış park edilen belge — **silinir**, ters kayıt gerekmez',
-        belgeTuru:'—', tarih:'21.12.2027', paraBirimi:'TRY',
+      { baslik:'Yanlış park edilen belge: **silinir**, ters kayıt gerekmez',
+        belgeTuru:': ', tarih:'21.12.2027', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'—', ad:'Belge 1900008802 silindi — muhasebe izi yok', borc:0, alacak:0,
+          { hesap:', ', ad:'Belge 1900008802 silindi, muhasebe izi yok', borc:0, alacak:0,
             not:'{{VBKPF}}’den kaldırıldı' },
         ],
         not:'Muhasebeleşmemiş belge **silinebilir** ve arkasında **hiçbir muhasebe izi bırakmaz**.\n\n' +
-             'Muhasebeleşmiş bir belge ise silinemez — {{FB08}} ile **ters kaydedilir** ve ' +
+             'Muhasebeleşmiş bir belge ise silinemez: {{FB08}} ile **ters kaydedilir** ve ' +
              'mizanda iki kayıt (asıl + ters) kalıcı olarak görünür.\n\n' +
              'Bu fark, parkın önemli bir avantajıdır: **hata maliyeti düşüktür.** ' +
              'Şüpheli bir belgeyi muhasebeleştirmek yerine park etmek, ' +
              'sonradan temiz bir çıkış imkânı bırakır.\n\n' +
-             '*(Belge numarası boşa gider — numara aralığında boşluk oluşur, bu normaldir.)*' },
+             '*(Belge numarası boşa gider: numara aralığında boşluk oluşur, bu normaldir.)*' },
     ],
 
     tHesaplar:[
-      { hesap:'Satıcılar — park aşaması', kod:'320',
+      { hesap:'Satıcılar: park aşaması', kod:'320',
         borc:[],
         alacak:[],
-        not:'**Hiçbir hareket yok** — park mizanı etkilemez' },
-      { hesap:'Satıcılar — muhasebeleştirme sonrası', kod:'320',
+        not:'**Hiçbir hareket yok**: park mizanı etkilemez' },
+      { hesap:'Satıcılar: muhasebeleştirme sonrası', kod:'320',
         borc:[],
         alacak:[{ ad:'Belge 1900008801', tutar:102000 }],
         not:'Ancak {{FBV0}} sonrası hareket oluşur' },
@@ -280,7 +280,7 @@ SAP.registerTopic({
         aciklama:'Belge **kişiseldir**: yalnızca tutan kullanıcı görebilir. ' +
                  'Numara **almaz**, denetim izi **bırakmaz**.',
         neZaman:'Kullanıcının kendi çalışmasını geçici saklaması.',
-        ornek:'Kayıt ekranında "Tut" butonu. **İç kontrol aracı DEĞİLDİR** — ' +
+        ornek:'Kayıt ekranında "Tut" butonu. **İç kontrol aracı DEĞİLDİR**: ' +
               'dört-göz için kullanılamaz.' },
 
       { ad:'Ön kayıtlı belge (klasik)', en:'Parked Document',
@@ -290,7 +290,7 @@ SAP.registerTopic({
               'ikisi de {{VBKPF}}’ye yazar.' },
 
       { ad:'Tamamlanmış park belgesi', en:'Complete',
-        aciklama:'Tüm zorunlu alanları dolu, dengeli — muhasebeleştirilmeye hazır.',
+        aciklama:'Tüm zorunlu alanları dolu, dengeli: muhasebeleştirilmeye hazır.',
         neZaman:'Belge tam girildiğinde.',
         ornek:'{{FBV0}} doğrudan muhasebeleştirebilir.' },
 
@@ -318,7 +318,7 @@ SAP.registerTopic({
 
     karsilastirmaBasliklar:['Park (parking)', 'Tutma (hold)'],
     karsilastirma:[
-      ['Belge numarası', '**Alır** — normal aralıktan', 'Almaz — geçici anahtar'],
+      ['Belge numarası', '**Alır**, normal aralıktan', 'Almaz, geçici anahtar'],
       ['Kim görebilir', '**Herkes** (yetkiye göre)', 'Yalnızca **tutan kullanıcı**'],
       ['Tablo', '{{VBKPF}} / {{VBSEG}}', 'Geçici tablolar'],
       ['Raporlanabilir mi', '**Evet**', 'Hayır'],
@@ -339,7 +339,7 @@ SAP.registerTopic({
           { baslik:'Satıcı, tutar ve tarihi gir',
             aciklama:'{{FB60}} ile aynı ekran; fark **kaydetme davranışıdır**.' },
           { baslik:'Kalemleri gir',
-            aciklama:'Eksik bırakılabilir — park için denklik **zorunlu değildir**.' },
+            aciklama:'Eksik bırakılabilir: park için denklik **zorunlu değildir**.' },
           { baslik:'**Park et** (Kaydet değil)',
             aciklama:'Belge numarası verilir, {{VBKPF}}/{{VBSEG}}’ye yazılır. ' +
                      'Mizan **etkilenmez**.' },
@@ -358,7 +358,7 @@ SAP.registerTopic({
         ipucu:'{{FB60}} ile {{FV60}} **aynı ekrandır**; tek fark kaydetme davranışıdır. ' +
               'Aslında {{FB60}} ekranından da "Park et" seçilebilir. ' +
               'Ayrı işlem kodunun varlığı **yetkilendirme içindir**: ' +
-              'asistana {{FV60}} verilir, {{FB60}} verilmez — ' +
+              'asistana {{FV60}} verilir, {{FB60}} verilmez: ' +
               'böylece doğrudan muhasebeleştirmesi engellenir.',
         ilgili:['FV50','FBV0','FBV2','FB60'] },
 
@@ -377,7 +377,7 @@ SAP.registerTopic({
               'önce park edilip topluca gözden geçirilmesi iyi bir pratiktir.',
         ilgili:['FV60','FBV0','FB50'] },
 
-      { kod:'FBV0', ad:'Ön kayıtlı belgeyi muhasebeleştir veya sil — **kritik işlem**',
+      { kod:'FBV0', ad:'Ön kayıtlı belgeyi muhasebeleştir veya sil: **kritik işlem**',
         amac:'Park edilmiş belgeyi muhasebeleştirir ({{BKPF}}/{{BSEG}}’ye taşır) veya siler.',
         neZaman:'İnceleme sonrası; dört-göz prensibinin uygulandığı adım.',
         adimlar:[
@@ -397,7 +397,7 @@ SAP.registerTopic({
           { mesaj:'Document is not complete / balance not zero', sebep:'Park edilen belge dengesiz veya zorunlu alanları eksik.', cozum:'{{FBV2}} ile tamamla. **Park esnek, muhasebeleştirme katıdır.**' },
           { mesaj:'Posting period ... is not open', sebep:'Belgenin tarihi kapalı döneme denk geliyor.', cozum:'{{OB52}} ile dönemi aç veya kayıt tarihini değiştir. **Belge Aralık’ta park edilip Ocak’ta muhasebeleştirilirse bu hata sık görülür.**' },
           { mesaj:'Document is subject to release', sebep:'Onay iş akışı tanımlı ve onay verilmemiş.', cozum:'{{FBV4}} ile onaylat.' },
-          { mesaj:'You are not authorized to post this document', sebep:'Kullanıcının muhasebeleştirme yetkisi yok.', cozum:'**Doğru davranıştır** — dört-göz prensibi çalışıyor demektir.' },
+          { mesaj:'You are not authorized to post this document', sebep:'Kullanıcının muhasebeleştirme yetkisi yok.', cozum:'**Doğru davranıştır**: dört-göz prensibi çalışıyor demektir.' },
         ],
         ipucu:'**Dört-göz prensibinin gerçekten çalıştığını doğrulamanın tek yolu:** ' +
               'park eden kullanıcının {{FBV0}} yetkisi olmadığını kontrol etmek.\n\n' +
@@ -412,7 +412,7 @@ SAP.registerTopic({
         adimlar:[
           { baslik:'Belge numarasını gir' },
           { baslik:'Kalemleri değiştir / ekle / sil',
-            aciklama:'**Serbestçe** — belge muhasebeleşmemiş.' },
+            aciklama:'**Serbestçe**: belge muhasebeleşmemiş.' },
           { baslik:'Yeniden park et' },
         ],
         ipucu:'Muhasebeleşmiş bir belgede yalnızca birkaç alan değiştirilebilir ' +
@@ -428,7 +428,7 @@ SAP.registerTopic({
           { baslik:'Belge numarasını gir' },
           { baslik:'Kalemleri ve durumu incele' },
         ],
-        ipucu:'**{{FB03}} park edilmiş belgeyi bulamaz** — o yalnızca {{BKPF}}’ye bakar. ' +
+        ipucu:'**{{FB03}} park edilmiş belgeyi bulamaz**: o yalnızca {{BKPF}}’ye bakar. ' +
               'Park edilmiş belge {{FBV3}} ile görüntülenir.\n\n' +
               '"Belge numarası var ama {{FB03}}’te bulunamıyor" şikâyetinin ' +
               'en yaygın sebebi budur: belge park edilmiş, muhasebeleştirilmemiştir.',
@@ -442,7 +442,7 @@ SAP.registerTopic({
           { baslik:'Belgeyi incele ve onayla' },
           { baslik:'Onay sonrası {{FBV0}} ile muhasebeleştirilebilir' },
         ],
-        ipucu:'Onay iş akışı **isteğe bağlıdır** — park etmek için gerekli değildir. ' +
+        ipucu:'Onay iş akışı **isteğe bağlıdır**: park etmek için gerekli değildir. ' +
               'Ama tutar bazlı onay gerekiyorsa (100.000 TL üstü müdür onayı gibi) ' +
               'bu mekanizma dört-göz prensibini **kademeli** hâle getirir.\n\n' +
               'Yapılandırması karmaşıktır; basit dört-göz için ' +
@@ -465,12 +465,12 @@ SAP.registerTopic({
         olusturan:'{{FV50}} / {{FV60}} / {{FBV1}}',
         guncelleyen:'{{FBV2}} değiştirir · {{FBV0}} taşır veya siler',
         anahtar:'AUSBK + BUKRS + BELNR + GJAHR',
-        iliskiler:'Muhasebeleştirmede {{BKPF}}’ye taşınır — **aynı belge numarasıyla**.',
+        iliskiler:'Muhasebeleştirmede {{BKPF}}’ye taşınır: **aynı belge numarasıyla**.',
         s4:'Değişmedi.',
         alanlar:[
-          { ad:'BELNR', aciklama:'Belge numarası — **park anında verilir**, muhasebeleşince korunur', tip:'pk' },
+          { ad:'BELNR', aciklama:'Belge numarası: **park anında verilir**, muhasebeleşince korunur', tip:'pk' },
           { ad:'BSTAT', aciklama:'Belge durumu: **V** ön kayıt · **Z** istatistiksel' },
-          { ad:'USNAM', aciklama:'**Park eden kullanıcı** — dört-göz kontrolünün dayanağı' },
+          { ad:'USNAM', aciklama:'**Park eden kullanıcı**: dört-göz kontrolünün dayanağı' },
           { ad:'BLART', aciklama:'Belge türü', tip:'fk' },
           { ad:'XPRFG', aciklama:'Onay durumu (release) işareti' },
         ] },
@@ -485,7 +485,7 @@ SAP.registerTopic({
         alanlar:[
           { ad:'BUZEI', aciklama:'Satır numarası', tip:'pk' },
           { ad:'HKONT', aciklama:'G/L hesabı' },
-          { ad:'WRBTR', aciklama:'Tutar — **denklik zorunlu değil**' },
+          { ad:'WRBTR', aciklama:'Tutar: **denklik zorunlu değil**' },
         ] },
 
       { ad:'BKPF', baslik:'Muhasebe belgesi başlığı',
@@ -495,8 +495,8 @@ SAP.registerTopic({
         s4:'{{ACDOCA}} ile birlikte çalışır.',
         alanlar:[
           { ad:'BELNR', aciklama:'**Parktaki numaranın aynısı**' },
-          { ad:'BUDAT', aciklama:'Kayıt tarihi — **muhasebeleştirme anında** belirlenir' },
-          { ad:'USNAM', aciklama:'**Muhasebeleştiren** kullanıcı — parktakinden farklı olmalı' },
+          { ad:'BUDAT', aciklama:'Kayıt tarihi: **muhasebeleştirme anında** belirlenir' },
+          { ad:'USNAM', aciklama:'**Muhasebeleştiren** kullanıcı: parktakinden farklı olmalı' },
         ] },
 
       { ad:'BSEG', baslik:'Belge kalemleri',
@@ -519,11 +519,11 @@ SAP.registerTopic({
       type:'er',
       baslik:'Park edilmiş ↔ muhasebeleşmiş: paralel yapı',
       varliklar:[
-        { ad:'VBKPF', rol:'Park', hub:true, aciklama:'**Ön kayıt başlığı** — mizanda yok',
+        { ad:'VBKPF', rol:'Park', hub:true, aciklama:'**Ön kayıt başlığı**: mizanda yok',
           alanlar:[{ ad:'BUKRS', tip:'pk' }, { ad:'BELNR', tip:'pk' }, { ad:'BSTAT' }, { ad:'USNAM' }] },
         { ad:'VBSEG', rol:'Park', aciklama:'Ön kayıt kalemleri',
           alanlar:[{ ad:'BELNR', tip:'fk' }, { ad:'BUZEI', tip:'pk' }, { ad:'HKONT' }] },
-        { ad:'BKPF', rol:'Muhasebe', aciklama:'**Muhasebe belgesi** — mizanda var',
+        { ad:'BKPF', rol:'Muhasebe', aciklama:'**Muhasebe belgesi**: mizanda var',
           alanlar:[{ ad:'BUKRS', tip:'pk' }, { ad:'BELNR', tip:'pk' }, { ad:'BUDAT' }, { ad:'USNAM' }] },
         { ad:'BSEG', rol:'Muhasebe', aciklama:'Belge kalemleri',
           alanlar:[{ ad:'BELNR', tip:'fk' }, { ad:'BUZEI', tip:'pk' }, { ad:'HKONT' }] },
@@ -553,12 +553,12 @@ SAP.registerTopic({
       '**yetkilendirmededir**.',
 
     ekranlar:[
-      { ad:'{{FV60}} / {{FV50}} — park ekranı',
+      { ad:'{{FV60}} / {{FV50}}: park ekranı',
         aciklama:'{{FB60}} / {{FB50}} ile aynı; fark "Park et" butonundadır.',
         alanlar:[
           { ad:'Satıcı / hesap', zorunlu:true },
           { ad:'Tutar ve tarih', zorunlu:true },
-          { ad:'Kalemler', zorunlu:false, aciklama:'**Eksik bırakılabilir** — park için denklik zorunlu değil.' },
+          { ad:'Kalemler', zorunlu:false, aciklama:'**Eksik bırakılabilir**: park için denklik zorunlu değil.' },
           { ad:'"Park et" butonu', zorunlu:true, aciklama:'"Kaydet" yerine bu seçilir.' },
         ],
         ipucu:'{{FB60}} ekranından da "Park et" seçilebilir. ' +
@@ -566,7 +566,7 @@ SAP.registerTopic({
               'asistana yalnızca {{FV60}} verilerek doğrudan muhasebeleştirmesi engellenir.\n\n' +
               'Bu ayrım yapılmazsa park özelliği bir iç kontrol aracı olmaktan çıkar.' },
 
-      { ad:'{{FBV0}} — muhasebeleştirme / silme ekranı',
+      { ad:'{{FBV0}}: muhasebeleştirme / silme ekranı',
         aciklama:'Dört-göz prensibinin uygulandığı ekran.',
         alanlar:[
           { ad:'Belge numarası', zorunlu:true },
@@ -582,26 +582,26 @@ SAP.registerTopic({
               'gider yanlış döneme yazılır.\n\n' +
               'Önlem: dönem kapanmadan önce park edilmiş belgeleri temizle.' },
 
-      { ad:'{{FBV3}} — görüntüleme ekranı',
+      { ad:'{{FBV3}}: görüntüleme ekranı',
         aciklama:'Park edilmiş belgeyi salt okunur gösterir.',
         alanlar:[
           { ad:'Belge numarası', zorunlu:true },
           { ad:'Durum', zorunlu:false, aciklama:'Tamamlanmış / eksik / onay bekliyor.' },
-          { ad:'Park eden kullanıcı', zorunlu:false, aciklama:'{{VBKPF}} `USNAM` — denetim için önemli.' },
+          { ad:'Park eden kullanıcı', zorunlu:false, aciklama:'{{VBKPF}} `USNAM`: denetim için önemli.' },
         ],
         ipucu:'**{{FB03}} park edilmiş belgeyi bulamaz.** ' +
               '"Belge numarası var ama görüntülenemiyor" şikâyetinin en yaygın sebebi budur. ' +
-              'Teşhis: numarayı {{FBV3}} ile dene — bulunuyorsa belge park edilmiştir.' },
+              'Teşhis: numarayı {{FBV3}} ile dene: bulunuyorsa belge park edilmiştir.' },
     ],
 
     zorunlu:['Belge türü','Şirket kodu','Tarih','Satıcı/hesap (park için)','Denklik (muhasebeleştirme için)'],
     opsiyonel:['Kalemler (parkta)','Maliyet yeri','Onay iş akışı'],
 
     hatalar:[
-      { mesaj:'Document is not complete / balance not zero (FBV0)', sebep:'Park edilen belge dengesiz veya eksik.', cozum:'{{FBV2}} ile tamamla. Park esnek, muhasebeleştirme katıdır — bu **beklenen** davranıştır.' },
+      { mesaj:'Document is not complete / balance not zero (FBV0)', sebep:'Park edilen belge dengesiz veya eksik.', cozum:'{{FBV2}} ile tamamla. Park esnek, muhasebeleştirme katıdır: bu **beklenen** davranıştır.' },
       { mesaj:'Posting period ... is not open (FBV0)', sebep:'Belge kapalı bir döneme muhasebeleştirilmeye çalışılıyor.', cozum:'{{OB52}} ile dönemi geçici aç veya kayıt tarihini güncelle. **Dönem kapanmadan park temizliği yapılmalıydı.**' },
       { mesaj:'Document not found (FB03)', sebep:'Belge park edilmiş, muhasebeleştirilmemiş.', cozum:'{{FBV3}} ile görüntüle. {{FB03}} yalnızca {{BKPF}}’ye bakar.' },
-      { mesaj:'You are not authorized to post this document', sebep:'Kullanıcının {{FBV0}} yetkisi yok.', cozum:'**Doğru davranıştır** — dört-göz prensibi çalışıyor. Yetkili kişiye yönlendir.' },
+      { mesaj:'You are not authorized to post this document', sebep:'Kullanıcının {{FBV0}} yetkisi yok.', cozum:'**Doğru davranıştır**: dört-göz prensibi çalışıyor. Yetkili kişiye yönlendir.' },
       { mesaj:'Document is subject to release', sebep:'Onay iş akışı tanımlı, onay verilmemiş.', cozum:'{{FBV4}} ile onaylat.' },
       { mesaj:'Belge numarası aralığında boşluklar var', sebep:'Silinen park belgelerinin numaraları boşa gitmiş.', cozum:'**Normaldir**, düzeltme gerekmez. Numara park anında rezerve edilir; belge silinse de geri alınmaz.' },
     ],
@@ -609,11 +609,11 @@ SAP.registerTopic({
     ipuclari:[
       '**Dört-göz için yetkilendirmeyi ayır:** asistanda {{FV60}} var, {{FBV0}} **yok**. ' +
       'Sadece park özelliğini açmak kontrol kurmaz.',
-      'Dönem kapanmadan önce **park edilmiş belge kalmadığını** doğrula — ' +
+      'Dönem kapanmadan önce **park edilmiş belge kalmadığını** doğrula: ' +
       'kapanış kontrol listesine ekle.',
       '"Belge {{FB03}}’te bulunamıyor" şikâyetinde {{FBV3}} ile dene; ' +
       'park edilmiş olma ihtimali yüksektir.',
-      'Şüpheli bir belgeyi muhasebeleştirmek yerine **park et** — ' +
+      'Şüpheli bir belgeyi muhasebeleştirmek yerine **park et**: ' +
       'hata maliyeti çok daha düşüktür (silinebilir, ters kayıt gerekmez).',
       'Dönem sonu düzeltme kayıtlarını önce park et, topluca gözden geçir, sonra muhasebeleştir.',
       'Dış sistemden gelen aktarımları park ederek al; kontrolden geçmeden ' +
@@ -624,9 +624,9 @@ SAP.registerTopic({
   /* ===================================================== 8. TEKNİK === */
   teknik: {
     guncellenenTablolar:[
-      { tablo:'VBKPF', ne:'Park edilmiş belge başlığı — **mizanı etkilemez**' },
+      { tablo:'VBKPF', ne:'Park edilmiş belge başlığı: **mizanı etkilemez**' },
       { tablo:'VBSEG', ne:'Park edilmiş belge kalemleri' },
-      { tablo:'BKPF', ne:'Muhasebeleştirmede oluşur — **aynı belge numarasıyla**' },
+      { tablo:'BKPF', ne:'Muhasebeleştirmede oluşur: **aynı belge numarasıyla**' },
       { tablo:'BSEG', ne:'Muhasebeleştirmede oluşur' },
       { tablo:'ACDOCA', ne:'Muhasebeleştirmede oluşur' },
       { tablo:'NRIV', ne:'Numara **park anında** rezerve edilir' },
@@ -641,7 +641,7 @@ SAP.registerTopic({
       '{{BKPF}}/{{BSEG}}/{{ACDOCA}} yazılır ve **aynı LUW’da** park kayıtları silinir.\n\n' +
       'İkinci aşamanın atomikliği kritiktir: belge hem parkta hem muhasebede ' +
       'görünürse çift kayıt riski doğardı. ' +
-      'SAP bunu tek commit ile garanti eder — muhasebeleştirme başarısız olursa ' +
+      'SAP bunu tek commit ile garanti eder: muhasebeleştirme başarısız olursa ' +
       'belge **parkta kalır**, yarım bir durum oluşmaz.',
 
     belgeNo:
@@ -650,7 +650,7 @@ SAP.registerTopic({
       'Avantajı: park aşamasında verilen referans (satıcıya bildirilen numara, ' +
       'dosyaya yazılan numara) muhasebeleştirmeden sonra da geçerlidir.\n\n' +
       'Yan etkisi: **silinen park belgelerinin numaraları boşa gider** ve ' +
-      'aralıkta boşluk oluşur. Bu normaldir ve düzeltilemez — ' +
+      'aralıkta boşluk oluşur. Bu normaldir ve düzeltilemez: ' +
       'denetçiye "bu numara neden yok?" sorusuna cevap ' +
       '"park edilip silinmiş" olur.\n\n' +
       'Bazı kurulumlar park için **ayrı numara aralığı** tanımlar; ' +
@@ -666,7 +666,7 @@ SAP.registerTopic({
       '**5.** Kullanıcının **muhasebeleştirme yetkisi** var mı?\n' +
       '**6.** Hesap belirleme, vergi hesaplama, {{belge-bolme}} çalışır.\n' +
       '**7.** {{BKPF}}/{{BSEG}}/{{ACDOCA}} yazılır, park kayıtları silinir.\n\n' +
-      'Park aşamasında **hiçbiri** kontrol edilmez (1–4 dâhil). ' +
+      'Park aşamasında **hiçbiri** kontrol edilmez (1-4 dâhil). ' +
       'Bu, "park esnek, muhasebeleştirme katı" ilkesinin teknik karşılığıdır.',
 
     belgeTuru:
@@ -681,7 +681,7 @@ SAP.registerTopic({
       'Park, belge türünün normal numara aralığını kullanır ve ' +
       'numarayı **park anında** çeker ({{NRIV}} güncellenir).\n\n' +
       'Sonuç: park edilip silinen belgelerin numaraları boşa gider. ' +
-      'Yılbaşında aralık genişletilirken bu boşluklar hesaba katılmalıdır — ' +
+      'Yılbaşında aralık genişletilirken bu boşluklar hesaba katılmalıdır: ' +
       'yoğun park kullanan kurulumlarda aralık daha hızlı tükenir.',
 
     accountDetermination:
@@ -712,10 +712,10 @@ SAP.registerTopic({
       'olmadığını rol bazında doğrula.',
 
     img:[
-      { yol:'SPRO → Finansal Muhasebe → Finansal Muhasebe Genel Ayarları → Belge → Belge Türleri', not:'{{OBA7}} — park edilebilirlik' },
+      { yol:'SPRO → Finansal Muhasebe → Finansal Muhasebe Genel Ayarları → Belge → Belge Türleri', not:'{{OBA7}}: park edilebilirlik' },
       { yol:'SPRO → … → Belge → Ön Kayıt → Ön Kayıt İçin Onay Prosedürlerini Tanımla', not:'{{FBV4}} onay iş akışı' },
       { yol:'SPRO → … → Belge → Ön Kayıt → Tutar Limitlerini Tanımla', not:'Onay seviyesi için tutar sınırları' },
-      { yol:'SPRO → … → Belge → Belge Numara Aralıkları', not:'{{FBN1}} — park numarayı buradan çeker' },
+      { yol:'SPRO → … → Belge → Belge Numara Aralıkları', not:'{{FBN1}}: park numarayı buradan çeker' },
     ],
 
     ekstra:[
@@ -730,12 +730,12 @@ SAP.registerTopic({
         'aynı olduklarını görür\n' +
         '• Bulgu yazılır\n\n' +
         '**Doğru kurulum yetkilendirmededir:**\n\n' +
-        '**Rol A (asistan):** {{FV60}}, {{FV50}}, {{FBV2}}, {{FBV3}} — ' +
+        '**Rol A (asistan):** {{FV60}}, {{FV50}}, {{FBV2}}, {{FBV3}}: ' +
         'park eder, düzeltir, görüntüler.\n' +
-        '**Rol B (müdür):** {{FBV0}}, {{FBV3}} — muhasebeleştirir ve siler.\n\n' +
+        '**Rol B (müdür):** {{FBV0}}, {{FBV3}}: muhasebeleştirir ve siler.\n\n' +
         'İki rol **aynı kullanıcıda birleşmemelidir**.\n\n' +
         'Denetim için hazır cevap: "{{VBKPF}} `USNAM` ile {{BKPF}} `USNAM` ' +
-        'hiçbir belgede aynı değildir" — bunu bir sorguyla göstermek, ' +
+        'hiçbir belgede aynı değildir": bunu bir sorguyla göstermek, ' +
         'kontrolün çalıştığının en güçlü kanıtıdır.' },
 
       { ic:'📅', baslik:'Aralık’ta park, Ocak’ta muhasebe: kayıt hangi döneme düşer?', metin:
@@ -788,7 +788,7 @@ SAP.registerTopic({
     ],
 
     universalJournal:
-      'Park edilmiş belgeler {{ACDOCA}}’ya **yazılmaz** — henüz muhasebe kaydı değiller. ' +
+      'Park edilmiş belgeler {{ACDOCA}}’ya **yazılmaz**: henüz muhasebe kaydı değiller. ' +
       'Muhasebeleştirme anında {{BKPF}}/{{BSEG}} ile birlikte {{ACDOCA}} da oluşur.\n\n' +
       'Bu, ön kaydın {{ACDOCA}} mimarisinde **hiçbir değişiklik gerektirmemesinin** sebebidir: ' +
       'park zaten muhasebe katmanının dışındadır.\n\n' +
@@ -796,7 +796,7 @@ SAP.registerTopic({
       'Dönem sonu kontrolü için ayrıca {{VBKPF}} sorgulanmalıdır.',
 
     kalkanTcodes:[
-      { eski:'—', yeni:'—', not:'{{FV50}}, {{FV60}}, {{FBV0}}, {{FBV2}}, {{FBV3}}, {{FBV4}} **kaldırılmadı**' },
+      { eski:', ', yeni:', ', not:'{{FV50}}, {{FV60}}, {{FBV0}}, {{FBV2}}, {{FBV3}}, {{FBV4}} **kaldırılmadı**' },
     ],
 
     fiori:[
@@ -809,8 +809,8 @@ SAP.registerTopic({
     ],
 
     compatibilityViews:[
-      '{{VBKPF}}, {{VBSEG}} — **fiziksel tablo olarak duruyor** (uyumluluk görünümü değil).',
-      '{{BSEG}} — {{ACDOCA}}’dan türetilen görünüm.',
+      '{{VBKPF}}, {{VBSEG}}: **fiziksel tablo olarak duruyor** (uyumluluk görünümü değil).',
+      '{{BSEG}}: {{ACDOCA}}’dan türetilen görünüm.',
       'Ön kayıt, S/4HANA geçişinde yapı olarak **hiç etkilenmeyen** alanlardan biridir.',
     ],
 
@@ -823,12 +823,12 @@ SAP.registerTopic({
       'baskısı azalır.',
 
     bestPractices:[
-      'Fiori onay akışını değerlendir — dört-göz prensibinin **pratikte uygulanmasını** kolaylaştırır.',
+      'Fiori onay akışını değerlendir: dört-göz prensibinin **pratikte uygulanmasını** kolaylaştırır.',
       'Geçişte park edilmiş belgeleri **temizle**; devreden park belgeleri ' +
       'yeni sistemde gözden kaçar.',
       'Yetkilendirme ayrımını geçişte yeniden gözden geçir; ' +
       'rol birleştirmeleri sırasında {{FV60}} ve {{FBV0}} aynı role düşebilir.',
-      'Dönem sonu kontrol listesine "park edilmiş belge var mı?" maddesini ekle — ' +
+      'Dönem sonu kontrol listesine "park edilmiş belge var mı?" maddesini ekle: ' +
       'S/4HANA’da da bu belgeler {{ACDOCA}} raporlarında **görünmez**.',
       'Dış sistemden gelen aktarımları park ederek almayı değerlendir; ' +
       'kontrolden geçmeden mizana girmezler.',
@@ -852,7 +852,7 @@ SAP.registerTopic({
       { k:'Aylık satıcı faturası', v:'~420 belge' },
       { k:'Park eden', v:'Asistan (kullanıcı MUHASEBE01)' },
       { k:'Muhasebeleştiren', v:'Müdür (kullanıcı MUHASEBE_MD)' },
-      { k:'**Denetim bulgusu**', v:'Görevler ayrılığı ihlali — **iki kez** yazıldı' },
+      { k:'**Denetim bulgusu**', v:'Görevler ayrılığı ihlali: **iki kez** yazıldı' },
     ],
 
     adimlar:[
@@ -869,16 +869,16 @@ SAP.registerTopic({
              'Bu, denetçinin bulguyu yazarken kullandığı veridir ve ' +
              'tartışmaya yer bırakmaz.' },
 
-      { baslik:'Kök sebep — yetkilendirme değişmemiş', tcode:'SU53',
+      { baslik:'Kök sebep: yetkilendirme değişmemiş', tcode:'SU53',
         aciklama:'Asistanın yetkileri inceleniyor.',
         girdi:[
-          { alan:'MUHASEBE01 — {{FV60}} yetkisi', deger:'**Var** ✓ (park edebiliyor)' },
-          { alan:'MUHASEBE01 — {{FBV0}} yetkisi', deger:'**Var** (muhasebeleştirebiliyor da)' },
-          { alan:'MUHASEBE01 — {{FB60}} yetkisi', deger:'**Var** (doğrudan da kaydedebiliyor)' },
+          { alan:'MUHASEBE01: {{FV60}} yetkisi', deger:'**Var** ✓ (park edebiliyor)' },
+          { alan:'MUHASEBE01: {{FBV0}} yetkisi', deger:'**Var** (muhasebeleştirebiliyor da)' },
+          { alan:'MUHASEBE01: {{FB60}} yetkisi', deger:'**Var** (doğrudan da kaydedebiliyor)' },
           { alan:'Sonuç', deger:'Park bir **imkân**, kontrol değil' },
         ],
         not:'**Kök sebep bulundu.** Park süreci tanımlandı, eğitim verildi, ' +
-             'asistan çoğu zaman kurallara uydu — ama **yetkisi kısıtlanmadı**.\n\n' +
+             'asistan çoğu zaman kurallara uydu: ama **yetkisi kısıtlanmadı**.\n\n' +
              'Yoğun günlerde, müdür toplantıdayken veya ay sonu baskısında ' +
              'asistan kendi park ettiği belgeyi kendisi muhasebeleştirdi. ' +
              '%13 oranı tam olarak bunu gösteriyor.\n\n' +
@@ -888,28 +888,28 @@ SAP.registerTopic({
       { baslik:'Roller ayrıştırılır', tcode:'PFCG',
         aciklama:'Yetkilendirme yeniden tasarlanıyor.',
         girdi:[
-          { alan:'**Rol A — Fatura girişi**', deger:'{{FV60}}, {{FV50}}, {{FBV2}}, {{FBV3}}' },
+          { alan:'**Rol A: Fatura girişi**', deger:'{{FV60}}, {{FV50}}, {{FBV2}}, {{FBV3}}' },
           { alan:'Rol A’dan **çıkarılan**', deger:'{{FBV0}}, {{FB60}}, {{FB50}}' },
-          { alan:'**Rol B — Muhasebeleştirme**', deger:'{{FBV0}}, {{FBV3}}, {{FB03}}' },
+          { alan:'**Rol B: Muhasebeleştirme**', deger:'{{FBV0}}, {{FBV3}}, {{FB03}}' },
           { alan:'Kural', deger:'İki rol **aynı kullanıcıda birleştirilemez**' },
         ],
         not:'Kritik detay: {{FB60}} yetkisi de kaldırıldı. ' +
-             'Yalnızca {{FBV0}}’ı kaldırmak yetmezdi — ' +
+             'Yalnızca {{FBV0}}’ı kaldırmak yetmezdi: ' +
              'asistan {{FB60}} ile park etmeden doğrudan kaydetmeye devam ederdi.\n\n' +
              '**Yedek plan:** müdür izinliyken belge birikmesin diye ' +
              'ikinci bir kişiye Rol B verildi (muhasebe şefi). ' +
              'Kontrolü delmeden esneklik sağlandı.' },
 
-      { baslik:'İkinci sorun — dönem sonunda park kalıntısı', tcode:'FBV3',
+      { baslik:'İkinci sorun: dönem sonunda park kalıntısı', tcode:'FBV3',
         aciklama:'Aralık kapanışında beklenmedik bir durum çıkıyor.',
         girdi:[
           { alan:'31.12.2027 itibarıyla parkta', deger:'**63 belge** · toplam 1.840.000 TL' },
           { alan:'Bunlardan Aralık’a ait', deger:'**58 belge** · 1.720.000 TL' },
-          { alan:'Mizandaki durumu', deger:'**Hiçbiri yok** — park mizanı etkilemez' },
+          { alan:'Mizandaki durumu', deger:'**Hiçbiri yok**: park mizanı etkilemez' },
           { alan:'Etki', deger:'Aralık gideri **1.720.000 TL eksik**' },
         ],
         not:'**İkinci ders burada:** park edilmiş belgeler mizanda **görünmez**.\n\n' +
-             '58 fatura Aralık ayına ait, muhasebeye ulaşmış, sisteme girilmiş — ' +
+             '58 fatura Aralık ayına ait, muhasebeye ulaşmış, sisteme girilmiş: ' +
              'ama muhasebeleştirilmedikleri için Aralık gideri eksik.\n\n' +
              'Kimse fark etmedi çünkü hiçbir standart rapor bu belgeleri göstermiyor: ' +
              'mizanda yok, {{FBL1N}}’de yok, {{ACDOCA}}’da yok.' },
@@ -918,28 +918,28 @@ SAP.registerTopic({
         aciklama:'Aralık dönemi kapanmadan 58 belge muhasebeleştiriliyor.',
         girdi:[
           { alan:'Muhasebeleştirilen', deger:'58 belge' },
-          { alan:'Kayıt tarihi', deger:'31.12.2027 — **dönem hâlâ açık**' },
-          { alan:'Reddedilen', deger:'**4 belge** — dengesiz veya eksik' },
-          { alan:'Silinen', deger:'**5 belge** — mükerrer giriş' },
+          { alan:'Kayıt tarihi', deger:'31.12.2027: **dönem hâlâ açık**' },
+          { alan:'Reddedilen', deger:'**4 belge**: dengesiz veya eksik' },
+          { alan:'Silinen', deger:'**5 belge**: mükerrer giriş' },
         ],
-        fis:{ baslik:'Belge 1900012204 — parktan muhasebeye', belgeTuru:'KR', tarih:'31.12.2027',
+        fis:{ baslik:'Belge 1900012204: parktan muhasebeye', belgeTuru:'KR', tarih:'31.12.2027',
           satirlar:[
             { hesap:'770', ad:'Genel yönetim gideri', borc:142000, not:'Aralık gideri, doğru dönemde' },
             { hesap:'191', ad:'İndirilecek KDV', borc:28400 },
             { hesap:'320', ad:'Satıcılar', alacak:170400 },
           ], not:'Belge numarası **park anında verilen numaranın aynısı**.\n\n' +
-                 'Kayıt tarihi 31.12 — Aralık dönemi açık olduğu için ' +
+                 'Kayıt tarihi 31.12: Aralık dönemi açık olduğu için ' +
                  'gider **doğru döneme** düştü. Bir hafta sonra yapılsaydı ' +
                  'Aralık kapanmış olacak ve gider Ocak’a kayacaktı.' },
         tabloEtkisi:[
           { tablo:'VBKPF', ne:'58 kayıt silindi (muhasebeleştirildi) + 5 kayıt silindi (mükerrer)' },
-          { tablo:'BKPF', ne:'58 muhasebe belgesi — **aynı numaralarla**' },
+          { tablo:'BKPF', ne:'58 muhasebe belgesi: **aynı numaralarla**' },
           { tablo:'ACDOCA', ne:'Aralık gideri 1.720.000 TL arttı' },
         ],
-        not:'**4 belge reddedildi** — park sırasında dengesiz veya eksik bırakılmışlardı. ' +
+        not:'**4 belge reddedildi**: park sırasında dengesiz veya eksik bırakılmışlardı. ' +
              'Bu, "park başarılı = muhasebeleştirilebilir" varsayımının yanlış olduğunun ' +
              'somut kanıtı.\n\n' +
-             '**5 belge silindi** — aynı fatura iki kez park edilmiş. ' +
+             '**5 belge silindi**: aynı fatura iki kez park edilmiş. ' +
              'Muhasebeleşmiş olsalardı {{FB08}} ile ters kaydedilmeleri gerekecek ve ' +
              'mizanda kalıcı iz bırakacaklardı. Parkta oldukları için ' +
              '**temiz bir şekilde** silindiler.' },
@@ -947,15 +947,15 @@ SAP.registerTopic({
       { baslik:'Kalıcı önlemler kurulur', tcode:'FBV3',
         aciklama:'İki sorun için de sistemsel çözüm.',
         girdi:[
-          { alan:'Önlem 1 — yetki', deger:'Rol A ve Rol B **birleştirilemez** kuralı SoD matrisine eklendi' },
-          { alan:'Önlem 2 — izleme', deger:'Aylık sorgu: {{VBKPF}} `USNAM` = {{BKPF}} `USNAM` olan belge var mı?' },
-          { alan:'Önlem 3 — kapanış', deger:'"Park edilmiş belge kaldı mı?" kapanış listesine eklendi' },
-          { alan:'Önlem 4 — yaşlandırma', deger:'7 günden eski park belgeleri haftalık raporlanıyor' },
+          { alan:'Önlem 1: yetki', deger:'Rol A ve Rol B **birleştirilemez** kuralı SoD matrisine eklendi' },
+          { alan:'Önlem 2: izleme', deger:'Aylık sorgu: {{VBKPF}} `USNAM` = {{BKPF}} `USNAM` olan belge var mı?' },
+          { alan:'Önlem 3: kapanış', deger:'"Park edilmiş belge kaldı mı?" kapanış listesine eklendi' },
+          { alan:'Önlem 4: yaşlandırma', deger:'7 günden eski park belgeleri haftalık raporlanıyor' },
         ],
         not:'**Dördüncü önlem en değerlisi:** parkta bekleyen belgelerin ' +
              'yaşlandırma raporu. Bir belge 7 günden fazla parkta kalıyorsa ' +
              'ya unutulmuştur ya bir sorun vardır.\n\n' +
-             'Bu rapor, dönem sonunda 63 belgelik bir yığınla karşılaşmayı önler — ' +
+             'Bu rapor, dönem sonunda 63 belgelik bir yığınla karşılaşmayı önler: ' +
              'sorun her hafta küçük parçalar hâlinde çözülür.' },
 
       { baslik:'Sonraki denetimde doğrulama', tcode:'SE16N',
@@ -975,23 +975,23 @@ SAP.registerTopic({
     ],
 
     sonuc:
-      '**Aynı denetim bulgusu iki kez yazıldı — çünkü park açıldı ama kontrol kurulmadı.**\n\n' +
+      '**Aynı denetim bulgusu iki kez yazıldı: çünkü park açıldı ama kontrol kurulmadı.**\n\n' +
       '**Dört kritik ders:**\n\n' +
       '**1. Dört-göz prensibi park özelliğiyle değil, yetkilendirmeyle kurulur.** ' +
       'Aynı kullanıcı hem {{FV60}} hem {{FBV0}} yetkisine sahipse mekanizma ' +
-      'yalnızca bir gecikmedir. Ayrıca {{FB60}} yetkisi de kaldırılmalıdır — ' +
+      'yalnızca bir gecikmedir. Ayrıca {{FB60}} yetkisi de kaldırılmalıdır: ' +
       'yoksa kullanıcı park etmeden doğrudan kaydeder. ' +
       'Kanıt tek bir sorguda: **{{VBKPF}} `USNAM` = {{BKPF}} `USNAM` olan belge sayısı sıfır olmalıdır.**\n\n' +
       '**2. Park edilmiş belgeler mizanda görünmez ve dönemi eksik bırakır.** ' +
       '58 Aralık faturası sisteme girilmişti ama muhasebeleştirilmediği için ' +
-      'Aralık gideri 1.720.000 TL eksikti. Hiçbir standart rapor bunu göstermez — ' +
+      'Aralık gideri 1.720.000 TL eksikti. Hiçbir standart rapor bunu göstermez: ' +
       'ne mizan, ne {{FBL1N}}, ne {{ACDOCA}}. ' +
       'Kapanış kontrol listesine **"park edilmiş belge kaldı mı?"** maddesi zorunludur.\n\n' +
       '**3. "Park başarılı" muhasebeleştirilebilir demek değildir.** ' +
       'Park aşamasında denklik, zorunlu alanlar, dönem ve hesap belirleme ' +
       '**kontrol edilmez**. 58 belgenin 4’ü {{FBV0}}’da reddedildi. ' +
       'Toplu park yapan aktarımlarda bu oran ciddi bir yarım-iş yaratır.\n\n' +
-      '**4. Parkın hata maliyeti düşüktür — bunu kullan.** ' +
+      '**4. Parkın hata maliyeti düşüktür: bunu kullan.** ' +
       '5 mükerrer belge **silindi** ve arkalarında hiçbir muhasebe izi kalmadı. ' +
       'Muhasebeleşmiş olsalardı {{FB08}} ile ters kaydedilecek ve ' +
       'mizanda kalıcı olarak görünüp açıklanmaları gerekecekti. ' +
@@ -1003,9 +1003,9 @@ SAP.registerTopic({
     ozet:[
       '{{park-etme}}, belgeyi **muhasebeleştirmeden** kaydetmektir; {{VBKPF}}/{{VBSEG}}’de durur.',
       'Park edilen belge **numara alır** ama **mizanı etkilemez**.',
-      'Muhasebeleştirmede ({{FBV0}}) veri {{BKPF}}/{{BSEG}}’ye taşınır — **aynı numarayla**.',
+      'Muhasebeleştirmede ({{FBV0}}) veri {{BKPF}}/{{BSEG}}’ye taşınır: **aynı numarayla**.',
       '**Park esnek, muhasebeleştirme katıdır:** parkta denklik zorunlu değil, {{FBV0}}’da zorunlu.',
-      '**{{dort-goz}} prensibi yetkilendirmeyle kurulur** — park özelliğiyle değil.',
+      '**{{dort-goz}} prensibi yetkilendirmeyle kurulur**: park özelliğiyle değil.',
       'Park ≠ tutma (hold): hold **kişiseldir**, numara almaz, **denetim izi bırakmaz**.',
       'Park edilmiş belge **silinebilir**; muhasebeleşmiş belge yalnızca ters kaydedilir.',
       'Dönem sonunda park edilmiş belge kalırsa **dönem eksik kapanır**.',
@@ -1016,10 +1016,10 @@ SAP.registerTopic({
       '**"Dört-göz prensibi nasıl kurulur?"** Park özelliğini açmak **yetmez**. Yetkilendirme ayrılmalıdır: Rol A ({{FV60}}, {{FBV2}}, {{FBV3}}), Rol B ({{FBV0}}). Ayrıca {{FB60}} yetkisi de kaldırılmalıdır. Kanıt: {{VBKPF}} `USNAM` = {{BKPF}} `USNAM` olan belge **sıfır** olmalıdır.',
       '**"Park edilen belge mizanı etkiler mi?"** **Hayır.** {{VBKPF}}/{{VBSEG}} muhasebe tablosu değildir. Dönem sonunda park kalıntısı varsa dönem **eksik kapanır** ve hiçbir standart rapor bunu göstermez.',
       '**"Park edilen belge dengeli olmak zorunda mı?"** **Parkta hayır, muhasebeleştirmede evet.** Park bir çalışma alanıdır; {{FBV0}} dengesiz belgeyi reddeder.',
-      '**"Belge numarası ne olur?"** Park anında verilir ve muhasebeleştirmede **korunur**. Silinen park belgelerinin numaraları boşa gider — aralıkta boşluk normaldir.',
-      '**"Aralık’ta park, Ocak’ta muhasebe — hangi döneme düşer?"** {{FBV0}} anındaki **kayıt tarihine** göre. Aralık kapalıysa ya hata alınır ya kayıt Ocak’a kayar ve **gider yanlış dönemde** olur.',
-      '**"{{FB03}} park edilmiş belgeyi bulur mu?"** **Hayır** — o yalnızca {{BKPF}}’ye bakar. {{FBV3}} kullanılır. "Numara var ama görüntülenemiyor" şikâyetinin ana sebebi budur.',
-      '**"Yanlış belge park edilmişse?"** **Silinir** — muhasebe izi kalmaz. Muhasebeleşmiş olsaydı {{FB08}} ile ters kaydedilecek ve mizanda kalıcı iz bırakacaktı.',
+      '**"Belge numarası ne olur?"** Park anında verilir ve muhasebeleştirmede **korunur**. Silinen park belgelerinin numaraları boşa gider: aralıkta boşluk normaldir.',
+      '**"Aralık’ta park, Ocak’ta muhasebe: hangi döneme düşer?"** {{FBV0}} anındaki **kayıt tarihine** göre. Aralık kapalıysa ya hata alınır ya kayıt Ocak’a kayar ve **gider yanlış dönemde** olur.',
+      '**"{{FB03}} park edilmiş belgeyi bulur mu?"** **Hayır**: o yalnızca {{BKPF}}’ye bakar. {{FBV3}} kullanılır. "Numara var ama görüntülenemiyor" şikâyetinin ana sebebi budur.',
+      '**"Yanlış belge park edilmişse?"** **Silinir**: muhasebe izi kalmaz. Muhasebeleşmiş olsaydı {{FB08}} ile ters kaydedilecek ve mizanda kalıcı iz bırakacaktı.',
     ],
 
     sikHatalar:[
@@ -1029,7 +1029,7 @@ SAP.registerTopic({
       { hata:'"Park başarılı = muhasebeleştirilebilir" varsaymak.', dogru:'Parkta denklik, dönem ve hesap belirleme kontrol edilmez. {{FBV0}} reddedebilir.' },
       { hata:'Park edilmiş belgeyi {{FB03}} ile aramak.', dogru:'{{FBV3}} kullanılır. {{FB03}} yalnızca muhasebeleşmiş belgeleri görür.' },
       { hata:'Hold’u dört-göz aracı sanmak.', dogru:'Hold kişiseldir, iz bırakmaz, başkası göremez. İç kontrol için **uygun değildir**.' },
-      { hata:'Şüpheli belgeyi muhasebeleştirmek.', dogru:'Park et. Silinebilir, iz bırakmaz — hata maliyeti çok daha düşüktür.' },
+      { hata:'Şüpheli belgeyi muhasebeleştirmek.', dogru:'Park et. Silinebilir, iz bırakmaz: hata maliyeti çok daha düşüktür.' },
       { hata:'Park belgelerinin yaşlandırmasını izlememek.', dogru:'7 günden eski park belgeleri haftalık raporlanmalı; dönem sonunda yığın oluşmasın.' },
     ],
 
@@ -1038,7 +1038,7 @@ SAP.registerTopic({
       'hiçbir belgede aynı olmadığını gösteren bir sorgu kaydet.',
       'Kapanış kontrol listesine **"park edilmiş belge kaldı mı?"** maddesini ekle.',
       'Parkta 7 günden fazla bekleyen belgeler için **haftalık yaşlandırma raporu** tut.',
-      'Şüpheli veya eksik bilgili belgeyi **park et**, muhasebeleştirme — hata maliyeti düşer.',
+      'Şüpheli veya eksik bilgili belgeyi **park et**, muhasebeleştirme: hata maliyeti düşer.',
       'Dönem sonu düzeltme kayıtlarını önce park et, topluca gözden geçir, sonra muhasebeleştir.',
       'Dış sistemden gelen aktarımları park ederek al; kontrolden geçmeden mizana girmesinler.',
     ],
@@ -1048,7 +1048,7 @@ SAP.registerTopic({
         secenekler:[
           'Normal belge gibi etkiler',
           'Yarı tutarla etkiler',
-          '**Hiç etkilemez — {{VBKPF}}/{{VBSEG}} muhasebe tablosu değildir**',
+          '**Hiç etkilemez: {{VBKPF}}/{{VBSEG}} muhasebe tablosu değildir**',
           'Yalnızca bilançoyu etkiler',
         ], dogru:2,
         aciklama:'Park edilen belge numara alır ve sistemde durur ama **muhasebe kaydı değildir**. ' +
@@ -1066,7 +1066,7 @@ SAP.registerTopic({
         aciklama:'Park bir **imkân** sunar, kontrolü **yetkilendirme** kurar. ' +
                  'Aynı kullanıcı hem {{FV60}} hem {{FBV0}} yetkisine sahipse ' +
                  'mekanizma yalnızca bir gecikmedir. ' +
-                 'Ayrıca {{FB60}} yetkisi de kaldırılmalıdır — yoksa park etmeden doğrudan kaydeder.' },
+                 'Ayrıca {{FB60}} yetkisi de kaldırılmalıdır: yoksa park etmeden doğrudan kaydeder.' },
 
       { soru:'Park ile tutma (hold) arasındaki en önemli fark nedir?',
         secenekler:[
@@ -1096,23 +1096,23 @@ SAP.registerTopic({
         secenekler:[
           'Her zaman Aralık’a',
           'Her zaman Ocak’a',
-          '**{{FBV0}} anındaki kayıt tarihine göre — Aralık kapalıysa Ocak’a kayar**',
+          '**{{FBV0}} anındaki kayıt tarihine göre: Aralık kapalıysa Ocak’a kayar**',
           'Sistem sorar',
         ], dogru:2,
         aciklama:'Kayıt tarihi **muhasebeleştirme anında** belirlenir. ' +
                  'Aralık açıksa Aralık’a düşer ✓. Kapalıysa ya hata alınır ' +
-                 'ya kullanıcı tarihi Ocak yapar ve **gider yanlış döneme** yazılır — ' +
+                 'ya kullanıcı tarihi Ocak yapar ve **gider yanlış döneme** yazılır: ' +
                  've bu durumda **hata mesajı çıkmaz**.' },
 
       { soru:'Yanlış park edilmiş bir belge nasıl düzeltilir?',
         secenekler:[
           '{{FB08}} ile ters kaydedilir',
-          '**{{FBV0}} ile silinir — muhasebe izi kalmaz**',
+          '**{{FBV0}} ile silinir: muhasebe izi kalmaz**',
           'Değiştirilemez',
           'Yeni belge park edilir',
         ], dogru:1,
         aciklama:'Muhasebeleşmemiş belge **silinebilir** ve arkasında hiçbir muhasebe izi bırakmaz. ' +
-                 'Muhasebeleşmiş belge silinemez — {{FB08}} ile ters kaydedilir ve ' +
+                 'Muhasebeleşmiş belge silinemez: {{FB08}} ile ters kaydedilir ve ' +
                  'mizanda iki kayıt kalıcı görünür. ' +
                  'Parkın **hata maliyetinin düşük** olmasının sebebi budur.' },
 
@@ -1120,10 +1120,10 @@ SAP.registerTopic({
         secenekler:[
           'Belge silinmiş',
           'Yanlış şirket kodu',
-          '**Belge park edilmiş, muhasebeleştirilmemiş — {{FBV3}} ile görüntülenir**',
+          '**Belge park edilmiş, muhasebeleştirilmemiş: {{FBV3}} ile görüntülenir**',
           'Numara aralığı hatası',
         ], dogru:2,
-        aciklama:'{{FB03}} yalnızca {{BKPF}}’ye bakar — muhasebeleşmiş belgeleri görür. ' +
+        aciklama:'{{FB03}} yalnızca {{BKPF}}’ye bakar: muhasebeleşmiş belgeleri görür. ' +
                  'Park edilmiş belge {{VBKPF}}’dedir ve {{FBV3}} ile görüntülenir. ' +
                  'Bu, "numara var ama görüntülenemiyor" şikâyetinin ana sebebidir.' },
 
@@ -1141,15 +1141,15 @@ SAP.registerTopic({
     ],
 
     flashcards:[
-      { on:'Park edilen belge mizanı etkiler mi?', arka:'**HAYIR.**\n\nVBKPF/VBSEG **muhasebe tablosu değildir**.\n\nMizanda · FBL1N’de · ACDOCA’da \n\nDönem sonunda park kalıntısı varsa dönem **eksik kapanır** — hiçbir rapor göstermez.' },
-      { on:'Dört-göz prensibi nasıl kurulur?', arka:'**Yetkilendirmeyle — park özelliğiyle DEĞİL.**\n\n**Rol A:** FV60, FV50, FBV2, FBV3\n**Rol B:** FBV0, FBV3\n\nFB60 yetkisi de kaldırılmalı — yoksa park etmeden doğrudan kaydeder.' },
-      { on:'Park vs Hold', arka:'**Park** — numara alır · herkes görür · raporlanır · **denetim izi bırakır** → iç kontrol aracı ✓\n\n**Hold** — kişisel · numara almaz · iz bırakmaz → dört-göz için **kullanılamaz** ' },
+      { on:'Park edilen belge mizanı etkiler mi?', arka:'**HAYIR.**\n\nVBKPF/VBSEG **muhasebe tablosu değildir**.\n\nMizanda · FBL1N’de · ACDOCA’da \n\nDönem sonunda park kalıntısı varsa dönem **eksik kapanır**: hiçbir rapor göstermez.' },
+      { on:'Dört-göz prensibi nasıl kurulur?', arka:'**Yetkilendirmeyle, park özelliğiyle DEĞİL.**\n\n**Rol A:** FV60, FV50, FBV2, FBV3\n**Rol B:** FBV0, FBV3\n\nFB60 yetkisi de kaldırılmalı, yoksa park etmeden doğrudan kaydeder.' },
+      { on:'Park vs Hold', arka:'**Park**, numara alır · herkes görür · raporlanır · **denetim izi bırakır** → iç kontrol aracı ✓\n\n**Hold**, kişisel · numara almaz · iz bırakmaz → dört-göz için **kullanılamaz** ' },
       { on:'"Park esnek, muhasebeleştirme katı" ne demek?', arka:'**Parkta:** dengesiz olabilir · zorunlu alanlar boş · dönem kapalı olabilir · silinebilir\n\n**FBV0’da:** denklik **zorunlu** · alanlar dolu · dönem **açık** · artık değiştirilemez\n\nPark = çalışma alanı, defter değil.' },
-      { on:'Belge numarasına ne olur?', arka:'**Park anında verilir, muhasebeleştirmede KORUNUR.**\n\nAvantaj: parkta verilen referans geçerliliğini sürdürür.\n\nYan etki: silinen park belgelerinin numaraları **boşa gider** — aralıkta boşluk **normaldir**.' },
-      { on:'Aralık’ta park, Ocak’ta muhasebe — hangi dönem?', arka:'**FBV0 anındaki kayıt tarihine göre.**\n\na) Aralık açık → Aralık ✓\nb) Aralık kapalı, tarih değişmiyor → **hata**\nc) Aralık kapalı, tarih Ocak → **gider yanlış dönemde** hata vermez!' },
-      { on:'FB03 park edilmiş belgeyi bulur mu?', arka:'**HAYIR** — FB03 yalnızca BKPF’ye bakar.\n\nPark edilmiş belge **FBV3** ile görüntülenir.\n\n"Numara var ama görüntülenemiyor" şikâyetinin ana sebebi budur.' },
+      { on:'Belge numarasına ne olur?', arka:'**Park anında verilir, muhasebeleştirmede KORUNUR.**\n\nAvantaj: parkta verilen referans geçerliliğini sürdürür.\n\nYan etki: silinen park belgelerinin numaraları **boşa gider**: aralıkta boşluk **normaldir**.' },
+      { on:'Aralık’ta park, Ocak’ta muhasebe: hangi dönem?', arka:'**FBV0 anındaki kayıt tarihine göre.**\n\na) Aralık açık → Aralık ✓\nb) Aralık kapalı, tarih değişmiyor → **hata**\nc) Aralık kapalı, tarih Ocak → **gider yanlış dönemde** hata vermez!' },
+      { on:'FB03 park edilmiş belgeyi bulur mu?', arka:'**HAYIR**: FB03 yalnızca BKPF’ye bakar.\n\nPark edilmiş belge **FBV3** ile görüntülenir.\n\n"Numara var ama görüntülenemiyor" şikâyetinin ana sebebi budur.' },
       { on:'Yanlış park edilmiş belge nasıl düzeltilir?', arka:'**FBV0 → Sil.**\n\nMuhasebe izi **kalmaz**.\n\nMuhasebeleşmiş olsaydı: FB08 ile ters kayıt → mizanda **iki kalıcı kayıt**.\n\n→ Şüpheli belgeyi park et, muhasebeleştirme.' },
-      { on:'Denetime kanıt — hangi sorgu?', arka:'**VBKPF-USNAM ≠ BKPF-USNAM**\n\nPark eden ile muhasebeleştiren kullanıcının hiçbir belgede aynı olmaması.\n\nSonuç **0 olmalı**.\n\nSüreç dokümanı niyeti, bu sorgu **sonucu** gösterir.' },
+      { on:'Denetime kanıt: hangi sorgu?', arka:'**VBKPF-USNAM ≠ BKPF-USNAM**\n\nPark eden ile muhasebeleştiren kullanıcının hiçbir belgede aynı olmaması.\n\nSonuç **0 olmalı**.\n\nSüreç dokümanı niyeti, bu sorgu **sonucu** gösterir.' },
       { on:'"Park başarılı" ne anlama gelmez?', arka:'**Muhasebeleştirilebilir olduğu anlamına gelmez.**\n\nParkta kontrol edilmeyenler:\n• Denklik\n• Zorunlu alanlar\n• Dönem açık mı\n• Hesap belirleme\n• Vergi hesaplama\n\nFBV0 reddedebilir.' },
       { on:'Park edilmiş belge hangi tablolarda?', arka:'**VBKPF** (başlık) + **VBSEG** (kalemler)\n\nMuhasebeleştirmede → **BKPF/BSEG/ACDOCA**’ya taşınır ve park kayıtları **silinir** (aynı LUW).\n\nYarım durum oluşamaz.' },
       { on:'Kapanış kontrol listesinde hangi madde?', arka:'**"Park edilmiş belge kaldı mı?"**\n\nDöneme ait park belgeleri kapanmadan önce muhasebeleştirilmeli.\n\n+ Haftalık: 7 günden eski park belgeleri yaşlandırma raporu → dönem sonunda yığın oluşmasın.' },

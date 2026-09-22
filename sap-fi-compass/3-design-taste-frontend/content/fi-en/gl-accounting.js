@@ -1,6 +1,6 @@
 /* ==========================================================================
-   content/fi-en/gl-accounting.js — English body for "G/L Accounting"
-   Same conventions as content/fi-en/genel-muhasebe.js — see that file's
+   content/fi-en/gl-accounting.js: English body for "G/L Accounting"
+   Same conventions as content/fi-en/genel-muhasebe.js: see that file's
    header comment.
    ========================================================================== */
 
@@ -12,7 +12,7 @@ SAP.registerTopic({
   /* ====================================================== 1. WHAT IT IS === */
   tanim: {
     nedir:
-      '{{ana-muhasebe}} (G/L — General Ledger) is the central ledger the financial statements are produced from. ' +
+      '{{ana-muhasebe}} (G/L: General Ledger) is the central ledger the financial statements are produced from. ' +
       'Every other FI sub-component (vendors, customers, fixed assets, bank) reflects here **as a summary**, ' +
       'through a {{mutabakat-hesabi}}.\n\n' +
       'Think of the split this way: the detail of 800 vendors is held in the {{muavin-defter}}; in general ledger ' +
@@ -23,13 +23,13 @@ SAP.registerTopic({
       '**To produce financial statements.** The balance sheet and income statement only come out of general ledger accounts.\n\n' +
       '**To keep detail manageable.** If every vendor had its own G/L account, the chart of accounts would run into ' +
       'the thousands and the balance sheet would be unreadable.\n\n' +
-      '**To be the single point of truth.** MM, SD, HR, CO — every one of their numbers meets and gets compared here.',
+      '**To be the single point of truth.** MM, SD, HR, CO: every one of their numbers meets and gets compared here.',
 
     sirketOnemi:
       'General ledger is the face the company shows to the outside. The figures looked at when taking out a bank ' +
       'loan, going through an audit, or filing a tax return come from here.\n\n' +
       'For a consultant: G/L is FI\'s **backbone**. If the chart of accounts is designed wrong, the cost lasts for ' +
-      'years — changing the account structure in production means migrating every open balance. That\'s why the ' +
+      'years: changing the account structure in production means migrating every open balance. That\'s why the ' +
       'chart of accounts is the most-debated topic on a project, and the one that needs to be locked earliest.',
 
     gercekHayat:
@@ -37,7 +37,7 @@ SAP.registerTopic({
       'the group\'s total personnel cost?"\n\n' +
       'If each company used its own account numbers, answering that would need a manual mapping table. Thanks to a ' +
       'shared {{hesap-plani}}, a single report sums up all 6 companies. That\'s general ledger\'s cross-company ' +
-      'power — and it\'s why a consultant pushes back on the "let every company use its own chart" request.',
+      'power: and it\'s why a consultant pushes back on the "let every company use its own chart" request.',
 
     muhasebeMantigi:
       'General ledger has two types of accounts, and they behave differently:\n\n' +
@@ -112,7 +112,7 @@ SAP.registerTopic({
     veriAkisi:{
       nereden:'Sub-ledgers ({{BSIK}}, {{BSID}}, {{ANLC}}) through reconciliation accounts; from MM/SD/HR integration; from manual FI postings.',
       nereye:'{{ACDOCA}} → balances → {{mali-tablo-yapisi}} → the {{bilanco}} and {{gelir-tablosu}}. Also into the {{maliyet-yeri}} and {{kar-merkezi}} dimensions on the CO side.',
-      tetikleyen:'Every posted transaction. General ledger is a passive receiver — it doesn\'t generate its own postings, it collects what arrives.',
+      tetikleyen:'Every posted transaction. General ledger is a passive receiver: it doesn\'t generate its own postings, it collects what arrives.',
       sonraki:'Consolidation, tax filing, management reporting, audit.',
     },
 
@@ -140,7 +140,7 @@ SAP.registerTopic({
     ],
 
     fisler:[
-      { baslik:'Source 1 — A manual reclass posting ({{FB50}})',
+      { baslik:'Source 1: A manual reclass posting ({{FB50}})',
         belgeTuru:'SA', tarih:'30.06.2026', paraBirimi:'TRY',
         satirlar:[
           { hesap:'770', ad:'General administrative expense', alacak:15000, not:'Had been posted to the wrong account' },
@@ -148,7 +148,7 @@ SAP.registerTopic({
         ],
         not:'A classic reclass: the total expense doesn\'t change, only its classification is corrected. The balance sheet is unaffected; the income statement\'s **distribution** is fixed.' },
 
-      { baslik:'Source 2 — Reflected from a sub-ledger (a vendor invoice)',
+      { baslik:'Source 2: Reflected from a sub-ledger (a vendor invoice)',
         belgeTuru:'KR', tarih:'12.06.2026', paraBirimi:'TRY',
         satirlar:[
           { hesap:'770', ad:'General administrative expense', borc:50000 },
@@ -156,19 +156,19 @@ SAP.registerTopic({
           { hesap:'320', ad:'Trade payables (reconciliation)', alacak:60000, not:'Automatic from the sub-ledger' },
         ],
         not:'In general ledger this shows up as a single line: "320 Trade payables 60,000." Which vendor it belongs ' +
-             'to **isn\'t there** — that information lives in {{BSIK}}. This split is general ledger\'s design philosophy.' },
+             'to **isn\'t there**: that information lives in {{BSIK}}. This split is general ledger\'s design philosophy.' },
 
-      { baslik:'Source 3 — A period-end accrual ({{FBS1}}, set to reverse)',
+      { baslik:'Source 3: A period-end accrual ({{FBS1}}, set to reverse)',
         belgeTuru:'SA', tarih:'30.06.2026', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'770', ad:'General administrative expense — electricity', borc:8000, not:'Used in June' },
+          { hesap:'770', ad:'General administrative expense: electricity', borc:8000, not:'Used in June' },
           { hesap:'381', ad:'Accrued expenses', alacak:8000, not:'The invoice hasn\'t arrived yet' },
         ],
         not:'{{tahakkuk-esasi}}: the electricity was used in June, the invoice will arrive in July. The expense is ' +
              'posted to June. This document, entered via {{FBS1}}, is **automatically reversed** on 01.07.2026 via ' +
              '{{F.81}}; there\'s no double posting once the real invoice arrives.' },
 
-      { baslik:'Year-end — closing the income statement accounts ({{FAGLGVTR}})',
+      { baslik:'Year-end: closing the income statement accounts ({{FAGLGVTR}})',
         belgeTuru:'SA', tarih:'31.12.2026', paraBirimi:'TRY',
         satirlar:[
           { hesap:'600', ad:'Domestic sales', borc:1200000, not:'Zeroed out' },
@@ -178,7 +178,7 @@ SAP.registerTopic({
         ],
         not:'Income statement accounts are zeroed out, and the net result (the {{gelir-tablosu}}\'s outcome) moves ' +
              'into the period-profit account under equity. Balance sheet accounts, on the other hand, carry ' +
-             'forward with their balance — they aren\'t zeroed.' },
+             'forward with their balance: they aren\'t zeroed.' },
     ],
 
     tHesaplar:[
@@ -186,7 +186,7 @@ SAP.registerTopic({
         borc:[{ ad:'Vendor invoice', tutar:50000 }, { ad:'Electricity accrual', tutar:8000 }],
         alacak:[{ ad:'Reclass correction', tutar:15000 }, { ad:'Year-end closing', tutar:43000 }],
         not:'Zeroed out at year-end' },
-      { hesap:'GR/IR account', kod:'159 (Clearing — open item managed)',
+      { hesap:'GR/IR account', kod:'159 (Clearing: open item managed)',
         borc:[{ ad:'Invoice entry', tutar:80000 }],
         alacak:[{ ad:'Goods receipt', tutar:80000 }],
         not:'Should be close to zero at period end' },
@@ -204,7 +204,7 @@ SAP.registerTopic({
       { tip:'warn', baslik:'If open item management is set up wrong', metin:
         'If {{acik-kalem-yonetimi}} is off on a clearing account like {{gr-ir}} or {{banka-ara-hesabi}}, items can ' +
         '**never be cleared**. The balance inflates over the years and stops reflecting reality. Changing this ' +
-        'setting once the account has movements isn\'t easy — which is why getting it right when the account is ' +
+        'setting once the account has movements isn\'t easy: which is why getting it right when the account is ' +
         'opened matters so much.' },
       { tip:'tip', baslik:'How is reconciliation checked?', metin:
         'Pull the total of the vendor open items with {{FBL1N}}, then look at account 320\'s balance with ' +
@@ -222,34 +222,34 @@ SAP.registerTopic({
       { ad:'Balance Sheet Account',
         aciklama:'Its balance isn\'t zeroed at year-end, it carries forward into the new year. Marked with {{SKA1}} `XBILK` = X.',
         neZaman:'For asset, liability, and equity items: cash, banks, inventory, vendors, capital.',
-        ornek:'320 Trade payables — the December 31 balance becomes the January 1 opening balance.' },
+        ornek:'320 Trade payables: the December 31 balance becomes the January 1 opening balance.' },
 
       { ad:'P&L Account',
         aciklama:'Measures a period, is zeroed out at year-end, and the result moves to equity.',
         neZaman:'For income and expense items: sales, expenses, depreciation.',
-        ornek:'600 Domestic sales — starts from zero every year; moved to 590 at year-end via {{bakiye-devri}}.' },
+        ornek:'600 Domestic sales: starts from zero every year; moved to 590 at year-end via {{bakiye-devri}}.' },
 
       { ad:'Reconciliation Account',
         aciklama:'General ledger\'s counterpart to a sub-ledger. Marked with the {{SKB1}} `MITKZ` field: **D** customer, **K** vendor, **A** fixed asset.',
-        neZaman:'Whenever vendor, customer and fixed asset balances need to be reflected in the general ledger — which is to say, always.',
+        neZaman:'Whenever vendor, customer and fixed asset balances need to be reflected in the general ledger: which is to say, always.',
         ornek:'320 Trade payables. **Cannot be posted to directly**; postings go through the vendor number.',
         tcodes:['FS00','FBL1N'] },
 
       { ad:'Open Item Managed Account',
         aciklama:'Every item is tracked open/cleared; can be {{kapatma}}-ed. {{SKB1}} `XOPVW` = X.',
         neZaman:'On accounts that act as a bridge between two events: {{gr-ir}}, {{banka-ara-hesabi}}, advance accounts, employee advances.',
-        ornek:'159 GR/IR — the goods receipt posts a credit, the invoice receipt posts a debit; once they match, the item is cleared.',
+        ornek:'159 GR/IR: the goods receipt posts a credit, the invoice receipt posts a debit; once they match, the item is cleared.',
         tcodes:['F-03','F.13','FBRA'] },
 
       { ad:'Balance-only Account',
         aciklama:'No item matching happens; only the balance matters.',
         neZaman:'On income and expense accounts, and the main bank account. Turning on open item management unnecessarily makes performance and usage worse.',
-        ornek:'770 General administrative expense — there\'s no question like "which expense was cleared by which payment."' },
+        ornek:'770 General administrative expense: there\'s no question like "which expense was cleared by which payment."' },
 
       { ad:'Primary Cost Element (S/4HANA account type)',
         aciklama:'An FI expense account that also flows into CO. Chosen as an account type in {{FS00}} in S/4HANA; ECC needed a separate master record via {{KA01}}.',
         neZaman:'On every expense account that needs to be tracked by {{maliyet-yeri}}.',
-        ornek:'770 General administrative expense — if the type "Primary Costs or Revenue" isn\'t chosen, the posting never flows into CO at all.',
+        ornek:'770 General administrative expense: if the type "Primary Costs or Revenue" isn\'t chosen, the posting never flows into CO at all.',
         tcodes:['FS00','OKB9','KSB1'] },
     ],
 
@@ -259,7 +259,7 @@ SAP.registerTopic({
       ['Totals table', '{{GLT0}}', '{{FAGLFLEXT}} → removed in S/4'],
       ['Profit-center-based balance sheet', 'Not possible (needs a separate PCA module)', 'Possible via {{belge-bolme}}'],
       ['Parallel accounting', 'Through extra accounts or an extra company code', 'A clean solution via {{paralel-defter}}'],
-      ['FI–CO reconciliation', 'A periodic reconciliation is needed', 'Real-time integration'],
+      ['FI-CO reconciliation', 'A periodic reconciliation is needed', 'Real-time integration'],
       ['Line item report', '{{FBL3N}}', '{{FAGLL03}}'],
       ['Balance report', '{{FS10N}}', '{{FAGLB03}}'],
     ],
@@ -276,7 +276,7 @@ SAP.registerTopic({
           { baslik:'*Type/description*: account group and balance-sheet/income-statement split',
             aciklama:'S/4HANA also asks for the **account type**. If "Primary Costs or Revenue" isn\'t chosen for an expense account, it never flows into CO.' },
           { baslik:'*Control data*: currency, tax category, open item management, reconciliation account type',
-            aciklama:'{{acik-kalem-yonetimi}} is turned on here. Hard to change later — the right decision is made here.' },
+            aciklama:'{{acik-kalem-yonetimi}} is turned on here. Hard to change later: the right decision is made here.' },
           { baslik:'*Create/bank/interest*: field status group',
             aciklama:'The setting that decides which field is mandatory on the posting screen ({{SKB1}} `FSTAG`).' },
         ],
@@ -335,7 +335,7 @@ SAP.registerTopic({
           { baslik:'Choose the item type: open / cleared / all',
             aciklama:'This distinction is only meaningful on accounts with {{acik-kalem-yonetimi}} active. A **key date** is entered when open items is selected.' },
           { baslik:'Set the layout',
-            aciklama:'Add/remove columns, get totals, group subtotals. You can save your own layout as the default — the habit that saves the most time in everyday work.' },
+            aciklama:'Add/remove columns, get totals, group subtotals. You can save your own layout as the default: the habit that saves the most time in everyday work.' },
           { baslik:'Double-click a line → drill into the document ({{FB03}})' },
         ],
         ekranAkisi:[
@@ -373,7 +373,7 @@ SAP.registerTopic({
         neZaman:'On systems using {{paralel-defter}}, and for profit-center/segment-based analysis.',
         adimlar:[
           { baslik:'Choose the account, company code, and **ledger**', aciklama:'The leading ledger is 0L. If there\'s a separate ledger for IFRS, the same account can show different amounts.' },
-          { baslik:'Filter on additional dimensions', aciklama:'{{kar-merkezi}}, segment, functional area — fields that don\'t exist in {{FBL3N}}.' },
+          { baslik:'Filter on additional dimensions', aciklama:'{{kar-merkezi}}, segment, functional area: fields that don\'t exist in {{FBL3N}}.' },
         ],
         ipucu:'It\'s normal for the same account to show a different balance in the 0L ledger and the IFRS ledger; that\'s the whole point of parallel accounting.',
         ilgili:['FBL3N','FAGLB03','FBL3H'] },
@@ -387,7 +387,7 @@ SAP.registerTopic({
           { baslik:'Review the result, then run in production mode' },
         ],
         ipucu:'{{F.13}}\'s matching criterion is the `ZUONR` (assignment) field filled in from the account\'s **sort ' +
-              'key**. If the assignment field is blank, automatic clearing doesn\'t work — the problem isn\'t in ' +
+              'key**. If the assignment field is blank, automatic clearing doesn\'t work: the problem isn\'t in ' +
               '{{F.13}}, it\'s in the account master.',
         hatalar:[
           { mesaj:'No clearing possible / no items were cleared', sebep:'The assignment fields don\'t match, or no clearing rule is defined.', cozum:'Set the sort key in {{FS00}}; check the "Automatic Clearing" rules in IMG.' },
@@ -404,7 +404,7 @@ SAP.registerTopic({
       '{{ACDOCA}}, and the rest turned into {{uyumluluk-view}}s.',
 
     liste:[
-      { ad:'SKA1', baslik:'Account — chart-of-accounts level',
+      { ad:'SKA1', baslik:'Account: chart-of-accounts level',
         tutar:'Number, account group, balance-sheet/income-statement split. Independent of company code.',
         olusturan:'{{FS00}} / {{FSP0}}',
         guncelleyen:'{{FS00}}, {{FSP0}}, data load',
@@ -416,7 +416,7 @@ SAP.registerTopic({
           { ad:'XBILK', aciklama:'X = balance sheet account, blank = income statement account' },
         ] },
 
-      { ad:'SKB1', baslik:'Account — company code level',
+      { ad:'SKB1', baslik:'Account: company code level',
         tutar:'The account\'s behavior settings: currency, tax category, open item management, field status group, reconciliation type, sort key.',
         olusturan:'{{FS00}} / {{FSS0}}',
         guncelleyen:'{{FS00}}, {{FSS0}}',
@@ -424,11 +424,11 @@ SAP.registerTopic({
         iliskiler:'{{BSEG}}.HKONT and {{ACDOCA}}.RACCT point here.',
         s4:'Unchanged.',
         alanlar:[
-          { ad:'XOPVW', aciklama:'{{acik-kalem-yonetimi}} — required for clearing' },
+          { ad:'XOPVW', aciklama:'{{acik-kalem-yonetimi}}: required for clearing' },
           { ad:'MITKZ', aciklama:'Reconciliation type: D / K / A. If filled, no direct posting is possible.' },
           { ad:'FSTAG', aciklama:'{{alan-durumu}} group' },
-          { ad:'ZUAWA', aciklama:'Sort key — fills the `ZUONR` field, critical for {{F.13}}' },
-          { ad:'XKRES', aciklama:'Line item display — if off, {{FBL3N}} shows no items' },
+          { ad:'ZUAWA', aciklama:'Sort key: fills the `ZUONR` field, critical for {{F.13}}' },
+          { ad:'XKRES', aciklama:'Line item display: if off, {{FBL3N}} shows no items' },
         ] },
 
       { ad:'BSEG', baslik:'Document line items (classic)',
@@ -440,8 +440,8 @@ SAP.registerTopic({
         s4:'Still written, but not used for reporting because it\'s a cluster table.',
         alanlar:[
           { ad:'SHKZG', aciklama:'S = debit, H = credit' },
-          { ad:'AUGBL', aciklama:'Clearing document — if blank, the item is **open**' },
-          { ad:'ZUONR', aciklama:'Assignment — the matching field for automatic clearing' },
+          { ad:'AUGBL', aciklama:'Clearing document: if blank, the item is **open**' },
+          { ad:'ZUONR', aciklama:'Assignment: the matching field for automatic clearing' },
         ] },
 
       { ad:'ACDOCA', baslik:'Universal Journal',
@@ -452,10 +452,10 @@ SAP.registerTopic({
         iliskiler:'Via the document number with {{BKPF}}; via the account with {{SKB1}}; directly with the CO objects.',
         s4:'General ledger\'s single source of truth. Balances are calculated from here in real time.',
         alanlar:[
-          { ad:'RLDNR', aciklama:'{{defter}} — 0L is the leading ledger' },
+          { ad:'RLDNR', aciklama:'{{defter}}: 0L is the leading ledger' },
           { ad:'RACCT', aciklama:'Account number' },
           { ad:'HSL', aciklama:'Amount in company-code currency' },
-          { ad:'RCNTR / PRCTR', aciklama:'Cost center / profit center — on the same line' },
+          { ad:'RCNTR / PRCTR', aciklama:'Cost center / profit center: on the same line' },
         ] },
 
       { ad:'GLT0', baslik:'Classic general ledger totals',
@@ -513,7 +513,7 @@ SAP.registerTopic({
       '**explaining a balance**. The second one takes more consulting time than the first.',
 
     ekranlar:[
-      { ad:'{{FB50}} — entering a posting',
+      { ad:'{{FB50}}: entering a posting',
         aciklama:'Header fields on top, the line item table below, the balance indicator in the top right.',
         alanlar:[
           { ad:'Posting date (`BUDAT`)', zorunlu:true, aciklama:'Decides the period. Posting is blocked if the period is closed.' },
@@ -524,17 +524,17 @@ SAP.registerTopic({
         ],
         ipucu:'Always run *Document → Simulate* before posting. On systems with {{belge-bolme}} active, this is where you see a 2-line entry turn into 6.' },
 
-      { ad:'{{FBL3N}} — explaining a balance',
+      { ad:'{{FBL3N}}: explaining a balance',
         aciklama:'The answer to "why is account 159\'s balance 340,000?" is found on this screen.',
         alanlar:[
           { ad:'G/L account', zorunlu:true, aciklama:'The account to examine.' },
           { ad:'Item type', zorunlu:true, aciklama:'Open / cleared / all. **Open items** is chosen for clearing-account cleanup.' },
           { ad:'Key date', zorunlu:true, aciklama:'Answers "what was open as of which date" when open items is chosen.' },
-          { ad:'Layout', zorunlu:false, aciklama:'Add assignment and text columns, subtotal by assignment — this is how unmatched items get found.' },
+          { ad:'Layout', zorunlu:false, aciklama:'Add assignment and text columns, subtotal by assignment: this is how unmatched items get found.' },
         ],
         ipucu:'Save the layout and make it the default so it\'s ready on every launch. This small habit saves half an hour a day in consulting.' },
 
-      { ad:'{{F-03}} — the clearing screen',
+      { ad:'{{F-03}}: the clearing screen',
         aciklama:'Open items are listed; the selected ones\' net amount must be zero.',
         alanlar:[
           { ad:'Account and clearing date', zorunlu:true, aciklama:'The posting date of the clearing document.' },
@@ -553,7 +553,7 @@ SAP.registerTopic({
       { mesaj:'G/L account ... is blocked for posting in company code ...', sebep:'The account is closed for posting in {{FS00}}.', cozum:'Find out why it was blocked; remove the block if it\'s genuinely needed.' },
       { mesaj:'Difference too large for clearing', sebep:'The items to be cleared don\'t sum to zero, and the gap is outside the {{tolerans-grubu}}.', cozum:'Fix the selection or enter a difference line.' },
       { mesaj:'Field Business Area is a required field', sebep:'The company code\'s field status variant makes business area mandatory.', cozum:'Enter a business area; review the field status variant for a permanent fix.' },
-      { mesaj:'Ledger 0L: document splitting error — item not assigned', sebep:'{{belge-bolme}} rules couldn\'t classify the line.', cozum:'Check the document-splitting characteristics and item category assignments in IMG.' },
+      { mesaj:'Ledger 0L: document splitting error: item not assigned', sebep:'{{belge-bolme}} rules couldn\'t classify the line.', cozum:'Check the document-splitting characteristics and item category assignments in IMG.' },
     ],
 
     ipuclari:[
@@ -578,7 +578,7 @@ SAP.registerTopic({
 
     commit:
       'A posting is written within a single LUW. Because number assignment runs separately, even a failed ' +
-      'transaction can consume a number — gaps in document numbers are normal. If an asynchronous update stalls, ' +
+      'transaction can consume a number: gaps in document numbers are normal. If an asynchronous update stalls, ' +
       'it\'s checked with {{SM13}}.',
 
     belgeNo:
@@ -592,7 +592,7 @@ SAP.registerTopic({
       '**3.** The account\'s field status group ({{SKB1}} `FSTAG`) is compared against the posting key\'s field status; the **more restrictive** one applies.\n' +
       '**4.** If there\'s a tax code, a tax line and a {{BSET}} record are generated.\n' +
       '**5.** If {{belge-bolme}} is on, lines are split by profit center/segment.\n' +
-      '**6.** {{belge-denkligi}} is checked — separately for each ledger.\n' +
+      '**6.** {{belge-denkligi}} is checked: separately for each ledger.\n' +
       '**7.** A number is assigned, and {{BKPF}}/{{BSEG}}/{{ACDOCA}} are written.\n' +
       '**8.** If the account is open-item-managed, an index record is created.',
 
@@ -603,7 +603,7 @@ SAP.registerTopic({
 
     numberRange:
       'Keyed by company code + fiscal year ({{FBN1}}). New-year lines are bulk-copied from the previous year with ' +
-      '{{OBH1}} — a standard step of year-start preparation. The range **definition** transports, but the ' +
+      '{{OBH1}}: a standard step of year-start preparation. The range **definition** transports, but the ' +
       '**current counter** doesn\'t.',
 
     accountDetermination:
@@ -633,16 +633,16 @@ SAP.registerTopic({
     ekstra:[
       { ic:'🧩', baslik:'Types of chart of accounts', metin:
         'SAP has three types of chart of accounts, and they\'re commonly confused:\n\n' +
-        '**Operational chart of accounts** — the mandatory one, where daily postings happen. Held in {{T001}} `KTOPL`.\n\n' +
-        '**Country chart of accounts** — the numbering local law requires. Linked through the *alternative account ' +
+        '**Operational chart of accounts**: the mandatory one, where daily postings happen. Held in {{T001}} `KTOPL`.\n\n' +
+        '**Country chart of accounts**: the numbering local law requires. Linked through the *alternative account ' +
         'number* field on the account master. Turkish Uniform Chart of Accounts reporting can be solved this way.\n\n' +
-        '**Group chart of accounts** — a shared numbering for consolidation. Rolls up the different operational charts of companies in different countries into a single umbrella.' },
+        '**Group chart of accounts**: a shared numbering for consolidation. Rolls up the different operational charts of companies in different countries into a single umbrella.' },
 
       { ic:'⚖️', baslik:'Field status variant vs. field status group', metin:
         'The two get mixed up but are different:\n\n' +
-        '**The field status group** is tied to the account ({{SKB1}} `FSTAG`) — "which fields are mandatory when ' +
+        '**The field status group** is tied to the account ({{SKB1}} `FSTAG`): "which fields are mandatory when ' +
         'posting to this account?"\n\n' +
-        '**The field status variant** is tied to the company code ({{OBY6}}) — the container that gathers the ' +
+        '**The field status variant** is tied to the company code ({{OBY6}}): the container that gathers the ' +
         'groups. A group not defined in a company code\'s variant can\'t be used in that company code.\n\n' +
         'If a field is defined in both the account group and the posting key, **the more restrictive one wins**.' },
     ],
@@ -650,7 +650,7 @@ SAP.registerTopic({
     notlar:[
       { tip:'warn', baslik:'The open item management decision is hard to reverse', metin:
         'This setting can\'t be changed while the account has movements. Changing it means zeroing the balance, ' +
-        'changing the setting, and restoring the balance — a risky operation in production. That\'s why, when ' +
+        'changing the setting, and restoring the balance: a risky operation in production. That\'s why, when ' +
         'opening an account, the question "will item matching be done on this account?" **must** be answered.' },
     ],
   },
@@ -658,23 +658,23 @@ SAP.registerTopic({
   /* ==================================================== 9. S/4HANA === */
   s4hana: {
     ozet:
-      'General ledger is the area S/4HANA changed the most — but what changed is **the data model, not the ' +
+      'General ledger is the area S/4HANA changed the most: but what changed is **the data model, not the ' +
       'accounting**. The chart of accounts, posting logic, and financial statements are the same; what changed is where the totals and indexes sit.',
 
     eccFarklari:[
       { konu:'Source of the balance', ecc:'The {{GLT0}} / {{FAGLFLEXT}} totals tables', s4:'Calculated on the fly from {{ACDOCA}}' },
-      { konu:'Open item index', ecc:'A physical table: {{BSIS}} / {{BSAS}}', s4:'{{uyumluluk-view}} — no physical table' },
+      { konu:'Open item index', ecc:'A physical table: {{BSIS}} / {{BSAS}}', s4:'{{uyumluluk-view}}: no physical table' },
       { konu:'Line item report', ecc:'{{FBL3N}}', s4:'{{FAGLL03}} / {{FBL3H}} / Fiori' },
       { konu:'Cost element', ecc:'A separate master record via {{KA01}}', s4:'The G/L account\'s type ({{FS00}})' },
-      { konu:'Line item count limit', ecc:'{{BSEG}} 999 items', s4:'{{ACDOCA}} `DOCLN` 6 digits — practically no limit' },
+      { konu:'Line item count limit', ecc:'{{BSEG}} 999 items', s4:'{{ACDOCA}} `DOCLN` 6 digits: practically no limit' },
       { konu:'Number of currencies', ecc:'2 (local + one more)', s4:'Up to 10 parallel currencies' },
-      { konu:'Lock contention', ecc:'A totals table row gets locked', s4:'No totals table — the lock issue disappears' },
+      { konu:'Lock contention', ecc:'A totals table row gets locked', s4:'No totals table: the lock issue disappears' },
     ],
 
     universalJournal:
       'For general ledger, the {{evrensel-kayit-defteri}} has three concrete consequences:\n\n' +
       '**1. The concept of reconciliation changes.** Because FI and CO sit on the same line, a mismatch between ' +
-      'them can\'t arise. The FI–CO reconciliation that used to be part of the month-end routine in ECC becomes unnecessary.\n\n' +
+      'them can\'t arise. The FI-CO reconciliation that used to be part of the month-end routine in ECC becomes unnecessary.\n\n' +
       '**2. The balance is no longer stored, it\'s calculated.** So a retroactive correction posting makes ' +
       'balances consistent instantly; the "the totals table broke, let\'s rebuild it" scenario disappears.\n\n' +
       '**3. Every dimension is usable in every report.** Cost center, profit center, segment, and asset number sit ' +
@@ -697,20 +697,20 @@ SAP.registerTopic({
     ],
 
     compatibilityViews:[
-      '{{GLT0}}, {{FAGLFLEXT}} — the totals tables turned into views.',
-      '{{BSIS}}, {{BSAS}} — the G/L open/cleared item indexes turned into views.',
+      '{{GLT0}}, {{FAGLFLEXT}}: the totals tables turned into views.',
+      '{{BSIS}}, {{BSAS}}: the G/L open/cleared item indexes turned into views.',
       '**Writing to these views is not possible.** An old custom program works if it only reads; it breaks during migration if it does an INSERT/UPDATE.',
       'Scanning Z-programs that write to these tables is the single most important technical prep on the general ledger side of a migration.',
     ],
 
     performans:
-      'Because there\'s no totals table, no lock contention happens at posting time — hundreds of simultaneous ' +
+      'Because there\'s no totals table, no lock contention happens at posting time: hundreds of simultaneous ' +
       'postings to the same account don\'t queue up behind each other. On the read side, column-based storage sums ' +
       'millions of items in seconds. The practical result: a real-time trial balance and an instant balance sheet become possible.',
 
     bestPractices:[
       'Simplify the chart of accounts during the S/4HANA migration. You can replace dozens of accounts opened just ' +
-      'for reporting with {{kar-merkezi}} and {{maliyet-yeri}} dimensions — the universal journal already carries these.',
+      'for reporting with {{kar-merkezi}} and {{maliyet-yeri}} dimensions: the universal journal already carries these.',
       'Open expense accounts with the correct type ("Primary Costs or Revenue"); the wrong type is close to unfixable afterward.',
       'Build new reports on CDS views; rewrite {{BSEG}}-based custom reports instead of migrating them as-is.',
       'Clean up clearing accounts ({{gr-ir}}, bank clearing accounts) before migration. Dirty open items migrate into the new system, and cleaning them up there is harder.',
@@ -720,14 +720,14 @@ SAP.registerTopic({
 
   /* =================================================== 10. REAL SCENARIO === */
   senaryo: {
-    baslik:'The story of a clearing account — why is the GR/IR balance 340,000 TRY?',
+    baslik:'The story of a clearing account: why is the GR/IR balance 340,000 TRY?',
     hikaye:
       'At month-end close at **Marmara Textiles Inc.**, the accounting manager sees account 159 GR/IR\'s balance: ' +
       '**340,000 TRY credit**. It was expected to be close to zero. This scenario shows, start to finish, how a ' +
-      'general ledger balance gets explained and corrected — one of the most common jobs in consulting.',
+      'general ledger balance gets explained and corrected: one of the most common jobs in consulting.',
     veriler:[
       { k:'Company code', v:'1000' },
-      { k:'Account', v:'159000 — GR/IR account (open item managed)' },
+      { k:'Account', v:'159000: GR/IR account (open item managed)' },
       { k:'Period', v:'June 2026' },
       { k:'Expected balance', v:'~0 TRY' },
       { k:'Observed balance', v:'340,000 TRY credit' },
@@ -739,7 +739,7 @@ SAP.registerTopic({
         girdi:[
           { alan:'Account / Company code', deger:'159000 / 1000' },
           { alan:'Fiscal year', deger:'2026' },
-          { alan:'Finding', deger:'The January–April balance is ~0; **May shows 260,000, June shows 340,000 credit**' },
+          { alan:'Finding', deger:'The January-April balance is ~0; **May shows 260,000, June shows 340,000 credit**' },
         ],
         not:'The balance broke in May and is growing. So orders where goods arrived but the invoice never did are piling up.' },
 
@@ -758,19 +758,19 @@ SAP.registerTopic({
       { baslik:'The lone items are traced to their documents', tcode:'FB03',
         aciklama:'Each open item is double-clicked into its document; the `AWKEY` field leads to the source MM document.',
         girdi:[
-          { alan:'Items 1–3', deger:'Material document 5000001xxx — a goods receipt was posted, no invoice yet (280,000 TRY)' },
-          { alan:'Item 4', deger:'Material document 5000001999 — **goods were returned but the invoice was never credited** (60,000 TRY)' },
+          { alan:'Items 1-3', deger:'Material document 5000001xxx: a goods receipt was posted, no invoice yet (280,000 TRY)' },
+          { alan:'Item 4', deger:'Material document 5000001999: **goods were returned but the invoice was never credited** (60,000 TRY)' },
         ],
         not:'Two different problems were found: the first is a normal timing gap, the second is a genuine error.' },
 
       { baslik:'The timing gap is reclassified', tcode:'F.19',
         aciklama:'The 280,000 TRY piece is a genuine timing gap: the goods arrived, the invoice will come in July. It ' +
-                 'shouldn\'t appear on the balance sheet as "GR/IR" — it should show as **"goods received, not yet invoiced."**',
+                 'shouldn\'t appear on the balance sheet as "GR/IR": it should show as **"goods received, not yet invoiced."**',
         girdi:[
           { alan:'Company code / Period', deger:'1000 / 06.2026' },
           { alan:'Run', deger:'Test mode first, then production' },
         ],
-        fis:{ baslik:'Document 100000456 — GR/IR reclassification', belgeTuru:'SA', tarih:'30.06.2026',
+        fis:{ baslik:'Document 100000456: GR/IR reclassification', belgeTuru:'SA', tarih:'30.06.2026',
           satirlar:[
             { hesap:'159', ad:'GR/IR account', borc:280000, not:'Being temporarily cleared out' },
             { hesap:'326', ad:'Goods received, not yet invoiced', alacak:280000, not:'A balance-sheet presentation account' },
@@ -779,7 +779,7 @@ SAP.registerTopic({
           { tablo:'BKPF', ne:'The reclassification document and the reversal document (dated 01.07.2026)' },
         ] },
 
-      { baslik:'The genuine error is fixed — a return-invoice correction', tcode:'MIRO',
+      { baslik:'The genuine error is fixed: a return-invoice correction', tcode:'MIRO',
         aciklama:'The 60,000 TRY item is an error: goods were returned, but no credit memo was ever posted to the ' +
                  'vendor. This isn\'t a classification issue, it\'s a **missing transaction**.',
         girdi:[
@@ -787,7 +787,7 @@ SAP.registerTopic({
           { alan:'Purchase order', deger:'4500001456' },
           { alan:'Amount', deger:'72,000 TRY (60,000 + 20% VAT)' },
         ],
-        fis:{ baslik:'Document 5100000234 — Vendor credit memo', belgeTuru:'RE', tarih:'30.06.2026',
+        fis:{ baslik:'Document 5100000234: Vendor credit memo', belgeTuru:'RE', tarih:'30.06.2026',
           satirlar:[
             { hesap:'320', ad:'Trade payables', borc:72000, not:'The liability to the vendor decreased' },
             { hesap:'159', ad:'GR/IR account', alacak:60000, not:'The counterpart of the return movement' },

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   content/fi/accounts-payable.js — "Accounts Payable (Satıcılar)" derin içeriği
+   content/fi/accounts-payable.js: "Accounts Payable (Satıcılar)" derin içeriği
    ========================================================================== */
 
 SAP.registerTopic({
@@ -24,7 +24,7 @@ SAP.registerTopic({
       'Bu yüzden AP, iç kontrolün ve suistimal riskinin en yoğun olduğu alandır.',
 
     sirketOnemi:
-      'AP, **Procure-to-Pay (P2P — satın almadan ödemeye)** sürecinin muhasebe ayağıdır ve MM ile ' +
+      'AP, **Procure-to-Pay (P2P: satın almadan ödemeye)** sürecinin muhasebe ayağıdır ve MM ile ' +
       'iç içe çalışır. Satın alma siparişi açar, depo malı kabul eder, AP faturayı işler ve öder.\n\n' +
       'Danışmanlık açısından kritik nokta: **AP faturalarının çoğu FI’da elle girilmez, MM’den gelir.** ' +
       'Bir AP danışmanı {{MIRO}}’yu, {{uc-yonlu-eslestirme}}yi ve {{OBYC}} hesap belirlemesini bilmek zorundadır. ' +
@@ -41,7 +41,7 @@ SAP.registerTopic({
     muhasebeMantigi:
       'AP’de muhasebe **üç aşamalıdır** ve her aşama ayrı bir kayıt üretir:\n\n' +
       '**1. Borcun doğması (fatura).** Gider veya varlık borçlanır, satıcı alacaklanır. ' +
-      'Bu anda kasadan para çıkmaz — {{tahakkuk-esasi}}nın klasik uygulaması.\n\n' +
+      'Bu anda kasadan para çıkmaz: {{tahakkuk-esasi}}nın klasik uygulaması.\n\n' +
       '**2. Ödemenin yapılması.** Satıcı borçlanır (borç azalır), banka alacaklanır (para çıkar).\n\n' +
       '**3. Kapatma ({{kapatma}}).** Fatura ile ödeme eşleştirilir ve kalem "kapalı" hale gelir. ' +
       'Genellikle 2. ve 3. adım aynı işlemde ({{F-53}} veya {{F110}}) birlikte olur.\n\n' +
@@ -56,7 +56,7 @@ SAP.registerTopic({
   surec: {
     anlatim:
       'AP süreci **Procure-to-Pay** zincirinin ikinci yarısıdır. Zincir satın alma talebiyle başlar, ' +
-      'ödemeyle biter. AP’nin devreye girdiği nokta faturanın gelmesidir — ama faturanın nasıl ' +
+      'ödemeyle biter. AP’nin devreye girdiği nokta faturanın gelmesidir: ama faturanın nasıl ' +
       'işleneceği, **siparişe bağlı olup olmadığına** göre baştan ayrışır.',
 
     roller:[
@@ -71,13 +71,13 @@ SAP.registerTopic({
 
     diyagram:{
       type:'flow',
-      baslik:'Procure-to-Pay — satın almadan ödemeye',
+      baslik:'Procure-to-Pay: satın almadan ödemeye',
       adimlar:[
         { ic:'📝', rol:'Talep eden birim', baslik:'Satın alma talebi açılır',
-          aciklama:'İhtiyaç bildirilir. Henüz muhasebe kaydı yoktur — talep bir taahhüt bile değildir.',
+          aciklama:'İhtiyaç bildirilir. Henüz muhasebe kaydı yoktur: talep bir taahhüt bile değildir.',
           cikti:'Satın alma talebi', ok:'onaydan geçer' },
         { ic:'🛒', rol:'Satın alma', baslik:'Satınalma siparişi açılır ({{ME21N}})',
-          aciklama:'Satıcı, miktar, fiyat ve teslim tarihi belirlenir. **FI kaydı hâlâ yok** — sipariş bir taahhüttür, borç değildir.',
+          aciklama:'Satıcı, miktar, fiyat ve teslim tarihi belirlenir. **FI kaydı hâlâ yok**: sipariş bir taahhüttür, borç değildir.',
           cikti:'{{EKKO}} / {{EKPO}} kayıtları', ok:'mal gelir' },
         { ic:'📦', rol:'Depo', baslik:'Mal girişi yapılır ({{MIGO}})',
           aciklama:'**İlk FI kaydı burada doğar:** stok borçlanır, {{gr-ir}} alacaklanır. Satıcıya borç henüz yazılmaz çünkü fatura gelmedi.',
@@ -102,7 +102,7 @@ SAP.registerTopic({
     },
 
     adimlar:[
-      { rol:'Satın alma', eylem:'Sipariş açar', sistem:'{{ME21N}} → {{EKKO}}/{{EKPO}} — FI kaydı yok' },
+      { rol:'Satın alma', eylem:'Sipariş açar', sistem:'{{ME21N}} → {{EKKO}}/{{EKPO}}: FI kaydı yok' },
       { rol:'Depo', eylem:'Mal kabul eder', sistem:'{{MIGO}} → stok borç / {{gr-ir}} alacak' },
       { rol:'AP muhasebe', eylem:'Siparişli faturayı işler', sistem:'{{MIRO}} → {{gr-ir}} borç / satıcı alacak' },
       { rol:'AP muhasebe', eylem:'Siparişsiz faturayı işler', sistem:'{{FB60}} → gider borç / satıcı alacak' },
@@ -128,7 +128,7 @@ SAP.registerTopic({
       { tip:'warn', baslik:'İki farklı fatura yolu, iki farklı sorun kaynağı', metin:
         '{{FB60}} hatalarının kaynağı genelde **FI ayarlarıdır** (dönem, alan durumu, vergi kodu). ' +
         '{{MIRO}} hatalarının kaynağı genelde **MM ayarlarıdır** ({{OBYC}}, tolerans, sipariş verisi). ' +
-        'Hatayı çözmeye başlamadan önce hangi yoldan geldiğini belirle — yanlış yerde arayarak saatler kaybedilir.' },
+        'Hatayı çözmeye başlamadan önce hangi yoldan geldiğini belirle: yanlış yerde arayarak saatler kaybedilir.' },
     ],
   },
 
@@ -140,46 +140,46 @@ SAP.registerTopic({
       'Aşağıda siparişli bir alımın tam zinciri, sonra siparişsiz alımın kısa yolu var.',
 
     etkilenenHesaplar:[
-      { hesap:'320 Satıcılar (mutabakat)', tur:'Bilanço — Kaynak', neden:'Satıcıya olan borç. Fatura ile **alacaklanır** (artar), ödeme ile **borçlanır** (azalır). Doğrudan kayıt yapılamaz.' },
-      { hesap:'159 GR/IR hesabı', tur:'Bilanço — Geçiş', neden:'Mal girişi ile fatura girişi arasındaki zaman farkını taşır. {{acik-kalem-yonetimi}} **açık olmalıdır**.' },
+      { hesap:'320 Satıcılar (mutabakat)', tur:'Bilanço: Kaynak', neden:'Satıcıya olan borç. Fatura ile **alacaklanır** (artar), ödeme ile **borçlanır** (azalır). Doğrudan kayıt yapılamaz.' },
+      { hesap:'159 GR/IR hesabı', tur:'Bilanço: Geçiş', neden:'Mal girişi ile fatura girişi arasındaki zaman farkını taşır. {{acik-kalem-yonetimi}} **açık olmalıdır**.' },
       { hesap:'153 Ticari mallar / 7xx Giderler', tur:'Bilanço / Gelir tablosu', neden:'Alınan şeyin niteliğine göre: stoklanacaksa varlık, tüketilecekse gider.' },
-      { hesap:'191 İndirilecek KDV', tur:'Bilanço — Varlık', neden:'Devletten alacak doğar. {{vergi-kodu}} girildiğinde satır otomatik oluşur ve {{BSET}}’e yazılır.' },
-      { hesap:'102 Bankalar / banka ara hesabı', tur:'Bilanço — Varlık', neden:'Ödemede azalır. Ödeme kaydı ile fiilî çıkış arasında {{banka-ara-hesabi}} kullanılır.' },
-      { hesap:'159 Verilen avanslar (özel G/L)', tur:'Bilanço — Varlık', neden:'{{avans}} ödendiğinde normal mutabakat hesabı yerine burası çalışır ({{ozel-ana-muhasebe-gostergesi}}).' },
+      { hesap:'191 İndirilecek KDV', tur:'Bilanço: Varlık', neden:'Devletten alacak doğar. {{vergi-kodu}} girildiğinde satır otomatik oluşur ve {{BSET}}’e yazılır.' },
+      { hesap:'102 Bankalar / banka ara hesabı', tur:'Bilanço: Varlık', neden:'Ödemede azalır. Ödeme kaydı ile fiilî çıkış arasında {{banka-ara-hesabi}} kullanılır.' },
+      { hesap:'159 Verilen avanslar (özel G/L)', tur:'Bilanço: Varlık', neden:'{{avans}} ödendiğinde normal mutabakat hesabı yerine burası çalışır ({{ozel-ana-muhasebe-gostergesi}}).' },
       { hesap:'602 / 653 Kur farkı', tur:'Gelir tablosu', neden:'Döviz faturası ödeme anında farklı kurdaysa gerçekleşmiş {{kur-farki}} doğar.' },
     ],
 
     fisler:[
-      { baslik:'Adım 1 — Mal girişi ({{MIGO}}) · 100.000 TL’lik hammadde',
+      { baslik:'Adım 1: Mal girişi ({{MIGO}}) · 100.000 TL’lik hammadde',
         belgeTuru:'WE', tarih:'05.09.2026', paraBirimi:'TRY',
         satirlar:[
           { hesap:'153', ad:'Ticari mallar (stok)', borc:100000, not:'{{OBYC}} işlem anahtarı **BSX**' },
           { hesap:'159', ad:'GR/IR hesabı', alacak:100000, not:'{{OBYC}} işlem anahtarı **WRX**' },
         ],
-        not:'Satıcıya borç **yok** — fatura gelmedi. {{gr-ir}} bu boşluğu taşıyor. Muhasebeci bu kaydı görmez; depo elemanı üretir.' },
+        not:'Satıcıya borç **yok**: fatura gelmedi. {{gr-ir}} bu boşluğu taşıyor. Muhasebeci bu kaydı görmez; depo elemanı üretir.' },
 
-      { baslik:'Adım 2 — Fatura girişi ({{MIRO}}) · sipariş fiyatıyla uyumlu',
+      { baslik:'Adım 2: Fatura girişi ({{MIRO}}) · sipariş fiyatıyla uyumlu',
         belgeTuru:'RE', tarih:'12.09.2026', paraBirimi:'TRY',
         satirlar:[
           { hesap:'159', ad:'GR/IR hesabı', borc:100000, not:'Mal girişindeki alacak kapanıyor' },
           { hesap:'191', ad:'İndirilecek KDV', borc:20000 },
-          { hesap:'320', ad:'Satıcılar — V-4001', alacak:120000, not:'Borç artık satıcıda' },
+          { hesap:'320', ad:'Satıcılar: V-4001', alacak:120000, not:'Borç artık satıcıda' },
         ],
         not:'{{gr-ir}} sıfırlandı: mal da geldi, fatura da geldi. Bu iki kalem {{acik-kalem-yonetimi}} sayesinde ' +
              'birbirini kapatabilir hale geldi ve {{F.13}} ile otomatik eşleşir.' },
 
-      { baslik:'Adım 3 — Ödeme ({{F110}}) · vade geldi, iskonto süresi geçti',
+      { baslik:'Adım 3: Ödeme ({{F110}}) · vade geldi, iskonto süresi geçti',
         belgeTuru:'KZ', tarih:'12.10.2026', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'320', ad:'Satıcılar — V-4001', borc:120000, not:'Açık kalem kapanıyor' },
+          { hesap:'320', ad:'Satıcılar: V-4001', borc:120000, not:'Açık kalem kapanıyor' },
           { hesap:'102', ad:'Bankalar (ara hesap)', alacak:120000 },
         ],
         not:'Ödeme ve kapatma **tek işlemde** olur. Kalem {{BSIK}}’ten çıkıp {{BSAK}}’a geçer, `AUGBL` alanına bu belgenin numarası yazılır.' },
 
-      { baslik:'Alternatif — erken ödeme yapılsaydı (%2 iskonto)',
+      { baslik:'Alternatif: erken ödeme yapılsaydı (%2 iskonto)',
         belgeTuru:'KZ', tarih:'22.09.2026', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'320', ad:'Satıcılar — V-4001', borc:120000, not:'Borcun tamamı kapanır' },
+          { hesap:'320', ad:'Satıcılar: V-4001', borc:120000, not:'Borcun tamamı kapanır' },
           { hesap:'102', ad:'Bankalar', alacak:117600, not:'Ödenen tutar' },
           { hesap:'602', ad:'Alınan iskontolar (gelir)', alacak:2000, not:'%2 × 100.000 (net üzerinden)' },
           { hesap:'191', ad:'İndirilecek KDV düzeltmesi', alacak:400, not:'İskonto kadar KDV de düzeltilir' },
@@ -187,12 +187,12 @@ SAP.registerTopic({
         not:'Borcun tamamı (120.000) kapanır ama 117.600 TL ödenir. Aradaki fark **gelir**dir. ' +
              'SAP {{iskonto}} süresini {{odeme-kosulu}}’ndan bilir ve {{F110}} en kârlı ödeme gününü kendisi seçer.' },
 
-      { baslik:'Siparişsiz fatura — kısa yol ({{FB60}}) · 60.000 TL danışmanlık',
+      { baslik:'Siparişsiz fatura: kısa yol ({{FB60}}) · 60.000 TL danışmanlık',
         belgeTuru:'KR', tarih:'15.09.2026', paraBirimi:'TRY',
         satirlar:[
           { hesap:'770', ad:'Genel yönetim gideri', borc:50000, not:'Maliyet yeri zorunlu' },
           { hesap:'191', ad:'İndirilecek KDV', borc:10000 },
-          { hesap:'320', ad:'Satıcılar — V-2001', alacak:60000 },
+          { hesap:'320', ad:'Satıcılar: V-2001', alacak:60000 },
         ],
         not:'Sipariş ve mal girişi olmadığı için {{gr-ir}} devreye girmez. Tek kayıtla borç doğar. ' +
              'Hizmet alımlarının standart yoludur.' },
@@ -203,7 +203,7 @@ SAP.registerTopic({
           { hesap:'159', ad:'Verilen sipariş avansları', borc:30000, not:'`UMSKZ` = A → alternatif hesap' },
           { hesap:'102', ad:'Bankalar', alacak:30000 },
         ],
-        not:'Satıcı aynı, mutabakat hesabı 320 — ama {{ozel-ana-muhasebe-gostergesi}} "A" girildiği için kayıt 320’ye gitmedi. ' +
+        not:'Satıcı aynı, mutabakat hesabı 320: ama {{ozel-ana-muhasebe-gostergesi}} "A" girildiği için kayıt 320’ye gitmedi. ' +
              '{{avans}} bir borç değil **alacaktır**; bilançoda ayrı gösterilmesi gerekir. ' +
              'Fatura gelince {{F-54}} ile mahsup edilir.' },
     ],
@@ -246,13 +246,13 @@ SAP.registerTopic({
       'kapatmanın **türü** ve işlemin **özel ana muhasebe** kategorisi. Pratikte bu ayrımlar sıkça karıştırılır.',
 
     liste:[
-      { ad:'FI faturası (siparişsiz)', en:'Non-PO Invoice — FB60',
+      { ad:'FI faturası (siparişsiz)', en:'Non-PO Invoice: FB60',
         aciklama:'Satınalma siparişi ve mal girişi olmadan doğrudan FI’a girilen fatura. Gider hesabı ve maliyet yeri elle seçilir.',
         neZaman:'Hizmet alımlarında: kira, danışmanlık, elektrik, sigorta, avukatlık. Stoklanmayan ve siparişle takip edilmeyen harcamalarda.',
         ornek:'50.000 TL danışmanlık faturası → 770 gider borç / 320 satıcı alacak.',
         tcodes:['FB60','FB65','F-43'] },
 
-      { ad:'MM faturası (siparişli)', en:'PO-based Invoice — MIRO',
+      { ad:'MM faturası (siparişli)', en:'PO-based Invoice: MIRO',
         aciklama:'Satınalma siparişine ve mal girişine dayanan fatura. {{uc-yonlu-eslestirme}} yapılır: sipariş ↔ mal girişi ↔ fatura. ' +
                  'Hesabı kullanıcı seçmez, {{OBYC}} belirler.',
         neZaman:'Stoklanan mal ve siparişle takip edilen her alımda. Kurumsal şirketlerde faturaların çoğunluğu bu yoldan gelir.',
@@ -265,20 +265,20 @@ SAP.registerTopic({
         ornek:'Bozuk mal iade edildi → 320 satıcı borç 24.000 / 153 stok alacak 20.000 / 191 KDV alacak 4.000.',
         tcodes:['FB65','MIRO'] },
 
-      { ad:'Manuel ödeme', en:'Manual Payment — F-53 / F-58',
+      { ad:'Manuel ödeme', en:'Manual Payment: F-53 / F-58',
         aciklama:'Tek bir ödemeyi elle kaydeder ve açık kalemi kapatır. {{F-58}} ayrıca çek/form da bastırır.',
         neZaman:'Acil tek seferlik ödemelerde, {{F110}} kapsamı dışındaki istisnalarda, küçük şirketlerde.',
         ornek:'Bir satıcıya elden yapılan acil ödeme.',
         tcodes:['F-53','F-58'] },
 
-      { ad:'Otomatik ödeme', en:'Automatic Payment Program — F110',
+      { ad:'Otomatik ödeme', en:'Automatic Payment Program: F110',
         aciklama:'Vadesi gelen tüm kalemleri toplu seçer, öneri üretir, onaydan sonra öder ve banka dosyası oluşturur. ' +
                  'Aynı satıcıya ait kalemleri tek ödemede birleştirir.',
-        neZaman:'Rutin ödeme döngülerinde — kurumsal şirketlerin standart yöntemi.',
+        neZaman:'Rutin ödeme döngülerinde: kurumsal şirketlerin standart yöntemi.',
         ornek:'Ayda iki kez çalıştırılan ödeme koşusu: 340 fatura → 47 ödeme → 1 banka dosyası.',
         tcodes:['F110','FBZP','FBPM','F110S'] },
 
-      { ad:'Avans (verilen)', en:'Down Payment — F-47 / F-48 / F-54',
+      { ad:'Avans (verilen)', en:'Down Payment: F-47 / F-48 / F-54',
         aciklama:'Mal/hizmet teslim edilmeden yapılan ödeme. {{ozel-ana-muhasebe-gostergesi}} ile normal borçtan ayrılır. ' +
                  'Üç adımlıdır: talep ({{F-47}}) → ödeme ({{F-48}}) → mahsup ({{F-54}}).',
         neZaman:'Sipariş peşinatı, yurtdışı alımda akreditif öncesi ödeme, proje avanslarında.',
@@ -294,16 +294,16 @@ SAP.registerTopic({
       { ad:'Kalan kapatma', en:'Residual Clearing',
         aciklama:'Orijinal kalem **kapatılır**, kalan tutar için yeni bir açık kalem üretilir.',
         neZaman:'Farkın kalıcı olduğu, yeni bir vadeye bağlandığı durumlarda.',
-        ornek:'120.000 TL kapatıldı, 40.000 TL’lik yeni kalem oluştu — **vadesi bugünden başlar**.',
+        ornek:'120.000 TL kapatıldı, 40.000 TL’lik yeni kalem oluştu: **vadesi bugünden başlar**.',
         tcodes:['F-53','FB05'] },
     ],
 
     karsilastirmaBasliklar:['FB60 (FI faturası)', 'MIRO (MM faturası)'],
     karsilastirma:[
-      ['Sipariş gerekir mi', 'Hayır', 'Evet — siparişe referansla girilir'],
+      ['Sipariş gerekir mi', 'Hayır', 'Evet: siparişe referansla girilir'],
       ['Mal girişi gerekir mi', 'Hayır', 'Genelde evet ({{uc-yonlu-eslestirme}})'],
       ['Hesabı kim belirler', 'Kullanıcı elle seçer', '{{OBYC}} otomatik belirler'],
-      ['GR/IR devreye girer mi', 'Hayır', 'Evet — mal girişindeki kalem kapanır'],
+      ['GR/IR devreye girer mi', 'Hayır', 'Evet: mal girişindeki kalem kapanır'],
       ['Belge türü', 'KR', 'RE'],
       ['Ek tablolar', 'Yok', '{{RBKP}} / {{RSEG}} / {{EKBE}}'],
       ['Fark kontrolü', 'Yok', 'Tolerans dışı fark → **ödeme bloğu**'],
@@ -323,7 +323,7 @@ SAP.registerTopic({
             aciklama:'Satıcı girildiği anda ekranın sağında adres, banka ve ödeme koşulu görünür. ' +
                      'Vade, {{mutabakat-hesabi}} ve ödeme yöntemi ana veriden **otomatik** gelir.' },
           { baslik:'Fatura tarihi, kayıt tarihi ve referansı gir',
-            aciklama:'Referans (`XBLNR`) alanına satıcının fatura numarasını yaz — mükerrer fatura kontrolü bu alana bakar.' },
+            aciklama:'Referans (`XBLNR`) alanına satıcının fatura numarasını yaz: mükerrer fatura kontrolü bu alana bakar.' },
           { baslik:'Brüt tutarı ve vergi kodunu gir',
             aciklama:'"Vergiyi hesapla" kutusunu işaretlersen SAP KDV satırını brüt tutardan ayırır.' },
           { baslik:'Gider satırlarını gir',
@@ -345,13 +345,13 @@ SAP.registerTopic({
           opsiyonel:['Referans','Başlık metni','Maliyet yeri','Ödeme koşulu','Ödeme bloğu','Vade tarihi','Atama'] },
         hatalar:[
           { mesaj:'Vendor 100234 is blocked for posting', sebep:'Satıcı ana verisinde kayıt bloğu var ({{LFA1}} `SPERR` veya {{LFB1}}).', cozum:'{{BP}} → ilgili rolde bloğu kaldır. Blok bilinçli konmuşsa önce sebebini araştır.' },
-          { mesaj:'Check document number ... — duplicate invoice', sebep:'Aynı satıcıdan aynı referans numarasıyla fatura zaten girilmiş.', cozum:'Uyarıdır, hata değil. Gerçekten mükerrerse iptal et; farklı faturaysa referansı düzelt ve devam et.' },
+          { mesaj:'Check document number ... - duplicate invoice', sebep:'Aynı satıcıdan aynı referans numarasıyla fatura zaten girilmiş.', cozum:'Uyarıdır, hata değil. Gerçekten mükerrerse iptal et; farklı faturaysa referansı düzelt ve devam et.' },
           { mesaj:'Tax code V1 does not appear in any G/L account item', sebep:'Vergi kodu girildi ama vergiye tabi gider satırı yok.', cozum:'Gider satırında da aynı vergi kodunu seç veya başlıktaki vergi kodunu kaldır.' },
-          { mesaj:'Posting period ... is not open for account type K', sebep:'Dönem satıcı hesap tipi (K) için kapalı.', cozum:'{{OB52}}’de **K** satırında dönemi aç — sadece S satırını açmak yetmez.' },
+          { mesaj:'Posting period ... is not open for account type K', sebep:'Dönem satıcı hesap tipi (K) için kapalı.', cozum:'{{OB52}}’de **K** satırında dönemi aç: sadece S satırını açmak yetmez.' },
           { mesaj:'Field Cost Center is a required field', sebep:'Gider hesabının {{alan-durumu}} grubu maliyet yerini zorunlu kılıyor.', cozum:'Maliyet yerini gir veya {{OKB9}} ile varsayılan tanımla.' },
         ],
         ipucu:'Aynı satıcıdan düzenli gelen faturalar için **hesap atama şablonu** kur; gider hesabı ve maliyet yeri hazır gelir. ' +
-              'Ayrıca referans alanını boş bırakma — mükerrer fatura kontrolünün tek dayanağı odur.',
+              'Ayrıca referans alanını boş bırakma: mükerrer fatura kontrolünün tek dayanağı odur.',
         ilgili:['FB65','MIRO','F-43','FBL1N','FB03'] },
 
       { kod:'MIRO', ad:'Lojistik fatura doğrulama (siparişli fatura)',
@@ -383,7 +383,7 @@ SAP.registerTopic({
         hatalar:[
           { mesaj:'Balance not zero', sebep:'Girilen brüt tutar ile kalem toplamı + vergi eşleşmiyor.', cozum:'Kalem tutarlarını ve vergi kodunu kontrol et; ek maliyet (navlun) varsa ilgili sekmeye gir.' },
           { mesaj:'Account determination for entry ... WRX ... not possible', sebep:'{{OBYC}}’de {{gr-ir}} hesabı ({{degerleme-sinifi}} kombinasyonu için) tanımlı değil.', cozum:'{{OBYC}} → WRX işlem anahtarı → ilgili değerleme sınıfı için hesabı tanımla.' },
-          { mesaj:'Price/quantity variance — invoice blocked for payment', sebep:'Fark tolerans sınırının dışında.', cozum:'Farkı araştır. Haklıysa {{MRBR}} ile serbest bırak; haksızsa satıcıdan alacak dekontu iste.' },
+          { mesaj:'Price/quantity variance: invoice blocked for payment', sebep:'Fark tolerans sınırının dışında.', cozum:'Farkı araştır. Haklıysa {{MRBR}} ile serbest bırak; haksızsa satıcıdan alacak dekontu iste.' },
           { mesaj:'No (suitable) item found for purchase order', sebep:'Mal girişi yapılmamış veya kalem zaten tam faturalanmış.', cozum:'{{ME23N}} → *sipariş geçmişi* sekmesinden mal girişi ve fatura durumunu kontrol et.' },
           { mesaj:'Document ... is not an invoice for this vendor', sebep:'Siparişin satıcısı ile faturadaki satıcı farklı.', cozum:'Doğru siparişi seç; farklı fatura adresi varsa siparişte alternatif ödeme alıcısını kontrol et.' },
         ],
@@ -447,7 +447,7 @@ SAP.registerTopic({
           { baslik:'Net tutarın sıfır olduğunu doğrula ve kaydet',
             aciklama:'Kapatma bir belge üretir ama **hiçbir G/L hesabını hareket ettirmez** (fark yoksa). Sadece kalemleri eşleştirir.' },
         ],
-        ipucu:'Yanlış kapatma yaptıysan {{FBRA}} ile geri alabilirsin — yeni bir düzeltme kaydı girmene gerek yok.',
+        ipucu:'Yanlış kapatma yaptıysan {{FBRA}} ile geri alabilirsin: yeni bir düzeltme kaydı girmene gerek yok.',
         ilgili:['F-32','F-03','FBRA','F.13'] },
 
       { kod:'MRBR', ad:'Bloke faturaları serbest bırak',
@@ -460,7 +460,7 @@ SAP.registerTopic({
           { baslik:'Haklı olanları seç ve serbest bırak' },
         ],
         ipucu:'Blok kalkmadıkça {{F110}} o faturayı **görmez**. "Faturayı girdim ama ödeme koşusunda çıkmadı" ' +
-              'şikâyetlerinin en sık sebebi budur — ikinci sebep satıcı ana verisindeki {{odeme-blogu}}.',
+              'şikâyetlerinin en sık sebebi budur: ikinci sebep satıcı ana verisindeki {{odeme-blogu}}.',
         hatalar:[
           { mesaj:'Blocking reason cannot be deleted manually', sebep:'Blok stokastik (rastgele denetim) blokudur.', cozum:'Bu blok bilinçlidir; yetkili onayı ile kaldırılır.' },
         ],
@@ -472,7 +472,7 @@ SAP.registerTopic({
         adimlar:[
           { baslik:'Satıcı, tutar ve özel ana muhasebe göstergesini (genelde F) gir' },
           { baslik:'Vade ve varsa siparişi bağla' },
-          { baslik:'Kaydet — istatistiksel kalem oluşur',
+          { baslik:'Kaydet: istatistiksel kalem oluşur',
             aciklama:'Bu kalem **hiçbir G/L hesabını hareket ettirmez**; yalnızca "bu satıcıya avans ödenecek" bilgisini taşır.' },
         ],
         ipucu:'Talep (F) ile ödeme (A) farklı göstergelerdir. Talep istatistikseldir, ödeme gerçek kayıt üretir. ' +
@@ -489,7 +489,7 @@ SAP.registerTopic({
       'ama mantık aynı kaldı.',
 
     liste:[
-      { ad:'LFA1', baslik:'Satıcı — genel katman',
+      { ad:'LFA1', baslik:'Satıcı: genel katman',
         tutar:'Ad, adres, ülke, vergi numaraları, hesap grubu. Tüm şirket kodları için ortak.',
         olusturan:'{{BP}} (S/4HANA) veya {{XK01}} (ECC)',
         guncelleyen:'{{BP}}, {{XK01}}, {{XK02}}',
@@ -498,11 +498,11 @@ SAP.registerTopic({
         s4:'Tablo duruyor ama {{BP}} tarafından CVI senkronizasyonuyla doldurulur.',
         alanlar:[
           { ad:'LIFNR', aciklama:'Satıcı numarası' },
-          { ad:'STCD1 / STCD2', aciklama:'Vergi numarası — mükerrer kontrolünün anahtarı' },
-          { ad:'SPERR', aciklama:'Merkezi kayıt bloğu — tüm şirket kodlarını etkiler' },
+          { ad:'STCD1 / STCD2', aciklama:'Vergi numarası: mükerrer kontrolünün anahtarı' },
+          { ad:'SPERR', aciklama:'Merkezi kayıt bloğu: tüm şirket kodlarını etkiler' },
         ] },
 
-      { ad:'LFB1', baslik:'Satıcı — şirket kodu katmanı',
+      { ad:'LFB1', baslik:'Satıcı: şirket kodu katmanı',
         tutar:'Muhasebe davranışı: mutabakat hesabı, ödeme koşulu, izin verilen ödeme yöntemleri, ödeme bloğu.',
         olusturan:'{{BP}} → FI Vendor rolü',
         guncelleyen:'{{BP}}, {{FK02}}',
@@ -510,11 +510,11 @@ SAP.registerTopic({
         iliskiler:'{{LFA1}}’in çocuğu; `AKONT` alanı {{SKB1}}’deki mutabakat hesabına işaret eder.',
         s4:'Değişmedi; {{BP}} üzerinden doldurulur.',
         alanlar:[
-          { ad:'AKONT', aciklama:'**{{mutabakat-hesabi}}** — satıcının ana muhasebedeki adresi' },
-          { ad:'ZTERM', aciklama:'{{odeme-kosulu}} — vade ve iskonto buradan hesaplanır' },
-          { ad:'ZWELS', aciklama:'İzin verilen {{odeme-yontemi}} listesi — {{F110}} bunun dışına çıkamaz' },
-          { ad:'ZAHLS', aciklama:'{{odeme-blogu}} — doluysa {{F110}} satıcıyı öneriye almaz' },
-          { ad:'ZUAWA', aciklama:'Sıralama anahtarı — `ZUONR` alanını doldurur' },
+          { ad:'AKONT', aciklama:'**{{mutabakat-hesabi}}**: satıcının ana muhasebedeki adresi' },
+          { ad:'ZTERM', aciklama:'{{odeme-kosulu}}: vade ve iskonto buradan hesaplanır' },
+          { ad:'ZWELS', aciklama:'İzin verilen {{odeme-yontemi}} listesi: {{F110}} bunun dışına çıkamaz' },
+          { ad:'ZAHLS', aciklama:'{{odeme-blogu}}: doluysa {{F110}} satıcıyı öneriye almaz' },
+          { ad:'ZUAWA', aciklama:'Sıralama anahtarı: `ZUONR` alanını doldurur' },
         ] },
 
       { ad:'BSIK', baslik:'Satıcı açık kalemleri',
@@ -525,10 +525,10 @@ SAP.registerTopic({
         iliskiler:'{{LFB1}} ile satıcı, {{BSEG}} ile belge kalemi bağı.',
         s4:'**Fiziksel tablo kaldırıldı**; aynı isimli {{uyumluluk-view}} veriyi {{ACDOCA}} + {{BSEG}}’den üretir. Yazma yapılamaz.',
         alanlar:[
-          { ad:'ZFBDT', aciklama:'Baz tarih — vade bu tarihten hesaplanır' },
-          { ad:'ZBD1T', aciklama:'İskonto günü — {{F110}} en kârlı ödeme gününü buradan bulur' },
-          { ad:'ZLSPR', aciklama:'Ödeme bloğu — kalem bazında' },
-          { ad:'UMSKZ', aciklama:'{{ozel-ana-muhasebe-gostergesi}} — avans kalemlerini normalden ayırır' },
+          { ad:'ZFBDT', aciklama:'Baz tarih: vade bu tarihten hesaplanır' },
+          { ad:'ZBD1T', aciklama:'İskonto günü: {{F110}} en kârlı ödeme gününü buradan bulur' },
+          { ad:'ZLSPR', aciklama:'Ödeme bloğu: kalem bazında' },
+          { ad:'UMSKZ', aciklama:'{{ozel-ana-muhasebe-gostergesi}}: avans kalemlerini normalden ayırır' },
         ] },
 
       { ad:'BSAK', baslik:'Satıcı kapatılmış kalemleri',
@@ -547,7 +547,7 @@ SAP.registerTopic({
         iliskiler:'{{RSEG}} ile kalemleri, {{BKPF}} ile FI belgesi (`AWKEY` üzerinden) bağlanır.',
         s4:'Değişmedi.',
         alanlar:[
-          { ad:'ZLSPR', aciklama:'Ödeme bloğu — fark varsa otomatik dolar' },
+          { ad:'ZLSPR', aciklama:'Ödeme bloğu: fark varsa otomatik dolar' },
           { ad:'RMWWR', aciklama:'Fatura brüt tutarı' },
         ] },
 
@@ -563,7 +563,7 @@ SAP.registerTopic({
           { ad:'MENGE / WRBTR', aciklama:'Miktar ve tutar' },
         ] },
 
-      { ad:'REGUH', baslik:'Ödeme çalıştırması — ödeme başlıkları',
+      { ad:'REGUH', baslik:'Ödeme çalıştırması: ödeme başlıkları',
         tutar:'{{F110}}’un ürettiği her ödemenin başlığı: alıcı, tutar, banka, ödeme yöntemi, ödeme belgesi.',
         olusturan:'{{F110}} öneri ve ödeme çalıştırması',
         guncelleyen:'{{F110}}',
@@ -575,7 +575,7 @@ SAP.registerTopic({
           { ad:'VBLNR', aciklama:'Ödeme belgesi numarası' },
         ] },
 
-      { ad:'REGUP', baslik:'Ödeme çalıştırması — ödenen kalemler',
+      { ad:'REGUP', baslik:'Ödeme çalıştırması: ödenen kalemler',
         tutar:'Her ödemenin hangi fatura kalemlerini kapattığı. "Bu ödeme hangi faturaları kapattı?" sorusunun cevabı.',
         olusturan:'{{F110}}',
         guncelleyen:'{{F110}}',
@@ -586,7 +586,7 @@ SAP.registerTopic({
 
     er:{
       type:'er',
-      baslik:'AP tablo ilişkileri — satıcıdan ödemeye',
+      baslik:'AP tablo ilişkileri: satıcıdan ödemeye',
       varliklar:[
         { ad:'LFA1', rol:'Ana veri', aciklama:'Satıcı kimliği',
           alanlar:[{ ad:'LIFNR', tip:'pk' }, { ad:'NAME1' }, { ad:'STCD1' }] },
@@ -628,20 +628,20 @@ SAP.registerTopic({
       'diğer AP ekranları da tanıdık gelir.',
 
     ekranlar:[
-      { ad:'{{FB60}} — Temel veri sekmesi',
+      { ad:'{{FB60}}: Temel veri sekmesi',
         aciklama:'Faturanın başlık bilgisi. Satıcı girildiği an ana veriden gelen değerler ekranı doldurur.',
         alanlar:[
           { ad:'Satıcı', zorunlu:true, aciklama:'Girildiğinde adres, banka ve ödeme koşulu sağ panelde görünür. Yanlış satıcı seçimi en pahalı hatadır.' },
           { ad:'Fatura tarihi (`BLDAT`)', zorunlu:true, aciklama:'Satıcının fatura üzerindeki tarihi. Vade hesabının **baz tarihi** genelde budur.' },
           { ad:'Kayıt tarihi (`BUDAT`)', zorunlu:true, aciklama:'Muhasebe dönemini belirler. Ay sonunda gelen faturalarda dikkatle kontrol edilir.' },
-          { ad:'Referans (`XBLNR`)', zorunlu:false, aciklama:'Satıcının fatura numarası. **Mükerrer fatura kontrolü buna bakar** — boş bırakma.' },
+          { ad:'Referans (`XBLNR`)', zorunlu:false, aciklama:'Satıcının fatura numarası. **Mükerrer fatura kontrolü buna bakar**: boş bırakma.' },
           { ad:'Tutar', zorunlu:true, aciklama:'Brüt tutar (KDV dâhil). "Vergiyi hesapla" işaretliyse SAP KDV’yi ayırır.' },
           { ad:'Vergi kodu', zorunlu:false, aciklama:'Hesabın vergi kategorisi zorunlu kılıyorsa istenir.' },
         ],
         ipucu:'Satıcı girer girmez sağdaki panelde çıkan bilgiyi oku: ödeme koşulu ve bloğu doğru mu? ' +
               'Yanlış ana veri, faturayı girdikten sonra fark edilirse düzeltmesi zordur.' },
 
-      { ad:'{{FB60}} — Ödeme sekmesi',
+      { ad:'{{FB60}}: Ödeme sekmesi',
         aciklama:'Vade ve ödeme davranışının belirlendiği sekme. Değerler ana veriden gelir ama bu faturaya özel değiştirilebilir.',
         alanlar:[
           { ad:'Baz tarih (`ZFBDT`)', zorunlu:false, aciklama:'Vade hesabının başlangıcı. Ana veriden gelir; fatura tarihi veya kayıt tarihi olabilir.' },
@@ -649,10 +649,10 @@ SAP.registerTopic({
           { ad:'Ödeme bloğu (`ZLSPR`)', zorunlu:false, aciklama:'Bu faturaya özel blok. Uyuşmazlık varsa buraya konur; satıcı ana verisindeki bloktan farklıdır.' },
           { ad:'Ödeme yöntemi', zorunlu:false, aciklama:'Boş bırakılırsa {{F110}} satıcı ana verisindeki `ZWELS` listesinden seçer.' },
         ],
-        ipucu:'Uyuşmazlıklı faturayı **iptal etme** — ödeme bloğu koy. Fatura kayıtta kalır, yaşlandırmada görünür ' +
+        ipucu:'Uyuşmazlıklı faturayı **iptal etme**: ödeme bloğu koy. Fatura kayıtta kalır, yaşlandırmada görünür ' +
               'ama ödenmez. Sorun çözülünce blok kaldırılır.' },
 
-      { ad:'{{MIRO}} — Referans nesnesi ve kalem eşleştirme',
+      { ad:'{{MIRO}}: Referans nesnesi ve kalem eşleştirme',
         aciklama:'MIRO’nun kalbi. Sipariş numarası girildiğinde sistem faturalanmayı bekleyen kalemleri getirir.',
         alanlar:[
           { ad:'Satınalma siparişi', zorunlu:true, aciklama:'Girildiğinde mal girişi yapılmış ama faturalanmamış kalemler otomatik gelir ve miktar/tutar önerilir.' },
@@ -663,7 +663,7 @@ SAP.registerTopic({
         ipucu:'Fark oluştuğunda önce {{ME23N}} → *Sipariş geçmişi* sekmesine bak. Genelde ya mal girişi eksik, ' +
               'ya kısmi teslimat var, ya da sipariş fiyatı güncellenmemiş.' },
 
-      { ad:'{{F-53}} — Açık kalem seçim ekranı',
+      { ad:'{{F-53}}: Açık kalem seçim ekranı',
         aciklama:'Ödenecek kalemlerin seçildiği ekran. En kritik gösterge alttaki "Atanmamış" alanıdır.',
         alanlar:[
           { ad:'Banka G/L hesabı', zorunlu:true, aciklama:'Paranın çıkacağı hesap. Genelde {{banka-ara-hesabi}} kullanılır.' },
@@ -696,7 +696,7 @@ SAP.registerTopic({
       'Mükerrer fatura kontrolünün çalışması için referans alanı (`XBLNR`) **disiplinli** doldurulmalıdır. ' +
       'Kontrolün hangi alanlara baktığı {{OBY6}} → şirket kodu global parametrelerinde ayarlanır.',
       '{{gr-ir}} hesabını her ay {{FBL3N}} ile açık kalem bazında incele. Kalıcı olarak eşleşmeyecek ' +
-      'küçük farkları {{MR11}} ile temizle — yıllarca biriktirme.',
+      'küçük farkları {{MR11}} ile temizle: yıllarca biriktirme.',
       'Bir faturanın neden ödenmediğini bulmanın en hızlı yolu: {{FBL1N}} → kalemi bul → ödeme bloğu dolu mu? ' +
       'Değilse {{BP}}’de satıcı bloğu var mı? Değilse vade gelmemiş olabilir.',
     ],
@@ -718,14 +718,14 @@ SAP.registerTopic({
     commit:
       'Fatura kaydı tek bir LUW içinde yazılır. {{MIRO}}’da ek bir katman vardır: ' +
       'önce MM fatura belgesi ({{RBKP}}/{{RSEG}}), ardından FI belgesi üretilir ve ikisi `AWKEY` ile bağlanır. ' +
-      'Bu iki adım aynı LUW içindedir — biri başarısız olursa ikisi de yazılmaz.\n\n' +
+      'Bu iki adım aynı LUW içindedir: biri başarısız olursa ikisi de yazılmaz.\n\n' +
       '{{F110}}’da durum farklıdır: **öneri** ve **ödeme** ayrı çalıştırmalardır ve arada onay beklenir. ' +
       'Öneri {{REGUH}}/{{REGUP}}’a `XVORL = X` ile yazılır; ödeme çalıştırmasında bu kayıtlar gerçek ödemeye dönüşür.',
 
     belgeNo:
       'Belge türüne bağlı numara aralığından, **kaydetme anında** verilir. AP’de tipik türler: ' +
       '**KR** satıcı faturası, **KG** satıcı alacak dekontu, **KZ** satıcı ödemesi, **RE** lojistik fatura. ' +
-      '{{MIRO}} iki numara üretir: MM fatura numarası ({{RBKP}}) ve FI belge numarası ({{BKPF}}) — ' +
+      '{{MIRO}} iki numara üretir: MM fatura numarası ({{RBKP}}) ve FI belge numarası ({{BKPF}}): ' +
       'bunlar **farklıdır** ve karıştırılmamalıdır.',
 
     postingLogic:
@@ -742,7 +742,7 @@ SAP.registerTopic({
 
     numberRange:
       'Şirket kodu + mali yıl bazında {{FBN1}} ile tanımlanır. MM fatura numarası ise ayrı bir aralıktan ' +
-      'gelir (MM tarafında tanımlanır). Yılbaşında **her ikisi de** açılmalıdır — sadece FI aralığını ' +
+      'gelir (MM tarafında tanımlanır). Yılbaşında **her ikisi de** açılmalıdır: sadece FI aralığını ' +
       'açıp MM’i unutmak, Ocak ayında MIRO’nun durmasına yol açan klasik hatadır.',
 
     accountDetermination:
@@ -765,16 +765,16 @@ SAP.registerTopic({
 
     img:[
       { yol:'SPRO → Finansal Muhasebe → Satıcı Hesapları → Ana Veri → Hazırlık → Satıcı Hesap Gruplarını Tanımla', not:'Hesap grubu ve alan durumu' },
-      { yol:'SPRO → Finansal Muhasebe → Satıcı Hesapları → İş İşlemleri → Giden Faturalar/Alacak Dekontları → Ödeme Koşullarını Tanımla', not:'{{odeme-kosulu}} — vade ve iskonto' },
-      { yol:'SPRO → Finansal Muhasebe → Satıcı Hesapları → İş İşlemleri → Giden Ödemeler → Otomatik Giden Ödemeler → Ödeme Programı Yapılandırması', not:'{{FBZP}} — {{F110}}’un tüm ayarları' },
-      { yol:'SPRO → Finansal Muhasebe → Satıcı Hesapları → İş İşlemleri → Giden Ödemeler → Manuel Giden Ödemeler → Ödeme Farkları İçin Tolerans Tanımla', not:'{{OBA3}} — kapatma tolerans sınırları' },
-      { yol:'SPRO → Malzeme Yönetimi → Değerleme ve Hesap Atama → Hesap Belirleme → Otomatik Kayıtları Yapılandır', not:'{{OBYC}} — BSX, WRX, PRD işlem anahtarları' },
+      { yol:'SPRO → Finansal Muhasebe → Satıcı Hesapları → İş İşlemleri → Giden Faturalar/Alacak Dekontları → Ödeme Koşullarını Tanımla', not:'{{odeme-kosulu}}: vade ve iskonto' },
+      { yol:'SPRO → Finansal Muhasebe → Satıcı Hesapları → İş İşlemleri → Giden Ödemeler → Otomatik Giden Ödemeler → Ödeme Programı Yapılandırması', not:'{{FBZP}}: {{F110}}’un tüm ayarları' },
+      { yol:'SPRO → Finansal Muhasebe → Satıcı Hesapları → İş İşlemleri → Giden Ödemeler → Manuel Giden Ödemeler → Ödeme Farkları İçin Tolerans Tanımla', not:'{{OBA3}}: kapatma tolerans sınırları' },
+      { yol:'SPRO → Malzeme Yönetimi → Değerleme ve Hesap Atama → Hesap Belirleme → Otomatik Kayıtları Yapılandır', not:'{{OBYC}}: BSX, WRX, PRD işlem anahtarları' },
       { yol:'SPRO → Malzeme Yönetimi → Lojistik Fatura Doğrulama → Fatura Bloğu → Fiyat/Miktar Farkı İçin Tolerans Sınırlarını Belirle', not:'{{MIRO}} blok toleransları' },
-      { yol:'SPRO → Finansal Muhasebe → Satıcı Hesapları → İş İşlemleri → Giden Ödemeler → Avanslar → Özel Ana Muhasebe İşlemlerini Tanımla', not:'{{OBYR}} — avans göstergeleri' },
+      { yol:'SPRO → Finansal Muhasebe → Satıcı Hesapları → İş İşlemleri → Giden Ödemeler → Avanslar → Özel Ana Muhasebe İşlemlerini Tanımla', not:'{{OBYR}}: avans göstergeleri' },
     ],
 
     ekstra:[
-      { ic:'🔐', baslik:'AP’de iç kontrol — nereye dikkat edilir?', metin:
+      { ic:'🔐', baslik:'AP’de iç kontrol: nereye dikkat edilir?', metin:
         'Şirketten para çıkışının neredeyse tamamı AP üzerindendir; bu yüzden en çok kontrol gerektiren alandır.\n\n' +
         '**Görevler ayrılığı:** satıcı ana verisini açan kişi ile ödeme yapan kişi **aynı olmamalıdır**. ' +
         'Aksi hâlde sahte satıcı açıp kendine ödeme yapmak mümkün hâle gelir.\n\n' +
@@ -802,28 +802,28 @@ SAP.registerTopic({
   /* ==================================================== 9. S/4HANA === */
   s4hana: {
     ozet:
-      'AP’nin iş mantığı S/4HANA’da değişmedi — fatura, ödeme ve kapatma aynı şekilde çalışır. ' +
+      'AP’nin iş mantığı S/4HANA’da değişmedi: fatura, ödeme ve kapatma aynı şekilde çalışır. ' +
       'Değişenler: **satıcı ana verisinin {{BP}}’ye taşınması**, **indeks tablolarının view’e dönüşmesi** ' +
       've **Fiori tabanlı yeni çalışma listeleri**.',
 
     eccFarklari:[
-      { konu:'Satıcı ana verisi', ecc:'{{FK01}} / {{XK01}}', s4:'{{BP}} zorunlu — FI Vendor rolü ile' },
-      { konu:'Açık kalem tablosu', ecc:'{{BSIK}} / {{BSAK}} fiziksel tablo', s4:'{{uyumluluk-view}} — veri {{ACDOCA}}’dan üretilir' },
+      { konu:'Satıcı ana verisi', ecc:'{{FK01}} / {{XK01}}', s4:'{{BP}} zorunlu: FI Vendor rolü ile' },
+      { konu:'Açık kalem tablosu', ecc:'{{BSIK}} / {{BSAK}} fiziksel tablo', s4:'{{uyumluluk-view}}: veri {{ACDOCA}}’dan üretilir' },
       { konu:'Terminoloji', ecc:'Vendor', s4:'**Supplier** (Fiori ve yeni dokümantasyonda)' },
       { konu:'Kalem raporu', ecc:'{{FBL1N}}', s4:'{{FBL1N}} çalışır; Fiori "Display Supplier Line Items" önerilir' },
       { konu:'Fatura girişi', ecc:'{{FB60}} / {{MIRO}}', s4:'Aynı + Fiori "Create Supplier Invoice" (makine öğrenmesi destekli hesap önerisi)' },
       { konu:'Ödeme', ecc:'{{F110}}', s4:'{{F110}} + Fiori "Manage Automatic Payments" ile görsel öneri yönetimi' },
-      { konu:'Kredi/risk', ecc:'FD32 tabanlı', s4:'SAP Credit Management ({{UKM_BP}}) — AR tarafında' },
+      { konu:'Kredi/risk', ecc:'FD32 tabanlı', s4:'SAP Credit Management ({{UKM_BP}}): AR tarafında' },
     ],
 
     universalJournal:
       'AP kalemleri artık {{ACDOCA}}’da da tutulur ve satıcı numarası, maliyet yeri, kâr merkezi ' +
       '**aynı satırdadır**. Pratik sonucu: "hangi satıcıya ne kadar ödedik, hangi maliyet yerine düştü?" ' +
-      'sorusu tek tablodan cevaplanır — eskiden {{BSEG}} + {{BSIK}} + CO tablolarını birleştirmek gerekiyordu.\n\n' +
+      'sorusu tek tablodan cevaplanır: eskiden {{BSEG}} + {{BSIK}} + CO tablolarını birleştirmek gerekiyordu.\n\n' +
       'Ayrıca {{BSEG}}’in 999 kalem sınırı {{ACDOCA}}’da yoktur; çok kalemli toplu faturalar sorunsuz kaydedilir.',
 
     kalkanTcodes:[
-      { eski:'{{FK01}} / {{FK02}} / {{FK03}}', yeni:'{{BP}}', not:'Satıcı ana verisi — kaldırıldı' },
+      { eski:'{{FK01}} / {{FK02}} / {{FK03}}', yeni:'{{BP}}', not:'Satıcı ana verisi: kaldırıldı' },
       { eski:'{{XK01}} / {{XK02}}', yeni:'{{BP}}', not:'BP işlemine yönlendirir' },
       { eski:'MK01 / MK02', yeni:'{{BP}}', not:'Satın alma tarafı da BP üzerinden' },
       { eski:'F-43', yeni:'{{FB60}}', not:'Klasik ekran çalışır ama FB60 önerilir' },
@@ -834,20 +834,20 @@ SAP.registerTopic({
       { ad:'Manage Supplier Line Items', aciklama:'{{FBL1N}} yerine; süzme, gruplama ve toplu blok kaldırma destekler.' },
       { ad:'Manage Automatic Payments', aciklama:'{{F110}} önerisini görsel olarak yönetir; kalem bazında dâhil/hariç bırakma kolaylaşır.' },
       { ad:'Supplier Invoices List', aciklama:'Bloklu ve onay bekleyen faturaların iş listesi.' },
-      { ad:'Days Payable Outstanding', aciklama:'Ortalama ödeme süresini analiz eder — nakit yönetimi göstergesi.' },
-      { ad:'Maintain Business Partner', aciklama:'{{BP}} — satıcı ana verisinin tek kapısı.' },
+      { ad:'Days Payable Outstanding', aciklama:'Ortalama ödeme süresini analiz eder: nakit yönetimi göstergesi.' },
+      { ad:'Maintain Business Partner', aciklama:'{{BP}}: satıcı ana verisinin tek kapısı.' },
     ],
 
     compatibilityViews:[
-      '{{BSIK}}, {{BSAK}} — satıcı açık/kapalı kalem indeksleri artık fiziksel tablo değil, {{ACDOCA}} üzerinden üretilen görünümler.',
-      '{{LFC1}} — satıcı dönemsel bakiyeleri de view’e dönüştü.',
+      '{{BSIK}}, {{BSAK}}: satıcı açık/kapalı kalem indeksleri artık fiziksel tablo değil, {{ACDOCA}} üzerinden üretilen görünümler.',
+      '{{LFC1}}: satıcı dönemsel bakiyeleri de view’e dönüştü.',
       'Bu view’lere **INSERT/UPDATE yapılamaz**. {{BSIK}}’e doğrudan yazan eski Z-programları geçişte bozulur; taranmalıdır.',
-      '{{LFA1}} ve {{LFB1}} fiziksel tablo olarak **duruyor** — ama {{BP}} tarafından doldurulur; doğrudan yazma CVI senkronizasyonunu bozar.',
+      '{{LFA1}} ve {{LFB1}} fiziksel tablo olarak **duruyor**: ama {{BP}} tarafından doldurulur; doğrudan yazma CVI senkronizasyonunu bozar.',
     ],
 
     performans:
       'Açık kalem sorguları {{ACDOCA}} üzerinden çalıştığı için büyük satıcı portföylerinde belirgin hızlanma vardır. ' +
-      '{{F110}} öneri üretimi de hızlanır — eskiden {{BSIK}} taraması darboğazdı. ' +
+      '{{F110}} öneri üretimi de hızlanır: eskiden {{BSIK}} taraması darboğazdı. ' +
       'Buna karşılık {{uyumluluk-view}} üzerinden çalışan eski özel raporlar, doğrudan {{ACDOCA}} sorgulayan ' +
       'yeni raporlardan yavaştır; performans şikâyeti gelirse ilk bakılacak yer budur.',
 
@@ -865,19 +865,19 @@ SAP.registerTopic({
     baslik:'Baştan sona bir satın alma: siparişten ödemeye 100.000 TL’lik hammadde',
     hikaye:
       '**Marmara Tekstil A.Ş.** (şirket kodu 1000) Ege Kimya’dan 100 varil boya alıyor. ' +
-      'Sipariş açılıyor, mal geliyor, fatura geliyor — ama faturada **fiyat farkı** çıkıyor. ' +
+      'Sipariş açılıyor, mal geliyor, fatura geliyor: ama faturada **fiyat farkı** çıkıyor. ' +
       'Bu senaryo, gerçek hayatta en sık yaşanan AP akışını, fark yönetimi dâhil, adım adım gösteriyor.',
     veriler:[
-      { k:'Şirket kodu', v:'1000 — Marmara Tekstil A.Ş.' },
+      { k:'Şirket kodu', v:'1000: Marmara Tekstil A.Ş.' },
       { k:'Satıcı', v:'V-4001 Ege Kimya A.Ş. · mutabakat hesabı 320000' },
-      { k:'Ödeme koşulu', v:'ZB02 — 30 gün net, 10 gün içinde %2 iskonto' },
+      { k:'Ödeme koşulu', v:'ZB02: 30 gün net, 10 gün içinde %2 iskonto' },
       { k:'Sipariş', v:'100 varil × 1.000 TL = 100.000 TL' },
       { k:'Dönem', v:'Eylül 2026' },
       { k:'Fiyat farkı toleransı', v:'%3 veya 500 TL (hangisi küçükse)' },
     ],
 
     adimlar:[
-      { baslik:'Satınalma siparişi açılır — FI kaydı yok', tcode:'ME21N',
+      { baslik:'Satınalma siparişi açılır: FI kaydı yok', tcode:'ME21N',
         aciklama:'Satın alma 100 varil boya siparişi açıyor. Bu bir **taahhüttür**, borç değildir; ' +
                  'bu yüzden hiçbir muhasebe kaydı oluşmaz.',
         girdi:[
@@ -892,16 +892,16 @@ SAP.registerTopic({
         ],
         not:'**FI belgesi yok.** "Sipariş verdik, borcumuz oluştu mu?" sorusunun cevabı hayırdır. Borç mal teslim alınınca doğar.' },
 
-      { baslik:'Mal girişi yapılır — ilk FI kaydı doğar', tcode:'MIGO',
+      { baslik:'Mal girişi yapılır: ilk FI kaydı doğar', tcode:'MIGO',
         aciklama:'Depo 100 varili teslim alıp sisteme kaydediyor. Muhasebeci bu kayıttan habersizdir ' +
                  'ama FI’da ilk belge burada oluşur.',
         girdi:[
-          { alan:'Hareket türü', deger:'101 — Siparişe mal girişi' },
+          { alan:'Hareket türü', deger:'101: Siparişe mal girişi' },
           { alan:'Satınalma siparişi', deger:'4500002345, kalem 10' },
           { alan:'Miktar', deger:'100 varil (tam teslimat)' },
           { alan:'Belge tarihi', deger:'05.09.2026' },
         ],
-        fis:{ baslik:'Belge 5000001234 — Mal girişi', belgeTuru:'WE', tarih:'05.09.2026',
+        fis:{ baslik:'Belge 5000001234: Mal girişi', belgeTuru:'WE', tarih:'05.09.2026',
           satirlar:[
             { hesap:'153', ad:'Ticari mallar (stok)', borc:100000, not:'{{OBYC}} → **BSX**' },
             { hesap:'159', ad:'GR/IR hesabı', alacak:100000, not:'{{OBYC}} → **WRX**' },
@@ -913,9 +913,9 @@ SAP.registerTopic({
           { tablo:'BSIS', ne:'159 hesabında yeni **açık kalem** (alacak 100.000)' },
         ] },
 
-      { baslik:'Fatura gelir — fiyat farkı çıkar', tcode:'MIRO',
+      { baslik:'Fatura gelir: fiyat farkı çıkar', tcode:'MIRO',
         aciklama:'Satıcı 100 varil için **1.050 TL/varil** fatura kesmiş. Sipariş 1.000 TL’ydi. ' +
-                 'Toplam fark 5.000 TL — tolerans %3 (3.000 TL) olduğu için **tolerans dışı**.',
+                 'Toplam fark 5.000 TL: tolerans %3 (3.000 TL) olduğu için **tolerans dışı**.',
         girdi:[
           { alan:'Fatura tarihi', deger:'12.09.2026' },
           { alan:'Referans (satıcı fatura no)', deger:'EGE-2026-4471' },
@@ -924,19 +924,19 @@ SAP.registerTopic({
           { alan:'Sistem önerisi', deger:'100 varil × 1.000 = 100.000 TL' },
           { alan:'Elle düzeltilen', deger:'100 varil × 1.050 = 105.000 TL' },
         ],
-        fis:{ baslik:'Belge 5100000456 (MM) / 1900000234 (FI) — Satıcı faturası', belgeTuru:'RE', tarih:'12.09.2026',
+        fis:{ baslik:'Belge 5100000456 (MM) / 1900000234 (FI): Satıcı faturası', belgeTuru:'RE', tarih:'12.09.2026',
           satirlar:[
-            { hesap:'159', ad:'GR/IR hesabı', borc:100000, not:'Mal girişindeki alacak kapanıyor — **sipariş fiyatıyla**' },
+            { hesap:'159', ad:'GR/IR hesabı', borc:100000, not:'Mal girişindeki alacak kapanıyor: **sipariş fiyatıyla**' },
             { hesap:'711', ad:'Fiyat farkı', borc:5000, not:'{{OBYC}} → **PRD** · stok standart fiyatlıysa buraya' },
             { hesap:'191', ad:'İndirilecek KDV', borc:21000 },
-            { hesap:'320', ad:'Satıcılar — V-4001', alacak:126000, not:'Borç artık satıcıda' },
+            { hesap:'320', ad:'Satıcılar: V-4001', alacak:126000, not:'Borç artık satıcıda' },
           ], not:'Dikkat: {{gr-ir}} **100.000** ile kapandı, 105.000 ile değil. Aradaki 5.000 TL fiyat farkı hesabına gitti. ' +
                  'Malzeme hareketli ortalama fiyatlıysa fark stoka eklenirdi (153 hesabına).' },
         tabloEtkisi:[
           { tablo:'RBKP', ne:'MM fatura başlığı 5100000456; `ZLSPR` = **R** (fiyat farkı bloğu)' },
           { tablo:'RSEG', ne:'Fatura kalemi: sipariş 4500002345 kalem 10, 105.000 TL' },
           { tablo:'EKBE', ne:'Sipariş geçmişine satır: `VGABE` = **2** (fatura), 100 varil / 105.000 TL' },
-          { tablo:'BSIK', ne:'Satıcı açık kalemi 126.000 TL — **ama ödeme bloklu**' },
+          { tablo:'BSIK', ne:'Satıcı açık kalemi 126.000 TL: **ama ödeme bloklu**' },
           { tablo:'BSIS', ne:'159 hesabındaki açık kalem kapandı' },
         ],
         not:'Fatura **kaydedildi** ama ödemeye bloklandı. Bu bir hata değil, tasarımdır: sistem farkı ' +
@@ -944,10 +944,10 @@ SAP.registerTopic({
 
       { baslik:'Fark araştırılır ve blok kaldırılır', tcode:'MRBR',
         aciklama:'AP uzmanı satın almaya soruyor: fiyat artışı Eylül başında sözleşmeyle kabul edilmiş ' +
-                 'ama sipariş güncellenmemiş. Fark **haklı** — blok kaldırılıyor.',
+                 'ama sipariş güncellenmemiş. Fark **haklı**: blok kaldırılıyor.',
         girdi:[
           { alan:'Şirket kodu', deger:'1000' },
-          { alan:'Blok sebebi', deger:'Fiyat farkı (R) — 5.000 TL' },
+          { alan:'Blok sebebi', deger:'Fiyat farkı (R): 5.000 TL' },
           { alan:'Karar', deger:'Sözleşme teyit edildi → serbest bırak' },
         ],
         tabloEtkisi:[
@@ -962,7 +962,7 @@ SAP.registerTopic({
                  'iskonto son günü **22.09**. Blok araştırması 25.09’a kadar sürdü.',
         girdi:[
           { alan:'Kalem', deger:'126.000 TL · Vade 12.10.2026' },
-          { alan:'İskonto son günü', deger:'22.09.2026 — **geçti**' },
+          { alan:'İskonto son günü', deger:'22.09.2026: **geçti**' },
           { alan:'Kaçırılan iskonto', deger:'105.000 × %2 = **2.100 TL**' },
         ],
         not:'Blok yönetimindeki gecikmenin somut maliyeti: 2.100 TL. Bu yüzden bloklu faturalar ' +
@@ -972,12 +972,12 @@ SAP.registerTopic({
         aciklama:'12.10.2026 vadesi geldiğinde ödeme koşusu bu faturayı seçiyor ve ödüyor.',
         girdi:[
           { alan:'Çalıştırma tarihi / kimliği', deger:'12.10.2026 / AP01' },
-          { alan:'Ödeme yöntemi', deger:'H — banka havalesi' },
+          { alan:'Ödeme yöntemi', deger:'H: banka havalesi' },
           { alan:'Seçilen kalem', deger:'1900000234 · 126.000 TL' },
         ],
-        fis:{ baslik:'Belge 2000000789 — Ödeme', belgeTuru:'KZ', tarih:'12.10.2026',
+        fis:{ baslik:'Belge 2000000789: Ödeme', belgeTuru:'KZ', tarih:'12.10.2026',
           satirlar:[
-            { hesap:'320', ad:'Satıcılar — V-4001', borc:126000, not:'Açık kalem kapanıyor' },
+            { hesap:'320', ad:'Satıcılar: V-4001', borc:126000, not:'Açık kalem kapanıyor' },
             { hesap:'102', ad:'Bankalar (ara hesap)', alacak:126000 },
           ], not:'İskonto süresi geçtiği için indirim uygulanmadı; tam tutar ödendi.' },
         tabloEtkisi:[
@@ -987,12 +987,12 @@ SAP.registerTopic({
           { tablo:'BSAK', ne:'Kapatılmış kalem olarak eklendi, `AUGBL` = 2000000789' },
         ] },
 
-      { baslik:'Ay sonu kontrolü — GR/IR temiz mi?', tcode:'FBL3N',
+      { baslik:'Ay sonu kontrolü: GR/IR temiz mi?', tcode:'FBL3N',
         aciklama:'Eylül kapanışında 159 GR/IR hesabı kontrol ediliyor. Bu sipariş için mal girişi ' +
                  've fatura eşleşti, kalem kapandı.',
         girdi:[
           { alan:'Hesap', deger:'159000 · Açık kalemler · 30.09.2026' },
-          { alan:'Bu sipariş için', deger:'Kalem yok — eşleşti ve kapandı ✓' },
+          { alan:'Bu sipariş için', deger:'Kalem yok: eşleşti ve kapandı ✓' },
           { alan:'Diğer siparişler', deger:'6 açık kalem kaldı → {{F.19}} ile yeniden sınıflanacak' },
         ],
         not:'{{gr-ir}} kalemleri {{F.13}} ile otomatik kapatılır; eşleşme ölçütü sipariş numarasından ' +
@@ -1003,10 +1003,10 @@ SAP.registerTopic({
       '**Süreç özeti:** sipariş (FI kaydı yok) → mal girişi (stok + GR/IR) → fatura (GR/IR kapandı, ' +
       'satıcı borçlandı, fark PRD’ye gitti) → blok çözümü → ödeme (borç kapandı).\n\n' +
       '**Üç kritik ders:**\n\n' +
-      '**1.** {{gr-ir}} her zaman **sipariş fiyatıyla** kapanır. Fatura farkı ayrı bir hesaba gider — ' +
+      '**1.** {{gr-ir}} her zaman **sipariş fiyatıyla** kapanır. Fatura farkı ayrı bir hesaba gider: ' +
       'malzemenin fiyat kontrolü standart ise fiyat farkı hesabına (PRD), hareketli ortalama ise stoka.\n\n' +
       '**2.** Fiyat farkı bloğu bir arıza değil, **kontrol mekanizmasıdır**. Ama blok yönetimi yavaşsa ' +
-      'iskonto kaçar — bu senaryoda 2.100 TL. Bloklu faturalar günlük takip edilmelidir.\n\n' +
+      'iskonto kaçar: bu senaryoda 2.100 TL. Bloklu faturalar günlük takip edilmelidir.\n\n' +
       '**3.** Bir AP sorununu çözerken sırayla sor: **fatura hangi yoldan geldi ({{FB60}} mi {{MIRO}} mu)?** → ' +
       '**blok var mı ({{MRBR}}, {{FBL1N}})?** → **satıcı ana verisinde blok var mı ({{BP}})?** → ' +
       '**vade gelmiş mi?** Bu dört soru AP şikâyetlerinin neredeyse tamamını çözer.',
@@ -1020,7 +1020,7 @@ SAP.registerTopic({
       'Faturanın iki yolu vardır: siparişsiz **{{FB60}}** (hesabı kullanıcı seçer) ve siparişli **{{MIRO}}** (hesabı {{OBYC}} belirler).',
       '{{gr-ir}} hesabı mal girişi ile fatura arasındaki zaman farkını taşır ve her zaman **sipariş fiyatıyla** kapanır.',
       '{{uc-yonlu-eslestirme}} farkı tolerans dışındaysa fatura kaydedilir ama **ödemeye bloklanır** ({{MRBR}} ile açılır).',
-      'Satıcı ana verisi ({{LFB1}}) vadeyi, mutabakat hesabını, ödeme yöntemini ve bloğu belirler — kullanıcı bunları girmez.',
+      'Satıcı ana verisi ({{LFB1}}) vadeyi, mutabakat hesabını, ödeme yöntemini ve bloğu belirler: kullanıcı bunları girmez.',
       'Açık kalemler {{BSIK}}’te, kapatılanlar {{BSAK}}’tadır; S/4HANA’da ikisi de {{uyumluluk-view}}dir.',
       '{{avans}} normal borçtan {{ozel-ana-muhasebe-gostergesi}} ile ayrılır ve bilançoda **varlık** olarak durur.',
     ],
@@ -1031,7 +1031,7 @@ SAP.registerTopic({
       '**"GR/IR hangi tutarla kapanır?"** Her zaman **sipariş fiyatıyla**. Fatura farkı ayrı hesaba (PRD veya stok) gider.',
       '**"Fatura bloklu, F110 görmüyor. Neden?"** Blok kalkmadan ödeme programı kalemi seçmez. {{MRBR}} ile serbest bırakılır.',
       '**"Ödeme neden yapılmadı?"** Dört ihtimal: kalem bazında ödeme bloğu, satıcı ana verisinde blok ({{LFB1}} `ZAHLS`), vade gelmemiş, ya da ödeme yöntemi ({{LFB1}} `ZWELS`) uyumsuz.',
-      '**"Kısmi ile kalan kapatma farkı?"** Kısmi: orijinal kalem açık kalır, vade korunur. Kalan: orijinal kapanır, yeni kalem üretilir ve **vade bugünden başlar** — yaşlandırmayı bozar.',
+      '**"Kısmi ile kalan kapatma farkı?"** Kısmi: orijinal kalem açık kalır, vade korunur. Kalan: orijinal kapanır, yeni kalem üretilir ve **vade bugünden başlar**: yaşlandırmayı bozar.',
       '**"Avans neden ayrı hesapta?"** Avans bir borç değil **alacaktır**; bilançoda varlık tarafında gösterilmelidir. {{ozel-ana-muhasebe-gostergesi}} bunu sağlar.',
       '**"MIRO’da hangi tablolar yazılır?"** {{RBKP}}/{{RSEG}} (MM fatura), {{BKPF}}/{{BSEG}}/{{ACDOCA}} (FI belgesi), {{EKBE}} (sipariş geçmişi), {{BSIK}} (açık kalem).',
       '**"S/4HANA’da AP’de ne değişti?"** Satıcı ana verisi {{BP}}’ye taşındı; {{BSIK}}/{{BSAK}} {{uyumluluk-view}}’ine dönüştü; terminoloji Vendor → Supplier oldu.',
@@ -1039,14 +1039,14 @@ SAP.registerTopic({
 
     sikHatalar:[
       { hata:'Siparişli faturayı {{FB60}} ile girmek.', dogru:'{{MIRO}} kullanılmalı. FB60 ile girilirse {{gr-ir}} kapanmaz ve hesap sonsuza kadar açık kalır.' },
-      { hata:'Referans alanını (`XBLNR`) boş bırakmak.', dogru:'Satıcının fatura numarası yazılır — mükerrer fatura kontrolünün tek dayanağıdır.' },
+      { hata:'Referans alanını (`XBLNR`) boş bırakmak.', dogru:'Satıcının fatura numarası yazılır: mükerrer fatura kontrolünün tek dayanağıdır.' },
       { hata:'Bloklu faturayı iptal edip yeniden girmek.', dogru:'Blok bir kontroldür. Fark araştırılır, haklıysa {{MRBR}} ile serbest bırakılır.' },
       { hata:'Uyuşmazlıklı faturayı iptal etmek.', dogru:'Ödeme bloğu konur. Fatura kayıtta kalır, yaşlandırmada görünür ama ödenmez.' },
       { hata:'{{OB52}}’de sadece S hesap tipini açmak.', dogru:'Satıcı kaydı için **K** hesap tipi de açılmalıdır; hesap tipleri ayrı yönetilir.' },
       { hata:'Yaşlandırmayı düzeltmek için kalan kapatma kullanmak.', dogru:'Kalan kapatma vadeyi sıfırlar ve gecikmiş borcu "yeni" gösterir. Vade korunmalıysa kısmi kapatma kullanılır.' },
       { hata:'{{gr-ir}} bakiyesini yıllarca biriktirmek.', dogru:'Aylık {{F.19}} ile analiz, kalıcı farklar için {{MR11}} ile temizlik yapılır.' },
       { hata:'MIRO’daki MM fatura numarasını {{FB03}}’te aramak.', dogru:'İki ayrı numara vardır. MM numarası için {{MIR4}}, FI numarası için {{FB03}} kullanılır.' },
-      { hata:'Satıcı ana verisini açan kişinin ödeme de yapabilmesi.', dogru:'Görevler ayrılığı zorunludur — aksi hâlde sahte satıcı açıp kendine ödeme yapmak mümkün olur.' },
+      { hata:'Satıcı ana verisini açan kişinin ödeme de yapabilmesi.', dogru:'Görevler ayrılığı zorunludur: aksi hâlde sahte satıcı açıp kendine ödeme yapmak mümkün olur.' },
       { hata:'Avans kalemlerini {{F-53}}’te bulamayınca yok sanmak.', dogru:'Seçim ekranında **"Özel G/L işlemleri"** kutusu işaretlenmelidir.' },
     ],
 
@@ -1058,7 +1058,7 @@ SAP.registerTopic({
       '{{FBL1N}} düzenine **vade, ödeme bloğu ve iskonto tarihi** sütunlarını ekleyip varsayılan yap.',
       'Bloklu faturaları **günlük** kontrol et, ödeme koşusundan önce değil. Gecikme doğrudan {{iskonto}} kaybıdır.',
       'Yeni satıcıyı **ödeme bloklu** aç, ilk fatura onayından sonra bloğu kaldır. Maliyeti sıfır, koruması yüksek.',
-      '{{CDPOS}} üzerinden `LFBK` (satıcı banka hesabı) değişikliklerini periyodik denetle — ödeme dolandırıcılığının ' +
+      '{{CDPOS}} üzerinden `LFBK` (satıcı banka hesabı) değişikliklerini periyodik denetle: ödeme dolandırıcılığının ' +
       'en yaygın girişidir.',
     ],
 
@@ -1111,7 +1111,7 @@ SAP.registerTopic({
         ], dogru:1,
         aciklama:'{{kismi-kapatma}}da orijinal kalem **açık kalır** ve ödeme ayrı bir açık kalem olarak durur; ' +
                  'orijinal vade korunduğu için {{yaslandirma}} bozulmaz. {{kalan-kapatma}} ise orijinali kapatıp ' +
-                 '40.000 TL’lik yeni kalem üretir — o kalemin vadesi bugünden başlar.' },
+                 '40.000 TL’lik yeni kalem üretir: o kalemin vadesi bugünden başlar.' },
 
       { soru:'Bir satıcıya ödenen avans neden 320 Satıcılar hesabına yazılmaz?',
         secenekler:[
@@ -1138,7 +1138,7 @@ SAP.registerTopic({
       { soru:'S/4HANA’da {{BSIK}} tablosuna doğrudan yazan eski bir Z-programı ne olur?',
         secenekler:[
           'Normal çalışmaya devam eder',
-          'Bozulur — BSIK artık yazma yapılamayan bir {{uyumluluk-view}}dir',
+          'Bozulur: BSIK artık yazma yapılamayan bir {{uyumluluk-view}}dir',
           'Otomatik olarak ACDOCA’ya yönlendirilir',
           'Sadece yavaşlar',
         ], dogru:1,
@@ -1153,12 +1153,12 @@ SAP.registerTopic({
       { on:'Satınalma siparişi açıldığında FI kaydı oluşur mu?', arka:'**Hayır.**\n\nSipariş bir *taahhüttür*, yükümlülük değil. Borç mal/hizmet teslim alınınca doğar.\n\nİlk FI kaydı MIGO (mal girişi) ile oluşur: stok borç / GR-IR alacak.' },
       { on:'GR/IR hesabı hangi tutarla kapanır?', arka:'**Her zaman sipariş fiyatıyla** (mal girişindeki değerle).\n\nFatura farklı gelirse aradaki fark:\n• Standart fiyatlı malzeme → **PRD** fiyat farkı hesabına\n• Hareketli ortalama → **stoka** eklenir' },
       { on:'Fatura ödemeye neden bloklanır?', arka:'Üç yönlü eşleştirmede **tolerans dışı fark** bulunduğu için: fiyat farkı, miktar farkı veya teslim tarihi farkı.\n\nBu bir hata değil, **kontrol mekanizmasıdır**. MRBR ile araştırılıp serbest bırakılır.' },
-      { on:'"Fatura girdim ama F110 görmüyor" — sebepleri?', arka:'1. Kalemde ödeme bloğu (ZLSPR)\n2. Satıcıda ödeme bloğu (LFB1-ZAHLS)\n3. Vade gelmemiş\n4. Ödeme yöntemi uyumsuz (LFB1-ZWELS)\n\nMIRO faturasıysa: MM blok (RBKP-ZLSPR) — MRBR ile açılır.' },
+      { on:'"Fatura girdim ama F110 görmüyor": sebepleri?', arka:'1. Kalemde ödeme bloğu (ZLSPR)\n2. Satıcıda ödeme bloğu (LFB1-ZAHLS)\n3. Vade gelmemiş\n4. Ödeme yöntemi uyumsuz (LFB1-ZWELS)\n\nMIRO faturasıysa: MM blok (RBKP-ZLSPR): MRBR ile açılır.' },
       { on:'Kısmi kapatma ile kalan kapatma farkı nedir?', arka:'**Kısmi:** orijinal kalem açık kalır, ödeme ayrı açık kalem olur. **Vade korunur** → yaşlandırma bozulmaz.\n\n**Kalan:** orijinal kapanır, kalan için yeni kalem üretilir. **Vade bugünden başlar** → yaşlandırma bozulur.' },
       { on:'Avans neden normal mutabakat hesabına yazılmaz?', arka:'Avans bir borç değil, satıcıdan **alacaktır**. Bilançoda varlık tarafında gösterilmelidir.\n\nÖzel ana muhasebe göstergesi (UMSKZ) kaydı alternatif hesaba yönlendirir.\n\nAkış: F-47 talep → F-48 ödeme → F-54 mahsup.' },
       { on:'AP’nin dört ana tablosu nedir?', arka:'**LFA1** satıcı genel · **LFB1** satıcı şirket kodu (AKONT, ZTERM, ZWELS, ZAHLS)\n\n**BSIK** açık kalemler · **BSAK** kapatılmış kalemler\n\nS/4HANA’da BSIK/BSAK compatibility view’dir.' },
       { on:'İskonto neden net tutar üzerinden hesaplanır?', arka:'İskonto malın bedeli üzerinden verilir, KDV üzerinden değil.\n\n120.000 TL’lik faturada %2 iskonto = 100.000 × %2 = **2.000 TL** (2.400 değil).\n\nİskonto kadar indirilecek KDV de düzeltilir.' },
-      { on:'MIRO kaç belge numarası üretir?', arka:'**İki:**\n• MM fatura belgesi (RBKP/RSEG) — ekranda görünen\n• FI belgesi (BKPF/BSEG) — farklı numara\n\nİkisi AWKEY ile bağlanır. MM numarası FB03’te aranmaz; MIR4 kullanılır.' },
+      { on:'MIRO kaç belge numarası üretir?', arka:'**İki:**\n• MM fatura belgesi (RBKP/RSEG), ekranda görünen\n• FI belgesi (BKPF/BSEG), farklı numara\n\nİkisi AWKEY ile bağlanır. MM numarası FB03’te aranmaz; MIR4 kullanılır.' },
       { on:'OBYC’de AP açısından önemli işlem anahtarları nelerdir?', arka:'**BSX** → stok hesabı\n**WRX** → GR/IR hesabı\n**PRD** → fiyat farkı\n**FR1** → navlun karşılığı\n**KDM** → kur farkı\n\nHer biri değerleme sınıfıyla birlikte T030’da bir hesaba eşlenir.' },
     ],
   },

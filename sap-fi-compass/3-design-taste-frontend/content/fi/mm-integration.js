@@ -1,5 +1,5 @@
 /* ==========================================================================
-   content/fi/mm-integration.js — "MM Integration (Malzeme Yönetimi Entegrasyonu)"
+   content/fi/mm-integration.js: "MM Integration (Malzeme Yönetimi Entegrasyonu)"
    ========================================================================== */
 
 SAP.registerTopic({
@@ -11,7 +11,7 @@ SAP.registerTopic({
   tanim: {
     nedir:
       'MM entegrasyonu, **malzeme hareketlerinin ve satın alma faturalarının otomatik olarak ' +
-      'muhasebe belgesine dönüşmesidir**. Depo elemanı mal kabul eder, muhasebeci hiçbir şey girmez — ' +
+      'muhasebe belgesine dönüşmesidir**. Depo elemanı mal kabul eder, muhasebeci hiçbir şey girmez: ' +
       'ama FI’da bir belge oluşur.\n\n' +
       'Bu otomatikliğin kalbi **{{hesap-belirleme}}dir**: sistem hangi G/L hesabına yazacağını ' +
       '{{OBYC}} kural tablosundan bulur. Kural eksikse belge oluşmaz ve mal girişi durur.\n\n' +
@@ -28,7 +28,7 @@ SAP.registerTopic({
       'uyuşmazlık ödemeyi bloklar.',
 
     sirketOnemi:
-      'MM–FI entegrasyonu yanlış kurulursa sonuç sessiz ve pahalıdır: **stoklar yanlış hesapta birikir**, ' +
+      'MM-FI entegrasyonu yanlış kurulursa sonuç sessiz ve pahalıdır: **stoklar yanlış hesapta birikir**, ' +
       'maliyetler yanlış yere yüklenir, {{gr-ir}} hesabı şişer ve kimse fark etmez çünkü ' +
       'hiçbir hata mesajı çıkmaz.\n\n' +
       'Danışmanlık açısından bu konu **iki modülün kesişimidir** ve sorumluluk sınırı bulanıktır. ' +
@@ -43,13 +43,13 @@ SAP.registerTopic({
       'Depo elemanı MM danışmanını arıyor, o FI danışmanına yönlendiriyor. ' +
       'Gerçek sebep: malzemenin **yeni bir {{degerleme-sinifi}}** (3020) var ve {{OBYC}}’de ' +
       'bu sınıf için stok hesabı tanımlanmamış.\n\n' +
-      'Çözüm 30 saniye sürüyor ama **bulmak** yarım gün alıyor — çünkü hata mesajı MM’de çıkıyor, ' +
+      'Çözüm 30 saniye sürüyor ama **bulmak** yarım gün alıyor: çünkü hata mesajı MM’de çıkıyor, ' +
       'çözüm FI’da. Bu, entegrasyon konularının tipik zorluğudur.',
 
     muhasebeMantigi:
       'MM entegrasyonunun muhasebe mantığı **üç aşamalı bir zincirdir**:\n\n' +
       '**1. Mal girişi:** stok artar (varlık), karşılığında {{gr-ir}} hesabı alacaklanır. ' +
-      'Satıcıya borç **henüz yazılmaz** — fatura gelmedi.\n\n' +
+      'Satıcıya borç **henüz yazılmaz**: fatura gelmedi.\n\n' +
       '**2. Fatura girişi:** {{gr-ir}} borçlanarak kapanır, satıcı alacaklanır. ' +
       'Fiyat farkı varsa ayrı bir hesaba gider.\n\n' +
       '**3. Tüketim:** malzeme kullanıldığında stok azalır, gider (veya üretim maliyeti) oluşur.\n\n' +
@@ -68,7 +68,7 @@ SAP.registerTopic({
 
     roller:[
       { rol:'Talep eden birim', gorev:'Satın alma talebi açar. FI kaydı yok.' },
-      { rol:'Satın alma', gorev:'Siparişi açar ({{ME21N}}); **hesap atama kategorisini** belirler — bu, FI kaydının şeklini değiştirir.' },
+      { rol:'Satın alma', gorev:'Siparişi açar ({{ME21N}}); **hesap atama kategorisini** belirler: bu, FI kaydının şeklini değiştirir.' },
       { rol:'Depo / Mal kabul', gorev:'Malı teslim alır ({{MIGO}}). **İlk FI kaydı burada doğar.**' },
       { rol:'AP muhasebe', gorev:'Faturayı işler ({{MIRO}}); farkları araştırır, blokları çözer ({{MRBR}}).' },
       { rol:'Üretim / Maliyet', gorev:'Malzemeyi tüketir; stok gidere veya üretim maliyetine dönüşür.' },
@@ -78,14 +78,14 @@ SAP.registerTopic({
 
     diyagram:{
       type:'flow',
-      baslik:'MM’den FI’a — hangi adımda ne oluşur?',
+      baslik:'MM’den FI’a: hangi adımda ne oluşur?',
       adimlar:[
         { ic:'🛒', rol:'Satın alma', baslik:'Sipariş açılır ({{ME21N}})',
           aciklama:'**Hesap atama kategorisi** burada belirlenir: boş = stoklu alım, K = maliyet yerine, ' +
                    'A = duran varlığa, F = iç siparişe. Bu seçim, mal girişinin FI kaydını tamamen değiştirir. ' +
-                   '**FI kaydı yok** — sipariş bir taahhüttür.',
+                   '**FI kaydı yok**: sipariş bir taahhüttür.',
           cikti:'{{EKKO}} / {{EKPO}}', ok:'mal gelir' },
-        { ic:'📦', rol:'Depo', baslik:'Mal girişi ({{MIGO}}) — ilk FI kaydı',
+        { ic:'📦', rol:'Depo', baslik:'Mal girişi ({{MIGO}}): ilk FI kaydı',
           aciklama:'Hareket türü **101**. Stoklu alımda: stok borç ({{OBYC}} → **BSX**), {{gr-ir}} alacak (**WRX**). ' +
                    'Maliyet yerine alımda: doğrudan gider borç (**GBB/VBR**).',
           cikti:'{{MSEG}} + FI belgesi', ok:'fatura gelir' },
@@ -109,13 +109,13 @@ SAP.registerTopic({
     },
 
     adimlar:[
-      { rol:'Satın alma', eylem:'Sipariş açar, hesap atama kategorisi seçer', sistem:'{{ME21N}} — FI kaydı yok' },
+      { rol:'Satın alma', eylem:'Sipariş açar, hesap atama kategorisi seçer', sistem:'{{ME21N}}: FI kaydı yok' },
       { rol:'Depo', eylem:'Mal girişi yapar', sistem:'{{MIGO}} 101 → stok borç / GR-IR alacak' },
       { rol:'AP muhasebe', eylem:'Faturayı işler', sistem:'{{MIRO}} → GR-IR borç / satıcı alacak' },
       { rol:'AP muhasebe', eylem:'Blokları çözer', sistem:'{{MRBR}}' },
       { rol:'Üretim', eylem:'Malzemeyi tüketir', sistem:'{{MIGO}} 201/261 → stok alacak / gider borç' },
       { rol:'Ana muhasebe', eylem:'GR/IR temizliği', sistem:'{{F.13}}, {{MR11}}, {{F.19}}' },
-      { rol:'Danışman', eylem:'Hesap belirlemeyi test eder', sistem:'{{OMWB}} — kaydetmeden simülasyon' },
+      { rol:'Danışman', eylem:'Hesap belirlemeyi test eder', sistem:'{{OMWB}}: kaydetmeden simülasyon' },
     ],
 
     veriAkisi:{
@@ -130,11 +130,11 @@ SAP.registerTopic({
     notlar:[
       { tip:'warn', baslik:'Hesap atama kategorisi her şeyi değiştirir', metin:
         'Siparişteki **hesap atama kategorisi**, mal girişinin FI kaydını tamamen belirler:\n\n' +
-        '**Boş** — stoklu alım: stok borç / GR-IR alacak. Malzeme envantere girer.\n\n' +
-        '**K** — maliyet yerine: **doğrudan gider** borç / GR-IR alacak. Stok oluşmaz; ' +
+        '**Boş**: stoklu alım: stok borç / GR-IR alacak. Malzeme envantere girer.\n\n' +
+        '**K**: maliyet yerine: **doğrudan gider** borç / GR-IR alacak. Stok oluşmaz; ' +
         'malzeme alındığı an tüketilmiş sayılır (kırtasiye, bakım malzemesi).\n\n' +
-        '**A** — duran varlığa: varlık borç / GR-IR alacak. {{aktiflestirme}} olur.\n\n' +
-        '**F** — iç siparişe / projeye: proje maliyeti borç.\n\n' +
+        '**A**: duran varlığa: varlık borç / GR-IR alacak. {{aktiflestirme}} olur.\n\n' +
+        '**F**: iç siparişe / projeye: proje maliyeti borç.\n\n' +
         'Aynı malzeme, farklı kategorilerle **tamamen farklı** muhasebe kayıtları üretir. ' +
         '"Neden stok oluşmadı?" sorusunun cevabı genelde budur.' },
     ],
@@ -148,17 +148,17 @@ SAP.registerTopic({
       '**işlem anahtarının** devreye girdiği ayrıca gösteriliyor.',
 
     etkilenenHesaplar:[
-      { hesap:'153 Ticari mallar / 150 Hammadde (stok)', tur:'Bilanço — Varlık', neden:'{{OBYC}} → **BSX**. {{degerleme-sinifi}}na göre farklı stok hesabı seçilir.' },
-      { hesap:'159 GR/IR hesabı', tur:'Bilanço — Geçiş', neden:'{{OBYC}} → **WRX**. Mal ile fatura arasındaki zaman farkını taşır.' },
+      { hesap:'153 Ticari mallar / 150 Hammadde (stok)', tur:'Bilanço: Varlık', neden:'{{OBYC}} → **BSX**. {{degerleme-sinifi}}na göre farklı stok hesabı seçilir.' },
+      { hesap:'159 GR/IR hesabı', tur:'Bilanço: Geçiş', neden:'{{OBYC}} → **WRX**. Mal ile fatura arasındaki zaman farkını taşır.' },
       { hesap:'711 Fiyat farkı', tur:'Gelir tablosu', neden:'{{OBYC}} → **PRD**. Yalnızca **standart fiyatlı** ({{fiyat-kontrolu}} = S) malzemelerde oluşur.' },
       { hesap:'7xx Gider hesapları', tur:'Gelir tablosu', neden:'{{OBYC}} → **GBB** (offsetting entry). Tüketim ve maliyet yerine alımda.' },
-      { hesap:'320 Satıcılar', tur:'Bilanço — Kaynak', neden:'{{MIRO}} faturasında; hesabı {{LFB1}} `AKONT` belirler, {{OBYC}} değil.' },
-      { hesap:'191 İndirilecek KDV', tur:'Bilanço — Varlık', neden:'{{vergi-kodu}} girildiğinde; hesabı {{OB40}} belirler.' },
+      { hesap:'320 Satıcılar', tur:'Bilanço: Kaynak', neden:'{{MIRO}} faturasında; hesabı {{LFB1}} `AKONT` belirler, {{OBYC}} değil.' },
+      { hesap:'191 İndirilecek KDV', tur:'Bilanço: Varlık', neden:'{{vergi-kodu}} girildiğinde; hesabı {{OB40}} belirler.' },
       { hesap:'159/653 Navlun karşılığı', tur:'Bilanço / Gelir tablosu', neden:'{{OBYC}} → **FR1**. Planlanan ek maliyetler (navlun, gümrük) için.' },
     ],
 
     fisler:[
-      { baslik:'Senaryo 1 — Stoklu alım · mal girişi ({{MIGO}} 101)',
+      { baslik:'Senaryo 1: Stoklu alım · mal girişi ({{MIGO}} 101)',
         belgeTuru:'WE', tarih:'10.03.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'150', ad:'İlk madde ve malzeme (stok)', borc:200000, not:'{{OBYC}} → **BSX** · değerleme sınıfı 3000' },
@@ -167,16 +167,16 @@ SAP.registerTopic({
         not:'Değer **sipariş fiyatından** hesaplandı (100 ton × 2.000 TL). Fatura gelmediği için ' +
              'gerçek fiyat henüz bilinmiyor. Satıcıya borç **yok**.' },
 
-      { baslik:'Senaryo 1 devamı — fatura ({{MIRO}}) · fiyat uyumlu',
+      { baslik:'Senaryo 1 devamı: fatura ({{MIRO}}) · fiyat uyumlu',
         belgeTuru:'RE', tarih:'18.03.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'159', ad:'GR/IR hesabı', borc:200000, not:'Mal girişindeki alacak kapanıyor' },
           { hesap:'191', ad:'İndirilecek KDV', borc:40000, not:'{{OB40}}' },
-          { hesap:'320', ad:'Satıcılar — V-4001', alacak:240000, not:'{{LFB1}} `AKONT`' },
+          { hesap:'320', ad:'Satıcılar: V-4001', alacak:240000, not:'{{LFB1}} `AKONT`' },
         ],
         not:'{{gr-ir}} sıfırlandı: mal da geldi, fatura da geldi. İki kalem {{F.13}} ile otomatik eşleşir.' },
 
-      { baslik:'Senaryo 2 — Fiyat farkı · **standart fiyatlı** malzeme (S)',
+      { baslik:'Senaryo 2: Fiyat farkı · **standart fiyatlı** malzeme (S)',
         belgeTuru:'RE', tarih:'18.03.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'159', ad:'GR/IR hesabı', borc:200000, not:'**Sipariş fiyatıyla** kapanır' },
@@ -184,28 +184,28 @@ SAP.registerTopic({
           { hesap:'191', ad:'İndirilecek KDV', borc:42000 },
           { hesap:'320', ad:'Satıcılar', alacak:252000 },
         ],
-        not:'{{fiyat-kontrolu}} = **S** (standart fiyat) olduğu için stok değeri **değişmez** — ' +
+        not:'{{fiyat-kontrolu}} = **S** (standart fiyat) olduğu için stok değeri **değişmez**: ' +
              '150 hesabı 200.000 TL olarak kalır. Fark gelir tablosuna (711) gider.\n\n' +
              'Mantık: standart fiyat bir **planlama fiyatıdır**; gerçek fiyatla farkı ' +
              'performans göstergesi olarak ayrı izlenir.' },
 
-      { baslik:'Senaryo 2 alternatifi — **hareketli ortalama** malzeme (V)',
+      { baslik:'Senaryo 2 alternatifi: **hareketli ortalama** malzeme (V)',
         belgeTuru:'RE', tarih:'18.03.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'159', ad:'GR/IR hesabı', borc:200000, not:'Sipariş fiyatıyla' },
-          { hesap:'150', ad:'İlk madde ve malzeme (stok)', borc:10000, not:'**Fark stoka eklendi** — PRD yok' },
+          { hesap:'150', ad:'İlk madde ve malzeme (stok)', borc:10000, not:'**Fark stoka eklendi**: PRD yok' },
           { hesap:'191', ad:'İndirilecek KDV', borc:42000 },
           { hesap:'320', ad:'Satıcılar', alacak:252000 },
         ],
         not:'{{fiyat-kontrolu}} = **V** (hareketli ortalama) olduğu için fark **stok değerine eklenir** ' +
              've birim fiyat güncellenir: 210.000 / 100 ton = 2.100 TL/ton.\n\n' +
              '**Kritik koşul:** stok hâlâ mevcut olmalıdır. Mal tüketilmişse fark stoka eklenemez ve ' +
-             'kısmen fiyat farkı hesabına gider — bu, hareketli ortalamanın en sık şaşırtan davranışıdır.' },
+             'kısmen fiyat farkı hesabına gider: bu, hareketli ortalamanın en sık şaşırtan davranışıdır.' },
 
-      { baslik:'Senaryo 3 — Maliyet yerine alım (hesap atama K)',
+      { baslik:'Senaryo 3: Maliyet yerine alım (hesap atama K)',
         belgeTuru:'WE', tarih:'10.03.2027', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'770', ad:'Genel yönetim gideri — kırtasiye', borc:15000, not:'{{OBYC}} → **GBB/VBR** · maliyet yeri 1200' },
+          { hesap:'770', ad:'Genel yönetim gideri: kırtasiye', borc:15000, not:'{{OBYC}} → **GBB/VBR** · maliyet yeri 1200' },
           { hesap:'159', ad:'GR/IR hesabı', alacak:15000 },
         ],
         not:'**Stok oluşmadı.** Hesap atama kategorisi K olduğu için malzeme alındığı an ' +
@@ -213,23 +213,23 @@ SAP.registerTopic({
              'Bu yüzden "malzemeyi aldım ama stokta görünmüyor" şikâyetinin cevabı genelde ' +
              'siparişteki hesap atama kategorisidir.' },
 
-      { baslik:'Senaryo 4 — Tüketim ({{MIGO}} 201 · maliyet yerine)',
+      { baslik:'Senaryo 4: Tüketim ({{MIGO}} 201 · maliyet yerine)',
         belgeTuru:'WA', tarih:'25.03.2027', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'730', ad:'Genel üretim gideri — malzeme', borc:80000, not:'{{OBYC}} → **GBB/VBR** · maliyet yeri 3100' },
+          { hesap:'730', ad:'Genel üretim gideri: malzeme', borc:80000, not:'{{OBYC}} → **GBB/VBR** · maliyet yeri 3100' },
           { hesap:'150', ad:'İlk madde ve malzeme', alacak:80000, not:'{{OBYC}} → **BSX** (ters yön)' },
         ],
         not:'Stok gidere dönüştü. CO tarafında maliyet yeri 3100 yüklendi. ' +
              'Hareket türü 201 yerine 261 kullanılsaydı üretim siparişine yüklenecekti.' },
 
-      { baslik:'Senaryo 5 — İade ({{MIGO}} 102 · mal girişi iptali)',
+      { baslik:'Senaryo 5: İade ({{MIGO}} 102 · mal girişi iptali)',
         belgeTuru:'WE', tarih:'12.03.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'159', ad:'GR/IR hesabı', borc:40000, not:'Mal girişi geri alındı' },
           { hesap:'150', ad:'İlk madde ve malzeme', alacak:40000, not:'Stok azaldı' },
         ],
         not:'Hareket türü **102**, 101’in tersidir. Hesaplar aynı, yönler ters. ' +
-             '{{OBYC}} aynı işlem anahtarlarını kullanır — hareket türü yalnızca yönü belirler.' },
+             '{{OBYC}} aynı işlem anahtarlarını kullanır: hareket türü yalnızca yönü belirler.' },
     ],
 
     tHesaplar:[
@@ -259,13 +259,13 @@ SAP.registerTopic({
         'Değişen fiyattır ve bu ayrı bir bilgidir.\n\n' +
         'Bu kural bilinmezse "GR/IR neden 200.000 ile kapandı, fatura 210.000’di?" sorusu ' +
         'gereksiz yere araştırılır.' },
-      { tip:'tip', baslik:'S mi V mi? — fiyat kontrolünün muhasebe etkisi', metin:
+      { tip:'tip', baslik:'S mi V mi? - fiyat kontrolünün muhasebe etkisi', metin:
         '**S (standart fiyat):** stok değeri sabittir; fark **fiyat farkı hesabına** (PRD) gider. ' +
         'Avantajı: stok değeri öngörülebilir, sapma ayrı izlenir. Üretim malzemelerinde tercih edilir.\n\n' +
         '**V (hareketli ortalama):** fark **stoka eklenir**, birim fiyat güncellenir. ' +
         'Avantajı: stok gerçek maliyeti yansıtır. Ticari mallarda tercih edilir.\n\n' +
         '**V’nin tuzağı:** stok tükendiyse fark stoka eklenemez ve fiyat farkı hesabına gider. ' +
-        'Yani V ile de PRD hesabı hareket görebilir — beklenmedik bir durumdur.' },
+        'Yani V ile de PRD hesabı hareket görebilir: beklenmedik bir durumdur.' },
     ],
   },
 
@@ -279,13 +279,13 @@ SAP.registerTopic({
       { ad:'Stoklu alım', en:'Stock Purchase (hesap atama boş)',
         aciklama:'Malzeme envantere girer. Mal girişinde **stok hesabı** borçlanır; ' +
                  'tüketildiğinde gidere dönüşür.',
-        neZaman:'Hammadde, ticari mal, ambalaj — depoda tutulan ve miktarı izlenen her şey.',
+        neZaman:'Hammadde, ticari mal, ambalaj: depoda tutulan ve miktarı izlenen her şey.',
         ornek:'{{OBYC}} → BSX (stok) / WRX (GR-IR). Malzeme ana verisi zorunludur.',
         tcodes:['MIGO','MM03'] },
 
       { ad:'Maliyet yerine alım', en:'Consumption Purchase (hesap atama K)',
         aciklama:'Stok oluşmaz; malzeme alındığı an **tüketilmiş** sayılır ve doğrudan gider yazılır.',
-        neZaman:'Kırtasiye, bakım malzemesi, hizmet alımı — miktar takibi gerekmeyen alımlar.',
+        neZaman:'Kırtasiye, bakım malzemesi, hizmet alımı: miktar takibi gerekmeyen alımlar.',
         ornek:'{{OBYC}} → GBB/VBR (gider) / WRX. Malzeme ana verisi olmadan da yapılabilir (metin girişi).',
         tcodes:['ME21N','MIGO'] },
 
@@ -317,7 +317,7 @@ SAP.registerTopic({
       { ad:'Üç yönlü eşleştirme', en:'Three-way Match',
         aciklama:'Sipariş ↔ mal girişi ↔ fatura miktar ve fiyat açısından karşılaştırılır. ' +
                  'Tolerans dışı fark ödemeyi **bloklar**.',
-        neZaman:'Siparişe dayalı tüm alımlarda — otomatik bir iç kontroldür.',
+        neZaman:'Siparişe dayalı tüm alımlarda: otomatik bir iç kontroldür.',
         ornek:'Sipariş 100 ton, mal girişi 100 ton, fatura 105 ton → miktar farkı → blok.',
         tcodes:['MIRO','MRBR','ME23N'] },
 
@@ -332,11 +332,11 @@ SAP.registerTopic({
 
     karsilastirmaBasliklar:['Standart fiyat (S)', 'Hareketli ortalama (V)'],
     karsilastirma:[
-      ['Stok değeri', '**Sabit** — planlanan fiyatla', '**Değişken** — her alımda güncellenir'],
+      ['Stok değeri', '**Sabit**, planlanan fiyatla', '**Değişken**, her alımda güncellenir'],
       ['Fatura farkı nereye', '**PRD** fiyat farkı hesabına (gelir tablosu)', '**Stoka** eklenir (bilanço)'],
       ['Gelir tablosu etkisi', 'Fark **anında** gider/gelir', 'Fark **tüketildiğinde** gider olur'],
-      ['Öngörülebilirlik', '**Yüksek** — stok değeri bilinir', 'Düşük — sürekli değişir'],
-      ['Sapma analizi', '**Kolay** — PRD hesabı sapmayı gösterir', 'Zor — fark stoka gömülür'],
+      ['Öngörülebilirlik', '**Yüksek**, stok değeri bilinir', 'Düşük, sürekli değişir'],
+      ['Sapma analizi', '**Kolay**, PRD hesabı sapmayı gösterir', 'Zor, fark stoka gömülür'],
       ['Tipik kullanım', 'Üretim malzemeleri, mamuller', 'Ticari mallar, yedek parça'],
       ['Tuzak', 'Standart fiyat güncel değilse PRD şişer', '**Stok tükendiyse** fark PRD’ye gider'],
     ],
@@ -345,7 +345,7 @@ SAP.registerTopic({
   /* ===================================================== 5. TCODES === */
   tcodes: {
     liste:[
-      { kod:'OBYC', ad:'MM otomatik hesap belirleme — entegrasyonun merkezi',
+      { kod:'OBYC', ad:'MM otomatik hesap belirleme: entegrasyonun merkezi',
         amac:'Mal hareketlerinin ve faturaların hangi G/L hesaplarına gideceğini ' +
              '**işlem anahtarı + değerleme sınıfı** kombinasyonuyla tanımlar.',
         neZaman:'Kurulumda; her yeni {{degerleme-sinifi}} eklendiğinde; ' +
@@ -372,7 +372,7 @@ SAP.registerTopic({
           zorunlu:['İşlem anahtarı','Hesap planı','Değerleme sınıfı (aktifse)','G/L hesabı'],
           opsiyonel:['Değerleme değiştirici','Hesap belirleme grubu','Borç/alacak ayrımı'] },
         hatalar:[
-          { mesaj:'Account determination for entry INT BSX 3020 not possible', sebep:'Değerleme sınıfı 3020 için stok hesabı tanımsız — genelde yeni malzeme grubu eklenmiş.', cozum:'{{OBYC}} → BSX → o değerleme sınıfı için hesabı ekle. **En sık MM–FI entegrasyon hatasıdır.**' },
+          { mesaj:'Account determination for entry INT BSX 3020 not possible', sebep:'Değerleme sınıfı 3020 için stok hesabı tanımsız: genelde yeni malzeme grubu eklenmiş.', cozum:'{{OBYC}} → BSX → o değerleme sınıfı için hesabı ekle. **En sık MM-FI entegrasyon hatasıdır.**' },
           { mesaj:'Account determination for entry INT WRX not possible', sebep:'{{gr-ir}} hesabı tanımsız.', cozum:'{{OBYC}} → WRX → hesabı tanımla. WRX genelde değerleme sınıfından bağımsızdır (tek hesap).' },
           { mesaj:'Account determination for entry INT GBB VBR not possible', sebep:'Tüketim karşı hesabı tanımsız.', cozum:'{{OBYC}} → GBB → genel değiştirici **VBR** (maliyet yerine tüketim) için hesabı tanımla.' },
         ],
@@ -383,7 +383,7 @@ SAP.registerTopic({
               'GR/IR teknik bir geçiş hesabıdır, stok ise malzeme türüne göre ayrılmalıdır.',
         ilgili:['OMWB','MM03','MIGO','T030'] },
 
-      { kod:'MIGO', ad:'Mal hareketi — ilk FI kaydının doğduğu yer',
+      { kod:'MIGO', ad:'Mal hareketi: ilk FI kaydının doğduğu yer',
         amac:'Mal girişi, çıkışı, transferi ve iadelerini kaydeder; FI belgesi otomatik oluşur.',
         neZaman:'Depo operasyonlarında. Muhasebeci genelde kullanmaz ama **sonucunu bilmek zorundadır**.',
         adimlar:[
@@ -428,11 +428,11 @@ SAP.registerTopic({
         ],
         hatalar:[
           { mesaj:'Balance not zero', sebep:'Brüt tutar ile kalem toplamı + vergi eşleşmiyor.', cozum:'Kalem tutarlarını, vergi kodunu ve ek maliyet sekmesini kontrol et.' },
-          { mesaj:'Price/quantity variance — invoice blocked', sebep:'Fark tolerans dışında.', cozum:'Farkı araştır; haklıysa {{MRBR}} ile serbest bırak, haksızsa alacak dekontu iste.' },
-          { mesaj:'No (suitable) item found for purchase order', sebep:'Mal girişi yapılmamış veya kalem tam faturalanmış.', cozum:'{{ME23N}} → **sipariş geçmişi** sekmesi — {{EKBE}} tablosunu görsel gösterir.' },
+          { mesaj:'Price/quantity variance: invoice blocked', sebep:'Fark tolerans dışında.', cozum:'Farkı araştır; haklıysa {{MRBR}} ile serbest bırak, haksızsa alacak dekontu iste.' },
+          { mesaj:'No (suitable) item found for purchase order', sebep:'Mal girişi yapılmamış veya kalem tam faturalanmış.', cozum:'{{ME23N}} → **sipariş geçmişi** sekmesi: {{EKBE}} tablosunu görsel gösterir.' },
         ],
         ipucu:'{{MIRO}} **iki numara** üretir: MM fatura belgesi ({{RBKP}}) ve FI belgesi ({{BKPF}}). ' +
-              'Ekranda görünen MM numarasıdır ve {{FB03}}’te aranmaz — {{MIR4}} kullanılır.',
+              'Ekranda görünen MM numarasıdır ve {{FB03}}’te aranmaz: {{MIR4}} kullanılır.',
         ilgili:['MIGO','MRBR','MR8M','MIR4','ME23N'] },
 
       { kod:'OMWB', ad:'Hesap belirleme simülasyonu',
@@ -445,7 +445,7 @@ SAP.registerTopic({
           { baslik:'Çalıştır → hangi hesapların kullanılacağı listelenir',
             aciklama:'Her işlem anahtarı için belirlenen hesap gösterilir; eksik olan kırmızı işaretlenir.' },
         ],
-        ipucu:'**MM–FI hesap belirleme sorunlarının en hızlı teşhis aracıdır.** ' +
+        ipucu:'**MM-FI hesap belirleme sorunlarının en hızlı teşhis aracıdır.** ' +
               '{{MIGO}}’da hata almayı beklemek yerine önce burada test et. ' +
               'Yeni malzeme grubu tanımlandığında rutin olarak çalıştırılmalıdır.',
         ilgili:['OBYC','MIGO','MM03'] },
@@ -461,7 +461,7 @@ SAP.registerTopic({
             aciklama:'Örn. 5.000 TL altındaki farklar ve 90 günden eski kalemler.' },
           { baslik:'Test modunda çalıştır, sonucu incele, gerçek modda çalıştır' },
         ],
-        ipucu:'{{MR11}} **bakiyeyi gerçekten azaltır** — {{F.19}} sınıflamasından farkı budur. ' +
+        ipucu:'{{MR11}} **bakiyeyi gerçekten azaltır**: {{F.19}} sınıflamasından farkı budur. ' +
               'Burada kalıcı bir fark yazılır (gelir/gider); F.19 ise yalnızca sunum için taşır.\n\n' +
               'Bu yüzden MR11 dikkatli kullanılmalı ve tutar sınırı konmalıdır.',
         hatalar:[
@@ -469,7 +469,7 @@ SAP.registerTopic({
         ],
         ilgili:['F.13','F.19','FBL3N','gr-ir'] },
 
-      { kod:'ME23N', ad:'Satınalma siparişi görüntüle — sipariş geçmişi',
+      { kod:'ME23N', ad:'Satınalma siparişi görüntüle: sipariş geçmişi',
         amac:'Siparişi ve **sipariş geçmişi** sekmesini gösterir: kaç mal girişi, kaç fatura.',
         neZaman:'MIRO sorunlarında, GR/IR araştırmasında, "bu sipariş ne durumda?" sorusunda.',
         adimlar:[
@@ -513,8 +513,8 @@ SAP.registerTopic({
         iliskiler:'{{EKBE}} ile geçmiş, {{RSEG}} ile fatura kalemleri.',
         s4:'Değişmedi.',
         alanlar:[
-          { ad:'KNTTP', aciklama:'**Hesap atama kategorisi** — boş stoklu, K maliyet yeri, A varlık, F iç sipariş. FI kaydını belirler.' },
-          { ad:'NETPR', aciklama:'Net sipariş fiyatı — {{gr-ir}} bu fiyatla kapanır' },
+          { ad:'KNTTP', aciklama:'**Hesap atama kategorisi**: boş stoklu, K maliyet yeri, A varlık, F iç sipariş. FI kaydını belirler.' },
+          { ad:'NETPR', aciklama:'Net sipariş fiyatı: {{gr-ir}} bu fiyatla kapanır' },
           { ad:'MENGE', aciklama:'Sipariş miktarı' },
         ] },
 
@@ -540,10 +540,10 @@ SAP.registerTopic({
         iliskiler:'MKPF başlığı; {{BKPF}} ile `AWKEY` üzerinden FI belgesi.',
         s4:'S/4HANA’da MATDOC tablosuna birleştirildi; MSEG {{uyumluluk-view}} olarak korunuyor.',
         alanlar:[
-          { ad:'BWART', aciklama:'**{{malzeme-hareket-turu}}** — 101, 102, 201, 261, 301, 601' },
-          { ad:'BKLAS', aciklama:'**{{degerleme-sinifi}}** — {{OBYC}} hesap belirlemesinin girdisi' },
+          { ad:'BWART', aciklama:'**{{malzeme-hareket-turu}}**: 101, 102, 201, 261, 301, 601' },
+          { ad:'BKLAS', aciklama:'**{{degerleme-sinifi}}**: {{OBYC}} hesap belirlemesinin girdisi' },
           { ad:'DMBTR', aciklama:'Yerel para tutarı' },
-          { ad:'KOSTL / AUFNR', aciklama:'Maliyet yeri / iç sipariş — hesap atamalı hareketlerde' },
+          { ad:'KOSTL / AUFNR', aciklama:'Maliyet yeri / iç sipariş: hesap atamalı hareketlerde' },
         ] },
 
       { ad:'RBKP', baslik:'Lojistik fatura başlığı',
@@ -554,9 +554,9 @@ SAP.registerTopic({
         iliskiler:'{{RSEG}} kalemleri; {{BKPF}} ile `AWKEY` üzerinden FI belgesi.',
         s4:'Değişmedi.',
         alanlar:[
-          { ad:'ZLSPR', aciklama:'**Ödeme bloğu** — fiyat/miktar farkı varsa otomatik dolar' },
+          { ad:'ZLSPR', aciklama:'**Ödeme bloğu**: fiyat/miktar farkı varsa otomatik dolar' },
           { ad:'RMWWR', aciklama:'Fatura brüt tutarı' },
-          { ad:'STBLG', aciklama:'İptal belgesi — {{MR8M}} ile iptal edildiyse dolar' },
+          { ad:'STBLG', aciklama:'İptal belgesi: {{MR8M}} ile iptal edildiyse dolar' },
         ] },
 
       { ad:'RSEG', baslik:'Lojistik fatura kalemleri',
@@ -587,7 +587,7 @@ SAP.registerTopic({
 
     er:{
       type:'er',
-      baslik:'MM–FI tablo köprüsü',
+      baslik:'MM-FI tablo köprüsü',
       varliklar:[
         { ad:'EKKO', rol:'Sipariş', aciklama:'Sipariş başlığı',
           alanlar:[{ ad:'EBELN', tip:'pk' }, { ad:'LIFNR', tip:'fk' }] },
@@ -627,7 +627,7 @@ SAP.registerTopic({
       'FI belgesinden kaynağa iniş.',
 
     ekranlar:[
-      { ad:'{{OBYC}} — hesap belirleme ekranı',
+      { ad:'{{OBYC}}: hesap belirleme ekranı',
         aciklama:'İşlem anahtarı seçilir, sonra kurallar ve hesap ataması yapılır.',
         alanlar:[
           { ad:'İşlem anahtarı (`KTOSL`)', zorunlu:true, aciklama:'**BSX** stok, **WRX** GR/IR, **PRD** fiyat farkı, **GBB** karşı hesap, **FR1** navlun.' },
@@ -639,18 +639,18 @@ SAP.registerTopic({
               'WRX genelde tek hesaptır (GR/IR teknik bir geçiş hesabıdır). ' +
               'Bu, yeni malzeme grubu eklendiğinde yalnızca BSX’i güncellemenin yeterli olacağı anlamına gelir.' },
 
-      { ad:'{{ME23N}} — sipariş geçmişi sekmesi',
-        aciklama:'MM–FI sorunlarının teşhisinde en çok kullanılan ekran.',
+      { ad:'{{ME23N}}: sipariş geçmişi sekmesi',
+        aciklama:'MM-FI sorunlarının teşhisinde en çok kullanılan ekran.',
         alanlar:[
           { ad:'Kalem seçimi', zorunlu:true, aciklama:'Sipariş kalemini seç, alt bölümde sekmeler açılır.' },
           { ad:'**Sipariş geçmişi** sekmesi', zorunlu:false, aciklama:'{{EKBE}} tablosunu görsel gösterir: her mal girişi (GR) ve fatura (IR) satır olarak.' },
-          { ad:'Miktar ve değer sütunları', zorunlu:false, aciklama:'"Ne kadar geldi, ne kadarı faturalandı?" — GR/IR bakiyesinin sipariş bazında açıklaması.' },
+          { ad:'Miktar ve değer sütunları', zorunlu:false, aciklama:'"Ne kadar geldi, ne kadarı faturalandı?": GR/IR bakiyesinin sipariş bazında açıklaması.' },
           { ad:'Belge bağlantıları', zorunlu:false, aciklama:'Satıra çift tıkla → malzeme belgesi veya fatura belgesi.' },
         ],
         ipucu:'GR/IR bakiyesi araştırırken sipariş numarasını buraya gir. ' +
               'Mal girişi 100 ton, fatura 60 ton ise fark hemen görünür ve sebebi belli olur.' },
 
-      { ad:'{{FB03}} — FI belgesinden kaynağa iniş',
+      { ad:'{{FB03}}: FI belgesinden kaynağa iniş',
         aciklama:'FI tarafından bakan biri için en önemli teşhis yolu.',
         alanlar:[
           { ad:'Belge başlığı → `AWTYP`', zorunlu:false, aciklama:'**MKPF** = malzeme belgesi (MIGO), **RMRP** = MM faturası (MIRO), **VBRK** = SD faturası.' },
@@ -666,11 +666,11 @@ SAP.registerTopic({
     opsiyonel:['Değerleme sınıfı','Değerleme değiştirici','Hesap belirleme grubu','Parti','Depo yeri'],
 
     hatalar:[
-      { mesaj:'Account determination for entry INT BSX 3020 not possible', sebep:'Yeni {{degerleme-sinifi}} için stok hesabı tanımsız.', cozum:'{{OBYC}} → BSX → sınıf 3020 için hesabı ekle. **En sık MM–FI hatasıdır.** {{OMWB}} ile önceden test edilebilirdi.' },
+      { mesaj:'Account determination for entry INT BSX 3020 not possible', sebep:'Yeni {{degerleme-sinifi}} için stok hesabı tanımsız.', cozum:'{{OBYC}} → BSX → sınıf 3020 için hesabı ekle. **En sık MM-FI hatasıdır.** {{OMWB}} ile önceden test edilebilirdi.' },
       { mesaj:'Account determination for entry INT WRX not possible', sebep:'{{gr-ir}} hesabı tanımsız.', cozum:'{{OBYC}} → WRX → hesabı tanımla.' },
       { mesaj:'Account determination for entry INT GBB VBR not possible', sebep:'Tüketim karşı hesabı tanımsız.', cozum:'{{OBYC}} → GBB → genel değiştirici VBR için hesap tanımla.' },
       { mesaj:'Posting only possible in periods 03/2027 and 02/2027', sebep:'MM dönemi kapalı (FI döneminden ayrıdır).', cozum:'MMPV ile MM dönemini aç. Kapanışta MM **önce** kapatılır.' },
-      { mesaj:'Price/quantity variance — invoice blocked for payment', sebep:'{{uc-yonlu-eslestirme}} farkı tolerans dışında.', cozum:'{{ME23N}} sipariş geçmişiyle karşılaştır; haklıysa {{MRBR}} ile serbest bırak.' },
+      { mesaj:'Price/quantity variance: invoice blocked for payment', sebep:'{{uc-yonlu-eslestirme}} farkı tolerans dışında.', cozum:'{{ME23N}} sipariş geçmişiyle karşılaştır; haklıysa {{MRBR}} ile serbest bırak.' },
       { mesaj:'Deficit of stock in plant/storage location', sebep:'Çıkış miktarı stokta yok.', cozum:'{{MB51}} ile hareketleri kontrol et; parti ve depo yerini doğrula.' },
       { mesaj:'FI belgesi oluşmadı ama malzeme belgesi var', sebep:'Değersiz hareket (yalnız miktar) veya hesap atama nedeniyle FI etkisi yok.', cozum:'Hareket türünün değer güncellemesi yapıp yapmadığını kontrol et; bazı transferler yalnızca miktar hareketi üretir.' },
     ],
@@ -684,7 +684,7 @@ SAP.registerTopic({
       '"Posting only possible in periods…" hatası MM dönemini işaret eder.',
       'Yeni {{degerleme-sinifi}} eklendiğinde yalnızca **BSX**’i güncellemek genelde yeterlidir; ' +
       'WRX ve GBB sınıftan bağımsız tanımlanmışsa dokunmaya gerek yoktur.',
-      '{{gr-ir}} bakiyesini sipariş bazında incelemek için {{FBL3N}} düzenine **atama** alanını ekle — ' +
+      '{{gr-ir}} bakiyesini sipariş bazında incelemek için {{FBL3N}} düzenine **atama** alanını ekle: ' +
       'orada sipariş numarası bulunur.',
     ],
   },
@@ -711,15 +711,15 @@ SAP.registerTopic({
 
     belgeNo:
       'MM işlemleri **iki numara** üretir:\n\n' +
-      '**Malzeme belgesi** (MKPF/{{MSEG}}) — MM tarafında, kendi numara aralığından.\n' +
-      '**FI belgesi** ({{BKPF}}) — belge türüne göre ({{MIGO}} için **WE**, {{MIRO}} için **RE**).\n\n' +
-      '{{MIRO}} ayrıca **MM fatura numarası** üretir ({{RBKP}}) — bu, FI belge numarasından farklıdır ' +
+      '**Malzeme belgesi** (MKPF/{{MSEG}}): MM tarafında, kendi numara aralığından.\n' +
+      '**FI belgesi** ({{BKPF}}): belge türüne göre ({{MIGO}} için **WE**, {{MIRO}} için **RE**).\n\n' +
+      '{{MIRO}} ayrıca **MM fatura numarası** üretir ({{RBKP}}): bu, FI belge numarasından farklıdır ' +
       've ekranda görünen odur. {{FB03}}’te aranmaz; {{MIR4}} kullanılır.',
 
     postingLogic:
       'MM’den FI’a kayıt zinciri:\n\n' +
-      '**1. Hareket türü** ({{MSEG}} `BWART`) belirlenir — ne oluyor?\n' +
-      '**2. Hesap atama kategorisi** ({{EKPO}} `KNTTP`) — nereye yazılacak? (stok / gider / varlık / proje)\n' +
+      '**1. Hareket türü** ({{MSEG}} `BWART`) belirlenir: ne oluyor?\n' +
+      '**2. Hesap atama kategorisi** ({{EKPO}} `KNTTP`): nereye yazılacak? (stok / gider / varlık / proje)\n' +
       '**3. {{degerleme-sinifi}}** ({{MSEG}} `BKLAS`) malzeme ana verisinden alınır.\n' +
       '**4. İşlem anahtarları** belirlenir: hareket türü hangi anahtarları tetikliyor ' +
       '(101 → BSX + WRX; 201 → BSX + GBB/VBR).\n' +
@@ -740,14 +740,14 @@ SAP.registerTopic({
       'Ocak ayında mal girişinin durmasına yol açan klasik hatadır.',
 
     accountDetermination:
-      '{{OBYC}} MM–FI entegrasyonunun merkezidir. Önemli işlem anahtarları:\n\n' +
-      '**BSX** — stok hesabı. Değerleme sınıfına göre değişir; her malzeme grubu farklı stok hesabı kullanabilir.\n\n' +
-      '**WRX** — {{gr-ir}} hesabı. Genelde değerleme sınıfından bağımsız, tek hesap.\n\n' +
-      '**PRD** — fiyat farkı. Yalnızca {{fiyat-kontrolu}} = S olan malzemelerde devreye girer.\n\n' +
-      '**GBB** — karşı hesap (offsetting). Genel değiştiricilerle ayrışır: ' +
+      '{{OBYC}} MM-FI entegrasyonunun merkezidir. Önemli işlem anahtarları:\n\n' +
+      '**BSX**: stok hesabı. Değerleme sınıfına göre değişir; her malzeme grubu farklı stok hesabı kullanabilir.\n\n' +
+      '**WRX**: {{gr-ir}} hesabı. Genelde değerleme sınıfından bağımsız, tek hesap.\n\n' +
+      '**PRD**: fiyat farkı. Yalnızca {{fiyat-kontrolu}} = S olan malzemelerde devreye girer.\n\n' +
+      '**GBB**: karşı hesap (offsetting). Genel değiştiricilerle ayrışır: ' +
       '**VBR** maliyet yerine tüketim, **VAX/VAY** satış maliyeti, **BSA** açılış stoku, ' +
       '**INV** envanter farkı, **ZOB** siparişsiz mal girişi.\n\n' +
-      '**FR1** — navlun karşılığı. **KDM** — kur farkı. **UMB** — değerleme farkı.\n\n' +
+      '**FR1**: navlun karşılığı. **KDM**: kur farkı. **UMB**: değerleme farkı.\n\n' +
       'Hepsi {{T030}} tablosuna yazar.',
 
     tur:
@@ -762,11 +762,11 @@ SAP.registerTopic({
       'hedef sistemde o hesaplar açılmamışsa kurallar çalışmaz.\n\n' +
       'Malzeme ana verisi ve değerleme sınıfı atamaları **ana veridir**, taşınmaz. ' +
       'Bu yüzden test sisteminde çalışan bir senaryo canlıda "account determination not possible" ' +
-      'verebilir — malzemenin değerleme sınıfı farklı olabilir.',
+      'verebilir: malzemenin değerleme sınıfı farklı olabilir.',
 
     img:[
-      { yol:'SPRO → Malzeme Yönetimi → Değerleme ve Hesap Atama → Hesap Belirleme → Sihirbazsız Hesap Belirleme → Otomatik Kayıtları Yapılandır', not:'{{OBYC}} — entegrasyonun merkezi' },
-      { yol:'SPRO → Malzeme Yönetimi → Değerleme ve Hesap Atama → Hesap Belirleme → Hesap Belirlemeyi Simüle Et', not:'{{OMWB}} — test aracı' },
+      { yol:'SPRO → Malzeme Yönetimi → Değerleme ve Hesap Atama → Hesap Belirleme → Sihirbazsız Hesap Belirleme → Otomatik Kayıtları Yapılandır', not:'{{OBYC}}: entegrasyonun merkezi' },
+      { yol:'SPRO → Malzeme Yönetimi → Değerleme ve Hesap Atama → Hesap Belirleme → Hesap Belirlemeyi Simüle Et', not:'{{OMWB}}: test aracı' },
       { yol:'SPRO → Malzeme Yönetimi → Lojistik Fatura Doğrulama → Fatura Bloğu → Tolerans Sınırlarını Belirle', not:'{{MIRO}} blok toleransları' },
       { yol:'SPRO → Malzeme Yönetimi → Satın Alma → Hesap Atama → Hesap Atama Kategorilerini Bakımla', not:'K, A, F kategorileri' },
       { yol:'SPRO → Malzeme Yönetimi → Envanter Yönetimi → Hareket Türleri → Hareket Türlerini Kopyala/Değiştir', not:'{{malzeme-hareket-turu}} ayarları' },
@@ -775,12 +775,12 @@ SAP.registerTopic({
     ekstra:[
       { ic:'🔑', baslik:'OBYC işlem anahtarlarını ezberleme yolu', metin:
         'Anahtarları tek tek ezberlemek yerine **hangi soruya cevap verdiklerini** düşün:\n\n' +
-        '**BSX** — "malzeme nereye girecek?" → stok hesabı. Malzeme türüne göre değişmeli, ' +
+        '**BSX**: "malzeme nereye girecek?" → stok hesabı. Malzeme türüne göre değişmeli, ' +
         'bu yüzden {{degerleme-sinifi}} aktiftir.\n\n' +
-        '**WRX** — "fatura gelene kadar karşılık nerede beklesin?" → GR/IR. ' +
+        '**WRX**: "fatura gelene kadar karşılık nerede beklesin?" → GR/IR. ' +
         'Teknik bir bekleme yeridir, bu yüzden tek hesap yeter.\n\n' +
-        '**PRD** — "planlanan ile gerçek fiyat farkı nereye?" → fiyat farkı hesabı.\n\n' +
-        '**GBB** — "stok çıktığında karşısına ne yazılacak?" → duruma göre gider, satış maliyeti, ' +
+        '**PRD**: "planlanan ile gerçek fiyat farkı nereye?" → fiyat farkı hesabı.\n\n' +
+        '**GBB**: "stok çıktığında karşısına ne yazılacak?" → duruma göre gider, satış maliyeti, ' +
         'envanter farkı. Bu yüzden **genel değiştirici** ile alt kırılımları vardır (VBR, VAX, INV…).\n\n' +
         'Bu mantıkla bakıldığında hangi anahtarın hangi durumda devreye gireceği tahmin edilebilir hâle gelir.' },
 
@@ -788,7 +788,7 @@ SAP.registerTopic({
         '{{fiyat-kontrolu}} = **V** olan bir malzemede fatura farkının stoka ekleneceği söylenir. ' +
         'Ama bunun bir **koşulu** vardır: stok hâlâ mevcut olmalıdır.\n\n' +
         'Örnek: 100 ton mal girdi, hepsi tüketildi, sonra fatura 10.000 TL fazla geldi. ' +
-        'Fark stoka eklenemez — çünkü stok yok. Sistem farkı **fiyat farkı hesabına** yazar.\n\n' +
+        'Fark stoka eklenemez: çünkü stok yok. Sistem farkı **fiyat farkı hesabına** yazar.\n\n' +
         'Kısmi durumda daha da karmaşıktır: 100 ton girdi, 60 ton tüketildi. ' +
         'Farkın %40’ı stoka eklenir, %60’ı fiyat farkı hesabına gider.\n\n' +
         'Bu davranış beklenmediği için "V malzemede neden PRD hesabı hareket gördü?" sorusu ' +
@@ -807,14 +807,14 @@ SAP.registerTopic({
   /* ==================================================== 9. S/4HANA === */
   s4hana: {
     ozet:
-      'MM–FI entegrasyonunun **mantığı değişmedi**: {{OBYC}} aynı, işlem anahtarları aynı, ' +
+      'MM-FI entegrasyonunun **mantığı değişmedi**: {{OBYC}} aynı, işlem anahtarları aynı, ' +
       '{{gr-ir}} aynı. Değişen: malzeme belgelerinin **MATDOC** tablosunda birleşmesi, ' +
       'stok değerlemesinin {{ACDOCA}}’ya taşınması ve gerçek zamanlı stok raporlaması.',
 
     eccFarklari:[
       { konu:'Malzeme belgesi', ecc:'MKPF + {{MSEG}} ayrı tablolar', s4:'**MATDOC** tek tabloda birleşti; MSEG {{uyumluluk-view}}' },
       { konu:'Stok toplamları', ecc:'MARD, MBEW gibi toplam tabloları', s4:'MATDOC’tan **anlık hesaplanır**; toplam tabloları view' },
-      { konu:'Stok değeri', ecc:'MBEW tablosunda', s4:'{{ACDOCA}} + MATDOC — FI ile birleşik' },
+      { konu:'Stok değeri', ecc:'MBEW tablosunda', s4:'{{ACDOCA}} + MATDOC: FI ile birleşik' },
       { konu:'{{OBYC}}', ecc:'Hesap belirleme merkezi', s4:'**Değişmedi**' },
       { konu:'Fatura doğrulama', ecc:'{{MIRO}}', s4:'{{MIRO}} + Fiori "Create Supplier Invoice"' },
       { konu:'Malzeme numarası', ecc:'18 karakter', s4:'**40 karaktere** çıkarıldı' },
@@ -831,7 +831,7 @@ SAP.registerTopic({
     kalkanTcodes:[
       { eski:'MB01, MB1A, MB1B, MB1C, MB31', yeni:'{{MIGO}}', not:'Eski mal hareketi işlemleri kaldırıldı; MIGO tek giriş noktası' },
       { eski:'MKPF / MSEG doğrudan sorgu', yeni:'MATDOC', not:'Yeni geliştirmelerde MATDOC kullanılmalı' },
-      { eski:'—', yeni:'—', not:'{{OBYC}}, {{MIRO}}, {{MRBR}}, {{MR11}} **kaldırılmadı**' },
+      { eski:', ', yeni:', ', not:'{{OBYC}}, {{MIRO}}, {{MRBR}}, {{MR11}} **kaldırılmadı**' },
     ],
 
     fiori:[
@@ -840,18 +840,18 @@ SAP.registerTopic({
       { ad:'Manage Purchase Orders', aciklama:'{{ME21N}}/{{ME23N}} yerine; sipariş geçmişi görsel.' },
       { ad:'GR/IR Monitor', aciklama:'{{gr-ir}} eşleşmemiş kalemlerini sipariş bazında görsel izler.' },
       { ad:'Material Documents Overview', aciklama:'{{MB51}} yerine; anlık süzme ve gruplama.' },
-      { ad:'Stock — Multiple Materials', aciklama:'Gerçek zamanlı stok görünümü.' },
+      { ad:'Stock: Multiple Materials', aciklama:'Gerçek zamanlı stok görünümü.' },
     ],
 
     compatibilityViews:[
-      '{{MSEG}}, MKPF — MATDOC üzerinden üretilen {{uyumluluk-view}}.',
+      '{{MSEG}}, MKPF: MATDOC üzerinden üretilen {{uyumluluk-view}}.',
       'MARD, MBEW gibi stok toplam tabloları da view’e dönüştü.',
-      '{{EKKO}}, {{EKPO}}, {{EKBE}}, {{RBKP}}, {{RSEG}}, {{T030}} — **fiziksel tablo olarak duruyor**.',
+      '{{EKKO}}, {{EKPO}}, {{EKBE}}, {{RBKP}}, {{RSEG}}, {{T030}}: **fiziksel tablo olarak duruyor**.',
       '{{MSEG}}’e doğrudan yazan eski Z-programları geçişte bozulur; taranmalıdır.',
     ],
 
     performans:
-      'Stok raporları MATDOC üzerinden anlık hesaplandığı için toplam tablosu bakımı ortadan kalktı — ' +
+      'Stok raporları MATDOC üzerinden anlık hesaplandığı için toplam tablosu bakımı ortadan kalktı: ' +
       'ECC’de stok toplamları bozulduğunda çalıştırılan yeniden oluşturma programları gereksizleşti.\n\n' +
       'Ayrıca aynı malzemeye eşzamanlı hareket yaparken oluşan **kilitlenmeler azaldı**: ' +
       'eskiden toplam tablosu satırı kilitlenirdi.',
@@ -862,7 +862,7 @@ SAP.registerTopic({
       '{{OBYC}} tanımlarını geçişte gözden geçir: kullanılmayan değerleme sınıfları ve ' +
       'eski hesap atamaları sadeleştirilebilir.',
       '{{MSEG}}/MKPF’e yazan özel programları geçiş öncesi tara.',
-      'Malzeme numarası 40 karaktere çıktı — arayüzlerde ve özel programlarda alan uzunluğunu kontrol et.',
+      'Malzeme numarası 40 karaktere çıktı: arayüzlerde ve özel programlarda alan uzunluğunu kontrol et.',
     ],
   },
 
@@ -872,23 +872,23 @@ SAP.registerTopic({
     hikaye:
       '**Marmara Tekstil A.Ş.** yeni bir boya grubu tanımladı ve ilk siparişi geldi. ' +
       'Depo elemanı mal girişi yapmaya çalışıyor ve hata alıyor. ' +
-      'Bu senaryo, MM–FI entegrasyonundaki en yaygın hatanın nasıl teşhis edilip çözüldüğünü ve ' +
+      'Bu senaryo, MM-FI entegrasyonundaki en yaygın hatanın nasıl teşhis edilip çözüldüğünü ve ' +
       'ardından tüm P2P zincirinin muhasebe ayağını gösteriyor.',
     veriler:[
       { k:'Şirket kodu', v:'1000 · Hesap planı INT' },
       { k:'Malzeme', v:'BOYA-450 · yeni {{degerleme-sinifi}} **3020**' },
-      { k:'Fiyat kontrolü', v:'**S** (standart fiyat) — 2.000 TL/varil' },
+      { k:'Fiyat kontrolü', v:'**S** (standart fiyat): 2.000 TL/varil' },
       { k:'Sipariş', v:'100 varil × 2.000 TL = 200.000 TL' },
       { k:'Satıcı', v:'V-4001 Ege Kimya · ödeme koşulu 30 gün' },
     ],
 
     adimlar:[
-      { baslik:'Sipariş açılır — FI kaydı yok', tcode:'ME21N',
+      { baslik:'Sipariş açılır: FI kaydı yok', tcode:'ME21N',
         aciklama:'Satın alma siparişi giriyor. Hesap atama kategorisi **boş** (stoklu alım).',
         girdi:[
           { alan:'Satıcı / Malzeme', deger:'V-4001 · BOYA-450' },
           { alan:'Miktar / Fiyat', deger:'100 varil × 2.000 TL' },
-          { alan:'Hesap atama kategorisi', deger:'**Boş** — stoklu alım, malzeme envantere girecek' },
+          { alan:'Hesap atama kategorisi', deger:'**Boş**: stoklu alım, malzeme envantere girecek' },
         ],
         tabloEtkisi:[
           { tablo:'EKKO', ne:'Sipariş başlığı 4500003100' },
@@ -896,7 +896,7 @@ SAP.registerTopic({
         ],
         not:'**FI kaydı yok.** Sipariş bir taahhüttür; borç mal teslim alınınca doğar.' },
 
-      { baslik:'Mal girişi denenir — HATA', tcode:'MIGO',
+      { baslik:'Mal girişi denenir: HATA', tcode:'MIGO',
         aciklama:'Depo elemanı 100 varili teslim alıp kaydetmeye çalışıyor ve hata alıyor.',
         girdi:[
           { alan:'Hareket türü / Sipariş', deger:'101 · 4500003100' },
@@ -907,23 +907,23 @@ SAP.registerTopic({
              'stok hesabı tanımlanmamış. Ama depo elemanı bunu okuyamaz ve MM danışmanını arar; ' +
              'o da FI’a yönlendirir. **Entegrasyon konularının tipik zorluğu budur.**' },
 
-      { baslik:'Teşhis — malzemenin değerleme sınıfı kontrol edilir', tcode:'MM03',
+      { baslik:'Teşhis: malzemenin değerleme sınıfı kontrol edilir', tcode:'MM03',
         aciklama:'Önce malzemenin hangi değerleme sınıfında olduğu doğrulanıyor.',
         girdi:[
           { alan:'Malzeme', deger:'BOYA-450 → Muhasebe görünümü' },
-          { alan:'{{degerleme-sinifi}}', deger:'**3020** — yeni grup, daha önce kullanılmamış' },
-          { alan:'{{fiyat-kontrolu}}', deger:'**S** — standart fiyat 2.000 TL' },
+          { alan:'{{degerleme-sinifi}}', deger:'**3020**: yeni grup, daha önce kullanılmamış' },
+          { alan:'{{fiyat-kontrolu}}', deger:'**S**: standart fiyat 2.000 TL' },
           { alan:'Karşılaştırma', deger:'Eski boyalar sınıf 3000’de → o sınıf {{OBYC}}’de tanımlı' },
         ],
         not:'Sorun netleşti: malzeme yeni bir sınıfa atanmış ama {{OBYC}}’de o sınıf için hesap yok.' },
 
       { baslik:'{{OMWB}} ile doğrulanır', tcode:'OMWB',
-        aciklama:'Kaydetmeden simülasyon yapılıyor — hangi anahtarların eksik olduğu tam olarak görülüyor.',
+        aciklama:'Kaydetmeden simülasyon yapılıyor: hangi anahtarların eksik olduğu tam olarak görülüyor.',
         girdi:[
           { alan:'Tesis / Malzeme / Hareket türü', deger:'1000 · BOYA-450 · 101' },
-          { alan:'BSX (stok)', deger:'** Tanımsız** — sınıf 3020 için hesap yok' },
-          { alan:'WRX (GR/IR)', deger:'✓ 159000 — sınıftan bağımsız, tanımlı' },
-          { alan:'PRD (fiyat farkı)', deger:'✓ 711000 — tanımlı' },
+          { alan:'BSX (stok)', deger:'** Tanımsız**: sınıf 3020 için hesap yok' },
+          { alan:'WRX (GR/IR)', deger:'✓ 159000: sınıftan bağımsız, tanımlı' },
+          { alan:'PRD (fiyat farkı)', deger:'✓ 711000: tanımlı' },
         ],
         not:'Yalnızca **BSX eksik**. WRX ve PRD değerleme sınıfından bağımsız tanımlandığı için ' +
              'çalışıyor. Bu asimetri sayesinde düzeltme tek satırla yapılacak.' },
@@ -931,7 +931,7 @@ SAP.registerTopic({
       { baslik:'{{OBYC}} tamamlanır', tcode:'OBYC',
         aciklama:'BSX işlem anahtarına 3020 sınıfı için hesap ekleniyor.',
         girdi:[
-          { alan:'İşlem anahtarı', deger:'**BSX** — stok girişi' },
+          { alan:'İşlem anahtarı', deger:'**BSX**: stok girişi' },
           { alan:'Mevcut satırlar', deger:'Sınıf 3000 → 150000 · sınıf 3100 → 153000' },
           { alan:'**Eklenen satır**', deger:'Sınıf **3020** → hesap **150200** (Boya ve kimyasal stoku)' },
           { alan:'Doğrulama', deger:'{{OMWB}} tekrar çalıştırıldı → BSX ✓' },
@@ -942,17 +942,17 @@ SAP.registerTopic({
         not:'Düzeltme **30 saniye** sürdü. Bulmak yarım gün aldı. ' +
              'Bu yüzden yeni malzeme grubu tanımlandığında {{OMWB}} rutin olarak çalıştırılmalıdır.' },
 
-      { baslik:'Mal girişi başarılı — ilk FI kaydı', tcode:'MIGO',
+      { baslik:'Mal girişi başarılı: ilk FI kaydı', tcode:'MIGO',
         aciklama:'Aynı işlem tekrarlanıyor ve bu kez FI belgesi oluşuyor.',
         girdi:[
           { alan:'Hareket türü / Miktar', deger:'101 · 100 varil' },
           { alan:'Değer', deger:'100 × 2.000 = 200.000 TL (**sipariş fiyatından**)' },
         ],
-        fis:{ baslik:'Belge 5000002100 (malzeme) / 4900001234 (FI) — Mal girişi', belgeTuru:'WE', tarih:'10.03.2027',
+        fis:{ baslik:'Belge 5000002100 (malzeme) / 4900001234 (FI): Mal girişi', belgeTuru:'WE', tarih:'10.03.2027',
           satirlar:[
             { hesap:'150200', ad:'Boya ve kimyasal stoku', borc:200000, not:'{{OBYC}} → **BSX** · sınıf 3020' },
             { hesap:'159000', ad:'GR/IR hesabı', alacak:200000, not:'{{OBYC}} → **WRX**' },
-          ], not:'Satıcıya borç **yok** — fatura gelmedi. {{gr-ir}} bu boşluğu taşıyor.' },
+          ], not:'Satıcıya borç **yok**: fatura gelmedi. {{gr-ir}} bu boşluğu taşıyor.' },
         tabloEtkisi:[
           { tablo:'MSEG', ne:'Hareket türü 101, değerleme sınıfı 3020' },
           { tablo:'EKBE', ne:'Sipariş geçmişine satır: `VGABE` = **1** (mal girişi), 100 varil' },
@@ -960,7 +960,7 @@ SAP.registerTopic({
           { tablo:'BSIS', ne:'159000 hesabında yeni açık kalem (alacak 200.000)' },
         ] },
 
-      { baslik:'Fatura gelir — fiyat farkı çıkar', tcode:'MIRO',
+      { baslik:'Fatura gelir: fiyat farkı çıkar', tcode:'MIRO',
         aciklama:'Satıcı 2.100 TL/varil fatura kesmiş. Sipariş 2.000 TL’ydi. ' +
                  'Fiyat kontrolü **S** olduğu için fark stoka **eklenmez**.',
         girdi:[
@@ -968,22 +968,22 @@ SAP.registerTopic({
           { alan:'Sipariş', deger:'4500003100 → kalem otomatik geldi' },
           { alan:'Sistem önerisi', deger:'100 varil × 2.000 = 200.000 TL' },
           { alan:'Fatura tutarı', deger:'100 varil × 2.100 = **210.000 TL** + %20 KDV' },
-          { alan:'Fark', deger:'10.000 TL — tolerans %3 (6.000 TL) dışında → **blok**' },
+          { alan:'Fark', deger:'10.000 TL: tolerans %3 (6.000 TL) dışında → **blok**' },
         ],
-        fis:{ baslik:'Belge 5100001200 (MM) / 1900002340 (FI) — Satıcı faturası', belgeTuru:'RE', tarih:'18.03.2027',
+        fis:{ baslik:'Belge 5100001200 (MM) / 1900002340 (FI): Satıcı faturası', belgeTuru:'RE', tarih:'18.03.2027',
           satirlar:[
             { hesap:'159000', ad:'GR/IR hesabı', borc:200000, not:'**Sipariş fiyatıyla** kapandı' },
             { hesap:'711000', ad:'Fiyat farkı', borc:10000, not:'{{OBYC}} → **PRD** · fiyat kontrolü S' },
             { hesap:'191', ad:'İndirilecek KDV', borc:42000 },
-            { hesap:'320', ad:'Satıcılar — V-4001', alacak:252000 },
-          ], not:'**Stok değeri değişmedi** — 150200 hesabı 200.000 TL olarak kalıyor. ' +
+            { hesap:'320', ad:'Satıcılar: V-4001', alacak:252000 },
+          ], not:'**Stok değeri değişmedi**: 150200 hesabı 200.000 TL olarak kalıyor. ' +
                  'Standart fiyat bir planlama fiyatıdır; gerçekle farkı 711 hesabında ayrı izlenir.\n\n' +
                  'Fiyat kontrolü **V** olsaydı 10.000 TL stoka eklenecek ve birim fiyat 2.100 olacaktı.' },
         tabloEtkisi:[
           { tablo:'RBKP', ne:'MM fatura 5100001200; `ZLSPR` = **R** (fiyat farkı bloğu)' },
           { tablo:'RSEG', ne:'Fatura kalemi: sipariş 4500003100 kalem 10' },
           { tablo:'EKBE', ne:'Sipariş geçmişine satır: `VGABE` = **2** (fatura), 100 varil / 210.000 TL' },
-          { tablo:'BSIK', ne:'Satıcı açık kalemi 252.000 TL — **ödeme bloklu**' },
+          { tablo:'BSIK', ne:'Satıcı açık kalemi 252.000 TL: **ödeme bloklu**' },
           { tablo:'BSIS', ne:'159000 hesabındaki açık kalem kapandı' },
         ] },
 
@@ -1000,12 +1000,12 @@ SAP.registerTopic({
       { baslik:'Malzeme tüketilir', tcode:'MIGO',
         aciklama:'Üretim 40 varil boya çekiyor. Stok gidere dönüşüyor.',
         girdi:[
-          { alan:'Hareket türü', deger:'**201** — maliyet yerine tüketim' },
+          { alan:'Hareket türü', deger:'**201**: maliyet yerine tüketim' },
           { alan:'Miktar / Maliyet yeri', deger:'40 varil · 3100 (Üretim)' },
         ],
-        fis:{ baslik:'Belge 4900001456 — Malzeme tüketimi', belgeTuru:'WA', tarih:'25.03.2027',
+        fis:{ baslik:'Belge 4900001456: Malzeme tüketimi', belgeTuru:'WA', tarih:'25.03.2027',
           satirlar:[
-            { hesap:'730', ad:'Genel üretim gideri — malzeme', borc:80000, not:'{{OBYC}} → **GBB/VBR** · 40 × 2.000' },
+            { hesap:'730', ad:'Genel üretim gideri: malzeme', borc:80000, not:'{{OBYC}} → **GBB/VBR** · 40 × 2.000' },
             { hesap:'150200', ad:'Boya ve kimyasal stoku', alacak:80000, not:'{{OBYC}} → **BSX** (ters yön)' },
           ], not:'Tüketim **standart fiyatla** değerlendi (2.000 TL), fatura fiyatıyla değil. ' +
                  'Standart fiyat mantığının sonucu budur: maliyetler öngörülebilir kalır, ' +
@@ -1015,10 +1015,10 @@ SAP.registerTopic({
           { tablo:'ACDOCA', ne:'Gider satırı; malzeme + maliyet yeri **aynı satırda**' },
         ] },
 
-      { baslik:'Dönem sonu — GR/IR kontrolü', tcode:'FBL3N',
+      { baslik:'Dönem sonu: GR/IR kontrolü', tcode:'FBL3N',
         aciklama:'Bu sipariş için mal girişi ve fatura eşleşti; kalem kapandı.',
         girdi:[
-          { alan:'Hesap 159000 · açık kalemler', deger:'Bu sipariş için kalem **yok** — eşleşti ✓' },
+          { alan:'Hesap 159000 · açık kalemler', deger:'Bu sipariş için kalem **yok**: eşleşti ✓' },
           { alan:'Diğer siparişler', deger:'12 açık kalem, toplam 340.000 TL' },
           { alan:'Aksiyon', deger:'{{F.13}} çalıştırıldı → 8 kalem kapandı · kalan {{F.19}} ile sınıflanacak' },
         ] },
@@ -1037,7 +1037,7 @@ SAP.registerTopic({
       'Fark ayrı bir hesaba gider ve nereye gideceğini **{{fiyat-kontrolu}}** belirler: ' +
       'S ise fiyat farkı hesabına, V ise stoka.\n\n' +
       '**4. Entegrasyon sorunlarında sorumluluk sınırı bulanıktır.** Hata MM’de çıktı, ' +
-      'çözüm FI’daydı. Bu yüzden {{OBYC}}’yi kuran kişi **her iki modülü de** bilmek zorundadır — ' +
+      'çözüm FI’daydı. Bu yüzden {{OBYC}}’yi kuran kişi **her iki modülü de** bilmek zorundadır: ' +
       've FI danışmanı için MM entegrasyonu isteğe bağlı bir konu değildir.',
   },
 
@@ -1047,7 +1047,7 @@ SAP.registerTopic({
       'MM entegrasyonu, mal hareketlerinin ve satın alma faturalarının **otomatik** FI belgesine dönüşmesidir.',
       'Otomatikliğin kalbi **{{OBYC}}**’dir: işlem anahtarı + {{degerleme-sinifi}} → G/L hesabı ({{T030}}).',
       'Zincir üç adımdır: **mal girişi** (stok + GR/IR) → **fatura** (GR/IR kapanır, satıcı borçlanır) → **tüketim** (stok → gider).',
-      'Sipariş **FI kaydı üretmez** — bir taahhüttür; borç mal teslim alınınca doğar.',
+      'Sipariş **FI kaydı üretmez**: bir taahhüttür; borç mal teslim alınınca doğar.',
       '{{gr-ir}} **her zaman sipariş fiyatıyla** kapanır; fark ayrı hesaba gider.',
       'Farkın nereye gideceğini **{{fiyat-kontrolu}}** belirler: **S** → fiyat farkı hesabı (PRD), **V** → stoka eklenir.',
       'Siparişteki **hesap atama kategorisi** kaydı tamamen değiştirir: boş stoklu, K gider, A varlık, F proje.',
@@ -1120,7 +1120,7 @@ SAP.registerTopic({
       { soru:'Siparişte hesap atama kategorisi **K** (maliyet yeri) seçildi. Mal girişinde ne olur?',
         secenekler:[
           'Stok borç / GR-IR alacak',
-          '**Gider borç / GR-IR alacak — stok oluşmaz**',
+          '**Gider borç / GR-IR alacak: stok oluşmaz**',
           'Varlık borç / GR-IR alacak',
           'Hiçbir kayıt oluşmaz',
         ], dogru:1,
@@ -1147,7 +1147,7 @@ SAP.registerTopic({
           'GR/IR hesabında kalır',
           'Satıcı hesabına yazılır',
         ], dogru:1,
-        aciklama:'V fiyat kontrolünde fark **stoka eklenir — ama stok mevcutsa**. ' +
+        aciklama:'V fiyat kontrolünde fark **stoka eklenir: ama stok mevcutsa**. ' +
                  'Stok tükendiyse ekleyecek yer yoktur ve fark {{OBYC}} → PRD hesabına gider. ' +
                  'Kısmi durumda oransal bölünür. "V malzemede neden PRD hareket gördü?" sorusunun cevabıdır.' },
 
@@ -1176,17 +1176,17 @@ SAP.registerTopic({
 
     flashcards:[
       { on:'MM entegrasyonunun üç adımı nedir?', arka:'1. **Mal girişi** (MIGO 101) → stok borç / GR-IR alacak\n2. **Fatura** (MIRO) → GR-IR borç / satıcı alacak\n3. **Tüketim** (MIGO 201/261) → gider borç / stok alacak\n\nSipariş FI kaydı üretmez.' },
-      { on:'OBYC’nin ana işlem anahtarları nelerdir?', arka:'**BSX** — stok hesabı (değerleme sınıfına göre)\n**WRX** — GR/IR (genelde tek hesap)\n**PRD** — fiyat farkı (yalnız S)\n**GBB** — karşı hesap (VBR tüketim, VAX satış maliyeti)\n**FR1** — navlun karşılığı' },
+      { on:'OBYC’nin ana işlem anahtarları nelerdir?', arka:'**BSX**, stok hesabı (değerleme sınıfına göre)\n**WRX**, GR/IR (genelde tek hesap)\n**PRD**, fiyat farkı (yalnız S)\n**GBB**, karşı hesap (VBR tüketim, VAX satış maliyeti)\n**FR1**, navlun karşılığı' },
       { on:'GR/IR hangi tutarla kapanır?', arka:'**Her zaman sipariş fiyatıyla** (mal girişindeki değerle).\n\nFatura farklı gelse bile.\n\nFark ayrı hesaba gider:\n• Fiyat kontrolü **S** → PRD hesabı\n• Fiyat kontrolü **V** → stoka eklenir' },
       { on:'Fiyat kontrolü S ile V farkı nedir?', arka:'**S (standart):** stok değeri sabit, fark **PRD** hesabına → sapma ayrı izlenir\n\n**V (hareketli ortalama):** fark **stoka** eklenir, birim fiyat güncellenir\n\n**V tuzağı:** stok tükendiyse fark yine PRD’ye gider.' },
       { on:'Hesap atama kategorisi neyi değiştirir?', arka:'**Boş** → stoklu alım (stok borç)\n**K** → maliyet yerine (**gider borç, stok yok**)\n**A** → duran varlığa (aktifleştirme)\n**F** → proje/iç siparişe\n\nAynı malzeme, tamamen farklı FI kaydı.' },
       { on:'"Account determination not possible" nasıl çözülür?', arka:'Mesajdaki **üçlüyü oku**: hesap planı + işlem anahtarı + değerleme sınıfı.\n\nÖrn: "INT BSX 3020" → OBYC → BSX → sınıf 3020 için hesap ekle.\n\n**OMWB** ile önceden test edilebilirdi.' },
       { on:'FI belgesinin kaynağını nasıl bulursun?', arka:'**FB03 → belge başlığı → AWTYP / AWKEY**\n\n`AWTYP`:\n• **MKPF** = malzeme belgesi (MIGO)\n• **RMRP** = MM faturası (MIRO)\n• **VBRK** = SD faturası\n\n`AWKEY` = kaynak belge numarası' },
-      { on:'MIRO kaç belge numarası üretir?', arka:'**İki:**\n• MM fatura belgesi (RBKP) — **ekranda görünen**\n• FI belgesi (BKPF) — farklı numara\n\nMM numarası FB03’te aranmaz; **MIR4** kullanılır.' },
-      { on:'MM dönemi ile FI dönemi aynı mı?', arka:'**Hayır — ayrıdır.**\n\nMM dönemi **MMPV** ile yönetilir, FI dönemi OB52 ile.\n\n"Posting only possible in periods…" hatası **MM dönemini** işaret eder.\n\nKapanışta MM **önce** kapatılır.' },
-      { on:'MM belgesinin ana tabloları nelerdir?', arka:'**EKKO/EKPO** — sipariş başlık/kalem\n**EKBE** — sipariş geçmişi (VGABE 1=GR, 2=IR)\n**MSEG** — malzeme belgesi kalemleri\n**RBKP/RSEG** — MM fatura\n**T030** — OBYC hesap belirleme kuralları' },
+      { on:'MIRO kaç belge numarası üretir?', arka:'**İki:**\n• MM fatura belgesi (RBKP), **ekranda görünen**\n• FI belgesi (BKPF), farklı numara\n\nMM numarası FB03’te aranmaz; **MIR4** kullanılır.' },
+      { on:'MM dönemi ile FI dönemi aynı mı?', arka:'**Hayır: ayrıdır.**\n\nMM dönemi **MMPV** ile yönetilir, FI dönemi OB52 ile.\n\n"Posting only possible in periods…" hatası **MM dönemini** işaret eder.\n\nKapanışta MM **önce** kapatılır.' },
+      { on:'MM belgesinin ana tabloları nelerdir?', arka:'**EKKO/EKPO**, sipariş başlık/kalem\n**EKBE**, sipariş geçmişi (VGABE 1=GR, 2=IR)\n**MSEG**, malzeme belgesi kalemleri\n**RBKP/RSEG**, MM fatura\n**T030**, OBYC hesap belirleme kuralları' },
       { on:'ME23N sipariş geçmişi sekmesi ne gösterir?', arka:'**EKBE tablosunu görsel olarak:**\n• Kaç mal girişi yapılmış (VGABE=1)\n• Kaç fatura girilmiş (VGABE=2)\n• Miktar ve değer karşılaştırması\n\nMIRO ve GR/IR sorunlarının %80’i burada çözülür.' },
-      { on:'S/4HANA’da MM entegrasyonunda ne değişti?', arka:'• Malzeme belgeleri **MATDOC** tablosunda birleşti (MSEG compatibility view)\n• Stok toplamları **anlık hesaplanıyor**\n• Malzeme numarası 18 → **40 karakter**\n• **OBYC değişmedi** — mantık aynı' },
+      { on:'S/4HANA’da MM entegrasyonunda ne değişti?', arka:'• Malzeme belgeleri **MATDOC** tablosunda birleşti (MSEG compatibility view)\n• Stok toplamları **anlık hesaplanıyor**\n• Malzeme numarası 18 → **40 karakter**\n• **OBYC değişmedi**: mantık aynı' },
     ],
   },
 

@@ -1,6 +1,6 @@
 /* ==========================================================================
-   content/fi-en/closing.js — English body for "Period-End Closing"
-   Same conventions as content/fi-en/gl-accounting.js — see that file's
+   content/fi-en/closing.js: English body for "Period-End Closing"
+   Same conventions as content/fi-en/gl-accounting.js: see that file's
    header comment.
    ========================================================================== */
 
@@ -32,10 +32,10 @@ SAP.registerTopic({
       '**Locking the period.** No posting can be made to a closed period; the reported figure becomes unchangeable.',
 
     sirketOnemi:
-      'Closing is the accounting department\'s **busiest and most visible job**. It takes 3–10 days every ' +
+      'Closing is the accounting department\'s **busiest and most visible job**. It takes 3-10 days every ' +
       'month, and any delay reaches management directly: "Why can\'t we see January\'s results yet?"\n\n' +
       'From a consulting standpoint, closing is where **all of FI\'s sub-components meet**: AA depreciation, ' +
-      'AP/AR aging, MM\'s {{gr-ir}} account, bank reconciliation, currency valuation — all of it converges here. ' +
+      'AP/AR aging, MM\'s {{gr-ir}} account, bank reconciliation, currency valuation: all of it converges here. ' +
       'That\'s why solving closing problems requires knowing every module.\n\n' +
       'The telling question is: **"Walk me through the month-end closing steps in order."** Being able to ' +
       'explain why the sequence is what it is shows that closing has actually been done for real.',
@@ -44,7 +44,7 @@ SAP.registerTopic({
       'Picture January closing at a manufacturing company. The accounting manager\'s checklist has 23 items, ' +
       'and **the order is critical**:\n\n' +
       'The MM period is closed first (otherwise stock movements keep coming in and cost keeps changing). Then ' +
-      '{{gr-ir}} analysis is performed. Then depreciation is run — but every asset acquisition must already be ' +
+      '{{gr-ir}} analysis is performed. Then depreciation is run: but every asset acquisition must already be ' +
       'posted before {{AFAB}}. Then currency valuation, then reclassifications, and finally the balance sheet.\n\n' +
       'If the order breaks: depreciation comes out incomplete, the FX difference is calculated wrong, and the ' +
       'balance sheet has to be produced twice. That\'s why closing is a **checklist discipline**, not a ' +
@@ -52,13 +52,13 @@ SAP.registerTopic({
 
     muhasebeMantigi:
       'Closing entries fall into four groups, and each group follows different logic:\n\n' +
-      '**1. {{tahakkuk}} entries** — income/expense that has arisen but whose document hasn\'t arrived yet. It ' +
+      '**1. {{tahakkuk}} entries**: income/expense that has arisen but whose document hasn\'t arrived yet. It ' +
       '**is reversed** in the following period ({{FBS1}} + {{F.81}}) because the real document will show up.\n\n' +
-      '**2. {{degerleme}} entries** — measuring foreign-currency items at the current exchange rate ({{F.05}}). ' +
+      '**2. {{degerleme}} entries**: measuring foreign-currency items at the current exchange rate ({{F.05}}). ' +
       'Usually **reversed**, because the difference hasn\'t been realized yet.\n\n' +
-      '**3. Reclassification entries** — the amount is right but it\'s sitting in the wrong balance-sheet line ' +
+      '**3. Reclassification entries**: the amount is right but it\'s sitting in the wrong balance-sheet line ' +
       '({{F.19}}, {{FAGLF101}}). **Reversed**, because it exists only for presentation.\n\n' +
-      '**4. Permanent entries** — depreciation ({{AFAB}}), {{karsilik}}s, finalized differences. **Not reversed.**\n\n' +
+      '**4. Permanent entries**: depreciation ({{AFAB}}), {{karsilik}}s, finalized differences. **Not reversed.**\n\n' +
       'This distinction is critical: the first three groups are **temporary** and get undone in the following ' +
       'period; the fourth group is permanent. Mixing them up either produces a double posting or leaves a ' +
       'correction forgotten.',
@@ -86,7 +86,7 @@ SAP.registerTopic({
 
     diyagram:{
       type:'flow',
-      baslik:'The month-end closing sequence — each step depends on the one before it',
+      baslik:'The month-end closing sequence: each step depends on the one before it',
       adimlar:[
         { ic:'📦', rol:'Logistics', baslik:'1. The logistics period is closed',
           aciklama:'If the MM period isn\'t closed, stock movements keep coming in and cost keeps changing. ' +
@@ -101,7 +101,7 @@ SAP.registerTopic({
                    '{{MR11}}, and the remaining timing gap is reclassified with {{F.19}}.',
           cikti:'A clean {{gr-ir}} account', ok:'assets' },
         { ic:'🏭', rol:'Fixed asset accountant', baslik:'4. Depreciation is run',
-          aciklama:'{{AFAB}} — but every acquisition and retirement must already be posted first. An ' +
+          aciklama:'{{AFAB}}: but every acquisition and retirement must already be posted first. An ' +
                    'acquisition that arrives afterward requires depreciation to be rerun.',
           cikti:'A depreciation document', ok:'bank' },
         { ic:'🏦', rol:'Bank accountant', baslik:'5. Bank reconciliation',
@@ -109,14 +109,14 @@ SAP.registerTopic({
                    'reconciliation statement is produced.',
           cikti:'Reconciled bank accounts', ok:'valuation' },
         { ic:'💱', rol:'G/L accounting', baslik:'6. Foreign currency valuation',
-          aciklama:'{{F.05}} / {{FAGL_FC_VAL}} — foreign-currency open items and balances are valued at the ' +
+          aciklama:'{{F.05}} / {{FAGL_FC_VAL}}: foreign-currency open items and balances are valued at the ' +
                    'current exchange rate. It must be done **after every item has been posted**.',
           cikti:'FX difference postings', ok:'accruals' },
         { ic:'📝', rol:'G/L accounting', baslik:'7. Accrual and provision entries',
           aciklama:'{{tahakkuk}}s to be reversed, entered with {{FBS1}}; permanent {{karsilik}}s with {{FB50}}.',
           cikti:'Correction postings', ok:'reclassification' },
         { ic:'🔀', rol:'G/L accounting', baslik:'8. Reclassifications',
-          aciklama:'{{FAGLF101}} — receivables/payables maturity classification, moving a debit-balance ' +
+          aciklama:'{{FAGLF101}}: receivables/payables maturity classification, moving a debit-balance ' +
                    'customer to the vendor side.',
           cikti:'A correctly presented balance sheet', ok:'checks' },
         { ic:'⚖️', rol:'Accounting manager', baslik:'9. Checks and reconciliations',
@@ -130,15 +130,15 @@ SAP.registerTopic({
     },
 
     adimlar:[
-      { rol:'Logistics', eylem:'Closes the MM period', sistem:'MMPV — **before** FI' },
+      { rol:'Logistics', eylem:'Closes the MM period', sistem:'MMPV: **before** FI' },
       { rol:'AP / AR', eylem:'Processes all invoices', sistem:'{{MIRO}}, {{FB60}}, {{VF01}}, {{MRBR}}' },
       { rol:'AP accounting', eylem:'GR/IR cleanup and analysis', sistem:'{{F.13}}, {{MR11}}, {{F.19}}' },
-      { rol:'Fixed asset accountant', eylem:'Runs depreciation', sistem:'{{AFAB}} — test mode first' },
+      { rol:'Fixed asset accountant', eylem:'Runs depreciation', sistem:'{{AFAB}}: test mode first' },
       { rol:'Bank accountant', eylem:'Processes statements, reconciles', sistem:'{{FEBAN}}, {{FBL3N}}' },
       { rol:'G/L accounting', eylem:'Performs currency valuation', sistem:'{{F.05}} / {{FAGL_FC_VAL}}' },
       { rol:'G/L accounting', eylem:'Enters accruals and provisions', sistem:'{{FBS1}}, {{FB50}}' },
       { rol:'G/L accounting', eylem:'Performs reclassification', sistem:'{{FAGLF101}}' },
-      { rol:'Accounting manager', eylem:'Closes the period', sistem:'{{OB52}} — all account types' },
+      { rol:'Accounting manager', eylem:'Closes the period', sistem:'{{OB52}}: all account types' },
       { rol:'Accounting manager', eylem:'Pulls the financial statements', sistem:'{{F.01}}, {{S_ALR_87012284}}, {{FAGLB03}}' },
       { rol:'G/L accounting', eylem:'(Year-end) balance carryforward', sistem:'{{FAGLGVTR}}, {{AJRW}}, {{AJAB}}' },
     ],
@@ -178,20 +178,20 @@ SAP.registerTopic({
       'of the four types, along with what happens to each one in the following period.',
 
     etkilenenHesaplar:[
-      { hesap:'381 Accrued expenses', tur:'Balance sheet — Liability', neden:'Expenses that have arisen but whose invoice hasn\'t arrived. **Reversed** in the following period.' },
-      { hesap:'181 Accrued income', tur:'Balance sheet — Asset', neden:'Income that has arisen but whose invoice hasn\'t been issued. Reversed.' },
-      { hesap:'129 / 47x Provisions', tur:'Balance sheet — Contra-asset / Liability', neden:'{{karsilik}}s are **permanent**; not reversed, used when the event materializes.' },
-      { hesap:'326 Goods received, not yet invoiced', tur:'Balance sheet — Liability', neden:'{{gr-ir}} reclassification ({{F.19}}). **Reversed** in the following period.' },
+      { hesap:'381 Accrued expenses', tur:'Balance sheet: Liability', neden:'Expenses that have arisen but whose invoice hasn\'t arrived. **Reversed** in the following period.' },
+      { hesap:'181 Accrued income', tur:'Balance sheet: Asset', neden:'Income that has arisen but whose invoice hasn\'t been issued. Reversed.' },
+      { hesap:'129 / 47x Provisions', tur:'Balance sheet: Contra-asset / Liability', neden:'{{karsilik}}s are **permanent**; not reversed, used when the event materializes.' },
+      { hesap:'326 Goods received, not yet invoiced', tur:'Balance sheet: Liability', neden:'{{gr-ir}} reclassification ({{F.19}}). **Reversed** in the following period.' },
       { hesap:'646 / 656 FX differences', tur:'Income statement', neden:'A valuation difference. If unrealized, reversed in the following period.' },
-      { hesap:'257 Accumulated depreciation', tur:'Balance sheet — Contra-asset', neden:'The {{AFAB}} posting is **permanent**; not reversed.' },
-      { hesap:'590 Net income for the period', tur:'Balance sheet — Equity', neden:'At year-end, the result of the income and expense accounts moves here ({{bakiye-devri}}).' },
+      { hesap:'257 Accumulated depreciation', tur:'Balance sheet: Contra-asset', neden:'The {{AFAB}} posting is **permanent**; not reversed.' },
+      { hesap:'590 Net income for the period', tur:'Balance sheet: Equity', neden:'At year-end, the result of the income and expense accounts moves here ({{bakiye-devri}}).' },
     ],
 
     fisler:[
-      { baslik:'Type 1 — Accrual ({{FBS1}}) · TEMPORARY, to be reversed',
+      { baslik:'Type 1: Accrual ({{FBS1}}) · TEMPORARY, to be reversed',
         belgeTuru:'SA', tarih:'31.01.2027', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'770', ad:'General administrative expense — electricity', borc:45000, not:'Used in January' },
+          { hesap:'770', ad:'General administrative expense: electricity', borc:45000, not:'Used in January' },
           { hesap:'381', ad:'Accrued expenses', alacak:45000, not:'The invoice hasn\'t arrived yet' },
         ],
         not:'The electricity was used in January, its invoice will arrive in February. Under {{tahakkuk-esasi}}, ' +
@@ -199,38 +199,38 @@ SAP.registerTopic({
              'Because it was entered with {{FBS1}}, it is **automatically reversed on 01.02.2027 via {{F.81}}**. ' +
              'When the real invoice is entered in February, there\'s no double posting.' },
 
-      { baslik:'Type 1 continued — automatic reversal ({{F.81}})',
+      { baslik:'Type 1 continued: automatic reversal ({{F.81}})',
         belgeTuru:'SA', tarih:'01.02.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'381', ad:'Accrued expenses', borc:45000, not:'The accrual is closed' },
-          { hesap:'770', ad:'General administrative expense — electricity', alacak:45000 },
+          { hesap:'770', ad:'General administrative expense: electricity', alacak:45000 },
         ],
         not:'The real invoice arrived in February at 47,000 TRY. Net February expense: −45,000 + 47,000 = ' +
-             '**2,000 TRY**. So January carried 45,000 and February carried 2,000 — the gap between the ' +
+             '**2,000 TRY**. So January carried 45,000 and February carried 2,000: the gap between the ' +
              'estimate and the real amount landed in the right period.' },
 
-      { baslik:'Type 2 — Currency valuation ({{F.05}}) · TEMPORARY',
+      { baslik:'Type 2: Currency valuation ({{F.05}}) · TEMPORARY',
         belgeTuru:'SA', tarih:'31.01.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'656', ad:'FX loss', borc:38000, not:'Unrealized FX difference' },
-          { hesap:'320', ad:'Trade payables — valuation difference', alacak:38000, not:'The foreign-currency liability increased' },
+          { hesap:'320', ad:'Trade payables: valuation difference', alacak:38000, not:'The foreign-currency liability increased' },
         ],
         not:'A 10,000 EUR vendor liability had been posted at a rate of 35.00; the January 31 rate is 38.80. ' +
-             'The 38,000 TRY difference is **unrealized** — the liability hasn\'t been paid yet.\n\n' +
+             'The 38,000 TRY difference is **unrealized**: the liability hasn\'t been paid yet.\n\n' +
              'That\'s why it\'s reversed on 02.01. The real difference is finalized at the moment of payment ({{F110}}).' },
 
-      { baslik:'Type 3 — GR/IR reclassification ({{F.19}}) · TEMPORARY',
+      { baslik:'Type 3: GR/IR reclassification ({{F.19}}) · TEMPORARY',
         belgeTuru:'SA', tarih:'31.01.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'159', ad:'GR/IR account', borc:280000, not:'Temporarily cleared out' },
           { hesap:'326', ad:'Goods received, not yet invoiced', alacak:280000, not:'A balance-sheet presentation account' },
         ],
-        not:'The amount is right and the account is right — but **the balance-sheet presentation is wrong**. ' +
+        not:'The amount is right and the account is right: but **the balance-sheet presentation is wrong**. ' +
              'GR/IR is a technical clearing account; on the balance sheet it should be shown as "goods ' +
              'received, not yet invoiced."\n\n' +
              'Because it exists only for presentation, it is reversed on 02.01.' },
 
-      { baslik:'Type 4 — Allowance for doubtful receivables · PERMANENT',
+      { baslik:'Type 4: Allowance for doubtful receivables · PERMANENT',
         belgeTuru:'SA', tarih:'31.01.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'654', ad:'Provision expense', borc:120000 },
@@ -242,7 +242,7 @@ SAP.registerTopic({
              '**The difference between an accrual and a provision:** in an accrual the amount is known (an ' +
              'invoice is coming); in a provision it\'s estimated (it\'s unknown whether it will be collected).' },
 
-      { baslik:'Year-end — closing the income statement accounts ({{FAGLGVTR}}) · PERMANENT',
+      { baslik:'Year-end: closing the income statement accounts ({{FAGLGVTR}}) · PERMANENT',
         belgeTuru:'SA', tarih:'31.12.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'600', ad:'Domestic sales', borc:12400000, not:'Zeroed out' },
@@ -275,7 +275,7 @@ SAP.registerTopic({
     ],
 
     notlar:[
-      { tip:'warn', baslik:'Temporary or permanent? — closing\'s most critical distinction', metin:
+      { tip:'warn', baslik:'Temporary or permanent? - closing\'s most critical distinction', metin:
         'Knowing whether a closing entry will be reversed in the following period is essential:\n\n' +
         '**Reversed (temporary):** {{tahakkuk}}s, unrealized {{degerleme}} differences, reclassifications. ' +
         'What they have in common: the real document/transaction **is still coming**.\n\n' +
@@ -302,7 +302,7 @@ SAP.registerTopic({
 
       { ad:'Month-End Closing',
         aciklama:'The main closing. Accruals, valuations, depreciation, reconciliations, and financial statements.',
-        neZaman:'At the end of every month; typically takes 3–10 business days.',
+        neZaman:'At the end of every month; typically takes 3-10 business days.',
         ornek:'This topic\'s main focus. The standard 10-step flow.',
         tcodes:['OB52','AFAB','F.05','F.19','FAGLF101','F.01'] },
 
@@ -314,7 +314,7 @@ SAP.registerTopic({
         tcodes:['FAGLGVTR','AJRW','AJAB','F.16'] },
 
       { ad:'Special Period Closing',
-        aciklama:'{{ozel-donem}}s (13–16) are used for year-end corrections that need to be kept **separate** ' +
+        aciklama:'{{ozel-donem}}s (13-16) are used for year-end corrections that need to be kept **separate** ' +
                  'from the December posting.',
         neZaman:'For audit corrections, tax adjustments, and information that arrives late. It lets a ' +
                 'correction be posted without disturbing December\'s own figure.',
@@ -345,12 +345,12 @@ SAP.registerTopic({
 
     karsilastirmaBasliklar:['Accrual', 'Provision'],
     karsilastirma:[
-      ['Amount', '**Known** — an invoice is coming', '**Estimated** — uncertain'],
-      ['Timing', 'Known — next period', 'Uncertain'],
+      ['Amount', '**Known**, an invoice is coming', '**Estimated**, uncertain'],
+      ['Timing', 'Known: next period', 'Uncertain'],
       ['Realization', 'Nearly certain', 'Probable but not certain'],
-      ['Is it reversed', '**Yes** — automatically, next period', '**No** — it\'s permanent'],
+      ['Is it reversed', '**Yes**, automatically, next period', '**No**, it\'s permanent'],
       ['Example', 'Electricity used but not yet invoiced', 'Doubtful receivables, severance pay, warranty'],
-      ['SAP transaction', '{{FBS1}} + {{F.81}}', '{{FB50}} — a normal posting'],
+      ['SAP transaction', '{{FBS1}} + {{F.81}}', '{{FB50}}: a normal posting'],
       ['Balance-sheet line', '381 Accrued expenses', '129 / 47x Provisions'],
     ],
   },
@@ -370,19 +370,19 @@ SAP.registerTopic({
                      '**A** fixed asset, **M** material. Each line is independent.' },
           { baslik:'Use the two posting-period ranges',
             aciklama:'**The 1st range** is for normal users. **The 2nd range** is for users in an ' +
-                     'authorization group — this is how the closing team\'s privileged access is granted.' },
+                     'authorization group: this is how the closing team\'s privileged access is granted.' },
           { baslik:'Enter the authorization group', aciklama:'The authorization group of the users who can access the 2nd range (e.g. FI01).' },
         ],
         ekranAkisi:[
           { ekran:'Entry', islem:'Posting period variant 1000' },
-          { ekran:'Line: account type +', islem:'1st range: 02/2027–02/2027 · 2nd range: 01/2027–02/2027 · authorization group FI01' },
-          { ekran:'Line: account type K', islem:'Set up the same way — opening S doesn\'t open K' },
+          { ekran:'Line: account type +', islem:'1st range: 02/2027-02/2027 · 2nd range: 01/2027-02/2027 · authorization group FI01' },
+          { ekran:'Line: account type K', islem:'Set up the same way: opening S doesn\'t open K' },
         ],
         alanlar:{
           zorunlu:['Posting period variant','Account type','1st range from/to','Fiscal year'],
           opsiyonel:['2nd range','Authorization group','Account range'] },
         hatalar:[
-          { mesaj:'Posting period 001 2027 is not open for account type K', sebep:'Only the S line was opened.', cozum:'Open the period on the **K** line too. Account types are managed separately — this is the most common closing mistake.' },
+          { mesaj:'Posting period 001 2027 is not open for account type K', sebep:'Only the S line was opened.', cozum:'Open the period on the **K** line too. Account types are managed separately: this is the most common closing mistake.' },
           { mesaj:'You are not authorized for posting period', sebep:'The user isn\'t in the authorization group that can access the 2nd range.', cozum:'Have the authorization team add the user to the group, or temporarily open the 1st range.' },
         ],
         ipucu:'During closing, **close the 1st range and leave the 2nd range open**: users can\'t post, but ' +
@@ -408,7 +408,7 @@ SAP.registerTopic({
           opsiyonel:['Reference','Header text'] },
         hatalar:[
           { mesaj:'Reversal date must be after posting date', sebep:'The reversal date is before the posting date.', cozum:'Enter a date in the following period.' },
-          { mesaj:'Posting period for reversal date is not open', sebep:'The period the reversal date falls in isn\'t open yet.', cozum:'Normal — that period will be open by the time {{F.81}} runs. The posting still goes through.' },
+          { mesaj:'Posting period for reversal date is not open', sebep:'The period the reversal date falls in isn\'t open yet.', cozum:'Normal: that period will be open by the time {{F.81}} runs. The posting still goes through.' },
         ],
         ipucu:'Entering an accrual by hand without {{FBS1}} and then **forgetting** to reverse it the ' +
               'following month is one of the most common closing mistakes, and it creates a **double ' +
@@ -440,12 +440,12 @@ SAP.registerTopic({
                      'presentation only** and gets undone.' },
           { baslik:'Run in test mode and review the result',
             aciklama:'Goods-received/invoice-not-received items (credit balance) and invoice-received/goods-' +
-                     'not-received items (debit balance) are classified **separately** — one is shown on the ' +
+                     'not-received items (debit balance) are classified **separately**: one is shown on the ' +
                      'liability side, the other on the asset side.' },
           { baslik:'Run in production mode' },
         ],
         ipucu:'{{F.19}} does not **shrink** the balance, it only moves it. If the GR/IR balance is genuinely ' +
-              'high, the problem isn\'t the classification, it\'s unmatched items — {{F.13}} and {{MR11}} ' +
+              'high, the problem isn\'t the classification, it\'s unmatched items: {{F.13}} and {{MR11}} ' +
               'need to run first.',
         hatalar:[
           { mesaj:'Account ... is not a GR/IR account', sebep:'The account isn\'t configured as a GR/IR account.', cozum:'Check the GR/IR account definition in IMG.' },
@@ -465,14 +465,14 @@ SAP.registerTopic({
           { baslik:'Run in production mode' },
         ],
         ipucu:'A customer with a debit balance (they overpaid) should be shown on the balance sheet **on the ' +
-              'liability side**, not the asset side — because you now owe them. Without this reclassification, ' +
+              'liability side**, not the asset side: because you now owe them. Without this reclassification, ' +
               'the balance sheet is misleading.',
         ilgili:['F.19','F.01','yaslandirma'] },
 
       { kod:'FAGLGVTR', ad:'Balance carryforward (year-end)',
         amac:'Carries balance-sheet accounts\' balances forward into the new year, and moves the income ' +
              'statement accounts\' result to equity.',
-        neZaman:'At year-end. **Can be rerun** — as new postings come in, the difference gets carried forward.',
+        neZaman:'At year-end. **Can be rerun**: as new postings come in, the difference gets carried forward.',
         adimlar:[
           { baslik:'Enter the company code and the fiscal year to carry forward' },
           { baslik:'Select the ledger',
@@ -501,7 +501,7 @@ SAP.registerTopic({
           { baslik:'Run it and review the hierarchy' },
         ],
         hatalar:[
-          { mesaj:'Total of assets and liabilities is not equal', sebep:'An account isn\'t assigned to any line in the FSV.', cozum:'{{OB58}} → check the "unassigned accounts" line in the FSV. This is **not** a data error — SAP never accepts an unbalanced document in the first place.' },
+          { mesaj:'Total of assets and liabilities is not equal', sebep:'An account isn\'t assigned to any line in the FSV.', cozum:'{{OB58}} → check the "unassigned accounts" line in the FSV. This is **not** a data error: SAP never accepts an unbalanced document in the first place.' },
         ],
         ipucu:'If the balance sheet doesn\'t balance, don\'t panic: the problem is almost always an ' +
               '**unassigned account** in {{OB58}}. Check that line in the FSV specifically.',
@@ -512,7 +512,7 @@ SAP.registerTopic({
         neZaman:'At year-end, once every {{AFAB}} run has completed.',
         adimlar:[
           { baslik:'Enter the company code and the year to close' },
-          { baslik:'Run in test mode — see the blockers',
+          { baslik:'Run in test mode: see the blockers',
             aciklama:'Lists missing depreciation runs, erroneous assets, and unbalanced areas.' },
           { baslik:'Clear the blockers, then close in production mode' },
         ],
@@ -533,15 +533,15 @@ SAP.registerTopic({
       { ad:'T001B', baslik:'Posting-period open/closed definition',
         tutar:'The period lines entered in {{OB52}}: posting period variant, account type, the two posting-period ranges, authorization group.',
         olusturan:'{{OB52}}',
-        guncelleyen:'{{OB52}} — every month-end',
+        guncelleyen:'{{OB52}}: every month-end',
         anahtar:'RRCTY + BUKRS + MKOAR + BKONT',
         iliskiler:'A company code is linked to a posting period variant through {{T001}} (assigned via {{OBY6}}).',
         s4:'Unchanged.',
         alanlar:[
           { ad:'MKOAR', aciklama:'Account type: **+** default, **S** general ledger, **D** customer, **K** vendor, **A** asset, **M** material' },
-          { ad:'FRPE1 / TOPE1', aciklama:'**1st posting-period range** — normal users' },
-          { ad:'FRPE2 / TOPE2', aciklama:'**2nd posting-period range** — those in the authorization group (the closing team)' },
-          { ad:'BRGRU', aciklama:'Authorization group — who can access the 2nd range' },
+          { ad:'FRPE1 / TOPE1', aciklama:'**1st posting-period range**: normal users' },
+          { ad:'FRPE2 / TOPE2', aciklama:'**2nd posting-period range**: those in the authorization group (the closing team)' },
+          { ad:'BRGRU', aciklama:'Authorization group: who can access the 2nd range' },
         ] },
 
       { ad:'T009', baslik:'Fiscal year variant',
@@ -553,7 +553,7 @@ SAP.registerTopic({
         s4:'Unchanged.',
         alanlar:[
           { ad:'ANZBP', aciklama:'Number of normal periods (usually 12)' },
-          { ad:'ANZSP', aciklama:'**Number of special periods** (usually 4) — for year-end corrections' },
+          { ad:'ANZSP', aciklama:'**Number of special periods** (usually 4): for year-end corrections' },
         ] },
 
       { ad:'BKPF', baslik:'Closing document headers',
@@ -563,9 +563,9 @@ SAP.registerTopic({
         anahtar:'BUKRS + BELNR + GJAHR',
         s4:'Unchanged.',
         alanlar:[
-          { ad:'STGRD / STJAH', aciklama:'**Reversal reason and year** — populated on {{FBS1}} documents' },
-          { ad:'STODT', aciklama:'**Scheduled reversal date** — {{F.81}} looks at this date' },
-          { ad:'MONAT', aciklama:'Posting period — 13–16 for special-period postings' },
+          { ad:'STGRD / STJAH', aciklama:'**Reversal reason and year**: populated on {{FBS1}} documents' },
+          { ad:'STODT', aciklama:'**Scheduled reversal date**: {{F.81}} looks at this date' },
+          { ad:'MONAT', aciklama:'Posting period: 13-16 for special-period postings' },
         ] },
 
       { ad:'ACDOCA', baslik:'Universal Journal',
@@ -576,7 +576,7 @@ SAP.registerTopic({
         iliskiler:'If {{paralel-defter}} is in use, closing is performed separately for each ledger.',
         s4:'In S/4HANA, balances are **calculated on the fly** from here; there\'s no separate totals table.',
         alanlar:[
-          { ad:'RLDNR', aciklama:'{{defter}} — {{FAGLGVTR}} is run separately for each ledger' },
+          { ad:'RLDNR', aciklama:'{{defter}}: {{FAGLGVTR}} is run separately for each ledger' },
           { ad:'POPER', aciklama:'Posting period' },
         ] },
 
@@ -584,7 +584,7 @@ SAP.registerTopic({
         tutar:'Totals by account/ledger/period. Balance carryforward used to write into this table.',
         olusturan:'Every posting, in ECC',
         guncelleyen:'Postings and balance carryforward, in ECC',
-        s4:'**Removed** — a {{uyumluluk-view}}. Totals are calculated on the fly from {{ACDOCA}}, and balance ' +
+        s4:'**Removed**: a {{uyumluluk-view}}. Totals are calculated on the fly from {{ACDOCA}}, and balance ' +
             'carryforward no longer updates a totals table.' },
 
       { ad:'ANLC', baslik:'Asset annual values',
@@ -631,20 +631,20 @@ SAP.registerTopic({
       'Below is the detail of the three most critical screens, plus the closing checklist itself.',
 
     ekranlar:[
-      { ad:'{{OB52}} — the period control screen',
+      { ad:'{{OB52}}: the period control screen',
         aciklama:'Closing\'s keystone. Each line defines the posting permission for one account type.',
         alanlar:[
           { ad:'Posting period variant', zorunlu:true, aciklama:'**Careful:** the variant can be shared by multiple company codes; a change affects all of them.' },
           { ad:'Account type (`MKOAR`)', zorunlu:true, aciklama:'**+** is the default (applies when there\'s no other line), **S/D/K/A/M** are specific. If a specific line exists, it applies instead of **+**.' },
           { ad:'1st posting-period range', zorunlu:true, aciklama:'The periods normal users can post to.' },
-          { ad:'2nd posting-period range', zorunlu:false, aciklama:'The periods that **those in the authorization group** can post to — for the closing team.' },
+          { ad:'2nd posting-period range', zorunlu:false, aciklama:'The periods that **those in the authorization group** can post to: for the closing team.' },
           { ad:'Authorization group (`BRGRU`)', zorunlu:false, aciklama:'Determines who can access the 2nd range.' },
         ],
         ipucu:'The **+** line is a "default." If there\'s a specific line for S, S postings follow that line, ' +
               'not **+**. The complaint "I opened the period but I\'m still getting an error" is usually ' +
               'caused by not knowing this priority rule.' },
 
-      { ad:'{{FBS1}} — the accrual entry screen',
+      { ad:'{{FBS1}}: the accrual entry screen',
         aciklama:'Two fields have been added to a normal document entry screen; they\'re what make this screen special.',
         alanlar:[
           { ad:'Document/posting date', zorunlu:true, aciklama:'Belongs to the closing period (e.g. 31.01.2027).' },
@@ -656,19 +656,19 @@ SAP.registerTopic({
               'date, the accrual looks like it stands for part of that month and not the rest, and interim ' +
               'reports become misleading.' },
 
-      { ad:'{{F.05}} — the currency valuation screen',
+      { ad:'{{F.05}}: the currency valuation screen',
         aciklama:'Valuing foreign-currency items and balances at the current exchange rate.',
         alanlar:[
           { ad:'Company code / Valuation key date', zorunlu:true, aciklama:'Usually the last day of the month.' },
           { ad:'Valuation method', zorunlu:true, aciklama:'Defined in {{OB59}}: which {{kur-tipi}}, which principle (lower-of / always), whether it will be reversed.' },
-          { ad:'Items to be valued', zorunlu:true, aciklama:'G/L balances, vendor open items, customer open items — flagged separately.' },
+          { ad:'Items to be valued', zorunlu:true, aciklama:'G/L balances, vendor open items, customer open items: flagged separately.' },
           { ad:'Reversal date', zorunlu:false, aciklama:'If the unrealized difference is to be reversed.' },
           { ad:'Test mode', zorunlu:false, aciklama:'**Always test first.** Valuation produces a large number of documents.' },
         ],
         ipucu:'Valuation must be done **after every item has been posted**. A foreign-currency invoice that ' +
               'arrives afterward stays unvalued, and closing has to be redone.' },
 
-      { ad:'The closing checklist — its system counterpart',
+      { ad:'The closing checklist: its system counterpart',
         aciklama:'Closing isn\'t a screen, it\'s a discipline. It\'s managed in SAP in three ways.',
         alanlar:[
           { ad:'A manual checklist', zorunlu:false, aciklama:'Excel or a document. Common at small companies; error-prone.' },
@@ -687,10 +687,10 @@ SAP.registerTopic({
       { mesaj:'Depreciation not completely posted for fiscal year', sebep:'Not every period\'s {{AFAB}} run has completed before {{AJAB}}.', cozum:'Run the missing periods; all 12 periods must be complete.' },
       { mesaj:'Exchange rate for ... not found', sebep:'There\'s no rate for the valuation date in {{TCURR}}.', cozum:'Enter the rate with {{OB08}}. Rates are usually fed in automatically; the feed can break.' },
       { mesaj:'Retained earnings account not defined for chart of accounts', sebep:'The retained-earnings account for balance carryforward isn\'t defined.', cozum:'IMG → Balance carryforward → assign the retained-earnings account to the income statement account type.' },
-      { mesaj:'Balance carryforward already performed', sebep:'{{FAGLGVTR}} has already been run.', cozum:'This is a warning — the transaction **can be rerun**; the difference gets carried forward for new postings.' },
+      { mesaj:'Balance carryforward already performed', sebep:'{{FAGLGVTR}} has already been run.', cozum:'This is a warning: the transaction **can be rerun**; the difference gets carried forward for new postings.' },
       { mesaj:'Total of assets and liabilities is not equal ({{F.01}})', sebep:'There\'s an unassigned account in the {{mali-tablo-yapisi}}.', cozum:'{{OB58}} → check the "unassigned accounts" line. Not a data error.' },
-      { mesaj:'Document ... cannot be reversed — period closed', sebep:'The reversal period is closed while {{F.81}} runs.', cozum:'Open the period with {{OB52}}; the 2nd range is used during closing.' },
-      { mesaj:'GR/IR account has balance after clearing', sebep:'There are unmatched items.', cozum:'Normal — the timing gap is reclassified with {{F.19}}, the permanent difference is written off with {{MR11}}.' },
+      { mesaj:'Document ... cannot be reversed: period closed', sebep:'The reversal period is closed while {{F.81}} runs.', cozum:'Open the period with {{OB52}}; the 2nd range is used during closing.' },
+      { mesaj:'GR/IR account has balance after clearing', sebep:'There are unmatched items.', cozum:'Normal: the timing gap is reclassified with {{F.19}}, the permanent difference is written off with {{MR11}}.' },
     ],
 
     ipuclari:[
@@ -718,7 +718,7 @@ SAP.registerTopic({
       { tablo:'ACDOCA', ne:'Every closing posting, by ledger' },
       { tablo:'ANLC', ne:'{{AFAB}} depreciation values' },
       { tablo:'BSIS', ne:'Cleared clearing-account items' },
-      { tablo:'FAGLFLEXT', ne:'Balance carryforward totals in ECC — not updated in S/4HANA' },
+      { tablo:'FAGLFLEXT', ne:'Balance carryforward totals in ECC: not updated in S/4HANA' },
     ],
 
     commit:
@@ -726,13 +726,13 @@ SAP.registerTopic({
       'even if a run is interrupted midway, the documents it already produced are permanent.\n\n' +
       'That\'s why programs like {{AFAB}}, {{F.05}}, and {{F.13}} **have "repeat" or "restart" modes**: they ' +
       'pick up where they left off, or process only the difference. A run left half-finished isn\'t ' +
-      'dangerous, but if it goes unnoticed it leads to an incomplete close — which is why run result lists ' +
+      'dangerous, but if it goes unnoticed it leads to an incomplete close: which is why run result lists ' +
       'must be read.',
 
     belgeNo:
       'Closing documents take their number from their own document type\'s range: **SA** general correction, ' +
-      '**AF** depreciation, **AB** general. {{ozel-donem}} postings use the same range too — a special ' +
-      'period has **no** separate number range; the distinction lives in the `MONAT` field (13–16).',
+      '**AF** depreciation, **AB** general. {{ozel-donem}} postings use the same range too: a special ' +
+      'period has **no** separate number range; the distinction lives in the `MONAT` field (13-16).',
 
     postingLogic:
       'Closing\'s technical backbone is **period control**. On every posting:\n\n' +
@@ -751,7 +751,7 @@ SAP.registerTopic({
 
     numberRange:
       'The ranges for closing document types must also be opened **for every fiscal year** ({{FBN1}}, ' +
-      '{{OBH1}}). The new year\'s ranges must already be open during year-end closing — because balance ' +
+      '{{OBH1}}). The new year\'s ranges must already be open during year-end closing: because balance ' +
       'carryforward produces postings into the new year.',
 
     accountDetermination:
@@ -767,23 +767,23 @@ SAP.registerTopic({
       '{{OBA1}} FX difference accounts, {{OB58}} financial statement structure, balance carryforward ' +
       'settings, reclassification definitions.\n\n' +
       '**Transaction data:** closing documents.\n\n' +
-      'Closing has no master data of its own — it\'s entirely a matter of configuration plus transaction data.',
+      'Closing has no master data of its own: it\'s entirely a matter of configuration plus transaction data.',
 
     transport:
       'The posting period variant, fiscal year variant, valuation methods, FX difference account ' +
       'determination, the FSV, and reclassification settings transport.\n\n' +
-      '**But the posting-period ranges in {{OB52}} don\'t transport** — each system manages them separately. ' +
+      '**But the posting-period ranges in {{OB52}} don\'t transport**: each system manages them separately. ' +
       'That makes sense: the test system and production have different open periods. Opening periods on a ' +
       'new system is a **manual step**, and if it\'s forgotten, no posting can be made at all.',
 
     img:[
-      { yol:'SPRO → Financial Accounting → Financial Accounting Global Settings → Document → Posting Periods → Open and Close Posting Periods', not:'{{OB52}} — closing\'s keystone' },
-      { yol:'SPRO → … → Fiscal Year → Maintain Fiscal Year Variant', not:'{{OB29}} — number of normal + special periods' },
+      { yol:'SPRO → Financial Accounting → Financial Accounting Global Settings → Document → Posting Periods → Open and Close Posting Periods', not:'{{OB52}}: closing\'s keystone' },
+      { yol:'SPRO → … → Fiscal Year → Maintain Fiscal Year Variant', not:'{{OB29}}: number of normal + special periods' },
       { yol:'SPRO → Financial Accounting → General Ledger Accounting → Business Transactions → Closing → Valuate → Foreign Currency Valuation → Define Valuation Methods', not:'{{OB59}}' },
-      { yol:'SPRO → … → Closing → Valuate → Prepare Automatic Postings for Foreign Currency Valuation', not:'{{OBA1}} — KDF/KDB transaction keys' },
+      { yol:'SPRO → … → Closing → Valuate → Prepare Automatic Postings for Foreign Currency Valuation', not:'{{OBA1}}: KDF/KDB transaction keys' },
       { yol:'SPRO → … → Closing → Regroup → Regroup Receivables/Payables', not:'{{FAGLF101}} settings' },
-      { yol:'SPRO → … → Closing → Carry Forward → Balance Carryforward', not:'{{FAGLGVTR}} — retained-earnings account assignment' },
-      { yol:'SPRO → … → Reporting → Financial Statements → Define Financial Statement Versions', not:'{{OB58}} — FSV' },
+      { yol:'SPRO → … → Closing → Carry Forward → Balance Carryforward', not:'{{FAGLGVTR}}: retained-earnings account assignment' },
+      { yol:'SPRO → … → Reporting → Financial Statements → Define Financial Statement Versions', not:'{{OB58}}: FSV' },
     ],
 
     ekstra:[
@@ -792,10 +792,10 @@ SAP.registerTopic({
         'auditor asked for a 500,000 TRY correction. Should this correction be posted to December?\n\n' +
         'If it is, **December\'s own figure gets disturbed** and monthly trend analyses stop making sense. ' +
         'If it isn\'t, the year\'s total stays wrong.\n\n' +
-        'The solution: {{ozel-donem}}s (13–16). The correction is posted to period 13 — **it enters the ' +
+        'The solution: {{ozel-donem}}s (13-16). The correction is posted to period 13: **it enters the ' +
         'year\'s total but doesn\'t disturb December\'s figure**. In {{OB29}}, the fiscal year variant is ' +
         'defined as 12 normal + 4 special periods.\n\n' +
-        'Practical use: 13 for audit corrections, 14 for tax adjustments, 15–16 for consolidation.' },
+        'Practical use: 13 for audit corrections, 14 for tax adjustments, 15-16 for consolidation.' },
 
       { ic:'🔁', baslik:'Why can balance carryforward be rerun?', metin:
         '{{FAGLGVTR}} runs at year-end and carries balances into the new year. But after closing is ' +
@@ -819,22 +819,22 @@ SAP.registerTopic({
   s4hana: {
     ozet:
       'Closing\'s **steps and logic haven\'t changed**; what changed is that some steps have **become ' +
-      'unnecessary**, and the closing cycle has gotten shorter. The biggest win: the FI–CO reconciliation and ' +
+      'unnecessary**, and the closing cycle has gotten shorter. The biggest win: the FI-CO reconciliation and ' +
       'totals-table-rebuild steps disappear.',
 
     eccFarklari:[
-      { konu:'FI–CO reconciliation', ecc:'A separate closing step — a periodic reconciliation program', s4:'**Unnecessary** — structurally reconciled because they sit on the same line' },
-      { konu:'Totals table', ecc:'{{FAGLFLEXT}} gets updated; a rebuild program if it breaks', s4:'**None** — balances are calculated on the fly from {{ACDOCA}}' },
-      { konu:'Balance carryforward', ecc:'{{F.16}} (classic) / {{FAGLGVTR}} (New G/L)', s4:'{{FAGLGVTR}} — by ledger' },
+      { konu:'FI-CO reconciliation', ecc:'A separate closing step, a periodic reconciliation program', s4:'**Unnecessary**, structurally reconciled because they sit on the same line' },
+      { konu:'Totals table', ecc:'{{FAGLFLEXT}} gets updated; a rebuild program if it breaks', s4:'**None**: balances are calculated on the fly from {{ACDOCA}}' },
+      { konu:'Balance carryforward', ecc:'{{F.16}} (classic) / {{FAGLGVTR}} (New G/L)', s4:'{{FAGLGVTR}}: by ledger' },
       { konu:'Fixed asset closing', ecc:'{{AJAB}} mandatory, strict order', s4:'Simplified; some checks became automatic' },
-      { konu:'Closing management', ecc:'Schedule Manager (SCMA)', s4:'**Financial Closing Cockpit** (Fiori) — task templates, automatic execution' },
-      { konu:'Closing duration', ecc:'Typically 5–10 business days', s4:'Noticeably shorter thanks to real-time reporting' },
+      { konu:'Closing management', ecc:'Schedule Manager (SCMA)', s4:'**Financial Closing Cockpit** (Fiori): task templates, automatic execution' },
+      { konu:'Closing duration', ecc:'Typically 5-10 business days', s4:'Noticeably shorter thanks to real-time reporting' },
       { konu:'Depreciation', ecc:'{{AFAB}}', s4:'FAA_DEPRECIATION_POST; every area posts in real time' },
     ],
 
     universalJournal:
       'For closing, the {{evrensel-kayit-defteri}} delivers three concrete gains:\n\n' +
-      '**1. FI–CO reconciliation disappears.** This step, performed at every close in ECC, becomes ' +
+      '**1. FI-CO reconciliation disappears.** This step, performed at every close in ECC, becomes ' +
       'unnecessary because the FI and CO line are the same posting.\n\n' +
       '**2. Totals-table maintenance ends.** Because balances are calculated on the fly, the "the totals ' +
       'table broke, let\'s rebuild it" scenario goes away.\n\n' +
@@ -842,8 +842,8 @@ SAP.registerTopic({
       'still in progress; this is what makes a "soft close" approach possible.',
 
     kalkanTcodes:[
-      { eski:'FI–CO reconciliation programs', yeni:'—', not:'Became unnecessary' },
-      { eski:'Totals table rebuild', yeni:'—', not:'No totals table' },
+      { eski:'FI-CO reconciliation programs', yeni:': ', not:'Became unnecessary' },
+      { eski:'Totals table rebuild', yeni:': ', not:'No totals table' },
       { eski:'{{F.16}}', yeni:'{{FAGLGVTR}}', not:'The New G/L program' },
       { eski:'{{AFAB}}', yeni:'FAA_DEPRECIATION_POST', not:'AFAB redirects to it' },
       { eski:'SCMA (Schedule Manager)', yeni:'Financial Closing Cockpit', not:'Fiori-based, template-driven' },
@@ -859,9 +859,9 @@ SAP.registerTopic({
     ],
 
     compatibilityViews:[
-      '{{FAGLFLEXT}}, {{GLT0}} — the totals tables are {{uyumluluk-view}}s; **no longer written to**.',
-      '{{BSIS}}, {{BSAS}} — the G/L open-item indexes are views.',
-      '{{T001B}}, {{T009}} — the configuration tables **still exist physically**, unchanged.',
+      '{{FAGLFLEXT}}, {{GLT0}}: the totals tables are {{uyumluluk-view}}s; **no longer written to**.',
+      '{{BSIS}}, {{BSAS}}: the G/L open-item indexes are views.',
+      '{{T001B}}, {{T009}}: the configuration tables **still exist physically**, unchanged.',
       'Legacy closing programs that write to a totals table need to be reviewed during migration.',
     ],
 
@@ -873,8 +873,8 @@ SAP.registerTopic({
     bestPractices:[
       'Move closing into the **Financial Closing Cockpit**; an Excel checklist is error-prone and doesn\'t ' +
       'enforce dependencies.',
-      'Remove the steps that are now unnecessary (FI–CO reconciliation, totals-table maintenance) from the ' +
-      'checklist — reusing the old list unchanged after migration wastes time.',
+      'Remove the steps that are now unnecessary (FI-CO reconciliation, totals-table maintenance) from the ' +
+      'checklist: reusing the old list unchanged after migration wastes time.',
       'Evaluate a "soft close" approach thanks to real-time reporting: a current statement can be pulled ' +
       'mid-month too.',
       'Clean up clearing accounts ({{gr-ir}}, bank clearing accounts) before migration; dirty balances ' +
@@ -894,130 +894,130 @@ SAP.registerTopic({
       { k:'Company code', v:'1000 · Posting period variant 1000' },
       { k:'Period to close', v:'01 / 2027 (January)' },
       { k:'Fiscal year variant', v:'12 normal + 4 special periods' },
-      { k:'Target', v:'3 business days — start February 1, finish February 3' },
+      { k:'Target', v:'3 business days: start February 1, finish February 3' },
       { k:'Team', v:'AP, AR, fixed asset, bank, and G/L accounting specialists + the manager' },
     ],
 
     adimlar:[
-      { baslik:'Step 0 — Last month\'s accruals are reversed', tcode:'F.81',
+      { baslik:'Step 0: Last month\'s accruals are reversed', tcode:'F.81',
         aciklama:'**The first job of the month.** If December\'s accruals aren\'t undone, January\'s expense comes out inflated.',
         girdi:[
-          { alan:'Reversal date range', deger:'01.01.2027 – 31.01.2027' },
+          { alan:'Reversal date range', deger:'01.01.2027: 31.01.2027' },
           { alan:'Test result', deger:'7 accrual documents to be reversed · total 340,000 TRY' },
           { alan:'Production run', deger:'7 documents reversed ✓' },
         ],
         not:'If this step is skipped, the expenses estimated in December stand **again** in January, and ' +
              'January\'s expense shows up 340,000 TRY too high. It must be the first item on the checklist.' },
 
-      { baslik:'Step 1 — The logistics period is closed', tcode:'OB52',
+      { baslik:'Step 1: The logistics period is closed', tcode:'OB52',
         aciklama:'The MM period is closed **before** FI. Otherwise stock movements keep coming in and the ' +
                  'GR/IR analysis becomes invalid.',
         girdi:[
-          { alan:'MM period (MMPV)', deger:'Opened to February — January MM postings stopped' },
+          { alan:'MM period (MMPV)', deger:'Opened to February: January MM postings stopped' },
           { alan:'{{OB52}} account type **M**', deger:'January closed' },
-          { alan:'Other account types', deger:'Still open — the FI close is ongoing' },
+          { alan:'Other account types', deger:'Still open: the FI close is ongoing' },
         ],
         not:'The order is critical: doing GR/IR analysis while MM is still open invalidates the result once ' +
              'more goods receipts come in.' },
 
-      { baslik:'Step 2 — All invoices are processed', tcode:'MRBR',
+      { baslik:'Step 2: All invoices are processed', tcode:'MRBR',
         aciklama:'The AP and AR teams post every pending invoice; blocked invoices are released.',
         girdi:[
           { alan:'Blocked MM invoices', deger:'14 invoices → 11 released, 3 remained in dispute' },
           { alan:'Pending AP invoices', deger:'All posted' },
           { alan:'SD invoices', deger:'No deliveries left waiting to be billed via {{VF04}} ✓' },
-          { alan:'{{VBRK}} check', deger:'No invoices with `RFBSK` = "A" — all have posted to FI ✓' },
+          { alan:'{{VBRK}} check', deger:'No invoices with `RFBSK` = "A": all have posted to FI ✓' },
         ],
         not:'A missing invoice means a missing expense/revenue. The following steps are meaningless until ' +
              'this one is complete.' },
 
-      { baslik:'Step 3 — GR/IR analysis and cleanup', tcode:'F.13',
+      { baslik:'Step 3: GR/IR analysis and cleanup', tcode:'F.13',
         aciklama:'Three stages: automatic clearing → permanent difference write-off → reclassification.',
         girdi:[
           { alan:'{{F.13}} test → production', deger:'1,180 items cleared automatically' },
           { alan:'{{MR11}}', deger:'Small permanent differences written off: 42 items, 18,400 TRY' },
-          { alan:'Remaining balance', deger:'**280,000 TRY** — a genuine timing gap (goods arrived, invoice hasn\'t)' },
+          { alan:'Remaining balance', deger:'**280,000 TRY**: a genuine timing gap (goods arrived, invoice hasn\'t)' },
         ],
-        fis:{ baslik:'Document 1000008801 — GR/IR reclassification ({{F.19}})', belgeTuru:'SA', tarih:'31.01.2027',
+        fis:{ baslik:'Document 1000008801: GR/IR reclassification ({{F.19}})', belgeTuru:'SA', tarih:'31.01.2027',
           satirlar:[
             { hesap:'159', ad:'GR/IR account', borc:280000, not:'Temporarily cleared out' },
             { hesap:'326', ad:'Goods received, not yet invoiced', alacak:280000, not:'A balance-sheet presentation account' },
-          ], not:'**To be reversed** — automatically undone on 01.02.2027. For presentation only.' } },
+          ], not:'**To be reversed**: automatically undone on 01.02.2027. For presentation only.' } },
 
-      { baslik:'Step 4 — Depreciation is run', tcode:'AFAB',
+      { baslik:'Step 4: Depreciation is run', tcode:'AFAB',
         aciklama:'**The first surprise shows up here.** The test run comes out with a total very different from last month.',
         girdi:[
           { alan:'Test result', deger:'1,891 assets · **312,400 TRY**' },
-          { alan:'Last month', deger:'284,500 TRY — **27,900 TRY more**' },
+          { alan:'Last month', deger:'284,500 TRY: **27,900 TRY more**' },
           { alan:'Investigation', deger:'{{AW01N}} → 6 new assets were capitalized in January (a production-line investment)' },
           { alan:'Decision', deger:'The deviation is **explained and correct** → run in production mode' },
         ],
-        fis:{ baslik:'Document 1000008812 — January depreciation', belgeTuru:'AF', tarih:'31.01.2027',
+        fis:{ baslik:'Document 1000008812: January depreciation', belgeTuru:'AF', tarih:'31.01.2027',
           satirlar:[
-            { hesap:'730', ad:'General production expense — depreciation', borc:248000 },
-            { hesap:'770', ad:'General administrative expense — depreciation', borc:64400 },
+            { hesap:'730', ad:'General production expense: depreciation', borc:248000 },
+            { hesap:'770', ad:'General administrative expense: depreciation', borc:64400 },
             { hesap:'257', ad:'Accumulated depreciation', alacak:312400 },
-          ], not:'**A permanent entry** — not reversed.' },
+          ], not:'**A permanent entry**: not reversed.' },
         not:'Comparing the test result to last month is the single most valuable habit in closing. A ' +
              'deviation isn\'t always bad, but it must be explainable.' },
 
-      { baslik:'Step 5 — Bank reconciliation', tcode:'FEBAN',
+      { baslik:'Step 5: Bank reconciliation', tcode:'FEBAN',
         aciklama:'Every statement is processed, clearing accounts are cleaned up, and a reconciliation statement is produced.',
         girdi:[
-          { alan:'Pending statement lines', deger:'0 ✓ — all processed' },
-          { alan:'Outgoing clearing account (102091)', deger:'Open item: 185,000 TRY (payments from Jan 28–31)' },
+          { alan:'Pending statement lines', deger:'0 ✓: all processed' },
+          { alan:'Outgoing clearing account (102091)', deger:'Open item: 185,000 TRY (payments from Jan 28-31)' },
           { alan:'Incoming clearing account (102081)', deger:'Open item: 22,000 TRY' },
-          { alan:'Uncollected checks ({{FCHN}})', deger:'96,000 TRY — matched against account 103 ✓' },
+          { alan:'Uncollected checks ({{FCHN}})', deger:'96,000 TRY: matched against account 103 ✓' },
           { alan:'Result', deger:'All 4 bank accounts reconciled ✓' },
         ] },
 
-      { baslik:'Step 6 — Foreign currency valuation', tcode:'F.05',
+      { baslik:'Step 6: Foreign currency valuation', tcode:'F.05',
         aciklama:'**The second surprise shows up here.** The program can\'t find a rate.',
         girdi:[
           { alan:'First attempt', deger:'Error: "Exchange rate for USD/TRY on 31.01.2027 not found"' },
           { alan:'Diagnosis', deger:'Checking {{TCURR}} → the January 31 rate was never fed in (the automatic feed had broken)' },
           { alan:'Fix', deger:'The 31.01.2027 rates were entered by hand with {{OB08}}: EUR 38.80 · USD 35.45' },
-          { alan:'Valuation method', deger:'Z001 — average rate (M), to be reversed' },
+          { alan:'Valuation method', deger:'Z001: average rate (M), to be reversed' },
           { alan:'Test → production', deger:'218 items valued' },
         ],
-        fis:{ baslik:'Document 1000008834 — Currency valuation', belgeTuru:'SA', tarih:'31.01.2027',
+        fis:{ baslik:'Document 1000008834: Currency valuation', belgeTuru:'SA', tarih:'31.01.2027',
           satirlar:[
             { hesap:'656', ad:'FX loss', borc:142000, not:'Unrealized' },
-            { hesap:'320', ad:'Trade payables — valuation difference', alacak:98000 },
-            { hesap:'120', ad:'Trade receivables — valuation difference', alacak:44000 },
-          ], not:'**To be reversed** — undone on 01.02.2027. The difference hasn\'t been realized yet; the ' +
+            { hesap:'320', ad:'Trade payables: valuation difference', alacak:98000 },
+            { hesap:'120', ad:'Trade receivables: valuation difference', alacak:44000 },
+          ], not:'**To be reversed**: undone on 01.02.2027. The difference hasn\'t been realized yet; the ' +
                  'real difference is finalized at the moment of payment/collection.' },
-        not:'A broken rate feed is a silent failure — nobody notices, and it blows up at closing time. A ' +
+        not:'A broken rate feed is a silent failure: nobody notices, and it blows up at closing time. A ' +
              '"are the rates current?" item was added to the checklist.' },
 
-      { baslik:'Step 7 — Accrual and provision entries', tcode:'FBS1',
+      { baslik:'Step 7: Accrual and provision entries', tcode:'FBS1',
         aciklama:'Income/expenses that have arisen but whose documents haven\'t arrived, and provisions.',
         girdi:[
-          { alan:'Accruals ({{FBS1}} — temporary)', deger:'Electricity 45,000 · water 8,000 · consulting 60,000 · total **113,000 TRY**' },
-          { alan:'Reversal date', deger:'01.02.2027 — to be undone with {{F.81}}' },
-          { alan:'Provisions ({{FB50}} — permanent)', deger:'Doubtful receivables 120,000 TRY' },
+          { alan:'Accruals ({{FBS1}}: temporary)', deger:'Electricity 45,000 · water 8,000 · consulting 60,000 · total **113,000 TRY**' },
+          { alan:'Reversal date', deger:'01.02.2027: to be undone with {{F.81}}' },
+          { alan:'Provisions ({{FB50}}: permanent)', deger:'Doubtful receivables 120,000 TRY' },
         ],
-        fis:{ baslik:'Document 1000008845 — Electricity accrual', belgeTuru:'SA', tarih:'31.01.2027',
+        fis:{ baslik:'Document 1000008845: Electricity accrual', belgeTuru:'SA', tarih:'31.01.2027',
           satirlar:[
-            { hesap:'770', ad:'General administrative expense — electricity', borc:45000 },
+            { hesap:'770', ad:'General administrative expense: electricity', borc:45000 },
             { hesap:'381', ad:'Accrued expenses', alacak:45000 },
           ], not:'Entered with {{FBS1}} → **automatically** reversed on 02.01. When the real invoice arrives ' +
                  'in February, there\'s no double posting.' },
         not:'The accrual (temporary) vs. provision (permanent) distinction is clear here: the electricity ' +
              'invoice **is coming**, whereas whether the doubtful receivable will be collected is **uncertain**.' },
 
-      { baslik:'Step 8 — Reclassifications', tcode:'FAGLF101',
+      { baslik:'Step 8: Reclassifications', tcode:'FAGLF101',
         aciklama:'Items whose amount is right but which sit on the wrong side of the balance sheet are moved.',
         girdi:[
           { alan:'Debit-balance customers', deger:'3 customers overpaid → moved to **the vendor side**, 68,000 TRY' },
           { alan:'Credit-balance vendors', deger:'2 vendors → to the customer side, 15,000 TRY' },
           { alan:'Long-term receivables', deger:'Maturity beyond one year: 240,000 TRY → to the fixed-asset side' },
-          { alan:'Reversal', deger:'01.02.2027 — for presentation, to be undone' },
+          { alan:'Reversal', deger:'01.02.2027: for presentation, to be undone' },
         ],
-        not:'A customer who overpaid no longer owes you — you owe them. Showing them on the asset side of ' +
+        not:'A customer who overpaid no longer owes you: you owe them. Showing them on the asset side of ' +
              'the balance sheet would be misleading.' },
 
-      { baslik:'Step 9 — Checks and reconciliations', tcode:'FBL3N',
+      { baslik:'Step 9: Checks and reconciliations', tcode:'FBL3N',
         aciklama:'The final verification pass before closing.',
         girdi:[
           { alan:'Sub-ledger reconciliation', deger:'{{FBL1N}} total = account 320 balance ✓ · {{FBL5N}} = 120 ✓' },
@@ -1027,15 +1027,15 @@ SAP.registerTopic({
           { alan:'{{SM13}}', deger:'No stalled updates ✓' },
         ] },
 
-      { baslik:'Step 10 — The period is closed and statements are pulled', tcode:'OB52',
+      { baslik:'Step 10: The period is closed and statements are pulled', tcode:'OB52',
         aciklama:'Closing\'s final step. The 1st range is closed first, leaving room for correction, and ' +
                  'then it\'s closed completely.',
         girdi:[
-          { alan:'{{OB52}} — 1st range', deger:'Every account type (S, D, K, A, M) → moved to February' },
-          { alan:'{{OB52}} — 2nd range', deger:'January left open, authorization group FI01 (so the closing team can still make corrections)' },
+          { alan:'{{OB52}}: 1st range', deger:'Every account type (S, D, K, A, M) → moved to February' },
+          { alan:'{{OB52}}: 2nd range', deger:'January left open, authorization group FI01 (so the closing team can still make corrections)' },
           { alan:'Financial statements', deger:'{{F.01}} → the balance sheet and income statement produced' },
           { alan:'Check', deger:'Assets = liabilities+equity ✓ · no unassigned accounts ✓' },
-          { alan:'3 days later', deger:'The 2nd range was closed too — January is fully locked' },
+          { alan:'3 days later', deger:'The 2nd range was closed too: January is fully locked' },
         ],
         not:'Two-stage closing is the standard method: users are stopped immediately, and the closing team ' +
              'gets a few extra days of room to correct.' },
@@ -1044,15 +1044,15 @@ SAP.registerTopic({
     sonuc:
       '**January closing was completed in 3 business days.** Two surprises came up, and both were caught ' +
       'thanks to a control:\n\n' +
-      '• **The depreciation deviation** — noticed because the test result was compared against last month; ' +
+      '• **The depreciation deviation**: noticed because the test result was compared against last month; ' +
       'the cause was new investments, and the deviation was explainable.\n' +
-      '• **The missing exchange rate** — the automatic feed had broken and nobody had noticed. A new item ' +
+      '• **The missing exchange rate**: the automatic feed had broken and nobody had noticed. A new item ' +
       'was added to the checklist.\n\n' +
       '**Four critical lessons:**\n\n' +
       '**1. The order isn\'t arbitrary.** MM must close first (otherwise the GR/IR analysis is invalid), ' +
       'depreciation must run after acquisitions, and valuation must happen after every item is posted. If ' +
       'the order breaks, the work has to be redone.\n\n' +
-      '**2. The temporary–permanent distinction is vital.** Accruals, valuation, and reclassification **are ' +
+      '**2. The temporary-permanent distinction is vital.** Accruals, valuation, and reclassification **are ' +
       'reversed**; depreciation and provisions **stay**. Mixing them up produces either a double expense or a missing one.\n\n' +
       '**3. Run batch jobs in test mode and compare them to last month.** This is the single most valuable ' +
       'habit in closing; it\'s how one of the two surprises was caught.\n\n' +

@@ -1,6 +1,6 @@
 /* ==========================================================================
-   content/fi-en/taxes.js — English body for "Taxes"
-   Same conventions as content/fi-en/genel-muhasebe.js — see that file's
+   content/fi-en/taxes.js: English body for "Taxes"
+   Same conventions as content/fi-en/genel-muhasebe.js: see that file's
    header comment.
    ========================================================================== */
 
@@ -21,10 +21,10 @@ SAP.registerTopic({
       'which G/L account it goes to).\n\n' +
       'Because these three are bundled into a single code, the user can\'t make a mistake in that ' +
       'sense: they can\'t enter the wrong rate, they can\'t post the tax to the wrong account. But ' +
-      'they **can pick the wrong code** — and almost every tax error comes down to exactly that.',
+      'they **can pick the wrong code**: and almost every tax error comes down to exactly that.',
 
     neden:
-      '**Legal obligation.** The VAT return isn\'t filed document by document — it\'s summed up by tax code.\n\n' +
+      '**Legal obligation.** The VAT return isn\'t filed document by document: it\'s summed up by tax code.\n\n' +
       '**Deduction right.** If VAT paid on purchases (deductible) and VAT collected on sales ' +
       '(output) aren\'t tracked in separate accounts, offsetting can\'t happen.\n\n' +
       '**Auditability.** The {{BSET}} table keeps each tax\'s base amount and tax amount separately; ' +
@@ -39,7 +39,7 @@ SAP.registerTopic({
       'errors**. The document is balanced, the trial balance ties out, no alarm goes off. It only ' +
       'surfaces when the return is being prepared, or in an audit.\n\n' +
       'The telling question is: **"Where does non-deductible VAT get posted?"** The correct answer: ' +
-      '**not** to a separate tax account — to the **cost of the expense or the asset** — because if ' +
+      '**not** to a separate tax account, to the **cost of the expense or the asset**, because if ' +
       'it can\'t be deducted, it isn\'t a receivable from the tax authority, it\'s a real cost.',
 
     gercekHayat:
@@ -56,7 +56,7 @@ SAP.registerTopic({
       '**Lesson:** picking a tax code is an accounting decision, not a keystroke habit.',
 
     muhasebeMantigi:
-      'VAT is **not a revenue or an expense** for the business — it\'s an amount collected on the ' +
+      'VAT is **not a revenue or an expense** for the business: it\'s an amount collected on the ' +
       'government\'s behalf, or a receivable from the government. That\'s why it\'s tracked not on ' +
       'the income statement but on the **balance sheet**.\n\n' +
       '**Output VAT (collected on sales):** the business **owes** it to the government → a ' +
@@ -99,7 +99,7 @@ SAP.registerTopic({
           aciklama:'By transaction key: **MWS** output, **VST** deductible, **NAV** non-deductible. ' +
                    'The result is written to table {{T030K}}.',
           cikti:'Tax-account match', ok:'released for use' },
-        { ic:'🧾', rol:'User', baslik:'The invoice is entered — **the code is chosen**',
+        { ic:'🧾', rol:'User', baslik:'The invoice is entered: **the code is chosen**',
           aciklama:'The tax code is selected on the {{FB60}} / {{FB70}} / {{MIRO}} screen. ' +
                    'The system applies the rate and computes the amount. **This is the process\'s only human decision.**',
           cikti:'Tax line', ok:'is posted' },
@@ -121,11 +121,11 @@ SAP.registerTopic({
     adimlar:[
       { rol:'Consultant', eylem:'Defines the tax code', sistem:'{{FTXP}} → {{T007A}}' },
       { rol:'Consultant', eylem:'Assigns the tax account', sistem:'{{OB40}} → {{T030K}}' },
-      { rol:'Consultant', eylem:'Restricts the allowed codes', sistem:'{{OBZT}} — reduces user error' },
+      { rol:'Consultant', eylem:'Restricts the allowed codes', sistem:'{{OBZT}}: reduces user error' },
       { rol:'User', eylem:'Selects the tax code on the invoice', sistem:'{{FB60}}, {{FB70}}, {{MIRO}}' },
       { rol:'System', eylem:'Calculates and writes the tax', sistem:'{{BSEG}} + {{BSET}}' },
       { rol:'Tax officer', eylem:'Pulls the declaration report', sistem:'{{S_ALR_87012357}}' },
-      { rol:'Tax officer', eylem:'Compares the report against the trial balance', sistem:'{{FBL3N}} — the 191 and 391 balances' },
+      { rol:'Tax officer', eylem:'Compares the report against the trial balance', sistem:'{{FBL3N}}: the 191 and 391 balances' },
       { rol:'General ledger', eylem:'Performs the offsetting posting', sistem:'{{FB50}}' },
     ],
 
@@ -140,7 +140,7 @@ SAP.registerTopic({
       { tip:'warn', baslik:'A tax error produces no alarm at all', metin:
         'When the wrong tax code is selected, the document is **balanced**, the trial balance ' +
         '**ties out**, and no error message appears. The system can\'t say "this code is wrong for ' +
-        'this transaction" — because knowing which code is correct is **legal knowledge**, not ' +
+        'this transaction": because knowing which code is correct is **legal knowledge**, not ' +
         'system knowledge.\n\n' +
         'That\'s why tax control is done through **report comparison**: the totals in the ' +
         '{{S_ALR_87012357}} declaration report must **match, one to one**, the 191 and 391 account ' +
@@ -155,42 +155,42 @@ SAP.registerTopic({
     anlatim:
       'The one-sentence summary of VAT accounting: **the tax paid on a purchase is an asset, the ' +
       'tax collected on a sale is a liability, and the two are offset at month-end.** The ' +
-      'exception: non-deductible VAT — that isn\'t an asset, it\'s a cost.',
+      'exception: non-deductible VAT: that isn\'t an asset, it\'s a cost.',
 
     etkilenenHesaplar:[
-      { hesap:'191 Deductible VAT', tur:'Balance sheet — Asset', neden:'VAT paid on a purchase, a receivable from the government. {{OB40}} → **VST**.' },
-      { hesap:'391 Output VAT', tur:'Balance sheet — Liability', neden:'VAT collected on a sale, a liability to the government. {{OB40}} → **MWS**.' },
-      { hesap:'360 Taxes and funds payable', tur:'Balance sheet — Liability', neden:'Net VAT owed to the government after offsetting.' },
-      { hesap:'190 Carried-forward VAT', tur:'Balance sheet — Asset', neden:'If deductible > output, the difference carries forward to the next period.' },
-      { hesap:'The related expense/asset account', tur:'Variable', neden:'**Non-deductible VAT** doesn\'t go to a separate account — it goes into the cost. {{OB40}} → **NAV**.' },
-      { hesap:'360 Withholding tax payable', tur:'Balance sheet — Liability', neden:'{{tevkifat}} (withholding) — a deduction not paid to the vendor but remitted to the tax office.' },
+      { hesap:'191 Deductible VAT', tur:'Balance sheet: Asset', neden:'VAT paid on a purchase, a receivable from the government. {{OB40}} → **VST**.' },
+      { hesap:'391 Output VAT', tur:'Balance sheet: Liability', neden:'VAT collected on a sale, a liability to the government. {{OB40}} → **MWS**.' },
+      { hesap:'360 Taxes and funds payable', tur:'Balance sheet: Liability', neden:'Net VAT owed to the government after offsetting.' },
+      { hesap:'190 Carried-forward VAT', tur:'Balance sheet: Asset', neden:'If deductible > output, the difference carries forward to the next period.' },
+      { hesap:'The related expense/asset account', tur:'Variable', neden:'**Non-deductible VAT** doesn\'t go to a separate account: it goes into the cost. {{OB40}} → **NAV**.' },
+      { hesap:'360 Withholding tax payable', tur:'Balance sheet, Liability', neden:'{{tevkifat}} (withholding), a deduction not paid to the vendor but remitted to the tax office.' },
     ],
 
     fisler:[
-      { baslik:'A purchase invoice — deductible VAT (V1, 20%)',
+      { baslik:'A purchase invoice: deductible VAT (V1, 20%)',
         belgeTuru:'KR', tarih:'10.05.2027', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'770', ad:'General administrative expense', borc:10000, not:'The base amount — {{BSET}} `HWBAS`' },
+          { hesap:'770', ad:'General administrative expense', borc:10000, not:'The base amount: {{BSET}} `HWBAS`' },
           { hesap:'191', ad:'Deductible VAT', borc:2000, not:'{{OB40}} → **VST** · a receivable from the government' },
           { hesap:'320', ad:'Trade payables', alacak:12000, not:'{{LFB1}} `AKONT`' },
         ],
         not:'The expense is **10,000** TRY, not 12,000. VAT isn\'t included in the expense because ' +
-             'it will be recovered from the government — which is why it\'s posted as an **asset**.' },
+             'it will be recovered from the government: which is why it\'s posted as an **asset**.' },
 
-      { baslik:'A sales invoice — output VAT (A1, 20%)',
+      { baslik:'A sales invoice: output VAT (A1, 20%)',
         belgeTuru:'DR', tarih:'12.05.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'120', ad:'Trade receivables', borc:36000 },
           { hesap:'600', ad:'Domestic sales', alacak:30000, not:'The base amount' },
           { hesap:'391', ad:'Output VAT', alacak:6000, not:'{{OB40}} → **MWS** · a liability to the government' },
         ],
-        not:'Revenue is **30,000** TRY. The 6,000 TRY VAT collected isn\'t the business\'s revenue — ' +
+        not:'Revenue is **30,000** TRY. The 6,000 TRY VAT collected isn\'t the business\'s revenue: ' +
              'it\'s an amount collected on the government\'s behalf.' },
 
-      { baslik:'**Non-deductible VAT** — the tax is added to the cost',
+      { baslik:'**Non-deductible VAT**: the tax is added to the cost',
         belgeTuru:'KR', tarih:'15.05.2027', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'770', ad:'General administrative expense (passenger car rental)', borc:12000, not:'**Base amount + VAT** — {{OB40}} → **NAV**' },
+          { hesap:'770', ad:'General administrative expense (passenger car rental)', borc:12000, not:'**Base amount + VAT**: {{OB40}} → **NAV**' },
           { hesap:'320', ad:'Trade payables', alacak:12000 },
         ],
         not:'**Account 191 was never used.** Non-deductible VAT isn\'t a receivable from the ' +
@@ -201,14 +201,14 @@ SAP.registerTopic({
       { baslik:'Non-deductible VAT on a fixed-asset purchase',
         belgeTuru:'KR', tarih:'15.05.2027', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'254', ad:'Vehicles (passenger car)', borc:1200000, not:'**Base amount + VAT** — the depreciable amount' },
+          { hesap:'254', ad:'Vehicles (passenger car)', borc:1200000, not:'**Base amount + VAT**: the depreciable amount' },
           { hesap:'320', ad:'Trade payables', alacak:1200000 },
         ],
         not:'The same logic matters even more on an asset purchase: non-deductible VAT goes ' +
              '**into the asset\'s cost**, so it\'s also **subject to depreciation**. If it had been ' +
              'posted to 191, VAT would have been wrongly deducted and depreciation would have been understated.' },
 
-      { baslik:'Month-end VAT offsetting — a case where VAT payable results',
+      { baslik:'Month-end VAT offsetting: a case where VAT payable results',
         belgeTuru:'SA', tarih:'31.05.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'391', ad:'Output VAT', borc:180000, not:'The account is zeroed out' },
@@ -216,10 +216,10 @@ SAP.registerTopic({
           { hesap:'360', ad:'Taxes and funds payable', alacak:35000, not:'The net amount owed to the government' },
         ],
         not:'Because output (180,000) > deductible (145,000), the difference is **payable**. ' +
-             'Both VAT accounts are **zeroed out** after offsetting — this is one of the month-end ' +
+             'Both VAT accounts are **zeroed out** after offsetting: this is one of the month-end ' +
              'checkpoints.' },
 
-      { baslik:'Month-end VAT offsetting — a case where VAT carries forward',
+      { baslik:'Month-end VAT offsetting: a case where VAT carries forward',
         belgeTuru:'SA', tarih:'30.06.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'391', ad:'Output VAT', borc:90000 },
@@ -231,7 +231,7 @@ SAP.registerTopic({
              'deductible VAT.\n\n' +
              'During heavy-investment periods this can persist for months.' },
 
-      { baslik:'{{tevkifat}} — a withholding-subject service invoice',
+      { baslik:'{{tevkifat}}: a withholding-subject service invoice',
         belgeTuru:'KR', tarih:'20.05.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'770', ad:'Consulting expense', borc:100000 },
@@ -241,7 +241,7 @@ SAP.registerTopic({
         ],
         not:'The invoice amount is 120,000 TRY, but only 100,000 TRY is paid to the vendor. The ' +
              '20,000 TRY in between is withheld and remitted **directly to the tax office**.\n\n' +
-             'The vendor\'s liability shows as 100,000, not 120,000 — because the remaining ' +
+             'The vendor\'s liability shows as 100,000, not 120,000: because the remaining ' +
              'portion is now owed not to the vendor but to the government.' },
     ],
 
@@ -261,7 +261,7 @@ SAP.registerTopic({
     ],
 
     notlar:[
-      { tip:'tip', baslik:'"Is VAT an expense?" — three different answers', metin:
+      { tip:'tip', baslik:'"Is VAT an expense?": three different answers', metin:
         'There\'s no single answer to this question; it depends on the situation:\n\n' +
         '**1. If it\'s deductible → no, it\'s an asset.** It will be recovered from the ' +
         'government (191).\n\n' +
@@ -282,20 +282,20 @@ SAP.registerTopic({
       'Tax codes vary along three axes: **direction** (input/output), **deductibility**, and ' +
       '**calculation method**. In Turkish setups, {{tevkifat}} (withholding) adds a fourth axis.',
     liste:[
-      { ad:'Output Tax — type A',
+      { ad:'Output Tax: type A',
         aciklama:'VAT collected from the customer on a sale. A liability to the government.',
         neZaman:'On every sales invoice, every credit memo.',
         ornek:'A1 = 20% output VAT → account 391. {{OB40}} → **MWS**.',
         tcodes:['FTXP','OB40'] },
 
-      { ad:'Input Tax — type V',
+      { ad:'Input Tax: type V',
         aciklama:'VAT paid to the vendor on a purchase. A receivable from the government.',
         neZaman:'On every purchase invoice, in the {{MIRO}} posting.',
         ornek:'V1 = 20% deductible VAT → account 191. {{OB40}} → **VST**.',
         tcodes:['FTXP','OB40'] },
 
       { ad:'Non-deductible Input Tax',
-        aciklama:'VAT paid but not deductible. Not posted to a separate account — added to **cost**.',
+        aciklama:'VAT paid but not deductible. Not posted to a separate account: added to **cost**.',
         neZaman:'Expenses the law doesn\'t allow to be deducted, such as passenger car rental or entertainment/representation.',
         ornek:'{{OB40}} → the **NAV** key; the system adds the VAT to the expense/asset line.',
         tcodes:['FTXP','OB40'] },
@@ -305,7 +305,7 @@ SAP.registerTopic({
         neZaman:'Businesses with both taxable and exempt activity (partial exemption).',
         ornek:'On a code defined as 60% deductible, of 2,000 TRY VAT, 1,200 goes to 191 and 800 goes to the expense.' },
 
-      { ad:'Zero-rated — 0%',
+      { ad:'Zero-rated: 0%',
         aciklama:'The rate is 0% but the transaction **is still subject to tax**; it appears as a base amount on the declaration.',
         neZaman:'Exports, export-registered deliveries, some incentivized transactions.',
         ornek:'The base amount is declared, the tax is 0 TRY. **Not to be confused with an exempt transaction.**' },
@@ -313,17 +313,17 @@ SAP.registerTopic({
       { ad:'Exempt / Not Taxable',
         aciklama:'The transaction is **outside** the scope of tax; the base amount is also reported in a different line on the declaration.',
         neZaman:'Transactions exempt by law.',
-        ornek:'The difference from zero-rated is **where it lands on the declaration** — the accounting entry looks the same.' },
+        ornek:'The difference from zero-rated is **where it lands on the declaration**: the accounting entry looks the same.' },
 
       { ad:'{{tevkifat}} (Withholding Tax)',
         aciklama:'The payer withholds tax from the amount they owe and remits it directly to the tax office.',
         neZaman:'Freelance/professional-fee payments, rent, some service purchases, payments abroad.',
-        ornek:'The withholding type and code must be defined on the vendor master — otherwise no deduction is made.',
+        ornek:'The withholding type and code must be defined on the vendor master: otherwise no deduction is made.',
         tcodes:['FB60','F110'] },
 
       { ad:'Calculate Tax Automatically',
         aciklama:'The user only selects the code; the system calculates the tax from the base amount.',
-        neZaman:'The normal flow — **the preferred method**.',
+        neZaman:'The normal flow: **the preferred method**.',
         ornek:'The "Calculate tax" checkbox on the entry screen is checked.' },
 
       { ad:'Manual Tax Entry',
@@ -347,7 +347,7 @@ SAP.registerTopic({
   /* ===================================================== 5. TRANSACTION CODES === */
   tcodes: {
     liste:[
-      { kod:'FTXP', ad:'Define tax code — the center of tax configuration',
+      { kod:'FTXP', ad:'Define tax code: the center of tax configuration',
         amac:'Defines tax codes, their rates, and their types on a country basis.',
         neZaman:'At setup; when a new rate or a new exemption type comes into effect.',
         adimlar:[
@@ -373,7 +373,7 @@ SAP.registerTopic({
         ],
         ipucu:'**The rate of a tax code already in use should never be changed.** If it is, past ' +
               'documents stay at the old rate and new ones at the new rate, but **the report sums ' +
-              'both under the same code** — the declaration comes out inconsistent, and the reason ' +
+              'both under the same code**: the declaration comes out inconsistent, and the reason ' +
               'is only understood months later. Open a **new code** when the rate changes (see the ' +
               'technical section).',
         ilgili:['OB40','FTXA','BSET','T007A'] },
@@ -395,7 +395,7 @@ SAP.registerTopic({
           { mesaj:'Error in account determination: table T030K key TR MWS', sebep:'No tax account is assigned.', cozum:'{{OB40}} → MWS → assign an account. This is the most common tax error on SD invoices.' },
         ],
         ipucu:'Tax accounts should be opened in {{FS00}} with the **"post automatically only"** ' +
-              'flag. That way the user can\'t post to them by hand — this is the simplest and most ' +
+              'flag. That way the user can\'t post to them by hand: this is the simplest and most ' +
               'effective safeguard that guarantees the declaration and the trial balance tie out.',
         ilgili:['FTXP','T030K','FS00'] },
 
@@ -413,7 +413,7 @@ SAP.registerTopic({
                      'account, or a document was entered without a tax code.' },
         ],
         ipucu:'This report is produced from the {{BSET}} table, not {{BSEG}}. An entry posted ' +
-              'manually to the tax account affects {{BSEG}} but writes no line into {{BSET}} — ' +
+              'manually to the tax account affects {{BSEG}} but writes no line into {{BSET}}: ' +
               'that\'s the most common reason the report and the trial balance diverge.',
         hatalar:[
           { mesaj:'The report total doesn\'t match the account balance', sebep:'An entry was posted manually to the tax account, or a document exists without a tax code.', cozum:'In {{FBL3N}}, look for lines with document type SA on account 191/391; that\'s usually the culprit.' },
@@ -431,7 +431,7 @@ SAP.registerTopic({
         ipucu:'When the declaration report and the trial balance don\'t match, the diagnostic order ' +
               'is: **1)** see the total with {{S_ALR_87012357}}, **2)** get the document breakdown ' +
               'with {{F.12}}, **3)** pull the account movements with {{FBL3N}}, **4)** compare the ' +
-              'two lists — the document left over is the culprit.',
+              'two lists: the document left over is the culprit.',
         ilgili:['S_ALR_87012357','FB03','FBL3N'] },
 
       { kod:'OBZT', ad:'Allowed tax codes per transaction',
@@ -455,7 +455,7 @@ SAP.registerTopic({
       '{{BSET}}. This split is the answer to "why doesn\'t the report match the trial balance?"',
 
     liste:[
-      { ad:'BSET', baslik:'Tax lines — the declaration\'s source',
+      { ad:'BSET', baslik:'Tax lines: the declaration\'s source',
         tutar:'Every document\'s tax information: base amount, tax amount, tax code, transaction key.',
         olusturan:'Every FI document that carries a tax code',
         guncelleyen:'The document posting; a reversal adds a new line',
@@ -463,11 +463,11 @@ SAP.registerTopic({
         iliskiler:'To {{BKPF}} via the document key; to {{T007A}} via the tax code.',
         s4:'Still there. {{ACDOCA}} carries the tax amount too, but **the declaration still relies on BSET**.',
         alanlar:[
-          { ad:'HWBAS', aciklama:'The **base amount** (local currency) — the amount the tax is calculated on' },
+          { ad:'HWBAS', aciklama:'The **base amount** (local currency): the amount the tax is calculated on' },
           { ad:'HWSTE', aciklama:'The **tax amount** (local currency)' },
           { ad:'MWSKZ', aciklama:'Tax code', tip:'fk' },
-          { ad:'KTOSL', aciklama:'Transaction key — MWS / VST / NAV' },
-          { ad:'KSCHL', aciklama:'Condition type — comes from the calculation procedure' },
+          { ad:'KTOSL', aciklama:'Transaction key: MWS / VST / NAV' },
+          { ad:'KSCHL', aciklama:'Condition type: comes from the calculation procedure' },
         ] },
 
       { ad:'T007A', baslik:'Tax code definitions',
@@ -478,12 +478,12 @@ SAP.registerTopic({
         iliskiler:'{{BSET}} `MWSKZ` points to this table.',
         s4:'Unchanged.',
         alanlar:[
-          { ad:'KALSM', aciklama:'Tax calculation procedure — country-dependent' },
+          { ad:'KALSM', aciklama:'Tax calculation procedure: country-dependent' },
           { ad:'MWSKZ', aciklama:'Tax code (2 characters)' },
-          { ad:'MWART', aciklama:'**A** output · **V** input — can\'t be changed once saved' },
+          { ad:'MWART', aciklama:'**A** output · **V** input: can\'t be changed once saved' },
         ] },
 
-      { ad:'T030K', baslik:'Tax account determination — "which account does the tax go to?"',
+      { ad:'T030K', baslik:'Tax account determination: "which account does the tax go to?"',
         tutar:'Which G/L account a tax transaction is posted to. At posting time the system reads ' +
               'this table and finds account 191 or 391.',
         olusturan:'{{OB40}}',
@@ -492,13 +492,13 @@ SAP.registerTopic({
         iliskiler:'The tax code is read from {{T007A}} → the account is found here → it\'s written ' +
                   'to {{BSEG}} `HKONT` and {{BSET}}. **It\'s the tax member of the {{T030}} family**; ' +
                   '{{OBYC}} (MM) and {{VKOA}} (SD) write to the same family.',
-        s4:'Unchanged — still the single source of tax account determination in S/4HANA too.',
+        s4:'Unchanged: still the single source of tax account determination in S/4HANA too.',
         alanlar:[
-          { ad:'KTOPL', aciklama:'**Chart of accounts** — the first field of the key. A separate line is needed for company codes using a different chart of accounts.' },
-          { ad:'KTOSL', aciklama:'**Transaction key** — the tax\'s type. `MWS` output · `VST` deductible · `NAV` non-deductible · `NVV` non-deductible/distributed' },
-          { ad:'MWSKZ', aciklama:'**Tax code** — only filled if "split by tax code" is flagged. **If blank, every code under that key goes to the same account.**' },
-          { ad:'KONTS', aciklama:'**The determined G/L account** — 191 deductible, 391 output' },
-          { ad:'KONTH', aciklama:'The credit-side account — in setups where debit/credit are split' },
+          { ad:'KTOPL', aciklama:'**Chart of accounts**: the first field of the key. A separate line is needed for company codes using a different chart of accounts.' },
+          { ad:'KTOSL', aciklama:'**Transaction key**: the tax\'s type. `MWS` output · `VST` deductible · `NAV` non-deductible · `NVV` non-deductible/distributed' },
+          { ad:'MWSKZ', aciklama:'**Tax code**: only filled if "split by tax code" is flagged. **If blank, every code under that key goes to the same account.**' },
+          { ad:'KONTS', aciklama:'**The determined G/L account**: 191 deductible, 391 output' },
+          { ad:'KONTH', aciklama:'The credit-side account: in setups where debit/credit are split' },
         ] },
 
       { ad:'BSEG', baslik:'Document line items',
@@ -513,7 +513,7 @@ SAP.registerTopic({
 
     er:{
       type:'er',
-      baslik:'Tax table relationships — why is BSET separate?',
+      baslik:'Tax table relationships: why is BSET separate?',
       varliklar:[
         { ad:'T007A', rol:'Configuration', aciklama:'Tax code definition',
           alanlar:[{ ad:'KALSM', tip:'pk' }, { ad:'MWSKZ', tip:'pk' }, { ad:'MWART' }] },
@@ -523,7 +523,7 @@ SAP.registerTopic({
           alanlar:[{ ad:'BUKRS', tip:'pk' }, { ad:'BELNR', tip:'pk' }, { ad:'GJAHR', tip:'pk' }] },
         { ad:'BSEG', rol:'FI', aciklama:'Document line items',
           alanlar:[{ ad:'BELNR', tip:'fk' }, { ad:'BUZEI', tip:'pk' }, { ad:'MWSKZ', tip:'fk' }, { ad:'HKONT' }] },
-        { ad:'BSET', rol:'Tax', aciklama:'**Tax lines — the declaration\'s source**',
+        { ad:'BSET', rol:'Tax', aciklama:'**Tax lines: the declaration\'s source**',
           alanlar:[{ ad:'BELNR', tip:'fk' }, { ad:'MWSKZ', tip:'fk' }, { ad:'HWBAS' }, { ad:'HWSTE' }] },
         { ad:'ACDOCA', rol:'S/4HANA', aciklama:'Universal Journal',
           alanlar:[{ ad:'BELNR', tip:'fk' }, { ad:'MWSKZ', tip:'fk' }] },
@@ -542,15 +542,15 @@ SAP.registerTopic({
   sapSurec: {
     anlatim:
       'From the user\'s point of view, the tax process comes down to a single field: the **tax ' +
-      'code**. But behind that field sit three screens — the definition ({{FTXP}}), the account ' +
+      'code**. But behind that field sit three screens: the definition ({{FTXP}}), the account ' +
       '({{OB40}}), and the control ({{S_ALR_87012357}}).',
 
     ekranlar:[
-      { ad:'{{FTXP}} — the tax code definition',
+      { ad:'{{FTXP}}: the tax code definition',
         aciklama:'A country is selected, a code is entered, the type and rate are defined.',
         alanlar:[
           { ad:'Country', zorunlu:true, aciklama:'Tax codes are **country-specific**. The company code\'s country ({{OBY6}}) is what decides.' },
-          { ad:'Tax code', zorunlu:true, aciklama:'Two characters. Common convention: A* output, V* input — not mandatory, but following it saves a lot of trouble.' },
+          { ad:'Tax code', zorunlu:true, aciklama:'Two characters. Common convention: A* output, V* input: not mandatory, but following it saves a lot of trouble.' },
           { ad:'Tax type', zorunlu:true, aciklama:'**A** or **V**. **Cannot be changed** once saved.' },
           { ad:'Rate (%)', zorunlu:true, aciklama:'Entered on the relevant transaction-key line. **Should not be changed afterward.**' },
           { ad:'Deductibility', zorunlu:false, aciklama:'A percentage for partial deduction; if blank, treated as 100% deductible.' },
@@ -559,7 +559,7 @@ SAP.registerTopic({
               '0%, `VN` non-deductible, `A1` 20% output… Years later, once there are 40 codes, this ' +
               'discipline is the only thing that saves you.' },
 
-      { ad:'{{OB40}} — tax account assignment',
+      { ad:'{{OB40}}: tax account assignment',
         aciklama:'A G/L account is assigned by transaction key.',
         alanlar:[
           { ad:'Transaction key', zorunlu:true, aciklama:'**MWS** output · **VST** deductible · **NAV** non-deductible (added to cost)' },
@@ -568,11 +568,11 @@ SAP.registerTopic({
           { ad:'G/L account', zorunlu:true, aciklama:'Must be flagged **"post automatically only"** in {{FS00}}.' },
         ],
         ipucu:'**The NAV key is special:** the account assigned to it is generally never actually ' +
-              'used — the system adds non-deductible VAT to the related expense/asset line instead. ' +
+              'used: the system adds non-deductible VAT to the related expense/asset line instead. ' +
               'A consultant who doesn\'t know this behavior can waste hours asking "why does nothing ' +
               'ever post to the NAV account?"' },
 
-      { ad:'The entry screen — the tax code field ({{FB60}} / {{FB70}} / {{MIRO}})',
+      { ad:'The entry screen: the tax code field ({{FB60}} / {{FB70}} / {{MIRO}})',
         aciklama:'This is the user\'s only contact with tax.',
         alanlar:[
           { ad:'Tax code', zorunlu:true, aciklama:'Choosing the right code depends on the **user\'s knowledge of the law**; the system can\'t verify it.' },
@@ -590,7 +590,7 @@ SAP.registerTopic({
     hatalar:[
       { mesaj:'Tax code ... does not exist in company code country ...', sebep:'The tax code isn\'t defined for the company code\'s country.', cozum:'Verify the country with {{OBY6}}; define the code under the right country in {{FTXP}}. Very common in multi-country setups.' },
       { mesaj:'Error in account determination: table T030K key ... MWS', sebep:'No account was assigned in {{OB40}}.', cozum:'{{OB40}} → assign an account to the MWS/VST/NAV line.' },
-      { mesaj:'Tax entry not possible in this item', sebep:'The item doesn\'t accept a tax code — the account setting or item type isn\'t suitable.', cozum:'Check the account\'s tax category in {{FS00}} (`-`, `+`, `*`, or blank).' },
+      { mesaj:'Tax entry not possible in this item', sebep:'The item doesn\'t accept a tax code: the account setting or item type isn\'t suitable.', cozum:'Check the account\'s tax category in {{FS00}} (`-`, `+`, `*`, or blank).' },
       { mesaj:'The difference is too large for clearing / tax amount incorrect', sebep:'A manually entered tax amount deviates from the calculated one by more than the tolerance.', cozum:'Correct the amount, or review the tax tolerance limit. A rounding difference shouldn\'t exceed one or two kuruş.' },
       { mesaj:'The declaration report doesn\'t match the 191/391 balance', sebep:'An entry was posted **manually** to the tax account (writes no line into {{BSET}}), or a document exists without a tax code.', cozum:'In {{FBL3N}}, look for lines with document type SA on the tax account; set the accounts to "post automatically only" in {{FS00}}.' },
     ],
@@ -605,14 +605,14 @@ SAP.registerTopic({
       'Don\'t **open** a separate expense account for non-deductible VAT; the NAV mechanism adds ' +
       'the amount to the correct line already.',
       'If {{tevkifat}} is going to be used, the withholding type and code **must be defined** on ' +
-      'the vendor master — otherwise the system silently makes no deduction.',
+      'the vendor master: otherwise the system silently makes no deduction.',
     ],
   },
 
   /* ===================================================== 8. TECHNICAL DETAIL === */
   teknik: {
     guncellenenTablolar:[
-      { tablo:'BSET', ne:'**Tax lines** — base amount and tax amount; the declaration\'s source' },
+      { tablo:'BSET', ne:'**Tax lines**: base amount and tax amount; the declaration\'s source' },
       { tablo:'BSEG', ne:'The tax item (the 191/391 line) and the items\' `MWSKZ` field' },
       { tablo:'BKPF', ne:'Document header' },
       { tablo:'ACDOCA', ne:'Universal items; carries the tax code and amount' },
@@ -622,9 +622,9 @@ SAP.registerTopic({
 
     commit:
       'Tax calculation happens **inside the document posting**, in a single LUW. {{BSEG}} and ' +
-      '{{BSET}} are written in the same commit — one can\'t be written without the other.\n\n' +
+      '{{BSET}} are written in the same commit: one can\'t be written without the other.\n\n' +
       'That\'s good news for data integrity, but it has this consequence: an entry posted manually ' +
-      'to the tax account **via {{FB50}}** writes a line into {{BSEG}}, **not into {{BSET}}** — ' +
+      'to the tax account **via {{FB50}}** writes a line into {{BSEG}}, **not into {{BSET}}**: ' +
       'because it isn\'t a tax transaction, it\'s a plain G/L posting. That\'s the technical ' +
       'explanation for why the declaration report and the trial balance diverge.',
 
@@ -638,7 +638,7 @@ SAP.registerTopic({
       '**2.** The system reads the code\'s type (A/V) and procedure from {{T007A}}.\n' +
       '**3.** The calculation procedure finds the rate and computes the tax from the base amount.\n' +
       '**4.** {{T030K}} determines the account based on the transaction key (MWS/VST/NAV).\n' +
-      '**5.** **If it\'s NAV**, the amount doesn\'t become a separate line — it\'s **added** to the ' +
+      '**5.** **If it\'s NAV**, the amount doesn\'t become a separate line: it\'s **added** to the ' +
       'related expense/asset line.\n' +
       '**6.** The {{BSEG}} tax item and the {{BSET}} tax line are written together.\n\n' +
       'On a partial deduction, steps 3 and 5 work together: part of the amount goes to the VST ' +
@@ -656,11 +656,11 @@ SAP.registerTopic({
 
     accountDetermination:
       '{{OB40}} → {{T030K}}. Transaction keys:\n\n' +
-      '**MWS** — output (calculated) VAT → 391\n' +
-      '**VST** — deductible (input) VAT → 191\n' +
-      '**NAV** — non-deductible VAT → *an account is assigned but unused*; the amount is added to the expense/asset line\n' +
-      '**NVV** — non-deductible, distributed across the account assignment\n\n' +
-      'The same architecture works as {{OBYC}} in MM and {{VKOA}} in SD — **all three write to the ' +
+      '**MWS**: output (calculated) VAT → 391\n' +
+      '**VST**: deductible (input) VAT → 191\n' +
+      '**NAV**: non-deductible VAT → *an account is assigned but unused*; the amount is added to the expense/asset line\n' +
+      '**NVV**: non-deductible, distributed across the account assignment\n\n' +
+      'The same architecture works as {{OBYC}} in MM and {{VKOA}} in SD: **all three write to the ' +
       '{{T030}} family**.',
 
     tur:
@@ -670,9 +670,9 @@ SAP.registerTopic({
       '**Transaction data:** {{BSET}} lines.',
 
     transport:
-      '**Tax codes behave as if they don\'t transport — and that\'s a trap.** The *structure* of a ' +
+      '**Tax codes behave as if they don\'t transport: and that\'s a trap.** The *structure* of a ' +
       'code defined in {{FTXP}} goes into a transport request, but the **rates** don\'t transport ' +
-      'in most setups — they have to be entered separately in the target system.\n\n' +
+      'in most setups: they have to be entered separately in the target system.\n\n' +
       'The result: a code that calculates 20% in test may calculate **0%** in production, with no ' +
       'error at all. On go-live, **every tax code\'s rate must be verified one by one**.\n\n' +
       'The {{OB40}} account assignments transport normally.',
@@ -685,13 +685,13 @@ SAP.registerTopic({
     ],
 
     ekstra:[
-      { ic:'🗂️', baslik:'{{T030K}} — the anatomy of tax account determination', metin:
+      { ic:'🗂️', baslik:'{{T030K}}: the anatomy of tax account determination', metin:
         'The user types `V1` on an invoice and the system finds account 191. The table that makes ' +
         'that lookup happen is **{{T030K}}**.\n\n' +
         '**The key has three fields:**\n\n' +
-        '`KTOPL` **chart of accounts** — which chart of accounts we\'re working in\n' +
-        '`KTOSL` **transaction key** — the type of tax\n' +
-        '`MWSKZ` **tax code** — *(optional, see below)*\n\n' +
+        '`KTOPL` **chart of accounts**: which chart of accounts we\'re working in\n' +
+        '`KTOSL` **transaction key**: the type of tax\n' +
+        '`MWSKZ` **tax code**: *(optional, see below)*\n\n' +
         '---\n\n' +
         '**What do the transaction keys mean?**\n\n' +
         '`MWS` **output (calculated) VAT** → 391. Arises on sales invoices.\n\n' +
@@ -705,7 +705,7 @@ SAP.registerTopic({
         'There\'s a flag in {{OB40}} called **"split by tax code"**, and it fundamentally changes ' +
         'the behavior:\n\n' +
         '**Unchecked (the default):** the `MWSKZ` field stays **blank**. **All the tax codes** ' +
-        'under that transaction key go to **the same account**. V1, V2, V0 — all to 191.\n\n' +
+        'under that transaction key go to **the same account**. V1, V2, V0: all to 191.\n\n' +
         '**Checked:** a **separate line** can be defined for each tax code. V1 → 191001, V2 → 191002, and so on.\n\n' +
         'When is it needed? When different rates need to be tracked in separate accounts, or when ' +
         'non-deductible VAT needs to be kept in its own account.\n\n' +
@@ -723,7 +723,7 @@ SAP.registerTopic({
       { ic:'🚫', baslik:'Changing the rate: the most expensive tax mistake', metin:
         'When the VAT rate goes from 18% to 20%, there are two paths:\n\n' +
         '**The wrong path:** change the existing V1 code\'s rate from 18 to 20. Result: past ' +
-        'documents sit in {{BSET}} at 18%, new ones at 20% — the data itself is correct. But **the ' +
+        'documents sit in {{BSET}} at 18%, new ones at 20%: the data itself is correct. But **the ' +
         'declaration report sums both under the same code**, and the average rate comes out ' +
         'neither 18% nor 20%. In an audit, the question "which rate does this amount come from?" ' +
         'can\'t be answered.\n\n' +
@@ -734,7 +734,7 @@ SAP.registerTopic({
         'something SAP doesn\'t technically block, but accounting discipline forbids.' },
 
       { ic:'🔍', baslik:'NAV: an account is assigned but not used', metin:
-        'A tax account is assigned to the **NAV** transaction key in {{OB40}} — but that account ' +
+        'A tax account is assigned to the **NAV** transaction key in {{OB40}}: but that account ' +
         'generally **never receives a posting**. The reason: non-deductible VAT isn\'t recorded as ' +
         'a separate line; it\'s **added** to the related expense or asset line.\n\n' +
         'So 10,000 TRY of expense + 2,000 TRY of non-deductible VAT → a single line: **12,000 TRY expense**.\n\n' +
@@ -749,7 +749,7 @@ SAP.registerTopic({
       { tip:'warn', baslik:'A tax account should never receive a manual entry', metin:
         'An entry posted to account 191 or 391 via {{FB50}} writes a line into {{BSEG}} but ' +
         '**doesn\'t write one into {{BSET}}**. Because the declaration report is produced from ' +
-        '{{BSET}}, that amount **doesn\'t appear** in the declaration — but it does appear on the ' +
+        '{{BSET}}, that amount **doesn\'t appear** in the declaration: but it does appear on the ' +
         'trial balance.\n\n' +
         'Result: the report and the trial balance diverge, and the reason is only tracked down months later.\n\n' +
         'Prevention: flag tax accounts in {{FS00}} as **"post automatically only."** A single ' +
@@ -766,7 +766,7 @@ SAP.registerTopic({
 
     eccFarklari:[
       { konu:'{{FTXP}} / {{OB40}}', ecc:'Tax code and account definition', s4:'**Unchanged**' },
-      { konu:'{{BSET}}', ecc:'Tax lines', s4:'**Still there** — the declaration is still produced from it' },
+      { konu:'{{BSET}}', ecc:'Tax lines', s4:'**Still there**: the declaration is still produced from it' },
       { konu:'Tax amount', ecc:'{{BSEG}} + {{BSET}}', s4:'+ {{ACDOCA}} (for reporting)' },
       { konu:'Declaration report', ecc:'{{S_ALR_87012357}}', s4:'Same + Fiori tax apps' },
       { konu:'E-declaration / e-invoice', ecc:'Country add-ons', s4:'SAP Document and Reporting Compliance' },
@@ -777,12 +777,12 @@ SAP.registerTopic({
       '{{ACDOCA}} carries the tax code and amount at the line level. This is a great convenience ' +
       '**for analysis**: questions like "how much non-deductible VAT is there in which profit ' +
       'center?" can be answered from a single table.\n\n' +
-      '**But the declaration is still produced from {{BSET}}** — because the declaration needs a ' +
+      '**But the declaration is still produced from {{BSET}}**: because the declaration needs a ' +
       'base-amount breakdown, and the base amount is {{BSET}}\'s concern, not {{ACDOCA}}\'s. Not ' +
       'knowing this split leads to the wrong answer to "did BSET go away in S/4HANA?" **It didn\'t.**',
 
     kalkanTcodes:[
-      { eski:'—', yeni:'—', not:'{{FTXP}}, {{OB40}}, {{F.12}}, {{S_ALR_87012357}} were **not removed**' },
+      { eski:', ', yeni:', ', not:'{{FTXP}}, {{OB40}}, {{F.12}}, {{S_ALR_87012357}} were **not removed**' },
     ],
 
     fiori:[
@@ -793,7 +793,7 @@ SAP.registerTopic({
     ],
 
     compatibilityViews:[
-      '{{BSET}}, {{T007A}}, {{T030K}} — **still physical tables**.',
+      '{{BSET}}, {{T007A}}, {{T030K}}: **still physical tables**.',
       'The {{BSEG}} tax item is read via a compatibility view.',
       'Structurally, tax is the FI area least affected by the S/4HANA migration.',
     ],
@@ -804,10 +804,10 @@ SAP.registerTopic({
       'analyzed **together with other dimensions**.',
 
     bestPractices:[
-      'On migration, **verify every tax code\'s rate one by one in the live system** — rates may not transport.',
+      'On migration, **verify every tax code\'s rate one by one in the live system**: rates may not transport.',
       'Simplify unused old tax codes on migration; but **don\'t delete ones that have been used** ' +
       '(past documents and reports reference them).',
-      'Flag tax accounts as "post automatically only" — migration is a good opportunity to fix this.',
+      'Flag tax accounts as "post automatically only": migration is a good opportunity to fix this.',
       'Evaluate country-specific e-declaration requirements with Document and Reporting Compliance.',
       'Put the declaration-vs-trial-balance reconciliation into the **monthly routine**; check it ' +
       'especially closely for the first three months after migration.',
@@ -826,14 +826,14 @@ SAP.registerTopic({
     veriler:[
       { k:'Company code', v:'1000 · Country TR' },
       { k:'Period', v:'May 2027' },
-      { k:'Declaration report — output VAT', v:'180,000 TRY' },
-      { k:'Trial balance — 391 balance', v:'264,000 TRY' },
+      { k:'Declaration report: output VAT', v:'180,000 TRY' },
+      { k:'Trial balance: 391 balance', v:'264,000 TRY' },
       { k:'**Difference**', v:'**84,000 TRY**' },
     ],
 
     adimlar:[
       { baslik:'The direction of the difference is determined', tcode:'FBL3N',
-        aciklama:'First, look at which side is higher — this narrows the possible causes to two.',
+        aciklama:'First, look at which side is higher: this narrows the possible causes to two.',
         girdi:[
           { alan:'Account', deger:'391 Output VAT' },
           { alan:'Trial balance', deger:'264,000 TRY' },
@@ -850,9 +850,9 @@ SAP.registerTopic({
       { baslik:'Account movements are filtered by document type', tcode:'FBL3N',
         aciklama:'Account 391\'s movements are grouped by document type.',
         girdi:[
-          { alan:'Document type **DR** (customer invoice)', deger:'176,000 TRY — normal sales VAT' },
-          { alan:'Document type **RV** (SD invoice)', deger:'4,000 TRY — normal' },
-          { alan:'Document type **SA** (G/L posting)', deger:'**84,000 TRY — suspicious**' },
+          { alan:'Document type **DR** (customer invoice)', deger:'176,000 TRY: normal sales VAT' },
+          { alan:'Document type **RV** (SD invoice)', deger:'4,000 TRY: normal' },
+          { alan:'Document type **SA** (G/L posting)', deger:'**84,000 TRY: suspicious**' },
           { alan:'Total', deger:'264,000 TRY' },
         ],
         not:'**A document type SA on a tax account is an alarm signal.** Tax items normally arise ' +
@@ -865,22 +865,22 @@ SAP.registerTopic({
           { alan:'Description', deger:'"April VAT correction"' },
           { alan:'Posted by', deger:'The accounting manager' },
         ],
-        fis:{ baslik:'Document 100004521 — a manual correction', belgeTuru:'SA', tarih:'20.05.2027',
+        fis:{ baslik:'Document 100004521: a manual correction', belgeTuru:'SA', tarih:'20.05.2027',
           satirlar:[
-            { hesap:'120', ad:'Trade receivables — correction', borc:84000 },
+            { hesap:'120', ad:'Trade receivables: correction', borc:84000 },
             { hesap:'391', ad:'Output VAT', alacak:84000, not:'**No tax code** → no line was written into {{BSET}}' },
           ], not:'The document is **balanced**, the posting is **valid**, the trial balance is ' +
                  '**correct**. But because no tax code was entered, the system never treated it as a ' +
                  'tax transaction and wrote no line into {{BSET}}. **The return never sees this 84,000 TRY.**' },
         tabloEtkisi:[
           { tablo:'BSEG', ne:'An 84,000 TRY credit line **was written** to account 391' },
-          { tablo:'BSET', ne:'**No line was written** — the source of the problem' },
+          { tablo:'BSET', ne:'**No line was written**: the source of the problem' },
         ],
         not:'The manager was trying to correct the VAT on a sale that had been under-invoiced in ' +
              'April, and posted directly to the tax account. From an accounting standpoint the ' +
              '**intent was right**; the method bypassed the tax architecture.' },
 
-      { baslik:'Verification — the document breakdown is pulled with F.12', tcode:'F.12',
+      { baslik:'Verification: the document breakdown is pulled with F.12', tcode:'F.12',
         aciklama:'The diagnosis is confirmed with an independent report.',
         girdi:[
           { alan:'Period', deger:'May 2027 · tax code A1' },
@@ -891,41 +891,41 @@ SAP.registerTopic({
              'This confirmed the diagnosis from **two independent sources**: the document exists in ' +
              '{{BSEG}}, not in {{BSET}}.' },
 
-      { baslik:'Correction — the document is reversed', tcode:'FB08',
+      { baslik:'Correction: the document is reversed', tcode:'FB08',
         aciklama:'The manually posted entry is canceled.',
         girdi:[
           { alan:'Reversed', deger:'100004521' },
-          { alan:'Reversal reason', deger:'01 — incorrect posting' },
+          { alan:'Reversal reason', deger:'01: incorrect posting' },
           { alan:'Result', deger:'The 391 balance goes from 264,000 → **180,000 TRY**' },
         ],
         not:'After the reversal, the trial balance and the declaration report **match**. But the ' +
-             'actual correction hasn\'t been made yet — the under-invoiced sale is still under-invoiced.' },
+             'actual correction hasn\'t been made yet: the under-invoiced sale is still under-invoiced.' },
 
       { baslik:'It\'s re-entered the correct way', tcode:'FB70',
         aciklama:'The same correction is entered again, this time **with a tax code** and as a customer invoice.',
         girdi:[
-          { alan:'Transaction', deger:'{{FB70}} — customer invoice (document type DR)' },
+          { alan:'Transaction', deger:'{{FB70}}: customer invoice (document type DR)' },
           { alan:'Base amount', deger:'420,000 TRY' },
           { alan:'Tax code', deger:'**A1** (20% output)' },
-          { alan:'Output VAT', deger:'84,000 TRY — **the system calculated it**' },
+          { alan:'Output VAT', deger:'84,000 TRY: **the system calculated it**' },
         ],
-        fis:{ baslik:'Document 1800005612 — the correct method', belgeTuru:'DR', tarih:'31.05.2027',
+        fis:{ baslik:'Document 1800005612: the correct method', belgeTuru:'DR', tarih:'31.05.2027',
           satirlar:[
             { hesap:'120', ad:'Trade receivables', borc:504000 },
-            { hesap:'600', ad:'Domestic sales', alacak:420000, not:'The base amount — {{BSET}} `HWBAS`' },
+            { hesap:'600', ad:'Domestic sales', alacak:420000, not:'The base amount: {{BSET}} `HWBAS`' },
             { hesap:'391', ad:'Output VAT', alacak:84000, not:'{{OB40}} → MWS · **written into {{BSET}}**' },
           ], not:'This time, because a tax code was entered, the system wrote a line into {{BSET}}. ' +
                  'Also, the **420,000 TRY of revenue** that never appeared in the first entry is now ' +
-                 'in the books too — the manual entry had only corrected the VAT and had forgotten the revenue.' },
+                 'in the books too: the manual entry had only corrected the VAT and had forgotten the revenue.' },
         tabloEtkisi:[
           { tablo:'BSEG', ne:'The customer, revenue, and VAT items' },
-          { tablo:'BSET', ne:'**The tax line was written** — base amount 420,000, tax 84,000' },
+          { tablo:'BSET', ne:'**The tax line was written**: base amount 420,000, tax 84,000' },
           { tablo:'BSID', ne:'A customer open item of 504,000 TRY' },
         ],
         not:'**The manual entry had actually contained two errors:** (1) there was no tax code, ' +
              '(2) the revenue was never recorded at all. The correct method fixed both at once.' },
 
-      { baslik:'Prevention — the tax accounts are locked down', tcode:'FS00',
+      { baslik:'Prevention: the tax accounts are locked down', tcode:'FS00',
         aciklama:'The same mistake is made **systemically** impossible to repeat.',
         girdi:[
           { alan:'Accounts', deger:'191 and 391' },
@@ -938,7 +938,7 @@ SAP.registerTopic({
     ],
 
     sonuc:
-      '**The 84,000 TRY difference came from a single, well-intentioned manual entry** — and that ' +
+      '**The 84,000 TRY difference came from a single, well-intentioned manual entry**: and that ' +
       'same entry had also skipped 420,000 TRY of revenue.\n\n' +
       '**Four critical lessons:**\n\n' +
       '**1. Tax information is held in {{BSET}}, not {{BSEG}}.** The declaration is produced from ' +

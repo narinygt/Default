@@ -1,6 +1,6 @@
 /* ==========================================================================
-   content/fi-en/parallel-ledger.js — English body for "Parallel Ledger"
-   Same conventions as content/fi-en/genel-muhasebe.js — see that file's
+   content/fi-en/parallel-ledger.js: English body for "Parallel Ledger"
+   Same conventions as content/fi-en/genel-muhasebe.js: see that file's
    header comment.
    ========================================================================== */
 
@@ -26,14 +26,14 @@ SAP.registerTopic({
       '**Legal requirement.** Publicly traded companies and large-scale businesses report under both local ' +
       'law and international standards.\n\n' +
       '**Different valuation rules.** Depreciation periods, provisioning criteria, lease accounting, revenue ' +
-      'recognition timing — all vary by standard.\n\n' +
+      'recognition timing: all vary by standard.\n\n' +
       '**One system, one source of truth.** The alternative is keeping a second accounting system or ' +
       'correction spreadsheets in Excel; neither is auditable.\n\n' +
       '**Traceability.** It must be visible which ledger, which document, and which reason produced each difference.',
 
     sirketOnemi:
       'Parallel ledger is an **indicator of a company\'s accounting maturity**. It\'s hard to set up and ' +
-      'demands discipline to operate — but the alternative is "keeping IFRS adjustments in Excel," and that\'s ' +
+      'demands discipline to operate: but the alternative is "keeping IFRS adjustments in Excel," and that\'s ' +
       'the practice most criticized in an audit.\n\n' +
       'For a consultant, this topic is **the bridge between {{new-gl}} and {{asset-accounting}}**: the ' +
       'heaviest real-world use of parallel ledger is fixed assets, because depreciation differences repeat ' +
@@ -48,10 +48,10 @@ SAP.registerTopic({
       '**IFRS:** the machine\'s real useful life is 8 years → 150,000 TRY a year.\n\n' +
       'Same asset, same cost, **different expense**. The difference is 30,000 TRY a year.\n\n' +
       'How do you manage this difference? There are three ways:\n\n' +
-      '**1. Keep it in Excel** — not auditable, high error risk, updated by hand every month.\n\n' +
-      '**2. Open two separate asset records** — the asset appears twice, inventory breaks, two records have to ' +
+      '**1. Keep it in Excel**: not auditable, high error risk, updated by hand every month.\n\n' +
+      '**2. Open two separate asset records**: the asset appears twice, inventory breaks, two records have to ' +
       'be closed out at sale.\n\n' +
-      '**3. Parallel ledger** — a single asset, two {{amortisman-alani}}s, each area writes to one ledger. The ' +
+      '**3. Parallel ledger**: a single asset, two {{amortisman-alani}}s, each area writes to one ledger. The ' +
       'purchase is a single entry (to every ledger), depreciation is per-ledger. **This is the correct solution.**',
 
     muhasebeMantigi:
@@ -78,7 +78,7 @@ SAP.registerTopic({
       'the first question and need no extra effort at all.',
 
     roller:[
-      { rol:'User', gorev:'Enters normal transactions — **doesn\'t touch the ledger field**; the posting goes to every ledger.' },
+      { rol:'User', gorev:'Enters normal transactions: **doesn\'t touch the ledger field**; the posting goes to every ledger.' },
       { rol:'General accounting', gorev:'Enters postings with a standard-based difference to a **single ledger** via {{FB01L}} / {{FB50L}}.' },
       { rol:'Fixed asset accounting', gorev:'Runs {{AFAB}}; each {{amortisman-alani}} writes to its own ledger.' },
       { rol:'FI consultant', gorev:'Designs ledgers, ledger groups, and the area↔ledger mapping with {{FINSC_LEDGER}}.' },
@@ -94,7 +94,7 @@ SAP.registerTopic({
           aciklama:'Sales, purchases, receipts, payments → **yes**. ' +
                    'Depreciation, provisions, leasing, valuation → **no**.',
           cikti:'Decision', ok:'if the same' },
-        { ic:'📝', rol:'User', baslik:'Normal posting — **ledger group blank**',
+        { ic:'📝', rol:'User', baslik:'Normal posting: **ledger group blank**',
           aciklama:'A normal entry via {{FB60}} / {{FB70}} / {{MIRO}}. ' +
                    'Because the ledger group is blank, the posting goes to **every ledger**.',
           cikti:'The same posting in every ledger', ok:'if different' },
@@ -102,7 +102,7 @@ SAP.registerTopic({
           aciklama:'The ledger group is **specified**; the posting goes only to that ledger. ' +
                    'The other ledgers are unaffected.',
           cikti:'A posting in a single ledger', ok:'for assets' },
-        { ic:'🏭', rol:'Fixed assets', baslik:'{{AFAB}} — areas write to ledgers',
+        { ic:'🏭', rol:'Fixed assets', baslik:'{{AFAB}}: areas write to ledgers',
           aciklama:'Each {{amortisman-alani}} is tied to a ledger group. ' +
                    'Area 01 → leading ledger, area 32 → IFRS ledger.',
           cikti:'Ledger-based depreciation', ok:'period end' },
@@ -118,17 +118,17 @@ SAP.registerTopic({
 
     adimlar:[
       { rol:'Consultant', eylem:'Defines the ledgers', sistem:'{{FINSC_LEDGER}} → {{T881}}' },
-      { rol:'Consultant', eylem:'Links depreciation areas to ledgers', sistem:'{{OADB}} — the AA ↔ ledger bridge' },
+      { rol:'Consultant', eylem:'Links depreciation areas to ledgers', sistem:'{{OADB}}: the AA ↔ ledger bridge' },
       { rol:'User', eylem:'Enters normal transactions', sistem:'Ledger group **blank** → every ledger' },
       { rol:'General accounting', eylem:'Enters the standards-based difference', sistem:'{{FB01L}} / {{FB50L}} → a single ledger' },
       { rol:'Fixed assets', eylem:'Runs depreciation', sistem:'{{AFAB}} → ledgers by area' },
       { rol:'Reporting', eylem:'Pulls a ledger-based report', sistem:'{{FAGLB03}}, {{FAGLL03}}' },
-      { rol:'General accounting', eylem:'Runs balance carryforward', sistem:'{{FAGLGVTR}} — **for every ledger**' },
+      { rol:'General accounting', eylem:'Runs balance carryforward', sistem:'{{FAGLGVTR}}: **for every ledger**' },
     ],
 
     veriAkisi:{
       nereden:'Ledger definitions ({{T881}}), the depreciation area ↔ ledger mapping, the ledger group the user selects.',
-      nereye:'{{ACDOCA}} — every line carries an `RLDNR` (ledger) field; ledger-based reports.',
+      nereye:'{{ACDOCA}}: every line carries an `RLDNR` (ledger) field; ledger-based reports.',
       tetikleyen:'Every posting. If the ledger group is blank, it goes to every ledger; if filled, only to that group.',
       sonraki:'Ledger-based closing, standard-specific financial statements, audit.',
     },
@@ -156,16 +156,16 @@ SAP.registerTopic({
       '**different profit/loss** results in each ledger.',
 
     etkilenenHesaplar:[
-      { hesap:'253 Plant, machinery and equipment', tur:'Balance sheet — Asset', neden:'The purchase is the same in both ledgers — **the fact is single**.' },
-      { hesap:'257 Accumulated depreciation', tur:'Balance sheet — Asset (contra)', neden:'**Differs by ledger** — a valuation judgment.' },
+      { hesap:'253 Plant, machinery and equipment', tur:'Balance sheet, Asset', neden:'The purchase is the same in both ledgers, **the fact is single**.' },
+      { hesap:'257 Accumulated depreciation', tur:'Balance sheet, Asset (contra)', neden:'**Differs by ledger**, a valuation judgment.' },
       { hesap:'770 Depreciation expense', tur:'Income statement', neden:'Each ledger carries its own amount.' },
-      { hesap:'Provision accounts', tur:'Balance sheet — Liability', neden:'IFRS and local law use different criteria.' },
-      { hesap:'Right-of-use asset (IFRS 16)', tur:'Balance sheet — Asset', neden:'Exists only in the IFRS ledger; absent from the local ledger.' },
+      { hesap:'Provision accounts', tur:'Balance sheet: Liability', neden:'IFRS and local law use different criteria.' },
+      { hesap:'Right-of-use asset (IFRS 16)', tur:'Balance sheet: Asset', neden:'Exists only in the IFRS ledger; absent from the local ledger.' },
       { hesap:'689 / 649 Other expense-income', tur:'Income statement', neden:'A different profit/loss arises in each ledger when the asset is sold.' },
     ],
 
     fisler:[
-      { baslik:'Step 1 — A machine is purchased · **every ledger** (ledger group blank)',
+      { baslik:'Step 1: A machine is purchased · **every ledger** (ledger group blank)',
         belgeTuru:'KR', tarih:'02.01.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'253', ad:'Plant, machinery and equipment', borc:1200000, not:'**The same** in both ledgers' },
@@ -177,7 +177,7 @@ SAP.registerTopic({
              'This is the correct behavior: "a machine was bought for 1,200,000 TRY" is a **fact**, and no ' +
              'standard sees it differently.' },
 
-      { baslik:'Step 2a — Annual depreciation · **leading ledger (0L)** · 10 years',
+      { baslik:'Step 2a: Annual depreciation · **leading ledger (0L)** · 10 years',
         belgeTuru:'AF', tarih:'31.12.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'770', ad:'Depreciation expense', borc:120000, not:'Depreciation area **01** → ledger 0L' },
@@ -186,18 +186,18 @@ SAP.registerTopic({
         not:'10 years under local law → 1,200,000 / 10 = **120,000 TRY**.\n\n' +
              'This posting went only to the **leading ledger**; the IFRS ledger was unaffected.' },
 
-      { baslik:'Step 2b — Annual depreciation · **IFRS ledger (2L)** · 8 years',
+      { baslik:'Step 2b: Annual depreciation · **IFRS ledger (2L)** · 8 years',
         belgeTuru:'AF', tarih:'31.12.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'770', ad:'Depreciation expense', borc:150000, not:'Depreciation area **32** → ledger 2L' },
           { hesap:'257', ad:'Accumulated depreciation', alacak:150000 },
         ],
         not:'Useful life of 8 years under IFRS → 1,200,000 / 8 = **150,000 TRY**.\n\n' +
-             '**The same {{AFAB}} run** produced both postings — the user didn\'t run it twice. Each ' +
+             '**The same {{AFAB}} run** produced both postings: the user didn\'t run it twice. Each ' +
              '{{amortisman-alani}} wrote to its own ledger.\n\n' +
              'Annual difference: 150,000 − 120,000 = **30,000 TRY**.' },
 
-      { baslik:'Step 3 — IFRS 16 lease · **only in the IFRS ledger**',
+      { baslik:'Step 3: IFRS 16 lease · **only in the IFRS ledger**',
         belgeTuru:'SA', tarih:'01.03.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'264', ad:'Right-of-use asset', borc:800000, not:'{{FB01L}} → ledger group **2L**' },
@@ -205,11 +205,11 @@ SAP.registerTopic({
         ],
         not:'IFRS 16 puts operating leases **on the balance sheet**. Local law may not.\n\n' +
              'This posting was entered with {{FB01L}} **only into ledger 2L**. This asset and liability ' +
-             '**don\'t exist at all** in the leading ledger — it\'s still tracked as rent expense there.\n\n' +
+             '**don\'t exist at all** in the leading ledger: it\'s still tracked as rent expense there.\n\n' +
              'Had the ledger group been **left blank**, this posting would also have gone into the local ' +
              'ledger and corrupted the local balance sheet.' },
 
-      { baslik:'Step 4 — The machine is sold at the end of year 3 · the outcome in the leading ledger',
+      { baslik:'Step 4: The machine is sold at the end of year 3 · the outcome in the leading ledger',
         belgeTuru:'AA', tarih:'31.12.2029', paraBirimi:'TRY',
         satirlar:[
           { hesap:'102', ad:'Bank (sale proceeds)', borc:900000 },
@@ -220,7 +220,7 @@ SAP.registerTopic({
         not:'Net book value in the leading ledger: 1,200,000 − 360,000 = **840,000 TRY**. Sold for 900,000, so ' +
              'a **60,000 TRY gain**.' },
 
-      { baslik:'Step 4 (continued) — the same sale · **the outcome in the IFRS ledger**',
+      { baslik:'Step 4 (continued): the same sale · **the outcome in the IFRS ledger**',
         belgeTuru:'AA', tarih:'31.12.2029', paraBirimi:'TRY',
         satirlar:[
           { hesap:'102', ad:'Bank (sale proceeds)', borc:900000 },
@@ -230,21 +230,21 @@ SAP.registerTopic({
         ],
         not:'Net book value in the IFRS ledger: 1,200,000 − 450,000 = **750,000 TRY**. Sold for the same ' +
              '900,000, so a **150,000 TRY gain**.\n\n' +
-             '**The same sale, a 90,000 TRY different gain in the two ledgers.** This isn\'t an error — it\'s ' +
+             '**The same sale, a 90,000 TRY different gain in the two ledgers.** This isn\'t an error: it\'s ' +
              'the inevitable result of two standards\' different valuation judgments, and it\'s the very reason ' +
              'parallel ledger exists.' },
     ],
 
     tHesaplar:[
-      { hesap:'Accumulated depreciation — **Leading ledger (0L)**', kod:'257 / 0L',
+      { hesap:'Accumulated depreciation: **Leading ledger (0L)**', kod:'257 / 0L',
         borc:[{ ad:'Closed out at sale', tutar:360000 }],
         alacak:[{ ad:'3 years × 120,000', tutar:360000 }],
         not:'10 years · local law' },
-      { hesap:'Accumulated depreciation — **IFRS ledger (2L)**', kod:'257 / 2L',
+      { hesap:'Accumulated depreciation: **IFRS ledger (2L)**', kod:'257 / 2L',
         borc:[{ ad:'Closed out at sale', tutar:450000 }],
         alacak:[{ ad:'3 years × 150,000', tutar:450000 }],
-        not:'8 years · IFRS — **the same account, a different ledger, a different amount**' },
-      { hesap:'Right-of-use asset — 2L only', kod:'264 / 2L',
+        not:'8 years · IFRS: **the same account, a different ledger, a different amount**' },
+      { hesap:'Right-of-use asset: 2L only', kod:'264 / 2L',
         borc:[{ ad:'IFRS 16 lease', tutar:800000 }],
         alacak:[],
         not:'This account **never moves** in the leading ledger' },
@@ -259,7 +259,7 @@ SAP.registerTopic({
         'longer holds. In {{FAGLB03}}, if **the ledger field is left blank**, the leading ledger comes up and ' +
         'the user never sees the IFRS balance at all.\n\n' +
         '**Practical consequence:** in a system with parallel ledger, every report query must ask "which ' +
-        'ledger?" It\'s good practice to show the ledger code in the report header — otherwise two different ' +
+        'ledger?" It\'s good practice to show the ledger code in the report header: otherwise two different ' +
         'reports get mixed up.' },
     ],
   },
@@ -285,7 +285,7 @@ SAP.registerTopic({
 
       { ad:'{{lider-defter}} (0L)',
         aciklama:'The **single** main ledger in the system, valid for every company code.',
-        neZaman:'Always exists — can\'t be removed.',
+        neZaman:'Always exists: can\'t be removed.',
         ornek:'Uses the company code\'s fiscal year variant and currencies; **the ledger integrated with CO**.' },
 
       { ad:'Non-Leading Ledger',
@@ -301,7 +301,7 @@ SAP.registerTopic({
 
       { ad:'Blank Ledger Group',
         aciklama:'The posting goes to **every ledger**.',
-        neZaman:'For 95% of daily transactions — sales, purchases, receipts, payments.',
+        neZaman:'For 95% of daily transactions: sales, purchases, receipts, payments.',
         ornek:'**This is the default behavior** and it\'s correct: facts are the same under every standard.' },
 
       { ad:'Ledger-Specific Document',
@@ -312,14 +312,14 @@ SAP.registerTopic({
 
       { ad:'{{amortisman-alani}} ↔ ledger link',
         aciklama:'Each depreciation area is tied to a ledger group; the area writes to that ledger.',
-        neZaman:'In fixed asset parallel accounting — the **heaviest use case**.',
+        neZaman:'In fixed asset parallel accounting: the **heaviest use case**.',
         ornek:'Area 01 → 0L (local), area 32 → 2L (IFRS). A single {{AFAB}} run feeds both ledgers.',
         tcodes:['AFAB','OADB'] },
     ],
 
     karsilastirmaBasliklar:['Parallel Ledger', 'Parallel Accounts'],
     karsilastirma:[
-      ['Chart of accounts', '**Single** — stays lean', 'Bloats — separate accounts for each standard'],
+      ['Chart of accounts', '**Single**, stays lean', 'Bloats, separate accounts for each standard'],
       ['The same account\'s balance', '**Varies** by ledger', 'Fixed, since the account name differs'],
       ['Financial statement structure', 'The same structure per ledger', '**A separate structure** needed per standard'],
       ['Adding a new standard', 'Define a new ledger', 'Open dozens of new accounts'],
@@ -333,19 +333,19 @@ SAP.registerTopic({
   /* ===================================================== 5. TRANSACTION CODES === */
   tcodes: {
     liste:[
-      { kod:'FINSC_LEDGER', ad:'Ledger definition — the hub of parallel accounting',
+      { kod:'FINSC_LEDGER', ad:'Ledger definition: the hub of parallel accounting',
         amac:'Defines the leading and additional ledgers, ledger groups, currencies, and fiscal year variants.',
         neZaman:'During setup; when a new reporting standard is added.',
         adimlar:[
           { baslik:'Define the ledger', aciklama:'A code (2L) and a name (IFRS Ledger). **Only one ledger can ' +
                    'be leading**, and it\'s usually 0L.' },
           { baslik:'Assign to company codes',
-            aciklama:'An additional ledger can be opened in **selected company codes** — defined only for ' +
+            aciklama:'An additional ledger can be opened in **selected company codes**: defined only for ' +
                      'companies that report under IFRS.' },
           { baslik:'Set the fiscal year variant',
             aciklama:'An additional ledger may use a **different variant**; needed if the group calendar differs.' },
           { baslik:'Configure the currencies',
-            aciklama:'Up to eight in S/4HANA. **Very hard to add later** — plan it from the start.' },
+            aciklama:'Up to eight in S/4HANA. **Very hard to add later**: plan it from the start.' },
           { baslik:'Verify the ledger group',
             aciklama:'A group in the same name is created automatically for each ledger.' },
         ],
@@ -367,12 +367,12 @@ SAP.registerTopic({
               'defining it **up front** is far cheaper than adding it later.',
         ilgili:['FB01L','FAGLL03','T881'] },
 
-      { kod:'FB01L', ad:'Post document — with ledger group',
+      { kod:'FB01L', ad:'Post document: with ledger group',
         amac:'Posts only to a specific ledger; the screen where standards-based differences are entered.',
         neZaman:'For every posting with an IFRS/local difference: a provision gap, IFRS 16, a valuation difference.',
         adimlar:[
           { baslik:'**Enter the ledger group**',
-            aciklama:'This field doesn\'t exist in {{FB01}} — it\'s {{FB01L}}\'s only difference. **If left ' +
+            aciklama:'This field doesn\'t exist in {{FB01}}: it\'s {{FB01L}}\'s only difference. **If left ' +
                      'blank, the posting goes to every ledger.**' },
           { baslik:'Choose the document type',
             aciklama:'Defining a **separate document type** for ledger-based postings is good practice; it ' +
@@ -394,7 +394,7 @@ SAP.registerTopic({
               'unnoticed for months, surfacing as a broken local financial statement at year-end.',
         ilgili:['FB50L','FAGLL03','FINSC_LEDGER'] },
 
-      { kod:'FB50L', ad:'G/L posting — with ledger group',
+      { kod:'FB50L', ad:'G/L posting: with ledger group',
         amac:'{{FB50}} with the ledger group field added; for quick G/L entries.',
         neZaman:'For ledger-based corrections involving only G/L accounts.',
         adimlar:[
@@ -424,7 +424,7 @@ SAP.registerTopic({
         ],
         ilgili:['FAGLL03','FS10N'] },
 
-      { kod:'FAGLGVTR', ad:'Balance carryforward — per ledger',
+      { kod:'FAGLGVTR', ad:'Balance carryforward: per ledger',
         amac:'Carries balance sheet accounts\' balances into the following year.',
         neZaman:'At year-end, **separately for every ledger**.',
         adimlar:[
@@ -445,11 +445,11 @@ SAP.registerTopic({
   tablolar: {
     anlatim:
       'Parallel ledger\'s table architecture rests on a single field: **{{ACDOCA}} `RLDNR`**. Every line ' +
-      'carries which ledger it belongs to in this field. There\'s no separate table for ledger separation — ' +
+      'carries which ledger it belongs to in this field. There\'s no separate table for ledger separation: ' +
       '**the same table, different rows**.',
 
     liste:[
-      { ad:'ACDOCA', baslik:'Universal Journal — with the ledger field',
+      { ad:'ACDOCA', baslik:'Universal Journal: with the ledger field',
         tutar:'Every FI/CO line; each line carries an `RLDNR` (ledger).',
         olusturan:'Every FI/CO document',
         guncelleyen:'Document posting; if the ledger group is blank, **a separate line is written for every ledger**',
@@ -457,9 +457,9 @@ SAP.registerTopic({
         iliskiler:'{{T881}} for the ledger definition; {{BKPF}} for the document header.',
         s4:'Parallel ledger\'s **single data source**.',
         alanlar:[
-          { ad:'RLDNR', aciklama:'**Ledger code** — 0L leading, 2L IFRS. The first field of the key.', tip:'pk' },
-          { ad:'RACCT', aciklama:'G/L account — the **same** account is used across ledgers' },
-          { ad:'HSL', aciklama:'Amount in local currency — can **differ** by ledger' },
+          { ad:'RLDNR', aciklama:'**Ledger code**: 0L leading, 2L IFRS. The first field of the key.', tip:'pk' },
+          { ad:'RACCT', aciklama:'G/L account: the **same** account is used across ledgers' },
+          { ad:'HSL', aciklama:'Amount in local currency: can **differ** by ledger' },
           { ad:'BELNR', aciklama:'Document number', tip:'fk' },
           { ad:'DOCLN', aciklama:'Line number' },
         ] },
@@ -473,7 +473,7 @@ SAP.registerTopic({
         s4:'Managed via {{FINSC_LEDGER}}.',
         alanlar:[
           { ad:'RLDNR', aciklama:'Ledger code', tip:'pk' },
-          { ad:'XLEADING', aciklama:'**The leading-ledger flag** — only one in the system' },
+          { ad:'XLEADING', aciklama:'**The leading-ledger flag**: only one in the system' },
         ] },
 
       { ad:'BKPF', baslik:'Document header',
@@ -482,31 +482,31 @@ SAP.registerTopic({
         s4:'Unchanged.',
         alanlar:[
           { ad:'BELNR', aciklama:'Document number', tip:'pk' },
-          { ad:'BLART', aciklama:'Document type — a separate type is recommended for ledger-based postings' },
+          { ad:'BLART', aciklama:'Document type: a separate type is recommended for ledger-based postings' },
         ] },
 
       { ad:'ANLB', baslik:'Fixed asset depreciation areas',
-        tutar:'Each asset\'s settings by depreciation area — **the area ↔ ledger bridge**.',
+        tutar:'Each asset\'s settings by depreciation area: **the area ↔ ledger bridge**.',
         olusturan:'{{AS01}} (derived from the asset class)',
         guncelleyen:'{{AS02}}',
         anahtar:'BUKRS + ANLN1 + ANLN2 + AFABE',
         iliskiler:'Each area is tied to a ledger group; {{AFAB}} writes according to that mapping.',
         s4:'Unchanged.',
         alanlar:[
-          { ad:'AFABE', aciklama:'**Depreciation area** — 01 local, 32 IFRS', tip:'pk' },
-          { ad:'AFASL', aciklama:'Depreciation key — can differ by area' },
-          { ad:'NDJAR', aciklama:'Useful life (years) — **differs across areas**' },
+          { ad:'AFABE', aciklama:'**Depreciation area**: 01 local, 32 IFRS', tip:'pk' },
+          { ad:'AFASL', aciklama:'Depreciation key: can differ by area' },
+          { ad:'NDJAR', aciklama:'Useful life (years): **differs across areas**' },
         ] },
 
       { ad:'BSEG', baslik:'Document line items',
-        tutar:'The entry view. **Doesn\'t carry the ledger split** — which is why it\'s not used for parallel ledger analysis.',
+        tutar:'The entry view. **Doesn\'t carry the ledger split**: which is why it\'s not used for parallel ledger analysis.',
         olusturan:'Document posting',
         s4:'{{uyumluluk-view}}.' },
     ],
 
     er:{
       type:'er',
-      baslik:'Ledger architecture — RLDNR separates everything',
+      baslik:'Ledger architecture: RLDNR separates everything',
       varliklar:[
         { ad:'T881', rol:'Configuration', aciklama:'Ledger definition',
           alanlar:[{ ad:'RLDNR', tip:'pk' }, { ad:'XLEADING' }] },
@@ -538,20 +538,20 @@ SAP.registerTopic({
       'field, if used incorrectly, can corrupt every financial statement.',
 
     ekranlar:[
-      { ad:'{{FINSC_LEDGER}} — ledger definition',
+      { ad:'{{FINSC_LEDGER}}: ledger definition',
         aciklama:'The central screen where ledgers, groups, and currencies are defined.',
         alanlar:[
           { ad:'Ledger code', zorunlu:true, aciklama:'2 characters. 0L leading, 2L/3L additional ledgers.' },
           { ad:'Leading ledger flag', zorunlu:true, aciklama:'Can be set on **only one ledger**.' },
           { ad:'Company code assignment', zorunlu:true, aciklama:'An additional ledger can be opened in selected company codes.' },
           { ad:'Fiscal year variant', zorunlu:true, aciklama:'An additional ledger may use a **different variant**.' },
-          { ad:'Currencies', zorunlu:false, aciklama:'Up to 8 in S/4. **Cannot be added later** — plan it from the start.' },
+          { ad:'Currencies', zorunlu:false, aciklama:'Up to 8 in S/4. **Cannot be added later**: plan it from the start.' },
         ],
         ipucu:'The leading ledger is required to use the **company code\'s** fiscal year variant and is the ' +
-              'ledger integrated with CO. Additional ledgers aren\'t bound by these constraints — this ' +
+              'ledger integrated with CO. Additional ledgers aren\'t bound by these constraints: this ' +
               'flexibility is designed for companies whose group calendar differs.' },
 
-      { ad:'{{FB01L}} / {{FB50L}} — the ledger group field',
+      { ad:'{{FB01L}} / {{FB50L}}: the ledger group field',
         aciklama:'The screen where standards-based differences are entered; its only difference is the ledger group field.',
         alanlar:[
           { ad:'Ledger group', zorunlu:false, aciklama:'**The critical field.** Blank = every ledger. Filled ' +
@@ -565,7 +565,7 @@ SAP.registerTopic({
               'A practical fix: define a separate document type for ledger-based postings and set that ' +
               'type\'s default ledger group; also review that document type\'s postings at month-end.' },
 
-      { ad:'{{FAGLB03}} / {{FAGLL03}} — the ledger selection',
+      { ad:'{{FAGLB03}} / {{FAGLL03}}: the ledger selection',
         aciklama:'The ledger filter on reports; where parallel ledger becomes visible.',
         alanlar:[
           { ad:'Ledger', zorunlu:false, aciklama:'**If left blank, the leading ledger comes up.** Enter 2L for an IFRS report.' },
@@ -593,10 +593,10 @@ SAP.registerTopic({
       '**Define a separate document type for ledger-based postings.** It separates cleanly in reports, is ' +
       'controllable, and makes an "accidentally went to every ledger" mistake easy to catch.',
       'After every ledger-based posting, run **two checks**: is it in the target ledger, and is it absent from the others?',
-      'Run {{FAGLGVTR}} balance carryforward **for every ledger** — the most commonly forgotten closing step.',
+      'Run {{FAGLGVTR}} balance carryforward **for every ledger**: the most commonly forgotten closing step.',
       'Plan currencies **from the start**; adding one later is a migration project.',
       'Make sure the ledger code is visible in the report output so two reports don\'t get mixed up.',
-      'Test the {{amortisman-alani}} ↔ ledger mapping in fixed assets during setup — confirm that a single ' +
+      'Test the {{amortisman-alani}} ↔ ledger mapping in fixed assets during setup: confirm that a single ' +
       '{{AFAB}} run really writes to **both ledgers**.',
     ],
   },
@@ -605,15 +605,15 @@ SAP.registerTopic({
   teknik: {
     guncellenenTablolar:[
       { tablo:'ACDOCA', ne:'Every line carries `RLDNR`; if the ledger group is blank, **a separate line for every ledger**' },
-      { tablo:'BKPF', ne:'Document header — shared' },
-      { tablo:'BSEG', ne:'Entry view — **no ledger split**' },
+      { tablo:'BKPF', ne:'Document header: shared' },
+      { tablo:'BSEG', ne:'Entry view: **no ledger split**' },
       { tablo:'T881', ne:'Ledger definitions' },
-      { tablo:'ANLB', ne:'Depreciation area settings — the area ↔ ledger bridge' },
+      { tablo:'ANLB', ne:'Depreciation area settings: the area ↔ ledger bridge' },
       { tablo:'FAGLFLEXA', ne:'Ledger-based line items in ECC' },
     ],
 
     commit:
-      'On a posting with a blank ledger group, the system writes **a separate line for every ledger** — but ' +
+      'On a posting with a blank ledger group, the system writes **a separate line for every ledger**: but ' +
       '**within a single LUW**. So in a system with 2 ledgers, a 3-line document produces 6 lines in ' +
       '{{ACDOCA}}, and all of them are written in the same commit.\n\n' +
       'This guarantees data consistency: a posting existing in one ledger and not the other is **technically ' +
@@ -623,7 +623,7 @@ SAP.registerTopic({
 
     belgeNo:
       'Ledgers **share the same document number**. A separate number range isn\'t needed.\n\n' +
-      'However, defining a **separate document type** — and hence a separate number range — for ledger-based ' +
+      'However, defining a **separate document type**, and hence a separate number range, for ledger-based ' +
       'postings ({{FB01L}}) is a common and recommended practice: it lets "which postings were entered ' +
       'ledger-based?" be answered instantly with a document type filter.',
 
@@ -631,7 +631,7 @@ SAP.registerTopic({
       'At posting time, ledger assignment is determined in this order:\n\n' +
       '**1.** Is the ledger group **filled**? If so, it\'s written only to the ledgers in that group.\n' +
       '**2.** If the ledger group is **blank** → it\'s written to **every** ledger assigned to the company code.\n' +
-      '**3.** For fixed asset postings ({{AFAB}}), each {{amortisman-alani}} writes to its own ledger group — ' +
+      '**3.** For fixed asset postings ({{AFAB}}), each {{amortisman-alani}} writes to its own ledger group: ' +
       'the user doesn\'t choose a ledger, the mapping comes from the master data.\n' +
       '**4.** CO-originated postings go **only to the leading ledger** (CO works with a single standard).\n\n' +
       'Point 4\'s consequence matters: cost center allocations, internal order settlements, and other CO ' +
@@ -651,25 +651,25 @@ SAP.registerTopic({
       'opened via {{FBN1}}. Opening every range at the start of the year is part of the standard closing routine.',
 
     accountDetermination:
-      'Parallel ledger has no account determination of its own — **the same accounts** are used. The ' +
+      'Parallel ledger has no account determination of its own: **the same accounts** are used. The ' +
       'difference lies not in the accounts but in the **amounts**.\n\n' +
       'The exception is fixed assets: **different accounts** can be defined by depreciation area via ' +
-      '{{AO90}}. But this generally isn\'t preferred — using the same account and separating by ledger is ' +
+      '{{AO90}}. But this generally isn\'t preferred: using the same account and separating by ledger is ' +
       'cleaner, and keeps the financial statement structure uniform.',
 
     tur:
       '**Configuration:** ledger definitions, ledger groups, fiscal year variant assignments, depreciation ' +
       'area ↔ ledger mappings, document types.\n\n' +
-      '**Master data:** the area-specific settings in asset master data ({{ANLB}} — useful life, ' +
+      '**Master data:** the area-specific settings in asset master data ({{ANLB}}: useful life, ' +
       'depreciation key).\n\n' +
       '**Transaction data:** {{ACDOCA}} lines (separated by `RLDNR`).',
 
     transport:
       'Ledger definitions transport. **Two critical warnings:**\n\n' +
-      '**1.** Company code assignments may differ in the target system — an additional ledger may **not be ' +
+      '**1.** Company code assignments may differ in the target system: an additional ledger may **not be ' +
       'open** in some company codes on the production system.\n\n' +
       '**2. Currency settings cannot be changed once postings have begun.** A currency added on the test ' +
-      'system may **not be addable** on production. This is a constraint transport can\'t solve — it\'s a ' +
+      'system may **not be addable** on production. This is a constraint transport can\'t solve: it\'s a ' +
       'planning problem.\n\n' +
       'Depreciation area ↔ ledger mappings also transport, but they must be verified against the asset class ' +
       'settings on the target system for consistency.',
@@ -678,7 +678,7 @@ SAP.registerTopic({
       { yol:'SPRO → Financial Accounting → Financial Accounting Global Settings → Ledgers → Ledger → Define Ledgers', not:'{{FINSC_LEDGER}} → {{T881}}' },
       { yol:'SPRO → … → Ledgers → Ledger → Define Ledger Group', not:'{{defter-grubu}}' },
       { yol:'SPRO → … → Ledgers → Fiscal Year and Posting Periods → Assign Variants to Ledgers', not:'An additional ledger can use a different variant' },
-      { yol:'SPRO → Financial Accounting → Asset Accounting → Valuation → Depreciation Areas → Assign Ledger Groups to Depreciation Areas', not:'{{OADB}} — **the AA ↔ parallel ledger bridge**' },
+      { yol:'SPRO → Financial Accounting → Asset Accounting → Valuation → Depreciation Areas → Assign Ledger Groups to Depreciation Areas', not:'{{OADB}}: **the AA ↔ parallel ledger bridge**' },
     ],
 
     ekstra:[
@@ -705,7 +705,7 @@ SAP.registerTopic({
         '**c)** Profitability analysis (CO-PA) works on the leading ledger\'s logic; IFRS profitability must ' +
         'be calculated separately.\n\n' +
         'This is parallel ledger\'s **known and accepted limitation**. In most companies costing differences ' +
-        'are negligible so this doesn\'t cause problems — but if IFRS and local costing rules differ ' +
+        'are negligible so this doesn\'t cause problems: but if IFRS and local costing rules differ ' +
         'significantly, it\'s something that needs to be discussed early in the project.' },
     ],
 
@@ -729,12 +729,12 @@ SAP.registerTopic({
       'field, and parallel currency support went from 3 to **8**.',
 
     eccFarklari:[
-      { konu:'Ledger definition', ecc:'Several separate transactions', s4:'**{{FINSC_LEDGER}}** — a single point' },
-      { konu:'Ledger data', ecc:'{{FAGLFLEXA}} `RLDNR`', s4:'**{{ACDOCA}}** `RLDNR` — the first field of the key' },
+      { konu:'Ledger definition', ecc:'Several separate transactions', s4:'**{{FINSC_LEDGER}}**: a single point' },
+      { konu:'Ledger data', ecc:'{{FAGLFLEXA}} `RLDNR`', s4:'**{{ACDOCA}}** `RLDNR`: the first field of the key' },
       { konu:'Parallel currencies', ecc:'3 currencies', s4:'**Up to 8**' },
       { konu:'Ledger-based posting', ecc:'{{FB01L}}', s4:'The same + Fiori' },
       { konu:'Fixed asset integration', ecc:'Area ↔ ledger group', s4:'**The same**, but the area-count limit loosened' },
-      { konu:'Extension ledger', ecc:'Doesn\'t exist', s4:'**Extension Ledger** — a lightweight ledger holding only the differences' },
+      { konu:'Extension ledger', ecc:'Doesn\'t exist', s4:'**Extension Ledger**: a lightweight ledger holding only the differences' },
     ],
 
     universalJournal:
@@ -742,25 +742,25 @@ SAP.registerTopic({
       'consequence is that ledger-based queries are extremely fast, because the data is physically separated ' +
       'by ledger.\n\n' +
       'In ECC, ledger separation existed in {{FAGLFLEXA}}, but CO data sat in a separate table. In S/4HANA, ' +
-      'since FI and CO are in the same table, **the ledger dimension also covers CO data** — but CO postings ' +
+      'since FI and CO are in the same table, **the ledger dimension also covers CO data**: but CO postings ' +
       'still write only to the leading ledger (this is a logical constraint, not a technical one).',
 
     kalkanTcodes:[
       { eski:'ECC ledger-definition transactions', yeni:'{{FINSC_LEDGER}}', not:'A single management point' },
-      { eski:'—', yeni:'—', not:'{{FB01L}}, {{FB50L}}, {{FAGLL03}}, {{FAGLB03}} were **not removed**' },
+      { eski:', ', yeni:', ', not:'{{FB01L}}, {{FB50L}}, {{FAGLL03}}, {{FAGLB03}} were **not removed**' },
     ],
 
     fiori:[
       { ad:'Manage Ledgers', aciklama:'Views and manages ledger definitions.' },
       { ad:'Post General Journal Entries', aciklama:'In place of {{FB50L}}; includes the ledger group field.' },
       { ad:'Display Line Items in General Ledger', aciklama:'A ledger-filtered line item report.' },
-      { ad:'Trial Balance', aciklama:'A ledger-based trial balance — two standards side by side.' },
+      { ad:'Trial Balance', aciklama:'A ledger-based trial balance: two standards side by side.' },
       { ad:'Asset Accounting Overview', aciklama:'Shows the depreciation area ↔ ledger mapping visually.' },
     ],
 
     compatibilityViews:[
-      '{{FAGLFLEXA}} — a view derived from {{ACDOCA}}.',
-      '{{BSEG}} — **doesn\'t carry** the ledger split; can\'t be used for parallel ledger analysis.',
+      '{{FAGLFLEXA}}: a view derived from {{ACDOCA}}.',
+      '{{BSEG}}: **doesn\'t carry** the ledger split; can\'t be used for parallel ledger analysis.',
       'Ledger-based reports should read {{ACDOCA}} directly.',
     ],
 
@@ -772,7 +772,7 @@ SAP.registerTopic({
     bestPractices:[
       '**Evaluate the Extension Ledger:** a lightweight ledger holding only the differences, producing less ' +
       'data than a full additional ledger and ideal for simulation scenarios.',
-      'Replan currencies during the migration — S/4 supports up to eight, and **this is a decision that can\'t ' +
+      'Replan currencies during the migration: S/4 supports up to eight, and **this is a decision that can\'t ' +
       'be changed later**.',
       'Define a separate document type for ledger-based postings; filtering becomes easier in Fiori.',
       '**Test** the area ↔ ledger mapping in fixed assets during the migration; confirm that a single ' +
@@ -802,14 +802,14 @@ SAP.registerTopic({
     ],
 
     adimlar:[
-      { baslik:'The problem is confirmed — is it really zero?', tcode:'FAGLB03',
+      { baslik:'The problem is confirmed: is it really zero?', tcode:'FAGLB03',
         aciklama:'First, it\'s confirmed the report is being read correctly. (If the ledger field is left ' +
                  'blank, the leading ledger comes up and a false alarm results.)',
         girdi:[
           { alan:'Account', deger:'770100 Depreciation expense' },
           { alan:'Ledger **0L**', deger:'4,200,000 TRY ✓' },
           { alan:'Ledger **2L**', deger:'**0 TRY** ' },
-          { alan:'Check', deger:'The ledger field was deliberately set to 2L — **no** reading error' },
+          { alan:'Check', deger:'The ledger field was deliberately set to 2L: **no** reading error' },
         ],
         not:'The first step is always this: **is the report being read correctly?** In {{FAGLB03}}, if the ' +
              'ledger field is left blank, the leading ledger comes up and the user thinks they\'re seeing the ' +
@@ -818,14 +818,14 @@ SAP.registerTopic({
       { baslik:'Are there other postings in the IFRS ledger?', tcode:'FAGLL03',
         aciklama:'It\'s checked whether the ledger is entirely empty or only depreciation is missing.',
         girdi:[
-          { alan:'Ledger 2L — sales/purchase postings', deger:'**Present** ✓ — all six months of invoices' },
-          { alan:'Ledger 2L — opening balances', deger:'**Present** ✓' },
-          { alan:'Ledger 2L — depreciation', deger:'**Missing** ' },
+          { alan:'Ledger 2L, sales/purchase postings', deger:'**Present** ✓, all six months of invoices' },
+          { alan:'Ledger 2L: opening balances', deger:'**Present** ✓' },
+          { alan:'Ledger 2L: depreciation', deger:'**Missing** ' },
           { alan:'Inference', deger:'The ledger is working; the problem is **only on the fixed asset side**' },
         ],
         not:'This split narrows the diagnosis: the ledger definition is correct, postings flow in, and normal ' +
              'transactions with a blank ledger group go to both ledgers.\n\n' +
-             'What\'s missing is **only postings coming from {{AFAB}}** — so the problem lies in the ' +
+             'What\'s missing is **only postings coming from {{AFAB}}**: so the problem lies in the ' +
              '{{amortisman-alani}} ↔ ledger mapping.' },
 
       { baslik:'The depreciation areas are examined', tcode:'OADB',
@@ -837,10 +837,10 @@ SAP.registerTopic({
           { alan:'**Root cause**', deger:'Area 32 isn\'t **linked** to any ledger' },
         ],
         not:'**Root cause found.** Area 32 is defined in the setup, added to the asset classes, and its ' +
-             'values (with shorter useful lives) are calculating properly — but it\'s **writing to no ledger ' +
+             'values (with shorter useful lives) are calculating properly: but it\'s **writing to no ledger ' +
              'at all**.\n\n' +
              'This is parallel ledger setup\'s sneakiest mistake: everything looks right, area 32\'s values ' +
-             'show up in {{AS03}}, its depreciation schedule is correct in {{AW01N}} — but it never reaches ' +
+             'show up in {{AS03}}, its depreciation schedule is correct in {{AW01N}}: but it never reaches ' +
              'accounting.' },
 
       { baslik:'The missing mapping is defined', tcode:'OADB',
@@ -853,57 +853,57 @@ SAP.registerTopic({
         not:'The configuration fix took **two minutes**. But the real work starts now: what about the past ' +
              'six months?' },
 
-      { baslik:'A retroactive fix — three options are weighed', tcode:'AFAB',
+      { baslik:'A retroactive fix: three options are weighed', tcode:'AFAB',
         aciklama:'A decision is made on how to make up the six months of missing depreciation.',
         girdi:[
           { alan:'Option 1', deger:'Run {{AFAB}} from January onward in **repeat mode**' },
           { alan:'Option 2', deger:'Post a **single catch-up** entry in July' },
           { alan:'Option 3', deger:'Enter it by hand month by month with {{FB50L}}' },
-          { alan:'**Chosen**', deger:'**Option 1** — the periods are open, {{AFAB}} can be repeated' },
+          { alan:'**Chosen**', deger:'**Option 1**: the periods are open, {{AFAB}} can be repeated' },
         ],
-        not:'The January–June periods were still **open** for the IFRS ledger (only the leading ledger had ' +
+        not:'The January-June periods were still **open** for the IFRS ledger (only the leading ledger had ' +
              'been closed). This was possible because {{OB52}} allows period control on a per-ledger basis, ' +
              'not by luck.\n\n' +
              'Had the periods been closed, Option 2 would have been chosen and six months of depreciation ' +
-             'would have been crammed into a single July posting — technically correct, but the monthly IFRS ' +
+             'would have been crammed into a single July posting: technically correct, but the monthly IFRS ' +
              'income statement would look **completely broken**.' },
 
       { baslik:'Depreciation is run retroactively', tcode:'AFAB',
         aciklama:'It\'s rerun for each period from January through June.',
         girdi:[
-          { alan:'Periods', deger:'01–06 / 2027 · ledger 2L' },
+          { alan:'Periods', deger:'01-06 / 2027 · ledger 2L' },
           { alan:'Mode', deger:'Repeat · **test mode first**' },
           { alan:'Assets affected', deger:'1,850' },
           { alan:'Total posted', deger:'**5,130,000 TRY**' },
         ],
-        fis:{ baslik:'January 2027 depreciation — IFRS ledger (2L)', belgeTuru:'AF', tarih:'31.01.2027',
+        fis:{ baslik:'January 2027 depreciation: IFRS ledger (2L)', belgeTuru:'AF', tarih:'31.01.2027',
           satirlar:[
             { hesap:'770', ad:'Depreciation expense', borc:855000, not:'Area 32 → ledger **2L**' },
             { hesap:'257', ad:'Accumulated depreciation', alacak:855000 },
-          ], not:'The posting date is **January** — not July. Each month was written to its own period, so ' +
+          ], not:'The posting date is **January**: not July. Each month was written to its own period, so ' +
                  'the monthly IFRS income statement came out correctly.\n\n' +
-                 '700,000 TRY was posted for the same month in the leading ledger; 855,000 TRY in IFRS — a ' +
+                 '700,000 TRY was posted for the same month in the leading ledger; 855,000 TRY in IFRS: a ' +
                  '**155,000 TRY/month** difference, from the shorter useful lives.' },
         tabloEtkisi:[
           { tablo:'ACDOCA', ne:'`RLDNR` = **2L** lines for 6 periods × 1,850 assets' },
           { tablo:'ANLC', ne:'Area 32\'s accumulated depreciation values were updated' },
         ],
         not:'A total of **5,130,000 TRY**, in line with the expected ~5,100,000 TRY. The gap against the ' +
-             'leading ledger: 5,130,000 − 4,200,000 = **930,000 TRY** — six months\' worth of the IFRS/local ' +
+             'leading ledger: 5,130,000 − 4,200,000 = **930,000 TRY**: six months\' worth of the IFRS/local ' +
              'depreciation difference.' },
 
-      { baslik:'Verification — the two ledgers are compared', tcode:'FAGLB03',
+      { baslik:'Verification: the two ledgers are compared', tcode:'FAGLB03',
         aciklama:'It\'s confirmed the fix worked correctly.',
         girdi:[
           { alan:'770100 · ledger **0L**', deger:'4,200,000 TRY' },
           { alan:'770100 · ledger **2L**', deger:'**5,130,000 TRY** ✓' },
-          { alan:'Difference', deger:'930,000 TRY — accounted for' },
+          { alan:'Difference', deger:'930,000 TRY: accounted for' },
           { alan:'257 accumulated depreciation', deger:'0L: 4,200,000 · 2L: 5,130,000 ✓' },
         ],
-        not:'The same account, two different balances in the two ledgers — **and both are correct**. The ' +
+        not:'The same account, two different balances in the two ledgers: **and both are correct**. The ' +
              'difference is the inevitable result of the useful-life gap and is **explainable** to an auditor.' },
 
-      { baslik:'Prevention — the setup checklist is updated', tcode:'OADB',
+      { baslik:'Prevention: the setup checklist is updated', tcode:'OADB',
         aciklama:'A permanent measure is put in place so the same mistake doesn\'t recur.',
         girdi:[
           { alan:'Measure 1', deger:'**A mandatory step** for every new depreciation area: assign a ledger group' },
@@ -918,7 +918,7 @@ SAP.registerTopic({
     ],
 
     sonuc:
-      '**There was no depreciation in the IFRS ledger for six months** — and no error message ever appeared.\n\n' +
+      '**There was no depreciation in the IFRS ledger for six months**: and no error message ever appeared.\n\n' +
       '**Four key lessons:**\n\n' +
       '**1. The depreciation area ↔ ledger mapping is parallel ledger\'s most critical and most silent ' +
       'setting.** If the area is defined, appears on assets, and its values calculate correctly, everything ' +
@@ -933,7 +933,7 @@ SAP.registerTopic({
       'was written to **its own period**. Had the periods been closed, six months of depreciation would have ' +
       'been crammed into a single month, making the monthly IFRS income statement unusable.\n\n' +
       '**4. It\'s normal for the same account to have two balances in two ledgers.** Account 770100 shows ' +
-      '4,200,000 in the leading ledger and 5,130,000 TRY in the IFRS ledger — both correct. The classic "an ' +
+      '4,200,000 in the leading ledger and 5,130,000 TRY in the IFRS ledger: both correct. The classic "an ' +
       'account has one balance" habit doesn\'t hold in a system with parallel ledger, and that\'s the first ' +
       'thing that needs to be **taught to the team during setup**.',
   },

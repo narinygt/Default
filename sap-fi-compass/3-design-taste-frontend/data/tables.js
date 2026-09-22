@@ -1,15 +1,15 @@
 /* ==========================================================================
-   data/tables.js — SAP FI tablo sözlüğü
+   data/tables.js: SAP FI tablo sözlüğü
    --------------------------------------------------------------------------
    Metinde {{BSEG}} yazıldığında buradaki kayıt bulunur ve tıklanabilir çipe
    dönüşür. Alanlar:
-     ad         Tablo adı (SAP'ta birebir böyledir — çevrilmez)
+     ad         Tablo adı (SAP'ta birebir böyledir: çevrilmez)
      baslik     Türkçe adı
      aciklama   Ne tutar / nasıl oluşur
      modul      FI-GL, FI-AP, FI-AR, FI-AA, FI-BL, MM, SD, TEKNİK…
      tur        Hareket | Ana Veri | Özelleştirme | İndeks | Toplam | Kayıt
      anahtar    Birincil anahtar alanları
-     alanlar    [{ad, aciklama, tip:'pk'|'fk'|''}] — en önemli alanlar
+     alanlar    [{ad, aciklama, tip:'pk'|'fk'|''}]: en önemli alanlar
      olusturan  Bu tabloyu hangi işlem doldurur
      s4         S/4HANA'daki durumu
      konu       Bağlı konu id'si
@@ -28,7 +28,7 @@ SAP.registerTables([
       {ad:'BELNR', aciklama:'Belge numarası', tip:'pk'},
       {ad:'GJAHR', aciklama:'Mali yıl', tip:'pk'},
       {ad:'BLART', aciklama:'Belge türü (KR, SA, RV…)'},
-      {ad:'BUDAT', aciklama:'Kayıt tarihi — döneme bu tarih karar verir'},
+      {ad:'BUDAT', aciklama:'Kayıt tarihi: döneme bu tarih karar verir'},
       {ad:'BLDAT', aciklama:'Belge tarihi (faturanın üstündeki tarih)'},
       {ad:'MONAT', aciklama:'Kayıt dönemi'},
       {ad:'WAERS', aciklama:'Belge para birimi'},
@@ -38,7 +38,7 @@ SAP.registerTables([
     ]},
 
   { ad:'BSEG', baslik:'Muhasebe belgesi kalemleri', modul:'FI', tur:'Hareket', konu:'sap-tables',
-    aciklama:'Belgenin satırlarını tutar: hesap, tutar, borç/alacak göstergesi, maliyet yeri, vergi kodu. Cluster tablodur — bu yüzden doğrudan SELECT ile filtrelenmesi yavaştır.',
+    aciklama:'Belgenin satırlarını tutar: hesap, tutar, borç/alacak göstergesi, maliyet yeri, vergi kodu. Cluster tablodur: bu yüzden doğrudan SELECT ile filtrelenmesi yavaştır.',
     anahtar:'BUKRS + BELNR + GJAHR + BUZEI',
     olusturan:'FI belgesi kaydeden her işlem',
     s4:'S/4HANA’da hâlâ yazılır ama raporlama ACDOCA üzerinden yapılır. Cluster (RFBLG) yapısı nedeniyle ACDOCA’ya göre çok daha yavaştır.',
@@ -56,8 +56,8 @@ SAP.registerTables([
       {ad:'WRBTR', aciklama:'Belge para birimi tutarı'},
       {ad:'MWSKZ', aciklama:'Vergi kodu'},
       {ad:'KOSTL', aciklama:'Maliyet yeri'},
-      {ad:'ZUONR', aciklama:'Atama — otomatik kapatmanın (F.13) eşleştirme alanı'},
-      {ad:'AUGBL', aciklama:'Kapatma belgesi — doluysa kalem kapalıdır'},
+      {ad:'ZUONR', aciklama:'Atama: otomatik kapatmanın (F.13) eşleştirme alanı'},
+      {ad:'AUGBL', aciklama:'Kapatma belgesi: doluysa kalem kapalıdır'},
       {ad:'AUGDT', aciklama:'Kapatma tarihi'},
       {ad:'UMSKZ', aciklama:'Özel ana muhasebe göstergesi (avans, teminat…)'},
     ]},
@@ -68,10 +68,10 @@ SAP.registerTables([
     olusturan:'FI/CO’da muhasebeleşen her işlem',
     s4:'S/4HANA ile gelen tablodur. ECC’de karşılığı yoktur; BSEG + FAGLFLEXA + COEP + ANEP birleşimi diye düşünülebilir.',
     alanlar:[
-      {ad:'RLDNR', aciklama:'Defter (ledger) — paralel muhasebenin ayrım alanı', tip:'pk'},
+      {ad:'RLDNR', aciklama:'Defter (ledger): paralel muhasebenin ayrım alanı', tip:'pk'},
       {ad:'RBUKRS', aciklama:'Şirket kodu', tip:'pk'},
       {ad:'BELNR', aciklama:'Belge numarası', tip:'pk'},
-      {ad:'DOCLN', aciklama:'Kalem numarası (6 hane — BSEG’in BUZEI’sinden geniştir)', tip:'pk'},
+      {ad:'DOCLN', aciklama:'Kalem numarası (6 hane: BSEG’in BUZEI’sinden geniştir)', tip:'pk'},
       {ad:'RACCT', aciklama:'Hesap numarası'},
       {ad:'HSL', aciklama:'Şirket kodu para birimi tutarı'},
       {ad:'WSL', aciklama:'Belge para birimi tutarı'},
@@ -83,7 +83,7 @@ SAP.registerTables([
       {ad:'AWREF', aciklama:'Kaynak belge referansı'},
     ]},
 
-  /* BSET aşağıda ayrıntılı tanımlı — çift kayıt kaldırıldı (bkz. Ders #26). */
+  /* BSET aşağıda ayrıntılı tanımlı: çift kayıt kaldırıldı (bkz. Ders #26). */
 
   /* ================================================= İndeks tabloları === */
   { ad:'BSIS', baslik:'G/L açık kalemleri (indeks)', modul:'FI-GL', tur:'İndeks', konu:'sap-tables',
@@ -120,25 +120,25 @@ SAP.registerTables([
 
   { ad:'FAGLFLEXT', baslik:'Yeni ana muhasebe toplam tablosu', modul:'FI-GL', tur:'Toplam', konu:'new-gl',
     aciklama:'Hesap/defter/dönem bazında toplamları tutar. Bakiye raporları eskiden buradan okurdu.',
-    s4:'S/4HANA’da kaldırıldı — toplamlar artık ACDOCA’dan anlık (on-the-fly) hesaplanır.' },
+    s4:'S/4HANA’da kaldırıldı: toplamlar artık ACDOCA’dan anlık (on-the-fly) hesaplanır.' },
 
   { ad:'GLT0', baslik:'Klasik ana muhasebe toplamları', modul:'FI-GL', tur:'Toplam', konu:'gl-accounting',
     aciklama:'Klasik ana muhasebede hesap ve dönem bazında borç/alacak toplamlarını tutar (FS10N’in kaynağı).',
     s4:'S/4HANA’da uyumluluk view’ine dönüştürüldü.' },
 
   /* ==================================================== G/L ana veri === */
-  { ad:'SKA1', baslik:'G/L hesabı — hesap planı seviyesi', modul:'FI-GL', tur:'Ana Veri', konu:'master-data',
+  { ad:'SKA1', baslik:'G/L hesabı: hesap planı seviyesi', modul:'FI-GL', tur:'Ana Veri', konu:'master-data',
     aciklama:'Hesabın hesap planına ait bölümünü tutar: numara, hesap grubu, bilanço/gelir-gider ayrımı. Şirket kodundan bağımsızdır.',
     anahtar:'KTOPL + SAKNR',
     olusturan:'FS00 / FSP0',
     alanlar:[
       {ad:'KTOPL', aciklama:'Hesap planı', tip:'pk'},
       {ad:'SAKNR', aciklama:'Hesap numarası', tip:'pk'},
-      {ad:'KTOKS', aciklama:'Hesap grubu — numara aralığını ve alan durumunu belirler'},
+      {ad:'KTOKS', aciklama:'Hesap grubu: numara aralığını ve alan durumunu belirler'},
       {ad:'XBILK', aciklama:'Bilanço hesabı mı? (boşsa gelir-gider hesabı)'},
     ]},
 
-  { ad:'SKB1', baslik:'G/L hesabı — şirket kodu seviyesi', modul:'FI-GL', tur:'Ana Veri', konu:'master-data',
+  { ad:'SKB1', baslik:'G/L hesabı: şirket kodu seviyesi', modul:'FI-GL', tur:'Ana Veri', konu:'master-data',
     aciklama:'Hesabın şirket koduna özgü ayarlarını tutar: para birimi, vergi kategorisi, açık kalem yönetimi, alan durumu grubu, mutabakat hesabı tipi.',
     anahtar:'BUKRS + SAKNR',
     olusturan:'FS00 / FSS0',
@@ -146,10 +146,10 @@ SAP.registerTables([
       {ad:'BUKRS', aciklama:'Şirket kodu', tip:'pk'},
       {ad:'SAKNR', aciklama:'Hesap numarası', tip:'pk'},
       {ad:'WAERS', aciklama:'Hesap para birimi'},
-      {ad:'XOPVW', aciklama:'Açık kalem yönetimi açık mı? — kapatma yapılabilmesi için gerekli'},
+      {ad:'XOPVW', aciklama:'Açık kalem yönetimi açık mı? - kapatma yapılabilmesi için gerekli'},
       {ad:'XKRES', aciklama:'Kalem görüntüleme açık mı?'},
       {ad:'MITKZ', aciklama:'Mutabakat hesabı tipi: D müşteri, K satıcı, A duran varlık'},
-      {ad:'FSTAG', aciklama:'Alan durumu grubu — kayıt ekranında hangi alan zorunlu/gizli'},
+      {ad:'FSTAG', aciklama:'Alan durumu grubu: kayıt ekranında hangi alan zorunlu/gizli'},
     ]},
 
   { ad:'SKAT', baslik:'G/L hesap açıklamaları', modul:'FI-GL', tur:'Ana Veri', konu:'master-data',
@@ -175,10 +175,10 @@ SAP.registerTables([
     anahtar:'LIFNR + BUKRS',
     olusturan:'FK01 / XK01 / BP',
     alanlar:[
-      {ad:'AKONT', aciklama:'Mutabakat hesabı — satıcı bakiyesinin yansıdığı G/L hesabı'},
+      {ad:'AKONT', aciklama:'Mutabakat hesabı: satıcı bakiyesinin yansıdığı G/L hesabı'},
       {ad:'ZTERM', aciklama:'Ödeme koşulu (vade)'},
-      {ad:'ZWELS', aciklama:'İzin verilen ödeme yöntemleri — F110 buna bakar'},
-      {ad:'ZAHLS', aciklama:'Ödeme bloğu — doluysa F110 ödemez'},
+      {ad:'ZWELS', aciklama:'İzin verilen ödeme yöntemleri: F110 buna bakar'},
+      {ad:'ZAHLS', aciklama:'Ödeme bloğu: doluysa F110 ödemez'},
       {ad:'MAHNA', aciklama:'İhtar prosedürü'},
     ]},
 
@@ -206,12 +206,12 @@ SAP.registerTables([
       {ad:'MANSP', aciklama:'İhtar bloğu'},
     ]},
 
-  { ad:'MHNK', baslik:'İhtar verisi — başlık', modul:'FI-AR', tur:'Kayıt', konu:'dunning',
+  { ad:'MHNK', baslik:'İhtar verisi: başlık', modul:'FI-AR', tur:'Kayıt', konu:'dunning',
     aciklama:'Müşteri bazında ihtar geçmişini tutar: son ihtar tarihi, ulaşılan ihtar seviyesi.',
     anahtar:'KUNNR + BUKRS + MABER + MANST',
     olusturan:'{{F150}} ihtar çalıştırması' },
 
-  { ad:'MHND', baslik:'İhtar verisi — kalem', modul:'FI-AR', tur:'Kayıt', konu:'dunning',
+  { ad:'MHND', baslik:'İhtar verisi: kalem', modul:'FI-AR', tur:'Kayıt', konu:'dunning',
     aciklama:'Hangi kalemin hangi ihtar seviyesinde ihtar edildiğini tutar.',
     olusturan:'{{F150}}' },
 
@@ -230,12 +230,12 @@ SAP.registerTables([
     alanlar:[
       {ad:'ANLN1', aciklama:'Ana varlık numarası', tip:'pk'},
       {ad:'ANLN2', aciklama:'Alt varlık numarası', tip:'pk'},
-      {ad:'ANLKL', aciklama:'Varlık sınıfı — hesap belirlemeyi getirir'},
-      {ad:'AKTIV', aciklama:'Aktifleştirme tarihi — amortismanın başlangıcı'},
+      {ad:'ANLKL', aciklama:'Varlık sınıfı: hesap belirlemeyi getirir'},
+      {ad:'AKTIV', aciklama:'Aktifleştirme tarihi: amortismanın başlangıcı'},
     ]},
 
   { ad:'ANLB', baslik:'Varlık amortisman alanı verisi', modul:'FI-AA', tur:'Ana Veri', konu:'asset-accounting',
-    aciklama:'Her amortisman alanı (depreciation area) için amortisman anahtarı ve faydalı ömrü tutar. Aynı varlık farklı alanlarda farklı amortisman görebilir — vergi ve raporlama ayrımı buradan çıkar.' },
+    aciklama:'Her amortisman alanı (depreciation area) için amortisman anahtarı ve faydalı ömrü tutar. Aynı varlık farklı alanlarda farklı amortisman görebilir: vergi ve raporlama ayrımı buradan çıkar.' },
 
   { ad:'ANLC', baslik:'Varlık yıllık değer toplamları', modul:'FI-AA', tur:'Toplam', konu:'asset-accounting',
     aciklama:'Varlığın yıl bazında edinim değeri, birikmiş amortismanı ve dönem amortismanını tutar. AW01N’in değer sekmesi buradan okur.',
@@ -247,7 +247,7 @@ SAP.registerTables([
     olusturan:'ABZON, F-90, ABAVN, ABUMN',
     s4:'S/4HANA’da ACDOCA’ya taşındı; ANEP uyumluluk view’idir.' },
 
-  { ad:'ANEA', baslik:'Varlık hareketi — amortisman payı', modul:'FI-AA', tur:'Hareket', konu:'asset-accounting',
+  { ad:'ANEA', baslik:'Varlık hareketi: amortisman payı', modul:'FI-AA', tur:'Hareket', konu:'asset-accounting',
     aciklama:'Çıkış hareketlerinde birikmiş amortismanın ne kadarının düşüleceğini tutar.' },
 
   { ad:'ANLZ', baslik:'Varlık zaman bağımlı verisi', modul:'FI-AA', tur:'Ana Veri', konu:'asset-accounting',
@@ -268,7 +268,7 @@ SAP.registerTables([
   { ad:'T012K', baslik:'Ev bankası hesap kimlikleri', modul:'FI-BL', tur:'Özelleştirme', konu:'bank-accounting',
     aciklama:'Her ev bankası hesabının IBAN’ını ve karşılık gelen G/L hesabını tutar. F110’un banka belirlemesi buraya bakar.' },
 
-  { ad:'REGUH', baslik:'Ödeme çalıştırması — ödeme başlıkları', modul:'FI-AP', tur:'Kayıt', konu:'f110',
+  { ad:'REGUH', baslik:'Ödeme çalıştırması: ödeme başlıkları', modul:'FI-AP', tur:'Kayıt', konu:'f110',
     aciklama:'F110’un ürettiği her ödemenin başlığı: alıcı, tutar, banka, ödeme yöntemi, ödeme belgesi numarası.',
     anahtar:'LAUFD + LAUFI + XVORL + ZBUKR + LIFNR + KUNNR + VBLNR',
     olusturan:'F110 öneri (proposal) ve ödeme çalıştırması',
@@ -280,11 +280,11 @@ SAP.registerTables([
       {ad:'VBLNR', aciklama:'Ödeme belgesi numarası'},
     ]},
 
-  { ad:'REGUP', baslik:'Ödeme çalıştırması — ödenen kalemler', modul:'FI-AP', tur:'Kayıt', konu:'f110',
+  { ad:'REGUP', baslik:'Ödeme çalıştırması: ödenen kalemler', modul:'FI-AP', tur:'Kayıt', konu:'f110',
     aciklama:'Her ödemenin hangi fatura kalemlerini kapattığını tutar. "Bu ödeme hangi faturaları kapattı?" sorusunun cevabı burasıdır.',
     olusturan:'F110' },
 
-  { ad:'REGUV', baslik:'Ödeme çalıştırması — kontrol kaydı', modul:'FI-AP', tur:'Kayıt', konu:'f110',
+  { ad:'REGUV', baslik:'Ödeme çalıştırması: kontrol kaydı', modul:'FI-AP', tur:'Kayıt', konu:'f110',
     aciklama:'Çalıştırmanın durumunu tutar: parametreler girildi mi, öneri üretildi mi, ödeme yapıldı mı.' },
 
   { ad:'PAYR', baslik:'Çek kayıt defteri', modul:'FI-BL', tur:'Kayıt', konu:'bank-accounting',
@@ -318,7 +318,7 @@ SAP.registerTables([
     alanlar:[
       {ad:'NRRANGENR', aciklama:'Numara aralığı anahtarı'},
       {ad:'FROMNUMBER / TONUMBER', aciklama:'Aralığın alt ve üst sınırı'},
-      {ad:'NRLEVEL', aciklama:'**Güncel sayaç** — bir sonraki belge bu değerin üstünden alınır'},
+      {ad:'NRLEVEL', aciklama:'**Güncel sayaç**: bir sonraki belge bu değerin üstünden alınır'},
     ]},
 
   { ad:'T003', baslik:'Belge türü tanımı', modul:'FI', tur:'Özelleştirme', konu:'document-posting',
@@ -378,7 +378,7 @@ SAP.registerTables([
       {ad:'BELNR', aciklama:'Fatura belgesi numarası', tip:'pk'},
       {ad:'LIFNR', aciklama:'Satıcı', tip:'fk'},
       {ad:'RMWWR', aciklama:'Fatura brüt tutarı'},
-      {ad:'ZLSPR', aciklama:'Ödeme bloğu — fiyat/miktar farkı varsa otomatik dolar'},
+      {ad:'ZLSPR', aciklama:'Ödeme bloğu: fiyat/miktar farkı varsa otomatik dolar'},
     ]},
 
   { ad:'RSEG', baslik:'Lojistik fatura kalemleri', modul:'MM-IV', tur:'Hareket', konu:'accounts-payable',
@@ -391,7 +391,7 @@ SAP.registerTables([
       {ad:'WRBTR', aciklama:'Kalem tutarı'},
     ]},
 
-  { ad:'T042', baslik:'Ödeme programı — şirket kodu ayarları', modul:'FI-AP', tur:'Özelleştirme', konu:'f110',
+  { ad:'T042', baslik:'Ödeme programı: şirket kodu ayarları', modul:'FI-AP', tur:'Özelleştirme', konu:'f110',
     aciklama:'{{FBZP}}’de girilen ödeme programı yapılandırmasını tutar: ödeme yapan şirket kodu, tolerans günleri, minimum tutar.',
     olusturan:'{{FBZP}}' },
 
@@ -414,13 +414,13 @@ SAP.registerTables([
     s4:'Değişmedi.',
     alanlar:[
       {ad:'KALSM', aciklama:'Vergi hesaplama prosedürü (ülkeye bağlı)'},
-      {ad:'MWSKZ', aciklama:'Vergi kodu — iki karakter', tip:'pk'},
+      {ad:'MWSKZ', aciklama:'Vergi kodu: iki karakter', tip:'pk'},
       {ad:'MWART', aciklama:'Vergi tipi: **A** çıkış (hesaplanan), **V** giriş (indirilecek)'},
     ]},
 
-  { ad:'T030K', baslik:'Vergi hesap belirleme — verginin hangi hesaba yazılacağı', modul:'FI-GL', tur:'Özelleştirme', konu:'taxes',
+  { ad:'T030K', baslik:'Vergi hesap belirleme: verginin hangi hesaba yazılacağı', modul:'FI-GL', tur:'Özelleştirme', konu:'taxes',
     aciklama:'Bir vergi işleminin hangi G/L hesabına kaydedileceğini tutar. ' +
-             '{{OB40}} bu tabloyu doldurur. **{{T030}} ailesinin vergi üyesidir** — ' +
+             '{{OB40}} bu tabloyu doldurur. **{{T030}} ailesinin vergi üyesidir**: ' +
              'MM’de {{OBYC}}, SD’de {{VKOA}} aynı aileye yazar.',
     olusturan:'{{OB40}}',
     guncelleyen:'{{OB40}} · taşıma isteğiyle sisteme geçer',
@@ -429,13 +429,13 @@ SAP.registerTables([
               'sonuç {{BSEG}} `HKONT` ve {{BSET}}’e yazılır.',
     s4:'Değişmedi. S/4HANA’da da vergi hesap belirlemesinin tek kaynağıdır.',
     alanlar:[
-      {ad:'KTOPL', aciklama:'**Hesap planı** — anahtarın ilk alanı. Farklı hesap planı = farklı satır.', tip:'pk'},
-      {ad:'KTOSL', aciklama:'**İşlem anahtarı** — verginin türünü belirtir: ' +
+      {ad:'KTOPL', aciklama:'**Hesap planı**: anahtarın ilk alanı. Farklı hesap planı = farklı satır.', tip:'pk'},
+      {ad:'KTOSL', aciklama:'**İşlem anahtarı**: verginin türünü belirtir: ' +
                             '`MWS` hesaplanan (çıkış) KDV · `VST` indirilecek (giriş) KDV · ' +
                             '`NAV` indirilemeyen · `NVV` indirilemeyen, hesap atamasına dağıtılan', tip:'pk'},
-      {ad:'MWSKZ', aciklama:'**Vergi kodu** — yalnızca "koda göre ayrım" işaretlendiğinde dolar. ' +
+      {ad:'MWSKZ', aciklama:'**Vergi kodu**: yalnızca "koda göre ayrım" işaretlendiğinde dolar. ' +
                             'Boşsa o işlem anahtarındaki **tüm kodlar** aynı hesaba gider.', tip:'fk'},
-      {ad:'KONTS', aciklama:'**Belirlenen G/L hesabı** — 191 indirilecek, 391 hesaplanan KDV'},
+      {ad:'KONTS', aciklama:'**Belirlenen G/L hesabı**: 191 indirilecek, 391 hesaplanan KDV'},
       {ad:'KONTH', aciklama:'Alacak tarafı hesabı (borç/alacak ayrımı yapılan kurulumlarda)'},
     ]},
 
@@ -445,10 +445,10 @@ SAP.registerTables([
     anahtar:'BUKRS + BELNR + GJAHR + BUZEI',
     s4:'Duruyor; {{ACDOCA}} vergi tutarını taşır ama beyan hâlâ BSET’e dayanır.',
     alanlar:[
-      {ad:'HWBAS', aciklama:'**Matrah** — verginin üzerinden hesaplandığı tutar (yerel para)'},
+      {ad:'HWBAS', aciklama:'**Matrah**: verginin üzerinden hesaplandığı tutar (yerel para)'},
       {ad:'HWSTE', aciklama:'Vergi tutarı (yerel para)'},
       {ad:'MWSKZ', aciklama:'Vergi kodu', tip:'fk'},
-      {ad:'KTOSL', aciklama:'İşlem anahtarı — MWS / VST / NAV'},
+      {ad:'KTOSL', aciklama:'İşlem anahtarı: MWS / VST / NAV'},
     ]},
 
   { ad:'CSKS', baslik:'Maliyet yeri ana verisi', modul:'CO', tur:'Ana Veri', konu:'cost-center',
@@ -459,8 +459,8 @@ SAP.registerTables([
     alanlar:[
       {ad:'KOKRS', aciklama:'Kontrol alanı', tip:'pk'},
       {ad:'KOSTL', aciklama:'Maliyet yeri', tip:'pk'},
-      {ad:'DATBI', aciklama:'**Geçerlilik bitiş tarihi** — anahtarın parçası; zaman dilimli ana veri'},
-      {ad:'PRCTR', aciklama:'{{kar-merkezi}} — FI kaydına buradan türetilir', tip:'fk'},
+      {ad:'DATBI', aciklama:'**Geçerlilik bitiş tarihi**: anahtarın parçası; zaman dilimli ana veri'},
+      {ad:'PRCTR', aciklama:'{{kar-merkezi}}: FI kaydına buradan türetilir', tip:'fk'},
       {ad:'VERAK', aciklama:'Sorumlu kişi'},
     ]},
 
@@ -470,7 +470,7 @@ SAP.registerTables([
     anahtar:'KOKRS + KSTAR + DATBI',
     s4:'S/4HANA’da masraf türü G/L hesabının bir **özelliğidir** ({{FS00}} içinde); ayrı {{KA01}} zorunluluğu kalktı.',
     alanlar:[
-      {ad:'KSTAR', aciklama:'Masraf türü — G/L hesap numarasıyla **aynıdır**', tip:'pk'},
+      {ad:'KSTAR', aciklama:'Masraf türü: G/L hesap numarasıyla **aynıdır**', tip:'pk'},
       {ad:'KATYP', aciklama:'**Kategori:** 1 birincil · 11 gelir · 42 devir · 43 hizmet aktarımı'},
     ]},
 
@@ -483,7 +483,7 @@ SAP.registerTables([
     aciklama:'CO tarafındaki gerçek maliyet kalemleri. ECC’de FI ile **ayrı** tutulurdu; mutabakat gerektirirdi.',
     olusturan:'FI kaydı veya CO işlemi',
     anahtar:'KOKRS + BELNR + BUZEI',
-    s4:'**{{ACDOCA}} ile birleşti** — FI ve CO artık aynı tabloda; mutabakat kavramı ortadan kalktı.',
+    s4:'**{{ACDOCA}} ile birleşti**: FI ve CO artık aynı tabloda; mutabakat kavramı ortadan kalktı.',
     alanlar:[
       {ad:'OBJNR', aciklama:'CO nesnesi (maliyet yeri, iç sipariş…)'},
       {ad:'KSTAR', aciklama:'Masraf türü', tip:'fk'},
@@ -497,7 +497,7 @@ SAP.registerTables([
     s4:'Değişmedi.',
     alanlar:[
       {ad:'AUFNR', aciklama:'Sipariş numarası', tip:'pk'},
-      {ad:'AUART', aciklama:'Sipariş tipi — davranışı ve numara aralığını belirler'},
+      {ad:'AUART', aciklama:'Sipariş tipi: davranışı ve numara aralığını belirler'},
       {ad:'PHAS0/1/2/3', aciklama:'Durum: açıldı · serbest · teknik olarak kapalı · kapalı'},
     ]},
 
@@ -508,9 +508,9 @@ SAP.registerTables([
     anahtar:'AUSBK + BUKRS + BELNR + GJAHR',
     s4:'Değişmedi.',
     alanlar:[
-      {ad:'BELNR', aciklama:'Belge numarası — **park anında verilir**, muhasebeleşince aynı numara kullanılır', tip:'pk'},
+      {ad:'BELNR', aciklama:'Belge numarası: **park anında verilir**, muhasebeleşince aynı numara kullanılır', tip:'pk'},
       {ad:'BSTAT', aciklama:'Belge durumu: **V** ön kayıt · **Z** istatistiksel'},
-      {ad:'USNAM', aciklama:'Park eden kullanıcı — dört-göz kontrolünün dayanağı'},
+      {ad:'USNAM', aciklama:'Park eden kullanıcı: dört-göz kontrolünün dayanağı'},
     ]},
 
   { ad:'VBSEG', baslik:'Ön kayıtlı belge kalemleri', modul:'FI-GL', tur:'Hareket', konu:'document-parking',
@@ -526,7 +526,7 @@ SAP.registerTables([
     s4:'Değişmedi.',
     alanlar:[
       {ad:'MAHNA', aciklama:'İhtar prosedürü kodu', tip:'pk'},
-      {ad:'MANWT', aciklama:'İhtar aralığı (gün) — iki ihtar arasındaki asgari süre'},
+      {ad:'MANWT', aciklama:'İhtar aralığı (gün): iki ihtar arasındaki asgari süre'},
     ]},
 
   { ad:'TKA01', baslik:'Kontrol alanı tanımı', modul:'CO', tur:'Özelleştirme', konu:'co-integration',
@@ -536,11 +536,11 @@ SAP.registerTables([
     s4:'Değişmedi.',
     alanlar:[
       {ad:'KOKRS', aciklama:'Kontrol alanı', tip:'pk'},
-      {ad:'KTOPL', aciklama:'Hesap planı — **şirket kodlarıyla aynı olmalı**', tip:'fk'},
+      {ad:'KTOPL', aciklama:'Hesap planı: **şirket kodlarıyla aynı olmalı**', tip:'fk'},
       {ad:'WAERS', aciklama:'Kontrol alanı para birimi'},
     ]},
 
-  { ad:'EDOCUMENT', baslik:'E-belge başlığı — muhasebe belgesinin elektronik ikizi', modul:'FI', tur:'Hareket', konu:'e-donusum',
+  { ad:'EDOCUMENT', baslik:'E-belge başlığı: muhasebe belgesinin elektronik ikizi', modul:'FI', tur:'Hareket', konu:'e-donusum',
     aciklama:'Her e-belgenin **statüsünü ve kaynak belgeye bağlantısını** tutar. ' +
              'Muhasebe belgesinden **ayrı bir nesnedir**: {{BKPF}} başarılı olsa bile ' +
              'buradaki statü **hata** veya **red** olabilir.',
@@ -550,16 +550,16 @@ SAP.registerTables([
     s4:'S/4HANA’da **DRC** (Document and Reporting Compliance) çatısı altında; tablo yapısı korunur.',
     alanlar:[
       {ad:'EDOC_GUID', aciklama:'E-belge kimliği', tip:'pk'},
-      {ad:'SOURCE_TYPE', aciklama:'Kaynak tipi — FI faturası mı, SD faturası mı'},
-      {ad:'SOURCE_KEY', aciklama:'Kaynak belge anahtarı — {{BKPF}} / {{VBRK}} bağlantısı', tip:'fk'},
-      {ad:'EDOC_TYPE', aciklama:'E-belge tipi — e-fatura, e-arşiv, e-irsaliye'},
-      {ad:'EDOC_STATUS', aciklama:'**Statü** — oluştu / gönderildi / kabul / **red** / hata'},
-      {ad:'PROC_STATUS', aciklama:'İşlem durumu — yeniden gönderim gerekip gerekmediği'},
+      {ad:'SOURCE_TYPE', aciklama:'Kaynak tipi: FI faturası mı, SD faturası mı'},
+      {ad:'SOURCE_KEY', aciklama:'Kaynak belge anahtarı: {{BKPF}} / {{VBRK}} bağlantısı', tip:'fk'},
+      {ad:'EDOC_TYPE', aciklama:'E-belge tipi: e-fatura, e-arşiv, e-irsaliye'},
+      {ad:'EDOC_STATUS', aciklama:'**Statü**: oluştu / gönderildi / kabul / **red** / hata'},
+      {ad:'PROC_STATUS', aciklama:'İşlem durumu: yeniden gönderim gerekip gerekmediği'},
     ]},
 
-  { ad:'EDOCUMENTFILE', baslik:'E-belge dosyası — gönderilen XML’in kendisi', modul:'FI', tur:'Hareket', konu:'e-donusum',
+  { ad:'EDOCUMENTFILE', baslik:'E-belge dosyası: gönderilen XML’in kendisi', modul:'FI', tur:'Hareket', konu:'e-donusum',
     aciklama:'Üretilen **UBL-TR XML**’i ve GİB’den dönen yanıt dosyalarını saklar. ' +
-             '*"Faturada ne gönderdik?"* sorusunun tek kesin cevabı buradadır — ' +
+             '*"Faturada ne gönderdik?"* sorusunun tek kesin cevabı buradadır: ' +
              'ekran değil, **gönderilen dosya** esastır.',
     olusturan:'E-belge üretimi ve her yanıt alışı',
     anahtar:'EDOC_GUID + FILE_GUID',
@@ -568,10 +568,10 @@ SAP.registerTables([
     alanlar:[
       {ad:'EDOC_GUID', aciklama:'E-belge kimliği', tip:'fk'},
       {ad:'FILE_TYPE', aciklama:'Giden XML mi, gelen yanıt mı'},
-      {ad:'FILE_RAW', aciklama:'**XML içeriği** — uyuşmazlıkta bakılacak yer'},
+      {ad:'FILE_RAW', aciklama:'**XML içeriği**: uyuşmazlıkta bakılacak yer'},
     ]},
 
-  { ad:'EDIDC', baslik:'IDoc kontrol kaydı — statünün tutulduğu yer', modul:'TEKNİK', tur:'Sistem', konu:'data-upload',
+  { ad:'EDIDC', baslik:'IDoc kontrol kaydı: statünün tutulduğu yer', modul:'TEKNİK', tur:'Sistem', konu:'data-upload',
     aciklama:'Her {{idoc}}’un başlığını ve **statüsünü** tutar. ' +
              'IDoc’un en büyük avantajının teknik temeli budur: ' +
              'başarısız mesaj **kaybolmaz**, statüsüyle birlikte tabloda kalır ' +
@@ -582,10 +582,10 @@ SAP.registerTables([
     s4:'Değişmedi.',
     alanlar:[
       {ad:'DOCNUM', aciklama:'IDoc numarası', tip:'pk'},
-      {ad:'STATUS', aciklama:'**Statü** — 53 başarılı · 51 uygulama hatası · **56 partner profili yok**'},
-      {ad:'MESTYP', aciklama:'Mesaj tipi — hangi iş nesnesi'},
-      {ad:'DIRECT', aciklama:'Yön — 1 giden, 2 gelen'},
-      {ad:'SNDPRN / RCVPRN', aciklama:'Gönderen / alan partner — {{WE20}} profiliyle eşleşmeli'},
+      {ad:'STATUS', aciklama:'**Statü**: 53 başarılı · 51 uygulama hatası · **56 partner profili yok**'},
+      {ad:'MESTYP', aciklama:'Mesaj tipi: hangi iş nesnesi'},
+      {ad:'DIRECT', aciklama:'Yön: 1 giden, 2 gelen'},
+      {ad:'SNDPRN / RCVPRN', aciklama:'Gönderen / alan partner: {{WE20}} profiliyle eşleşmeli'},
     ]},
 
   { ad:'BALHDR', baslik:'Uygulama günlüğü başlığı', modul:'TEKNİK', tur:'Sistem', konu:'error-handling',
@@ -598,11 +598,11 @@ SAP.registerTables([
     s4:'Değişmedi.',
     alanlar:[
       {ad:'LOGNUMBER', aciklama:'Günlük numarası', tip:'pk'},
-      {ad:'OBJECT', aciklama:'Uygulama nesnesi — hangi programın günlüğü'},
-      {ad:'SUBOBJECT', aciklama:'Alt nesne — çalıştırma türü'},
+      {ad:'OBJECT', aciklama:'Uygulama nesnesi: hangi programın günlüğü'},
+      {ad:'SUBOBJECT', aciklama:'Alt nesne: çalıştırma türü'},
       {ad:'ALDATE', aciklama:'Günlük tarihi'},
       {ad:'ALUSER', aciklama:'Çalıştıran kullanıcı'},
-      {ad:'PROBCLASS', aciklama:'**En yüksek mesaj sınıfı** — 1 çok kritik … 4 bilgi'},
+      {ad:'PROBCLASS', aciklama:'**En yüksek mesaj sınıfı**: 1 çok kritik … 4 bilgi'},
     ]},
 
   { ad:'TSTC', baslik:'İşlem kodu tanımları', modul:'TEKNİK', tur:'Sistem', konu:'tcodes',
@@ -616,20 +616,20 @@ SAP.registerTables([
       {ad:'TCODE', aciklama:'İşlem kodu', tip:'pk'},
       {ad:'PGMNA', aciklama:'Arkasındaki ABAP programı'},
       {ad:'DYPNO', aciklama:'Ekran numarası'},
-      {ad:'CINFO', aciklama:'Tip bilgisi — diyalog / rapor / parametre işlemi'},
+      {ad:'CINFO', aciklama:'Tip bilgisi: diyalog / rapor / parametre işlemi'},
     ]},
 
   { ad:'TSTCT', baslik:'İşlem kodu metinleri', modul:'TEKNİK', tur:'Sistem', konu:'tcodes',
     aciklama:'İşlem kodlarının **dile göre** açıklamaları. Kod adı bilinmiyorsa ' +
-             '**açıklamadan arama** buradan yapılır — `TEXT` alanına `*fatura*` yazılır.',
+             '**açıklamadan arama** buradan yapılır: `TEXT` alanına `*fatura*` yazılır.',
     olusturan:'SAP standart teslimatı',
     anahtar:'SPRSL + TCODE',
     iliskiler:'{{TSTC}} tablosunun metin uzantısı.',
     s4:'Değişmedi.',
     alanlar:[
-      {ad:'SPRSL', aciklama:'Dil anahtarı — TR / EN / DE', tip:'pk'},
+      {ad:'SPRSL', aciklama:'Dil anahtarı: TR / EN / DE', tip:'pk'},
       {ad:'TCODE', aciklama:'İşlem kodu', tip:'pk'},
-      {ad:'TTEXT', aciklama:'**Açıklama** — kod aramanın en pratik alanı'},
+      {ad:'TTEXT', aciklama:'**Açıklama**: kod aramanın en pratik alanı'},
     ]},
 
   { ad:'GB01', baslik:'Boolean sınıfı alan kontrolü', modul:'FI-GL', tur:'Özelleştirme', konu:'dogrulama-ikame',
@@ -639,9 +639,9 @@ SAP.registerTables([
     anahtar:'CLASS + TABNAME + FIELDNAME',
     s4:'Değişmedi.',
     alanlar:[
-      {ad:'CLASS', aciklama:'Boolean sınıfı — FI belgeleri için **09**', tip:'pk'},
+      {ad:'CLASS', aciklama:'Boolean sınıfı: FI belgeleri için **09**', tip:'pk'},
       {ad:'TABNAME / FIELDNAME', aciklama:'Tablo ve alan adı (BKPF/BSEG alanları)', tip:'pk'},
-      {ad:'EXCL_SUBST', aciklama:'**İkameden hariç** işareti — doluysa o alan değiştirilemez'},
+      {ad:'EXCL_SUBST', aciklama:'**İkameden hariç** işareti: doluysa o alan değiştirilemez'},
     ]},
 
   { ad:'T880', baslik:'Şirket (company) tanımı', modul:'FI-GL', tur:'Özelleştirme', konu:'org-yapisi',
@@ -656,13 +656,13 @@ SAP.registerTables([
     ]},
 
   { ad:'T014', baslik:'Kredi kontrol alanı tanımı', modul:'FI-AR', tur:'Özelleştirme', konu:'org-yapisi',
-    aciklama:'{{kredi-limiti}} kontrolünün yapıldığı organizasyon birimi. Bir kredi kontrol alanına **birden çok şirket kodu** bağlanabilir — grup şirketleri arasında ortak limit için.',
+    aciklama:'{{kredi-limiti}} kontrolünün yapıldığı organizasyon birimi. Bir kredi kontrol alanına **birden çok şirket kodu** bağlanabilir: grup şirketleri arasında ortak limit için.',
     olusturan:'{{OB45}}',
     anahtar:'KKBER',
     s4:'SAP Credit Management ile birlikte kullanılır.',
     alanlar:[
       {ad:'KKBER', aciklama:'Kredi kontrol alanı', tip:'pk'},
-      {ad:'WAERS', aciklama:'Para birimi — limitlerin izlendiği birim'},
+      {ad:'WAERS', aciklama:'Para birimi: limitlerin izlendiği birim'},
     ]},
 
   { ad:'T074', baslik:'Özel ana muhasebe hesap belirleme', modul:'FI-GL', tur:'Özelleştirme', konu:'special-gl',
@@ -671,9 +671,9 @@ SAP.registerTables([
     anahtar:'KOART + SHBKZ + HKONT',
     s4:'Değişmedi.',
     alanlar:[
-      {ad:'KOART', aciklama:'Hesap tipi — **K** satıcı, **D** müşteri'},
+      {ad:'KOART', aciklama:'Hesap tipi: **K** satıcı, **D** müşteri'},
       {ad:'SHBKZ', aciklama:'Özel ana muhasebe göstergesi (A avans, F talep, W senet)'},
-      {ad:'HKONT', aciklama:'**Normal** mutabakat hesabı (320) — eşleşmenin en sık atlanan alanı'},
+      {ad:'HKONT', aciklama:'**Normal** mutabakat hesabı (320): eşleşmenin en sık atlanan alanı'},
       {ad:'SKONT', aciklama:'**Alternatif** mutabakat hesabı (159)'},
     ]},
 
@@ -683,8 +683,8 @@ SAP.registerTables([
     anahtar:'RLDNR',
     s4:'{{FINSC_LEDGER}} ile yönetilir; {{ACDOCA}} her satırda `RLDNR` taşır.',
     alanlar:[
-      {ad:'RLDNR', aciklama:'Defter kodu — **0L** lider defter', tip:'pk'},
-      {ad:'XLEADING', aciklama:'Lider defter işareti — sistemde **yalnızca bir tane** olabilir'},
+      {ad:'RLDNR', aciklama:'Defter kodu: **0L** lider defter', tip:'pk'},
+      {ad:'XLEADING', aciklama:'Lider defter işareti: sistemde **yalnızca bir tane** olabilir'},
     ]},
 
   { ad:'FAGL_SPLINFO', baslik:'Belge bölme bilgisi', modul:'FI-GL', tur:'Hareket', konu:'new-gl',
@@ -694,8 +694,8 @@ SAP.registerTables([
     s4:'Duruyor; bölme sonucu ayrıca {{ACDOCA}} satırlarına yansır.' },
 
   /* ------------------------------- Veri geçişi / taşıma / S4 partisi --- */
-  { ad:'BUT000', baslik:'İş Ortağı — genel veri', modul:'Çapraz', tur:'Ana Veri', konu:'s4-yenilikleri',
-    aciklama:'S/4HANA\u2019da satıcı ve müşteri ana verisinin **ortak** başlık tablosu. {{is-ortagi}} tek nesnedir; satıcı ve müşteri artık onun **rolleridir**. Şirket kodu ve satın alma/satış verileri hâlâ {{LFB1}} ve {{KNB1}}\u2019de durur — {{BUT000}} onların üstündeki kimliktir.',
+  { ad:'BUT000', baslik:'İş Ortağı: genel veri', modul:'Çapraz', tur:'Ana Veri', konu:'s4-yenilikleri',
+    aciklama:'S/4HANA\u2019da satıcı ve müşteri ana verisinin **ortak** başlık tablosu. {{is-ortagi}} tek nesnedir; satıcı ve müşteri artık onun **rolleridir**. Şirket kodu ve satın alma/satış verileri hâlâ {{LFB1}} ve {{KNB1}}\u2019de durur: {{BUT000}} onların üstündeki kimliktir.',
     olusturan:'{{BP}}',
     anahtar:'PARTNER',
     s4:'Zorunlu. {{XK01}}/{{XD01}} ile açılan kayıtlar bile arka planda {{cvi}} üzerinden buraya yazılır.',
@@ -706,7 +706,7 @@ SAP.registerTables([
       {ad:'NAME_ORG1', aciklama:'Unvan'},
     ]},
 
-  { ad:'MATDOC', baslik:'Malzeme belgesi — birleşik tablo', modul:'MM', tur:'Hareket', konu:'s4-yenilikleri',
+  { ad:'MATDOC', baslik:'Malzeme belgesi: birleşik tablo', modul:'MM', tur:'Hareket', konu:'s4-yenilikleri',
     aciklama:'S/4HANA\u2019da malzeme belgelerinin tek tablosu. FI tarafındaki {{ACDOCA}} ile **aynı mimari kararın** MM karşılığıdır: başlık+kalem+toplam tabloları (MKPF/MSEG/MARD/MBEW) tek tabloda birleşti ve toplamlar **saklanmak yerine hesaplanır**. Eski tablolar {{uyumluluk-view}} olarak okunmaya devam eder.',
     olusturan:'{{MIGO}} ve stok hareketi üreten her işlem',
     anahtar:'MBLNR + MJAHR + ZEILE',
@@ -714,7 +714,7 @@ SAP.registerTables([
     alanlar:[
       {ad:'MBLNR', aciklama:'Malzeme belgesi numarası', tip:'pk'},
       {ad:'BWART', aciklama:'{{hareket-turu}}'},
-      {ad:'MENGE', aciklama:'Miktar — toplam tablosu yerine buradan toplanır'},
+      {ad:'MENGE', aciklama:'Miktar: toplam tablosu yerine buradan toplanır'},
     ]},
 
   { ad:'E070', baslik:'Taşıma isteği başlığı', modul:'Teknik', tur:'Teknik', konu:'best-practices',
@@ -724,20 +724,20 @@ SAP.registerTables([
     s4:'Değişmedi.',
     alanlar:[
       {ad:'TRKORR', aciklama:'İstek numarası', tip:'pk'},
-      {ad:'TRSTATUS', aciklama:'Durum — **R** serbest bırakılmış'},
-      {ad:'AS4DATE', aciklama:'Serbest bırakılma tarihi — değişiklik zaman çizelgesi'},
+      {ad:'TRSTATUS', aciklama:'Durum: **R** serbest bırakılmış'},
+      {ad:'AS4DATE', aciklama:'Serbest bırakılma tarihi: değişiklik zaman çizelgesi'},
       {ad:'AS4USER', aciklama:'Sahibi'},
     ]},
 
   { ad:'E071', baslik:'Taşıma isteği nesneleri', modul:'Teknik', tur:'Teknik', konu:'best-practices',
-    aciklama:'Bir isteğin **tam olarak neyi** taşıdığını tutar. İki isteğin aynı nesneye dokunup dokunmadığı buradan görülür — {{tasima-sirasi}} çakışmalarının teşhis yeri.',
+    aciklama:'Bir isteğin **tam olarak neyi** taşıdığını tutar. İki isteğin aynı nesneye dokunup dokunmadığı buradan görülür: {{tasima-sirasi}} çakışmalarının teşhis yeri.',
     olusturan:'{{SE09}}',
     anahtar:'TRKORR + PGMID + OBJECT + OBJ_NAME',
     s4:'Değişmedi.',
     alanlar:[
       {ad:'TRKORR', aciklama:'İstek numarası', tip:'fk'},
       {ad:'OBJECT', aciklama:'Nesne türü (TABU, PROG, VDAT…)'},
-      {ad:'OBJ_NAME', aciklama:'Nesne adı — tablo veya program'},
+      {ad:'OBJ_NAME', aciklama:'Nesne adı: tablo veya program'},
     ]},
 
   /* ============================ Geliştirme / genişletme kataloğu ===
@@ -752,7 +752,7 @@ SAP.registerTables([
     alanlar:[
       {ad:'FUNCNAME', aciklama:'Fonksiyon modülü adı', tip:'pk'},
       {ad:'PNAME', aciklama:'Ait olduğu fonksiyon grubu'},
-      {ad:'FMODE', aciklama:'Uzaktan çağrılabilir mi (RFC) — BAPI için dolu olması beklenir'},
+      {ad:'FMODE', aciklama:'Uzaktan çağrılabilir mi (RFC): BAPI için dolu olması beklenir'},
     ]},
 
   { ad:'TADIR', baslik:'Depo nesnesi dizini', modul:'Teknik', tur:'Sistem', konu:'badi',
@@ -763,7 +763,7 @@ SAP.registerTables([
     alanlar:[
       {ad:'OBJECT', aciklama:'Nesne türü (CLAS, FUGR, SXCI…)', tip:'pk'},
       {ad:'OBJ_NAME', aciklama:'Nesne adı', tip:'pk'},
-      {ad:'DEVCLASS', aciklama:'Paket — Z/Y ile başlıyorsa müşteri geliştirmesi'},
+      {ad:'DEVCLASS', aciklama:'Paket: Z/Y ile başlıyorsa müşteri geliştirmesi'},
       {ad:'AUTHOR', aciklama:'Yaratan kullanıcı'},
     ]},
 
@@ -774,18 +774,18 @@ SAP.registerTables([
     s4:'Klasik BAdI’ler için duruyor; yeni nesil genişletme noktaları ENH* tablolarında tutulur.',
     alanlar:[
       {ad:'EXIT_NAME', aciklama:'BAdI tanım adı', tip:'pk'},
-      {ad:'MULTIPLE_USE', aciklama:'Birden çok uygulama aktif olabilir mi — çakışma teşhisinde ilk bakılacak alan'},
-      {ad:'FILTER_TYPE', aciklama:'Filtre türü (örn. şirket kodu) — doluysa uygulama yalnız o değerde çalışır'},
+      {ad:'MULTIPLE_USE', aciklama:'Birden çok uygulama aktif olabilir mi: çakışma teşhisinde ilk bakılacak alan'},
+      {ad:'FILTER_TYPE', aciklama:'Filtre türü (örn. şirket kodu): doluysa uygulama yalnız o değerde çalışır'},
     ]},
 
   { ad:'MODSAP', baslik:'SAP genişletme bileşenleri (klasik)', modul:'Teknik', tur:'Sistem', konu:'badi',
     aciklama:'Klasik SAP genişletmelerinin (customer exit) hangi bileşenlerden oluştuğunu tutar: fonksiyon çıkışı, ekran çıkışı, menü çıkışı. {{SMOD}}/{{CMOD}} ikilisinin arkasındaki tablodur.',
     anahtar:'NAME + TYP + MEMBER',
-    olusturan:'SAP standardı — müşteri yazmaz, yalnız kullanır',
+    olusturan:'SAP standardı: müşteri yazmaz, yalnız kullanır',
     s4:'Duruyor ama yeni geliştirmede {{badi}} tercih edilir.',
     alanlar:[
       {ad:'NAME', aciklama:'Genişletme adı (örn. SAPLF051)', tip:'pk'},
       {ad:'TYP', aciklama:'Bileşen türü: E=fonksiyon çıkışı, S=ekran, M=menü'},
-      {ad:'MEMBER', aciklama:'Bileşen adı — çağrılacak fonksiyon veya ekran'},
+      {ad:'MEMBER', aciklama:'Bileşen adı: çağrılacak fonksiyon veya ekran'},
     ]},
 ]);

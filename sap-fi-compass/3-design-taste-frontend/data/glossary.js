@@ -1,12 +1,12 @@
 /* ==========================================================================
-   data/glossary.js — Muhasebe ve SAP terim sözlüğü
+   data/glossary.js: Muhasebe ve SAP terim sözlüğü
    --------------------------------------------------------------------------
    Metinde {{mutabakat-hesabi}} yazıldığında buradaki kayıt bulunur ve
    tıklanabilir çipe dönüşür. Alanlar:
      anahtar   Bağlantı anahtarı (Türkçe, kebab-case)
      ad        Türkçe terim (çipte bu görünür)
      en        İngilizce orijinali (SAP ekranında bu yazar)
-     aciklama  Tanım — kısa ve tek cümlede söylenebilecek netlikte
+     aciklama  Tanım: kısa ve tek cümlede söylenebilecek netlikte
      detay     Ek açıklama / örnek (opsiyonel)
      konu      İlgili konu id'si
      ilgili    İlişkili terim anahtarları
@@ -87,7 +87,7 @@ SAP.registerTerms([
     ilgili:['kayit-donemi','ozel-donem'] },
 
   { anahtar:'ozel-donem', ad:'Özel dönem', en:'Special Period', konu:'closing',
-    aciklama:'Mali yılın son ayından sonra gelen, yalnızca kapanış düzeltmeleri için kullanılan ek dönemler (13–16).',
+    aciklama:'Mali yılın son ayından sonra gelen, yalnızca kapanış düzeltmeleri için kullanılan ek dönemler (13-16).',
     ilgili:['mali-yil-varyanti','donem-sonu'] },
 
   { anahtar:'kayit-donemi', ad:'Kayıt dönemi', en:'Posting Period', konu:'closing',
@@ -113,7 +113,7 @@ SAP.registerTerms([
 
   { anahtar:'tasima-istegi', ad:'Taşıma isteği', en:'Transport Request', konu:'best-practices',
     aciklama:'Geliştirme sisteminde yapılan yapılandırma ve program değişikliklerini test ve canlı sisteme taşıyan paket.',
-    detay:'Ana veri ve hareket verisi taşıma isteğine girmez — yalnızca özelleştirme ve geliştirme girer.',
+    detay:'Ana veri ve hareket verisi taşıma isteğine girmez: yalnızca özelleştirme ve geliştirme girer.',
     ilgili:['ozellestirme'] },
 
   /* ============================================ Belge mekaniği === */
@@ -173,12 +173,12 @@ SAP.registerTerms([
 
   { anahtar:'kalan-kapatma', ad:'Kalan kapatma', en:'Residual Clearing', konu:'clearing',
     aciklama:'Kısmi ödemede orijinal kalem kapatılır ve kalan tutar için yeni bir açık kalem üretilir.',
-    detay:'Vade orijinal faturadan değil, yeni kalemin tarihinden sayılır — yaşlandırmayı değiştirir, bu yüzden dikkatli seçilir.',
+    detay:'Vade orijinal faturadan değil, yeni kalemin tarihinden sayılır: yaşlandırmayı değiştirir, bu yüzden dikkatli seçilir.',
     ilgili:['kismi-kapatma','kapatma'] },
 
   { anahtar:'mutabakat-hesabi', ad:'Mutabakat hesabı', en:'Reconciliation Account', konu:'master-data',
     aciklama:'Muavin defterdeki (satıcı/müşteri/varlık) hareketlerin ana muhasebeye otomatik yansıdığı G/L hesabı.',
-    detay:'Bu hesaba doğrudan kayıt yapılamaz — yalnızca muavin defter üzerinden yazılır. Ana veri ile muhasebe arasındaki bağdır.',
+    detay:'Bu hesaba doğrudan kayıt yapılamaz: yalnızca muavin defter üzerinden yazılır. Ana veri ile muhasebe arasındaki bağdır.',
     ilgili:['muavin-defter','ana-muhasebe'] },
 
   { anahtar:'tolerans-grubu', ad:'Tolerans grubu', en:'Tolerance Group', konu:'clearing',
@@ -224,7 +224,7 @@ SAP.registerTerms([
     ilgili:['banka-ara-hesabi'] },
 
   { anahtar:'yaslandirma', ad:'Yaşlandırma', en:'Aging', konu:'accounts-receivable',
-    aciklama:'Açık kalemlerin vadesine göre gün aralıklarına (0–30, 31–60…) dağıtılması. Tahsilat ve borç yönetiminin temel raporu.',
+    aciklama:'Açık kalemlerin vadesine göre gün aralıklarına (0-30, 31-60…) dağıtılması. Tahsilat ve borç yönetiminin temel raporu.',
     ilgili:['vade','ihtar'] },
 
   { anahtar:'ihtar', ad:'İhtar (temerrüt bildirimi)', en:'Dunning', konu:'dunning',
@@ -238,7 +238,7 @@ SAP.registerTerms([
     ilgili:['ihtar'] },
 
   { anahtar:'tahsilat', ad:'Tahsilat', en:'Incoming Payment / Collection', konu:'accounts-receivable',
-    aciklama:'Müşteriden alacağın tahsil edilmesi. Gelir değildir — bir varlığın (alacak) başka bir varlığa (nakit) dönüşmesidir.',
+    aciklama:'Müşteriden alacağın tahsil edilmesi. Gelir değildir: bir varlığın (alacak) başka bir varlığa (nakit) dönüşmesidir.',
     detay:'{{F-28}} ile kaydedilir ve aynı anda müşterinin açık kalemi kapatılır.',
     ilgili:['acik-kalem','kapatma','yaslandirma'] },
 
@@ -298,7 +298,7 @@ SAP.registerTerms([
     aciklama:'Amortismanın **nasıl hesaplanacağını** belirleyen anahtar. Tek bir kod gibi görünür ama ' +
              'içinde **beş ayrı hesaplama yöntemi** taşır; her biri sorunun bir parçasını cevaplar.',
     detay:
-      'Sisteme *"bu makineye amortisman ayır"* demek yetmez — **nasıl** ayıracağını bilmiyor. ' +
+      'Sisteme *"bu makineye amortisman ayır"* demek yetmez: **nasıl** ayıracağını bilmiyor. ' +
       'Bilmesi gereken **beş şey** var:\n\n' +
       '**1.** Hangi mantıkla? *(doğrusal / azalan bakiyeler)* → {{AFAMR}}\n' +
       '**2.** Azalansa ne kadar hızlı? *(çarpan, tavan)* → {{AFAMD}}\n' +
@@ -308,7 +308,7 @@ SAP.registerTerms([
       '**Amortisman anahtarı, bu beş cevabın bir koda bağlanmış hâlidir.** ' +
       'Varlığa `Z_GENEL` yazarsın; sistem beşini de bilir.\n\n' +
       '**Neden beş parça?** Somut örnekle: fabrika makinesi ile binek otomobil ' +
-      '**aynı şeyi** ister — doğrusal, faydalı ömürden, ömür bitince dursun. ' +
+      '**aynı şeyi** ister: doğrusal, faydalı ömürden, ömür bitince dursun. ' +
       'Tek fark: otomobilde {{kist-amortisman}} gerektiği için amortisman ' +
       '**edinim ayından** başlamalı.\n\n' +
       'Yani iki anahtar beş slotun **dördünde aynı**, yalnızca 4 numaralı slot farklı. ' +
@@ -334,7 +334,7 @@ SAP.registerTerms([
       '**İlk yıl ayrılamayan kısım kaybolmaz:** {{faydali-omur}}’ün son yılında ' +
       'gider yazılarak tamamlanır.\n\n' +
       '**İstisnanın istisnası:** faaliyeti kısmen veya tamamen binek otomobil **kiralamak veya ' +
-      'işletmek** olanlar (araç kiralama şirketleri, sürücü kursları) kıst uygulamaz — ' +
+      'işletmek** olanlar (araç kiralama şirketleri, sürücü kursları) kıst uygulamaz: ' +
       'onlar için otomobil ticari maldır, tam yıl amortisman ayrılır.\n\n' +
       '**SAP karşılığı:** {{AFAMP}} ile tanımlanan **dönem kontrolü yöntemidir**. ' +
       'Genel varlıklar için "yıl başından itibaren" kuralı, binek otomobiller için ' +
@@ -346,15 +346,15 @@ SAP.registerTerms([
              'hızlandırılmış yöntem. VUK mükerrer md. 315.',
     detay:
       '**Nasıl çalışır:** her yıl kalan net defter değerine sabit bir oran uygulanır. ' +
-      'Taban küçüldüğü için amortisman tutarı da her yıl azalır — ilk yıllar yüksek, sonraki yıllar düşük.\n\n' +
+      'Taban küçüldüğü için amortisman tutarı da her yıl azalır: ilk yıllar yüksek, sonraki yıllar düşük.\n\n' +
       '**VUK kuralları:**\n\n' +
       '• Oran, normal amortisman oranının **iki katıdır** ve **%50’yi geçemez**.\n' +
       '• Yalnızca **bilanço esasına göre** defter tutan mükellefler uygulayabilir.\n' +
-      '• **Son yılda** kalan net defter değerinin tamamı amortisman olarak ayrılır — ' +
+      '• **Son yılda** kalan net defter değerinin tamamı amortisman olarak ayrılır: ' +
       'aksi hâlde varlık hiçbir zaman sıfırlanmazdı (oran hep kalana uygulandığı için).\n' +
       '• **Azalan bakiyelerden normale geçilebilir**, ama **normalden azalana geçilemez**.\n\n' +
       '**Neden tercih edilir:** ilk yıllarda daha yüksek gider yazarak **vergi ertelemesi** sağlar. ' +
-      'Nakit akışı avantajıdır — toplam gider değişmez, zamanlaması değişir.\n\n' +
+      'Nakit akışı avantajıdır: toplam gider değişmez, zamanlaması değişir.\n\n' +
       '**SAP’ta:** {{AFAMD}} ile çarpan ve tavan tanımlanır; ' +
       'normale geçiş {{AFAMS}} çok seviyeli yöntemiyle modellenir.',
     ilgili:['amortisman-anahtari','net-defter-degeri','amortisman'] },
@@ -368,7 +368,7 @@ SAP.registerTerms([
       '2/15 → **80.000** · 1/15 → **40.000**. Toplam **600.000 TL** ✓\n\n' +
       '**{{azalan-bakiyeler}}’den farkı:** azalan yöntemde taban her yıl küçülür ve varlık ' +
       'matematiksel olarak hiç sıfırlanmaz (son yıl özel kural gerekir). ' +
-      'Burada ise **taban sabittir**, yalnızca oran değişir — varlık kendiliğinden tam itfa olur.\n\n' +
+      'Burada ise **taban sabittir**, yalnızca oran değişir: varlık kendiliğinden tam itfa olur.\n\n' +
       '**VUK’ta bu yöntem yoktur.** Türkiye’de yalnızca IFRS raporlaması için, ' +
       '{{paralel-defter}} yapısında ayrı bir {{amortisman-alani}}’nda kullanılabilir.',
     ilgili:['amortisman','azalan-bakiyeler','amortisman-anahtari','paralel-defter'] },
@@ -381,7 +381,7 @@ SAP.registerTerms([
       '600.000 TL’lik pres, ömrü boyunca 300.000 adet basacak → birim amortisman **2 TL/adet**. ' +
       'Yılda 80.000 adet basıldıysa o yılın amortismanı **160.000 TL**.\n\n' +
       '**Neden mantıklı:** bir kalıp veya pres, durduğu sürece yıpranmaz. ' +
-      'Zamana bağlı yöntemler bu varlıklarda gerçeği yansıtmaz — ' +
+      'Zamana bağlı yöntemler bu varlıklarda gerçeği yansıtmaz: ' +
       'üretim durduğu ay amortisman ayırmak yanıltıcıdır.\n\n' +
       '**Zorluğu:** her dönem **fiili üretim miktarının sisteme girilmesi** gerekir. ' +
       'SAP’ta varlık ana verisine toplam tahmini miktar tanımlanır, ' +
@@ -432,7 +432,7 @@ SAP.registerTerms([
       '**1.** Yangın, deprem, su basması gibi **afetler** sonucu değerini kısmen/tamamen kaybetmek.\n' +
       '**2.** **Yeni icatlar** dolayısıyla teknik verimin ve kıymetin düşmesi (teknolojik eskime).\n' +
       '**3.** Cebri çalışmaya tabi tutulduğu için **normalden fazla aşınma ve yıpranma**.\n\n' +
-      '**Önemli:** oran serbest değildir — Maliye Bakanlığınca **her işletme için ayrı ayrı** ' +
+      '**Önemli:** oran serbest değildir: Maliye Bakanlığınca **her işletme için ayrı ayrı** ' +
       'belirlenir ve **başvuru gerektirir**. Kendiliğinden uygulanamaz.\n\n' +
       '**SAP’ta:** normal amortismandan ayrı bir **özel amortisman** tipi olarak kaydedilir; ' +
       '{{ABMA}} ile elle girilir veya ayrı bir {{amortisman-anahtari}} ile yönetilir.',
@@ -443,7 +443,7 @@ SAP.registerTerms([
     detay:
       'Kiralanan dükkâna yapılan dekorasyon, asma tavan, klima tesisatı gibi harcamalar ' +
       'kiracının mülkü olmaz ama fayda sağlar.\n\n' +
-      '**İtfa kuralı:** **kira süresine göre eşit yüzdelerle** itfa edilir — ' +
+      '**İtfa kuralı:** **kira süresine göre eşit yüzdelerle** itfa edilir: ' +
       'varlığın kendi faydalı ömrüne göre değil.\n\n' +
       '• Kira süresi 5 yılsa → 5 yılda itfa.\n' +
       '• **Kira süresi belli değilse → 5 yıl** kabul edilir.\n' +
@@ -453,7 +453,7 @@ SAP.registerTerms([
     ilgili:['amortisman','varlik-sinifi','faydali-omur'] },
 
   { anahtar:'yenileme-fonu', ad:'Yenileme fonu', en:'Renewal Fund', konu:'asset-accounting',
-    aciklama:'Satılan bir duran varlığın **yenilenmesi amacıyla** kârın vergilendirilmesinin ertelenmesi. VUK md. 328–329.',
+    aciklama:'Satılan bir duran varlığın **yenilenmesi amacıyla** kârın vergilendirilmesinin ertelenmesi. VUK md. 328-329.',
     detay:
       'Bir makine satıldığında oluşan kâr normalde o yıl vergilendirilir. ' +
       'Ama yerine yenisi alınacaksa, kâr **pasifte geçici bir hesapta** (549 Özel fonlar) tutulabilir.\n\n' +
@@ -484,7 +484,7 @@ SAP.registerTerms([
       'Defter ise tüm FI’ı kapsar ve *"kayıt hangi muhasebeye yazılacak?"* sorusunu cevaplar. ' +
       'Her alan bir deftere **bağlanır** ({{OADB}}): alan 01 → defter 0L, alan 32 → defter 2L.\n\n' +
       '**En sık hata:** {{AW01N}}’de hangi alanda olduğuna bakmadan değer yorumlamak. ' +
-      'Alan 01’de 240.000, alan 15’te 300.000 görünür — ikisi de doğrudur.',
+      'Alan 01’de 240.000, alan 15’te 300.000 görünür: ikisi de doğrudur.',
     ilgili:['amortisman-anahtari','paralel-defter'] },
 
   { anahtar:'varlik-sinifi', ad:'Varlık sınıfı', en:'Asset Class', konu:'asset-accounting',
@@ -500,7 +500,7 @@ SAP.registerTerms([
       '**Neden gerekli?**\n\n' +
       'Bir fabrika binası 18 ayda biter ve bu sürede onlarca fatura gelir: hafriyat, beton, ' +
       'çelik, elektrik tesisatı, işçilik, mühendislik. Bu harcamalar **ne gider ne de ' +
-      'kullanıma hazır bir varlıktır** — üçüncü bir yere ihtiyaç vardır. AuC o yerdir.\n\n' +
+      'kullanıma hazır bir varlıktır**: üçüncü bir yere ihtiyaç vardır. AuC o yerdir.\n\n' +
       '**Üç temel fayda:**\n\n' +
       '**1. Doğru dönemsellik.** Harcamalar gider yazılsaydı inşaat yıllarının kârı ' +
       'olduğundan düşük, kullanım yıllarının kârı olduğundan yüksek görünürdü. ' +
@@ -509,10 +509,10 @@ SAP.registerTerms([
       'iç işçilik, {{ic-siparis}}) gelen maliyetler tek bir nesnede birikir ve ' +
       '"bu yatırıma toplam ne harcadık?" sorusu her an cevaplanabilir.\n\n' +
       '**3. Amortismanın yanlış başlamasını önleme.** Varlık {{AS01}} ile normal sınıfta ' +
-      'açılsaydı {{AFAB}} ona amortisman ayırmaya başlardı — henüz kullanılmayan bir bina için. ' +
+      'açılsaydı {{AFAB}} ona amortisman ayırmaya başlardı: henüz kullanılmayan bir bina için. ' +
       'AuC varlık sınıfı, amortisman anahtarını **0000** (amortisman yok) olarak getirir.\n\n' +
       '**Çalışan hesaplar:**\n\n' +
-      '`258` Yapılmakta olan yatırımlar (borç — maliyetler birikir) · ' +
+      '`258` Yapılmakta olan yatırımlar (borç: maliyetler birikir) · ' +
       '`320` Satıcılar veya `191` KDV (karşı taraf) · ' +
       'aktifleştirmede `252/253` borç, `258` alacak · ' +
       'yatırım avansı verilmişse `259` Verilen avanslar.\n\n' +
@@ -577,7 +577,7 @@ SAP.registerTerms([
 
   { anahtar:'evrensel-kayit-defteri', ad:'Evrensel Kayıt Defteri', en:'Universal Journal', konu:'s4-yenilikleri',
     aciklama:'S/4HANA’da FI, CO, AA ve ML verisinin tek tabloda ({{ACDOCA}}) birleştirilmesi.',
-    detay:'Mutabakat gerektiren ayrı toplam tabloları ortadan kalkar; FI–CO uyumsuzluğu yapısal olarak imkânsız hâle gelir.',
+    detay:'Mutabakat gerektiren ayrı toplam tabloları ortadan kalkar; FI-CO uyumsuzluğu yapısal olarak imkânsız hâle gelir.',
     ilgili:['defter','uyumluluk-view'] },
 
   { anahtar:'uyumluluk-view', ad:'Uyumluluk view’i', en:'Compatibility View', konu:'s4-yenilikleri',
@@ -589,7 +589,7 @@ SAP.registerTerms([
   { anahtar:'tahakkuk', ad:'Tahakkuk', en:'Accrual', konu:'closing',
     aciklama:'Doğmuş ama henüz belgesi gelmemiş gelir veya giderin döneme kaydedilmesi.',
     detay:'Aralıkta kullanılan ama faturası Ocakta gelen elektrik gideri Aralığa tahakkuk ettirilir. ' +
-          '{{FBS1}} ile girilir ve {{F.81}} ile sonraki dönemde **otomatik ters kaydedilir** — gerçek fatura gelince çift kayıt olmaz.',
+          '{{FBS1}} ile girilir ve {{F.81}} ile sonraki dönemde **otomatik ters kaydedilir**: gerçek fatura gelince çift kayıt olmaz.',
     ilgili:['tahakkuk-esasi','karsilik','donem-sonu'] },
 
   { anahtar:'karsilik', ad:'Karşılık', en:'Provision', konu:'closing',
@@ -612,7 +612,7 @@ SAP.registerTerms([
       'Ortak özellik: karşılığında **mal veya hizmet** alınacak/verilecek, para değil. ' +
       'Bunlar **işlem günündeki kurla** kayda alınır ve o değerde kalır.\n\n' +
       '**Avanslar en sık yapılan hatadır.** Satıcıya 50.000 EUR avans verildiğinde ' +
-      'karşılığında para değil **mal** alınacaktır — bu yüzden parasal değildir ve ' +
+      'karşılığında para değil **mal** alınacaktır: bu yüzden parasal değildir ve ' +
       'dönem sonunda **değerlenmez**. Değerlenirse gerçekte var olmayan bir kur farkı yaratılır.\n\n' +
       'SAP’ta bu ayrım hesap bazında yönetilir: değerlemeye tabi hesaplar ' +
       '{{F.05}} seçim ekranında ve {{OBA1}} yapılandırmasında belirlenir. ' +
@@ -630,11 +630,11 @@ SAP.registerTerms([
       '• Kur **yükseldi** → satıcı lehine → **satıcı** kur farkı faturası düzenler\n' +
       '• Kur **düştü** → alıcı lehine → **alıcı** düzenler\n\n' +
       '**KDV oranı:** asıl işleme uygulanan oranla aynıdır.\n\n' +
-      '**Muhasebe kaydından farkı — kritik ayrım:**\n\n' +
+      '**Muhasebe kaydından farkı: kritik ayrım:**\n\n' +
       'Muhasebede kur farkı zaten `646`/`656` hesabına kaydedilir. ' +
       'Kur farkı faturası **buna ek bir belge yükümlülüğüdür** ve asıl amacı ' +
       '**KDV’yi doğru hesaplamaktır**.\n\n' +
-      'SAP kur farkını otomatik kaydeder ama **kur farkı faturasını üretmez** — ' +
+      'SAP kur farkını otomatik kaydeder ama **kur farkı faturasını üretmez**: ' +
       'bu, ayrı takip edilmesi gereken bir süreçtir. ' +
       'Sık atlanır ve KDV incelemesinde eleştiri konusu olur.\n\n' +
       '*Not: uygulama esasları KDV Genel Uygulama Tebliği ile belirlenir; ' +
@@ -657,7 +657,7 @@ SAP.registerTerms([
     aciklama:'Malzemenin stokta hangi fiyatla değerleneceğini belirler: **S** standart fiyat (sabit), **V** hareketli ortalama (değişken).',
     detay:'Fatura fiyatı sipariş fiyatından farklıysa: **S** ise fark {{OBYC}} → PRD fiyat farkı hesabına gider; ' +
           '**V** ise fark stok değerine eklenir ve ortalama fiyat güncellenir. ' +
-          'Bu, MM–FI entegrasyonundaki en önemli ayrımlardan biridir.',
+          'Bu, MM-FI entegrasyonundaki en önemli ayrımlardan biridir.',
     ilgili:['degerleme-sinifi','gr-ir','hesap-belirleme'] },
 
   { anahtar:'malzeme-hareket-turu', ad:'Malzeme hareket türü', en:'Movement Type', konu:'mm-integration',
@@ -681,20 +681,20 @@ SAP.registerTerms([
              'Gelir tablosunda **646 Kambiyo kârları** veya **656 Kambiyo zararları** hesabında izlenir.',
     detay:
       '**İki tür kur farkı vardır ve muhasebe sonuçları farklıdır:**\n\n' +
-      '**Gerçekleşmemiş (değerleme farkı)** — kalem henüz kapanmadı, yalnızca dönem sonu kuruyla ' +
+      '**Gerçekleşmemiş (değerleme farkı)**: kalem henüz kapanmadı, yalnızca dönem sonu kuruyla ' +
       'yeniden ölçüldü. {{F.05}} üretir ve **ertesi gün ters kaydedilir**. ' +
       'Sebep: gerçek fark ödeme günündeki kura göre oluşacak; değerleme yalnızca ' +
       'bilanço tarihindeki durumu gösteren geçici bir fotoğraftır.\n\n' +
-      '**Gerçekleşmiş** — ödeme/tahsilat yapıldı, fark **kesinleşti**. Kalıcı kayıttır, ters kaydedilmez.\n\n' +
+      '**Gerçekleşmiş**: ödeme/tahsilat yapıldı, fark **kesinleşti**. Kalıcı kayıttır, ters kaydedilmez.\n\n' +
       '**Çalışan hesaplar (TDHP):**\n\n' +
-      '`646` Kambiyo kârları — kur lehte hareket ettiğinde\n' +
-      '`656` Kambiyo zararları — kur aleyhte hareket ettiğinde\n' +
-      '`102/320/120` — döviz tutarı **hiç değişmez**, yalnızca yerel para karşılığı değişir\n\n' +
+      '`646` Kambiyo kârları: kur lehte hareket ettiğinde\n' +
+      '`656` Kambiyo zararları: kur aleyhte hareket ettiğinde\n' +
+      '`102/320/120`: döviz tutarı **hiç değişmez**, yalnızca yerel para karşılığı değişir\n\n' +
       'Çoğu kurulum gerçekleşmiş ve gerçekleşmemiş farkı **ayrı alt hesaplarda** izler ' +
-      '(646.01 / 646.02 gibi) — çünkü gerçekleşmemiş fark vergi matrahına farklı girer.\n\n' +
+      '(646.01 / 646.02 gibi): çünkü gerçekleşmemiş fark vergi matrahına farklı girer.\n\n' +
       '**Hangi kalemler değerlenir?** Yalnızca {{parasal-kalem}}ler. ' +
       'Verilen avans, stok ve duran varlık gibi parasal olmayan kalemler ' +
-      'alındıkları günün kuruyla kalır — değerlenmez.\n\n' +
+      'alındıkları günün kuruyla kalır: değerlenmez.\n\n' +
       '**Türkiye’ye özgü:** ödeme anında lehte oluşan fark için ' +
       '{{kur-farki-faturasi}} düzenlenir ve **KDV hesaplanır**. ' +
       'Bu, muhasebe kaydından ayrı bir yükümlülüktür ve sık atlanır.\n\n' +
@@ -725,7 +725,7 @@ SAP.registerTerms([
       'Bir iş alanı **birden çok şirket koduna** yayılabilir: "Tekstil" iş alanı hem Türkiye ' +
       'hem Almanya şirket kodunda kullanılabilir. Bu, şirket kodu sınırlarını aşan ' +
       'faaliyet raporlaması sağlar.\n\n' +
-      '**Zayıf noktası:** iş alanı bazında **dengeli bilanço** üretmek zordur — ' +
+      '**Zayıf noktası:** iş alanı bazında **dengeli bilanço** üretmek zordur: ' +
       'satıcı ve banka kalemleri iş alanı taşımaz. ' +
       'Bu sorunu {{belge-bolme}} çözer ama iş alanı için değil, ' +
       '{{kar-merkezi}} ve segment için tasarlanmıştır.\n\n' +
@@ -753,11 +753,11 @@ SAP.registerTerms([
              'saklayan kayıtlı görünüm.',
     detay:
       'SAP raporlarının çoğu **ALV** (ABAP List Viewer) kullanır. ' +
-      'Sütun ekleme/çıkarma, sıralama, süzme, alt toplam ve gruplama yapılabilir — ' +
+      'Sütun ekleme/çıkarma, sıralama, süzme, alt toplam ve gruplama yapılabilir: ' +
       've bu ayarlar **düzen olarak kaydedilir**.\n\n' +
       '**İki tür düzen vardır:**\n\n' +
-      '**Kullanıcıya özel** — yalnızca kaydeden kişi görür.\n' +
-      '**Genel** (`/` ile başlar) — tüm kullanıcılar görebilir; ' +
+      '**Kullanıcıya özel**: yalnızca kaydeden kişi görür.\n' +
+      '**Genel** (`/` ile başlar): tüm kullanıcılar görebilir; ' +
       'standart raporlama düzenleri böyle paylaşılır.\n\n' +
       '**Neden önemli:** {{FBL3N}} gibi raporlarda ihtiyaç duyulan sütunlar ' +
       '(ihtar seviyesi, kâr merkezi, vergi kodu) **varsayılan düzende yoktur**. ' +
@@ -772,13 +772,13 @@ SAP.registerTerms([
              'bakiye raporunun karşıtı.',
     detay:
       'FI raporlaması iki temel türe ayrılır:\n\n' +
-      '**Bakiye raporu** — *"bu hesabın bakiyesi ne?"* ({{FS10N}}, {{FAGLB03}}). ' +
+      '**Bakiye raporu**: *"bu hesabın bakiyesi ne?"* ({{FS10N}}, {{FAGLB03}}). ' +
       'Dönem dönem toplamları verir, hızlıdır.\n\n' +
-      '**Kalem dökümü** — *"bu bakiye hangi belgelerden oluşuyor?"* ' +
+      '**Kalem dökümü**: *"bu bakiye hangi belgelerden oluşuyor?"* ' +
       '({{FBL3N}}, {{FBL1N}}, {{FBL5N}}, {{FAGLL03}}). ' +
       'Tek tek satırları verir, belgeye çift tıklanabilir.\n\n' +
       '**Kritik ön koşul:** G/L hesabında **kalem yönetimi** açık olmalıdır ' +
-      '({{SKB1}}). Kapalıysa {{FBL3N}} o hesap için **boş döner** — ' +
+      '({{SKB1}}). Kapalıysa {{FBL3N}} o hesap için **boş döner**: ' +
       'bakiye vardır ama kalemler gösterilemez.\n\n' +
       'Bu ayar sonradan açılırsa **geçmiş kalemler görünmez**; ' +
       'yalnızca açıldıktan sonraki kayıtlar listelenir.',
@@ -805,7 +805,7 @@ SAP.registerTerms([
     detay:
       'Başlık {{CDHDR}}, satırlar {{CDPOS}} tablosunda tutulur.\n\n' +
       '**Ne kaydedilir:** eski değer, yeni değer, değiştiren kullanıcı, tarih ve saat.\n\n' +
-      '**Ne kaydedilmez:** her alan değil — yalnızca **değişiklik izleme işaretli** alanlar. ' +
+      '**Ne kaydedilmez:** her alan değil: yalnızca **değişiklik izleme işaretli** alanlar. ' +
       'Bu işaret veri elemanı düzeyinde tanımlıdır.\n\n' +
       '**Tipik kullanım:** *"satıcının banka hesabı ne zaman değişti?"* sorusu ' +
       'dolandırıcılık incelemelerinin ilk sorusudur ve cevabı buradadır. ' +
@@ -819,16 +819,16 @@ SAP.registerTerms([
              'toplu veri yükleyen klasik yöntem.',
     detay:
       '**Nasıl çalışır:** yüklenecek her satır için sistem, o işlemin ekranlarını ' +
-      '**arka planda açar** ve alanları doldurur — sanki kullanıcı yazıyormuş gibi.\n\n' +
+      '**arka planda açar** ve alanları doldurur: sanki kullanıcı yazıyormuş gibi.\n\n' +
       'Sonuç bir **oturum** (session) olur ve {{SM35}} ile çalıştırılır.\n\n' +
       '**Güçlü yanı:** ekranın tüm kontrolleri çalışır. Zorunlu alan, yetki, ' +
-      'hesap belirleme, dönem kontrolü — hepsi normal kayıttaki gibi devrededir. ' +
+      'hesap belirleme, dönem kontrolü: hepsi normal kayıttaki gibi devrededir. ' +
       'Bu yüzden **hatalı veri sisteme giremez**.\n\n' +
       '**Zayıf yanı:** yavaştır ve **ekran yapısına bağımlıdır**. ' +
       'SAP sürümü değişip ekrana yeni bir alan eklenirse veya alan sırası değişirse ' +
       'kayıt **bozulur**.\n\n' +
       '**Hata yönetimi:** başarısız satırlar oturumda kalır, düzeltilip ' +
-      '**yeniden çalıştırılabilir**. Bu, toplu girişin en değerli özelliğidir — ' +
+      '**yeniden çalıştırılabilir**. Bu, toplu girişin en değerli özelliğidir: ' +
       '1.000 satırın 40’ı hata alırsa yalnızca o 40’ı tekrar denersin.\n\n' +
       'Alternatifleri {{bapi}} (daha hızlı, ekrandan bağımsız) ve {{idoc}}’tur.',
     ilgili:['kayit-recording','bapi','idoc'] },
@@ -842,12 +842,12 @@ SAP.registerTerms([
       'Çıktı, alan adlarıyla birlikte bir ekran akışı listesidir. ' +
       'Bu liste sonra bir veri dosyasıyla eşleştirilir ve ' +
       'her satır için akış tekrarlanır.\n\n' +
-      '**Kritik kural:** kayıt alınırken **tüm alanların doldurulması** gerekir — ' +
+      '**Kritik kural:** kayıt alınırken **tüm alanların doldurulması** gerekir: ' +
       'boş bırakılan alan kayda girmez ve sonradan eşleştirilemez.\n\n' +
       'Aynı şekilde **koşullu ekranlar** dikkat ister: bazı alanlar yalnızca ' +
       'belirli değerlerde açılır. Örnek kayıt o yolu izlemediyse ' +
       'o ekran kayda hiç girmez ve yükleme o satırlarda **takılır**.\n\n' +
-      '**Bu yüzden örnek kayıt, veri kümesinin en karmaşık satırıyla alınmalıdır** — ' +
+      '**Bu yüzden örnek kayıt, veri kümesinin en karmaşık satırıyla alınmalıdır**: ' +
       'en basitiyle değil.',
     ilgili:['toplu-giris','lsmw'] },
 
@@ -856,10 +856,10 @@ SAP.registerTerms([
     detay:
       'Veri aktarımının **asıl işi** budur; araç seçimi ikincildir.\n\n' +
       'Üç tür alan vardır ve üçü farklı davranır:\n\n' +
-      '**Doğrudan eşlenen** — kaynakta var, SAP’ta var, dönüşüm gerekmez.\n' +
-      '**{{donusum-kurali}} gerektiren** — kaynak biçimi SAP biçimine uymuyor ' +
+      '**Doğrudan eşlenen**: kaynakta var, SAP’ta var, dönüşüm gerekmez.\n' +
+      '**{{donusum-kurali}} gerektiren**: kaynak biçimi SAP biçimine uymuyor ' +
       '(tarih, ondalık ayracı, birim, ülke kodu).\n' +
-      '**Sabit atanan** — kaynakta yok, SAP’ta zorunlu; sabit bir değer verilir.\n\n' +
+      '**Sabit atanan**: kaynakta yok, SAP’ta zorunlu; sabit bir değer verilir.\n\n' +
       '**En sık hata üçüncü türde:** kaynakta olmayan bir zorunlu alan ' +
       'fark edilmezse yükleme **ilk satırda durur**. ' +
       'Bu yüzden eşleme, kaynak dosyadan değil **SAP’ın zorunlu alan listesinden** ' +
@@ -870,11 +870,11 @@ SAP.registerTerms([
     aciklama:'Kaynak değerin SAP’ın beklediği biçime **çevrilmesi** kuralı.',
     detay:
       'En sık ihtiyaç duyulan dönüşümler:\n\n' +
-      '**Tarih** — `31.12.2027` → `20271231`\n' +
-      '**Ondalık ayracı** — `1.234,56` → `1234.56`\n' +
-      '**Sabit uzunluk** — hesap numarası **sola sıfır dolgulu** olmalı: ' +
+      '**Tarih**: `31.12.2027` → `20271231`\n' +
+      '**Ondalık ayracı**: `1.234,56` → `1234.56`\n' +
+      '**Sabit uzunluk**: hesap numarası **sola sıfır dolgulu** olmalı: ' +
       '`320100` → `0000320100`\n' +
-      '**Kod çevrimi** — eski sistemdeki `TR` → SAP’ta `TR`, ama ' +
+      '**Kod çevrimi**: eski sistemdeki `TR` → SAP’ta `TR`, ama ' +
       'eski `TUR` → `TR` gibi tablo bazlı çevrimler\n\n' +
       '**Sola sıfır dolgu en çok tuzak çıkaran kuraldır.** ' +
       'Excel sayı olarak gördüğü hesap numarasının başındaki sıfırları **atar**. ' +
@@ -888,11 +888,11 @@ SAP.registerTerms([
     detay:
       'Toplu yüklemenin **vazgeçilmez son adımıdır** ve en çok atlanan adımdır.\n\n' +
       '**Neden gerekli:** {{guncelleme-hatasi}} sessizdir. ' +
-      '500 kayıt gönderilir, 486’sı oluşur, 14’ü kaybolur — ' +
+      '500 kayıt gönderilir, 486’sı oluşur, 14’ü kaybolur: ' +
       've hiçbir ekran bunu söylemez.\n\n' +
       '**İki seviyede yapılır:**\n\n' +
-      '**Adet** — gönderilen satır sayısı = oluşan belge sayısı ({{BKPF}})\n' +
-      '**Tutar** — kaynak dosyadaki borç/alacak toplamı = sistemdeki toplam\n\n' +
+      '**Adet**: gönderilen satır sayısı = oluşan belge sayısı ({{BKPF}})\n' +
+      '**Tutar**: kaynak dosyadaki borç/alacak toplamı = sistemdeki toplam\n\n' +
       'İkincisi daha güçlüdür: adet tutup **tutar tutmuyorsa** ' +
       'bir {{donusum-kurali}} hatası vardır (ondalık ayracı, birim, kur).\n\n' +
       'Bu kontrol {{konu:error-handling}}, {{konu:data-upload}} ve ' +
@@ -904,12 +904,12 @@ SAP.registerTerms([
     detay:
       '**{{toplu-giris}}’ten farkı:** ekranları taklit etmez, iş mantığını **doğrudan** çağırır.\n\n' +
       '**Avantajları:**\n\n' +
-      '• **Hızlıdır** — ekran işleme yükü yoktur\n' +
-      '• **Sürümden bağımsızdır** — ekran değişse de arayüz sabit kalır\n' +
+      '• **Hızlıdır**: ekran işleme yükü yoktur\n' +
+      '• **Sürümden bağımsızdır**: ekran değişse de arayüz sabit kalır\n' +
       '• Hata mesajlarını **yapılandırılmış** döndürür\n\n' +
       '**Dikkat edilecek nokta:** BAPI çağrısı **kendiliğinden commit etmez**. ' +
       'İşlemin kalıcı olması için ardından `BAPI_TRANSACTION_COMMIT` çağrılmalıdır. ' +
-      'Unutulursa veri sanki yazılmış görünür ama **kalıcı olmaz** — ' +
+      'Unutulursa veri sanki yazılmış görünür ama **kalıcı olmaz**: ' +
       'yükleme programlarının klasik hatasıdır.\n\n' +
       'FI tarafında en çok kullanılanlar: G/L belge kaydı, satıcı/müşteri ana verisi, ' +
       'duran varlık oluşturma.',
@@ -936,7 +936,7 @@ SAP.registerTerms([
       'Bir kullanıcı satıcıyı {{XK02}} ile açtığında sistem o kayda **kilit koyar**. ' +
       'İkinci kullanıcı aynı satıcıyı açmak isterse ' +
       '*"Satıcı ... kullanıcı XYZ tarafından kilitlenmiş"* uyarısını alır.\n\n' +
-      '**Normal davranıştır** — veri bütünlüğünü korur.\n\n' +
+      '**Normal davranıştır**: veri bütünlüğünü korur.\n\n' +
       '**Sorun ne zaman çıkar:** kullanıcı işlemi düzgün kapatmadan çıkarsa ' +
       '(oturum çöktü, bilgisayar kapandı) kilit **takılı kalır**. ' +
       'O kayda kimse erişemez.\n\n' +
@@ -969,13 +969,13 @@ SAP.registerTerms([
     aciklama:'Bir kullanıcının **neyi yapabileceğini** alan bazında tanımlayan yetki birimi.',
     detay:
       'FI’da en çok kullanılanlar:\n\n' +
-      '`F_BKPF_BUK` — **şirket kodu** bazında belge yetkisi\n' +
-      '`F_BKPF_KOA` — **hesap tipi** bazında (satıcı / müşteri / G/L / varlık)\n' +
-      '`F_BKPF_BLA` — **belge türü** bazında\n' +
-      '`F_SKA1_BUK` — G/L hesap ana verisi\n\n' +
+      '`F_BKPF_BUK`: **şirket kodu** bazında belge yetkisi\n' +
+      '`F_BKPF_KOA`: **hesap tipi** bazında (satıcı / müşteri / G/L / varlık)\n' +
+      '`F_BKPF_BLA`: **belge türü** bazında\n' +
+      '`F_SKA1_BUK`: G/L hesap ana verisi\n\n' +
       'Her nesnede **etkinlik** (activity) alanı vardır: 01 oluştur · 02 değiştir · ' +
       '03 görüntüle.\n\n' +
-      '**Teşhis:** yetki hatası alındığında {{SU53}} çalıştırılır — ' +
+      '**Teşhis:** yetki hatası alındığında {{SU53}} çalıştırılır: ' +
       '**son başarısız kontrolü** gösterir: hangi nesne, hangi alan, hangi değer eksik.\n\n' +
       '**Sinsi durum:** bazı raporlar yetki eksikliğinde hata vermez, ' +
       '**boş liste** döner. Kullanıcı "veri yok" sanır. ' +
@@ -987,19 +987,19 @@ SAP.registerTerms([
     detay:
       '{{T001}}, {{T004}}, {{T030}} gibi tablolar her belge kaydında okunur. ' +
       'Her seferinde veritabanına gitmek yavaş olurdu; bu yüzden **tamponlanırlar**.\n\n' +
-      '**Pratik sonucu:** yapılandırma değişikliği bazen **hemen etkili olmaz** — ' +
+      '**Pratik sonucu:** yapılandırma değişikliği bazen **hemen etkili olmaz**: ' +
       'tampon yenilenene kadar eski değer okunmaya devam eder.\n\n' +
       'Klasik senaryo: danışman {{OB52}}’de dönemi açar, kullanıcı hâlâ ' +
       '*"dönem kapalı"* hatası alır. Sebep tampon gecikmesidir; ' +
       'kullanıcının oturumu kapatıp açması genelde yeterlidir.\n\n' +
-      '**Hareket tabloları tamponlanmaz** ({{BKPF}}, {{BSEG}}, {{ACDOCA}}) — ' +
+      '**Hareket tabloları tamponlanmaz** ({{BKPF}}, {{BSEG}}, {{ACDOCA}}): ' +
       'çünkü sürekli değişirler ve eski veri okumak kabul edilemez.',
     ilgili:['tablo-anahtari','ozellestirme'] },
 
   { anahtar:'arayuz-tablosu', ad:'Arayüz tablosu', en:'Interface / Staging Table', konu:'data-upload',
     aciklama:'Dış sistemden gelen verinin, asıl tablolara yazılmadan **önce bekletildiği** geçici tablo.',
     detay:
-      '**Neden gerekli:** dış veri doğrudan {{BKPF}}/{{BSEG}}’e yazılamaz — ' +
+      '**Neden gerekli:** dış veri doğrudan {{BKPF}}/{{BSEG}}’e yazılamaz: ' +
       'doğrulanması, eşleştirilmesi ve hatalıların ayıklanması gerekir.\n\n' +
       'Arayüz tablosu bu ara katmanı sağlar:\n\n' +
       '**1.** Veri arayüz tablosuna yüklenir *(henüz muhasebe etkisi yok)*\n' +
@@ -1007,7 +1007,7 @@ SAP.registerTerms([
       '**3.** Doğru satırlar asıl işleme aktarılır ({{bapi}} veya {{toplu-giris}})\n' +
       '**4.** Hatalılar düzeltilip **yeniden denenir**\n\n' +
       '**Ayırt edici faydası: tekrar çalıştırılabilirlik.** ' +
-      '1.000 satırın 40’ı hata alırsa yalnızca o 40 tekrar denenir — ' +
+      '1.000 satırın 40’ı hata alırsa yalnızca o 40 tekrar denenir: ' +
       'baştan yükleme gerekmez.\n\n' +
       'Elektronik banka ekstresi ({{FF_5}}) ve {{LSMW}} bu mantıkla çalışır. ' +
       'Aynı yaklaşım {{konu:document-parking}}’de de görülür: ' +
@@ -1021,20 +1021,20 @@ SAP.registerTerms([
       'anahtar dışı alanla yapılan sorgu **tüm tabloyu tarar**.\n\n' +
       'FI’ın klasik örneği: {{BSEG}}’in anahtarı ' +
       '`BUKRS + BELNR + GJAHR + BUZEI`’dir. ' +
-      'Belge numarasıyla arama hızlıdır — ama **satıcı numarasıyla arama yavaştır**, ' +
+      'Belge numarasıyla arama hızlıdır: ama **satıcı numarasıyla arama yavaştır**, ' +
       'çünkü `LIFNR` anahtar değildir.\n\n' +
       '**İndeks tabloları tam olarak bu yüzden vardır:** {{BSIK}} ' +
       '(satıcı açık kalemleri) anahtarı `LIFNR` ile başlar, ' +
       'böylece "bu satıcının açık kalemleri" sorgusu hızlanır.\n\n' +
       '**S/4HANA’da durum değişti:** HANA’nın sütun bazlı yapısı ve ' +
-      'bellek içi işleme sayesinde indeks tablolarına gerek kalmadı — ' +
+      'bellek içi işleme sayesinde indeks tablolarına gerek kalmadı: ' +
       '{{BSIK}}, {{BSAK}}, {{BSID}} gibi tablolar {{uyumluluk-view}}’a dönüştü ve ' +
       '{{ACDOCA}} doğrudan sorgulanır hâle geldi.',
     ilgili:['uyumluluk-view','evrensel-kayit-defteri'] },
 
   { anahtar:'kontrol-alani', ad:'Kontrol alanı', en:'Controlling Area', konu:'co-integration',
     aciklama:'CO’nun en üst organizasyon birimi; maliyet muhasebesinin yapıldığı çerçeve.',
-    detay:'Bir kontrol alanına **birden çok şirket kodu** bağlanabilir — bu, şirketler arası ' +
+    detay:'Bir kontrol alanına **birden çok şirket kodu** bağlanabilir: bu, şirketler arası ' +
           'maliyet dağıtımını mümkün kılar. Şart: bağlı şirket kodlarının **aynı hesap planını** ' +
           've aynı mali yıl varyantını kullanması. {{OKKP}} ile tanımlanır, {{TKA01}}’de tutulur.',
     ilgili:['maliyet-yeri','masraf-turu','sirket-kodu'] },
@@ -1050,7 +1050,7 @@ SAP.registerTerms([
   { anahtar:'istatistiksel-kalem', ad:'İstatistiksel kalem', en:'Statistical / Noted Item', konu:'special-gl',
     aciklama:'Bilançoyu etkilemeyen, yalnızca izleme amaçlı tek taraflı kayıt.',
     detay:'Karşı kayıt üretmez, mizanda görünmez. Avans talebi ({{F-47}}) ve kefaletler böyledir. ' +
-          'Buna rağmen {{F110}} istatistiksel kalemi **görür ve ödeme önerisine alır** — ' +
+          'Buna rağmen {{F110}} istatistiksel kalemi **görür ve ödeme önerisine alır**: ' +
           'süreç izlemeyi bilanço etkisinden ayıran tasarımdır.',
     ilgili:['ozel-ana-muhasebe-gostergesi','avans'] },
 
@@ -1059,7 +1059,7 @@ SAP.registerTerms([
     detay:'SAP’ta {{park-etme}} ile uygulanır: kullanıcı belgeyi park eder ({{FV60}}), ' +
           'yetkili kişi inceleyip muhasebeleştirir ({{FBV0}}). Belge park hâlindeyken ' +
           'mizanı etkilemez. Yetkilendirme, park eden kullanıcının kendi belgesini ' +
-          'muhasebeleştirmesini engelleyecek şekilde kurulmalıdır — ' +
+          'muhasebeleştirmesini engelleyecek şekilde kurulmalıdır: ' +
           'aksi hâlde mekanizma yalnızca bir gecikmeye dönüşür.',
     ilgili:['park-etme','belge-turu'] },
 
@@ -1072,17 +1072,17 @@ SAP.registerTerms([
     ilgili:['avans','ozel-ana-muhasebe-gostergesi'] },
 
   /* ------------------------------------------------------- E-Dönüşüm --- */
-  { anahtar:'gib', ad:'GİB — Gelir İdaresi Başkanlığı', en:'Turkish Revenue Administration', konu:'e-donusum',
+  { anahtar:'gib', ad:'GİB: Gelir İdaresi Başkanlığı', en:'Turkish Revenue Administration', konu:'e-donusum',
     aciklama:'Türkiye’de e-dönüşümün **düzenleyici ve nihai muhatabı** olan kurum.',
     detay:'E-belge formatlarını, zorunluluk sınırlarını ve gönderim kurallarını GİB belirler. ' +
-          '**Zorunluluk hadleri ve tarihler tebliğle değişir** — bu yüzden sisteme ' +
+          '**Zorunluluk hadleri ve tarihler tebliğle değişir**: bu yüzden sisteme ' +
           '**sabit kodlanmaz**, {{mukellef-sorgulama}} listesiyle dinamik yönetilir.' },
 
   { anahtar:'e-fatura', ad:'e-Fatura', en:'e-Invoice', konu:'e-donusum',
     aciklama:'**Kayıtlı kullanıcılar arasında** düzenlenen, kâğıt karşılığı olmayan elektronik fatura.',
     detay:'Alıcı da e-fatura sistemine kayıtlıysa fatura **e-fatura** olmak zorundadır; ' +
           'kayıtlı değilse {{e-arsiv}} kesilir. Bu seçim kullanıcının tercihi değil, ' +
-          '**alıcının mükellefiyet durumunun** sonucudur — ' +
+          '**alıcının mükellefiyet durumunun** sonucudur: ' +
           've bu yüzden {{mukellef-sorgulama}} listesi güncel tutulmalıdır.\n\n' +
           'İki senaryo vardır: {{temel-fatura}} ve {{ticari-fatura}}.' },
 
@@ -1096,10 +1096,10 @@ SAP.registerTerms([
           '{{ticari-fatura}} senaryosunda reddedilebilir veya iade faturasıyla düzeltilir.' },
 
   { anahtar:'e-irsaliye', ad:'e-İrsaliye', en:'e-Delivery Note', konu:'e-donusum',
-    aciklama:'Sevk irsaliyesinin elektronik hâli — **mal hareketiyle** birlikte düzenlenir.',
+    aciklama:'Sevk irsaliyesinin elektronik hâli: **mal hareketiyle** birlikte düzenlenir.',
     detay:'Faturadan **bağımsız** bir belgedir ve zamanlaması farklıdır: ' +
           'irsaliye **malın sevkinde**, fatura sonrasında düzenlenebilir.\n\n' +
-          'SAP tarafında tetikleyici FI değil **SD teslimatı** veya MM mal hareketidir — ' +
+          'SAP tarafında tetikleyici FI değil **SD teslimatı** veya MM mal hareketidir: ' +
           'bu yüzden e-irsaliye sorunları çoğu zaman **lojistik tarafında** çözülür.' },
 
   { anahtar:'e-defter', ad:'e-Defter', en:'e-Ledger', konu:'e-donusum',
@@ -1108,23 +1108,23 @@ SAP.registerTerms([
           '{{berat}} dosyası GİB’e yüklenir.\n\n' +
           '**Kritik sonuç:** beratı alınmış bir dönem **kesinleşmiştir**. ' +
           'O döneme sonradan kayıt yapmak yalnızca {{OB52}} sorunu değil, ' +
-          '**yasal bir sorundur** — bu, dönem disiplininin neden bu kadar önemli ' +
+          '**yasal bir sorundur**: bu, dönem disiplininin neden bu kadar önemli ' +
           'olduğunun Türkiye’ye özgü gerekçesidir.' },
 
   { anahtar:'berat', ad:'Berat', en:'Ledger Certificate', konu:'e-donusum',
     aciklama:'{{e-defter}} dosyalarının özet ve imza bilgisini taşıyan, GİB’e yüklenen onay dosyası.',
     detay:'Defterin kendisi GİB’e gönderilmez; **beratı** gönderilir. ' +
           'GİB beratı onaylayınca dönem **mühürlenmiş** sayılır.\n\n' +
-          'Berat alındıktan sonra o dönemin defterinde değişiklik yapılamaz — ' +
+          'Berat alındıktan sonra o dönemin defterinde değişiklik yapılamaz: ' +
           'düzeltme **sonraki döneme** kaydedilir.' },
 
   { anahtar:'ozel-entegrator', ad:'Özel entegratör', en:'Private Integrator', konu:'e-donusum',
     aciklama:'GİB’den yetki almış, e-belge gönderim/alım hizmeti veren aracı kuruluş.',
     detay:'Üç gönderim yöntemi vardır:\n\n' +
-          '**Doğrudan entegrasyon** — şirket kendi sistemini GİB’e bağlar. ' +
+          '**Doğrudan entegrasyon**: şirket kendi sistemini GİB’e bağlar. ' +
           'Yüksek hacim için; teknik yük şirkettedir.\n' +
-          '**Özel entegratör** — **en yaygın**. Aracı kurum arayüzü ve saklamayı üstlenir.\n' +
-          '**GİB portal** — düşük hacim; SAP entegrasyonu yoktur, elle giriş.\n\n' +
+          '**Özel entegratör**: **en yaygın**. Aracı kurum arayüzü ve saklamayı üstlenir.\n' +
+          '**GİB portal**: düşük hacim; SAP entegrasyonu yoktur, elle giriş.\n\n' +
           '**Danışman için önemi:** SAP standardı e-belgeyi **üretir**, ' +
           'gönderimi çoğu kurulumda **entegratörün add-on’u** yapar. ' +
           'Bu yüzden sorun giderirken *"hata SAP’ta mı, entegratörde mi?"* ' +
@@ -1132,7 +1132,7 @@ SAP.registerTerms([
 
   { anahtar:'ubl-tr', ad:'UBL-TR', en:'UBL-TR XML Format', konu:'e-donusum',
     aciklama:'Türkiye’de e-fatura ve e-arşivin zorunlu **XML** biçimi (UBL 2.1 tabanlı yerel uyarlama).',
-    detay:'Faturanın hukuken geçerli hâli **XML’dir** — ekrandaki görüntü veya PDF değil.\n\n' +
+    detay:'Faturanın hukuken geçerli hâli **XML’dir**: ekrandaki görüntü veya PDF değil.\n\n' +
           '**Pratik sonucu büyüktür:** uyuşmazlıkta *"biz şöyle görüyoruz"* geçerli değildir. ' +
           '`EDOCUMENTFILE`’daki **gönderilen XML** esastır. ' +
           'Teşhiste ekran değil, dosya okunur.' },
@@ -1147,7 +1147,7 @@ SAP.registerTerms([
   { anahtar:'mukellef-sorgulama', ad:'Mükellef sorgulama', en:'Taxpayer Registry Check', konu:'e-donusum',
     aciklama:'Alıcının e-fatura sistemine **kayıtlı olup olmadığının** GİB listesinden kontrolü.',
     detay:'Bu kontrol, faturanın {{e-fatura}} mı {{e-arsiv}} mi olacağını belirler.\n\n' +
-          '**Liste sürekli değişir** — yeni mükellefler eklenir. ' +
+          '**Liste sürekli değişir**: yeni mükellefler eklenir. ' +
           'Sistemdeki kopya güncellenmezse, artık e-fatura mükellefi olmuş bir müşteriye ' +
           'e-arşiv kesilir ve **GİB reddeder**.\n\n' +
           'Red **sessizdir**: muhasebe belgesi durur, cari hesapta borç görünür, ' +
@@ -1163,7 +1163,7 @@ SAP.registerTerms([
   { anahtar:'ticari-fatura', ad:'Ticari fatura senaryosu', en:'Commercial Invoice Scenario', konu:'e-donusum',
     aciklama:'Alıcının belirli bir süre içinde **kabul veya red** yanıtı verebildiği e-fatura senaryosu.',
     detay:'**Danışman için kritik nokta:** bu senaryoda faturanın ' +
-          '**muhasebeleşmiş olması yetmez** — alıcı reddedebilir.\n\n' +
+          '**muhasebeleşmiş olması yetmez**: alıcı reddedebilir.\n\n' +
           'Yani FI’da belge oluşmuş, cari hesapta borç doğmuş olabilir, ' +
           'buna rağmen e-fatura **reddedilmiş** olabilir. ' +
           'Bu, {{konu:e-donusum}} konusunun ana fikridir: ' +
@@ -1174,7 +1174,7 @@ SAP.registerTerms([
     aciklama:'Ödemeyi yapanın, ödeyeceği tutardan vergiyi kesip doğrudan vergi dairesine yatırması.',
     detay:'SAP’ta iki tip vardır: **klasik** (yalnızca ödemede) ve **genişletilmiş** (faturada veya ödemede). ' +
           'Türkiye kurulumlarında genişletilmiş tevkifat kullanılır. Satıcı ana verisindeki tevkifat tipi/kodu ' +
-          'olmadan kesinti yapılmaz — sık karşılaşılan bir eksiklik.',
+          'olmadan kesinti yapılmaz: sık karşılaşılan bir eksiklik.',
     ilgili:['vergi-kodu','acik-kalem'] },
 
   { anahtar:'lider-defter', ad:'Lider defter', en:'Leading Ledger', konu:'parallel-ledger',
@@ -1208,7 +1208,7 @@ SAP.registerTerms([
   { anahtar:'greenfield', ad:'Yeni kurulum', en:'Greenfield / New Implementation', konu:'migration',
     aciklama:'S/4HANA’nın **sıfırdan** kurulup süreçlerin yeniden tasarlandığı geçiş yaklaşımı; eski sistemden yalnızca ana veri, açılış bakiyesi ve açık kalemler taşınır.',
     detay:'Avantajı: eski sistemin birikmiş hataları, kullanılmayan {{z-gelistirme}}leri ve bozuk verisi **taşınmaz**; süreçler {{standarda-yakin}} kurulabilir.\n\n' +
-          'Bedeli: **geçmiş taşınmaz.** Gelir tablosu hesaplarının açılış bakiyesi olmadığı için önceki yılın gelir tablosu yeni sistemde **hiç oluşmaz** — karşılaştırmalı mali tablo isteniyorsa ya hareketler de taşınır ya eski sistem okunabilir kalır. Bu karar geçişten **önce** verilmelidir.',
+          'Bedeli: **geçmiş taşınmaz.** Gelir tablosu hesaplarının açılış bakiyesi olmadığı için önceki yılın gelir tablosu yeni sistemde **hiç oluşmaz**: karşılaştırmalı mali tablo isteniyorsa ya hareketler de taşınır ya eski sistem okunabilir kalır. Bu karar geçişten **önce** verilmelidir.',
     ilgili:['brownfield','secici-gecis','acilis-bakiyesi'] },
 
   { anahtar:'brownfield', ad:'Sistem dönüşümü', en:'Brownfield / System Conversion', konu:'migration',
@@ -1227,14 +1227,14 @@ SAP.registerTerms([
   { anahtar:'cvi', ad:'Müşteri/Satıcı Entegrasyonu', en:'Customer-Vendor Integration (CVI)', konu:'migration',
     aciklama:'Eski {{LFA1}} (satıcı) ve {{KNA1}} (müşteri) kayıtlarını {{is-ortagi}} nesnesine ({{BUT000}}) eşleyen dönüşüm mekanizması.',
     detay:'S/4HANA’da {{is-ortagi}} **zorunludur**, bu yüzden CVI dönüşümü brownfield geçişinin ön koşuludur.\n\n' +
-          '**Teknik dönüşümden ÖNCE, hâlâ ECC üzerindeyken** yapılır — projelerin en sık geciktiği adım budur. Sebebi teknik değil **veri kalitesidir**: mükerrer kayıtlar, eksik vergi numaraları ve tutarsız adres verileri dönüşümü durdurur ve tek tek temizlenmeleri gerekir.\n\n' +
+          '**Teknik dönüşümden ÖNCE, hâlâ ECC üzerindeyken** yapılır: projelerin en sık geciktiği adım budur. Sebebi teknik değil **veri kalitesidir**: mükerrer kayıtlar, eksik vergi numaraları ve tutarsız adres verileri dönüşümü durdurur ve tek tek temizlenmeleri gerekir.\n\n' +
           'Aynı gerçek kişi hem satıcı hem müşteri ise **tek** iş ortağında birleşmelidir; bu birleştirme kararı iş tarafına aittir, danışmana değil.',
     ilgili:['is-ortagi','brownfield'] },
 
   { anahtar:'is-ortagi', ad:'İş Ortağı', en:'Business Partner (BP)', konu:'s4-yenilikleri',
     aciklama:'Satıcı, müşteri, çalışan ve banka gibi tarafların **tek** ana veri nesnesinde toplanması; taraf türü artık bir **rol**dür.',
     detay:'ECC’de aynı firma hem satıcı hem müşteriyse **iki ayrı kayıt** açılırdı ve adres bilgisi iki yerde tutulurdu; ikisi zamanla ayrışırdı. {{is-ortagi}} bunu ortadan kaldırır: tek kimlik ({{BUT000}}), çok rol.\n\n' +
-          'Şirket kodu verisi **kaybolmadı** — hâlâ {{LFB1}} / {{KNB1}}’de durur ve `AKONT` {{mutabakat-hesabi}} oradadır. Değişen şey kimlik katmanıdır.\n\n' +
+          'Şirket kodu verisi **kaybolmadı**: hâlâ {{LFB1}} / {{KNB1}}’de durur ve `AKONT` {{mutabakat-hesabi}} oradadır. Değişen şey kimlik katmanıdır.\n\n' +
           'S/4HANA’da {{BP}} **tek giriş yoludur**; {{XK01}} ve {{XD01}} çalışsa bile arka planda {{cvi}} üzerinden buraya yazarlar.',
     ilgili:['cvi','mutabakat-hesabi'] },
 
@@ -1248,9 +1248,9 @@ SAP.registerTerms([
   { anahtar:'acilis-bakiyesi', ad:'Açılış bakiyesi', en:'Opening Balance', konu:'migration',
     aciklama:'Yeni sistemde muhasebenin başladığı andaki bakiyeler; genelde geçiş yılından **bir gün önceye** (31.12) bir **geçiş hesabı** karşılığında kaydedilir.',
     detay:'Üç kural:\n\n' +
-          '**①** {{acik-kalem}} yönetimi olan hesaplar (satıcı, müşteri, GR/IR) **tek tek** taşınır — vade ve ödeme koşuluyla; toplu taşınırsa {{F110}} ve {{F-53}} çalışmaz.\n' +
+          '**①** {{acik-kalem}} yönetimi olan hesaplar (satıcı, müşteri, GR/IR) **tek tek** taşınır: vade ve ödeme koşuluyla; toplu taşınırsa {{F110}} ve {{F-53}} çalışmaz.\n' +
           '**②** Normal G/L hesaplarında **bakiye** yeterlidir.\n' +
-          '**③** **Gelir tablosu hesaplarının açılış bakiyesi olmaz** — dönem sonunda sıfırlandıkları için taşınacak bir bakiyeleri yoktur. Bu, karşılaştırmalı gelir tablosunun neden kendiliğinden oluşmadığının sebebidir.\n\n' +
+          '**③** **Gelir tablosu hesaplarının açılış bakiyesi olmaz**: dönem sonunda sıfırlandıkları için taşınacak bir bakiyeleri yoktur. Bu, karşılaştırmalı gelir tablosunun neden kendiliğinden oluşmadığının sebebidir.\n\n' +
           'Kontrol: tüm açılış kayıtlarından sonra geçiş hesabının bakiyesi **sıfır olmalıdır**.',
     ilgili:['greenfield','sayi-mutabakati','acik-kalem'] },
 
@@ -1265,7 +1265,7 @@ SAP.registerTerms([
   { anahtar:'deneme-gecisi', ad:'Deneme geçişi', en:'Mock Migration / Dress Rehearsal', konu:'migration',
     aciklama:'Gerçek geçişin, gerçek veriyle ve gerçek {{kesme-plani}} ile baştan sona **provası**.',
     detay:'En az üç tur yapılır: **①** teknik prova (çalışıyor mu?) · **②** iş provası (veri doğru mu?) · **③** tam prova (süre tutuyor mu?).\n\n' +
-          '**Prova, verinin değil PLANIN testidir.** Verinin doğruluğu mutabakatla ölçülür; provanın asıl çıktısı **her adımın kaç dakika sürdüğüdür** — kesme penceresi ancak bu ölçümle planlanabilir.\n\n' +
+          '**Prova, verinin değil PLANIN testidir.** Verinin doğruluğu mutabakatla ölçülür; provanın asıl çıktısı **her adımın kaç dakika sürdüğüdür**: kesme penceresi ancak bu ölçümle planlanabilir.\n\n' +
           'Son prova mümkün olduğunca canlıya yakın donanımda yapılır; yavaş bir test sunucusunda ölçülen süre canlıda yanıltır.',
     ilgili:['kesme-plani','sayi-mutabakati'] },
 
@@ -1275,18 +1275,18 @@ SAP.registerTerms([
     aciklama:'Üzerine veri yazıldıktan sonra **geri alınamayan** yapılandırma kararı; yanlışsa çözüm ayarı düzeltmek değil, veriyi yeniden kurmaktır.',
     detay:'FI’daki başlıca tek yönlü kapılar: {{hesap-plani}} · şirket kodunun {{yerel-para-birimi}} · {{mali-yil-varyanti}} · {{belge-bolme}}nin açık/kapalı olması · defter yapısı ({{paralel-defter}}) · {{mutabakat-hesabi}} ataması · kullanılmış bir {{vergi-kodu}}nun oranı · {{degerleme-plani}} ve {{amortisman-alani}} yapısı.\n\n' +
           'Bu kararlarda doğru soru *"bugün istiyor muyuz?"* değil, **"üç yıl içinde isteme ihtimalimiz var mı?"**dır.\n\n' +
-          'Karşıtı **çift yönlü kapıdır**: {{odeme-kosulu}}, ihtar prosedürü, tolerans grubu, alan durumu — bunlar her zaman değiştirilebilir ve uzun uzun tartışılmaları zaman kaybıdır.',
+          'Karşıtı **çift yönlü kapıdır**: {{odeme-kosulu}}, ihtar prosedürü, tolerans grubu, alan durumu: bunlar her zaman değiştirilebilir ve uzun uzun tartışılmaları zaman kaybıdır.',
     ilgili:['belge-bolme','hesap-plani','standarda-yakin'] },
 
   { anahtar:'standarda-yakin', ad:'Standarda yakınlık', en:'Fit-to-Standard', konu:'best-practices',
-    aciklama:'Süreci sisteme uydurma yaklaşımı: SAP’ın hazır çözümü kabul edilebilir durumdaysa, süreç ona uyarlanır — sistem sürece değil.',
+    aciklama:'Süreci sisteme uydurma yaklaşımı: SAP’ın hazır çözümü kabul edilebilir durumdaysa, süreç ona uyarlanır: sistem sürece değil.',
     detay:'Ölçüt duygusal değil ticaridir: **bu farklılık bize rekabet avantajı sağlıyor mu, yoksa yalnızca alışkanlık mı?** Mevzuat gereği olan farklılıklar zaten tartışma dışıdır.\n\n' +
-          'Standarttan sapmanın maliyeti tek seferlik değildir: her destek paketi ve sürüm yükseltmesinde {{SPAU}} ile yeniden ele alınır. Bu yüzden {{z-gelistirme}} bir maliyet değil **borçtur** — faizi yıllara yayılır.',
+          'Standarttan sapmanın maliyeti tek seferlik değildir: her destek paketi ve sürüm yükseltmesinde {{SPAU}} ile yeniden ele alınır. Bu yüzden {{z-gelistirme}} bir maliyet değil **borçtur**: faizi yıllara yayılır.',
     ilgili:['z-gelistirme','tek-yonlu-kapi'] },
 
   { anahtar:'z-gelistirme', ad:'Özel geliştirme (Z)', en:'Custom Development', konu:'best-practices',
     aciklama:'Müşteriye özel yazılan program, rapor, alan veya çıkış (`Z*` / `Y*` ad alanı).',
-    detay:'Üç seviyesi vardır ve maliyetleri **çok farklıdır**: **①** özel **rapor** — risksiz, standardı değiştirmez · **②** {{badi}} / genişletme noktası — SAP’ın izin verdiği yerden bağlanır, sürüm yükseltmede genelde ayakta kalır · **③** **modifikasyon** — standart kodun değiştirilmesi; her yükseltmede {{SPAU}} ile elle uyarlanır.\n\n' +
+    detay:'Üç seviyesi vardır ve maliyetleri **çok farklıdır**: **①** özel **rapor**, risksiz, standardı değiştirmez · **②** {{badi}} / genişletme noktası, SAP’ın izin verdiği yerden bağlanır, sürüm yükseltmede genelde ayakta kalır · **③** **modifikasyon**, standart kodun değiştirilmesi; her yükseltmede {{SPAU}} ile elle uyarlanır.\n\n' +
           'Asıl sorun yazmak değil **envanteri kaybetmektir**: beş yıl sonra hangi geliştirmenin hâlâ kullanıldığı bilinmez ve hepsi yükseltmeye taşınır. Geçiş öncesi kullanım analizi bu yüzden yapılır.',
     ilgili:['standarda-yakin','badi','brownfield'] },
 
@@ -1294,7 +1294,7 @@ SAP.registerTerms([
     aciklama:'SAP’ın standart akış içinde **önceden tanımladığı** genişletme noktası; müşteri kodu standardı değiştirmeden buraya bağlanır.',
     detay:'Tercih sırası: standart ayar → {{badi}} veya genişletme → son çare **modifikasyon**. Aşağı inildikçe sürüm yükseltme maliyeti artar.\n\n' +
           '**İki ekran:** {{SE18}} tanımı (SAP’ın bıraktığı kanca), {{SE19}} uygulaması (senin kodun). Tanımı SAP yazar, uygulamayı müşteri. Standart kod değişmediği için yükseltmede {{SPAU}}/{{SPDD}} listesinde görünmez.\n\n' +
-          '**Çoklu uygulama tuzağı:** tanım *multiple use* ise birden fazla aktif uygulama olabilir ve **çalışma sırası garanti değildir**. İkisi aynı alanı yazıyorsa sonuç öngörülemez olur — canlıda "bazen oluyor bazen olmuyor" şikâyetinin klasik sebebi budur. Tanım filtreliyse (örn. şirket kodu) uygulama yalnız o değerde çalışır; "genişletme çalışmıyor" ihbarında önce filtreye bakılır.\n\n' +
+          '**Çoklu uygulama tuzağı:** tanım *multiple use* ise birden fazla aktif uygulama olabilir ve **çalışma sırası garanti değildir**. İkisi aynı alanı yazıyorsa sonuç öngörülemez olur: canlıda "bazen oluyor bazen olmuyor" şikâyetinin klasik sebebi budur. Tanım filtreliyse (örn. şirket kodu) uygulama yalnız o değerde çalışır; "genişletme çalışmıyor" ihbarında önce filtreye bakılır.\n\n' +
           'BAdI de bedava değildir: kayıt anında çalıştığı için hatalı bir uygulama **kaydı durdurur** ve hata mesajı çoğu zaman BAdI’yi işaret etmez. Bu yüzden aktif BAdI envanteri, {{konu:dogrulama-ikame}} konusundaki aktif ikame envanteriyle aynı disiplini ister.',
     ilgili:['bapi','z-gelistirme','standarda-yakin'] },
 
@@ -1302,12 +1302,12 @@ SAP.registerTerms([
     aciklama:'Taşıma isteğine girmeyen, **canlı sistemde doğrudan** değiştirilen yapılandırma tablosu.',
     detay:'Klasik örnekler: {{OB52}} dönem açma/kapama · {{TCURR}} döviz kurları · ihtar tarihleri.\n\n' +
           '**Bu, "test sisteminde çalışıyordu ama canlıda başka" vakalarının en sık sebebidir.** Ayar taşınmadığı için iki sistem aynı olmak zorunda değildir ve genelde değildir.\n\n' +
-          'Sonucu bir yetki sorusudur: canlıda özelleştirme kapalıdır ama akım verisi tablolarına yazma yetkisi **açık kalmak zorundadır** — kimin yazabileceği bilinçli olarak seçilmelidir.',
+          'Sonucu bir yetki sorusudur: canlıda özelleştirme kapalıdır ama akım verisi tablolarına yazma yetkisi **açık kalmak zorundadır**: kimin yazabileceği bilinçli olarak seçilmelidir.',
     ilgili:['tasima-istegi','ozellestirme'] },
 
   { anahtar:'tasima-sirasi', ad:'Taşıma sırası', en:'Transport Sequence', konu:'best-practices',
     aciklama:'Taşıma isteklerinin canlıya **serbest bırakılma sırasıyla** aktarılması kuralı.',
-    detay:'Aynı nesneye dokunan iki istek ters sırada taşınırsa, **eski hâl yeniyi ezer** — ve hiçbir hata mesajı çıkmaz. Sonuç: test sisteminde çalışan ayar canlıda çalışmaz.\n\n' +
+    detay:'Aynı nesneye dokunan iki istek ters sırada taşınırsa, **eski hâl yeniyi ezer**: ve hiçbir hata mesajı çıkmaz. Sonuç: test sisteminde çalışan ayar canlıda çalışmaz.\n\n' +
           'Teşhis: {{E071}}’de iki isteğin ortak nesnesi var mı? Kuyruk sırası {{STMS}}’te görülür.\n\n' +
           'Önlem tasarımdadır: istekler **küçük ve amaç odaklı** tutulur. "Her şeyi içine atılmış" tek büyük istek, sırası bozulduğunda geri alınamaz.',
     ilgili:['tasima-istegi','akim-verisi'] },
@@ -1316,28 +1316,28 @@ SAP.registerTerms([
     aciklama:'Yeni bir değişikliğin **eskiden çalışan** işlevleri bozmadığını doğrulayan test.',
     detay:'FI’da kritiktir çünkü yapılandırma **paylaşımlıdır**: bir vergi kodunun hesap ataması değiştiğinde ona bağlı her süreç etkilenir.\n\n' +
           'Kapsam listesi tahmine değil **bağımlılığa** dayanır: değiştirilen tabloya hangi süreçler bakıyor? {{E071}} hangi nesnenin değiştiğini söyler; geri kalanı o nesnenin kullanıldığı yerlerdir.\n\n' +
-          'Sabit bir çekirdek küme tutulur: bir satıcı faturası, bir ödeme koşusu, bir müşteri tahsilatı, bir amortisman ve bir kapanış — her taşımadan sonra bunlar koşulur.',
+          'Sabit bir çekirdek küme tutulur: bir satıcı faturası, bir ödeme koşusu, bir müşteri tahsilatı, bir amortisman ve bir kapanış: her taşımadan sonra bunlar koşulur.',
     ilgili:['negatif-test','tasima-sirasi'] },
 
   { anahtar:'negatif-test', ad:'Negatif test', en:'Negative Testing', konu:'best-practices',
     aciklama:'Sistemin **yapılmaması gerekeni engellediğini** doğrulayan test; "doğru veri doğru sonucu veriyor mu?" değil, "yanlış veri durduruluyor mu?" sorusunu sorar.',
     detay:'Test senaryolarının asıl değeri buradadır. Mutlu yolu herkes test eder; kontroller ise **yalnızca ihlal edildiklerinde** görünür.\n\n' +
           'Örnekler: kapalı döneme kayıt denenir · zorunlu {{kar-merkezi}} boş bırakılır · bütçe aşılır · dört-göz kuralı tek kullanıcıyla denenir · dengesiz belge kaydedilmeye çalışılır.\n\n' +
-          'Kurulan her {{konu:dogrulama-ikame}} kuralının negatif testi **zorunludur** — çünkü etkinleştirilmemiş bir kural sessizce hiçbir şey yapmaz ve pozitif test bunu göstermez.',
+          'Kurulan her {{konu:dogrulama-ikame}} kuralının negatif testi **zorunludur**: çünkü etkinleştirilmemiş bir kural sessizce hiçbir şey yapmaz ve pozitif test bunu göstermez.',
     ilgili:['regresyon-testi','dort-goz'] },
 
   /* ================================ S/4HANA yenilikleri partisi === */
 
   { anahtar:'bellek-ici', ad:'Bellek içi veritabanı', en:'In-Memory Database (HANA)', konu:'s4-yenilikleri',
     aciklama:'Verinin diskten değil **bellekten** ve satır yerine **sütun** düzeninde okunduğu veritabanı mimarisi.',
-    detay:'Önemi teknik değil **mimaridir**: eski SAP tasarımındaki pek çok yapı, "diskten okumak pahalıdır" kısıtını aşmak için vardı — {{toplam-tablosu}}, indeks tabloları, gecelik toplu işler.\n\n' +
+    detay:'Önemi teknik değil **mimaridir**: eski SAP tasarımındaki pek çok yapı, "diskten okumak pahalıdır" kısıtını aşmak için vardı: {{toplam-tablosu}}, indeks tabloları, gecelik toplu işler.\n\n' +
           '**Kısıt kalkınca çözüm gereksizleşti.** S/4HANA’daki basitleştirmelerin çoğu yeni bir özellik değil, **artık gereksiz olan bir çözümün kaldırılmasıdır**.\n\n' +
           'Hız kendiliğinden gelmez: eski tabloları okuyan {{z-gelistirme}} {{uyumluluk-view}} üzerinden çalışır ve **yavaşlayabilir**.',
     ilgili:['toplam-tablosu','uyumluluk-view','evrensel-kayit-defteri'] },
 
   { anahtar:'toplam-tablosu', ad:'Toplam ve indeks tablosu', en:'Aggregate / Index Table', konu:'s4-yenilikleri',
     aciklama:'Sorguyu hızlandırmak için **önceden hesaplanıp saklanan** bakiye ({{GLT0}}, {{FAGLFLEXT}}, {{KNC1}}, {{LFC1}}) veya farklı anahtarla kopyalanan kalem ({{BSIK}}, {{BSID}}, {{BSIS}}) tablosu.',
-    detay:'İki dezavantajı vardı: **yer** kaplarlar ve **tutarsızlaşabilirler** — güncelleme yarıda kalırsa toplam ile kalemler ayrışır ve mutabakat programları bu yüzden vardı.\n\n' +
+    detay:'İki dezavantajı vardı: **yer** kaplarlar ve **tutarsızlaşabilirler**: güncelleme yarıda kalırsa toplam ile kalemler ayrışır ve mutabakat programları bu yüzden vardı.\n\n' +
           '{{bellek-ici}} veritabanında toplamı **her seferinde hesaplamak** yeterince hızlı olduğu için bu tablolar kaldırıldı; yerlerine {{uyumluluk-view}} kondu.\n\n' +
           'Kazanç yalnızca yer değil **tutarlılıktır**: hesaplanan bir toplam, kalemlerle ayrışamaz.',
     ilgili:['bellek-ici','uyumluluk-view','evrensel-kayit-defteri'] },
@@ -1353,7 +1353,7 @@ SAP.registerTerms([
     aciklama:'SAP’ın rol bazlı, görev odaklı web arayüzü; klasik SAP GUI ekranlarının yerine geçen kullanıcı katmanı.',
     detay:'Fiori *"yeni görünümlü GUI"* değildir: klasik ekran **işlem** merkezliydi (bir ekranda çok iş), Fiori **görev** merkezlidir (bir uygulama bir iş).\n\n' +
           'Danışman açısından iki sonucu var: rol tasarımı artık aynı zamanda **arayüz tasarımıdır** (kullanıcı yalnızca rolündeki uygulamaları görür); ve pek çok Fiori uygulaması arka planda **aynı** işlem kodunu çağırdığı için yapılandırma bilgisi aynen geçerlidir.\n\n' +
-          'Klasik işlemler kaldırılmadı — Fiori başlatıcıdan çağrılabilirler.',
+          'Klasik işlemler kaldırılmadı: Fiori başlatıcıdan çağrılabilirler.',
     ilgili:['gomulu-analitik'] },
 
   { anahtar:'merkezi-finans', ad:'Merkezi Finans', en:'Central Finance', konu:'s4-yenilikleri',

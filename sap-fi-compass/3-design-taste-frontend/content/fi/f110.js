@@ -1,5 +1,5 @@
 /* ==========================================================================
-   content/fi/f110.js — "Automatic Payment Program (F110)" derin içeriği
+   content/fi/f110.js: "Automatic Payment Program (F110)" derin içeriği
    ========================================================================== */
 
 SAP.registerTopic({
@@ -16,7 +16,7 @@ SAP.registerTopic({
       '{{iskonto}} fırsatları değerlendirilir, hangi bankadan ödeneceğine karar verilir ve ' +
       'ödeme dosyası üretilir. Elle yapılsa günler sürecek bir iş dakikalara iner.\n\n' +
       'F110’un ayırt edici özelliği **iki aşamalı** olmasıdır: önce **öneri (proposal)**, sonra ' +
-      '**ödeme (payment run)**. Arada insan onayı vardır — çünkü buradan gerçek para çıkar.',
+      '**ödeme (payment run)**. Arada insan onayı vardır: çünkü buradan gerçek para çıkar.',
 
     neden:
       '**Hacim.** 300 faturayı elle {{F-53}} ile ödemek pratik değildir.\n\n' +
@@ -38,7 +38,7 @@ SAP.registerTopic({
       'Bir üretim şirketi ayın 10’u ve 25’inde ödeme koşusu yapıyor. 25 Eylül sabahı hazine uzmanı ' +
       'F110’u açıyor: parametreleri giriyor, öneriyi çalıştırıyor.\n\n' +
       'Sistem 340 açık kalemi tarıyor: 47’si bloklu (dâhil edilmiyor), 61’i vadesi gelmemiş ' +
-      '(bir sonraki koşuya kalıyor), 232’si ödenecek. Bunlardan 18’i iskonto süresindeymiş — ' +
+      '(bir sonraki koşuya kalıyor), 232’si ödenecek. Bunlardan 18’i iskonto süresindeymiş: ' +
       'program onları öne alıyor. 232 kalem, 89 satıcı için **89 ödemede** birleştiriliyor.\n\n' +
       'Muhasebe müdürü öneriyi inceliyor, uyuşmazlık çıkan 3 satıcıyı çıkarıyor. ' +
       'Ödeme çalıştırılıyor: 86 ödeme belgesi ve tek bir banka dosyası oluşuyor. ' +
@@ -47,7 +47,7 @@ SAP.registerTopic({
     muhasebeMantigi:
       'F110’un ürettiği kayıt son derece basittir:\n\n' +
       '**Satıcı borçlanır** (borç azalır) **/ Banka alacaklanır** (para çıkar).\n\n' +
-      'Bunun yanında iki şey daha olur: **{{kapatma}}** — ödenen faturalar {{BSIK}}’ten {{BSAK}}’a taşınır; ' +
+      'Bunun yanında iki şey daha olur: **{{kapatma}}**: ödenen faturalar {{BSIK}}’ten {{BSAK}}’a taşınır; ' +
       've varsa **{{iskonto}}** geliri ile **{{kur-farki}}** ayrı satırlarda kaydedilir.\n\n' +
       'Genelde banka hesabına doğrudan değil {{banka-ara-hesabi}}na yazılır. Sebep: ' +
       'ödemeyi kaydettiğin an ile paranın gerçekten bankadan çıktığı an aynı değildir. ' +
@@ -76,7 +76,7 @@ SAP.registerTopic({
 
     diyagram:{
       type:'flow',
-      baslik:'F110 — dört aşamalı ödeme koşusu',
+      baslik:'F110: dört aşamalı ödeme koşusu',
       adimlar:[
         { ic:'🧹', rol:'AP muhasebe', baslik:'Koşu öncesi hazırlık',
           aciklama:'Bloklu faturalar çözülür ({{MRBR}}), {{odeme-blogu}} olanlar gözden geçirilir, ' +
@@ -88,7 +88,7 @@ SAP.registerTopic({
           cikti:'Parametre kaydı ({{REGUV}})', ok:'öneri çalıştırılır' },
         { ic:'📋', rol:'Sistem', baslik:'2. Öneri (proposal) üretilir',
           aciklama:'Vadesi gelen kalemler seçilir, satıcı bazında gruplanır, banka belirlenir. ' +
-                   '**Hiçbir muhasebe kaydı yapılmaz** — {{REGUH}}’a `XVORL = X` ile yazılır.',
+                   '**Hiçbir muhasebe kaydı yapılmaz**: {{REGUH}}’a `XVORL = X` ile yazılır.',
           cikti:'Öneri listesi + istisna listesi', ok:'incelenir' },
         { ic:'👁️', rol:'Muhasebe müdürü', baslik:'3. Öneri incelenir ve düzenlenir',
           aciklama:'Kalem çıkarılabilir, bloklanabilir, ödeme yöntemi veya bankası değiştirilebilir. ' +
@@ -111,9 +111,9 @@ SAP.registerTopic({
     adimlar:[
       { rol:'AP muhasebe', eylem:'Blokları çözer, havuzu temizler', sistem:'{{MRBR}}, {{FBL1N}}, {{FB09}}' },
       { rol:'Hazine', eylem:'Parametreleri girer', sistem:'{{F110}} → Parametre sekmesi → {{REGUV}}' },
-      { rol:'Sistem', eylem:'Öneri üretir', sistem:'{{REGUH}}/{{REGUP}} — `XVORL` = X' },
+      { rol:'Sistem', eylem:'Öneri üretir', sistem:'{{REGUH}}/{{REGUP}}: `XVORL` = X' },
       { rol:'Muhasebe müdürü', eylem:'Öneriyi inceler ve düzenler', sistem:'{{F110}} → Öneri düzenle' },
-      { rol:'Hazine', eylem:'Ödemeyi çalıştırır', sistem:'{{F110}} → Ödeme çalıştır — belge türü KZ' },
+      { rol:'Hazine', eylem:'Ödemeyi çalıştırır', sistem:'{{F110}} → Ödeme çalıştır: belge türü KZ' },
       { rol:'Sistem', eylem:'Ödeme ortamını üretir', sistem:'{{FBPM}} veya RFFO* programları' },
       { rol:'AP muhasebe', eylem:'Banka ekstresini işler', sistem:'{{FEBAN}}, {{FF_5}}' },
     ],
@@ -129,7 +129,7 @@ SAP.registerTopic({
 
     notlar:[
       { tip:'warn', baslik:'Öneri ile ödeme arasındaki fark hayatidir', metin:
-        '**Öneri hiçbir muhasebe kaydı yapmaz** — sadece "şunları ödeyeceğim" listesidir ve geri alınabilir ' +
+        '**Öneri hiçbir muhasebe kaydı yapmaz**: sadece "şunları ödeyeceğim" listesidir ve geri alınabilir ' +
         '(öneriyi silmek serbesttir). **Ödeme çalıştırması ise gerçek kayıt üretir** ve geri alınması ' +
         'zordur: her ödeme belgesi tek tek ters kaydedilmeli, kapatmalar {{FBRA}} ile geri alınmalıdır. ' +
         'Bu yüzden onay adımı atlanmamalıdır.' },
@@ -148,30 +148,30 @@ SAP.registerTopic({
       'tek ödemede birleşmesi, kayıtta nasıl göründüğünü değiştirir.',
 
     etkilenenHesaplar:[
-      { hesap:'320 Satıcılar (mutabakat)', tur:'Bilanço — Kaynak', neden:'Ödemeyle **borçlanır** (borç azalır). Kapatılan faturaların toplamı kadar.' },
-      { hesap:'102 Banka ara hesabı', tur:'Bilanço — Varlık', neden:'Ödeme kaydedildiğinde alacaklanır. Gerçek banka hesabı ekstre gelince çalışır.' },
-      { hesap:'602 Alınan iskontolar', tur:'Gelir tablosu — Gelir', neden:'{{iskonto}} süresinde ödeme yapıldığında kazanılan indirim gelir yazılır.' },
-      { hesap:'191 İndirilecek KDV', tur:'Bilanço — Varlık', neden:'İskonto tutarı kadar KDV de düzeltilir (iskonto matrahı ayarına göre).' },
+      { hesap:'320 Satıcılar (mutabakat)', tur:'Bilanço: Kaynak', neden:'Ödemeyle **borçlanır** (borç azalır). Kapatılan faturaların toplamı kadar.' },
+      { hesap:'102 Banka ara hesabı', tur:'Bilanço: Varlık', neden:'Ödeme kaydedildiğinde alacaklanır. Gerçek banka hesabı ekstre gelince çalışır.' },
+      { hesap:'602 Alınan iskontolar', tur:'Gelir tablosu: Gelir', neden:'{{iskonto}} süresinde ödeme yapıldığında kazanılan indirim gelir yazılır.' },
+      { hesap:'191 İndirilecek KDV', tur:'Bilanço: Varlık', neden:'İskonto tutarı kadar KDV de düzeltilir (iskonto matrahı ayarına göre).' },
       { hesap:'646 / 656 Kur farkı', tur:'Gelir tablosu', neden:'Döviz faturası, kaydedildiği kurdan farklı bir kurla ödendiğinde gerçekleşmiş {{kur-farki}} doğar.' },
-      { hesap:'159 Verilen avanslar', tur:'Bilanço — Varlık', neden:'{{avans}} talebi ({{F-47}}) F110 tarafından ödenirse özel G/L hesabı çalışır.' },
+      { hesap:'159 Verilen avanslar', tur:'Bilanço: Varlık', neden:'{{avans}} talebi ({{F-47}}) F110 tarafından ödenirse özel G/L hesabı çalışır.' },
     ],
 
     fisler:[
-      { baslik:'Örnek 1 — Düz ödeme · üç fatura tek ödemede birleşti',
+      { baslik:'Örnek 1: Düz ödeme · üç fatura tek ödemede birleşti',
         belgeTuru:'KZ', tarih:'25.09.2026', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'320', ad:'Satıcılar — V-4001 (fatura 1)', borc:60000, not:'Kapatıldı' },
-          { hesap:'320', ad:'Satıcılar — V-4001 (fatura 2)', borc:45000, not:'Kapatıldı' },
-          { hesap:'320', ad:'Satıcılar — V-4001 (fatura 3)', borc:35000, not:'Kapatıldı' },
+          { hesap:'320', ad:'Satıcılar: V-4001 (fatura 1)', borc:60000, not:'Kapatıldı' },
+          { hesap:'320', ad:'Satıcılar: V-4001 (fatura 2)', borc:45000, not:'Kapatıldı' },
+          { hesap:'320', ad:'Satıcılar: V-4001 (fatura 3)', borc:35000, not:'Kapatıldı' },
           { hesap:'102', ad:'Banka ara hesabı', alacak:140000, not:'Tek ödeme' },
         ],
         not:'Üç fatura ayrı satırlar olarak kapatıldı ama bankaya **tek ödeme** çıktı. ' +
-             '{{REGUP}} tablosu bu ödemenin hangi üç faturayı kapattığını tutar — mutabakatta bu bilgi hayatidir.' },
+             '{{REGUP}} tablosu bu ödemenin hangi üç faturayı kapattığını tutar: mutabakatta bu bilgi hayatidir.' },
 
-      { baslik:'Örnek 2 — İskontolu ödeme · %2 iskonto süresinde ödendi',
+      { baslik:'Örnek 2: İskontolu ödeme · %2 iskonto süresinde ödendi',
         belgeTuru:'KZ', tarih:'22.09.2026', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'320', ad:'Satıcılar — V-4001', borc:120000, not:'Borcun **tamamı** kapandı' },
+          { hesap:'320', ad:'Satıcılar: V-4001', borc:120000, not:'Borcun **tamamı** kapandı' },
           { hesap:'102', ad:'Banka ara hesabı', alacak:117600, not:'Fiilen ödenen tutar' },
           { hesap:'602', ad:'Alınan iskontolar (gelir)', alacak:2000, not:'100.000 × %2 (net üzerinden)' },
           { hesap:'191', ad:'İndirilecek KDV düzeltmesi', alacak:400, not:'İskonto kadar KDV düzeltmesi' },
@@ -179,34 +179,34 @@ SAP.registerTopic({
         not:'Borcun tamamı (120.000) kapandı ama 117.600 TL ödendi. Fark **gelirdir**. ' +
              'F110 iskonto süresini {{odeme-kosulu}}’ndan bilir ve en kârlı günü kendisi seçer.' },
 
-      { baslik:'Örnek 3 — Döviz ödemesi · kur değişmiş',
+      { baslik:'Örnek 3: Döviz ödemesi · kur değişmiş',
         belgeTuru:'KZ', tarih:'25.09.2026', paraBirimi:'EUR',
         satirlar:[
-          { hesap:'320', ad:'Satıcılar — V-7001 (10.000 EUR @ 35,00)', borc:350000, not:'Fatura kurundan' },
+          { hesap:'320', ad:'Satıcılar: V-7001 (10.000 EUR @ 35,00)', borc:350000, not:'Fatura kurundan' },
           { hesap:'102', ad:'Banka ara hesabı (10.000 EUR @ 36,20)', alacak:362000, not:'Ödeme günü kurundan' },
           { hesap:'656', ad:'Kambiyo zararı', borc:12000, not:'Gerçekleşmiş {{kur-farki}}' },
         ],
-        not:'Döviz cinsinden borç **10.000 EUR** olarak kapandı — döviz tarafında fark yok. ' +
+        not:'Döviz cinsinden borç **10.000 EUR** olarak kapandı: döviz tarafında fark yok. ' +
              'Fark yerel para birimindedir: fatura 35,00 kurundan kaydedilmişti, ödeme 36,20’den yapıldı. ' +
              'Aradaki 12.000 TL **gerçekleşmiş** kur farkıdır ve gider yazılır.' },
 
-      { baslik:'Örnek 4 — Kısmi ödeme (öneride elle düzenlendi)',
+      { baslik:'Örnek 4: Kısmi ödeme (öneride elle düzenlendi)',
         belgeTuru:'KZ', tarih:'25.09.2026', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'320', ad:'Satıcılar — V-5001 (kısmi ödeme kalemi)', borc:40000 },
+          { hesap:'320', ad:'Satıcılar: V-5001 (kısmi ödeme kalemi)', borc:40000 },
           { hesap:'102', ad:'Banka ara hesabı', alacak:40000 },
         ],
         not:'Öneri ekranında kalem tutarı elle 40.000’e düşürüldü. Orijinal 100.000 TL’lik kalem ' +
              '**açık kalmaya devam eder**; ödeme ayrı bir kalem olarak durur ({{kismi-kapatma}}).' },
 
-      { baslik:'Ekstre geldiğinde — ara hesap kapanır ({{FEBAN}})',
+      { baslik:'Ekstre geldiğinde: ara hesap kapanır ({{FEBAN}})',
         belgeTuru:'SB', tarih:'26.09.2026', paraBirimi:'TRY',
         satirlar:[
           { hesap:'102', ad:'Banka ara hesabı', borc:140000, not:'Ara hesap kapatıldı' },
-          { hesap:'102', ad:'Bankalar — gerçek hesap', alacak:140000, not:'Para fiilen çıktı' },
+          { hesap:'102', ad:'Bankalar: gerçek hesap', alacak:140000, not:'Para fiilen çıktı' },
         ],
         not:'Nakit çıkışı **ancak burada** kesinleşir. {{banka-ara-hesabi}}nın bakiyesi sürekli büyüyorsa ' +
-             'ya ekstre işlenmiyordur ya da ödemeler bankada gerçekleşmemiştir — her ikisi de araştırılmalıdır.' },
+             'ya ekstre işlenmiyordur ya da ödemeler bankada gerçekleşmemiştir: her ikisi de araştırılmalıdır.' },
     ],
 
     tHesaplar:[
@@ -232,7 +232,7 @@ SAP.registerTopic({
       { tip:'tip', baslik:'F110 iskonto kararını nasıl verir?', metin:
         'Program her kalem için şunu hesaplar: "Bugün ödersem %2 iskonto kazanırım. ' +
         'Vadeye kadar beklersem parayı 20 gün daha elimde tutarım."\n\n' +
-        '20 günde %2 kazanç, yıllık yaklaşık **%36** demektir — çoğu şirket için mevduat faizinden yüksektir. ' +
+        '20 günde %2 kazanç, yıllık yaklaşık **%36** demektir: çoğu şirket için mevduat faizinden yüksektir. ' +
         'Bu yüzden {{FBZP}}’de tanımlanan **azami nakit iskonto oranı** ayarı önemlidir: ' +
         'program bu eşiğin üzerindeki iskontoları kaçırmaz.' },
       { tip:'warn', baslik:'Ara hesap kullanılmazsa ne olur?', metin:
@@ -253,7 +253,7 @@ SAP.registerTopic({
       { ad:'Öneri çalıştırması', en:'Proposal Run',
         aciklama:'Hangi kalemlerin ödeneceğini hesaplar ve listeler. **Hiçbir muhasebe kaydı yapmaz.** ' +
                  '{{REGUH}}/{{REGUP}}’a `XVORL = X` ile yazılır ve serbestçe silinebilir.',
-        neZaman:'Her zaman — ödeme çalıştırmasından önce zorunlu adımdır. Atlanabilir ama atlanmamalıdır.',
+        neZaman:'Her zaman: ödeme çalıştırmasından önce zorunlu adımdır. Atlanabilir ama atlanmamalıdır.',
         ornek:'232 kalem seçildi, 89 ödemede birleşti, 47 kalem istisna listesinde.',
         tcodes:['F110'] },
 
@@ -264,7 +264,7 @@ SAP.registerTopic({
         ornek:'86 ödeme belgesi (KZ) oluştu, kalemler {{BSAK}}’a taşındı.',
         tcodes:['F110'] },
 
-      { ad:'Zamanlanmış çalıştırma', en:'Scheduled Run — F110S',
+      { ad:'Zamanlanmış çalıştırma', en:'Scheduled Run: F110S',
         aciklama:'F110’u belirli gün ve saatlerde otomatik başlatır. Gece çalışıp sabaha öneri hazır olur.',
         neZaman:'Düzenli ödeme takvimi olan, hacmi yüksek şirketlerde.',
         tcodes:['F110S'] },
@@ -285,7 +285,7 @@ SAP.registerTopic({
         neZaman:'Eski kurulumlarda hâlâ kullanılır. Yeni projelerde önerilmez.',
         ornek:'RFFOAVIS (ödeme bildirimi), RFFOUS_C (çek).' },
 
-      { ad:'Payment Medium Workbench (PMW)', en:'Payment Medium Workbench — FBPM',
+      { ad:'Payment Medium Workbench (PMW)', en:'Payment Medium Workbench: FBPM',
         aciklama:'Modern ödeme ortamı üretim aracı. Format ağacı (format tree) ile ülke ve banka ' +
                  'formatları esnek biçimde tanımlanır; SEPA, ISO20022 gibi standartlar desteklenir.',
         neZaman:'Yeni kurulumlarda **standart tercih**. Klasik programlar yerine kullanılır.',
@@ -300,11 +300,11 @@ SAP.registerTopic({
 
     karsilastirmaBasliklar:['Öneri (Proposal)', 'Ödeme (Payment Run)'],
     karsilastirma:[
-      ['Muhasebe kaydı', '**Yok** — hiçbir hesap hareket etmez', '**Var** — satıcı borç / banka alacak'],
+      ['Muhasebe kaydı', '**Yok**, hiçbir hesap hareket etmez', '**Var**, satıcı borç / banka alacak'],
       ['Tablo kaydı', '{{REGUH}}/{{REGUP}}, `XVORL` = **X**', 'Aynı tablolar, `XVORL` = **boş**'],
       ['Açık kalem', 'Açık kalır', '{{BSIK}}’ten {{BSAK}}’a taşınır'],
-      ['Geri alma', 'Öneri silinir — serbest', 'Her belge tek tek ters kaydedilir, {{FBRA}} gerekir'],
-      ['Düzenlenebilir mi', '**Evet** — kalem çıkarma, tutar değiştirme, banka değiştirme', 'Hayır'],
+      ['Geri alma', 'Öneri silinir: serbest', 'Her belge tek tek ters kaydedilir, {{FBRA}} gerekir'],
+      ['Düzenlenebilir mi', '**Evet**: kalem çıkarma, tutar değiştirme, banka değiştirme', 'Hayır'],
       ['Banka dosyası', 'Üretilmez', 'Üretilir ({{FBPM}})'],
       ['Amaç', 'Kontrol ve onay', 'Gerçekleştirme'],
     ],
@@ -315,7 +315,7 @@ SAP.registerTopic({
     liste:[
       { kod:'F110', ad:'Otomatik ödeme programı',
         amac:'Vadesi gelen borçları toplu seçer, öneri üretir, ödemeyi kaydeder ve banka dosyasını oluşturur.',
-        neZaman:'Rutin ödeme koşularında — kurumsal şirketlerin standart ödeme yöntemi.',
+        neZaman:'Rutin ödeme koşularında: kurumsal şirketlerin standart ödeme yöntemi.',
         adimlar:[
           { baslik:'Çalıştırma tarihi ve kimliği gir',
             aciklama:'Bu ikili (`LAUFD` + `LAUFI`) koşuyu benzersiz kılar. Aynı gün ikinci koşu için farklı kimlik verilir.' },
@@ -323,7 +323,7 @@ SAP.registerTopic({
             aciklama:'**Ödeme kayıt tarihi** (belgelerin düşeceği tarih), **belge girişi son tarihi** ' +
                      '(bu tarihe kadar girilmiş belgeler dâhil), **şirket kodları**, **ödeme yöntemleri**, ' +
                      '**sonraki ödeme tarihi** ve satıcı aralığı.' },
-          { baslik:'*Sonraki ödeme tarihi* alanını doğru gir — en kritik alan',
+          { baslik:'*Sonraki ödeme tarihi* alanını doğru gir: en kritik alan',
             aciklama:'Program şunu sorar: "Bu kalem bir sonraki koşuya kadar bekleyebilir mi?" ' +
                      'Bekleyemiyorsa (vadesi veya iskonto süresi dolacaksa) **bugün öder**. ' +
                      'Bu alan yanlışsa ya erken ödersin ya iskontoyu kaçırırsın.' },
@@ -335,7 +335,7 @@ SAP.registerTopic({
                      '*Durum* sekmesinde yenile tuşuna bas.' },
           { baslik:'Öneriyi görüntüle ve düzenle',
             aciklama:'İki liste vardır: **ödenecekler** ve **istisnalar**. İstisna listesi neden ' +
-                     'ödenmeyeceklerini kodla açıklar — teşhisin ana kaynağıdır.' },
+                     'ödenmeyeceklerini kodla açıklar: teşhisin ana kaynağıdır.' },
           { baslik:'Ödemeyi çalıştır',
             aciklama:'Muhasebe kayıtları burada oluşur. Durum "Ödeme çalıştırması tamamlandı" olur.' },
           { baslik:'Ödeme ortamını üret',
@@ -359,13 +359,13 @@ SAP.registerTopic({
           { mesaj:'Item is blocked for payment', sebep:'Kalemde ({{BSEG}} `ZLSPR`) veya satıcıda ({{LFB1}} `ZAHLS`) {{odeme-blogu}} var.', cozum:'Bloğun sebebini araştır; haklıysa {{FB09}} veya {{BP}} ile kaldır. MM faturasıysa {{MRBR}}.' },
           { mesaj:'Payment amount is below minimum', sebep:'{{FBZP}} şirket kodu ayarlarında asgari ödeme tutarı belirlenmiş.', cozum:'Bilinçli bir ayardır; küçük tutarlar bir sonraki koşuya birikir. Gerekirse eşiği düşür.' },
           { mesaj:'Proposal has already been created', sebep:'Aynı tarih+kimlik ile öneri zaten var.', cozum:'Öneriyi sil ve yeniden çalıştır, ya da yeni bir kimlik kullan.' },
-          { mesaj:'Payment run already carried out — parameters cannot be changed', sebep:'Ödeme çalıştırılmış; parametre değiştirilemez.', cozum:'Yeni bir koşu aç. Ödemeyi geri almak gerekiyorsa belgeleri {{FB08}} ile ters kaydet ve kapatmaları {{FBRA}} ile aç.' },
+          { mesaj:'Payment run already carried out: parameters cannot be changed', sebep:'Ödeme çalıştırılmış; parametre değiştirilemez.', cozum:'Yeni bir koşu aç. Ödemeyi geri almak gerekiyorsa belgeleri {{FB08}} ile ters kaydet ve kapatmaları {{FBRA}} ile aç.' },
         ],
         ipucu:'**Ek log’u her zaman aç.** "Kalem neden seçilmedi?" sorusunun cevabı yalnızca orada bulunur ' +
               've bu soru F110 ile ilgili şikâyetlerin çoğunluğudur. Log kapalıysa kör kalırsın.',
         ilgili:['FBZP','F110S','FBPM','F-53','FBL1N','FEBAN'] },
 
-      { kod:'FBZP', ad:'Ödeme programı yapılandırması — F110’un beyni',
+      { kod:'FBZP', ad:'Ödeme programı yapılandırması: F110’un beyni',
         amac:'F110’un tüm davranışını belirleyen beş ayarı tek ekranda toplar.',
         neZaman:'Kurulumda ve "F110 şunu neden yapıyor/yapmıyor?" sorusunun her tekrarında.',
         adimlar:[
@@ -437,25 +437,25 @@ SAP.registerTopic({
   /* ================================================== 6. TABLOLAR === */
   tablolar: {
     anlatim:
-      'F110’un tablo yapısı üç katmandır: **kontrol** ({{REGUV}} — koşunun durumu), ' +
-      '**ödeme başlıkları** ({{REGUH}} — kime ne kadar) ve **ödenen kalemler** ({{REGUP}} — hangi faturalar). ' +
+      'F110’un tablo yapısı üç katmandır: **kontrol** ({{REGUV}}: koşunun durumu), ' +
+      '**ödeme başlıkları** ({{REGUH}}, kime ne kadar) ve **ödenen kalemler** ({{REGUP}}, hangi faturalar). ' +
       'Bu üçlü, "bu ödeme hangi faturaları kapattı?" sorusunun tek kaynağıdır.',
 
     liste:[
-      { ad:'REGUV', baslik:'Ödeme çalıştırması — kontrol kaydı',
+      { ad:'REGUV', baslik:'Ödeme çalıştırması: kontrol kaydı',
         tutar:'Koşunun durumu: parametreler girildi mi, öneri üretildi mi, ödeme yapıldı mı, dosya oluştu mu.',
-        olusturan:'{{F110}} — parametre girildiğinde',
+        olusturan:'{{F110}}: parametre girildiğinde',
         guncelleyen:'Her aşamada {{F110}}',
         anahtar:'LAUFD + LAUFI',
         iliskiler:'{{REGUH}} ve {{REGUP}} bu koşuya bağlanır.',
         s4:'Değişmedi.',
         alanlar:[
           { ad:'LAUFD', aciklama:'Çalıştırma tarihi' },
-          { ad:'LAUFI', aciklama:'Çalıştırma kimliği — tarih ile birlikte koşuyu benzersiz kılar' },
+          { ad:'LAUFI', aciklama:'Çalıştırma kimliği: tarih ile birlikte koşuyu benzersiz kılar' },
           { ad:'XVORL', aciklama:'Öneri aşamasında mı' },
         ] },
 
-      { ad:'REGUH', baslik:'Ödeme çalıştırması — ödeme başlıkları',
+      { ad:'REGUH', baslik:'Ödeme çalıştırması: ödeme başlıkları',
         tutar:'Her ödemenin başlığı: alıcı, tutar, para birimi, ödeme yöntemi, ev bankası, ödeme belgesi numarası.',
         olusturan:'{{F110}} öneri ve ödeme çalıştırması',
         guncelleyen:'{{F110}}',
@@ -463,14 +463,14 @@ SAP.registerTopic({
         iliskiler:'{{REGUP}} ile kalemleri, {{LFA1}} ile satıcı, {{T012K}} ile banka hesabı bağlanır.',
         s4:'Değişmedi.',
         alanlar:[
-          { ad:'XVORL', aciklama:'**X ise yalnızca öneridir** — gerçek ödeme değil. En kritik ayrım alanı.' },
+          { ad:'XVORL', aciklama:'**X ise yalnızca öneridir**: gerçek ödeme değil. En kritik ayrım alanı.' },
           { ad:'RWBTR', aciklama:'Ödeme tutarı' },
-          { ad:'VBLNR', aciklama:'Ödeme belgesi numarası — ödeme çalıştırmasından sonra dolar' },
-          { ad:'HBKID / HKTID', aciklama:'Ev bankası ve hesap kimliği — banka belirlemenin sonucu' },
+          { ad:'VBLNR', aciklama:'Ödeme belgesi numarası: ödeme çalıştırmasından sonra dolar' },
+          { ad:'HBKID / HKTID', aciklama:'Ev bankası ve hesap kimliği: banka belirlemenin sonucu' },
           { ad:'ZALDT', aciklama:'Ödeme tarihi' },
         ] },
 
-      { ad:'REGUP', baslik:'Ödeme çalıştırması — ödenen kalemler',
+      { ad:'REGUP', baslik:'Ödeme çalıştırması: ödenen kalemler',
         tutar:'Her ödemenin hangi fatura kalemlerini kapattığı. Bir ödeme birçok faturayı kapatabilir.',
         olusturan:'{{F110}}',
         guncelleyen:'{{F110}}',
@@ -483,7 +483,7 @@ SAP.registerTopic({
           { ad:'SKNTO', aciklama:'Bu kalemde kazanılan {{iskonto}}' },
         ] },
 
-      { ad:'T042', baslik:'Ödeme programı — şirket kodu ayarları',
+      { ad:'T042', baslik:'Ödeme programı: şirket kodu ayarları',
         tutar:'{{FBZP}}’de girilen yapılandırma: ödeme yapan şirket kodu, tolerans günleri, asgari tutar.',
         olusturan:'{{FBZP}}',
         guncelleyen:'{{FBZP}}',
@@ -497,15 +497,15 @@ SAP.registerTopic({
         iliskiler:'{{REGUH}} `HBKID`/`HKTID` üzerinden buraya işaret eder.',
         s4:'S/4HANA’da Bank Account Management (BAM) ile yönetilir.' },
 
-      { ad:'BSIK', baslik:'Satıcı açık kalemleri — F110’un seçim havuzu',
+      { ad:'BSIK', baslik:'Satıcı açık kalemleri: F110’un seçim havuzu',
         tutar:'Ödenmemiş satıcı faturaları. F110 kalemleri buradan seçer.',
         olusturan:'Satıcıya yapılan her kayıt',
         guncelleyen:'Ödeme sonrası kalem {{BSAK}}’a taşınır',
-        s4:'{{uyumluluk-view}} — veri {{ACDOCA}}’dan üretilir.',
+        s4:'{{uyumluluk-view}}: veri {{ACDOCA}}’dan üretilir.',
         alanlar:[
-          { ad:'ZFBDT / ZBD1T', aciklama:'Baz tarih ve iskonto günü — F110 ödeme gününü buradan hesaplar' },
-          { ad:'ZLSPR', aciklama:'{{odeme-blogu}} — doluysa kalem seçilmez' },
-          { ad:'ZLSCH', aciklama:'Kalem bazında ödeme yöntemi — satıcı ana verisini ezer' },
+          { ad:'ZFBDT / ZBD1T', aciklama:'Baz tarih ve iskonto günü: F110 ödeme gününü buradan hesaplar' },
+          { ad:'ZLSPR', aciklama:'{{odeme-blogu}}: doluysa kalem seçilmez' },
+          { ad:'ZLSCH', aciklama:'Kalem bazında ödeme yöntemi: satıcı ana verisini ezer' },
         ] },
 
       { ad:'PAYR', baslik:'Çek kayıt defteri',
@@ -517,7 +517,7 @@ SAP.registerTopic({
 
     er:{
       type:'er',
-      baslik:'F110 tablo ilişkileri — koşudan kapatılmış kaleme',
+      baslik:'F110 tablo ilişkileri: koşudan kapatılmış kaleme',
       varliklar:[
         { ad:'REGUV', rol:'Kontrol', aciklama:'Koşunun durumu',
           alanlar:[{ ad:'LAUFD', tip:'pk' }, { ad:'LAUFI', tip:'pk' }, { ad:'XVORL' }] },
@@ -562,7 +562,7 @@ SAP.registerTopic({
           { ad:'Kimlik (`LAUFI`)', zorunlu:true, aciklama:'5 karakterlik serbest metin. Aynı gün ikinci koşu için farklı olmalı.' },
           { ad:'Durum metni', zorunlu:false, aciklama:'"Parametreler girilmedi" → "Öneri oluşturuldu" → "Ödeme tamamlandı" sırasını izler.' },
         ],
-        ipucu:'Durum kendiliğinden yenilenmez. Öneri bittiğinde ekran hâlâ eski durumu gösteriyor olabilir — ' +
+        ipucu:'Durum kendiliğinden yenilenmez. Öneri bittiğinde ekran hâlâ eski durumu gösteriyor olabilir: ' +
               'yenile tuşuna bas. Yeni başlayanların "öneri çalışmadı" sanmasının bir numaralı sebebi budur.' },
 
       { ad:'Parametre (Parameter) sekmesi',
@@ -612,8 +612,8 @@ SAP.registerTopic({
     opsiyonel:['Satıcı aralığı','Serbest seçim kriterleri','Ek log ayarları','Yazdırma varyantı','Ödeme bildirimi formu'],
 
     hatalar:[
-      { mesaj:'No valid payment method found', sebep:'Satıcının {{LFB1}} `ZWELS` listesi koşudaki yöntemi içermiyor veya yöntem şirket kodu seviyesinde ({{FBZP}} 4. adım) tanımsız.', cozum:'Ek log’u aç ve satıcıyı yaz — log tam olarak hangi kontrolde takıldığını söyler. Sonra {{BP}} veya {{FBZP}}’de eksiği gider.' },
-      { mesaj:'No suitable house bank found', sebep:'{{FBZP}} banka belirlemede sıralama veya kullanılabilir tutar eksik.', cozum:'Kullanılabilir tutarlar bölümünü kontrol et — **boş bırakmak "sınırsız" değil "hiç" demektir.**' },
+      { mesaj:'No valid payment method found', sebep:'Satıcının {{LFB1}} `ZWELS` listesi koşudaki yöntemi içermiyor veya yöntem şirket kodu seviyesinde ({{FBZP}} 4. adım) tanımsız.', cozum:'Ek log’u aç ve satıcıyı yaz: log tam olarak hangi kontrolde takıldığını söyler. Sonra {{BP}} veya {{FBZP}}’de eksiği gider.' },
+      { mesaj:'No suitable house bank found', sebep:'{{FBZP}} banka belirlemede sıralama veya kullanılabilir tutar eksik.', cozum:'Kullanılabilir tutarlar bölümünü kontrol et: **boş bırakmak "sınırsız" değil "hiç" demektir.**' },
       { mesaj:'Item blocked for payment', sebep:'Kalemde ({{BSEG}} `ZLSPR`) veya satıcıda ({{LFB1}} `ZAHLS`) blok var; MM faturasıysa {{RBKP}} `ZLSPR`.', cozum:'{{FB09}}, {{BP}} veya {{MRBR}} ile bloğu kaldır.' },
       { mesaj:'Amount is less than minimum amount', sebep:'{{FBZP}}’de asgari ödeme tutarı eşiği var.', cozum:'Bilinçli ayardır; küçük tutarlar birikir. Eşiği gözden geçir.' },
       { mesaj:'No documents found for the specified selection', sebep:'Vadesi gelen kalem yok; "sonraki ödeme tarihi" çok yakın girilmiş olabilir.', cozum:'Tarihi ödeme takvimine göre düzelt; {{FBL1N}} ile gerçekten vadesi gelen kalem var mı kontrol et.' },
@@ -630,7 +630,7 @@ SAP.registerTopic({
       'öğretici olan ödenmeyeceklerin gerekçesidir.',
       'Öneriyi **her zaman** üret ve onaylat. Doğrudan ödeme çalıştırmak teknik olarak mümkündür ' +
       'ama iç kontrol açısından kabul edilemez ve geri alması çok zordur.',
-      'Test sisteminde F110 denerken **ödeme ortamı varyantını kaldır** — yanlışlıkla gerçek bir ' +
+      'Test sisteminde F110 denerken **ödeme ortamı varyantını kaldır**: yanlışlıkla gerçek bir ' +
       'banka dosyası üretip göndermeyi önlersin.',
       'Ödeme sonrası {{banka-ara-hesabi}}nın bakiyesini izle. Büyümeye devam ediyorsa ekstre ' +
       'işlenmiyor demektir ve mutabakat kopmuştur.',
@@ -640,7 +640,7 @@ SAP.registerTopic({
   /* ===================================================== 8. TEKNİK === */
   teknik: {
     guncellenenTablolar:[
-      { tablo:'REGUV', ne:'Koşunun durumu — her aşamada güncellenir' },
+      { tablo:'REGUV', ne:'Koşunun durumu: her aşamada güncellenir' },
       { tablo:'REGUH', ne:'Ödeme başlıkları; öneride `XVORL` = X, ödemede boş ve `VBLNR` dolu' },
       { tablo:'REGUP', ne:'Ödenen kalemler; hangi ödemenin hangi faturayı kapattığı' },
       { tablo:'BKPF', ne:'Ödeme belgesi başlığı (belge türü KZ)' },
@@ -655,12 +655,12 @@ SAP.registerTopic({
       'F110 **iki ayrı LUW zinciri** çalıştırır. Öneri aşamasında yalnızca {{REGUV}}/{{REGUH}}/{{REGUP}} ' +
       'yazılır; hiçbir FI belgesi üretilmez ve muhasebe etkisi yoktur.\n\n' +
       'Ödeme aşamasında her ödeme için ayrı bir kayıt LUW’u çalışır: FI belgesi + kapatma + indeks ' +
-      'güncellemesi birlikte yazılır. Bir ödeme başarısız olursa **diğerleri etkilenmez** — ' +
+      'güncellemesi birlikte yazılır. Bir ödeme başarısız olursa **diğerleri etkilenmez**: ' +
       'bu yüzden kısmen tamamlanmış koşu mümkündür ve log’dan hangi ödemelerin başarısız olduğu okunur.',
 
     belgeNo:
       'Ödeme belgeleri **KZ** (satıcı ödemesi) belge türünden, {{FBN1}}’de tanımlı aralıktan numara alır. ' +
-      'Her ödeme ayrı bir belge numarası alır — 86 ödeme = 86 belge. ' +
+      'Her ödeme ayrı bir belge numarası alır: 86 ödeme = 86 belge. ' +
       'Öneri aşamasında belge numarası **verilmez**; {{REGUH}} `VBLNR` alanı ödeme çalıştırmasından sonra dolar.',
 
     postingLogic:
@@ -683,7 +683,7 @@ SAP.registerTopic({
 
     numberRange:
       'KZ belge türü için şirket kodu + mali yıl bazında {{FBN1}}’de aralık tanımlı olmalıdır. ' +
-      'Yılbaşında açılmazsa ilk ödeme koşusu durur — {{OBH1}} ile toplu kopyalanır.',
+      'Yılbaşında açılmazsa ilk ödeme koşusu durur: {{OBH1}} ile toplu kopyalanır.',
 
     accountDetermination:
       'F110’da hesaplar üç kaynaktan gelir:\n\n' +
@@ -707,30 +707,30 @@ SAP.registerTopic({
       'Kullanılabilir tutarlar da genelde her sistemde ayrı ayarlanır.',
 
     img:[
-      { yol:'SPRO → Finansal Muhasebe → Satıcı Hesapları → İş İşlemleri → Giden Ödemeler → Otomatik Giden Ödemeler → Ödeme Programı Yapılandırması', not:'{{FBZP}} — beş adımın tamamı' },
+      { yol:'SPRO → Finansal Muhasebe → Satıcı Hesapları → İş İşlemleri → Giden Ödemeler → Otomatik Giden Ödemeler → Ödeme Programı Yapılandırması', not:'{{FBZP}}: beş adımın tamamı' },
       { yol:'SPRO → … → Otomatik Giden Ödemeler → Ödeme Ortamı → Payment Medium Workbench → Format Ağaçlarını Oluştur', not:'PMW format tanımı ({{FBPM}})' },
       { yol:'SPRO → Finansal Muhasebe → Banka Muhasebesi → Banka Hesapları → Ev Bankalarını Tanımla', not:'{{ev-bankasi}} ve hesap kimlikleri ({{FI12}})' },
       { yol:'SPRO → … → Giden Ödemeler → Otomatik Giden Ödemeler → Ödeme Ortamı → Çek Yönetimi → Çek Numara Aralıklarını Tanımla', not:'Çek aralığı ({{FCHI}})' },
     ],
 
     ekstra:[
-      { ic:'🏦', baslik:'Banka belirleme nasıl çalışır? — dört bölüm', metin:
+      { ic:'🏦', baslik:'Banka belirleme nasıl çalışır? - dört bölüm', metin:
         '{{FBZP}}’nin 5. adımı dört alt bölümden oluşur ve sırayla çalışır:\n\n' +
         '**1. Sıralama sırası (Ranking order):** ödeme yöntemi + para birimi için bankaların denenme sırası. ' +
         '"Önce İş Bankası, yetmezse Garanti."\n\n' +
         '**2. Banka hesapları (Bank accounts):** ödeme yöntemi + ev bankası + hesap kimliği kombinasyonuna ' +
         'karşılık gelen G/L hesabı ve ara hesap.\n\n' +
         '**3. Kullanılabilir tutarlar (Available amounts):** her banka hesabından o koşuda azami ne kadar ' +
-        'çıkabileceği. **Boş bırakmak "sınırsız" değil "hiç" demektir** — en sık yapılan yapılandırma hatası budur.\n\n' +
+        'çıkabileceği. **Boş bırakmak "sınırsız" değil "hiç" demektir**: en sık yapılan yapılandırma hatası budur.\n\n' +
         '**4. Değer tarihi ve ücretler:** valör günü ve banka masrafı ayarları.\n\n' +
         'Program 1’den 4’e sırayla ilerler. Herhangi birinde tanım yoksa "No suitable house bank found" alınır.' },
 
       { ic:'🔄', baslik:'Yanlış ödeme koşusu nasıl geri alınır?', metin:
         'Öneri aşamasındaysa kolaydır: **öneriyi sil**, hiçbir iz kalmaz.\n\n' +
         'Ödeme çalıştırıldıysa geri alma zahmetlidir ve sırayla yapılır:\n' +
-        '**1.** Banka dosyası **gönderildiyse** önce bankayı ara ve durdur — sistemdeki düzeltme parayı geri getirmez.\n' +
+        '**1.** Banka dosyası **gönderildiyse** önce bankayı ara ve durdur: sistemdeki düzeltme parayı geri getirmez.\n' +
         '**2.** Ödeme belgelerini {{FB08}} ile ters kaydet (toplu için {{F.80}}).\n' +
-        '**3.** Ters kayıt kapatmayı otomatik açmazsa {{FBRA}} ile kapatmaları geri al — kalemler yeniden {{BSIK}}’e döner.\n' +
+        '**3.** Ters kayıt kapatmayı otomatik açmazsa {{FBRA}} ile kapatmaları geri al: kalemler yeniden {{BSIK}}’e döner.\n' +
         '**4.** Çek üretildiyse {{FCH8}}/{{FCH9}} ile çekleri iptal et.\n\n' +
         'Bu zahmet, öneri onayının neden atlanmaması gerektiğini açıklar.' },
     ],
@@ -746,24 +746,24 @@ SAP.registerTopic({
   /* ==================================================== 9. S/4HANA === */
   s4hana: {
     ozet:
-      'F110 S/4HANA’da **kaldırılmadı ve mantığı değişmedi** — hâlâ ödeme sürecinin çekirdeğidir. ' +
+      'F110 S/4HANA’da **kaldırılmadı ve mantığı değişmedi**: hâlâ ödeme sürecinin çekirdeğidir. ' +
       'Değişenler: Fiori tabanlı öneri yönetimi, {{ev-bankasi}} yönetiminin Bank Account Management’a ' +
       'taşınması ve ödeme ortamında PMW’nin standart hâline gelmesi.',
 
     eccFarklari:[
-      { konu:'F110’un kendisi', ecc:'Çekirdek ödeme programı', s4:'**Aynı** — kaldırılmadı, mantığı değişmedi' },
-      { konu:'Ev bankası yönetimi', ecc:'{{FI12}} — customizing gibi', s4:'Bank Account Management (BAM) — ana veri + onay akışı' },
-      { konu:'Öneri yönetimi', ecc:'Klasik ALV listeleri', s4:'Fiori "Manage Automatic Payments" — görsel, süzülebilir' },
-      { konu:'Ödeme ortamı', ecc:'Klasik RFFO* programları yaygın', s4:'**PMW standart** — SEPA/ISO20022 format ağaçları' },
-      { konu:'Satıcı ana verisi', ecc:'{{XK01}}/{{FK01}}', s4:'{{BP}} — ödeme yöntemi ve banka bilgisi BP üzerinden' },
-      { konu:'Açık kalem seçimi', ecc:'{{BSIK}} fiziksel tablo taranır', s4:'{{ACDOCA}} üzerinden — belirgin hızlanma' },
-      { konu:'Nakit görünürlüğü', ecc:'Ayrı Cash Management modülü', s4:'Entegre Cash Management — ödeme koşusu nakit tahminine anlık yansır' },
+      { konu:'F110’un kendisi', ecc:'Çekirdek ödeme programı', s4:'**Aynı**: kaldırılmadı, mantığı değişmedi' },
+      { konu:'Ev bankası yönetimi', ecc:'{{FI12}}, customizing gibi', s4:'Bank Account Management (BAM), ana veri + onay akışı' },
+      { konu:'Öneri yönetimi', ecc:'Klasik ALV listeleri', s4:'Fiori "Manage Automatic Payments": görsel, süzülebilir' },
+      { konu:'Ödeme ortamı', ecc:'Klasik RFFO* programları yaygın', s4:'**PMW standart**: SEPA/ISO20022 format ağaçları' },
+      { konu:'Satıcı ana verisi', ecc:'{{XK01}}/{{FK01}}', s4:'{{BP}}: ödeme yöntemi ve banka bilgisi BP üzerinden' },
+      { konu:'Açık kalem seçimi', ecc:'{{BSIK}} fiziksel tablo taranır', s4:'{{ACDOCA}} üzerinden: belirgin hızlanma' },
+      { konu:'Nakit görünürlüğü', ecc:'Ayrı Cash Management modülü', s4:'Entegre Cash Management: ödeme koşusu nakit tahminine anlık yansır' },
     ],
 
     universalJournal:
       'Ödeme belgeleri de {{ACDOCA}}’ya yazılır ve satıcı, banka hesabı, kâr merkezi aynı satırda tutulur. ' +
       'Kalem seçimi {{BSIK}} yerine {{ACDOCA}} üzerinden yapıldığı için büyük satıcı portföylerinde ' +
-      'öneri üretimi belirgin şekilde hızlanır — ECC’de bu adım en büyük darboğazdı.',
+      'öneri üretimi belirgin şekilde hızlanır: ECC’de bu adım en büyük darboğazdı.',
 
     kalkanTcodes:[
       { eski:'{{FI12}}', yeni:'FI12_HBANK / BAM', not:'Ev bankası yönetimi Fiori’ye ve ana veriye taşındı' },
@@ -780,19 +780,19 @@ SAP.registerTopic({
     ],
 
     compatibilityViews:[
-      '{{BSIK}}, {{BSAK}} — {{uyumluluk-view}}; F110 artık {{ACDOCA}} üzerinden çalışır.',
-      '{{REGUH}}, {{REGUP}}, {{REGUV}} — **fiziksel tablo olarak duruyor**, değişmedi.',
+      '{{BSIK}}, {{BSAK}}: {{uyumluluk-view}}; F110 artık {{ACDOCA}} üzerinden çalışır.',
+      '{{REGUH}}, {{REGUP}}, {{REGUV}}: **fiziksel tablo olarak duruyor**, değişmedi.',
       'Bu ayrım önemlidir: ödeme koşusu tabloları korunurken açık kalem indeksleri view’e dönüştü.',
     ],
 
     performans:
       'Öneri üretimi ECC’ye göre belirgin şekilde hızlıdır çünkü kalem seçimi sütun tabanlı {{ACDOCA}} ' +
-      'üzerinden yapılır. Ödeme kaydı tarafında büyük fark yoktur — orada darboğaz veritabanı değil, ' +
+      'üzerinden yapılır. Ödeme kaydı tarafında büyük fark yoktur: orada darboğaz veritabanı değil, ' +
       'her ödeme için ayrı LUW çalıştırılmasıdır.',
 
     bestPractices:[
       'Yeni kurulumlarda ödeme ortamı için **PMW kullan**; klasik RFFO* programlarına yeni geliştirme yapma.',
-      'Ev bankası yönetimini BAM’a taşı ve banka hesabı değişikliklerini onay akışına bağla — ' +
+      'Ev bankası yönetimini BAM’a taşı ve banka hesabı değişikliklerini onay akışına bağla: ' +
       'ödeme dolandırıcılığına karşı en etkili kontroldür.',
       'Öneri onayını **zorunlu** bir süreç adımı yap; teknik olarak atlanabilir olması onaysız çalışmayı meşrulaştırmaz.',
       'Kullanılabilir tutarları gerçekçi belirle ve düzenli gözden geçir; unutulan düşük limitler koşuları sessizce yarım bırakır.',
@@ -808,9 +808,9 @@ SAP.registerTopic({
       '25 Eylül sabahı hazine uzmanı koşuyu açıyor. Bu senaryo, koşunun her aşamasını ' +
       've çıkan üç sorunun nasıl çözüldüğünü gösteriyor.',
     veriler:[
-      { k:'Şirket kodu', v:'1000 — Marmara Tekstil A.Ş.' },
+      { k:'Şirket kodu', v:'1000: Marmara Tekstil A.Ş.' },
       { k:'Koşu', v:'Çalıştırma tarihi 25.09.2026 · Kimlik AP01' },
-      { k:'Ödeme yöntemi', v:'H — banka havalesi' },
+      { k:'Ödeme yöntemi', v:'H: banka havalesi' },
       { k:'Sonraki ödeme tarihi', v:'10.10.2026 (bir sonraki koşu)' },
       { k:'Ev bankaları', v:'İŞB (1. sıra, limit 5.000.000) · GRNT (2. sıra, limit 3.000.000)' },
       { k:'Açık kalem havuzu', v:'340 kalem, toplam 8.900.000 TL' },
@@ -835,7 +835,7 @@ SAP.registerTopic({
           { alan:'Ödeme kayıt tarihi', deger:'25.09.2026 (dönem 09 açık ✓)' },
           { alan:'Belge girişi son tarihi', deger:'25.09.2026' },
           { alan:'Şirket kodu / Ödeme yöntemi', deger:'1000 / H' },
-          { alan:'**Sonraki ödeme tarihi**', deger:'10.10.2026 — bir sonraki koşu tarihi' },
+          { alan:'**Sonraki ödeme tarihi**', deger:'10.10.2026: bir sonraki koşu tarihi' },
           { alan:'Ek log', deger:'Ödeme yöntemi seçimi + kalem bazında + banka belirleme **açıldı**' },
         ],
         tabloEtkisi:[
@@ -848,28 +848,28 @@ SAP.registerTopic({
         aciklama:'Sistem 340 kalemi tarıyor ve ödenecekleri seçiyor. **Hiçbir muhasebe kaydı yapılmıyor.**',
         girdi:[
           { alan:'Taranan', deger:'340 açık kalem / 8.900.000 TL' },
-          { alan:'Bloklu (elendi)', deger:'8 kalem — kalem veya satıcı bloğu' },
-          { alan:'Vadesi gelmemiş (elendi)', deger:'61 kalem — 10.10’a kadar bekleyebilir' },
-          { alan:'Diğer istisnalar', deger:'39 kalem — aşağıda incelenecek' },
+          { alan:'Bloklu (elendi)', deger:'8 kalem: kalem veya satıcı bloğu' },
+          { alan:'Vadesi gelmemiş (elendi)', deger:'61 kalem: 10.10’a kadar bekleyebilir' },
+          { alan:'Diğer istisnalar', deger:'39 kalem: aşağıda incelenecek' },
           { alan:'**Ödenecek**', deger:'232 kalem → 89 satıcı → **89 ödeme**' },
           { alan:'İskonto fırsatı', deger:'18 kalem iskonto süresinde → öne alındı, 34.200 TL kazanç' },
         ],
         tabloEtkisi:[
           { tablo:'REGUH', ne:'89 ödeme başlığı, **`XVORL` = X** (yalnızca öneri)' },
-          { tablo:'REGUP', ne:'232 kalem satırı — hangi ödeme hangi faturayı kapatacak' },
-          { tablo:'BSIK', ne:'**Değişmedi** — kalemler hâlâ açık' },
+          { tablo:'REGUP', ne:'232 kalem satırı: hangi ödeme hangi faturayı kapatacak' },
+          { tablo:'BSIK', ne:'**Değişmedi**: kalemler hâlâ açık' },
         ],
         not:'Öneri geri alınabilir: silinirse hiçbir iz kalmaz. Muhasebe henüz hiç etkilenmedi.' },
 
-      { baslik:'İstisna listesi incelenir — üç sorun bulunur', tcode:'F110',
+      { baslik:'İstisna listesi incelenir: üç sorun bulunur', tcode:'F110',
         aciklama:'39 istisnanın gerekçeleri **ek log**dan okunuyor. Üç farklı sorun çıkıyor.',
         girdi:[
-          { alan:'**Sorun 1** — 14 kalem', deger:'"No valid payment method found" → satıcılarda `ZWELS` boş' },
+          { alan:'**Sorun 1**: 14 kalem', deger:'"No valid payment method found" → satıcılarda `ZWELS` boş' },
           { alan:'Kök sebep', deger:'Yeni açılan satıcılarda ödeme yöntemi girilmemiş ({{BP}} → {{LFB1}})' },
-          { alan:'**Sorun 2** — 6 kalem', deger:'"No suitable house bank found" → EUR ödemeleri' },
+          { alan:'**Sorun 2**: 6 kalem', deger:'"No suitable house bank found" → EUR ödemeleri' },
           { alan:'Kök sebep', deger:'{{FBZP}} banka belirlemede EUR için **kullanılabilir tutar girilmemiş** (boş = sıfır)' },
-          { alan:'**Sorun 3** — 19 kalem', deger:'"Item is blocked for payment" → 3 satıcıda uyuşmazlık' },
-          { alan:'Kök sebep', deger:'Bilinçli blok — fiyat uyuşmazlığı çözülmedi, ödenmemeli' },
+          { alan:'**Sorun 3**: 19 kalem', deger:'"Item is blocked for payment" → 3 satıcıda uyuşmazlık' },
+          { alan:'Kök sebep', deger:'Bilinçli blok: fiyat uyuşmazlığı çözülmedi, ödenmemeli' },
         ],
         not:'İstisna listesi öneri listesinden **daha öğreticidir**. Ödenecekler beklendiği gibidir; ' +
              'öğretici olan ödenmeyeceklerin gerekçesidir.' },
@@ -879,7 +879,7 @@ SAP.registerTopic({
         girdi:[
           { alan:'Sorun 1 çözümü', deger:'{{BP}} → 14 satıcıya ödeme yöntemi "H" eklendi' },
           { alan:'Sorun 2 çözümü', deger:'{{FBZP}} → Banka belirleme → Kullanılabilir tutarlar → İŞB/EUR: 500.000 EUR girildi' },
-          { alan:'Sorun 3 kararı', deger:'Bırakıldı — uyuşmazlık çözülene kadar ödenmeyecek' },
+          { alan:'Sorun 3 kararı', deger:'Bırakıldı: uyuşmazlık çözülene kadar ödenmeyecek' },
           { alan:'Öneri', deger:'Silindi ve yeniden çalıştırıldı → **252 kalem / 97 ödeme**' },
         ],
         not:'{{FBZP}}’de kullanılabilir tutarı **boş bırakmak "sınırsız" değil "hiç" demektir**. ' +
@@ -895,7 +895,7 @@ SAP.registerTopic({
         ],
         not:'Öneri ekranında tutar değiştirmek {{kismi-kapatma}} üretir: orijinal kalem açık kalır.' },
 
-      { baslik:'Ödeme çalıştırılır — muhasebe kayıtları oluşur', tcode:'F110',
+      { baslik:'Ödeme çalıştırılır: muhasebe kayıtları oluşur', tcode:'F110',
         aciklama:'**Gerçek kayıtlar burada üretiliyor.** 95 ödeme belgesi oluşuyor ve faturalar kapanıyor.',
         girdi:[
           { alan:'Oluşan belge', deger:'95 adet, belge türü **KZ**' },
@@ -903,12 +903,12 @@ SAP.registerTopic({
           { alan:'Toplam ödeme', deger:'6.290.000 TL' },
           { alan:'Kazanılan iskonto', deger:'34.200 TL (gelir yazıldı)' },
         ],
-        fis:{ baslik:'Belge 2000001234 — V-4001 ödemesi (3 fatura birleşti)', belgeTuru:'KZ', tarih:'25.09.2026',
+        fis:{ baslik:'Belge 2000001234: V-4001 ödemesi (3 fatura birleşti)', belgeTuru:'KZ', tarih:'25.09.2026',
           satirlar:[
-            { hesap:'320', ad:'Satıcılar — V-4001 (fatura 1)', borc:60000 },
-            { hesap:'320', ad:'Satıcılar — V-4001 (fatura 2)', borc:45000 },
-            { hesap:'320', ad:'Satıcılar — V-4001 (fatura 3)', borc:35000 },
-            { hesap:'102', ad:'Banka ara hesabı — İŞB', alacak:139200, not:'Fiilen ödenen' },
+            { hesap:'320', ad:'Satıcılar: V-4001 (fatura 1)', borc:60000 },
+            { hesap:'320', ad:'Satıcılar: V-4001 (fatura 2)', borc:45000 },
+            { hesap:'320', ad:'Satıcılar: V-4001 (fatura 3)', borc:35000 },
+            { hesap:'102', ad:'Banka ara hesabı: İŞB', alacak:139200, not:'Fiilen ödenen' },
             { hesap:'602', ad:'Alınan iskontolar', alacak:667, not:'Fatura 2 iskonto süresindeydi' },
             { hesap:'191', ad:'İndirilecek KDV düzeltmesi', alacak:133 },
           ], not:'Üç fatura ayrı satırlarda kapatıldı ama bankaya **tek ödeme** çıkıyor. ' +
@@ -923,26 +923,26 @@ SAP.registerTopic({
       { baslik:'Banka dosyası üretilir ve gönderilir', tcode:'FBPM',
         aciklama:'PMW ile ISO20022 formatında ödeme dosyası oluşturuluyor.',
         girdi:[
-          { alan:'Format ağacı', deger:'ISO20022 PAIN.001 — İŞ Bankası' },
+          { alan:'Format ağacı', deger:'ISO20022 PAIN.001: İŞ Bankası' },
           { alan:'Dosya', deger:'95 ödeme talimatı, 6.290.000 TL' },
           { alan:'Gönderim', deger:'Bankaya iletildi' },
         ],
-        not:'Varyant tanımlı olmasaydı ödeme kaydedilir ama dosya üretilmezdi — ' +
+        not:'Varyant tanımlı olmasaydı ödeme kaydedilir ama dosya üretilmezdi: ' +
              '"ödeme yapıldı ama bankaya bir şey gitmedi" durumu tam olarak budur.' },
 
-      { baslik:'Ertesi gün — banka ekstresi işlenir', tcode:'FEBAN',
+      { baslik:'Ertesi gün: banka ekstresi işlenir', tcode:'FEBAN',
         aciklama:'Ekstre geliyor ve {{banka-ara-hesabi}} kapatılıyor. Nakit çıkışı **ancak burada** kesinleşiyor.',
-        fis:{ baslik:'Belge 1000004567 — Banka ekstresi', belgeTuru:'SB', tarih:'26.09.2026',
+        fis:{ baslik:'Belge 1000004567: Banka ekstresi', belgeTuru:'SB', tarih:'26.09.2026',
           satirlar:[
-            { hesap:'102', ad:'Banka ara hesabı — İŞB', borc:6290000, not:'Ara hesap kapatıldı' },
-            { hesap:'102', ad:'Bankalar — İŞB gerçek hesap', alacak:6290000, not:'Para fiilen çıktı' },
+            { hesap:'102', ad:'Banka ara hesabı: İŞB', borc:6290000, not:'Ara hesap kapatıldı' },
+            { hesap:'102', ad:'Bankalar: İŞB gerçek hesap', alacak:6290000, not:'Para fiilen çıktı' },
           ] },
         tabloEtkisi:[
           { tablo:'FEBKO', ne:'Ekstre başlığı' },
-          { tablo:'FEBEP', ne:'Ekstre kalemleri — ödeme dosyasıyla eşleşti' },
+          { tablo:'FEBEP', ne:'Ekstre kalemleri: ödeme dosyasıyla eşleşti' },
         ],
         not:'Ara hesabın bakiyesi sıfırlandı. Sıfırlanmıyorsa ya ekstre eksik işlenmiştir ' +
-             'ya bazı ödemeler bankada gerçekleşmemiştir — her ikisi de araştırılmalıdır.' },
+             'ya bazı ödemeler bankada gerçekleşmemiştir: her ikisi de araştırılmalıdır.' },
     ],
 
     sonuc:
@@ -955,7 +955,7 @@ SAP.registerTopic({
       '**2. İstisna listesi öneri listesinden değerlidir.** Ödenecekler beklendiği gibidir; ' +
       'sistemin ne öğrettiği, ödenmeyeceklerin gerekçesindedir.\n\n' +
       '**3. Öneri ile ödeme arasındaki fark hayatidir.** Öneri aşamasında üç sorun bulundu ve ' +
-      'düzeltildi — hiçbir muhasebe kaydı bozulmadı. Doğrudan ödeme çalıştırılsaydı 39 kalem eksik ' +
+      'düzeltildi: hiçbir muhasebe kaydı bozulmadı. Doğrudan ödeme çalıştırılsaydı 39 kalem eksik ' +
       'ödenecek ve düzeltmek için 95 belgeyi ters kaydetmek gerekecekti.',
   },
 
@@ -966,10 +966,10 @@ SAP.registerTopic({
       '**İki aşamalıdır:** öneri (muhasebe kaydı **yok**, geri alınabilir) ve ödeme (kayıt **var**, geri alması zor).',
       'Koşu **çalıştırma tarihi (`LAUFD`) + kimlik (`LAUFI`)** ikilisiyle tanımlanır.',
       'Muhasebe kaydı sadedir: **satıcı borç / banka (ara hesap) alacak**, artı {{iskonto}} ve {{kur-farki}} satırları.',
-      'F110’un davranışını **{{FBZP}}** belirler: 5 adım — şirket kodları, ödeme yapan şirket, yöntem/ülke, yöntem/şirket kodu, **banka belirleme**.',
+      'F110’un davranışını **{{FBZP}}** belirler: 5 adım: şirket kodları, ödeme yapan şirket, yöntem/ülke, yöntem/şirket kodu, **banka belirleme**.',
       'Tablolar: {{REGUV}} (durum), {{REGUH}} (ödeme başlıkları), {{REGUP}} (ödenen kalemler). `XVORL` = X ise **öneridir**.',
       '**Ek log** açılmadan teşhis yapılamaz; "kalem neden seçilmedi" sorusunun cevabı yalnızca oradadır.',
-      'Kullanılabilir tutar **boş bırakılamaz** — boş "sınırsız" değil "sıfır" demektir.',
+      'Kullanılabilir tutar **boş bırakılamaz**: boş "sınırsız" değil "sıfır" demektir.',
     ],
 
     onemliNoktalar:[
@@ -991,16 +991,16 @@ SAP.registerTopic({
       { hata:'Ödeme yöntemini sadece ülke seviyesinde tanımlamak.', dogru:'{{FBZP}} 4. adımda **şirket kodu** seviyesinde de tanımlanmalıdır.' },
       { hata:'Ödemeyi doğrudan gerçek banka hesabına yazmak.', dogru:'{{banka-ara-hesabi}} kullanılır; ekstre geldiğinde kapatılır. Aksi hâlde mutabakat imkânsızlaşır.' },
       { hata:'Yanlış koşuyu düzeltmek için yeni ödeme yapmak.', dogru:'Belgeler {{FB08}}/{{F.80}} ile ters kaydedilir, kapatmalar {{FBRA}} ile açılır. Dosya gönderildiyse önce banka aranır.' },
-      { hata:'Test sisteminde ödeme ortamı varyantını açık bırakmak.', dogru:'Test koşusunda varyant kaldırılır — yanlışlıkla gerçek dosya üretilmesi önlenir.' },
+      { hata:'Test sisteminde ödeme ortamı varyantını açık bırakmak.', dogru:'Test koşusunda varyant kaldırılır: yanlışlıkla gerçek dosya üretilmesi önlenir.' },
       { hata:'İstisna listesini okumadan öneriyi onaylamak.', dogru:'İstisna listesi ödenmeyeceklerin gerekçesini verir; asıl öğretici çıktı odur.' },
     ],
 
     ipuclari:[
       'Koşu öncesi üç kontrolü rutin hâline getir: **{{MRBR}}** bloklu faturalar, **{{FBL1N}}** ödeme bloğu sütunu, ' +
       '**{{BP}}** ödeme yöntemi eksik satıcılar.',
-      'Ek log’u tüm satıcılar için açma — çıktı devasa olur. Sorunlu satıcıyı log aralığına yaz.',
+      'Ek log’u tüm satıcılar için açma: çıktı devasa olur. Sorunlu satıcıyı log aralığına yaz.',
       'Kimlik (`LAUFI`) için disiplinli bir adlandırma kullan: AP01, AP02, ACIL1… Sonradan koşu bulmak kolaylaşır.',
-      'Durum sekmesi kendiliğinden yenilenmez — öneri bittiğinde yenile tuşuna bas. ' +
+      'Durum sekmesi kendiliğinden yenilenmez: öneri bittiğinde yenile tuşuna bas. ' +
       '"Öneri çalışmadı" sanmanın bir numaralı sebebi budur.',
       '{{banka-ara-hesabi}} bakiyesini haftalık izle. Büyüyorsa ekstre işlenmiyor veya ödemeler bankada gerçekleşmiyordur.',
       'FBZP’yi ezberlemek yerine **sırasını** hatırla: kim ödüyor (1-2) → nasıl ödüyor (3-4) → hangi bankadan (5).',
@@ -1091,16 +1091,16 @@ SAP.registerTopic({
     ],
 
     flashcards:[
-      { on:'F110 kaç aşamalıdır?', arka:'**İki ana aşama:**\n1. **Öneri** — muhasebe kaydı YOK, REGUH-XVORL = X, serbestçe silinir\n2. **Ödeme** — kayıt VAR, faturalar kapanır, geri alması zor\n\nArada **insan onayı** olmalıdır.' },
+      { on:'F110 kaç aşamalıdır?', arka:'**İki ana aşama:**\n1. **Öneri**: muhasebe kaydı YOK, REGUH-XVORL = X, serbestçe silinir\n2. **Ödeme**: kayıt VAR, faturalar kapanır, geri alması zor\n\nArada **insan onayı** olmalıdır.' },
       { on:'Bir F110 koşusu neyle benzersiz kılınır?', arka:'**Çalıştırma tarihi (LAUFD) + Kimlik (LAUFI)**\n\nAynı gün ikinci koşu için farklı kimlik verilir (AP01, AP02…).' },
       { on:'FBZP’nin beş adımı nedir?', arka:'1. Tüm şirket kodları\n2. Ödeme yapan şirket kodları\n3. Ödeme yöntemleri / **ülke**\n4. Ödeme yöntemleri / **şirket kodu**\n5. **Banka belirleme**\n\nSıra: kim ödüyor → nasıl ödüyor → hangi bankadan.' },
       { on:'F110’un ürettiği muhasebe kaydı nedir?', arka:'**Satıcı borç / Banka (ara hesap) alacak**\n\nArtı varsa:\n• İskonto geliri (602)\n• KDV düzeltmesi\n• Kur farkı (646/656)\n\nVe faturalar kapatılır: BSIK → BSAK.' },
-      { on:'F110’un üç tablosu nedir?', arka:'**REGUV** — koşunun durumu\n**REGUH** — ödeme başlıkları (kime, ne kadar)\n**REGUP** — ödenen kalemler (hangi faturalar)\n\nXVORL = X ise sadece öneridir.' },
+      { on:'F110’un üç tablosu nedir?', arka:'**REGUV**, koşunun durumu\n**REGUH**, ödeme başlıkları (kime, ne kadar)\n**REGUP**, ödenen kalemler (hangi faturalar)\n\nXVORL = X ise sadece öneridir.' },
       { on:'"Sonraki ödeme tarihi" ne işe yarar?', arka:'Program şunu sorar: **"Bu kalem bir sonraki koşuya kadar bekleyebilir mi?"**\n\nBekleyemiyorsa (vade veya iskonto süresi dolacaksa) bugün öder.\n\nYanlış girilirse ya erken ödersin ya iskonto kaçar.' },
-      { on:'"No valid payment method found" — sebepleri?', arka:'1. Satıcıda ödeme yöntemi yok (LFB1-ZWELS)\n2. Yöntem **şirket kodu** seviyesinde tanımsız (FBZP 4. adım)\n3. Yöntemin zorunlu alanı eksik (örn. IBAN)\n\n**Ek log** hangisi olduğunu tam olarak söyler.' },
+      { on:'"No valid payment method found": sebepleri?', arka:'1. Satıcıda ödeme yöntemi yok (LFB1-ZWELS)\n2. Yöntem **şirket kodu** seviyesinde tanımsız (FBZP 4. adım)\n3. Yöntemin zorunlu alanı eksik (örn. IBAN)\n\n**Ek log** hangisi olduğunu tam olarak söyler.' },
       { on:'Kullanılabilir tutar boş bırakılırsa ne olur?', arka:'**O bankadan hiç ödeme yapılmaz.**\n\nBoş = sınırsız DEĞİL, boş = sıfır.\n\n"No suitable house bank found" hatasının bir numaralı sebebidir.' },
       { on:'Neden banka ara hesabı kullanılır?', arka:'Ödemenin **kaydedildiği an** ile paranın **fiilen çıktığı an** farklıdır.\n\nÖdeme → ara hesap alacaklanır\nEkstre (FEBAN) → ara hesap kapanır, gerçek hesap çalışır\n\nBakiyesi büyüyorsa mutabakat yapılmıyordur.' },
-      { on:'Ek log neden her koşuda açılmalı?', arka:'**"Kalem neden seçilmedi?"** sorusunun cevabı yalnızca orada bulunur.\n\nAçılacaklar: ödeme yöntemi seçimi + kalem bazında + banka belirleme.\n\nSorunlu satıcıyı log aralığına yaz — çıktı okunabilir kalır.' },
+      { on:'Ek log neden her koşuda açılmalı?', arka:'**"Kalem neden seçilmedi?"** sorusunun cevabı yalnızca orada bulunur.\n\nAçılacaklar: ödeme yöntemi seçimi + kalem bazında + banka belirleme.\n\nSorunlu satıcıyı log aralığına yaz: çıktı okunabilir kalır.' },
       { on:'Yanlış ödeme koşusu nasıl geri alınır?', arka:'**Öneriyse:** sil, iz kalmaz.\n\n**Ödeme yapıldıysa sırayla:**\n1. Dosya gönderildiyse **bankayı ara**\n2. FB08 / F.80 ile ters kaydet\n3. FBRA ile kapatmaları aç\n4. Çek varsa iptal et' },
       { on:'S/4HANA’da F110 değişti mi?', arka:'**Kaldırılmadı, mantığı aynı.**\n\nDeğişenler:\n• Fiori "Manage Automatic Payments" ile görsel öneri yönetimi\n• Ev bankası → Bank Account Management (BAM)\n• Ödeme ortamı → **PMW standart**\n• Kalem seçimi ACDOCA üzerinden, daha hızlı' },
     ],

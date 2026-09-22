@@ -1,6 +1,6 @@
 /* ==========================================================================
-   content/fi-en/fi-temelleri.js — English body for "SAP FI Temelleri"
-   Same conventions as content/fi-en/genel-muhasebe.js — see that file's
+   content/fi-en/fi-temelleri.js: English body for "SAP FI Temelleri"
+   Same conventions as content/fi-en/genel-muhasebe.js: see that file's
    header comment.
    ========================================================================== */
 
@@ -13,10 +13,10 @@ SAP.registerTopic({
   tanim: {
     nedir:
       'FI (Financial Accounting) is the SAP module responsible for accounting **toward the outside world**. The filing ' +
-      'sent to the tax office, the balance sheet shown to the bank, the income statement shown to shareholders — all of ' +
+      'sent to the tax office, the balance sheet shown to the bank, the income statement shown to shareholders: all of ' +
       'it comes out of here.\n\n' +
       'FI\'s defining trait: **every module\'s path in SAP eventually leads to FI.** Goods are received in the ' +
-      'warehouse, an invoice is issued in sales, payroll is calculated in HR — all of it turns into an accounting ' +
+      'warehouse, an invoice is issued in sales, payroll is calculated in HR: all of it turns into an accounting ' +
       'document in FI. That\'s why FI is the busiest intersection in the system.',
 
     neden:
@@ -39,13 +39,13 @@ SAP.registerTopic({
       'crates have been sold at the register ({{VF01}}); at month-end, the supplier gets paid ({{F110}}); staff get ' +
       'paid.\n\n' +
       'An accountant doesn\'t type in a single one of these four events by hand. Each is posted in its own module and ' +
-      'lands in FI **automatically**. The accountant\'s job isn\'t to enter postings — it\'s to verify the postings ' +
+      'lands in FI **automatically**. The accountant\'s job isn\'t to enter postings: it\'s to verify the postings ' +
       'that landed on their own, and to close the period. This is the point where SAP changes how the work is actually ' +
       'done.',
 
     muhasebeMantigi:
-      'Everything FI produces is a single kind of object: an **FI document**. However it arrives — typed by hand, or ' +
-      'dropped in from MM — the result is always the same shape:\n\n' +
+      'Everything FI produces is a single kind of object: an **FI document**. However it arrives: typed by hand, or ' +
+      'dropped in from MM: the result is always the same shape:\n\n' +
       '**One header** ({{BKPF}}) + **at least two line items** ({{BSEG}}), with debit totaling credit.\n\n' +
       'That\'s why, before asking "how is this transaction done in SAP?", you need to ask **"which FI document does ' +
       'this transaction produce?"** Know the document, and you can solve both the transaction and the error.',
@@ -72,7 +72,7 @@ SAP.registerTopic({
 
     diyagram: {
       type: 'flow',
-      baslik: 'Data\'s path into FI — from source to financial statements',
+      baslik: 'Data\'s path into FI: from source to financial statements',
       adimlar: [
         { ic:'🏭', rol:'Source modules', baslik:'The event is posted in its own module',
           aciklama:'An MM goods receipt ({{MIGO}}), MM invoice verification ({{MIRO}}), an SD invoice ({{VF01}}), HR payroll.',
@@ -111,12 +111,12 @@ SAP.registerTopic({
     veriAkisi: {
       nereden: 'MM (goods movements, invoice verification), SD (sales invoices), HR (payroll), Treasury, manual FI postings, and bank statements.',
       nereye: 'Into general ledger accounts → {{ACDOCA}} → financial statements; also into {{maliyet-yeri}} and {{kar-merkezi}} reports on the CO side.',
-      tetikleyen: 'The source module\'s document. The `AWKEY` field on the FI document header holds which source document it came from — that field is the bridge.',
+      tetikleyen: 'The source module\'s document. The `AWKEY` field on the FI document header holds which source document it came from: that field is the bridge.',
       sonraki: 'Tax filing, consolidation, management reporting, audit.',
     },
 
     notlar: [
-      { tip:'tip', baslik:'AWKEY — the field that finds the missing link', metin:
+      { tip:'tip', baslik:'AWKEY: the field that finds the missing link', metin:
         'Whenever you\'re trying to figure out where an FI document came from, look at the `AWTYP` (source type) and ' +
         '`AWKEY` (source document key) fields on {{BKPF}}. `AWTYP = RMRP` means an {{MIRO}} invoice; `VBRK` means an SD ' +
         'invoice. It\'s one of the first places to look during error analysis.' },
@@ -127,35 +127,35 @@ SAP.registerTopic({
   muhasebe: {
     anlatim:
       'Every posting in FI sits on the same skeleton. Below, you\'ll see the same economic event land in FI through ' +
-      'three different doors — the posting is identical, only the door differs.',
+      'three different doors: the posting is identical, only the door differs.',
 
     etkilenenHesaplar: [
-      { hesap:'Reconciliation accounts (320 Trade payables, 120 Trade receivables)', tur:'Balance sheet', neden:'Reflected automatically from the sub-ledger. **Cannot be posted to directly** — you enter the vendor/customer number, and SAP finds the account from the master record.' },
+      { hesap:'Reconciliation accounts (320 Trade payables, 120 Trade receivables)', tur:'Balance sheet', neden:'Reflected automatically from the sub-ledger. **Cannot be posted to directly**: you enter the vendor/customer number, and SAP finds the account from the master record.' },
       { hesap:'{{gr-ir}} account (a clearing account like 159/391)', tur:'Balance sheet', neden:'Carries the time gap between goods receipt and invoice receipt. Zeroed out once both have happened.' },
-      { hesap:'VAT accounts (191 / 391)', tur:'Balance sheet', neden:'Once a {{vergi-kodu}} is entered, SAP adds the line automatically — it is never typed by hand.' },
+      { hesap:'VAT accounts (191 / 391)', tur:'Balance sheet', neden:'Once a {{vergi-kodu}} is entered, SAP adds the line automatically: it is never typed by hand.' },
       { hesap:'Expense accounts (7xx)', tur:'Income statement', neden:'Works integrated with CO: a {{maliyet-yeri}} is required at posting, or the {{OKB9}} default kicks in.' },
       { hesap:'Bank clearing accounts', tur:'Balance sheet', neden:'Carries the gap between a payment posting and the money actually leaving the bank ({{banka-ara-hesabi}}).' },
     ],
 
     fisler: [
-      { baslik:'Door 1 — Manual FI posting: rent invoice ({{FB60}})',
+      { baslik:'Door 1: Manual FI posting: rent invoice ({{FB60}})',
         belgeTuru:'KR', tarih:'10.04.2026', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'770', ad:'General administrative expense — rent', borc:50000, not:'Cost center required' },
+          { hesap:'770', ad:'General administrative expense: rent', borc:50000, not:'Cost center required' },
           { hesap:'191', ad:'Deductible VAT', borc:10000, not:'Automatic from the tax code' },
           { hesap:'320', ad:'Trade payables (V-2001)', alacak:60000, not:'{{mutabakat-hesabi}}' },
         ],
-        not:'There is no purchase order and no goods receipt — that\'s why it goes straight into FI without touching MM. This is the standard path for services like rent, consulting, and utilities.' },
+        not:'There is no purchase order and no goods receipt: that\'s why it goes straight into FI without touching MM. This is the standard path for services like rent, consulting, and utilities.' },
 
-      { baslik:'Door 2 — Automatic from MM: goods receipt ({{MIGO}})',
+      { baslik:'Door 2: Automatic from MM: goods receipt ({{MIGO}})',
         belgeTuru:'WE', tarih:'12.04.2026', paraBirimi:'TRY',
         satirlar:[
           { hesap:'153', ad:'Trade goods (inventory)', borc:80000, not:'{{OBYC}} → BSX transaction key' },
-          { hesap:'159', ad:'GR/IR — goods received, invoice not yet received', alacak:80000, not:'{{OBYC}} → WRX transaction key' },
+          { hesap:'159', ad:'GR/IR: goods received, invoice not yet received', alacak:80000, not:'{{OBYC}} → WRX transaction key' },
         ],
-        not:'The accountant **doesn\'t even see** this posting; it is generated when the warehouse worker posts the goods receipt. {{OBYC}} determines the accounts. The vendor liability isn\'t posted yet because the invoice hasn\'t arrived — the {{gr-ir}} account carries that gap.' },
+        not:'The accountant **doesn\'t even see** this posting; it is generated when the warehouse worker posts the goods receipt. {{OBYC}} determines the accounts. The vendor liability isn\'t posted yet because the invoice hasn\'t arrived: the {{gr-ir}} account carries that gap.' },
 
-      { baslik:'Door 2 continued — the invoice arrives ({{MIRO}})',
+      { baslik:'Door 2 continued: the invoice arrives ({{MIRO}})',
         belgeTuru:'RE', tarih:'20.04.2026', paraBirimi:'TRY',
         satirlar:[
           { hesap:'159', ad:'GR/IR account', borc:80000, not:'Closes the credit from the goods receipt' },
@@ -164,7 +164,7 @@ SAP.registerTopic({
         ],
         not:'The {{gr-ir}} account is now zeroed out: the goods arrived, and so did the invoice. Its balance should be close to zero at period end; if it isn\'t, it gets analyzed with {{F.19}}.' },
 
-      { baslik:'Door 3 — Automatic from SD: sales invoice ({{VF01}})',
+      { baslik:'Door 3: Automatic from SD: sales invoice ({{VF01}})',
         belgeTuru:'RV', tarih:'25.04.2026', paraBirimi:'TRY',
         satirlar:[
           { hesap:'120', ad:'Trade receivables (C-5001)', borc:120000, not:'{{mutabakat-hesabi}}' },
@@ -202,34 +202,34 @@ SAP.registerTopic({
       'FI is not a single piece; it\'s made of sub-components, each with its own master data and transaction codes. ' +
       'When a SAP FI consultant job posting says "FI-AP and FI-AA experience," this is the split it means.',
     liste: [
-      { ad:'FI-GL — General Ledger',
+      { ad:'FI-GL: General Ledger',
         aciklama:'The center where financial statements are produced. Every sub-component is reflected here through a {{mutabakat-hesabi}}.',
         neZaman:'Mandatory in every implementation. No other component works without it.',
         tcodes:['FS00','FB50','FBL3N','FAGLL03'] },
 
-      { ad:'FI-AP — Accounts Payable',
+      { ad:'FI-AP: Accounts Payable',
         aciklama:'Manages the company\'s liabilities: vendor master data, invoice entry, payment, aging. Tightly integrated with procurement (MM).',
-        neZaman:'Whenever the company buys goods or services from outside — which is to say, always.',
+        neZaman:'Whenever the company buys goods or services from outside: which is to say, always.',
         tcodes:['FB60','FBL1N','F110','F-53'] },
 
-      { ad:'FI-AR — Accounts Receivable',
+      { ad:'FI-AR: Accounts Receivable',
         aciklama:'Manages the company\'s receivables: customer master data, invoices, collections, {{ihtar}}. Integrated with sales (SD).',
         neZaman:'Whenever the company sells on credit. Lightly used at businesses that only work cash-up-front.',
         tcodes:['FB70','FBL5N','F-28','F150'] },
 
-      { ad:'FI-AA — Asset Accounting',
+      { ad:'FI-AA: Asset Accounting',
         aciklama:'Manages a fixed asset\'s entire life from acquisition to retirement, and its {{amortisman}}. Thanks to ' +
                  'the {{amortisman-alani}}, the same asset can be valued separately for commercial and tax purposes.',
         neZaman:'Whenever there are multi-year assets like machinery, buildings, or vehicles. Lightly used at a small company that only rents its office.',
         tcodes:['AS01','AW01N','ABZON','AFAB'] },
 
-      { ad:'FI-BL — Bank Accounting',
+      { ad:'FI-BL: Bank Accounting',
         aciklama:'{{ev-bankasi}} definition, check management, bank statement processing, and posting cash movements.',
         neZaman:'Mandatory whenever automatic payment ({{F110}}) or an electronic bank statement is in use.',
         tcodes:['FI12','FF67','FEBAN','FCHN'] },
 
-      { ad:'FI — Tax on Sales/Purchases',
-        aciklama:'The {{vergi-kodu}} structure, base-amount calculation, and tax account determination. Not a separate sub-module — a layer spread across FI.',
+      { ad:'FI: Tax on Sales/Purchases',
+        aciklama:'The {{vergi-kodu}} structure, base-amount calculation, and tax account determination. Not a separate sub-module: a layer spread across FI.',
         neZaman:'Mandatory in every country; requires country-specific configuration.',
         tcodes:['FTXP','OB40','F.12'] },
     ],
@@ -239,7 +239,7 @@ SAP.registerTopic({
       ['What it tracks', 'The company\'s **liabilities**', 'The company\'s **receivables**'],
       ['Master data', '{{LFA1}} / {{LFB1}} (vendor)', '{{KNA1}} / {{KNB1}} (customer)'],
       ['Open item table', '{{BSIK}} / {{BSAK}}', '{{BSID}} / {{BSAD}}'],
-      ['Integrated module', 'MM — procurement', 'SD — sales'],
+      ['Integrated module', 'MM, procurement', 'SD, sales'],
       ['Main transaction', '{{FB60}} invoice, {{F110}} payment', '{{FB70}} invoice, {{F-28}} collection'],
       ['Line-item report', '{{FBL1N}}', '{{FBL5N}}'],
       ['Typical period-end job', 'Payables aging, {{gr-ir}} analysis', 'Receivables aging, {{ihtar}}'],
@@ -252,7 +252,7 @@ SAP.registerTopic({
       'Below are the three transaction codes anyone new to FI should learn first. {{FB03}} matters most: every error ' +
       'diagnosis begins on that screen.',
     liste: [
-      { kod:'FB03', ad:'Display document — FI\'s X-ray machine',
+      { kod:'FB03', ad:'Display document: FI\'s X-ray machine',
         amac:'Shows an FI document with its header, line items, tax lines, and any linked documents.',
         neZaman:'In every error analysis, every reconciliation, every moment you ask "where did this figure come from?"',
         adimlar:[
@@ -278,7 +278,7 @@ SAP.registerTopic({
           { mesaj:'Document ... does not exist in company code ...', sebep:'The document is in a different company code, or a different fiscal year.', cozum:'Try a different fiscal year; if unsure, search {{BKPF}} via {{FBL3N}} or {{SE16N}}.' },
           { mesaj:'No authorization to display documents in company code ...', sebep:'The F_BKPF_BUK authorization object is missing.', cozum:'Run {{SU53}} and hand the resulting screen to the authorization team.' },
         ],
-        ipucu:'If you don\'t know the document number, double-clicking a line in the {{FBL1N}}/{{FBL3N}}/{{FBL5N}} reports drops you into {{FB03}} too. In practice, document numbers aren\'t memorized — you get to them from a report.',
+        ipucu:'If you don\'t know the document number, double-clicking a line in the {{FBL1N}}/{{FBL3N}}/{{FBL5N}} reports drops you into {{FB03}} too. In practice, document numbers aren\'t memorized: you get to them from a report.',
         ilgili:['FB02','FB08','FBL3N','SE16N'] },
 
       { kod:'FB50', ad:'G/L posting entry',
@@ -309,7 +309,7 @@ SAP.registerTopic({
           { baslik:'Enter the account number and company code' },
           { baslik:'*Type/description* tab', aciklama:'Account group; balance sheet vs. income statement; in S/4HANA, the account type (Balance Sheet / Primary Costs / Secondary Costs).' },
           { baslik:'*Control data* tab', aciklama:'Currency, {{vergi-kodu}} category, {{acik-kalem-yonetimi}}, line-item display, reconciliation account type.' },
-          { baslik:'*Create/bank/interest* tab', aciklama:'The {{alan-durumu}} group — decides which field is mandatory on the posting screen.' },
+          { baslik:'*Create/bank/interest* tab', aciklama:'The {{alan-durumu}} group: decides which field is mandatory on the posting screen.' },
         ],
         ipucu:'Whenever you ask "why is this field mandatory during posting?", the answer is almost always right here, in the field status group.',
         hatalar:[
@@ -334,9 +334,9 @@ SAP.registerTopic({
         s4:'Structure preserved. Reporting moved to {{ACDOCA}}, but the document\'s identity is still here.',
         alanlar:[
           { ad:'BLART', aciklama:'{{belge-turu}}' },
-          { ad:'BUDAT', aciklama:'Posting date — determines the period' },
-          { ad:'AWTYP / AWKEY', aciklama:'Source document type and key — gives the integration trail' },
-          { ad:'STBLG', aciklama:'Reversing document — if filled, this document has been reversed' },
+          { ad:'BUDAT', aciklama:'Posting date: determines the period' },
+          { ad:'AWTYP / AWKEY', aciklama:'Source document type and key: gives the integration trail' },
+          { ad:'STBLG', aciklama:'Reversing document: if filled, this document has been reversed' },
         ] },
 
       { ad:'BSEG', baslik:'Document line items',
@@ -348,8 +348,8 @@ SAP.registerTopic({
         s4:'A cluster table (RFBLG), so direct queries are slow. In S/4HANA, reports read from {{ACDOCA}} instead.',
         alanlar:[
           { ad:'SHKZG', aciklama:'S = debit, H = credit' },
-          { ad:'AUGBL / AUGDT', aciklama:'Clearing document and date — if blank, the item is **open**' },
-          { ad:'ZUONR', aciklama:'Assignment — the matching field for automatic clearing ({{F.13}})' },
+          { ad:'AUGBL / AUGDT', aciklama:'Clearing document and date: if blank, the item is **open**' },
+          { ad:'ZUONR', aciklama:'Assignment: the matching field for automatic clearing ({{F.13}})' },
           { ad:'UMSKZ', aciklama:'{{ozel-ana-muhasebe-gostergesi}}' },
         ] },
 
@@ -361,8 +361,8 @@ SAP.registerTopic({
         iliskiler:'Matches {{BKPF}} on the document number; the {{defter}} field separates parallel accounting.',
         s4:'The center of S/4HANA. Tables like {{FAGLFLEXT}}, {{GLT0}}, {{BSIS}} turned into {{uyumluluk-view}}s generated from this.',
         alanlar:[
-          { ad:'RLDNR', aciklama:'Ledger — 0L is the leading ledger' },
-          { ad:'DOCLN', aciklama:'A 6-digit line item number — exceeds {{BSEG}}\'s 3-digit limit' },
+          { ad:'RLDNR', aciklama:'Ledger: 0L is the leading ledger' },
+          { ad:'DOCLN', aciklama:'A 6-digit line item number: exceeds {{BSEG}}\'s 3-digit limit' },
           { ad:'HSL / WSL / KSL', aciklama:'Company-code / document / group currency amounts' },
         ] },
 
@@ -371,7 +371,7 @@ SAP.registerTopic({
         olusturan:'Configured via {{OX02}} and {{OBY6}}',
         guncelleyen:'{{OX02}}, {{OBY6}}',
         anahtar:'BUKRS',
-        iliskiler:'Every table keyed by company code — {{BKPF}}, {{SKB1}}, {{LFB1}}, {{KNB1}} — points back here.',
+        iliskiler:'Every table keyed by company code, {{BKPF}}, {{SKB1}}, {{LFB1}}, {{KNB1}}, points back here.',
         s4:'Unchanged.',
         alanlar:[
           { ad:'WAERS', aciklama:'Local currency' },
@@ -418,7 +418,7 @@ SAP.registerTopic({
 
     ekranlar:[
       { ad:'Header fields',
-        aciklama:'The top block of the screen. The dates here decide which period the document falls into — this is where most mistakes happen.',
+        aciklama:'The top block of the screen. The dates here decide which period the document falls into: this is where most mistakes happen.',
         alanlar:[
           { ad:'Document date (`BLDAT`)', zorunlu:true, aciklama:'The date printed on the invoice or voucher. Used as the reference in reporting.' },
           { ad:'Posting date (`BUDAT`)', zorunlu:true, aciklama:'**The date that decides the accounting period.** Defaults to today; changed by hand when posting into a past period.' },
@@ -436,8 +436,8 @@ SAP.registerTopic({
           { ad:'D/C (debit-credit)', zorunlu:true, aciklama:'Turns into a {{kayit-anahtari}} in the background: debit is 40, credit is 50.' },
           { ad:'Amount', zorunlu:true, aciklama:'In the document currency. Choosing a different currency opens the exchange-rate field.' },
           { ad:'Tax code (`MWSKZ`)', zorunlu:false, aciklama:'Asked for if the account\'s tax category requires it. Once entered, SAP adds the tax line automatically.' },
-          { ad:'Cost center (`KOSTL`)', zorunlu:false, aciklama:'Usually mandatory on expense accounts — decided by the {{alan-durumu}}.' },
-          { ad:'Assignment (`ZUONR`)', zorunlu:false, aciklama:'**Critical** if automatic clearing via {{F.13}} is planned later — the matching is done from this field.' },
+          { ad:'Cost center (`KOSTL`)', zorunlu:false, aciklama:'Usually mandatory on expense accounts: decided by the {{alan-durumu}}.' },
+          { ad:'Assignment (`ZUONR`)', zorunlu:false, aciklama:'**Critical** if automatic clearing via {{F.13}} is planned later: the matching is done from this field.' },
           { ad:'Text (`SGTXT`)', zorunlu:false, aciklama:'Line-level description. Very useful in reports; a good habit to never leave blank.' },
         ] },
 
@@ -454,12 +454,12 @@ SAP.registerTopic({
       { mesaj:'Account 320000 cannot be directly posted to', sebep:'The account is defined as a {{mutabakat-hesabi}} ({{SKB1}} `MITKZ` is filled).', cozum:'Post through the vendor/customer instead: {{FB60}} or {{FB70}}.' },
       { mesaj:'Field Cost Center is a required field for G/L account 1000 770000', sebep:'The account\'s field status group makes cost center mandatory.', cozum:'Enter a cost center; for a permanent fix, define a default CO object with {{OKB9}}.' },
       { mesaj:'Balance in transaction currency (debit ≠ credit)', sebep:'{{belge-denkligi}} isn\'t satisfied.', cozum:'Check the lines. If you want to hold onto an unbalanced document, park it with {{FV50}}.' },
-      { mesaj:'Document number 1900000001 was already assigned', sebep:'A number range clash — usually the counter not being updated after a data migration.', cozum:'Use {{FBN1}} to move that range\'s current number (`NRLEVEL`) above the highest existing document number.' },
+      { mesaj:'Document number 1900000001 was already assigned', sebep:'A number range clash: usually the counter not being updated after a data migration.', cozum:'Use {{FBN1}} to move that range\'s current number (`NRLEVEL`) above the highest existing document number.' },
       { mesaj:'Tax code A1 does not exist in company code 1000', sebep:'The {{vergi-kodu}} isn\'t defined for that country/company code.', cozum:'Define it in {{FTXP}} under the right country key, or use the correct code.' },
     ],
 
     ipuclari:[
-      'On any screen, click a field and hit **F1 → Technical information** to learn its technical name. The table and field name are printed there — that\'s how an {{SE16N}} query is put together.',
+      'On any screen, click a field and hit **F1 → Technical information** to learn its technical name. The table and field name are printed there: that\'s how an {{SE16N}} query is put together.',
       'When an **F4** search comes back with too many results, narrow it with an asterisk (`*`) in the search term: `*rent*`.',
       'Add transactions you use often to your favorites (right-click on the SAP Easy Access screen → Add to favorites). Saves dozens of clicks over a day.',
       'Type a transaction code into the command field with `/n` to leave the current transaction and jump to a new one (`/nFB03`); with `/o` to open it in a new window (`/oFBL1N`). The two shortcuts a consultant uses most.',
@@ -470,7 +470,7 @@ SAP.registerTopic({
   /* ===================================================== 8. TECHNICAL DETAIL === */
   teknik: {
     guncellenenTablolar:[
-      { tablo:'BKPF', ne:'1 header line — document number, type, dates, user, source reference' },
+      { tablo:'BKPF', ne:'1 header line: document number, type, dates, user, source reference' },
       { tablo:'BSEG', ne:'1 line item for each line entered; if there\'s a tax code, the system-added tax line lands here too' },
       { tablo:'ACDOCA', ne:'The same items in universal format; a separate set of lines for each active {{defter}}' },
       { tablo:'BSET', ne:'Tax lines: base amount, tax amount, account key' },
@@ -481,7 +481,7 @@ SAP.registerTopic({
     commit:
       'When you hit save, every write is bundled into a single LUW (Logical Unit of Work) and written atomically with ' +
       '`COMMIT WORK`. Either all of it, or none of it. Number assignment, however, runs in a separate LUW (outside the ' +
-      '`UPDATE` task) — which is why **a document number can be consumed even for a posting that ultimately fails**, ' +
+      '`UPDATE` task): which is why **a document number can be consumed even for a posting that ultimately fails**, ' +
       'leaving a gap in the sequence. This is normal, not an error.',
 
     belgeNo:
@@ -495,7 +495,7 @@ SAP.registerTopic({
       'line\'s direction and target account type → **field status** decides which fields are mandatory → **balance ' +
       'check** confirms debit = credit → **number assignment** and the **database write**.\n\n' +
       'Field status comes from two sources: the account\'s field status group ({{SKB1}} `FSTAG`) and the posting ' +
-      'key\'s field status. **The more restrictive one wins** — if one says "hidden," the field is hidden even if the ' +
+      'key\'s field status. **The more restrictive one wins**: if one says "hidden," the field is hidden even if the ' +
       'other says "required." This clash is the most common answer to "why can\'t I see this field?"',
 
     belgeTuru:
@@ -506,7 +506,7 @@ SAP.registerTopic({
 
     numberRange:
       'FI number ranges are keyed by **company code + fiscal year** and defined with {{FBN1}}. If a line isn\'t ' +
-      'opened for the new fiscal year, posting stalls at the start of the year — the first item on the December ' +
+      'opened for the new fiscal year, posting stalls at the start of the year: the first item on the December ' +
       'checklist at every go-live. Range definitions **don\'t transport**; each system gets its own.',
 
     accountDetermination:
@@ -524,7 +524,7 @@ SAP.registerTopic({
     transport:
       'Configuration goes into a transport request and follows the development → test → production path. Master data ' +
       'and transaction data don\'t transport; each system loads its own ({{LSMW}}, {{LTMC}}, or manually). ' +
-      '**Exception:** a number range\'s *definition* transports, but its *current counter value* doesn\'t — not ' +
+      '**Exception:** a number range\'s *definition* transports, but its *current counter value* doesn\'t: not ' +
       'knowing this distinction causes number clashes at go-live.',
 
     img:[
@@ -551,20 +551,20 @@ SAP.registerTopic({
       'the **Business Partner** requirement, and **table simplification**.',
 
     eccFarklari:[
-      { konu:'Data model', ecc:'{{BSEG}} + {{FAGLFLEXA}} + {{GLT0}} + COEP + {{ANEP}} — separately', s4:'{{ACDOCA}} in one table; the rest as {{uyumluluk-view}}s' },
-      { konu:'Customer/vendor master data', ecc:'Separately, via {{XK01}} / {{XD01}}', s4:'{{BP}} is mandatory — Customer/Vendor Integration (CVI)' },
-      { konu:'Cost element', ecc:'A separate master record via {{KA01}}', s4:'A type of the G/L account — chosen as "Primary Costs" in {{FS00}}' },
+      { konu:'Data model', ecc:'{{BSEG}} + {{FAGLFLEXA}} + {{GLT0}} + COEP + {{ANEP}}: separately', s4:'{{ACDOCA}} in one table; the rest as {{uyumluluk-view}}s' },
+      { konu:'Customer/vendor master data', ecc:'Separately, via {{XK01}} / {{XD01}}', s4:'{{BP}} is mandatory: Customer/Vendor Integration (CVI)' },
+      { konu:'Cost element', ecc:'A separate master record via {{KA01}}', s4:'A type of the G/L account: chosen as "Primary Costs" in {{FS00}}' },
       { konu:'Totals tables', ecc:'Pre-calculated and stored', s4:'Removed; calculated on the fly' },
-      { konu:'Line item number', ecc:'{{BSEG}} `BUZEI` — 3 digits, a 999-item limit', s4:'{{ACDOCA}} `DOCLN` — 6 digits, effectively unlimited' },
-      { konu:'FI–CO reconciliation', ecc:'Needs a periodic reconciliation step', s4:'Unnecessary, since they sit on the same line' },
+      { konu:'Line item number', ecc:'{{BSEG}} `BUZEI`, 3 digits, a 999-item limit', s4:'{{ACDOCA}} `DOCLN`, 6 digits, effectively unlimited' },
+      { konu:'FI-CO reconciliation', ecc:'Needs a periodic reconciliation step', s4:'Unnecessary, since they sit on the same line' },
       { konu:'Fixed assets', ecc:'Classic AA; values in {{ANLC}}/{{ANEP}}', s4:'Enterprise Asset Accounting; values in {{ACDOCA}}, ledger-based' },
     ],
 
     universalJournal:
       '{{ACDOCA}} holds the FI item + the CO object + the asset number + the profit center **on a single line**. The ' +
-      'practical consequences: (1) an FI–CO mismatch becomes structurally impossible, (2) totals tables become ' +
+      'practical consequences: (1) an FI-CO mismatch becomes structurally impossible, (2) totals tables become ' +
       'unnecessary, (3) real-time reporting becomes possible on every dimension, (4) {{paralel-defter}} is no longer ' +
-      'extra overhead — just a different `RLDNR` value.',
+      'extra overhead: just a different `RLDNR` value.',
 
     kalkanTcodes:[
       { eski:'{{FK01}} / {{FK02}} / {{FK03}}', yeni:'{{BP}}', not:'Vendor master data is now managed via Business Partner' },
@@ -579,13 +579,13 @@ SAP.registerTopic({
       { ad:'Display Journal Entries', aciklama:'Replaces {{FB03}}; shows the document and every linked object on one screen.' },
       { ad:'Manage Journal Entries', aciklama:'Manages parked and incomplete documents as a work list.' },
       { ad:'Trial Balance', aciklama:'A real-time trial balance; drill from account to line item to document in one click.' },
-      { ad:'Maintain Business Partner', aciklama:'{{BP}} — the single entry point for both customer and vendor.' },
+      { ad:'Maintain Business Partner', aciklama:'{{BP}}: the single entry point for both customer and vendor.' },
     ],
 
     compatibilityViews:[
-      '{{BSIS}}, {{BSAS}}, {{BSIK}}, {{BSAK}}, {{BSID}}, {{BSAD}} — no longer physical tables, but views generated from {{ACDOCA}}.',
-      '{{GLT0}}, {{FAGLFLEXT}} — the totals tables also turned into views.',
-      '**INSERT/UPDATE cannot be done** on these views. An old custom program still works if it only reads, and breaks if it writes — the first risk to scan for in a migration project.',
+      '{{BSIS}}, {{BSAS}}, {{BSIK}}, {{BSAK}}, {{BSID}}, {{BSAD}}: no longer physical tables, but views generated from {{ACDOCA}}.',
+      '{{GLT0}}, {{FAGLFLEXT}}: the totals tables also turned into views.',
+      '**INSERT/UPDATE cannot be done** on these views. An old custom program still works if it only reads, and breaks if it writes: the first risk to scan for in a migration project.',
     ],
 
     performans:
@@ -594,10 +594,10 @@ SAP.registerTopic({
       'totals table; no such row exists anymore.',
 
     bestPractices:[
-      'On new developments, use {{ACDOCA}} or a CDS view instead of {{BSEG}} — the performance gap is large.',
+      'On new developments, use {{ACDOCA}} or a CDS view instead of {{BSEG}}: the performance gap is large.',
       'Before migrating a custom program, scan whether it writes to {{uyumluluk-view}}s.',
       'Build customer/vendor load scenarios through {{BP}}; don\'t try to do a classic screen recording with {{LSMW}}.',
-      'Treat it as a chance to simplify the chart of accounts — the S/4HANA move is the best moment to cut the account count.',
+      'Treat it as a chance to simplify the chart of accounts: the S/4HANA move is the best moment to cut the account count.',
     ],
   },
 
@@ -610,7 +610,7 @@ SAP.registerTopic({
       'document, but each enters through a different door. This scenario shows, concretely, why FI is an ' +
       '"intersection."',
     veriler:[
-      { k:'Company code', v:'1000 — Marmara Textiles Inc.' },
+      { k:'Company code', v:'1000: Marmara Textiles Inc.' },
       { k:'Period', v:'April 2026 (period 04)' },
       { k:'VAT', v:'20%' },
       { k:'Vendors', v:'V-2001 (consulting), V-3001 (fabric)' },
@@ -618,7 +618,7 @@ SAP.registerTopic({
     ],
 
     adimlar:[
-      { baslik:'Door 1 — Consulting invoice entered directly into FI', tcode:'FB60',
+      { baslik:'Door 1: Consulting invoice entered directly into FI', tcode:'FB60',
         aciklama:'No purchase order, no goods receipt. The accountant enters the invoice directly. This is the ' +
                  'scenario where FI works **on its own**.',
         girdi:[
@@ -626,14 +626,14 @@ SAP.registerTopic({
           { alan:'Invoice date / Posting date', deger:'10.04.2026 / 10.04.2026' },
           { alan:'Reference (`XBLNR`)', deger:'DAN-2026-0417 (the vendor\'s invoice number)' },
           { alan:'Amount / Tax code', deger:'60,000 TRY gross / 20%' },
-          { alan:'Expense line', deger:'770 General administrative expense — 50,000, Cost center: 1200 Finance' },
+          { alan:'Expense line', deger:'770 General administrative expense: 50,000, Cost center: 1200 Finance' },
           { alan:'Payment terms', deger:'Net 30 → due 10.05.2026' },
         ],
-        fis:{ baslik:'Document 1900000045 — Consulting invoice', belgeTuru:'KR', tarih:'10.04.2026',
+        fis:{ baslik:'Document 1900000045: Consulting invoice', belgeTuru:'KR', tarih:'10.04.2026',
           satirlar:[
             { hesap:'770', ad:'General administrative expense', borc:50000, not:'Cost center 1200 → also flows into CO' },
             { hesap:'191', ad:'Deductible VAT', borc:10000, not:'Automatic from the tax code' },
-            { hesap:'320', ad:'Trade payables — V-2001', alacak:60000 },
+            { hesap:'320', ad:'Trade payables: V-2001', alacak:60000 },
           ] },
         tabloEtkisi:[
           { tablo:'BKPF', ne:'BLART = KR, XBLNR = DAN-2026-0417, AWTYP blank (born in FI)' },
@@ -644,24 +644,24 @@ SAP.registerTopic({
         ],
         not:'Entering the vendor\'s invoice number in the reference field matters: SAP warns of a duplicate if a second invoice with the same number comes in from the same vendor.' },
 
-      { baslik:'Door 2a — Fabric order and goods receipt', tcode:'MIGO',
+      { baslik:'Door 2a: Fabric order and goods receipt', tcode:'MIGO',
         aciklama:'A purchase order for the fabric was opened first ({{EKKO}}/{{EKPO}}). The moment the goods reach the warehouse, an FI document is generated **automatically**. The accountant enters nothing.',
         girdi:[
-          { alan:'Movement type', deger:'101 — Goods receipt against a purchase order' },
+          { alan:'Movement type', deger:'101: Goods receipt against a purchase order' },
           { alan:'Purchase order', deger:'4500001234, item 10' },
           { alan:'Quantity / Value', deger:'1,000 m × 80 TRY = 80,000 TRY' },
         ],
-        fis:{ baslik:'Document 5000000123 — Goods receipt', belgeTuru:'WE', tarih:'12.04.2026',
+        fis:{ baslik:'Document 5000000123: Goods receipt', belgeTuru:'WE', tarih:'12.04.2026',
           satirlar:[
             { hesap:'153', ad:'Trade goods (inventory)', borc:80000, not:'{{OBYC}} transaction key **BSX**' },
             { hesap:'159', ad:'GR/IR account', alacak:80000, not:'{{OBYC}} transaction key **WRX**' },
-          ], not:'The liability to the vendor is **not yet posted** — the invoice hasn\'t arrived. The {{gr-ir}} account carries this gap.' },
+          ], not:'The liability to the vendor is **not yet posted**: the invoice hasn\'t arrived. The {{gr-ir}} account carries this gap.' },
         tabloEtkisi:[
           { tablo:'MSEG', ne:'Material document line item, movement type 101' },
           { tablo:'BKPF', ne:'AWTYP = MKPF, AWKEY = the material document → the FI document\'s source can be traced' },
         ] },
 
-      { baslik:'Door 2b — Fabric invoice entered from MM', tcode:'MIRO',
+      { baslik:'Door 2b: Fabric invoice entered from MM', tcode:'MIRO',
         aciklama:'When the invoice arrives, {{uc-yonlu-eslestirme}} is performed: purchase order 80,000, goods receipt ' +
                  '80,000, invoice 80,000 → matched, no block.',
         girdi:[
@@ -669,13 +669,13 @@ SAP.registerTopic({
           { alan:'Purchase order', deger:'4500001234' },
           { alan:'Invoice amount', deger:'96,000 TRY (VAT included)' },
         ],
-        fis:{ baslik:'Document 5100000078 — Fabric invoice', belgeTuru:'RE', tarih:'20.04.2026',
+        fis:{ baslik:'Document 5100000078: Fabric invoice', belgeTuru:'RE', tarih:'20.04.2026',
           satirlar:[
             { hesap:'159', ad:'GR/IR account', borc:80000, not:'Closes the credit from the goods receipt' },
             { hesap:'191', ad:'Deductible VAT', borc:16000 },
-            { hesap:'320', ad:'Trade payables — V-3001', alacak:96000 },
+            { hesap:'320', ad:'Trade payables: V-3001', alacak:96000 },
           ], not:'The {{gr-ir}} account is now zeroed out for this item. If its balance keeps growing, either goods are ' +
-               'arriving with no matching invoices or the reverse — {{F.19}} is used to analyze it.' },
+               'arriving with no matching invoices or the reverse: {{F.19}} is used to analyze it.' },
         tabloEtkisi:[
           { tablo:'BSIK', ne:'A new open item for V-3001, 96,000 TRY' },
           { tablo:'BKPF', ne:'AWTYP = RMRP (logistics invoice verification)' },
@@ -683,16 +683,16 @@ SAP.registerTopic({
         not:'Had the invoice amount differed from the order price, the difference would have gone to a price-variance ' +
             'account ({{OBYC}} → PRD) instead of {{gr-ir}}, and the invoice might have blocked for payment (released with {{MRBR}}).' },
 
-      { baslik:'Door 3 — Customer invoice comes from SD', tcode:'VF01',
+      { baslik:'Door 3: Customer invoice comes from SD', tcode:'VF01',
         aciklama:'Sales issues an invoice against the delivery. The moment it\'s posted, an FI document is generated automatically; {{VKOA}} determines the accounts.',
         girdi:[
           { alan:'Delivery / Invoice type', deger:'80001234 / F2 (standard invoice)' },
           { alan:'Customer', deger:'C-5001' },
           { alan:'Net amount', deger:'100,000 TRY + 20,000 TRY VAT' },
         ],
-        fis:{ baslik:'Document 1800000091 — SD invoice', belgeTuru:'RV', tarih:'25.04.2026',
+        fis:{ baslik:'Document 1800000091: SD invoice', belgeTuru:'RV', tarih:'25.04.2026',
           satirlar:[
-            { hesap:'120', ad:'Trade receivables — C-5001', borc:120000 },
+            { hesap:'120', ad:'Trade receivables: C-5001', borc:120000 },
             { hesap:'600', ad:'Domestic sales', alacak:100000, not:'{{VKOA}} account determination' },
             { hesap:'391', ad:'Calculated VAT', alacak:20000 },
           ] },
@@ -704,7 +704,7 @@ SAP.registerTopic({
         not:'If the FI document never appeared, `RFBSK` stays at "A" (not transferred). The cause is almost always a ' +
             'missing account determination in {{VKOA}}; fix it and retransfer with {{VF02}}.' },
 
-      { baslik:'Month-end — all three doors\' results land in one place', tcode:'FBL3N',
+      { baslik:'Month-end: all three doors\' results land in one place', tcode:'FBL3N',
         aciklama:'Postings that entered through three different doors meet on the same general ledger accounts. The accountant now works with a single trial balance without caring where each line came from.',
         girdi:[
           { alan:'Check 1', deger:'{{FBL1N}} → vendor open items: V-2001 60,000 + V-3001 96,000' },

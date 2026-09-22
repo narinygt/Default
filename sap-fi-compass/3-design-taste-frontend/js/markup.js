@@ -131,7 +131,7 @@
          paragrafını etkiler. */
       .replace(/\*\*((?:[^*]|\*(?!\*))+?)\*\*/g, '<strong>$1</strong>')
       .replace(/\*([^*\n]+)\*/g, '<em>$1</em>')
-      .replace(/(^|\s)--(\s|$)/g, '$1—$2')
+      .replace(/(^|\s)--(\s|$)/g, '$1-$2')
       .replace(/->/g, '→');
 
     return s.replace(new RegExp(CODE_MARK + '(\\d+)' + CODE_MARK, 'g'), function (all, i) {

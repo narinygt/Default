@@ -115,9 +115,9 @@
         '</div>';
       }).join('');
 
-      /* --h: grubun tonu (catalog.js). Renk yalnızca numara ve ince
+      /* Tek vurgu rengi: grup tonu (--h) artık basılmaz. Eski not: renk yalnızca numara ve ince
          şeritte görünür — dolgu yok, bkz. theme.css "GRUP RENGİ". */
-      return '<section class="part bezel b-' + (gi % 9) + '" style="--h:' + SAP.grupHue(g.id) + '">' +
+      return '<section class="part bezel b-' + (gi % 9) + '">' + gorsel(g.id) +
         '<div class="part-h">' +
           '<span class="part-n">' + nn(gi) + '</span>' +
           '<h2>' + esc(SAP.i18n.grup(g)) + '</h2>' +
@@ -144,7 +144,11 @@
           '<p class="hero-p">' + esc(T('hero.lede').replace('{n}', all.length)) + '</p>' +
           resume +
         '</div>' +
-        '<div class="hero-tool">' + komutAlani() + '</div>' +
+        '<div class="hero-tool">' +
+          '<img class="hero-img" src="img/hero-desk.jpg" width="1200" height="750" ' +
+            'alt="' + esc(T('img.hero')) + '" decoding="async" fetchpriority="high">' +
+          komutAlani() +
+        '</div>' +
       '</section>' +
       /* Dizin başlığında göz etiketi YOK: sayfada tek etiket (karşılama). */
       '<header class="toc-head">' +
@@ -163,6 +167,22 @@
      (SAP.search), iki ayrı sıralama yoktur. */
 
   var DENE = ['FB50', 'F110', 'FBL1N', 'BSEG', 'ACDOCA'];
+
+  /* ======================================================= GÖRSELLER ====
+     Gerçek fotoğraflar (Picsum / Unsplash lisansı, img/ klasöründe YEREL —
+     çevrimdışı kuralı bozulmaz). Hepsi siyah-beyaz: tek vurgu rengiyle
+     yarışmasınlar. Boyutlar yazılı (CLS), karşılama dışındakiler tembel. */
+  var GORSEL = {
+    islemler:     { src: 'img/daily-operations.jpg', w: 1100, h: 520, alt: 'img.daily' },
+    'donem-sonu': { src: 'img/period-end.jpg',       w: 900,  h: 420, alt: 'img.period' },
+    ileri:        { src: 'img/advanced.jpg',         w: 1600, h: 440, alt: 'img.advanced' },
+  };
+  function gorsel(gid) {
+    var g = GORSEL[gid];
+    if (!g) return '';
+    return '<img class="part-img" src="' + g.src + '" width="' + g.w + '" height="' + g.h + '" ' +
+      'alt="' + esc(T(g.alt)) + '" loading="lazy" decoding="async">';
+  }
   var TUR_ETIKET = { topic: 'search.kind.topic', tcode: 'search.kind.tcode',
                      table: 'search.kind.table', term: 'search.kind.term' };
 
@@ -296,7 +316,7 @@
     var enBolumler = t.sections_en ? Object.keys(t.sections_en) : [];
     var tamCevrili = ids.length > 0 && ids.every(function (id) { return enBolumler.indexOf(id) !== -1; });
     var uyari = tamCevrili ? '' : SAP.i18n.govdeUyarisi();
-    var head = '<header class="thead" style="--h:' + SAP.grupHue(t.grup) + '">' +
+    var head = '<header class="thead">' +
       '<div class="thead-k">' + esc(SAP.i18n.grup(grup(t.grup))) + '</div>' +
       '<h1>' + esc(bas(t)) + '</h1>' +
       '<p>' + esc(SAP.i18n.ozet(t)) + '</p>' +
@@ -313,9 +333,10 @@
             U.icon('printer') + esc(T('topic.print')) + '</button>' +
         '</span>' +
       '</div>' +
+      /* İlerleme: rakam + etiket önde, arkasında izi olmayan küçük çubuk. */
       (ids.length ? '<div class="resume-m" style="margin-top:16px">' +
-        '<span class="resume-bar" style="max-width:200px"><i style="width:' + yuzde + '%"></i></span>' +
-        '<span class="tnum">' + SAP.i18n.yuzde(yuzde) + '</span></div>' : '') +
+        '<span class="tnum">' + SAP.i18n.yuzde(yuzde) + '</span><span>' + esc(T('topic.read')) + '</span>' +
+        '<span class="resume-bar" style="flex:none;width:80px"><i style="width:' + yuzde + '%"></i></span></div>' : '') +
     '</header>' +
     (uyari ? '<p class="lang-notice">' + esc(uyari) + '</p>' : '');
 
@@ -574,7 +595,7 @@
                sitede Türkçe başlık görünüyordu) ve `t.icon` BASILMAZ —
                katalogdaki ikonlar emoji, arayüzde emoji yok (theme.css
                ilke 5). Bu sayfa denetlenmediği için ikisi de kaçmıştı. */
-            return '<div class="panel" style="--h:' + (t.hue || 274) + '">' +
+            return '<div class="panel">' +
               '<h3>' + esc(bas(t)) +
                 '<a class="btn sm" style="margin-left:auto" data-go="#/konu/' + esc(id) + '" ' +
                 'href="#/konu/' + esc(id) + '">' + esc(T('home.start')) + '</a></h3>' +

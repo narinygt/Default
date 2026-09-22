@@ -91,34 +91,10 @@
   --accent-tint: #EAF0ED;   /* çok hafif dolgu — aktif satır */
   --accent-line: #B9CEC5;
 
-  /* ------------------------------------------------- GRUP RENGİ (9) ---
-     ⚠️ İlke 2'nin BİLİNÇLİ REVİZYONU (Eylül 2026). Dokuz grup rengi
-     bir kez kaldırılmıştı; gerekçe "kategori rengi kitapta gürültü
-     yapar" idi. Doğruydu — DOLGU olarak. Sayfa tek renge inince bu kez
-     36 satır birbirinin aynı oldu ve dizin okunaksızlaştı.
-
-     Dönüş şu sınırla yapıldı: renk KUTU DOLGUSU değil, İMZA. Yalnızca
-     üç yerde görünür — dizin bölüm numarası, konu künyesindeki grup
-     etiketi, kenar çubuğu grup işareti. Kart, zemin, rozet YOK.
-     Kitaptaki karşılığı: bölüm başlığındaki renkli şerit.
-
-     Ton katalogdan gelir (`catalog.js` → `hue`, dokuz değer) ve
-     markup'ta `--h` olarak taşınır. Doygunluk/açıklık BURADA sabittir:
-     ton serbest, kontrast değil. Açıklık değerleri kâğıda göre AA
-     geçecek şekilde seçildi (Ders #32: token tek başına "geçiyor"
-     denemez — check.mjs'in gerçek kontrast ekseni doğrular). */
-  --grup-s:    48%;
-  --grup-l:    30%;         /* METİN için — kâğıtta AA */
-  --grup-l-ln: 42%;         /* ÇİZGİ için — 1.4.11, 3:1 yeter */
-
-  /* Grubun TONU. Değeri markup satır içi yazar (`style="--h:231"`);
-     burada bildirilmesinin iki sebebi var: (1) tonu olmayan bir yerde
-     marka yeşiline düşülsün, (2) token CSS'te TANIMLI olsun — ölü token
-     denetimi (Ders #31) yalnızca satır içinde yaşayan bir değişkeni
-     "tanımsız" sayar ve haklıdır: var(--h, 165) biçimindeki yedek her
-     kullanımda tekrar yazılmak zorunda kalır, tek yerde bildirmek daha
-     doğrudur. */
-  --h:         165;
+  /* GRUP RENGİ YOK (3. sürüm). Dokuz grup tonu kaldırıldı: sayfada tek
+     vurgu rengi (defter yeşili) vardır. Grupları renk değil, dizindeki
+     yerleri ve başlıkları ayırır. catalog.js'teki `hue` verisi duruyor
+     ama arayüz onu okumaz. */
 
   /* ------------------------------------------------- ANLAM RENKLERİ ---
      Yalnızca muhasebe anlamı taşıyanlar kaldı. Bunlar "tek vurgu rengi"

@@ -1,6 +1,6 @@
 /* ==========================================================================
-   content/fi-en/reporting.js — English body for "Reporting"
-   Same conventions as content/fi-en/gl-accounting.js — see that file's
+   content/fi-en/reporting.js: English body for "Reporting"
+   Same conventions as content/fi-en/gl-accounting.js: see that file's
    header comment.
    ========================================================================== */
 
@@ -20,7 +20,7 @@ SAP.registerTopic({
       'They give individual lines, and you can double-click into the document.\n\n' +
       'A third layer is **financial statements** ({{F.01}}): it groups accounts according to the ' +
       '{{mali-tablo-yapisi}} and produces the balance sheet and income statement.\n\n' +
-      'In S/4HANA, **Fiori and {{cds-view}}-based analytics** were added on top of these — ' +
+      'In S/4HANA, **Fiori and {{cds-view}}-based analytics** were added on top of these: ' +
       'but the classic reports weren\'t removed and are still the first tools reached for in consulting.',
 
     neden:
@@ -40,28 +40,28 @@ SAP.registerTopic({
       'The distinguishing question is: **"{{FBL3N}} comes back empty but the account has a balance. Why?"** ' +
       'The right answer: **line item display** isn\'t turned on for the account ({{SKB1}}). ' +
       'The balance exists, but the items were never stored. ' +
-      'If the setting is turned on afterward, **past items still don\'t show up** — only the postings that come after.',
+      'If the setting is turned on afterward, **past items still don\'t show up**: only the postings that come after.',
 
     gercekHayat:
       'The finance director asks: *"Account 770 has 4.2 million TRY of expense. What is it?"*\n\n' +
-      'The accountant opens {{FS10N}} — sees the balance but **can\'t see the detail**. ' +
+      'The accountant opens {{FS10N}}: sees the balance but **can\'t see the detail**. ' +
       'The report gives period-by-period totals: January 380,000, February 410,000…\n\n' +
       'The right tool is {{FBL3N}}: it lists **every single item** on account 770. ' +
       'But in the default layout there\'s only a document number, date, and amount. ' +
       'There\'s no answer to *"which department?"*\n\n' +
       'The fix is {{alv-duzeni}}: a **cost center** column is added, a subtotal is taken by expense type, and ' +
       'the layout is saved.\n\n' +
-      'Now the question turns into: *"Marketing spent 1.2 million — there\'s a spike in October, which ' +
+      'Now the question turns into: *"Marketing spent 1.2 million: there\'s a spike in October, which ' +
       'document?"* Double-click drills into the document, and who entered the invoice becomes visible.\n\n' +
-      '**Reporting skill is choosing the right tool and building its layout** — not writing a new report.',
+      '**Reporting skill is choosing the right tool and building its layout**: not writing a new report.',
 
     muhasebeMantigi:
       'The accounting logic of FI reporting rests on a **two-level data structure**:\n\n' +
-      '**The item level** — every document line. The detail lives here; but summing it is expensive because ' +
+      '**The item level**: every document line. The detail lives here; but summing it is expensive because ' +
       'there can be millions of rows.\n\n' +
-      '**The totals level** — amounts accumulated by account × period. Fast, but no detail.\n\n' +
+      '**The totals level**: amounts accumulated by account × period. Fast, but no detail.\n\n' +
       'Classic SAP held these two **in separate tables** ({{BSEG}} and {{GLT0}}), and they could go out of ' +
-      'sync — *"the totals table doesn\'t match the item table"* was a classic problem.\n\n' +
+      'sync: *"the totals table doesn\'t match the item table"* was a classic problem.\n\n' +
       'In S/4HANA the **totals table was removed**: {{ACDOCA}} only holds items, and totals are calculated at ' +
       'read time. A mismatch has become **structurally impossible**.\n\n' +
       'The third layer is the **financial statement version**: the hierarchy that maps accounts to balance ' +
@@ -89,11 +89,11 @@ SAP.registerTopic({
 
     diyagram:{
       type:'flow',
-      baslik:'From question to report — choosing the right tool',
+      baslik:'From question to report: choosing the right tool',
       adimlar:[
         { ic:'❓', rol:'User', baslik:'The question is clarified',
           aciklama:'Is it *"what\'s the balance?"*, *"what makes up this balance?"*, or *"how does the ' +
-                   'legal statement look?"* — the three call for three different tools.',
+                   'legal statement look?"*: the three call for three different tools.',
           cikti:'A clarified question', ok:'a tool is chosen' },
         { ic:'📊', rol:'User', baslik:'The balance question → {{FS10N}} / {{FAGLB03}}',
           aciklama:'Period-by-period totals. Fast, but **no detail**. ' +
@@ -121,7 +121,7 @@ SAP.registerTopic({
     adimlar:[
       { rol:'User', eylem:'Looks at the balance', sistem:'{{FS10N}} · {{FAGLB03}}' },
       { rol:'User', eylem:'Pulls a line item report', sistem:'{{FBL3N}} · {{FBL1N}} · {{FBL5N}} · {{FAGLL03}}' },
-      { rol:'User', eylem:'Adds columns and saves the layout', sistem:'{{alv-duzeni}} — general or personal' },
+      { rol:'User', eylem:'Adds columns and saves the layout', sistem:'{{alv-duzeni}}: general or personal' },
       { rol:'User', eylem:'Drills into the document', sistem:'Double-click → {{FB03}}' },
       { rol:'Consultant', eylem:'Defines the financial statement version', sistem:'{{OB58}}' },
       { rol:'General ledger accounting', eylem:'Pulls the balance sheet/income statement', sistem:'{{F.01}}' },
@@ -138,40 +138,40 @@ SAP.registerTopic({
     },
 
     notlar:[
-      { tip:'warn', baslik:'If line item display is off, no report can be pulled — and it can\'t be turned on retroactively', metin:
+      { tip:'warn', baslik:'If line item display is off, no report can be pulled: and it can\'t be turned on retroactively', metin:
         'If {{FBL3N}} comes back **empty** for an account, the first place to check is the ' +
         '**line item display** flag in {{SKB1}}.\n\n' +
-        'If that flag is off, the system **doesn\'t store** items for that account — ' +
+        'If that flag is off, the system **doesn\'t store** items for that account: ' +
         'it only keeps totals. The balance shows up, the detail doesn\'t.\n\n' +
         '**The critical point:** the setting can be turned on later, but it **doesn\'t affect the past**. ' +
         'Postings made after it\'s turned on get listed; earlier periods stay ' +
         '**permanently** without detail.\n\n' +
         'That\'s why the decision has to be made correctly when the account is opened. ' +
         'General rule: **it should be kept on for every account that might need detail**. ' +
-        'The only reason to keep it off used to be performance — and in S/4HANA that reason is gone too.' },
+        'The only reason to keep it off used to be performance: and in S/4HANA that reason is gone too.' },
     ],
   },
 
   /* =================================================== 3. ACCOUNTING LOGIC === */
   muhasebe: {
     anlatim:
-      'Reporting **doesn\'t produce postings** — but it determines how accounting data gets presented. ' +
+      'Reporting **doesn\'t produce postings**: but it determines how accounting data gets presented. ' +
       'The examples below show how the same data looks in different reports.',
 
     etkilenenHesaplar:[
-      { hesap:'All accounts', tur:'—', neden:'Reporting is a read operation; it doesn\'t change any account.' },
-      { hesap:'Accounts with line item display on', tur:'Structural', neden:'{{SKB1}} — {{dokum}} can only be pulled on these. The setting **doesn\'t work retroactively**.' },
+      { hesap:'All accounts', tur:': ', neden:'Reporting is a read operation; it doesn\'t change any account.' },
+      { hesap:'Accounts with line item display on', tur:'Structural', neden:'{{SKB1}}: {{dokum}} can only be pulled on these. The setting **doesn\'t work retroactively**.' },
       { hesap:'{{mutabakat-hesabi}} accounts', tur:'Balance sheet', neden:'Doesn\'t accept direct postings; its report is pulled from the sub-ledger ({{FBL1N}}/{{FBL5N}}).' },
-      { hesap:'Accounts not assigned in the financial statement version', tur:'Reporting risk', neden:'Accumulates in the **"unassigned"** line in {{F.01}} — the balance sheet looks like it doesn\'t balance.' },
+      { hesap:'Accounts not assigned in the financial statement version', tur:'Reporting risk', neden:'Accumulates in the **"unassigned"** line in {{F.01}}: the balance sheet looks like it doesn\'t balance.' },
     ],
 
     fisler:[
-      { baslik:'A sample posting — how will it look in reports?',
+      { baslik:'A sample posting: how will it look in reports?',
         belgeTuru:'KR', tarih:'12.10.2027', paraBirimi:'TRY',
         satirlar:[
-          { hesap:'770', ad:'Advertising expense — cost center 4200', borc:180000 },
+          { hesap:'770', ad:'Advertising expense: cost center 4200', borc:180000 },
           { hesap:'191', ad:'Deductible VAT', borc:36000 },
-          { hesap:'320', ad:'Trade payables — V-3012', alacak:216000 },
+          { hesap:'320', ad:'Trade payables: V-3012', alacak:216000 },
         ],
         not:'This single posting shows up in three different reports:\n\n' +
              '**{{FS10N}}** → **180,000 TRY is added** to account 770\'s October total. ' +
@@ -182,33 +182,33 @@ SAP.registerTopic({
              '"Marketing expenses" line on the income statement; it doesn\'t appear on its own, it goes ' +
              'into the **group total**.' },
 
-      { baslik:'The reconciliation account\'s report — why doesn\'t {{FBL3N}} work?',
-        belgeTuru:'—', tarih:'—', paraBirimi:'TRY',
+      { baslik:'The reconciliation account\'s report: why doesn\'t {{FBL3N}} work?',
+        belgeTuru:', ', tarih:', ', paraBirimi:'TRY',
         satirlar:[
           { hesap:'320', ad:'Trade payables (reconciliation account)', borc:0, alacak:0,
             not:'{{FBL3N}} → **useless**' },
         ],
         not:'320 is a {{mutabakat-hesabi}}: it doesn\'t accept direct postings, ' +
              'postings come in through the vendor.\n\n' +
-             '{{FBL3N}} technically works, but it gives a flat list **without vendor information** — ' +
+             '{{FBL3N}} technically works, but it gives a flat list **without vendor information**: ' +
              'you can\'t tell which vendor, which invoice.\n\n' +
              '**The right tool is {{FBL1N}}:** it pulls a report by vendor, splits open/cleared items, ' +
              'and shows the due date and dunning information.\n\n' +
              'The same principle applies on the customer side: {{FBL5N}} is used for 120.\n\n' +
              '*(The 0/0 shown in the table is there to emphasize that this account doesn\'t take direct postings.)*' },
 
-      { baslik:'An **unassigned account** in the financial statement version — a silent reporting error',
-        belgeTuru:'—', tarih:'31.12.2027', paraBirimi:'TRY',
+      { baslik:'An **unassigned account** in the financial statement version: a silent reporting error',
+        belgeTuru:': ', tarih:'31.12.2027', paraBirimi:'TRY',
         satirlar:[
           { hesap:'770300', ad:'Newly opened advertising expense account', borc:1240000,
             not:'**Unassigned** in {{OB58}}' },
-          { hesap:'—', ad:'Shows up in the "Unassigned accounts" line in {{F.01}}', alacak:1240000,
+          { hesap:': ', ad:'Shows up in the "Unassigned accounts" line in {{F.01}}', alacak:1240000,
             not:'**In the wrong place** on the income statement' },
         ],
         not:'A new expense account was opened but **never added** to the {{mali-tablo-yapisi}}.\n\n' +
              'Result: the 1,240,000 TRY expense accumulates in the **"Unassigned accounts"** line on the ' +
              'income statement, not under "Marketing expenses."\n\n' +
-             'The trial balance is right, the total is right — but the **presentation is wrong**. ' +
+             'The trial balance is right, the total is right: but the **presentation is wrong**. ' +
              'The management report shows marketing expense as lower than it actually is.\n\n' +
              '**Prevention:** the account-opening procedure should include a check for *"was it assigned ' +
              'in the financial statement version?"* The "unassigned" line in {{F.01}} must always be ' +
@@ -221,13 +221,13 @@ SAP.registerTopic({
       { hesap:'Advertising expense', kod:'770300',
         borc:[{ ad:'October invoices', tutar:1240000 }],
         alacak:[],
-        not:'Correct in the trial balance — in the wrong place in the financial statement' },
+        not:'Correct in the trial balance: in the wrong place in the financial statement' },
     ],
 
     notlar:[
-      { tip:'tip', baslik:'Balance or line items? — ask the right question', metin:
+      { tip:'tip', baslik:'Balance or line items? - ask the right question', metin:
         'The problem users run into most often is choosing the **wrong report type**.\n\n' +
-        'The question *"the account has 4.2 million, what is it?"* is a **line item** question — but most ' +
+        'The question *"the account has 4.2 million, what is it?"* is a **line item** question: but most ' +
         'users look for it in a balance report and don\'t find it.\n\n' +
         'The split is simple:\n\n' +
         '**"How much?"** → a balance report ({{FS10N}}, {{FAGLB03}})\n' +
@@ -254,7 +254,7 @@ SAP.registerTopic({
       { ad:'G/L Balances (New G/L)',
         aciklama:'{{FS10N}} with a ledger, {{kar-merkezi}}, and segment filter.',
         neZaman:'When {{paralel-defter}} or segment reporting is in place.',
-        ornek:'**If the ledger field is left blank, the leading ledger is returned** — ' +
+        ornek:'**If the ledger field is left blank, the leading ledger is returned**: ' +
               'the ledger code has to be entered for the IFRS balance.',
         tcodes:['FAGLB03'] },
 
@@ -268,7 +268,7 @@ SAP.registerTopic({
       { ad:'Vendor / Customer Line Items',
         aciklama:'A report by vendor and customer; splits **open/cleared items**.',
         neZaman:'Vendor payables, customer receivables, aging, dunning analysis.',
-        ornek:'The {{mutabakat-hesabi}}\'s report is pulled from here — not from {{FBL3N}}. ' +
+        ornek:'The {{mutabakat-hesabi}}\'s report is pulled from here: not from {{FBL3N}}. ' +
               'Due-date, dunning-level, and payment-block columns can be added.',
         tcodes:['FBL1N','FBL5N'] },
 
@@ -301,16 +301,16 @@ SAP.registerTopic({
         tcodes:['SQVI'] },
 
       { ad:'Table Display',
-        aciklama:'Raw table data. **Not a report** — a diagnostic tool.',
+        aciklama:'Raw table data. **Not a report**: a diagnostic tool.',
         neZaman:'When you need to see what value a field actually carries.',
         ornek:'Things like a {{VBRK}} `RFBSK` check, a {{T030K}} missing-row diagnosis. ' +
-              '**Should never be given to an end user** — authorization control is weak.',
+              '**Should never be given to an end user**: authorization control is weak.',
         tcodes:['SE16N'] },
 
       { ad:'Fiori Analytical Apps',
         aciklama:'{{cds-view}}-based visual reports calculated on the fly.',
         neZaman:'In S/4HANA; for management dashboards and free-form analysis.',
-        ornek:'Trial Balance, Display Line Items, Financial Statement — ' +
+        ornek:'Trial Balance, Display Line Items, Financial Statement: ' +
               'the modern counterparts of the classic reports. **The classics weren\'t removed.**' },
     ],
 
@@ -318,11 +318,11 @@ SAP.registerTopic({
     karsilastirma:[
       ['The question it answers', '**"How much?"**', '**"Why this much?"**'],
       ['Data level', 'Account × period total', 'Individual document line'],
-      ['Drills into the document?', 'No', '**Yes** — double-click {{FB03}}'],
+      ['Drills into the document?', 'No', '**Yes**: double-click {{FB03}}'],
       ['Speed', 'Fast', 'Slower (many rows)'],
       ['Precondition', 'None', '**Line item display must be on** ({{SKB1}})'],
       ['Typical tool', '{{FS10N}} · {{FAGLB03}}', '{{FBL3N}} · {{FBL1N}} · {{FAGLL03}}'],
-      ['Diagnostic value', 'Low — shows the problem', '**High** — shows the reason'],
+      ['Diagnostic value', 'Low, shows the problem', '**High**, shows the reason'],
       ['In S/4HANA', 'Calculated on the fly (no totals table)', 'Directly from {{ACDOCA}}'],
     ],
   },
@@ -330,7 +330,7 @@ SAP.registerTopic({
   /* ===================================================== 5. TRANSACTION CODES === */
   tcodes: {
     liste:[
-      { kod:'FBL3N', ad:'G/L line item report — FI\'s most-used report',
+      { kod:'FBL3N', ad:'G/L line item report: FI\'s most-used report',
         amac:'Lists a G/L account\'s items; enables drilling into the document.',
         neZaman:'On the *"what makes up this balance?"* question; diagnosis; an audit dump.',
         adimlar:[
@@ -344,7 +344,7 @@ SAP.registerTopic({
           { baslik:'Double-click the document', aciklama:'{{FB03}} opens; who entered it, which document, is visible.' },
         ],
         ekranAkisi:[
-          { ekran:'Selection', islem:'Account 770300 · company code 1000 · 01.01–31.12.2027' },
+          { ekran:'Selection', islem:'Account 770300 · company code 1000 · 01.01-31.12.2027' },
           { ekran:'Item type', islem:'**All**' },
           { ekran:'List', islem:'842 items · total 4,240,000 TRY' },
           { ekran:'Layout', islem:'**Cost center** column added · subtotaled by expense type' },
@@ -354,18 +354,18 @@ SAP.registerTopic({
           zorunlu:['G/L account','Company code','Item type'],
           opsiyonel:['Date range','Document type','User','Text','Layout'] },
         hatalar:[
-          { mesaj:'Report comes back empty but the account has a balance', sebep:'**Line item display is off** for the account ({{SKB1}}).', cozum:'Turn the flag on in {{FS00}}. **Doesn\'t work retroactively** — only later postings show up.' },
+          { mesaj:'Report comes back empty but the account has a balance', sebep:'**Line item display is off** for the account ({{SKB1}}).', cozum:'Turn the flag on in {{FS00}}. **Doesn\'t work retroactively**: only later postings show up.' },
           { mesaj:'The column I need isn\'t in the list', sebep:'Not in the default layout.', cozum:'Change layout → add column → **save the layout**. Build it once, use it forever.' },
           { mesaj:'It\'s running very slowly', sebep:'A wide date range, or a very active account.', cozum:'Narrow the range; {{FAGLL03}} or the Fiori app is faster in S/4HANA.' },
         ],
         ipucu:'**Saving the layout is this report\'s most valuable feature.** ' +
               'Monthly recurring analyses (dunning level, cost-center breakdown, tax-code check) run in ' +
               'seconds once they\'re built and saved a single time.\n\n' +
-              'A general layout (starting with `/`) lets the whole team use it — ' +
+              'A general layout (starting with `/`) lets the whole team use it: ' +
               'nobody needs to add their own columns separately.',
         ilgili:['FAGLL03','FS10N','FB03','FBL1N'] },
 
-      { kod:'F.01', ad:'Financial statements — balance sheet and income statement',
+      { kod:'F.01', ad:'Financial statements: balance sheet and income statement',
         amac:'Groups accounts by the {{mali-tablo-yapisi}} and produces the legal statements.',
         neZaman:'Period end; statutory reporting; a management presentation.',
         adimlar:[
@@ -406,7 +406,7 @@ SAP.registerTopic({
           { baslik:'Build the hierarchy',
             aciklama:'Assets / Liabilities / Income / Expense top-level nodes, with subgroups underneath.' },
           { baslik:'Assign account ranges to the nodes',
-            aciklama:'**Use a range**, not individual accounts — new accounts get covered automatically.' },
+            aciklama:'**Use a range**, not individual accounts: new accounts get covered automatically.' },
           { baslik:'Define the profit/loss account', aciklama:'The balance sheet line the income-minus-expense difference posts to.' },
           { baslik:'Check the structure', aciklama:'Verify no account is left unassigned.' },
         ],
@@ -417,9 +417,9 @@ SAP.registerTopic({
           { mesaj:'Account ... is assigned twice', sebep:'The same account is assigned to two nodes.', cozum:'Fix the overlapping ranges; an account must sit **on a single node**.' },
         ],
         ipucu:'**Use an account range, not individual account assignment.** ' +
-              'If you assign `770000–779999` as a range, **every new account** opened in that ' +
+              'If you assign `770000-779999` as a range, **every new account** opened in that ' +
               'range gets covered automatically and the "unassigned account" problem never comes up.\n\n' +
-              'Individual assignment requires updating {{OB58}} for every new account — ' +
+              'Individual assignment requires updating {{OB58}} for every new account: ' +
               'and it gets forgotten.',
         ilgili:['F.01','FS00'] },
 
@@ -434,7 +434,7 @@ SAP.registerTopic({
         ],
         ipucu:'**The difference from {{FBL3N}} is critical:** {{FBL3N}} reads from {{BSEG}} ' +
               '(the entry view), {{FAGLL03}} reads from the general ledger view.\n\n' +
-              'If {{belge-bolme}} is active, the two show a **different number of lines** — ' +
+              'If {{belge-bolme}} is active, the two show a **different number of lines**: ' +
               'that\'s not a bug, it\'s two different views. ' +
               'Segment analysis should always use {{FAGLL03}}.',
         ilgili:['FBL3N','FAGLB03','new-gl'] },
@@ -462,7 +462,7 @@ SAP.registerTopic({
           { baslik:'Select fields and define selection criteria' },
           { baslik:'Run it' },
         ],
-        ipucu:'**{{SQVI}} is personal** — it can\'t be shared with someone else. ' +
+        ipucu:'**{{SQVI}} is personal**: it can\'t be shared with someone else. ' +
               'If it\'s going to see wide use, it should be moved to SAP Query (SQ01).\n\n' +
               'It should also be used carefully on large tables: ' +
               'a bad join can strain the system.',
@@ -474,21 +474,21 @@ SAP.registerTopic({
   tablolar: {
     anlatim:
       'Reporting tables **are read, not written**. What matters is knowing which report is ' +
-      'fed by which table — because that\'s the answer to ' +
+      'fed by which table: because that\'s the answer to ' +
       '*"why do two reports show different numbers?"*',
 
     liste:[
-      { ad:'ACDOCA', baslik:'Universal Journal — S/4HANA reporting\'s single source',
+      { ad:'ACDOCA', baslik:'Universal Journal: S/4HANA reporting\'s single source',
         tutar:'Every FI/CO item; account, cost center, profit center, segment, and ledger on the same line.',
         olusturan:'Every FI/CO document',
         guncelleyen:'Document posting',
         anahtar:'RLDNR + RBUKRS + GJAHR + BELNR + DOCLN',
         iliskiler:'{{FAGLL03}}, {{FAGLB03}}, and the Fiori reports read from here.',
-        s4:'**There\'s no totals table** — totals are calculated at read time. ' +
+        s4:'**There\'s no totals table**: totals are calculated at read time. ' +
            'A mismatch between totals and items is **impossible**.',
         alanlar:[
-          { ad:'RACCT', aciklama:'Account — reporting\'s main breakdown' },
-          { ad:'RLDNR', aciklama:'Ledger — **the leading ledger** if left blank in a report filter' },
+          { ad:'RACCT', aciklama:'Account: reporting\'s main breakdown' },
+          { ad:'RLDNR', aciklama:'Ledger: **the leading ledger** if left blank in a report filter' },
           { ad:'PRCTR / SEGMENT', aciklama:'The dimensions of segment reporting' },
           { ad:'HSL / WSL', aciklama:'Amounts in local and transaction currency' },
         ] },
@@ -505,29 +505,29 @@ SAP.registerTopic({
           { ad:'HSL01…HSL16', aciklama:'Totals by period (16 periods)' },
         ] },
 
-      { ad:'BSEG', baslik:'Document line items — entry view',
+      { ad:'BSEG', baslik:'Document line items: entry view',
         tutar:'The lines as the user entered them.',
         olusturan:'Document posting',
         iliskiler:'{{FBL3N}} reads from here.',
-        s4:'A {{uyumluluk-view}} — derived from {{ACDOCA}}.',
+        s4:'A {{uyumluluk-view}}: derived from {{ACDOCA}}.',
         alanlar:[
           { ad:'HKONT', aciklama:'G/L account' },
           { ad:'XOPVW', aciklama:'Open item management flag' },
         ] },
 
-      { ad:'SKB1', baslik:'G/L account — company code data',
+      { ad:'SKB1', baslik:'G/L account: company code data',
         tutar:'The **line item display** and open item management flags; currency.',
         olusturan:'{{FS00}}',
         iliskiler:'**This table determines** whether {{FBL3N}} will work.',
         s4:'Unchanged.',
         alanlar:[
-          { ad:'XKRES', aciklama:'**Line item display** — if off, {{FBL3N}} comes back empty and **can\'t be turned on retroactively**' },
-          { ad:'XOPVW', aciklama:'{{acik-kalem-yonetimi}} — required for clearing to be possible' },
-          { ad:'MITKZ', aciklama:'Reconciliation account type — if filled, direct postings aren\'t accepted' },
+          { ad:'XKRES', aciklama:'**Line item display**: if off, {{FBL3N}} comes back empty and **can\'t be turned on retroactively**' },
+          { ad:'XOPVW', aciklama:'{{acik-kalem-yonetimi}}: required for clearing to be possible' },
+          { ad:'MITKZ', aciklama:'Reconciliation account type: if filled, direct postings aren\'t accepted' },
         ] },
 
       { ad:'CDHDR', baslik:'Change document header',
-        tutar:'The {{degisiklik-belgesi}} — who changed what, and when.',
+        tutar:'The {{degisiklik-belgesi}}: who changed what, and when.',
         olusturan:'Master data and document changes',
         s4:'Unchanged.',
         alanlar:[
@@ -542,7 +542,7 @@ SAP.registerTopic({
         s4:'Unchanged.',
         alanlar:[
           { ad:'FNAME', aciklama:'Name of the changed field' },
-          { ad:'VALUE_OLD / VALUE_NEW', aciklama:'**Old and new value** — the information an audit is looking for' },
+          { ad:'VALUE_OLD / VALUE_NEW', aciklama:'**Old and new value**: the information an audit is looking for' },
         ] },
     ],
 
@@ -554,7 +554,7 @@ SAP.registerTopic({
           alanlar:[{ ad:'RLDNR', tip:'pk' }, { ad:'BELNR', tip:'fk' }, { ad:'RACCT' }, { ad:'PRCTR' }] },
         { ad:'BSEG', rol:'Entry view', aciklama:'{{FBL3N}} reads from here',
           alanlar:[{ ad:'BELNR', tip:'fk' }, { ad:'BUZEI', tip:'pk' }, { ad:'HKONT' }] },
-        { ad:'GLT0', rol:'ECC totals', aciklama:'The classic balance — removed in S/4',
+        { ad:'GLT0', rol:'ECC totals', aciklama:'The classic balance: removed in S/4',
           alanlar:[{ ad:'RACCT', tip:'pk' }, { ad:'HSL01' }] },
         { ad:'SKB1', rol:'Master data', aciklama:'**The line item display flag**',
           alanlar:[{ ad:'SAKNR', tip:'pk' }, { ad:'BUKRS', tip:'pk' }, { ad:'XKRES' }] },
@@ -582,7 +582,7 @@ SAP.registerTopic({
       'The same report becomes useful or useless depending on its layout.',
 
     ekranlar:[
-      { ad:'{{FBL3N}} — selection screen',
+      { ad:'{{FBL3N}}: selection screen',
         aciklama:'Determines what data comes back.',
         alanlar:[
           { ad:'G/L account', zorunlu:true, aciklama:'A single account, a range, or an account group.' },
@@ -590,21 +590,21 @@ SAP.registerTopic({
           { ad:'**Item type**', zorunlu:true, aciklama:'Open · cleared · **all**. ' +
                    '"All" is generally used on G/L accounts; "open" for a business partner.' },
           { ad:'Date range', zorunlu:false, aciklama:'A wide range slows the report down.' },
-          { ad:'Layout', zorunlu:false, aciklama:'A saved {{alv-duzeni}} is chosen — ' +
+          { ad:'Layout', zorunlu:false, aciklama:'A saved {{alv-duzeni}} is chosen: ' +
                    'the default is returned if left blank.' },
         ],
         ipucu:'**Item type selection is a common source of confusion.** ' +
               'If "open items" is chosen on a G/L account and the account doesn\'t have ' +
-              '{{acik-kalem-yonetimi}}, the report **comes back empty** — ' +
+              '{{acik-kalem-yonetimi}}, the report **comes back empty**: ' +
               'even though the account has items.\n\n' +
               'Rule: use **"all"** on G/L expense/income accounts, ' +
               'and **"open"** on vendor/customer accounts and accounts subject to clearing.' },
 
-      { ad:'{{FBL3N}} — result list and layout management',
+      { ad:'{{FBL3N}}: result list and layout management',
         aciklama:'Where the report\'s real value shows up.',
         alanlar:[
           { ad:'Column selection', zorunlu:false, aciklama:'Cost center, tax code, text, user, ' +
-                   'profit center — **not in the default, added by hand**.' },
+                   'profit center: **not in the default, added by hand**.' },
           { ad:'Subtotal', zorunlu:false, aciklama:'Groups by a column and takes a total.' },
           { ad:'Filtering', zorunlu:false, aciklama:'An extra filter on the result.' },
           { ad:'**Save the layout**', zorunlu:false, aciklama:'Personal or **general** (starts with `/`).' },
@@ -616,7 +616,7 @@ SAP.registerTopic({
               'If a **selection variant + layout** are saved together for monthly routine analyses, ' +
               'the report comes down to a single click.' },
 
-      { ad:'{{F.01}} — financial statement screen',
+      { ad:'{{F.01}}: financial statement screen',
         aciklama:'The screen the legal statements are produced on.',
         alanlar:[
           { ad:'Financial statement version', zorunlu:true, aciklama:'The hierarchy defined with {{OB58}}.' },
@@ -634,7 +634,7 @@ SAP.registerTopic({
     opsiyonel:['Date range','Layout','Ledger','Dimension filters'],
 
     hatalar:[
-      { mesaj:'{{FBL3N}} comes back empty but the account has a balance', sebep:'**Line item display is off** for the account ({{SKB1}} `XKRES`).', cozum:'Turn it on in {{FS00}}. **Doesn\'t work retroactively** — past items stay permanently hidden.' },
+      { mesaj:'{{FBL3N}} comes back empty but the account has a balance', sebep:'**Line item display is off** for the account ({{SKB1}} `XKRES`).', cozum:'Turn it on in {{FS00}}. **Doesn\'t work retroactively**: past items stay permanently hidden.' },
       { mesaj:'I chose "open items," the list is empty', sebep:'The account doesn\'t have {{acik-kalem-yonetimi}}.', cozum:'Set the item type to **"all."** Expense/income accounts don\'t have open item management.' },
       { mesaj:'{{FBL3N}} and {{FAGLL03}} show a different number of lines', sebep:'One reads the entry view, the other the general ledger view ({{belge-bolme}}).', cozum:'**Not a bug.** {{FAGLL03}} is used for segment analysis.' },
       { mesaj:'"Unassigned accounts" is nonzero in {{F.01}}', sebep:'A new account hasn\'t been added to the {{OB58}} structure.', cozum:'Assign it to the correct node in {{OB58}}. **Using a range** fixes this permanently.' },
@@ -648,7 +648,7 @@ SAP.registerTopic({
       'On a "{{FBL3N}} is empty" complaint, check first: is **line item display** on in {{SKB1}}?',
       'Put an **{{OB58}} assignment check** in the account-opening checklist; ' +
       'using a range solves the problem permanently.',
-      'Check the **"unassigned accounts"** line in {{F.01}} every single time — ' +
+      'Check the **"unassigned accounts"** line in {{F.01}} every single time: ' +
       'it must be zero.',
       'For a {{mutabakat-hesabi}} report, use **{{FBL1N}}/{{FBL5N}}**, not {{FBL3N}}.',
     ],
@@ -657,12 +657,12 @@ SAP.registerTopic({
   /* ===================================================== 8. TECHNICAL DETAIL === */
   teknik: {
     guncellenenTablolar:[
-      { tablo:'ACDOCA', ne:'**Read** — the single source of S/4HANA reporting' },
-      { tablo:'BSEG', ne:'Read — the {{FBL3N}} entry view' },
+      { tablo:'ACDOCA', ne:'**Read**: the single source of S/4HANA reporting' },
+      { tablo:'BSEG', ne:'Read: the {{FBL3N}} entry view' },
       { tablo:'GLT0', ne:'ECC totals table; removed in S/4' },
-      { tablo:'SKB1', ne:'Line item display flag — decides whether the report will work' },
+      { tablo:'SKB1', ne:'Line item display flag: decides whether the report will work' },
       { tablo:'CDHDR', ne:'Change trail header' },
-      { tablo:'CDPOS', ne:'Change trail — old/new value' },
+      { tablo:'CDPOS', ne:'Change trail: old/new value' },
     ],
 
     commit:
@@ -705,23 +705,23 @@ SAP.registerTopic({
       'similar function: it decides which report line an account will show up on.\n\n' +
       'The difference is this: account determination runs **at posting time** and changes data; ' +
       'the financial statement version runs **at reporting time** and only changes the presentation. ' +
-      'If the structure changes, past reports also come out under the new structure — ' +
+      'If the structure changes, past reports also come out under the new structure: ' +
       'which is sometimes wanted, sometimes confusing.',
 
     tur:
       '**Configuration:** the {{mali-tablo-yapisi}} ({{OB58}}), Report Painter definitions, ' +
       'general layouts, and variants.\n\n' +
-      '**Master data:** the account\'s line item display flag ({{SKB1}}) — ' +
+      '**Master data:** the account\'s line item display flag ({{SKB1}}): ' +
       'directly affects reporting.\n\n' +
       '**Transaction data:** the reported items themselves.',
 
     transport:
       'The financial statement version and Report Painter reports transport. ' +
-      '**General layouts** vary from system to system — some transport, ' +
+      '**General layouts** vary from system to system: some transport, ' +
       'some are saved separately in each system.\n\n' +
       '**Personal layouts don\'t transport** and shouldn\'t.\n\n' +
       '**Migration check:** run {{F.01}} in production and confirm the ' +
-      '"unassigned accounts" line is zero — ' +
+      '"unassigned accounts" line is zero: ' +
       'the chart of accounts may have migrated while the structure was left incomplete.',
 
     img:[
@@ -731,7 +731,7 @@ SAP.registerTopic({
     ],
 
     ekstra:[
-      { ic:'🔍', baslik:'"The report comes back empty" — the diagnostic order', metin:
+      { ic:'🔍', baslik:'"The report comes back empty": the diagnostic order', metin:
         'This is the most common reporting complaint in FI, and it has **five possible causes**. ' +
         'Check them in order:\n\n' +
         '**1. Line item display is off** ({{SKB1}} `XKRES`)\n' +
@@ -746,7 +746,7 @@ SAP.registerTopic({
         'If the ledger is left blank in {{FAGLL03}}, the leading ledger is returned; ' +
         'IFRS items don\'t show up.\n\n' +
         '**5. Authorization**\n' +
-        'If the user lacks authorization for that account/company code, the list comes back empty — ' +
+        'If the user lacks authorization for that account/company code, the list comes back empty: ' +
         'sometimes **without even an error message**. Checked with {{SU53}}.\n\n' +
         '**Diagnostic tip:** run the same report on **a different account**. ' +
         'If data comes back there, the problem is specific to the account (1 or 2); ' +
@@ -754,7 +754,7 @@ SAP.registerTopic({
 
       { ic:'📑', baslik:'The financial statement version: why must "unassigned accounts" be zero?', metin:
         'The {{mali-tablo-yapisi}} maps accounts to balance sheet and income statement lines. ' +
-        'An unmapped account doesn\'t disappear — it shows up in a pooling line called ' +
+        'An unmapped account doesn\'t disappear: it shows up in a pooling line called ' +
         '**"unassigned accounts."**\n\n' +
         '**Why it\'s dangerous:** the trial balance is correct, the total is correct, ' +
         'the balance sheet\'s assets and liabilities match. No error message appears.\n\n' +
@@ -765,9 +765,9 @@ SAP.registerTopic({
         'Because opening an account and maintaining the financial statement version are ' +
         '**done by different people**, the link breaks.\n\n' +
         '**The permanent fix: use an account range.**\n\n' +
-        'If assigned as `770000–779999`, **every new account** opened in that range is covered ' +
+        'If assigned as `770000-779999`, **every new account** opened in that range is covered ' +
         'automatically. With individual assignment, {{OB58}} has to be updated on every new ' +
-        'account — and it gets forgotten.\n\n' +
+        'account: and it gets forgotten.\n\n' +
         '**Check:** whenever {{F.01}} is run, this bottom line must always be **zero**. ' +
         'It should be added to the monthly close checklist.' },
     ],
@@ -776,7 +776,7 @@ SAP.registerTopic({
       { tip:'warn', baslik:'Line item display can\'t be turned on retroactively', metin:
         'Postings made while the {{SKB1}} `XKRES` flag is off **don\'t have their items stored**. ' +
         'Only totals are kept.\n\n' +
-        'The flag can be turned on afterward — but it only works **for postings that come after**. ' +
+        'The flag can be turned on afterward: but it only works **for postings that come after**. ' +
         'Past periods stay **permanently** without detail, and {{FBL3N}} will never show data for ' +
         'those periods.\n\n' +
         'This can create a serious problem in an audit: ' +
@@ -796,10 +796,10 @@ SAP.registerTopic({
       'The classic reports **weren\'t removed** and are still the first tools reached for.',
 
     eccFarklari:[
-      { konu:'Data source', ecc:'{{BSEG}} + {{GLT0}} + CO tables', s4:'**{{ACDOCA}}** — a single source' },
-      { konu:'Totals table', ecc:'{{GLT0}}, FAGLFLEXT', s4:'**None** — calculated on the fly' },
+      { konu:'Data source', ecc:'{{BSEG}} + {{GLT0}} + CO tables', s4:'**{{ACDOCA}}**: a single source' },
+      { konu:'Totals table', ecc:'{{GLT0}}, FAGLFLEXT', s4:'**None**: calculated on the fly' },
       { konu:'Totals-vs-item mismatch', ecc:'Could happen; needed reconciliation', s4:'**Structurally impossible**' },
-      { konu:'Analytics', ecc:'Report Painter, exporting to BW', s4:'**Embedded Analytics** — {{cds-view}}' },
+      { konu:'Analytics', ecc:'Report Painter, exporting to BW', s4:'**Embedded Analytics**: {{cds-view}}' },
       { konu:'Interface', ecc:'SAP GUI list', s4:'Fiori + GUI **together**' },
       { konu:'Performance', ecc:'Wide-range reports are slow', s4:'A significant speedup with HANA' },
       { konu:'Classic reports', ecc:'{{FBL3N}}, {{F.01}}, {{FS10N}}', s4:'**Not removed**' },
@@ -809,7 +809,7 @@ SAP.registerTopic({
       'For reporting, {{ACDOCA}} has two concrete benefits:\n\n' +
       '**1. The mismatch problem is gone.** In ECC, the item table and the totals table were separate, ' +
       'and *"the total doesn\'t match"* was a classic problem. ' +
-      'In S/4HANA there **is no** total — it\'s calculated at read time.\n\n' +
+      'In S/4HANA there **is no** total: it\'s calculated at read time.\n\n' +
       '**2. Every dimension sits on one line.** The question *"how much was received from which vendor, ' +
       'on which profit center?"* would need a {{BSEG}} + COEP join in ECC; ' +
       'in S/4HANA it\'s **a single query**.\n\n' +
@@ -817,11 +817,11 @@ SAP.registerTopic({
 
     kalkanTcodes:[
       { eski:'{{GLT0}}-based balance reports', yeni:'{{FAGLB03}} / Fiori', not:'The totals table is gone' },
-      { eski:'—', yeni:'—', not:'{{FBL3N}}, {{FAGLL03}}, {{F.01}}, {{OB58}}, {{GR55}} **were not removed**' },
+      { eski:', ', yeni:', ', not:'{{FBL3N}}, {{FAGLL03}}, {{F.01}}, {{OB58}}, {{GR55}} **were not removed**' },
     ],
 
     fiori:[
-      { ad:'Trial Balance', aciklama:'The trial balance — by company code, profit center, segment, and ledger.' },
+      { ad:'Trial Balance', aciklama:'The trial balance: by company code, profit center, segment, and ledger.' },
       { ad:'Display Line Items in General Ledger', aciklama:'Replaces {{FAGLL03}}; filters are visual.' },
       { ad:'Display G/L Account Balances', aciklama:'Replaces {{FAGLB03}}.' },
       { ad:'Financial Statement', aciklama:'Replaces {{F.01}}; comparative and with charts.' },
@@ -830,7 +830,7 @@ SAP.registerTopic({
     ],
 
     compatibilityViews:[
-      '{{BSEG}}, {{GLT0}} — views derived from {{ACDOCA}}; the classic reports run on these.',
+      '{{BSEG}}, {{GLT0}}: views derived from {{ACDOCA}}; the classic reports run on these.',
       '**Performance note:** reports running through a compatibility view are slower than ' +
       'those reading {{ACDOCA}} directly.',
       'New development should use **{{ACDOCA}} or a CDS view**.',
@@ -846,12 +846,12 @@ SAP.registerTopic({
       'became unnecessary in most scenarios.',
 
     bestPractices:[
-      '**Keep using** the classic reports — they weren\'t removed and are still the most practical ' +
+      '**Keep using** the classic reports: they weren\'t removed and are still the most practical ' +
       'diagnostic tools.',
       'On new reports, check first whether a **standard {{cds-view}} exists** before writing ABAP.',
       'Review **custom reports** that run through a compatibility view; ' +
       'they speed up if migrated to {{ACDOCA}}.',
-      '**Remove** old custom programs that read the totals table — they\'re no longer needed.',
+      '**Remove** old custom programs that read the totals table: they\'re no longer needed.',
       'During migration, run {{F.01}} and verify the **"unassigned accounts"** line; ' +
       'the chart of accounts may have migrated while the structure was left incomplete.',
       'Consider letting users **build their own reports** with Fiori "Custom Analytical Queries"; ' +
@@ -875,7 +875,7 @@ SAP.registerTopic({
       { k:'Marketing expense (actual)', v:'3,300,000 TRY' },
       { k:'Showing on the income statement', v:'**2,100,000 TRY**' },
       { k:'Difference', v:'**1,200,000 TRY**' },
-      { k:'Trial balance status', v:'**Correct** — the total expense matches' },
+      { k:'Trial balance status', v:'**Correct**: the total expense matches' },
     ],
 
     adimlar:[
@@ -885,7 +885,7 @@ SAP.registerTopic({
           { alan:'770100 Advertising expense', deger:'1,400,000 TRY' },
           { alan:'770200 Trade fairs and promotion', deger:'700,000 TRY' },
           { alan:'**770300 Digital marketing**', deger:'**1,200,000 TRY**' },
-          { alan:'Total', deger:'**3,300,000 TRY** — trial balance correct ✓' },
+          { alan:'Total', deger:'**3,300,000 TRY**: trial balance correct ✓' },
         ],
         not:'**The posting side is completely correct.** The three accounts total 3.3 million TRY.\n\n' +
              'So the problem isn\'t in the posting, it\'s in the presentation. ' +
@@ -898,37 +898,37 @@ SAP.registerTopic({
           { alan:'Marketing expenses line', deger:'2,100,000 TRY' },
           { alan:'Other lines', deger:'As expected' },
           { alan:'**At the bottom: "Unassigned accounts"**', deger:'**1,200,000 TRY**' },
-          { alan:'Total expense', deger:'Correct — the amount isn\'t missing, it\'s **in the wrong place**' },
+          { alan:'Total expense', deger:'Correct: the amount isn\'t missing, it\'s **in the wrong place**' },
         ],
-        not:'**Found.** The missing 1.2 million TRY hasn\'t disappeared — it\'s pooled in the ' +
+        not:'**Found.** The missing 1.2 million TRY hasn\'t disappeared: it\'s pooled in the ' +
              '"unassigned accounts" line.\n\n' +
              'This line is where accounts not added to the {{mali-tablo-yapisi}} accumulate. ' +
              '**It must always be zero.**\n\n' +
              'Since the total expense is correct, the balance sheet and the profit figure are ' +
-             'also correct — only the **breakdown within the group** is wrong.' },
+             'also correct: only the **breakdown within the group** is wrong.' },
 
-      { baslik:'Root cause — a new account wasn\'t added to the structure', tcode:'OB58',
+      { baslik:'Root cause: a new account wasn\'t added to the structure', tcode:'OB58',
         aciklama:'Checking the account assignments in the financial statement version.',
         girdi:[
           { alan:'Marketing expenses node', deger:'Assigned: **770100** and **770200**' },
           { alan:'770300 Digital marketing', deger:'**Not assigned to any node**' },
           { alan:'Account opening date', deger:'March 2027' },
-          { alan:'Assignment method', deger:'**Individual accounts** — not a range' },
+          { alan:'Assignment method', deger:'**Individual accounts**: not a range' },
         ],
         not:'**Root cause found.** Account 770300 was opened in March but ' +
              'was never added to the {{OB58}} structure.\n\n' +
              'The real problem is the **assignment method**: accounts were assigned individually. ' +
-             'This requires {{OB58}} to be updated on every new account — ' +
+             'This requires {{OB58}} to be updated on every new account: ' +
              'and because the person opening the account and the person maintaining the financial ' +
              'statement version are different people, the link broke.\n\n' +
              'For nine months, the management report **understated** marketing expense and ' +
              'nobody noticed.' },
 
-      { baslik:'Fix — an account range is assigned', tcode:'OB58',
+      { baslik:'Fix: an account range is assigned', tcode:'OB58',
         aciklama:'Applying the permanent fix instead of adding one account.',
         girdi:[
           { alan:'Previous assignment', deger:'770100 · 770200 *(individually)*' },
-          { alan:'**New assignment**', deger:'**770000–779999** *(a range)*' },
+          { alan:'**New assignment**', deger:'**770000-779999** *(a range)*' },
           { alan:'Effect', deger:'Covers 770300, plus **every future 770xxx account**' },
           { alan:'Check', deger:'Is there another overlapping range? → No ✓' },
         ],
@@ -944,27 +944,27 @@ SAP.registerTopic({
         girdi:[
           { alan:'Marketing expenses', deger:'**3,300,000 TRY** ✓' },
           { alan:'"Unassigned accounts"', deger:'**0 TRY** ✓' },
-          { alan:'Total expense', deger:'Unchanged — it was already correct' },
+          { alan:'Total expense', deger:'Unchanged: it was already correct' },
           { alan:'Past periods', deger:'**They also corrected themselves**' },
         ],
         not:'**An important detail:** the {{mali-tablo-yapisi}} runs at reporting time, ' +
              'not at posting time.\n\n' +
-             'That\'s why the fix **also affects the past**: the March–November reports ' +
+             'That\'s why the fix **also affects the past**: the March-November reports ' +
              'now also come out correct.\n\n' +
-             'This is the difference from account determination — account determination changes ' +
+             'This is the difference from account determination: account determination changes ' +
              'the data and doesn\'t affect the past; the financial statement version only changes ' +
              'the presentation and **always reports with the current structure**.' },
 
-      { baslik:'A second finding — an account with line item display off', tcode:'FBL3N',
+      { baslik:'A second finding: an account with line item display off', tcode:'FBL3N',
         aciklama:'A second problem surfaces during the review.',
         girdi:[
           { alan:'770300 line item report', deger:'842 items ✓' },
           { alan:'**649000 Other income** line item report', deger:'**Empty**' },
-          { alan:'649000 balance', deger:'480,000 TRY — the balance **exists**' },
+          { alan:'649000 balance', deger:'480,000 TRY: the balance **exists**' },
           { alan:'{{SKB1}} line item display', deger:'**Off**' },
         ],
         not:'The second problem: account 649000 has a balance but **no report can be pulled**.\n\n' +
-             'Reason: **line item display** is off in {{SKB1}} for the account — ' +
+             'Reason: **line item display** is off in {{SKB1}} for the account: ' +
              'the system never stored items for it.\n\n' +
              '**The setting can be turned on, but it doesn\'t affect the past.** ' +
              'What the 480,000 TRY consists of can **never** be learned from the system.\n\n' +
@@ -975,7 +975,7 @@ SAP.registerTopic({
         aciklama:'A systemic measure is put in place for both problems.',
         girdi:[
           { alan:'Measure 1', deger:'{{OB58}} assignments were **converted to ranges** (all groups)' },
-          { alan:'Measure 2', deger:'649000\'s line item display was **turned on** — tracked from now on' },
+          { alan:'Measure 2', deger:'649000\'s line item display was **turned on**: tracked from now on' },
           { alan:'Measure 3', deger:'A **line item display + OB58 check** was added to the account-opening procedure' },
           { alan:'Measure 4', deger:'A **"unassigned accounts = 0"** check was added to the monthly close' },
         ],
@@ -983,29 +983,29 @@ SAP.registerTopic({
              'account-opening procedure. Whoever opens a new account now has to answer ' +
              '*"is line item display on?"* and *"is it covered in the financial statement version?"*\n\n' +
              'Thanks to the range assignment, the second question now answers itself "yes" in most ' +
-             'cases — but the check still applies whenever a new account group is opened.' },
+             'cases: but the check still applies whenever a new account group is opened.' },
     ],
 
     sonuc:
-      '**The trial balance was correct, the presentation was wrong — and nobody noticed for nine months.**\n\n' +
+      '**The trial balance was correct, the presentation was wrong: and nobody noticed for nine months.**\n\n' +
       '**Four critical lessons:**\n\n' +
       '**1. Trial balance correct + report wrong = a financial statement version problem.** ' +
       'This split narrows the diagnosis instantly. If the posting side is correct, ' +
       'the problem is in {{OB58}}. The **"unassigned accounts"** line in {{F.01}} must ' +
-      'always be **zero** — if it isn\'t, an account is being reported in the wrong place.\n\n' +
+      'always be **zero**: if it isn\'t, an account is being reported in the wrong place.\n\n' +
       '**2. Use an account range, not individual assignment.** ' +
-      'If assigned as `770000–779999`, every new account opened in that group is covered ' +
+      'If assigned as `770000-779999`, every new account opened in that group is covered ' +
       'automatically. Individual assignment requires an {{OB58}} update on every new account, ' +
       'and because the person opening the account and the person managing the structure are ' +
       'different people, it **gets forgotten**.\n\n' +
-      '**3. The financial statement version runs at reporting time — a fix also affects the past.** ' +
+      '**3. The financial statement version runs at reporting time: a fix also affects the past.** ' +
       'This is the difference from account determination: account determination changes the data ' +
       'and doesn\'t affect the past; the structure only changes the presentation and reports ' +
-      '**always come out with the current structure**. In this scenario, the March–November ' +
+      '**always come out with the current structure**. In this scenario, the March-November ' +
       'reports corrected themselves.\n\n' +
       '**4. If line item display is off, the loss is permanent.** ' +
       'The second finding was more serious: account 649000 has a balance but no report can be ' +
-      'pulled. The setting can be turned on, but it **doesn\'t affect the past** — what that ' +
+      'pulled. The setting can be turned on, but it **doesn\'t affect the past**: what that ' +
       '480,000 TRY consists of can never be learned from the system. ' +
       '**Line item display must be on for every account that might need detail.**',
   },

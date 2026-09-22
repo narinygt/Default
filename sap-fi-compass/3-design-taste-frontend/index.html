@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<!-- lang="en": site VARSAYILAN olarak İngilizce açılır (js/i18n.js
+     VARSAYILAN). Kullanıcı anahtardan TR seçerse i18n.set() bu niteliği
+     anında günceller; buradaki değer yalnızca JS çalışana kadar geçerli. -->
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="SAP FI Compass — S/4HANA Financial Accounting: business process, accounting logic, transaction codes, tables and S/4HANA innovations.">
+<title>SAP FI Compass</title>
+<!-- Sekme simgesi: T-hesap. Gömülü SVG — harici dosya yok,
+     çevrimdışı kuralı korunuyor (Kural #5). -->
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="%23FBFAF7"/><path d="M7 11h18M16 11v14" fill="none" stroke="%231F5C4A" stroke-width="2.6" stroke-linecap="round"/></svg>'>
+
+<!-- Tema, kabuk ve yazdırma stilleri. Harici font/CDN yok: internetsiz de aynı görünür. -->
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/app.css">
+<link rel="stylesheet" href="css/surface.css">
+<link rel="stylesheet" href="css/print.css">
+
+</head>
+
+<body>
+
+<div class="shell">
+  <!-- Kenar çubuğu içeriğini ui.js her render'da tazeler -->
+  <aside class="sidebar" id="sidebar"></aside>
+  <div class="scrim" id="scrim" data-action="close-menu"></div>
+
+  <div class="main">
+    <!-- Üst çubuk: konum + arama + dil. Buradaki ikonlar Phosphor Light'tır
+         (16px, 1.5 kalınlık, currentColor) ve ui.js tarafından basılır.
+         EMOJİ YOK — bkz. theme.css ilke 5. -->
+    <header class="topbar">
+      <button class="iconbtn menubtn" id="menu-btn" type="button" data-action="toggle-menu"></button>
+      <nav class="topbar-crumb" id="crumb" aria-label="Konum"></nav>
+      <span class="topbar-spacer"></span>
+      <button class="searchbtn" id="search-btn" type="button" data-action="open-search"></button>
+      <!-- Dil anahtarı — sağ üst köşe. `hidden` niteliği burada yalnızca
+           İLK BOYAMADA yanıp sönmeyi önler; ui.js her render'da
+           SAP.i18n.anahtarAcik'e göre gerçek durumu yazar (js/i18n.js). -->
+      <div class="langsw" id="langsw" role="group" aria-label="Language" hidden></div>
+    </header>
+
+    <main class="view" id="view"></main>
+  </div>
+</div>
+
+<!-- ==========================================================================
+     Yükleme sırası önemlidir ve ES module DEĞİLDİR.
+     file:// altında import/export CORS'a takıldığı için tüm dosyalar klasik
+     <script src> ile yüklenir ve global SAP nesnesine kayıt olur.
+
+       1) çekirdek      core → markup → diagram
+       2) veri          sözlükler → katalog (33+ konu stub'ı)
+       3) içerik        content/fi/*.js — stub'ları derin bölümlerle doldurur
+       4) arayüz        sections → views → learn → search → ui (ui boot() çağırır)
+
+     YENİ KONU EKLEMEK: content/fi/ altına dosya + aşağıya tek satır <script>.
+     Başka hiçbir yeri değiştirmek gerekmez.
+     ========================================================================== -->
+
+<!-- 1) çekirdek -->
+<script src="js/core.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/markup.js"></script>
+<script src="js/diagram.js"></script>
+
+<!-- 2) veri sözlükleri ve katalog -->
+<script src="data/tcodes.js"></script>
+<script src="data/tables.js"></script>
+<script src="data/glossary.js"></script>
+
+<!-- 2b) Sözlüklerin İngilizce üst katmanı — aynı anahtarla eşleşip
+     alanları `_en` ekiyle MERGE eder (js/core.js registerTcodesEn vb.).
+     TR dosyalarından SONRA yüklenmeli. Çevrilmemiş alan Türkçe kalır. -->
+<script src="data/tcodes-en.js"></script>
+<script src="data/tables-en.js"></script>
+<script src="data/glossary-en.js"></script>
+<script src="data/catalog.js"></script>
+
+<!-- 3) konu içerikleri -->
+<script src="content/fi/genel-muhasebe.js"></script>
+<script src="content/fi/fi-temelleri.js"></script>
+<script src="content/fi/master-data.js"></script>
+<script src="content/fi/gl-accounting.js"></script>
+<script src="content/fi/accounts-payable.js"></script>
+<script src="content/fi/accounts-receivable.js"></script>
+<script src="content/fi/f110.js"></script>
+<script src="content/fi/clearing.js"></script>
+<script src="content/fi/asset-accounting.js"></script>
+<script src="content/fi/document-posting.js"></script>
+<script src="content/fi/bank-accounting.js"></script>
+<script src="content/fi/ebs.js"></script>
+<script src="content/fi/closing.js"></script>
+<script src="content/fi/foreign-currency.js"></script>
+<script src="content/fi/mm-integration.js"></script>
+<script src="content/fi/sd-integration.js"></script>
+<script src="content/fi/taxes.js"></script>
+<script src="content/fi/new-gl.js"></script>
+<script src="content/fi/parallel-ledger.js"></script>
+<script src="content/fi/special-gl.js"></script>
+<script src="content/fi/dunning.js"></script>
+<script src="content/fi/document-parking.js"></script>
+<script src="content/fi/cost-center.js"></script>
+<script src="content/fi/co-integration.js"></script>
+<script src="content/fi/org-yapisi.js"></script>
+<script src="content/fi/bapi.js"></script>
+<script src="content/fi/badi.js"></script>
+<script src="content/fi/reporting.js"></script>
+<script src="content/fi/sap-tables.js"></script>
+<script src="content/fi/dogrulama-ikame.js"></script>
+<script src="content/fi/tcodes.js"></script>
+<script src="content/fi/error-handling.js"></script>
+<script src="content/fi/e-donusum.js"></script>
+<script src="content/fi/lsmw.js"></script>
+<script src="content/fi/data-upload.js"></script>
+<script src="content/fi/migration.js"></script>
+<script src="content/fi/best-practices.js"></script>
+<script src="content/fi/s4-yenilikleri.js"></script>
+
+<!-- 3b) İngilizce gövde çevirisi (kısmi) — bkz. CLAUDE.md §10.
+     Her dosya content/fi/'daki aynı id'li konuya `sections_en` olarak
+     MERGE olur (js/core.js registerTopic). Henüz çevrilmemiş konular
+     bu listede yer almaz ve gövdeleri Türkçe kalır — sayfa kırılmaz. -->
+<script src="content/fi-en/genel-muhasebe.js"></script>
+<script src="content/fi-en/fi-temelleri.js"></script>
+<script src="content/fi-en/org-yapisi.js"></script>
+<script src="content/fi-en/master-data.js"></script>
+<script src="content/fi-en/gl-accounting.js"></script>
+<script src="content/fi-en/accounts-payable.js"></script>
+<script src="content/fi-en/accounts-receivable.js"></script>
+<script src="content/fi-en/bank-accounting.js"></script>
+<script src="content/fi-en/asset-accounting.js"></script>
+<script src="content/fi-en/dogrulama-ikame.js"></script>
+<script src="content/fi-en/document-posting.js"></script>
+<script src="content/fi-en/clearing.js"></script>
+<script src="content/fi-en/special-gl.js"></script>
+<script src="content/fi-en/dunning.js"></script>
+<script src="content/fi-en/f110.js"></script>
+<script src="content/fi-en/taxes.js"></script>
+<script src="content/fi-en/e-donusum.js"></script>
+<script src="content/fi-en/ebs.js"></script>
+<script src="content/fi-en/document-parking.js"></script>
+<script src="content/fi-en/foreign-currency.js"></script>
+<script src="content/fi-en/closing.js"></script>
+<script src="content/fi-en/parallel-ledger.js"></script>
+<script src="content/fi-en/co-integration.js"></script>
+<script src="content/fi-en/new-gl.js"></script>
+<script src="content/fi-en/cost-center.js"></script>
+<script src="content/fi-en/mm-integration.js"></script>
+<script src="content/fi-en/sd-integration.js"></script>
+<script src="content/fi-en/bapi.js"></script>
+<script src="content/fi-en/badi.js"></script>
+<script src="content/fi-en/reporting.js"></script>
+<script src="content/fi-en/sap-tables.js"></script>
+<script src="content/fi-en/tcodes.js"></script>
+<script src="content/fi-en/lsmw.js"></script>
+<script src="content/fi-en/error-handling.js"></script>
+<script src="content/fi-en/best-practices.js"></script>
+<script src="content/fi-en/s4-yenilikleri.js"></script>
+<script src="content/fi-en/migration.js"></script>
+<script src="content/fi-en/data-upload.js"></script>
+
+<!-- 4) arayüz -->
+<script src="js/sections.js"></script>
+<script src="js/views.js"></script>
+<script src="js/learn.js"></script>
+<script src="js/search.js"></script>
+<script src="js/ui.js"></script>
+
+</body>
+</html>

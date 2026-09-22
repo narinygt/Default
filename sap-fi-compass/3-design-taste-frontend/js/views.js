@@ -117,7 +117,7 @@
 
       /* Tek vurgu rengi: grup tonu (--h) artık basılmaz. Eski not: renk yalnızca numara ve ince
          şeritte görünür — dolgu yok, bkz. theme.css "GRUP RENGİ". */
-      return '<section class="part bezel b-' + (gi % 9) + '">' + gorsel(g.id) +
+      return '<section class="part bezel b-' + (gi % 9) + '">' +
         '<div class="part-h">' +
           '<span class="part-n">' + nn(gi) + '</span>' +
           '<h2>' + esc(SAP.i18n.grup(g)) + '</h2>' +
@@ -145,8 +145,9 @@
           resume +
         '</div>' +
         '<div class="hero-tool">' +
-          '<img class="hero-img" src="img/hero-desk.jpg" width="1200" height="750" ' +
-            'alt="' + esc(T('img.hero')) + '" decoding="async" fetchpriority="high">' +
+          '<div class="hero-brand">' +
+            '<img src="img/sap-logo.svg" width="112" height="56" alt="' + esc(T('img.sap')) + '" decoding="async">' +
+          '</div>' +
           komutAlani() +
         '</div>' +
       '</section>' +
@@ -168,22 +169,10 @@
 
   var DENE = ['FB50', 'F110', 'FBL1N', 'BSEG', 'ACDOCA'];
 
-  /* ======================================================= GÖRSELLER ====
-     Gerçek fotoğraflar (Picsum / Unsplash lisansı, img/ klasöründe YEREL —
-     çevrimdışı kuralı bozulmaz). Hepsi siyah-beyaz: tek vurgu rengiyle
-     yarışmasınlar. Boyutlar yazılı (CLS), karşılama dışındakiler tembel. */
-  var GORSEL = {
-    islemler:     { src: 'img/daily-operations.jpg', w: 1100, h: 520, alt: 'img.daily' },
-    'donem-sonu': { src: 'img/period-end.jpg',       w: 900,  h: 420, alt: 'img.period' },
-    ileri:        { src: 'img/advanced.jpg',         w: 1600, h: 440, alt: 'img.advanced' },
-  };
-  function gorsel(gid) {
-    var g = GORSEL[gid];
-    if (!g) return '';
-    return '<img class="part-img" src="' + g.src + '" width="' + g.w + '" height="' + g.h + '" ' +
-      'alt="' + esc(T(g.alt)) + '" loading="lazy" decoding="async">';
-  }
-  var TUR_ETIKET = { topic: 'search.kind.topic', tcode: 'search.kind.tcode',
+  /* ======================================================= GÖRSEL ====
+     Sitedeki TEK görsel SAP logosudur (img/sap-logo.svg, Simple Icons).
+     Başka fotoğraf ya da çizim yoktur. SAP ve SAP logosu SAP SE'nin
+     ticari markasıdır; bu site SAP ile bağlantılı değildir. */  var TUR_ETIKET = { topic: 'search.kind.topic', tcode: 'search.kind.tcode',
                      table: 'search.kind.table', term: 'search.kind.term' };
 
   function komutAlani() {

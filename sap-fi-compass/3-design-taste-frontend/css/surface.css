@@ -195,15 +195,18 @@ body.menu-open .burger i:last-child  { transform: translateY(-4.25px) rotate(-45
   background-clip: padding-box;
   box-shadow: 0 0 0 1px var(--hair), inset 0 0 0 1px var(--hair), var(--lift-hi);
 }
-.hero-img {
-  display: block;
-  width: calc(100% + 2 * var(--sp-5));
-  max-width: none;
-  height: 200px;
+/* Komut panelinin üst bandı: SAP logosu. Sayfadaki tek görsel. */
+.hero-brand {
+  display: flex;
+  align-items: center;
+  height: 128px;
   margin: calc(-1 * var(--sp-5)) calc(-1 * var(--sp-5)) var(--sp-5);
-  object-fit: cover;
+  padding: 0 var(--sp-5);
   border-radius: var(--r-in) var(--r-in) 0 0;
+  background: var(--paper-2);
+  box-shadow: inset 0 -1px 0 var(--hair);
 }
+.hero-brand img { width: 112px; height: auto; }
 .hero-t {
   margin: var(--sp-5) 0 var(--sp-4);
   max-width: 16ch;
@@ -342,20 +345,13 @@ body.menu-open .burger i:last-child  { transform: translateY(-4.25px) rotate(-45
 .b-6 { grid-column: span 5; }
 .b-7 { grid-column: span 3; }
 .b-8 { grid-column: span 12; }
-/* Arka plan çeşitliliği GERÇEK FOTOĞRAFLA: üç hücre (en büyük, dönem
-   sonu, tam genişlikteki son) üstte siyah-beyaz bir görsel taşır. Görsel
-   çekirdeğin iç yarıçapını izler; oran yazılı olduğu için kayma yok. */
-.part-img {
-  display: block;
-  width: calc(100% + 2 * var(--sp-5));
-  max-width: none;
-  height: 168px;
-  margin: calc(-1 * var(--sp-5)) calc(-1 * var(--sp-5)) var(--sp-5);
-  object-fit: cover;
-  border-radius: var(--r-in) var(--r-in) 0 0;
+/* Arka plan çeşitliliği: sitede SAP logosu dışında görsel yok, bu
+   yüzden üç hücre (en büyük, dönem sonu, tam genişlikteki son) vurgu
+   renginin çok açık tonuyla ayrışır. */
+.bento > .b-2, .bento > .b-3, .bento > .b-8 {
+  background: var(--accent-tint);
+  background-clip: padding-box;
 }
-.b-2 .part-img { height: 220px; }
-.b-8 .part-img { height: 200px; }
 .b-8 .idx { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--sp-5); }
 
 .bento .part-h {
@@ -576,12 +572,7 @@ table.tbl td:last-child, table.tbl th:last-child { padding-right: var(--sp-3); }
   .view { padding: var(--sp-6) var(--sp-4) var(--sp-7); }
   .hero { grid-template-columns: minmax(0, 1fr); min-height: 0; gap: var(--sp-6); padding: var(--sp-3) 0 var(--sp-7); }
   .hero-tool { padding: var(--sp-4); }
-  .hero-img { width: calc(100% + 2 * var(--sp-4)); margin: calc(-1 * var(--sp-4)) calc(-1 * var(--sp-4)) var(--sp-4); height: 180px; }
-  .part-img, .b-2 .part-img, .b-8 .part-img {
-    width: calc(100% + 2 * var(--sp-4));
-    margin: calc(-1 * var(--sp-4)) calc(-1 * var(--sp-4)) var(--sp-4);
-    height: 160px;
-  }
+  .hero-brand { margin: calc(-1 * var(--sp-4)) calc(-1 * var(--sp-4)) var(--sp-4); padding: 0 var(--sp-4); height: 104px; }
   .hero-p { font-size: 17px; }
 
   /* Bento tek sütuna iner; tüm yayılmalar sıfırlanır. */

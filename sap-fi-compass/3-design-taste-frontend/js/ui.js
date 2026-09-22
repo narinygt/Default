@@ -91,7 +91,9 @@
         '<div class="pl"><span>' + esc(T('home.progress')) + '</span>' +
           '<b class="tnum">' + SAP.i18n.yuzde(genel) + '</b></div>' +
         '<div class="bar"><i style="width:' + genel + '%"></i></div>' +
-      '</div>';
+      '</div>' +
+      /* Ticari marka notu: sayfadaki SAP logosu yüzünden gerekli. */
+      '<p class="side-legal">' + esc(T('legal.sap')) + '</p>';
   }
 
   /* ================================================== DİL ANAHTARI ==== */

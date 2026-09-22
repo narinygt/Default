@@ -9,6 +9,7 @@ tıklayarak açılır.
 | `1-frontend-design/` | frontend-design skill'i — komut alanı, IBM Plex, yeşil şeritli tablolar |
 | `2-high-end-visual-design/` | high-end-visual-design skill'i — hep beyaz, çift çerçeveli paneller, bento |
 | `3-design-taste-frontend/` | design-taste-frontend skill'i — 2. sürümün denetlenmiş hali: bölünmüş karşılama, tek görsel olarak SAP logosu, tek vurgu rengi, tek yarıçap kuralı, Phosphor ikonlar, hiç uzun tire yok (içerik dahil) |
+| `4-awwwards-animations/` | awwwards-animations skill'i — 3. sürümün üstüne hareket katmanı: Lenis yumuşak kaydırma, başlık satır açılımı, kaydırmayla kart girişleri, manyetik ana düğme, komut alanı yazı ipucu, konu sayfasında okuma çubuğu |
 
 CPeak projesine etkisi yoktur: Astro yalnızca `src/` ve `public/` okur; bu
 klasör `tsconfig.json`'da `exclude` listesindedir, bu yüzden `astro check`
@@ -23,3 +24,15 @@ ya da çizim yoktur.
 SAP ve SAP logosu SAP SE'nin ticari markasıdır. Bu site bağımsız bir
 eğitim kaynağıdır; SAP SE ile bağlantılı değildir, SAP tarafından
 onaylanmamıştır.
+
+## 4. sürümdeki kütüphaneler
+
+`4-awwwards-animations/js/vendor/` altında yereldir (çevrimdışı çalışır):
+
+| Kütüphane | Sürüm | Lisans |
+|---|---|---|
+| GSAP (+ ScrollTrigger, SplitText) | 3.15.0 | GSAP Standard "no charge" lisansı — https://gsap.com/standard-license |
+| Lenis | 1.3.26 | MIT |
+
+Hareket azaltma tercihi (`prefers-reduced-motion: reduce`) açıksa hiçbir
+animasyon ve yumuşak kaydırma çalışmaz; site durağan ve eksiksiz görünür.

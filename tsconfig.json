@@ -1,7 +1,7 @@
 {
   "extends": "astro/tsconfigs/strict",
   "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist", "sapweb"],
+  "exclude": ["dist", "sap-fi-compass"],
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {

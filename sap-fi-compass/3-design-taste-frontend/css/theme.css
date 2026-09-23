@@ -1,0 +1,273 @@
+/* ==========================================================================
+   theme.css — Tasarım sistemi: "Yumuşak yapısalcılık"
+   --------------------------------------------------------------------------
+   KONSEPT
+   Beyaz bir çalışma masası; üzerinde işlenmiş, katmanlı paneller.
+   Her ana kap iki katmandan oluşur (ÇİFT ÇERÇEVE): dışta çok hafif gri
+   bir kasa, içte beyaz bir çekirdek — cam bir levhanın alüminyum tepsiye
+   oturması gibi. Kenarlar gri çizgiyle değil, saydam halka ve çok yayvan
+   gölgeyle ayrılır.
+
+   İLKELER
+   1. HEP BEYAZ. Tek tema; karanlık mod yok.
+   2. ÇİFT ÇERÇEVE. .bezel deseni: 6px saydam kasa + beyaz çekirdek,
+      eş merkezli yarıçaplar (2rem / 2rem − 6px).
+   3. İRİ BAŞLIK. IBM Plex Sans 700, sıkı harf aralığı. Gövde nötr.
+   4. HAPTİK HAREKET. Tüm geçişler tek eğri: cubic-bezier(.32,.72,0,1).
+      Öğeler ekrana girerken ağır bir yukarı-süzülme ile belirir;
+      yalnızca transform / opacity / filter canlandırılır.
+   5. TEK VURGU. Defter yeşili — bağlantı, aktif durum, ilerleme.
+   ========================================================================== */
+
+:root {
+  color-scheme: light;
+
+  /* --------------------------------------------------------- YÜZEYLER ---
+     Kırık beyaz — kağıt. Saf beyaz ekranda parlar; bu ton uzun okumada
+     gözü dinlendirir. Yüzey sayısı bilerek AZ: kutu olmadığı için
+     "yüzey üstü yüzey" ihtiyacı da yok. */
+  --paper:     #FDFDFC;   /* beyaz — saf #FFF değil, derinlik kaybolmasın */
+  --paper-2:   #F5F7F6;   /* kod, tablo başlığı */
+  --paper-3:   #EDF1EF;
+  --band:      #F2F7F3;   /* yeşil şerit — dönüşümlü tablo satırı */
+
+  /* ÇİFT ÇERÇEVE — kasa ve çekirdek */
+  --shell:     rgba(21, 32, 51, .04);   /* dış kasa dolgusu */
+  --hair:      rgba(21, 32, 51, .07);   /* saydam halka */
+  /* ŞEKİL KİLİDİ — sayfanın tek yarıçap kuralı:
+       kaplar (panel, kart, tablo)       → 24px; iç içe kapta 24 − kasa
+       tek satırlık etkileşim (düğme,    → tam hap (999px)
+         alan, çip düğme)
+       çok satırlı seçenek (quiz, sonuç) → kap kuralı (iç yarıçap)
+       satır içi çip (kod, tablo adı)    → 6px
+     Bu üçü dışında yarıçap yazılmaz. */
+  --r-out:     24px;
+  --r-in:      calc(24px - 6px);
+  --r-out-sm:  24px;
+  --r-in-sm:   calc(24px - 5px);
+  --r-chip:    6px;
+  --lift:      0 1px 1px rgba(21, 32, 51, .03),
+               0 24px 48px -24px rgba(21, 32, 51, .14);
+  --lift-hi:   0 2px 4px rgba(21, 32, 51, .04),
+               0 32px 64px -28px rgba(21, 32, 51, .22);
+
+  /* ----------------------------------------------------------- KURAL ---
+     Tek ayırıcı: 1px çizgi. Üç ağırlık yeter. */
+  /* Kural çizgileri SAYDAM: gri 1px çizgi yerine mürekkebin çok açık tonu. */
+  --rule:      rgba(21, 32, 51, .08);
+  --rule-soft: rgba(21, 32, 51, .05);
+  --rule-firm: rgba(21, 32, 51, .16);
+
+  /* ------------------------------------------------------------ METİN ---
+     Koyu lacivert — siyah değil. Kağıt tonuyla birlikte "basılı" görünür. */
+  --ink:       #152033;
+  --ink-2:     #435066;
+  --ink-3:     #5A6579;   /* METİN için en zayıf ton. ⚠️ Değeri KÂĞIDA göre
+                             değil, EN KOYU YÜZEYE (--paper-3) göre seçildi:
+                             #68708A kâğıtta 4.71 ile geçiyordu ama diyagram
+                             zemininde 4.09'a düşüyordu. Token tek başına
+                             "geçiyor" denemez — çift ölçülür (Ders #32).
+                             Şimdi üçünde de AA: 5.31 / 4.95 / 4.61. */
+  /* ⚠️ --ink-4 METİN İÇİN DEĞİLDİR. Yalnızca METİN OLMAYAN öğeler:
+     chevron, ilerleme noktası, ayraç çizgisi, etiket yanındaki ikon.
+     WCAG 1.4.11 bunlar için 3:1 ister; ölçülen 3.62 (aydınlık) /
+     3.85 (karanlık).
+
+     ⚠️ Bu kural bir kez YAZILIP UYGULANMADI: sekiz METİN kuralı
+     (kenar çubuğu grup adı, "Okumaya başla", "Okundu işaretle",
+     "Bu sayfada", Ctrl K, seviye, grup etiketi, sayfalayıcı)
+     buna bağlıydı ve aydınlık temada kontrast 2.5 idi — AA'nın
+     çok altında. Hepsi --ink-3'e taşındı (bkz. Ders #32).
+     Yeni bir kural buraya bağlanmadan önce tek soru:
+     "bu bir METİN mi?" Cevap evetse --ink-3 kullanılır. */
+  --ink-4:     #7C8399;
+  --ink-inv:   #FDFDFC;
+
+  /* ----------------------------------------------------- VURGU (TEK) ---
+     Defter yeşili. Kırık beyaz üstünde yüksek kontrast — küçük puntoda
+     da okunur (ölçüm için bkz. CLAUDE.md §7). */
+  --accent:      #1F5C4A;
+  --accent-deep: #15412F;
+  --accent-tint: #EAF0ED;   /* çok hafif dolgu — aktif satır */
+  --accent-line: #B9CEC5;
+
+  /* GRUP RENGİ YOK (3. sürüm). Dokuz grup tonu kaldırıldı: sayfada tek
+     vurgu rengi (defter yeşili) vardır. Grupları renk değil, dizindeki
+     yerleri ve başlıkları ayırır. catalog.js'teki `hue` verisi duruyor
+     ama arayüz onu okumaz. */
+
+  /* ------------------------------------------------- ANLAM RENKLERİ ---
+     Yalnızca muhasebe anlamı taşıyanlar kaldı. Bunlar "tek vurgu rengi"
+     kuralının istisnasıdır çünkü BİLGİ taşırlar, süs değildirler. */
+  --debit:   #14213A;   /* borç — nötr koyu */
+  --credit:  #1F5C4A;   /* alacak — vurgu */
+  --alert:   #8C3A2B;   /* hata / dengesiz fiş */
+  --alert-t: #F6EFEC;
+  --warn:    #7A5A18;
+  --warn-t:  #F6F1E4;
+  --ok:      #1F5C4A;
+  --ok-t:    #EAF0ED;
+
+  /* --------------------------------------------------------- ÖLÇEKLER --- */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 18px;
+  --sp-5: 28px;
+  --sp-6: 44px;
+  --sp-7: 68px;
+  --sp-8: 104px;
+
+  /* Tipografi ölçeği — kitap ölçüsü. Başlıklar İRİ DEĞİL: en büyüğü
+     32px. Ekranı dolduran tipografi bir kitapta yoktur. */
+  --t-hero:  clamp(40px, 4.4vw, 62px);   /* ana sayfa: en çok iki satır */
+  --t-title: clamp(36px, 4.2vw, 56px);   /* konu başlığı */
+  --t-h1:    28px;
+  --t-h2:    22px;
+  --t-h3:    17px;
+  --t-body:  16.5px;
+  --t-sm:    14.5px;
+  --t-xs:    13px;
+  --t-num:   13px;     /* numara sütunu */
+
+  --lh-body: 1.65;
+  --measure: 68ch;     /* ölçü — satır uzunluğu bunu geçmez */
+
+  --rail-w:    252px;
+  --topbar-h:  56px;
+
+  /* ---------------------------------------------------------- FONTLAR --- */
+  /* --font-serif adı eski kurallar bozulmasın diye duruyor; artık BAŞLIK
+     yüzüdür (Plex Sans 700). Serif değildir. */
+  --font-serif: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-sans:  'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono:  'IBM Plex Mono', ui-monospace, Consolas, monospace;
+
+  --ease: cubic-bezier(.32, .72, 0, 1);
+}
+
+/* ============================================================== RESET === */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  font-feature-settings: 'kern' 1, 'liga' 1;
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4 {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -.025em;
+  color: var(--ink);
+}
+
+p { margin: 0 0 var(--sp-4); }
+p:last-child { margin-bottom: 0; }
+
+ul, ol { margin: 0 0 var(--sp-4); padding-left: 1.25em; }
+li { margin-bottom: var(--sp-2); }
+li:last-child { margin-bottom: 0; }
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 2px; }
+
+b, strong { font-weight: 620; color: var(--ink); }
+em { font-style: italic; }
+
+button { font: inherit; color: inherit; }
+
+hr { border: 0; border-top: 1px solid var(--rule); margin: var(--sp-5) 0; }
+
+code, kbd, samp {
+  font-family: var(--font-mono);
+  font-size: .88em;
+  font-variant-numeric: tabular-nums;
+  /* ⚠️ SATIR İÇİ KOD BÖLÜNEBİLMELİ. SAP adları uzun ve boşluksuzdur
+     (`BAPI_ACC_INVOICE_RECEIPT_POST`, `ACCOUNTRECEIVABLE`); bölünemeyen
+     tek bir parça 360px'te sayfayı yatay kaydırtıyordu. Kural: tablo,
+     diyagram ve kod BLOĞU kendi overflow-x kabında geniş olabilir —
+     satır içi kod olamaz, o metnin parçasıdır. */
+  overflow-wrap: anywhere;
+}
+
+/* RAKAMLAR — muhasebede rakam hizalanır. Numara, süre, sayaç ve tutar
+   taşıyan her yer bu sınıfı alır. Mono DEĞİL: Plex Sans'ın tabular
+   rakamları hizayı sağlar, mono yalnızca sistem adlarına ayrıldı. */
+.tnum {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+
+table { border-collapse: collapse; width: 100%; }
+
+img, svg { max-width: 100%; }
+svg { display: block; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+::selection { background: var(--accent-tint); color: var(--ink); }
+
+/* İnce kaydırma çubuğu — defterin kenarı gibi. */
+* { scrollbar-width: thin; scrollbar-color: var(--rule-firm) transparent; }
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-thumb {
+  background: var(--rule-firm);
+  border: 3px solid var(--paper);
+  border-radius: 99px;
+}
+*::-webkit-scrollbar-track { background: transparent; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+
+/* ================================================= ÇİFT ÇERÇEVE === */
+/* Tek sınıf, iki katman: saydam kenarlık DIŞ KASA olur (background-clip
+   ile dolgu çekirdekte kalır), iç gölge halkası ÇEKİRDEĞİN kenarını çizer.
+   Böylece işaretlemeye ek sarmalayıcı eklemeden her panele uygulanır. */
+.bezel {
+  border: 6px solid var(--shell);
+  border-radius: var(--r-out);
+  background: var(--paper);
+  background-clip: padding-box;
+  box-shadow:
+    0 0 0 1px var(--hair),
+    inset 0 0 0 1px var(--hair),
+    inset 0 1px 1px rgba(255, 255, 255, .9),
+    var(--lift);
+}
+
+/* ================================================= GİRİŞ HAREKETİ === */
+/* JS (views.js → reveal) yalnızca görünüm alanına girmemiş öğelere .rv
+   ekler; JS çalışmazsa hiçbir şey gizlenmez. */
+.rv {
+  opacity: 0;
+  transform: translate3d(0, 48px, 0);
+  filter: blur(8px);
+  transition:
+    opacity .9s var(--ease),
+    transform 1s var(--ease),
+    filter .9s var(--ease);
+  transition-delay: var(--rv-d, 0ms);
+}
+.rv.in { opacity: 1; transform: none; filter: none; }
+@media (prefers-reduced-motion: reduce) {
+  .rv { opacity: 1; transform: none; filter: none; }
+}

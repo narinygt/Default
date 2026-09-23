@@ -1,0 +1,84 @@
+/* ==========================================================================
+   print.css — "PDF olarak dışa aktar" çıktısı
+   Kullanıcı butona basınca window.print() çağrılır; tarayıcının "PDF olarak
+   kaydet" hedefi kullanılır. Harici kütüphane yok, çevrimdışı çalışır.
+   ========================================================================== */
+
+@media print {
+  @page { margin: 16mm 14mm; }
+
+  /* Yazdırırken her zaman aydınlık palet. Ekrandaki kırık beyaz zemin
+     kağıtta beyaza döner: kağıt zaten kağıttır, zemini ayrıca boyamak
+     mürekkep israfıdır.
+
+     Palet TEK VURGU RENGİYLE aynı kalır (defter yeşili gri tonlamada
+     da koyu basar); değişen tek şey zemin: kırık beyaz -> beyaz. */
+  :root {
+    color-scheme: light;
+    --paper: #fff; --paper-2: #f5f4f0; --paper-3: #eceae4;
+    --rule: #d9d5cc; --rule-soft: #e8e5de; --rule-firm: #b3ada0;
+    --ink: #111; --ink-2: #3a3a3a; --ink-3: #5c5c5c; --ink-4: #808080;
+    --ink-inv: #fff;
+    --accent: #1f5c4a; --accent-deep: #15412f;
+    --accent-tint: #eef2f0; --accent-line: #b9cec5;
+    --debit: #111; --credit: #1f5c4a;
+    --alert: #8c3a2b; --alert-t: #f7f1ef;
+    --warn: #7a5a18; --warn-t: #f7f3e9;
+    --ok: #1f5c4a; --ok-t: #eef2f0;
+  }
+
+  /* Konu başlığı paneli kağıtta dolgusuz — üstte ince bir kural yeter. */
+  .thead { padding: 0 0 8pt !important; border-bottom: 1pt solid var(--rule); }
+
+  body { background: #fff; font-size: 10.5pt; line-height: 1.5; }
+
+  /* Ekran kabuğu çıktıya girmez */
+  .sidebar, .topbar, .scrim, .toc, .pager,
+  .palette-bg, .toast, .readbtn, .menubtn, .langsw, .lang-notice,
+  .resume, .idx-sum, .chev,
+  .thead-acts, .quiz-f, .notes-f, .kicker,
+  [data-noprint] { display: none !important; }
+
+  .shell { display: block; }
+  .view { padding: 0; max-width: none; animation: none; }
+  .topic-layout { display: block; }
+  .wrap { max-width: none; }
+
+  /* Bölümler sayfa içinde bölünmesin */
+  /* Katlanmış bölümler kağıda TAM basılır — ekran durumu çıktıyı kısmasın. */
+  .section.closed .section-body { display: block !important; }
+  .section { break-inside: avoid-page; margin-bottom: 20pt; }
+  .section-h { break-after: avoid-page; border-bottom: 1pt solid var(--rule); }
+  .sub-h, .qa-q { break-after: avoid-page; }
+  .jr, .tacc, .dia, .note, .tc-card, .er-ent, .quiz-q, .step {
+    break-inside: avoid;
+  }
+  .tbl-wrap { overflow: visible; }
+  table.tbl { break-inside: auto; }
+  table.tbl tr { break-inside: avoid; }
+  thead { display: table-header-group; }
+
+  .dia { background: #fff !important; border: 1pt solid var(--rule); }
+
+  /* Bağlantılar düz metin gibi görünsün, ama T-code/tablo çipleri belli olsun */
+  a { color: inherit; text-decoration: none; }
+  .ref { border: 1px solid var(--rule); background: transparent !important; color: var(--ink) !important; }
+  .ref-tcode, .ref-table { font-family: var(--font-mono); font-weight: 700; }
+  .ref-term { border: none; border-bottom: 1px dotted var(--ink-3); }
+
+  /* Quiz cevapları çıktıda görünür olsun */
+  .opt { border: 1px solid var(--rule); }
+  .quiz-ex { display: block !important; }
+
+  .print-head {
+    display: block !important;
+    margin-bottom: 14pt;
+    padding-bottom: 8pt;
+    border-bottom: 2pt solid var(--ink);
+    font-size: 9pt;
+    color: var(--ink-3);
+  }
+}
+
+/* Ekranda yazdırma başlığı görünmez */
+.print-head { display: none; }

@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="SAP CO (Controlling) rehberi: maliyet muhasebesinin mantığı, masraf yerleri, dağıtım ve yayma, aktivite dağılımı, iç siparişler, ürün maliyetlendirme, varyanslar, CO-PA ve ay sonu kapanış. Sayısal örnekler ve hesaplayıcılarla.">
+<title>SAP CO Maliyet Rehberi</title>
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="6" fill="%232447C8"/><path d="M8 22V10M8 22h16M12 18l4-4 3 3 5-6" fill="none" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>'>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  color-scheme: light;
+  --ground:#F2F4F3;
+  --surface:#FFFFFF;
+  --sunk:#E8ECEA;
+  --ink:#16201E;
+  --ink-2:#44524F;
+  --ink-3:#6B7976;
+  --rule:#D5DCD9;
+  --accent:#2447C8;
+  --accent-soft:#E3E8FB;
+  --accent-ink:#FFFFFF;
+  --amber:#9A6412;
+  --amber-soft:#F7ECD8;
+  --pos:#1D6E4A;
+  --pos-soft:#DDEFE5;
+  --neg:#A8321F;
+  --neg-soft:#F6E0DB;
+  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body:"Public Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --r:6px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --ground:#0F1316;
+    --surface:#161C20;
+    --sunk:#1D252A;
+    --ink:#E3E9EC;
+    --ink-2:#B3BFC3;
+    --ink-3:#86949A;
+    --rule:#2A353B;
+    --accent:#8EA6FF;
+    --accent-soft:#1F2A4F;
+    --accent-ink:#0F1316;
+    --amber:#E2AD5A;
+    --amber-soft:#3A2D17;
+    --pos:#6FD19E;
+    --pos-soft:#15342A;
+    --neg:#F08C79;
+    --neg-soft:#3E1F1A;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --ground:#0F1316;
+  --surface:#161C20;
+  --sunk:#1D252A;
+  --ink:#E3E9EC;
+  --ink-2:#B3BFC3;
+  --ink-3:#86949A;
+  --rule:#2A353B;
+  --accent:#8EA6FF;
+  --accent-soft:#1F2A4F;
+  --accent-ink:#0F1316;
+  --amber:#E2AD5A;
+  --amber-soft:#3A2D17;
+  --pos:#6FD19E;
+  --pos-soft:#15342A;
+  --neg:#F08C79;
+  --neg-soft:#3E1F1A;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{
+  margin:0;background:var(--ground);color:var(--ink);
+  font-family:var(--body);font-size:16.5px;line-height:1.65;
+  padding-inline:16px;
+}
+img,svg{max-width:100%}
+a{color:var(--accent);text-underline-offset:3px}
+a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
+h1,h2,h3,h4{font-family:var(--display);line-height:1.15;text-wrap:balance;margin:0}
+p{margin:0}
+code,.mono{font-family:var(--mono);font-size:.88em}
+.num{font-variant-numeric:tabular-nums}
+
+/* ---------- Kabuk ---------- */
+.wrap{max-width:1180px;margin-inline:auto}
+.masthead{padding-block:40px 28px;display:grid;gap:28px;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);align-items:center;border-bottom:1px solid var(--rule)}
+.eyebrow{font-family:var(--mono);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.masthead h1{font-size:clamp(38px,6vw,68px);font-weight:800;letter-spacing:-.02em;margin-top:10px}
+.masthead h1 em{font-style:normal;color:var(--accent)}
+.masthead .lede{margin-top:16px;font-size:18px;color:var(--ink-2);max-width:56ch}
+.masthead .meta{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+.pill{font-family:var(--mono);font-size:12px;padding:3px 9px;border:1px solid var(--rule);border-radius:99px;color:var(--ink-2);background:var(--surface)}
+
+.flow-card{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r);padding:16px}
+.flow-card figcaption{font-size:13px;color:var(--ink-3);margin-top:8px}
+
+.layout{display:grid;grid-template-columns:230px minmax(0,1fr);gap:48px;padding-block:32px 80px}
+.toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 20px);align-self:start;max-height:calc(100vh - 40px);overflow:auto;font-size:14px}
+.toc p{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px}
+.toc ol{list-style:none;margin:0;padding:0;display:grid;gap:1px;counter-reset:toc}
+.toc li{counter-increment:toc}
+.toc a{display:flex;gap:10px;padding:5px 8px;border-radius:4px;color:var(--ink-2);text-decoration:none}
+.toc a::before{content:counter(toc,decimal-leading-zero);font-family:var(--mono);font-size:11.5px;color:var(--ink-3);padding-top:2px}
+.toc a:hover{background:var(--sunk);color:var(--ink)}
+.toc a.on{background:var(--accent-soft);color:var(--ink)}
+.toc a.on::before{color:var(--accent)}
+
+main{min-width:0}
+.chapter{padding-block:36px;border-bottom:1px solid var(--rule);display:grid;gap:18px;scroll-margin-top:16px}
+.chapter:first-child{padding-top:0}
+.chapter > header{display:grid;gap:6px}
+.chapter h2{font-size:clamp(28px,3.4vw,38px);font-weight:700;letter-spacing:-.01em}
+.chapter .kicker{font-family:var(--mono);font-size:12.5px;color:var(--accent);letter-spacing:.06em;text-transform:uppercase}
+.chapter h3{font-size:21px;font-weight:700;margin-top:10px}
+.chapter h4{font-size:17px;font-weight:700}
+.prose{display:grid;gap:14px;max-width:70ch}
+.prose ul,.prose ol{margin:0;padding-left:1.25em;display:grid;gap:6px}
+.lead{font-size:18px;color:var(--ink-2);max-width:66ch}
+
+/* ---------- Bloklar ---------- */
+.note{border-radius:var(--r);padding:14px 16px;display:grid;gap:6px;max-width:74ch;border:1px solid transparent}
+.note b.tag{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:600}
+.note.logic{background:var(--accent-soft);border-color:color-mix(in srgb,var(--accent) 25%,transparent)}
+.note.logic b.tag{color:var(--accent)}
+.note.warn{background:var(--amber-soft);border-color:color-mix(in srgb,var(--amber) 30%,transparent)}
+.note.warn b.tag{color:var(--amber)}
+.note.s4{background:var(--pos-soft);border-color:color-mix(in srgb,var(--pos) 30%,transparent)}
+.note.s4 b.tag{color:var(--pos)}
+
+.tc{font-family:var(--mono);font-size:.84em;font-weight:600;padding:1px 6px;border-radius:4px;background:var(--sunk);color:var(--ink);white-space:nowrap}
+
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.card{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r);padding:16px;display:grid;gap:8px;align-content:start}
+.card h4{display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap}
+.card p{color:var(--ink-2);font-size:15px}
+.card .tcs{display:flex;flex-wrap:wrap;gap:6px}
+
+.tablewrap{overflow-x:auto;border:1px solid var(--rule);border-radius:var(--r);background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);font-weight:600;background:var(--sunk)}
+tr:last-child td{border-bottom:0}
+td.r,th.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.total td{font-weight:700;background:var(--sunk)}
+tr.sub td{font-weight:600}
+td .tc{font-size:.9em}
+
+/* Kayıt fişi (SAP belgesi görünümü) */
+.doc{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r);overflow:hidden}
+.doc-h{display:flex;flex-wrap:wrap;gap:6px 18px;padding:10px 14px;background:var(--sunk);font-family:var(--mono);font-size:12.5px;color:var(--ink-2);border-bottom:1px solid var(--rule)}
+.doc-h b{color:var(--ink)}
+.doc .tablewrap{border:0;border-radius:0}
+.dr{color:var(--neg)} .cr{color:var(--pos)}
+
+/* Adımlar */
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:10px;counter-reset:st}
+.steps li{counter-increment:st;display:grid;grid-template-columns:34px minmax(0,1fr);gap:12px;align-items:start;background:var(--surface);border:1px solid var(--rule);border-radius:var(--r);padding:12px 14px}
+.steps li::before{content:counter(st);font-family:var(--mono);font-weight:600;font-size:13px;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:var(--accent-ink)}
+.steps li b{display:block}
+.steps li span{color:var(--ink-2);font-size:15px}
+
+/* Hesaplayıcılar */
+.calc{background:var(--surface);border:1px solid var(--accent);border-radius:var(--r);padding:18px;display:grid;gap:16px}
+.calc > header{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:baseline}
+.calc > header h3{margin:0}
+.calc .hint{font-size:13.5px;color:var(--ink-3)}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.field{display:grid;gap:4px}
+.field label{font-size:13px;color:var(--ink-2);font-weight:600}
+.field input{font:inherit;font-family:var(--mono);font-size:15px;padding:8px 10px;border:1px solid var(--rule);border-radius:4px;background:var(--ground);color:var(--ink);width:100%;font-variant-numeric:tabular-nums}
+.field input:focus{border-color:var(--accent)}
+.bars{display:grid;gap:8px}
+.bar{display:grid;grid-template-columns:minmax(90px,150px) minmax(0,1fr) auto;gap:10px;align-items:center;font-size:14px}
+.bar .track{height:14px;background:var(--sunk);border-radius:3px;overflow:hidden}
+.bar .fill{height:100%;background:var(--accent);border-radius:3px;transition:width .25s ease}
+.bar .v{font-family:var(--mono);font-size:13.5px;font-variant-numeric:tabular-nums;text-align:right;min-width:110px}
+@media (prefers-reduced-motion: reduce){.bar .fill{transition:none}}
+.result{display:flex;flex-wrap:wrap;gap:10px 24px;padding-top:12px;border-top:1px dashed var(--rule);font-size:14.5px}
+.result b{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+/* Diyagramlar */
+svg text{font-family:var(--body)}
+.dg-box{fill:var(--surface);stroke:var(--rule)}
+.dg-acc{fill:var(--accent-soft);stroke:var(--accent)}
+.dg-amb{fill:var(--amber-soft);stroke:var(--amber)}
+.dg-pos{fill:var(--pos-soft);stroke:var(--pos)}
+.dg-t{fill:var(--ink);font-size:13px;font-weight:600}
+.dg-s{fill:var(--ink-3);font-size:11px}
+.dg-m{fill:var(--ink-2);font-size:11px;font-family:var(--mono)}
+.dg-line{stroke:var(--ink-3);stroke-width:1.4;fill:none}
+.dg-line.acc{stroke:var(--accent)}
+.dg-arrow{fill:var(--ink-3)}
+.dg-arrow.acc{fill:var(--accent)}
+.diagram{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r);padding:14px;overflow-x:auto}
+.diagram svg{display:block;min-width:620px;width:100%;height:auto}
+.flow-card svg{display:block;width:100%;height:auto}
+
+/* Arama / sözlük */
+.search{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.search input{flex:1 1 260px;font:inherit;padding:10px 12px;border:1px solid var(--rule);border-radius:4px;background:var(--surface);color:var(--ink)}
+.search .count{font-family:var(--mono);font-size:12.5px;color:var(--ink-3)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:inherit;font-size:13px;padding:4px 10px;border:1px solid var(--rule);border-radius:99px;background:var(--surface);color:var(--ink-2);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--ground);border-color:var(--ink)}
+
+details.qa{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r)}
+details.qa + details.qa{margin-top:8px}
+details.qa summary{cursor:pointer;padding:12px 16px;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:12px}
+details.qa summary::-webkit-details-marker{display:none}
+details.qa summary::after{content:"+";font-family:var(--mono);color:var(--ink-3)}
+details.qa[open] summary::after{content:"−"}
+details.qa .a{padding:0 16px 14px;color:var(--ink-2);display:grid;gap:8px;max-width:74ch}
+
+.compare{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;background:var(--surface)}
+.compare > div{padding:16px;display:grid;gap:8px;align-content:start}
+.compare > div + div{border-left:1px solid var(--rule)}
+.compare h4{font-size:16px}
+.compare ul{margin:0;padding-left:1.1em;display:grid;gap:4px;font-size:15px;color:var(--ink-2)}
+
+footer.site{padding-block:28px 40px;border-top:1px solid var(--rule);color:var(--ink-3);font-size:13.5px;display:grid;gap:6px}
+
+@media (max-width: 960px){
+  .layout{grid-template-columns:minmax(0,1fr);gap:8px}
+  .toc{position:static;max-height:none;background:var(--surface);border:1px solid var(--rule);border-radius:var(--r);padding:14px}
+  .toc ol{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .masthead{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width: 640px){
+  body{font-size:16px}
+  .grid2,.grid3,.compare{grid-template-columns:minmax(0,1fr)}
+  .compare > div + div{border-left:0;border-top:1px solid var(--rule)}
+  .toc ol{grid-template-columns:minmax(0,1fr)}
+  .bar{grid-template-columns:minmax(0,1fr) auto}
+  .bar .track{grid-column:1 / -1;grid-row:2}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <div>
+    <span class="eyebrow">SAP S/4HANA · Controlling (CO)</span>
+    <h1>Maliyet nereden gelir, <em>nereye gider?</em></h1>
+    <p class="lede">SAP CO modülünü sıfırdan, maliyet muhasebesinin mantığıyla anlatan rehber. Her kavramın yanında gerçek bir sayısal örnek, ilgili işlem kodu ve arka plandaki tablo var. Hesaplayıcılarda rakamları değiştirip sonucun nasıl oluştuğunu kendiniz görebilirsiniz.</p>
+    <div class="meta">
+      <span class="pill">19 bölüm</span>
+      <span class="pill">3 hesaplayıcı</span>
+      <span class="pill">70+ işlem kodu</span>
+      <span class="pill">Tutarlar TL, örnek şirket: Ahşap Mobilya A.Ş.</span>
+    </div>
+  </div>
+  <figure class="flow-card" style="margin:0">
+    <svg viewBox="0 0 440 250" role="img" aria-labelledby="hero-t">
+      <title id="hero-t">Maliyetin CO içindeki yolculuğu: FI kaydı masraf yerine gelir, aktiviteyle üretim siparişine geçer, mahsupla stok ve CO-PA'ya ulaşır.</title>
+      <defs>
+        <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="dg-arrow acc"/></marker>
+        <marker id="ahg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="dg-arrow"/></marker>
+      </defs>
+      <rect x="10" y="14" width="120" height="56" rx="6" class="dg-box"/>
+      <text x="70" y="38" text-anchor="middle" class="dg-t">FI kaydı</text>
+      <text x="70" y="55" text-anchor="middle" class="dg-s">Fatura, maaş</text>
+
+      <rect x="160" y="14" width="120" height="56" rx="6" class="dg-acc"/>
+      <text x="220" y="38" text-anchor="middle" class="dg-t">Masraf yeri</text>
+      <text x="220" y="55" text-anchor="middle" class="dg-s">Maliyet toplanır</text>
+
+      <rect x="310" y="14" width="120" height="56" rx="6" class="dg-acc"/>
+      <text x="370" y="38" text-anchor="middle" class="dg-t">Üretim siparişi</text>
+      <text x="370" y="55" text-anchor="middle" class="dg-s">Maliyet nesnesi</text>
+
+      <rect x="160" y="170" width="120" height="56" rx="6" class="dg-pos"/>
+      <text x="220" y="194" text-anchor="middle" class="dg-t">CO-PA</text>
+      <text x="220" y="211" text-anchor="middle" class="dg-s">Kârlılık analizi</text>
+
+      <rect x="310" y="170" width="120" height="56" rx="6" class="dg-amb"/>
+      <text x="370" y="194" text-anchor="middle" class="dg-t">Stok + fark</text>
+      <text x="370" y="211" text-anchor="middle" class="dg-s">Mahsup (settlement)</text>
+
+      <path d="M130 42H156" class="dg-line acc" marker-end="url(#ah)"/>
+      <text x="143" y="90" text-anchor="middle" class="dg-m">birincil</text>
+      <path d="M280 42H306" class="dg-line acc" marker-end="url(#ah)"/>
+      <text x="293" y="90" text-anchor="middle" class="dg-m">aktivite</text>
+      <path d="M370 70V166" class="dg-line acc" marker-end="url(#ah)"/>
+      <text x="378" y="122" class="dg-m">mahsup</text>
+      <path d="M220 70V166" class="dg-line" stroke-dasharray="4 4" marker-end="url(#ahg)"/>
+      <text x="228" y="122" class="dg-m">kuşatma</text>
+      <path d="M310 198H284" class="dg-line" marker-end="url(#ahg)"/>
+    </svg>
+    <figcaption>Bu rehberin tamamı bu okların nasıl çalıştığını anlatır.</figcaption>
+  </figure>
+</header>
+
+<div class="layout">
+  <nav class="toc" aria-label="İçindekiler">
+    <p>İçindekiler</p>
+    <ol id="toc">
+      <li><a href="#giris">CO nedir, neden var?</a></li>
+      <li><a href="#org">Organizasyon yapısı</a></li>
+      <li><a href="#anaveri">Ana veriler</a></li>
+      <li><a href="#maliyet-ogesi">Maliyet öğeleri</a></li>
+      <li><a href="#masraf-yeri">Masraf yeri muhasebesi</a></li>
+      <li><a href="#planlama">Planlama</a></li>
+      <li><a href="#dagitim">Yayma ve kuşatma</a></li>
+      <li><a href="#aktivite">Aktivite dağılımı</a></li>
+      <li><a href="#ic-siparis">İç siparişler</a></li>
+      <li><a href="#urun-maliyet">Ürün maliyetlendirme</a></li>
+      <li><a href="#siparis-kontrol">Maliyet nesnesi kontrolü</a></li>
+      <li><a href="#varyans">Varyans analizi</a></li>
+      <li><a href="#ml">Malzeme defteri</a></li>
+      <li><a href="#copa">Kârlılık analizi (CO-PA)</a></li>
+      <li><a href="#kar-merkezi">Kâr merkezi muhasebesi</a></li>
+      <li><a href="#kapanis">Ay sonu kapanış</a></li>
+      <li><a href="#s4">S/4HANA'da ne değişti?</a></li>
+      <li><a href="#tcode">İşlem kodları ve tablolar</a></li>
+      <li><a href="#sss">Sık sorulanlar ve tuzaklar</a></li>
+    </ol>
+  </nav>
+
+<main>
+
+<!-- 1 -->
+<section class="chapter" id="giris">
+  <header><span class="kicker">Bölüm 1 · Temel</span><h2>CO nedir, neden var?</h2></header>
+  <p class="lead">FI (Finansal Muhasebe) şirketin dışarıya, yani vergi dairesine, bankaya ve ortaklara verdiği hesabı tutar. CO (Controlling) ise yönetimin kendine sorduğu soruları cevaplar: <b>Bu maliyet hangi bölümde oluştu? Bir masa bize kaça mal oluyor? Hangi müşteri gerçekten kâr bırakıyor?</b></p>
+
+  <div class="compare">
+    <div>
+      <h4>FI: Dış raporlama</h4>
+      <ul>
+        <li>Soru: "Ne kadar harcadık?"</li>
+        <li>Bakış açısı: hesap planı, bilanço, gelir tablosu</li>
+        <li>Kurallara bağlı: VUK, TFRS, UFRS</li>
+        <li>Birim: şirket kodu</li>
+        <li>Örnek: 770 Genel Yönetim Giderleri 250.000 TL</li>
+      </ul>
+    </div>
+    <div>
+      <h4>CO: İç raporlama</h4>
+      <ul>
+        <li>Soru: "Nerede, ne için harcadık?"</li>
+        <li>Bakış açısı: masraf yeri, sipariş, ürün, müşteri</li>
+        <li>Yönetimin kurallarına göre kurgulanır</li>
+        <li>Birim: kontrol alanı (birden çok şirket kodunu kapsayabilir)</li>
+        <li>Örnek: 250.000 TL'nin 90.000'i İK, 160.000'i Finans</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="prose">
+    <h3>Temel mantık: maliyet nesnesi</h3>
+    <p>CO'da her kayıt bir <b>maliyet nesnesine</b> (cost object) gider. Maliyet nesnesi, üzerinde maliyet biriktirmek istediğiniz her şeydir: bir masraf yeri, bir iç sipariş, bir üretim siparişi, bir proje (WBS öğesi) ya da bir kârlılık segmenti. FI'dan gelen bir gider kaydı, maliyet nesnesi olmadan CO'ya geçemez. Sistem "bu gideri hangi nesneye yazayım?" diye sorar.</p>
+    <p>Maliyetler iki şekilde hareket eder:</p>
+    <ul>
+      <li><b>Gerçek (real) kayıt:</b> Maliyet nesnesine gerçekten yüklenir, oradan başka nesnelere dağıtılabilir veya mahsup edilebilir.</li>
+      <li><b>İstatistiksel kayıt:</b> Sadece bilgi amaçlıdır. Rapor için tutulur ama başka yere taşınamaz. Örneğin bir gider hem masraf yerine (gerçek) hem de bir iç siparişe (istatistiksel) yazılabilir.</li>
+    </ul>
+  </div>
+
+  <div class="note logic"><b class="tag">Mantık</b><p>Bir kaydın aynı anda yalnızca <b>bir gerçek</b> maliyet nesnesi olabilir. Aynı parayı iki yere gerçek yazarsanız maliyet iki kez sayılır. İstatistiksel nesneler bu yüzden var: ikinci bir bakış açısı sağlarlar ama toplamı şişirmezler.</p></div>
+
+  <h3>CO'nun alt bileşenleri</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Bileşen</th><th>Kısaltma</th><th>Cevapladığı soru</th></tr></thead>
+    <tbody>
+      <tr><td>Maliyet öğesi muhasebesi</td><td><code>CO-OM-CEL</code></td><td>Hangi tür maliyet? (personel, enerji, kira)</td></tr>
+      <tr><td>Masraf yeri muhasebesi</td><td><code>CO-OM-CCA</code></td><td>Nerede oluştu? (üretim, depo, İK)</td></tr>
+      <tr><td>İç siparişler</td><td><code>CO-OM-OPA</code></td><td>Hangi iş/etkinlik için? (fuar, bakım, yatırım)</td></tr>
+      <tr><td>Faaliyet tabanlı maliyetleme</td><td><code>CO-OM-ABC</code></td><td>Hangi süreç tüketti? (sipariş alma, sevkiyat)</td></tr>
+      <tr><td>Ürün maliyet kontrolü</td><td><code>CO-PC</code></td><td>Ürün kaça mal oluyor, plandan ne kadar saptı?</td></tr>
+      <tr><td>Kârlılık analizi</td><td><code>CO-PA</code></td><td>Hangi müşteri, ürün, bölge kâr bırakıyor?</td></tr>
+      <tr><td>Kâr merkezi muhasebesi</td><td><code>EC-PCA</code> (S/4'te FI içinde)</td><td>Hangi iş birimi ne kadar kazandırdı?</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- 2 -->
+<section class="chapter" id="org">
+  <header><span class="kicker">Bölüm 2 · Yapı</span><h2>Organizasyon yapısı</h2></header>
+  <p class="lead">CO'daki her şey bir <b>kontrol alanı</b> (controlling area, <code>KOKRS</code>) içinde yaşar. Kontrol alanı, maliyetlerin birbirine dağıtılabildiği sınırdır. İki farklı kontrol alanı arasında maliyet dağıtılamaz.</p>
+
+  <div class="diagram">
+    <svg viewBox="0 0 720 260" role="img" aria-labelledby="org-t">
+      <title id="org-t">Organizasyon yapısı: Kârlılık alanı altında kontrol alanı, kontrol alanı altında iki şirket kodu ve bunlara bağlı üretim yerleri.</title>
+      <rect x="250" y="10" width="220" height="50" rx="6" class="dg-pos"/>
+      <text x="360" y="32" text-anchor="middle" class="dg-t">Kârlılık alanı · MOB1</text>
+      <text x="360" y="49" text-anchor="middle" class="dg-s">Operating concern (CO-PA)</text>
+      <rect x="250" y="90" width="220" height="50" rx="6" class="dg-acc"/>
+      <text x="360" y="112" text-anchor="middle" class="dg-t">Kontrol alanı · 1000</text>
+      <text x="360" y="129" text-anchor="middle" class="dg-s">Para birimi TRY · Mali yıl varyantı K4</text>
+      <rect x="90" y="175" width="200" height="50" rx="6" class="dg-box"/>
+      <text x="190" y="197" text-anchor="middle" class="dg-t">Şirket kodu 1000</text>
+      <text x="190" y="214" text-anchor="middle" class="dg-s">Ahşap Mobilya A.Ş.</text>
+      <rect x="430" y="175" width="200" height="50" rx="6" class="dg-box"/>
+      <text x="530" y="197" text-anchor="middle" class="dg-t">Şirket kodu 2000</text>
+      <text x="530" y="214" text-anchor="middle" class="dg-s">Ahşap Lojistik Ltd.</text>
+      <path d="M360 60V86" class="dg-line"/>
+      <path d="M360 140V158H190V171" class="dg-line"/>
+      <path d="M360 158H530V171" class="dg-line"/>
+      <text x="10" y="250" class="dg-m">Ortak kontrol alanı için şirket kodlarının aynı hesap planını ve mali yıl varyantını kullanması gerekir.</text>
+    </svg>
+  </div>
+
+  <div class="grid3">
+    <div class="card"><h4>Kontrol alanı <span class="tc">OKKP</span></h4><p>Para birimi, mali yıl varyantı, hesap planı ve standart hiyerarşi burada tanımlanır. Şirket kodu ataması <span class="tc">OX19</span>.</p></div>
+    <div class="card"><h4>Kârlılık alanı <span class="tc">KEA0</span></h4><p>CO-PA'nın çatısıdır. Karakteristikler (müşteri, ürün grubu, bölge) ve değer alanları burada tanımlanır. Kontrol alanı ataması <span class="tc">KEKK</span>.</p></div>
+    <div class="card"><h4>Standart hiyerarşi <span class="tc">OKEON</span></h4><p>Kontrol alanındaki tüm masraf yerlerinin bağlı olduğu ağaç. Her masraf yeri tam olarak bir düğüme bağlanır, böylece hiçbir maliyet raporda kaybolmaz.</p></div>
+  </div>
+
+  <div class="note warn"><b class="tag">Dikkat</b><p>S/4HANA'da kontrol alanı ile şirket kodu arasında <b>1:1 veya 1:n</b> ilişki kurulabilir. Ancak yeni kurulumlarda SAP, kontrol alanı para birimi ile şirket kodu para biriminin tutarlılığını ve tek bir hesap planını şart koşar. Proje başında bu kararı netleştirin, sonradan değiştirmek çok zordur.</p></div>
+</section>
+
+<!-- 3 -->
+<section class="chapter" id="anaveri">
+  <header><span class="kicker">Bölüm 3 · Ana veri</span><h2>Ana veriler</h2></header>
+  <p class="lead">CO'nun ana verileri iki gruba ayrılır: maliyetin <b>ne olduğunu</b> anlatanlar (maliyet öğesi, aktivite türü, istatistiksel temel figür) ve maliyetin <b>nerede tutulduğunu</b> anlatanlar (masraf yeri, iç sipariş, kâr merkezi).</p>
+
+  <div class="grid2">
+    <div class="card">
+      <h4>Masraf yeri <span class="tcs"><span class="tc">KS01</span><span class="tc">KS02</span><span class="tc">KSH1</span></span></h4>
+      <p>Maliyetin oluştuğu organizasyonel birim: "Kesim Atölyesi", "Depo", "İnsan Kaynakları". Masraf yeri kategorisi (F: üretim, V: yönetim, H: yardımcı) raporlamayı ve varsayılanları belirler. Her masraf yeri bir kâr merkezine ve bir şirket koduna bağlıdır.</p>
+      <p><b>Örnek:</b> <code>MY-1100</code> Kesim Atölyesi · Kategori F · Kâr merkezi <code>KM-MASA</code></p>
+    </div>
+    <div class="card">
+      <h4>Aktivite türü <span class="tcs"><span class="tc">KL01</span><span class="tc">KP26</span></span></h4>
+      <p>Bir masraf yerinin ürettiği ölçülebilir hizmet: makine saati, işçilik saati, bakım saati. Masraf yeri maliyetini aktivite üzerinden başka nesnelere "satar".</p>
+      <p><b>Örnek:</b> <code>MAKSA</code> Makine saati · Birim: saat · Plan fiyatı 250 TL/saat</p>
+    </div>
+    <div class="card">
+      <h4>İstatistiksel temel figür <span class="tcs"><span class="tc">KK01</span><span class="tc">KB31N</span></span></h4>
+      <p>Dağıtım anahtarı olarak kullanılan ölçü: personel sayısı, metrekare, kWh. Sabit değer (1: dönemden döneme aynı kalır, ör. m²) veya toplam değer (2: her dönem ayrı girilir, ör. kWh) olabilir.</p>
+      <p><b>Örnek:</b> <code>M2</code> Alan (m²) · Tip: sabit değer</p>
+    </div>
+    <div class="card">
+      <h4>İç sipariş <span class="tcs"><span class="tc">KO01</span><span class="tc">KO02</span></span></h4>
+      <p>Belirli bir iş veya etkinlik için açılan geçici maliyet toplayıcı: "İstanbul Mobilya Fuarı 2026", "CNC makinesi revizyonu". İş bitince maliyet asıl sahibine mahsup edilir.</p>
+      <p><b>Örnek:</b> <code>400123</code> Fuar 2026 · Sipariş türü Z100 · Bütçe 300.000 TL</p>
+    </div>
+    <div class="card">
+      <h4>Kâr merkezi <span class="tcs"><span class="tc">KE51</span><span class="tc">KE52</span></span></h4>
+      <p>Hem gelir hem giderin izlendiği iş birimi: "Masa İş Birimi", "Dolap İş Birimi". Masraf yeri, malzeme, sipariş gibi nesneler kâr merkezine atandıkça kayıtlar otomatik olarak kâr merkezi bilgisini taşır.</p>
+    </div>
+    <div class="card">
+      <h4>Maliyet öğesi <span class="tcs"><span class="tc">FS00</span></span></h4>
+      <p>Maliyetin türü. S/4HANA'da ayrı bir ana veri değildir, ana hesabın (G/L) bir özelliğidir. Ayrıntısı sonraki bölümde.</p>
+    </div>
+  </div>
+
+  <div class="note logic"><b class="tag">Mantık</b><p>Ana veriyi tasarlarken şunu sorun: <b>Yönetim hangi raporu görmek istiyor?</b> Masraf yerlerini organizasyon şemasını kopyalayarak değil, sorumluluk ve maliyet davranışına göre kurun. Bir müdürün bütçesinden sorumlu tutulabileceği en küçük birim, iyi bir masraf yeridir.</p></div>
+</section>
+
+<!-- 4 -->
+<section class="chapter" id="maliyet-ogesi">
+  <header><span class="kicker">Bölüm 4 · Maliyet türleri</span><h2>Maliyet öğeleri: birincil ve ikincil</h2></header>
+  <p class="lead">Maliyet öğesi, CO'daki her tutarın "ne olduğunu" söyler. İki ana türü vardır ve aralarındaki fark CO'yu anlamanın anahtarıdır.</p>
+
+  <div class="compare">
+    <div>
+      <h4>Birincil maliyet öğesi</h4>
+      <ul>
+        <li>Şirket <b>dışından</b> gelen maliyet: satın alma faturası, maaş, kira, amortisman</li>
+        <li>Karşılığı FI'da bir gelir tablosu hesabıdır</li>
+        <li>Hesap türü: "Birincil maliyet veya gelir"</li>
+        <li>Örnek: 770100 Personel Giderleri, 760300 Enerji</li>
+      </ul>
+    </div>
+    <div>
+      <h4>İkincil maliyet öğesi</h4>
+      <ul>
+        <li>Şirket <b>içinde</b> CO nesneleri arasında maliyet taşımak için kullanılır</li>
+        <li>FI'da karşılığı olan bir hesap yoktur (sadece CO'da yaşar)</li>
+        <li>Hesap türü: "İkincil maliyetler"</li>
+        <li>Örnek: 942000 Kuşatma Bina, 943000 Makine Saati Dağılımı</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Maliyet öğesi kategorileri</h3>
+  <p class="prose">Kategori, maliyet öğesinin hangi işlemde kullanılabileceğini sınırlar. Yanlış kategori seçimi, ay sonunda "maliyet öğesi bu işlem için uygun değil" hatasının en yaygın sebebidir.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Kat.</th><th>Tür</th><th>Anlamı</th><th>Nerede kullanılır</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">1</td><td>Birincil</td><td>Birincil maliyet / maliyet azaltıcı gelir</td><td>FI gider kayıtları, MM tüketimleri</td></tr>
+      <tr><td class="mono">11</td><td>Birincil</td><td>Gelirler</td><td>Satış hasılatı (SD faturası)</td></tr>
+      <tr><td class="mono">12</td><td>Birincil</td><td>Satış indirimleri</td><td>İskonto, prim</td></tr>
+      <tr><td class="mono">22</td><td>Birincil</td><td>Harici mahsup</td><td>Siparişten CO dışındaki bir alıcıya (duran varlık, ana hesap) mahsup</td></tr>
+      <tr><td class="mono">21</td><td>İkincil</td><td>Dahili mahsup</td><td>Siparişten masraf yerine veya başka siparişe mahsup</td></tr>
+      <tr><td class="mono">31</td><td>İkincil</td><td>Sonuç analizi</td><td>Proje/sipariş sonuç analizi (WIP, tahakkuk)</td></tr>
+      <tr><td class="mono">41</td><td>İkincil</td><td>Genel gider oranları</td><td>Maliyetlendirme şeması ile genel gider yükleme</td></tr>
+      <tr><td class="mono">42</td><td>İkincil</td><td>Kuşatma (assessment)</td><td>Masraf yerinden masraf yerine veya CO-PA'ya kuşatma</td></tr>
+      <tr><td class="mono">43</td><td>İkincil</td><td>Dahili aktivite dağılımı</td><td>Aktivite türü ile maliyet satışı</td></tr>
+      <tr><td class="mono">90</td><td>Birincil</td><td>Bilanço hesapları için istatistiksel</td><td>Duran varlık alımını istatistiksel izleme</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="note s4"><b class="tag">S/4HANA</b><p>ECC'de maliyet öğeleri <span class="tc">KA01</span> (birincil) ve <span class="tc">KA06</span> (ikincil) ile ayrı yaratılırdı ve FI hesabıyla uyumlu tutmak gerekirdi. S/4HANA'da ikisi de <span class="tc">FS00</span> içinde ana hesabın "Hesap türü" alanıyla belirlenir. İkincil maliyet öğeleri de artık ana hesap kaydıdır ve Evrensel Günlük'te (<code>ACDOCA</code>) görünür.</p></div>
+</section>
+
+<!-- 5 -->
+<section class="chapter" id="masraf-yeri">
+  <header><span class="kicker">Bölüm 5 · CCA</span><h2>Masraf yeri muhasebesi</h2></header>
+  <p class="lead">Masraf yerleri iki rol oynar: <b>birincil maliyetleri toplamak</b> ve bunları <b>asıl tüketicilere iletmek</b>. İdeal durumda ay sonunda yardımcı masraf yerlerinin bakiyesi sıfırlanır, tüm maliyet üretim siparişlerine, ürünlere veya CO-PA'ya ulaşır.</p>
+
+  <h3>Bir gider kaydı CO'ya nasıl gelir?</h3>
+  <p class="prose">Muhasebe, Kesim Atölyesi'nin Ekim elektrik faturasını <span class="tc">FB60</span> ile kaydediyor. Gider hesabına bir maliyet öğesi karşılık geldiği için sistem bir masraf yeri ister. Kullanıcı <code>MY-1100</code> girer.</p>
+
+  <div class="doc">
+    <div class="doc-h"><span>Belge <b>5100000412</b></span><span>Şirket kodu <b>1000</b></span><span>Kayıt tarihi <b>31.10.2026</b></span><span>İşlem <b>FB60</b></span></div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Kalem</th><th>Hesap</th><th>Açıklama</th><th>Masraf yeri</th><th class="r">Borç</th><th class="r">Alacak</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">1</td><td class="mono">320100</td><td>Satıcı: Enerji Dağıtım A.Ş.</td><td></td><td class="r"></td><td class="r cr">42.000,00</td></tr>
+        <tr><td class="mono">2</td><td class="mono">760300</td><td>Elektrik gideri</td><td class="mono">MY-1100</td><td class="r dr">35.000,00</td><td class="r"></td></tr>
+        <tr><td class="mono">3</td><td class="mono">191000</td><td>İndirilecek KDV %20</td><td></td><td class="r dr">7.000,00</td><td class="r"></td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="prose">
+    <p>Tek belge hem FI'ı hem CO'yu günceller. S/4HANA'da bunun tek satırı <code>ACDOCA</code>'ya yazılır: hesap 760300, tutar 35.000, masraf yeri MY-1100, kâr merkezi KM-MASA. Masraf yeri raporu <span class="tc">S_ALR_87013611</span> veya kalem listesi <span class="tc">KSB1</span> bu 35.000 TL'yi hemen gösterir.</p>
+    <p>KDV satırı ve satıcı satırı CO'ya gitmez. Çünkü bunlar bilanço hesaplarıdır ve maliyet öğesi değildir.</p>
+  </div>
+
+  <h3>Masraf yeri türleri ve maliyetin yolu</h3>
+  <div class="grid3">
+    <div class="card"><h4>Yardımcı (hizmet) masraf yerleri</h4><p>Bina, bakım, enerji santrali, IT. Kendi başına ürün üretmez, diğer masraf yerlerine hizmet verir. Bakiyesi <b>yayma, kuşatma veya aktivite</b> ile boşaltılır.</p></div>
+    <div class="card"><h4>Üretim masraf yerleri</h4><p>Kesim, montaj, boya. Aktivite türü (makine saati, işçilik saati) üretir ve bu aktiviteyi üretim siparişlerine satar.</p></div>
+    <div class="card"><h4>Yönetim ve satış masraf yerleri</h4><p>Genel müdürlük, İK, satış. Maliyetleri ürüne yüklenmez, dönem gideri olarak kalır ya da <span class="tc">KEU5</span> ile CO-PA'ya kuşatılır.</p></div>
+  </div>
+
+  <h3>Masraf yerinden kayıt düzeltme</h3>
+  <p class="prose">Yanlış masraf yerine yazılmış bir gider FI'da ters kayıt yapmadan CO içinde düzeltilebilir. <span class="tc">KB11N</span> (birincil maliyetleri manuel yeniden kaydet) aynı maliyet öğesiyle masraf yerini değiştirir. FI bakiyesi değişmez, sadece CO'daki nesne değişir. <span class="tc">KB41N</span> ise ikincil maliyetler için aynısını yapar.</p>
+</section>
+
+<!-- 6 -->
+<section class="chapter" id="planlama">
+  <header><span class="kicker">Bölüm 6 · Plan</span><h2>Planlama: kıyaslamanın yarısı</h2></header>
+  <p class="lead">Plan olmadan fiili rakam tek başına bir anlam taşımaz. 35.000 TL elektrik çok mu, az mı? Ancak planla karşılaştırınca söylenebilir. Masraf yeri planlaması aynı zamanda aktivite fiyatının kaynağıdır.</p>
+
+  <ol class="steps">
+    <li><div><b>Aktivite miktarı planı · <span class="tc">KP26</span></b><span>Kesim Atölyesi Ekim ayında 2.000 makine saati üretecek.</span></div></li>
+    <li><div><b>Birincil maliyet planı · <span class="tc">KP06</span></b><span>Elektrik 30.000, amortisman 180.000, bakım malzemesi 40.000 TL. Toplam 250.000 TL. Sabit ve değişken kısım ayrı girilebilir.</span></div></li>
+    <li><div><b>Plan kuşatma/yayma · <span class="tc">KSUB</span> / <span class="tc">KSVB</span></b><span>Bina masraf yerinden 50.000 TL plan kuşatması gelir. Masraf yerinin plan maliyeti 300.000 TL olur.</span></div></li>
+    <li><div><b>Plan fiyatı hesaplama · <span class="tc">KSPI</span></b><span>300.000 TL ÷ 2.000 saat = <b>150 TL/saat</b>. Bu fiyat, ürün maliyetlendirmede ve üretim siparişine aktivite yüklemede kullanılır.</span></div></li>
+  </ol>
+
+  <div class="note logic"><b class="tag">Mantık: sabit ve değişken maliyet</b><p>Plan maliyetinin 200.000 TL'si sabit (amortisman, kira), 100.000 TL'si değişken (enerji, sarf malzemesi) olsun. Fiyat 100 TL sabit + 50 TL değişken = 150 TL/saat olur. Fiili üretim 1.600 saate düşerse <b>hedef maliyet</b> 200.000 + 1.600 × 50 = 280.000 TL olur, 240.000 değil. Esnek bütçe (flexible budget) budur: değişken maliyet faaliyetle birlikte esner, sabit maliyet esnemez. Aradaki fark kullanılmayan kapasite maliyetidir.</p></div>
+
+  <div class="tablewrap"><table>
+    <thead><tr><th>Masraf yeri MY-1100 · Ekim</th><th class="r">Plan</th><th class="r">Hedef (1.600 saat)</th><th class="r">Fiili</th><th class="r">Fark (fiili − hedef)</th></tr></thead>
+    <tbody>
+      <tr><td>Sabit maliyetler</td><td class="r">200.000</td><td class="r">200.000</td><td class="r">203.000</td><td class="r dr">3.000</td></tr>
+      <tr><td>Değişken maliyetler</td><td class="r">100.000</td><td class="r">80.000</td><td class="r">86.000</td><td class="r dr">6.000</td></tr>
+      <tr class="sub"><td>Toplam maliyet</td><td class="r">300.000</td><td class="r">280.000</td><td class="r">289.000</td><td class="r dr">9.000</td></tr>
+      <tr><td>Dağıtılan aktivite (1.600 × 150)</td><td class="r"></td><td class="r"></td><td class="r cr">−240.000</td><td class="r"></td></tr>
+      <tr class="total"><td>Masraf yerinde kalan bakiye</td><td class="r"></td><td class="r"></td><td class="r">49.000</td><td class="r"></td></tr>
+    </tbody>
+  </table></div>
+  <p class="prose">Kalan 49.000 TL'nin 40.000'i kullanılmayan kapasitenin sabit maliyetidir (400 saat × 100 TL). 9.000'i ise harcama farkıdır. <span class="tc">KSS2</span> ile masraf yeri varyansları hesaplanır ve bu ayrım raporlanır.</p>
+</section>
+
+<!-- 7 -->
+<section class="chapter" id="dagitim">
+  <header><span class="kicker">Bölüm 7 · Periyodik dağıtım</span><h2>Yayma (distribution) ve kuşatma (assessment)</h2></header>
+  <p class="lead">Bina masraf yerinde kira, güvenlik ve temizlik gideri toplanıyor. Bu maliyeti binayı kullanan bölümlere metrekareye göre dağıtmak gerekiyor. SAP bunun için iki yöntem sunar. İkisi de bir <b>döngü</b> (cycle) ve içindeki <b>segmentler</b> ile tanımlanır.</p>
+
+  <div class="compare">
+    <div>
+      <h4>Yayma · <span class="tc">KSV1</span> / <span class="tc">KSV5</span></h4>
+      <ul>
+        <li>Sadece <b>birincil</b> maliyetleri dağıtır</li>
+        <li>Orijinal maliyet öğesi korunur: alıcı "760300 Elektrik" olarak görür</li>
+        <li>Alıcıda maliyet yapısı ayrıntılı kalır</li>
+        <li>Daha fazla satır, daha fazla veri üretir</li>
+        <li>Masraf yerleri arasında kullanılır</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Kuşatma · <span class="tc">KSU1</span> / <span class="tc">KSU5</span></h4>
+      <ul>
+        <li>Birincil <b>ve</b> ikincil maliyetleri dağıtır</li>
+        <li>Tek bir <b>ikincil maliyet öğesi</b> (kategori 42) kullanır: alıcı "942000 Kuşatma Bina" görür</li>
+        <li>Orijinal ayrıntı kaybolur, gönderende kalır</li>
+        <li>Az satır, sade rapor</li>
+        <li>Masraf yeri ve CO-PA alıcısı olabilir (<span class="tc">KEU5</span>)</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Segment nasıl kurulur?</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Alan</th><th>Örnek değer</th><th>Anlamı</th></tr></thead>
+    <tbody>
+      <tr><td>Gönderen</td><td class="mono">MY-9100 Bina</td><td>Maliyetin çıkacağı masraf yeri</td></tr>
+      <tr><td>Gönderen değerleri</td><td>Fiili tutarlar, %100</td><td>Ne kadarı gönderilecek (tutar, yüzde, plan)</td></tr>
+      <tr><td>Alıcılar</td><td class="mono">MY-1100 … MY-1300, MY-5100</td><td>Maliyeti alacak masraf yerleri (grup da olabilir)</td></tr>
+      <tr><td>Alıcı izleme faktörü</td><td>İstatistiksel temel figür <code>M2</code></td><td>Dağıtım anahtarı: sabit yüzde, sabit oran, SKF, fiili maliyet</td></tr>
+      <tr><td>Kuşatma maliyet öğesi</td><td class="mono">942000</td><td>Sadece kuşatmada (kategori 42)</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="calc" id="calc-assess">
+    <header><h3>Hesaplayıcı: Bina maliyetini metrekareye göre kuşat</h3><span class="hint">Rakamları değiştirin, dağılım anında güncellenir</span></header>
+    <div class="fields">
+      <div class="field"><label for="as-total">Bina masraf yeri toplamı (TL)</label><input id="as-total" type="number" min="0" step="1000" value="120000"></div>
+      <div class="field"><label for="as-a">Kesim Atölyesi (m²)</label><input id="as-a" type="number" min="0" value="600"></div>
+      <div class="field"><label for="as-b">Montaj Atölyesi (m²)</label><input id="as-b" type="number" min="0" value="450"></div>
+      <div class="field"><label for="as-c">Depo (m²)</label><input id="as-c" type="number" min="0" value="300"></div>
+      <div class="field"><label for="as-d">Yönetim (m²)</label><input id="as-d" type="number" min="0" value="150"></div>
+    </div>
+    <div class="bars" id="as-bars"></div>
+    <div class="result" id="as-result"></div>
+  </div>
+
+  <div class="doc">
+    <div class="doc-h"><span>Kuşatma belgesi</span><span>Döngü <b>ZBINA</b></span><span>Segment <b>M2-DAGIT</b></span><span>İşlem <b>KSU5</b></span><span>Dönem <b>010/2026</b></span></div>
+    <div class="tablewrap"><table id="as-doc">
+      <thead><tr><th>Nesne</th><th>Maliyet öğesi</th><th class="r">Borç (alıcı)</th><th class="r">Alacak (gönderen)</th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+  </div>
+
+  <div class="note warn"><b class="tag">Dikkat: sıralama ve iteratif döngüler</b><p>Bina, Bakım masraf yerine; Bakım da Bina'ya hizmet veriyorsa karşılıklı ilişki vardır. Döngüyü <b>iteratif</b> işaretlerseniz SAP, gönderenlerin bakiyesi sıfıra yaklaşana kadar dağıtımı tekrarlar. Aksi halde bir masraf yerinde bakiye kalır. Ayrıca kuşatma döngüleri aktivite fiyatı hesaplamasından (<span class="tc">KSII</span>) önce çalışmalıdır, yoksa fiyata bina payı girmez.</p></div>
+
+  <h3>Periyodik yeniden kayıt · <span class="tc">KSW5</span></h3>
+  <p class="prose">Üçüncü yöntem, tek bir fatura birden çok masraf yerine ait olduğunda kullanılır. Örneğin telefon faturası önce ortak bir "toplama" masraf yerine yazılır, ay sonunda <span class="tc">KSW5</span> ile hat sayısına göre dağıtılır. Yayma gibi orijinal maliyet öğesini korur. Farkı, gönderende iz bırakmamasıdır: sanki fatura baştan doğru masraf yerlerine yazılmış gibi davranır. Hata düzeltme amaçlıdır, yönetim raporunda "dağıtım" olarak görünmez.</p>
+</section>
+
+<!-- 8 -->
+<section class="chapter" id="aktivite">
+  <header><span class="kicker">Bölüm 8 · Aktivite</span><h2>Aktivite dağılımı: masraf yeri hizmet satar</h2></header>
+  <p class="lead">Aktivite dağılımı, CO'nun en güçlü fikridir. Masraf yeri maliyetini metrekare gibi dolaylı bir anahtarla değil, <b>gerçekten tüketilen hizmet miktarıyla</b> iletir. "Bu masa 0,8 saat makine kullandı" demek, "bu masa üretim alanının %40'ını kullanır" demekten çok daha doğrudur.</p>
+
+  <div class="diagram">
+    <svg viewBox="0 0 720 200" role="img" aria-labelledby="act-t">
+      <title id="act-t">Aktivite dağılımı: Kesim Atölyesi 12 saat makine aktivitesini 150 TL/saatten üretim siparişine satar. Masraf yeri alacaklanır, sipariş borçlanır.</title>
+      <defs><marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="dg-arrow acc"/></marker></defs>
+      <rect x="20" y="40" width="210" height="110" rx="6" class="dg-acc"/>
+      <text x="125" y="68" text-anchor="middle" class="dg-t">Masraf yeri MY-1100</text>
+      <text x="125" y="88" text-anchor="middle" class="dg-s">Kesim Atölyesi</text>
+      <text x="125" y="112" text-anchor="middle" class="dg-m">Alacak 1.800 TL</text>
+      <text x="125" y="130" text-anchor="middle" class="dg-m">ikincil öğe 943000</text>
+      <rect x="490" y="40" width="210" height="110" rx="6" class="dg-box"/>
+      <text x="595" y="68" text-anchor="middle" class="dg-t">Üretim siparişi 1000245</text>
+      <text x="595" y="88" text-anchor="middle" class="dg-s">100 adet Ahşap Masa</text>
+      <text x="595" y="112" text-anchor="middle" class="dg-m">Borç 1.800 TL</text>
+      <text x="595" y="130" text-anchor="middle" class="dg-m">ikincil öğe 943000</text>
+      <path d="M232 95H486" class="dg-line acc" marker-end="url(#ah2)"/>
+      <text x="360" y="84" text-anchor="middle" class="dg-t">12 saat × 150 TL</text>
+      <text x="360" y="116" text-anchor="middle" class="dg-s">Aktivite türü MAKSA · Onay: CO11N</text>
+    </svg>
+  </div>
+
+  <div class="grid2">
+    <div class="card"><h4>Doğrudan aktivite dağılımı <span class="tc">KB21N</span></h4><p>Miktarı gönderen bilir ve manuel girer. Örnek: bakım ekibi Montaj Atölyesi'ne 20 saat hizmet verdi.</p></div>
+    <div class="card"><h4>Üretim onayı ile <span class="tc">CO11N</span></h4><p>Operatör işlemi onaylar, rotadaki standart değerlerden aktivite miktarı hesaplanır ve siparişe otomatik yüklenir. Üretimde en yaygın yöntemdir.</p></div>
+    <div class="card"><h4>Dolaylı aktivite dağılımı <span class="tc">KSC5</span></h4><p>Miktar bilinmez, bir anahtarla bölüştürülür. Örnek: IT masraf yeri kullanıcı sayısına göre destek saati dağıtır.</p></div>
+    <div class="card"><h4>Fiili fiyat hesaplama <span class="tc">KSII</span></h4><p>Ay sonunda fiili maliyet ÷ fiili aktivite ile gerçek fiyat bulunur. İsteğe bağlı olarak <span class="tc">CON2</span> ile siparişler bu fiyata yeniden değerlenir.</p></div>
+  </div>
+
+  <div class="note logic"><b class="tag">Mantık</b><p>Aktivite dağılımında masraf yeri <b>alacaklanır</b>, alıcı <b>borçlanır</b>, her ikisi de aynı ikincil maliyet öğesiyle (kategori 43). Toplamda şirketin maliyeti değişmez; sadece yer değiştirir. Bu yüzden CO içi hareketler FI'da gelir tablosunu etkilemez. S/4HANA'da bu kayıtlar yine de <code>ACDOCA</code>'ya ikincil maliyet öğesiyle yazılır ve FI raporlarında sıfır toplamlı görünür.</p></div>
+</section>
+
+<!-- 9 -->
+<section class="chapter" id="ic-siparis">
+  <header><span class="kicker">Bölüm 9 · OPA</span><h2>İç siparişler</h2></header>
+  <p class="lead">İç sipariş, belirli bir amaç ve süre için açılan maliyet toplayıcıdır. Masraf yeri "kim harcadı" sorusunu, iç sipariş "ne için harcandı" sorusunu cevaplar.</p>
+
+  <div class="grid3">
+    <div class="card"><h4>Genel gider siparişi</h4><p>Fuar, eğitim kampanyası, reklam. Maliyet toplanır, iş bitince sorumlu masraf yerine mahsup edilir.</p></div>
+    <div class="card"><h4>Yatırım siparişi</h4><p>Yeni bir makinenin kurulumu. Maliyet, yapılmakta olan yatırımlar (AuC) üzerinden duran varlığa mahsup edilir.</p></div>
+    <div class="card"><h4>İstatistiksel sipariş</h4><p>Gider gerçek olarak masraf yerine yazılır, sipariş sadece izleme için taşınır. Mahsup edilmez.</p></div>
+  </div>
+
+  <h3>Yaşam döngüsü: fuar örneği</h3>
+  <ol class="steps">
+    <li><div><b>Sipariş aç · <span class="tc">KO01</span></b><span>Sipariş 400123 "İstanbul Mobilya Fuarı 2026", sorumlu masraf yeri MY-5100 Pazarlama.</span></div></li>
+    <li><div><b>Bütçe ver · <span class="tc">KO22</span></b><span>300.000 TL. Bütçe profilinde erişilebilirlik kontrolü açık: %90'da uyarı, %110'da hata.</span></div></li>
+    <li><div><b>Serbest bırak</b><span>Durum CRTD'den REL'e geçer. Artık kayıt alabilir.</span></div></li>
+    <li><div><b>Maliyetleri topla · <span class="tc">FB60</span>, <span class="tc">ME21N</span></b><span>Stand kirası 140.000, tasarım 60.000, konaklama 45.000, satınalma siparişi taahhüdü 50.000 TL. Toplam 295.000 TL, bütçenin %98'i: kullanıcı uyarı alır.</span></div></li>
+    <li><div><b>Mahsup kuralı · <span class="tc">KO02</span></b><span>%70 Pazarlama masraf yeri MY-5100, %30 CO-PA segmenti (ürün grubu: masa).</span></div></li>
+    <li><div><b>Mahsup · <span class="tc">KO88</span> / toplu <span class="tc">KO8G</span></b><span>Sipariş bakiyesi sıfırlanır. İkincil öğe (kategori 21) ile alıcılar borçlanır.</span></div></li>
+    <li><div><b>Teknik kapanış (TECO) ve kapanış (CLSD)</b><span>Yeni kayıt alınması engellenir.</span></div></li>
+  </ol>
+
+  <div class="note warn"><b class="tag">Dikkat: taahhütler</b><p>Satınalma siparişi açıldığında sipariş üzerinde <b>taahhüt</b> (commitment) oluşur ve bütçe kontrolü buna da bakar. Fatura geldiğinde taahhüt azalır, fiili artar. Mahsup sadece fiili maliyeti taşır; taahhüt mahsup edilmez. Bütçe raporu <span class="tc">S_ALR_87012993</span> bu üçlüyü (bütçe, fiili, taahhüt) birlikte gösterir.</p></div>
+</section>
+
+<!-- 10 -->
+<section class="chapter" id="urun-maliyet">
+  <header><span class="kicker">Bölüm 10 · CO-PC</span><h2>Ürün maliyetlendirme</h2></header>
+  <p class="lead">Ürün maliyetlendirme, üretime başlamadan <b>bir birimin ne kadara mal olması gerektiğini</b> hesaplar. Sonuç, malzemenin standart fiyatıdır. Stok bu fiyattan değerlenir ve üretimdeki her sapma bu fiyata göre ölçülür.</p>
+
+  <h3>Maliyetlendirmenin iki kaynağı</h3>
+  <div class="grid2">
+    <div class="card"><h4>Ürün ağacı (BOM) <span class="tc">CS01</span></h4><p>Hangi malzemeden ne kadar? Bir masa: 1 tabla, 4 ayak, 16 vida. Malzeme fiyatı malzeme ana verisinden (planlanan fiyat, standart fiyat veya hareketli ortalama) gelir.</p></div>
+    <div class="card"><h4>Rota <span class="tc">CA01</span></h4><p>Hangi iş yerinde, ne kadar süre? İş yeri bir masraf yerine ve aktivite türlerine bağlıdır. Süre × aktivite plan fiyatı = işleme maliyeti.</p></div>
+  </div>
+
+  <h3>Maliyetlendirme şeması (costing sheet) · <span class="tc">KZS2</span></h3>
+  <p class="prose">Doğrudan malzeme ve işçilik dışında kalan maliyetler, bir <b>genel gider oranı</b> ile ürüne yüklenir. Maliyetlendirme şeması bu oranların hangi taban üzerine, hangi oranda uygulanacağını ve karşı kaydın hangi masraf yerine yapılacağını (kredi) tanımlar.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Satır</th><th>Taban / genel gider</th><th>Tanım</th><th>Oran</th><th>Kredi</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">10</td><td>Taban B000</td><td>Doğrudan malzeme (maliyet öğeleri 710000–710999)</td><td></td><td></td></tr>
+      <tr><td class="mono">20</td><td>Genel gider C000</td><td>Malzeme genel gideri (satın alma, depo, taşıma)</td><td class="mono">%10</td><td class="mono">E01 → MY-3100 Depo</td></tr>
+      <tr><td class="mono">30</td><td>Taban B100</td><td>Aktivite maliyetleri (943000–943999)</td><td></td><td></td></tr>
+      <tr><td class="mono">40</td><td>Genel gider C100</td><td>Üretim genel gideri (üretim yönetimi, kalite)</td><td class="mono">%20</td><td class="mono">E02 → MY-1900 Üretim Yön.</td></tr>
+      <tr><td class="mono">50</td><td>Ara toplam</td><td>Üretim maliyeti (satır 10–40)</td><td></td><td></td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="calc" id="calc-cost">
+    <header><h3>Hesaplayıcı: Ahşap Masa standart maliyeti</h3><span class="hint">1 adet için · CK11N mantığıyla</span></header>
+    <div class="fields">
+      <div class="field"><label for="c-tabla">Tabla fiyatı (TL/adet)</label><input id="c-tabla" type="number" min="0" step="1" value="450"></div>
+      <div class="field"><label for="c-ayak">Ayak fiyatı (TL/adet) × 4</label><input id="c-ayak" type="number" min="0" step="1" value="60"></div>
+      <div class="field"><label for="c-vida">Vida fiyatı (TL/adet) × 16</label><input id="c-vida" type="number" min="0" step="0.1" value="1.5"></div>
+      <div class="field"><label for="c-isc">İşçilik süresi (saat)</label><input id="c-isc" type="number" min="0" step="0.1" value="1.5"></div>
+      <div class="field"><label for="c-iscf">İşçilik fiyatı (TL/saat)</label><input id="c-iscf" type="number" min="0" step="1" value="180"></div>
+      <div class="field"><label for="c-mak">Makine süresi (saat)</label><input id="c-mak" type="number" min="0" step="0.1" value="0.8"></div>
+      <div class="field"><label for="c-makf">Makine fiyatı (TL/saat)</label><input id="c-makf" type="number" min="0" step="1" value="250"></div>
+      <div class="field"><label for="c-mgg">Malzeme genel gideri (%)</label><input id="c-mgg" type="number" min="0" step="1" value="10"></div>
+      <div class="field"><label for="c-ugg">Üretim genel gideri (%)</label><input id="c-ugg" type="number" min="0" step="1" value="20"></div>
+    </div>
+    <div class="tablewrap"><table id="cost-table">
+      <thead><tr><th>Maliyet bileşeni</th><th>Kaynak</th><th>Hesap</th><th class="r">Tutar (TL)</th><th class="r">Pay</th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+  </div>
+
+  <h3>Standart fiyat nasıl devreye girer?</h3>
+  <ol class="steps">
+    <li><div><b>Maliyet tahmini yarat · <span class="tc">CK11N</span></b><span>Tek malzeme için. Toplu çalıştırma: maliyetlendirme koşusu <span class="tc">CK40N</span>.</span></div></li>
+    <li><div><b>İşaretle · <span class="tc">CK24</span> (Mark)</b><span>Gelecek dönemin standart fiyatı olarak işaretlenir. Malzeme ana verisinde "gelecek fiyat" alanına düşer.</span></div></li>
+    <li><div><b>Serbest bırak · <span class="tc">CK24</span> (Release)</b><span>Standart fiyat olur. Mevcut stok yeni fiyattan yeniden değerlenir, fark FI'da stok değerleme hesabına yazılır.</span></div></li>
+  </ol>
+
+  <div class="note logic"><b class="tag">Mantık: neden standart fiyat?</b><p>Fiyat kontrolü <b>S</b> (standart) olan malzemede stok hareketleri hep aynı fiyatla değerlenir. Fiili maliyet ne olursa olsun, fark stoka değil <b>fark hesabına</b> gider. Böylece yönetim "plan 1.349 TL idi, gerçekte 1.421 TL oldu, 72 TL'lik fark nereden geldi?" sorusunu sorabilir. Hareketli ortalama fiyat (<b>V</b>) ise farkı stokun içine gömer ve bu soruyu sormak zorlaşır. Bu yüzden mamul ve yarı mamuller neredeyse her zaman S ile yönetilir.</p></div>
+
+  <h3>Maliyet bileşen yapısı</h3>
+  <p class="prose">Maliyet tahmininin sonucu, <b>maliyet bileşenleri</b> (cost components) halinde saklanır: hammadde, işçilik, makine, genel gider gibi. Hangi maliyet öğesinin hangi bileşene gideceğini <span class="tc">OKTZ</span> belirler. Bileşenler CO-PA'ya ayrı değer alanları olarak aktarılabilir. Böylece satılan malın maliyeti tek satır değil, "hammadde payı", "işçilik payı" diye kırılır.</p>
+</section>
+
+<!-- 11 -->
+<section class="chapter" id="siparis-kontrol">
+  <header><span class="kicker">Bölüm 11 · Maliyet nesnesi</span><h2>Maliyet nesnesi kontrolü: üretim siparişi</h2></header>
+  <p class="lead">Standart maliyet bir "olmalı" rakamıdır. Üretim siparişi ise "oldu" rakamını toplar. Ay sonunda ikisi karşılaştırılır ve fark mahsup edilir.</p>
+
+  <h3>Bir üretim siparişinin maliyet yolculuğu</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Olay</th><th>İşlem</th><th>Siparişe etkisi</th><th>FI kaydı</th></tr></thead>
+    <tbody>
+      <tr><td>Sipariş yaratılır</td><td><span class="tc">CO01</span></td><td>Plan maliyeti hesaplanır (100 × 1.349,40)</td><td>Yok</td></tr>
+      <tr><td>Malzeme çıkışı</td><td><span class="tc">MIGO</span> 261</td><td>Borç: tabla, ayak, vida</td><td>B: 710 Hammadde gideri / A: 150 Hammadde stok</td></tr>
+      <tr><td>Operasyon onayı</td><td><span class="tc">CO11N</span></td><td>Borç: işçilik ve makine aktivitesi (943xxx)</td><td>Yok (CO içi, ikincil)</td></tr>
+      <tr><td>Genel gider yükleme</td><td><span class="tc">KGI2</span> / toplu <span class="tc">CO43</span></td><td>Borç: genel gider (941xxx)</td><td>Yok (CO içi, ikincil)</td></tr>
+      <tr><td>Mamul girişi</td><td><span class="tc">MIGO</span> 101</td><td>Alacak: 100 × standart fiyat</td><td>B: 152 Mamul stok / A: Üretimden giriş (fabrika çıktısı)</td></tr>
+      <tr><td>Yarı mamul (WIP)</td><td><span class="tc">KKAX</span> / <span class="tc">KKAO</span></td><td>Açık sipariş bakiyesi WIP olarak hesaplanır</td><td>Mahsupla: B: 151 Yarı mamul / A: WIP değişimi</td></tr>
+      <tr><td>Varyans hesaplama</td><td><span class="tc">KKS2</span> / <span class="tc">KKS1</span></td><td>Tamamlanan siparişte kalan bakiye farklara ayrılır</td><td>Yok (bilgi amaçlı)</td></tr>
+      <tr><td>Mahsup</td><td><span class="tc">KO88</span> / <span class="tc">CO88</span></td><td>Bakiye sıfırlanır</td><td>B: Üretim farkları / A: Üretimden giriş</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="note logic"><b class="tag">Mantık: sipariş bakiyesi neden sıfırlanmalı?</b><p>Siparişe giren her şey borç, mamul girişi alacaktır. Plan ile fiili tamamen aynıysa bakiye sıfırdır. Bakiye kaldıysa ya sipariş henüz bitmemiştir (WIP) ya da bittiği halde plandan sapmıştır (varyans). Ay sonu kapanışının bu kısmının amacı, her siparişteki bakiyeyi bu iki sınıftan birine koymak ve FI'ya doğru hesapla aktarmaktır.</p></div>
+
+  <h3>Periyot bazlı ve sipariş bazlı kontrol</h3>
+  <div class="compare">
+    <div><h4>Sipariş bazlı (order-related)</h4><ul><li>Her üretim siparişi ayrı maliyet nesnesi</li><li>Sipariş bitince (DLV/TECO) varyans hesaplanır</li><li>Kesikli üretim, proje tipi işler</li></ul></div>
+    <div><h4>Periyot bazlı (product cost collector)</h4><ul><li>Maliyet toplayıcı <span class="tc">KKF6N</span> malzeme başına tek nesne</li><li>Her ay sonunda WIP ve varyans hesaplanır</li><li>Seri üretim, tekrarlı üretim (REM)</li></ul></div>
+  </div>
+</section>
+
+<!-- 12 -->
+<section class="chapter" id="varyans">
+  <header><span class="kicker">Bölüm 12 · Analiz</span><h2>Varyans analizi: fark nereden geldi?</h2></header>
+  <p class="lead">100 adet masalık sipariş 1000245 tamamlandı. Hedef maliyet 134.940 TL idi, fiili 142.051 TL oldu. 7.111 TL'lik farkı SAP varyans kategorilerine ayırır. Aşağıdaki hesaplayıcıda fiili değerleri değiştirip farkın nasıl kırıldığını görün.</p>
+
+  <div class="calc" id="calc-var">
+    <header><h3>Hesaplayıcı: Sipariş 1000245 varyansları</h3><span class="hint">Standart değerler hesaplayıcının varsayılanlarıdır; fiilileri değiştirin</span></header>
+    <div class="fields">
+      <div class="field"><label for="v-qty">Teslim edilen adet</label><input id="v-qty" type="number" min="1" step="1" value="100"></div>
+      <div class="field"><label for="v-tq">Tüketilen tabla (adet)</label><input id="v-tq" type="number" min="0" step="1" value="103"></div>
+      <div class="field"><label for="v-tp">Tabla fiili fiyatı (TL)</label><input id="v-tp" type="number" min="0" step="1" value="470"></div>
+      <div class="field"><label for="v-lh">Fiili işçilik (saat)</label><input id="v-lh" type="number" min="0" step="1" value="160"></div>
+      <div class="field"><label for="v-mh">Fiili makine (saat)</label><input id="v-mh" type="number" min="0" step="1" value="84"></div>
+    </div>
+    <div class="tablewrap"><table id="var-table">
+      <thead><tr><th>Maliyet satırı</th><th class="r">Hedef</th><th class="r">Fiili</th><th class="r">Fark</th><th>Varyans kategorisi</th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+    <div class="bars" id="var-bars"></div>
+    <p class="hint">Ayak (4/adet × 60 TL) ve vida (16/adet × 1,5 TL) standarda uygun tüketildi varsayılır. Genel giderler fiili taban üzerinden hesaplanır.</p>
+  </div>
+
+  <h3>Varyans kategorileri</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Kategori</th><th>Taraf</th><th>Ne zaman oluşur?</th><th>Örnek</th></tr></thead>
+    <tbody>
+      <tr><td><b>Girdi fiyat farkı</b></td><td>Girdi</td><td>Tüketilen kalemin fiili fiyatı, planlanan fiyattan farklı</td><td>Tabla V fiyatlı ve 470 TL'ye alınmış, plan 450</td></tr>
+      <tr><td><b>Kaynak kullanım farkı</b></td><td>Girdi</td><td>Planda olmayan bir malzeme veya aktivite kullanılmış (ya da tersi)</td><td>Tabla yerine başka bir tabla türü kullanıldı</td></tr>
+      <tr><td><b>Girdi miktar farkı</b></td><td>Girdi</td><td>Aynı kalemden plandan fazla veya az tüketilmiş</td><td>3 tabla fire, 10 saat fazla işçilik</td></tr>
+      <tr><td><b>Kalan girdi farkı</b></td><td>Girdi</td><td>Yukarıdakilere atanamayan fark</td><td>Maliyet öğesi bir kalemle eşlenemedi</td></tr>
+      <tr><td><b>Çıktı fiyat farkı</b></td><td>Çıktı</td><td>Mamul, standart dışındaki bir fiyatla değerlenmiş</td><td>Malzeme V fiyatlı, standart fiyat değişti</td></tr>
+      <tr><td><b>Parti büyüklüğü farkı</b></td><td>Çıktı</td><td>Sabit maliyetler (hazırlık süresi) farklı parti büyüklüğüne yayılmış</td><td>Standart 500 adetlik partiye göre, sipariş 100 adet</td></tr>
+      <tr><td><b>Karma fiyat farkı</b></td><td>Çıktı</td><td>Karma maliyetlendirmede ağırlıklandırılmış fiyattan sapma</td><td>İki üretim versiyonu farklı oranlarda kullanıldı</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="note warn"><b class="tag">Dikkat: fiyat farkı nerede görünür?</b><p>Tabla <b>standart fiyatlı (S)</b> ise siparişe her zaman 450 TL'den yazılır. 20 TL'lik fark sipariş varyansında değil, fatura girişinde (<span class="tc">MIRO</span>) veya mal girişinde (<span class="tc">MIGO</span>) <b>fiyat farkı hesabına</b> (PRD) gider. Siparişte "girdi fiyat farkı" ancak tabla <b>hareketli ortalama (V)</b> fiyatlı olduğunda görünür. Malzeme defteri (bir sonraki bölüm) bu PRD farklarını ay sonunda ürüne geri taşır.</p></div>
+</section>
+
+<!-- 13 -->
+<section class="chapter" id="ml">
+  <header><span class="kicker">Bölüm 13 · Fiili maliyet</span><h2>Malzeme defteri ve fiili maliyetleme</h2></header>
+  <p class="lead">Standart fiyat yönetim için mükemmeldir ama yasal raporlama ve transfer fiyatlandırma çoğu zaman <b>fiili maliyet</b> ister. Malzeme defteri (Material Ledger), gün içinde standart fiyatla çalışıp ay sonunda farkları toplayarak her malzemenin <b>dönemsel birim fiyatını</b> hesaplar.</p>
+  <div class="prose">
+    <ul>
+      <li><b>Tek seviyeli fiyat belirleme:</b> Bir malzemenin kendi satın alma ve üretim farkları, o dönemin stok ve tüketimine dağıtılır.</li>
+      <li><b>Çok seviyeli fiyat belirleme:</b> Hammaddenin farkı, onu tüketen yarı mamule; yarı mamulün farkı mamule; mamulün farkı satılan malın maliyetine taşınır. Tabla 20 TL pahalıya geldiyse bu fark sonunda masanın fiili maliyetinde görünür.</li>
+      <li><b>Çoklu para birimi:</b> Her malzeme hareketi yerel para, grup para birimi ve bir üçüncü para biriminde paralel değerlenir.</li>
+    </ul>
+    <p>Maliyetlendirme kokpiti <span class="tc">CKMLCP</span> adımları: seçim, tek seviyeli fiyat belirleme, çok seviyeli fiyat belirleme, yeniden değerleme, kayıt, WIP (isteğe bağlı), fiili maliyet bileşen bölünmesi. Malzeme fiyat analizi <span class="tc">CKM3N</span> ile bir malzemenin dönem içi tüm farkları kaynağına kadar izlenir.</p>
+  </div>
+  <div class="note s4"><b class="tag">S/4HANA</b><p>S/4HANA'da malzeme defteri <b>zorunludur</b> ve değerleme için her zaman açıktır. Ancak fiili maliyetleme (dönemsel fiyat belirleme) isteğe bağlıdır. Tablolar sadeleşti: ECC'deki <code>MLIT</code>, <code>MLPP</code>, <code>MLCR</code> yerine veriler büyük ölçüde <code>ACDOCA</code> ve <code>MLDOC</code> üzerinden okunur.</p></div>
+</section>
+
+<!-- 14 -->
+<section class="chapter" id="copa">
+  <header><span class="kicker">Bölüm 14 · CO-PA</span><h2>Kârlılık analizi (CO-PA)</h2></header>
+  <p class="lead">CO-PA, tüm maliyet yolculuğunun vardığı yerdir. Gelir ve maliyetleri pazar segmentlerine göre keser: müşteri, ürün, bölge, satış kanalı. Soru artık "ne kadar kazandık?" değil, <b>"nerede kazandık, nerede kaybettik?"</b>.</p>
+
+  <div class="compare">
+    <div><h4>Maliyet bazlı (costing-based)</h4><ul><li>Veriler değer alanlarında (value fields) tutulur</li><li>Tahmini değerler kullanılabilir: fatura anında standart maliyet</li><li>FI ile mutabakat gerekir</li><li>Tablo: <code>CE1xxxx</code> (xxxx = kârlılık alanı)</li><li>S/4'te hâlâ mümkün ama SAP önermiyor</li></ul></div>
+    <div><h4>Hesap bazlı (margin analysis)</h4><ul><li>Veriler ana hesap / maliyet öğesi bazında tutulur</li><li>FI ile her zaman mutabık, çünkü aynı satır</li><li>S/4HANA'nın önerdiği yöntem</li><li>Karakteristikler doğrudan <code>ACDOCA</code>'da</li><li>SMM bölünmesi (COGS'un bileşenlere kırılması) desteklenir</li></ul></div>
+  </div>
+
+  <h3>Katkı payı şeması: Masa ürün grubu, Ekim</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Satır</th><th>Kaynak</th><th class="r">Tutar (TL)</th><th class="r">Satışa oranı</th></tr></thead>
+    <tbody>
+      <tr><td>Brüt satış (800 adet × 2.200)</td><td>SD faturası <span class="tc">VF01</span></td><td class="r">1.760.000</td><td class="r">100,0%</td></tr>
+      <tr><td>Satış indirimleri</td><td>Koşul türleri</td><td class="r">−88.000</td><td class="r">−5,0%</td></tr>
+      <tr class="sub"><td>Net satış</td><td></td><td class="r">1.672.000</td><td class="r">95,0%</td></tr>
+      <tr><td>SMM: hammadde bileşeni (800 × 785,40)</td><td>Standart maliyet bileşenleri</td><td class="r">−628.320</td><td class="r">−35,7%</td></tr>
+      <tr><td>SMM: işçilik + makine + genel gider (800 × 564)</td><td>Standart maliyet bileşenleri</td><td class="r">−451.200</td><td class="r">−25,6%</td></tr>
+      <tr class="sub"><td>Katkı payı I</td><td></td><td class="r">592.480</td><td class="r">33,7%</td></tr>
+      <tr><td>Üretim farkları</td><td>Sipariş mahsubu <span class="tc">CO88</span></td><td class="r">−56.900</td><td class="r">−3,2%</td></tr>
+      <tr><td>Malzeme defteri farkları</td><td><span class="tc">CKMLCP</span></td><td class="r">−12.400</td><td class="r">−0,7%</td></tr>
+      <tr class="sub"><td>Katkı payı II</td><td></td><td class="r">523.180</td><td class="r">29,7%</td></tr>
+      <tr><td>Pazarlama (fuar siparişi %30)</td><td>İç sipariş mahsubu <span class="tc">KO88</span></td><td class="r">−88.500</td><td class="r">−5,0%</td></tr>
+      <tr><td>Satış ve yönetim giderleri</td><td>Kuşatma <span class="tc">KEU5</span></td><td class="r">−210.000</td><td class="r">−11,9%</td></tr>
+      <tr class="total"><td>Faaliyet sonucu</td><td></td><td class="r">224.680</td><td class="r">12,8%</td></tr>
+    </tbody>
+  </table></div>
+  <p class="prose">Tablonun her satırı, bu rehberin bir bölümünden gelir. Birim maliyet 1.349,40 TL (785,40 hammadde + 564 işleme ve genel gider) ürün maliyetlendirmeden, farklar sipariş kontrolünden ve malzeme defterinden, pazarlama payı iç siparişten, yönetim gideri masraf yeri kuşatmasından. CO-PA raporu <span class="tc">KE30</span>, kalem listesi <span class="tc">KE24</span>, S/4'te Fiori "Product Profitability" uygulamaları.</p>
+  <div class="note logic"><b class="tag">Mantık: türetme (derivation)</b><p>Satış faturasında müşteri ve malzeme vardır ama "bölge" veya "ürün grubu" yoktur. CO-PA bu karakteristikleri <b>türetme kuralları</b> (<span class="tc">KEDR</span>) ile doldurur: müşteri ana verisinden satış bölgesi, malzeme ana verisinden ürün hiyerarşisi. Türetme yanlış kurulursa kârlılık raporu doğru toplamı yanlış segmentlere dağıtır ve bu hata toplam rakama bakarak fark edilmez.</p></div>
+</section>
+
+<!-- 15 -->
+<section class="chapter" id="kar-merkezi">
+  <header><span class="kicker">Bölüm 15 · PCA</span><h2>Kâr merkezi muhasebesi</h2></header>
+  <p class="lead">Kâr merkezi, bir iş biriminin kendi gelir tablosunu, hatta bilançosunu görmesini sağlar. Masraf yeri sadece maliyete bakar; kâr merkezi gelir ile maliyeti yan yana koyar.</p>
+  <div class="prose">
+    <p>Kâr merkezi bilgisi <b>atama</b> yoluyla gelir: masraf yeri ana verisi, malzeme ana verisi (tesis görünümü), iç sipariş, WBS öğesi, satış siparişi kalemi. Bir kayıt atanmış nesneye dokunduğunda kâr merkezi otomatik dolar. Hiçbir atama bulunamazsa kayıt <b>fiktif kâr merkezine</b> (dummy) gider. Ay sonunda dummy bakiyesi sıfır olmalıdır; değilse bir ana veri ataması eksiktir.</p>
+    <p>Kâr merkezi kalem listesi <span class="tc">KE5Z</span>, bilanço kalemlerini kâr merkezine taşıma <span class="tc">1KEK</span> (ECC), S/4HANA'da doküman bölme (document splitting) ile bilanço kalemleri kayıt anında kâr merkezine bölünür.</p>
+  </div>
+  <div class="note s4"><b class="tag">S/4HANA</b><p>ECC'de kâr merkezi muhasebesi ayrı bir defterdi (<code>GLPCA</code>, <code>GLPCT</code>). S/4HANA'da kâr merkezi <code>ACDOCA</code>'nın bir alanıdır ve ayrı defter tutulmaz. FI raporları doğrudan kâr merkezine göre kırılabilir. Transfer fiyatlandırma ve kâr merkezi değerlemesi için paralel değerleme yine de kurulabilir.</p></div>
+</section>
+
+<!-- 16 -->
+<section class="chapter" id="kapanis">
+  <header><span class="kicker">Bölüm 16 · Kapanış</span><h2>Ay sonu kapanış sırası</h2></header>
+  <p class="lead">CO kapanışında sıra önemlidir: bir adım, kendinden önceki adımın sonuçlarını kullanır. Aşağıdaki sıra tipik bir üretim şirketi içindir. Kendi sisteminizde Fiori "Manage Financial Close" veya <span class="tc">CLOCOC</span> ile bu adımları görev listesine bağlayabilirsiniz.</p>
+  <ol class="steps">
+    <li><div><b>Malzeme dönemini aç · <span class="tc">MMPV</span></b><span>Yeni dönem için malzeme hareketlerine izin ver.</span></div></li>
+    <li><div><b>Tekrarlayan kayıtlar ve tahakkuklar · <span class="tc">FBD5</span>, <span class="tc">KSA3</span></b><span>Kira, amortisman (<span class="tc">AFAB</span>), maaş tahakkukları. Maliyetler masraf yerlerine düşer.</span></div></li>
+    <li><div><b>Periyodik yeniden kayıt · <span class="tc">KSW5</span></b><span>Toplama masraf yerlerindeki hatalı/geçici kayıtları doğru yerlerine taşı.</span></div></li>
+    <li><div><b>Yayma · <span class="tc">KSV5</span></b><span>Enerji gibi birincil maliyetleri orijinal öğesiyle dağıt.</span></div></li>
+    <li><div><b>Kuşatma · <span class="tc">KSU5</span></b><span>Yardımcı masraf yerlerini (bina, IT) boşalt.</span></div></li>
+    <li><div><b>Dolaylı aktivite dağılımı · <span class="tc">KSC5</span></b><span>Anahtarla dağıtılan aktiviteler.</span></div></li>
+    <li><div><b>Fiili fiyat hesaplama · <span class="tc">KSII</span></b><span>İsteğe bağlı. Fiili maliyet ÷ fiili aktivite.</span></div></li>
+    <li><div><b>Siparişlerde genel gider · <span class="tc">CO43</span> / <span class="tc">KGI4</span></b><span>Üretim ve iç siparişlere maliyetlendirme şemasıyla genel gider yükle.</span></div></li>
+    <li><div><b>WIP hesaplama · <span class="tc">KKAO</span></b><span>Açık siparişlerdeki yarı mamul değerini bul.</span></div></li>
+    <li><div><b>Varyans hesaplama · <span class="tc">KKS1</span></b><span>Tamamlanan siparişlerin farklarını kategorilere ayır.</span></div></li>
+    <li><div><b>Sipariş mahsubu · <span class="tc">CO88</span>, <span class="tc">KO8G</span></b><span>WIP ve varyansları FI'ya ve CO-PA'ya aktar.</span></div></li>
+    <li><div><b>Malzeme defteri kapanışı · <span class="tc">CKMLCP</span></b><span>Fiili maliyetleme açıksa, farkları stok ve SMM'ye dağıt.</span></div></li>
+    <li><div><b>CO-PA'ya kuşatma · <span class="tc">KEU5</span></b><span>Satış ve yönetim masraf yerlerini segmentlere taşı.</span></div></li>
+    <li><div><b>Raporlama ve dönem kilidi · <span class="tc">OKP1</span></b><span>Masraf yeri bakiye kontrolü, dummy kâr merkezi kontrolü, dönemi CO işlemlerine kapat.</span></div></li>
+  </ol>
+</section>
+
+<!-- 17 -->
+<section class="chapter" id="s4">
+  <header><span class="kicker">Bölüm 17 · Yenilikler</span><h2>S/4HANA'da CO'da ne değişti?</h2></header>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Konu</th><th>ECC</th><th>S/4HANA</th></tr></thead>
+    <tbody>
+      <tr><td>Veri modeli</td><td>FI (<code>BSEG</code>) ve CO (<code>COEP</code>, <code>COSS</code>, <code>COSP</code>) ayrı tablolar</td><td>Tek satır: Evrensel Günlük <code>ACDOCA</code></td></tr>
+      <tr><td>Maliyet öğesi</td><td>Ayrı ana veri, <span class="tc">KA01</span>/<span class="tc">KA06</span></td><td>Ana hesabın bir özelliği, <span class="tc">FS00</span></td></tr>
+      <tr><td>FI–CO mutabakatı</td><td>Mutabakat defteri, <span class="tc">KALC</span></td><td>Gerek yok, aynı kayıt</td></tr>
+      <tr><td>Kâr merkezi</td><td>Ayrı defter <code>GLPCA</code></td><td><code>ACDOCA</code> alanı</td></tr>
+      <tr><td>CO-PA</td><td>Maliyet bazlı yaygın</td><td>Hesap bazlı (margin analysis) önerilen</td></tr>
+      <tr><td>Malzeme defteri</td><td>İsteğe bağlı</td><td>Değerleme için zorunlu</td></tr>
+      <tr><td>Plan verisi</td><td><code>COEJ</code>, <code>COSP</code>/<code>COSS</code> plan</td><td><code>ACDOCP</code> ile planlama, SAP Analytics Cloud entegrasyonu</td></tr>
+      <tr><td>Toplamlar tabloları</td><td>Fiziksel tablolar</td><td>Uyumluluk görünümleri (ör. <code>V_COSP_VIEW</code>); eski ABAP raporları çalışır ama veri <code>ACDOCA</code>'dan okunur</td></tr>
+      <tr><td>Arayüz</td><td>SAP GUI raporları</td><td>Fiori uygulamaları: Cost Centers – Actuals, Manage Allocations, Product Profitability</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note s4"><b class="tag">S/4HANA</b><p>Yeni tahsis (allocation) altyapısı: Fiori "Manage Allocations" uygulaması kuşatma, yayma ve kâr merkezi dağılımlarını tek yerden tanımlar ve çalıştırır. Ayrıca S/4HANA'da ana hesap kaydına <b>gerçek zamanlı</b> CO karakteristikleri eklenebilir: bir satış siparişine veya projeye doğrudan maliyet yazmak ayrı bir mahsup adımı gerektirmeden kârlılık segmentini günceller (event-based revenue recognition).</p></div>
+</section>
+
+<!-- 18 -->
+<section class="chapter" id="tcode">
+  <header><span class="kicker">Bölüm 18 · Başvuru</span><h2>İşlem kodları ve tablolar</h2></header>
+  <div class="search">
+    <label class="sr-only" for="tc-q" style="position:absolute;left:-9999px">İşlem kodu ara</label>
+    <input id="tc-q" type="search" placeholder="Kod veya açıklama ara: KSU5, mahsup, fiyat…" autocomplete="off">
+    <span class="count" id="tc-count"></span>
+  </div>
+  <div class="chips" id="tc-chips" role="group" aria-label="Alana göre filtre"></div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Kod</th><th>Açıklama</th><th>Alan</th></tr></thead>
+    <tbody id="tc-body"></tbody>
+  </table></div>
+
+  <h3>Bilinmesi gereken tablolar</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Tablo</th><th>İçerik</th><th>Not</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">ACDOCA</td><td>Evrensel Günlük: FI ve CO fiili kalemleri</td><td>S/4HANA'nın merkezi</td></tr>
+      <tr><td class="mono">ACDOCP</td><td>Plan verisi kalemleri</td><td>S/4HANA planlama</td></tr>
+      <tr><td class="mono">TKA01</td><td>Kontrol alanları</td><td></td></tr>
+      <tr><td class="mono">CSKS / CSKT</td><td>Masraf yeri ana verisi / metinleri</td><td></td></tr>
+      <tr><td class="mono">CSKA / CSKB</td><td>Maliyet öğesi (hesap planı / kontrol alanı bağımlı)</td><td>S/4'te FS00 ile güncellenir</td></tr>
+      <tr><td class="mono">CSLA</td><td>Aktivite türleri</td><td></td></tr>
+      <tr><td class="mono">COBK</td><td>CO belge başlığı</td><td></td></tr>
+      <tr><td class="mono">COEP</td><td>CO kalemleri (değer bazlı)</td><td>S/4'te fiili için ACDOCA'ya yönlendirilir</td></tr>
+      <tr><td class="mono">COSP / COSS</td><td>Birincil / ikincil toplamlar</td><td>S/4'te uyumluluk görünümü</td></tr>
+      <tr><td class="mono">AUFK</td><td>Sipariş ana verisi (iç ve üretim)</td><td></td></tr>
+      <tr><td class="mono">KEKO / KEPH / CKIS</td><td>Maliyet tahmini başlığı / bileşenleri / kalemleri</td><td>CK11N sonucu</td></tr>
+      <tr><td class="mono">MBEW</td><td>Malzeme değerleme (standart, hareketli fiyat)</td><td></td></tr>
+      <tr><td class="mono">CEPC</td><td>Kâr merkezi ana verisi</td><td></td></tr>
+      <tr><td class="mono">CE1xxxx</td><td>CO-PA maliyet bazlı kalemler</td><td>xxxx = kârlılık alanı</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- 19 -->
+<section class="chapter" id="sss">
+  <header><span class="kicker">Bölüm 19 · Pratik</span><h2>Sık sorulanlar ve tuzaklar</h2></header>
+  <div>
+    <details class="qa"><summary>Masraf yerinde ay sonunda bakiye kalıyor. Neden?</summary><div class="a"><p>En sık sebepler: (1) Kuşatma döngüsü tüm maliyet öğelerini kapsamıyor, gönderen değerlerinde bir aralık eksik. (2) Aktivite fiyatı plan bazlı ve fiili maliyet plandan farklı; fark masraf yerinde kalır, bu normaldir ve <span class="tc">KSS2</span> ile analiz edilir. (3) Döngü iteratif değil ve karşılıklı hizmet var. (4) Döngü çalıştıktan sonra geriye tarihli kayıt girildi; döngüyü yeniden çalıştırın.</p></div></details>
+    <details class="qa"><summary>"Hesap bir maliyet öğesi gerektiriyor, maliyet nesnesi girin" hatası</summary><div class="a"><p>Gider hesabı CO'da maliyet öğesi olarak tanımlı ama kayıtta masraf yeri, sipariş veya kârlılık segmenti yok. Ya kayıtta nesne girin ya da <span class="tc">OKB9</span> ile hesap bazında varsayılan masraf yeri tanımlayın. Kur farkı gibi sık kullanılan hesaplar için OKB9 iyi bir çözümdür.</p></div></details>
+    <details class="qa"><summary>Yayma mı kuşatma mı kullanmalıyım?</summary><div class="a"><p>Alıcının maliyetin türünü (elektrik mi, kira mı) görmesi yönetim için önemliyse yayma. Sadece "bina payı" demek yetiyorsa kuşatma. İkincil maliyetleri taşımanız gerekiyorsa veya alıcı CO-PA ise tek seçenek kuşatmadır. Veri hacmi büyükse kuşatma daha hafiftir.</p></div></details>
+    <details class="qa"><summary>Standart fiyatı ay ortasında değiştirebilir miyim?</summary><div class="a"><p>Teknik olarak <span class="tc">MR21</span> ile evet, ama stok yeniden değerlenir ve açık siparişlerin hedef maliyetleri karışır. İyi uygulama: yılda bir (veya çeyrekte bir) maliyetlendirme koşusu <span class="tc">CK40N</span>, dönem başında serbest bırakma. Ara değişiklik gerekirse sadece istisnai malzemelerde ve dönem başında yapın.</p></div></details>
+    <details class="qa"><summary>WIP ile varyans aynı anda hesaplanabilir mi?</summary><div class="a"><p>Hayır. Sipariş durumu belirler: sipariş kısmen teslim edilmişse (PDLV) veya serbest bırakılmışsa (REL) WIP hesaplanır; tamamen teslim edilmiş (DLV) veya teknik olarak tamamlanmışsa (TECO) varyans hesaplanır. Durum değişince, önceki dönemin WIP'i otomatik iptal edilir ve varyans hesaplanır.</p></div></details>
+    <details class="qa"><summary>Kurulum sırasında hangi kararları sonra değiştirmek zor?</summary><div class="a"><p>Kontrol alanı ile şirket kodu ilişkisi, kontrol alanı para birimi, kârlılık alanının türü ve karakteristikleri, malzemelerin fiyat kontrolü (S/V), masraf yeri kodlama mantığı ve standart hiyerarşinin üst düzeyi. Bunları proje başında yönetimin rapor ihtiyaçlarıyla birlikte netleştirin.</p></div></details>
+    <details class="qa"><summary>Mülakat sorusu: birincil ve ikincil maliyet öğesi farkı</summary><div class="a"><p>Birincil maliyet öğesi FI'da bir gelir tablosu hesabına karşılık gelir ve şirket dışından gelen maliyeti temsil eder. İkincil maliyet öğesi sadece CO içinde maliyet taşımak için vardır (kuşatma, aktivite, mahsup, genel gider) ve FI'da gelir tablosunu etkilemez. S/4HANA'da ikisi de FS00'da hesap türüyle ayrılan ana hesaplardır.</p></div></details>
+    <details class="qa"><summary>Mülakat sorusu: hedef maliyet ile plan maliyet farkı</summary><div class="a"><p>Plan maliyeti, sipariş yaratıldığında planlanan miktar üzerinden hesaplanır. Hedef maliyet ise <b>fiili teslim edilen miktar</b> üzerinden standart maliyettir. 100 adet planlanıp 90 adet teslim edildiyse hedef maliyet 90 × standart fiyattır. Varyans hesabı hedefle yapılır, plan maliyetiyle değil.</p></div></details>
+  </div>
+</section>
+
+</main>
+</div>
+
+<footer class="site">
+  <p>Bağımsız eğitim kaynağıdır. SAP, S/4HANA ve ilgili ürün adları SAP SE'nin ticari markalarıdır; bu sayfa SAP SE ile bağlantılı değildir. İşlem kodları ve tablolar standart SAP S/4HANA içindir; kendi sisteminizdeki özelleştirme farklılık gösterebilir. Tüm şirket adları ve tutarlar örnektir.</p>
+</footer>
+</div>
+
+<script>
+(function () {
+  var fmt = new Intl.NumberFormat('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  var fmt0 = new Intl.NumberFormat('tr-TR', { maximumFractionDigits: 0 });
+  var pct = new Intl.NumberFormat('tr-TR', { style: 'percent', minimumFractionDigits: 1, maximumFractionDigits: 1 });
+  function $(id) { return document.getElementById(id); }
+  function val(id) { var n = parseFloat($(id).value); return isFinite(n) && n >= 0 ? n : 0; }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function bar(label, value, max, text) {
+    var w = max > 0 ? Math.max(0, Math.min(100, value / max * 100)) : 0;
+    return '<div class="bar"><span>' + esc(label) + '</span><div class="track"><div class="fill" style="width:' + w.toFixed(2) + '%"></div></div><span class="v">' + text + '</span></div>';
+  }
+
+  /* ---- Kuşatma hesaplayıcısı ---- */
+  var receivers = [
+    { id: 'as-a', ms: 'MY-1100', name: 'Kesim Atölyesi' },
+    { id: 'as-b', ms: 'MY-1200', name: 'Montaj Atölyesi' },
+    { id: 'as-c', ms: 'MY-3100', name: 'Depo' },
+    { id: 'as-d', ms: 'MY-5100', name: 'Yönetim' }
+  ];
+  function assess() {
+    var total = val('as-total');
+    var keys = receivers.map(function (r) { return val(r.id); });
+    var sum = keys.reduce(function (a, b) { return a + b; }, 0);
+    var shares = keys.map(function (k) { return sum > 0 ? total * k / sum : 0; });
+    var max = Math.max.apply(null, shares.concat([1]));
+    $('as-bars').innerHTML = receivers.map(function (r, i) {
+      return bar(r.name, shares[i], max, fmt.format(shares[i]) + ' TL');
+    }).join('');
+    $('as-result').innerHTML =
+      '<span>Toplam alan <b>' + fmt0.format(sum) + ' m²</b></span>' +
+      '<span>Birim oran <b>' + (sum > 0 ? fmt.format(total / sum) : '0,00') + ' TL/m²</b></span>' +
+      '<span>Gönderen bakiyesi <b>' + fmt.format(sum > 0 ? 0 : total) + ' TL</b></span>';
+    var rows = receivers.map(function (r, i) {
+      return '<tr><td class="mono">' + r.ms + ' ' + esc(r.name) + '</td><td class="mono">942000</td><td class="r dr">' + fmt.format(shares[i]) + '</td><td class="r"></td></tr>';
+    }).join('');
+    rows += '<tr><td class="mono">MY-9100 Bina</td><td class="mono">942000</td><td class="r"></td><td class="r cr">' + fmt.format(sum > 0 ? total : 0) + '</td></tr>';
+    $('as-doc').querySelector('tbody').innerHTML = rows;
+  }
+  ['as-total'].concat(receivers.map(function (r) { return r.id; })).forEach(function (id) { $(id).addEventListener('input', assess); });
+  assess();
+
+  /* ---- Standart maliyet hesaplayıcısı ---- */
+  var costIds = ['c-tabla', 'c-ayak', 'c-vida', 'c-isc', 'c-iscf', 'c-mak', 'c-makf', 'c-mgg', 'c-ugg'];
+  function stdCost() {
+    var tabla = val('c-tabla'), ayak = val('c-ayak') * 4, vida = val('c-vida') * 16;
+    var mat = tabla + ayak + vida;
+    var labor = val('c-isc') * val('c-iscf');
+    var mach = val('c-mak') * val('c-makf');
+    var mgg = mat * val('c-mgg') / 100;
+    var ugg = (labor + mach) * val('c-ugg') / 100;
+    var total = mat + labor + mach + mgg + ugg;
+    return { tabla: tabla, ayak: ayak, vida: vida, mat: mat, labor: labor, mach: mach, mgg: mgg, ugg: ugg, total: total };
+  }
+  function renderCost() {
+    var c = stdCost();
+    var p = function (x) { return c.total > 0 ? pct.format(x / c.total) : '–'; };
+    var rows = [
+      ['Hammadde: tabla', 'BOM · 1 × ' + fmt.format(val('c-tabla')), '710100', c.tabla],
+      ['Hammadde: ayak', 'BOM · 4 × ' + fmt.format(val('c-ayak')), '710100', c.ayak],
+      ['Hammadde: vida', 'BOM · 16 × ' + fmt.format(val('c-vida')), '710200', c.vida],
+      ['Malzeme genel gideri', 'Şema satır 20 · %' + fmt0.format(val('c-mgg')) + ' × ' + fmt.format(c.mat), '941000', c.mgg],
+      ['İşçilik', 'Rota · ' + fmt.format(val('c-isc')) + ' sa × ' + fmt.format(val('c-iscf')), '943100', c.labor],
+      ['Makine', 'Rota · ' + fmt.format(val('c-mak')) + ' sa × ' + fmt.format(val('c-makf')), '943000', c.mach],
+      ['Üretim genel gideri', 'Şema satır 40 · %' + fmt0.format(val('c-ugg')) + ' × ' + fmt.format(c.labor + c.mach), '941100', c.ugg]
+    ];
+    var html = rows.map(function (r) {
+      return '<tr><td>' + r[0] + '</td><td>' + r[1] + '</td><td class="mono">' + r[2] + '</td><td class="r">' + fmt.format(r[3]) + '</td><td class="r">' + p(r[3]) + '</td></tr>';
+    }).join('');
+    html += '<tr class="total"><td>Standart maliyet (1 adet)</td><td>CK11N sonucu → CK24 ile serbest bırak</td><td></td><td class="r">' + fmt.format(c.total) + '</td><td class="r">100,0%</td></tr>';
+    $('cost-table').querySelector('tbody').innerHTML = html;
+    renderVar();
+  }
+  costIds.forEach(function (id) { $(id).addEventListener('input', renderCost); });
+
+  /* ---- Varyans hesaplayıcısı ---- */
+  var varIds = ['v-qty', 'v-tq', 'v-tp', 'v-lh', 'v-mh'];
+  function renderVar() {
+    var s = stdCost();
+    var q = val('v-qty');
+    var stdTabla = val('c-tabla'), lr = val('c-iscf'), mr = val('c-makf');
+    var mggR = val('c-mgg') / 100, uggR = val('c-ugg') / 100;
+    var tq = val('v-tq'), tp = val('v-tp'), lh = val('v-lh'), mh = val('v-mh');
+
+    var tgt = {
+      tabla: q * stdTabla, ayak: q * s.ayak, vida: q * s.vida,
+      labor: q * s.labor, mach: q * s.mach
+    };
+    tgt.mgg = (tgt.tabla + tgt.ayak + tgt.vida) * mggR;
+    tgt.ugg = (tgt.labor + tgt.mach) * uggR;
+
+    var act = {
+      tabla: tq * tp, ayak: tgt.ayak, vida: tgt.vida,
+      labor: lh * lr, mach: mh * mr
+    };
+    act.mgg = (act.tabla + act.ayak + act.vida) * mggR;
+    act.ugg = (act.labor + act.mach) * uggR;
+
+    var tablaPrice = tq * (tp - stdTabla);
+    var tablaQty = (tq - q) * stdTabla;
+
+    var lines = [
+      ['Tabla', tgt.tabla, act.tabla, 'Fiyat ' + fmt.format(tablaPrice) + ' + miktar ' + fmt.format(tablaQty)],
+      ['Ayak ve vida', tgt.ayak + tgt.vida, act.ayak + act.vida, 'Fark yok'],
+      ['Malzeme genel gideri', tgt.mgg, act.mgg, 'Taban arttığı için genel gider farkı'],
+      ['İşçilik', tgt.labor, act.labor, 'Girdi miktar farkı'],
+      ['Makine', tgt.mach, act.mach, 'Girdi miktar farkı'],
+      ['Üretim genel gideri', tgt.ugg, act.ugg, 'Taban arttığı için genel gider farkı']
+    ];
+    var tt = 0, ta = 0;
+    var html = lines.map(function (l) {
+      tt += l[1]; ta += l[2];
+      var d = l[2] - l[1];
+      var cls = d > 0.005 ? 'dr' : (d < -0.005 ? 'cr' : '');
+      return '<tr><td>' + l[0] + '</td><td class="r">' + fmt.format(l[1]) + '</td><td class="r">' + fmt.format(l[2]) + '</td><td class="r ' + cls + '">' + fmt.format(d) + '</td><td>' + l[3] + '</td></tr>';
+    }).join('');
+    var dt = ta - tt;
+    html += '<tr class="total"><td>Toplam</td><td class="r">' + fmt.format(tt) + '</td><td class="r">' + fmt.format(ta) + '</td><td class="r">' + fmt.format(dt) + '</td><td>' + (dt > 0 ? 'Aleyhte fark' : dt < 0 ? 'Lehte fark' : 'Fark yok') + '</td></tr>';
+    $('var-table').querySelector('tbody').innerHTML = html;
+
+    var cats = [
+      ['Girdi fiyat farkı', tablaPrice],
+      ['Girdi miktar farkı', tablaQty + (act.labor - tgt.labor) + (act.mach - tgt.mach)],
+      ['Genel gider farkı', (act.mgg - tgt.mgg) + (act.ugg - tgt.ugg)]
+    ];
+    var max = Math.max.apply(null, cats.map(function (c) { return Math.abs(c[1]); }).concat([1]));
+    $('var-bars').innerHTML = cats.map(function (c) { return bar(c[0], Math.abs(c[1]), max, fmt.format(c[1]) + ' TL'); }).join('');
+  }
+  varIds.forEach(function (id) { $(id).addEventListener('input', renderVar); });
+  renderCost();
+
+  /* ---- İşlem kodu sözlüğü ---- */
+  var TC = [
+    ['OKKP','Kontrol alanını tanımla','Yapı'],['OX19','Şirket kodunu kontrol alanına ata','Yapı'],['KEA0','Kârlılık alanını tanımla','Yapı'],['KEKK','Kontrol alanını kârlılık alanına ata','Yapı'],['OKEON','Standart hiyerarşiyi düzenle','Yapı'],['OKP1','CO dönem kilidi','Yapı'],['OKB9','Varsayılan hesap ataması (maliyet nesnesi)','Yapı'],['OKTZ','Maliyet bileşen yapısı','Yapı'],
+    ['KS01','Masraf yeri yarat','Ana veri'],['KS02','Masraf yeri değiştir','Ana veri'],['KS03','Masraf yeri görüntüle','Ana veri'],['KSH1','Masraf yeri grubu yarat','Ana veri'],['FS00','Ana hesap / maliyet öğesi (S/4)','Ana veri'],['KA01','Birincil maliyet öğesi yarat (ECC)','Ana veri'],['KA06','İkincil maliyet öğesi yarat (ECC)','Ana veri'],['KL01','Aktivite türü yarat','Ana veri'],['KK01','İstatistiksel temel figür yarat','Ana veri'],['KE51','Kâr merkezi yarat','Ana veri'],['KO01','İç sipariş yarat','Ana veri'],['KO02','İç sipariş değiştir (mahsup kuralı)','Ana veri'],
+    ['KP06','Maliyet ve aktivite girdisi planlama','Planlama'],['KP26','Aktivite türü / fiyat planlama','Planlama'],['KSPI','Plan aktivite fiyatı hesaplama','Planlama'],['KSUB','Plan kuşatma çalıştır','Planlama'],['KSVB','Plan yayma çalıştır','Planlama'],['KO22','İç sipariş bütçesi','Planlama'],
+    ['KB11N','Birincil maliyetleri manuel yeniden kaydet','Fiili kayıt'],['KB41N','İkincil maliyetleri manuel yeniden kaydet','Fiili kayıt'],['KB21N','Doğrudan aktivite dağılımı','Fiili kayıt'],['KB31N','İstatistiksel temel figür gir','Fiili kayıt'],['KSW1','Periyodik yeniden kayıt döngüsü yarat','Fiili kayıt'],['KSW5','Periyodik yeniden kayıt çalıştır','Fiili kayıt'],['KSV1','Yayma döngüsü yarat','Fiili kayıt'],['KSV5','Yayma çalıştır','Fiili kayıt'],['KSU1','Kuşatma döngüsü yarat','Fiili kayıt'],['KSU5','Kuşatma çalıştır','Fiili kayıt'],['KSC5','Dolaylı aktivite dağılımı çalıştır','Fiili kayıt'],['KSII','Fiili aktivite fiyatı hesaplama','Fiili kayıt'],['KSS2','Masraf yeri varyans hesaplama','Fiili kayıt'],['KSA3','Tahakkuk hesaplama (masraf yeri)','Fiili kayıt'],
+    ['KO88','İç sipariş mahsubu (tekil)','Sipariş'],['KO8G','İç sipariş mahsubu (toplu)','Sipariş'],['KGI2','Genel gider hesaplama (tekil sipariş)','Sipariş'],['KGI4','Genel gider hesaplama (iç siparişler, toplu)','Sipariş'],['CO43','Genel gider hesaplama (üretim siparişleri, toplu)','Sipariş'],['KKAX','WIP hesaplama (tekil)','Sipariş'],['KKAO','WIP hesaplama (toplu)','Sipariş'],['KKS2','Varyans hesaplama (tekil)','Sipariş'],['KKS1','Varyans hesaplama (toplu)','Sipariş'],['CO88','Üretim siparişi mahsubu (toplu)','Sipariş'],['KKF6N','Ürün maliyet toplayıcı','Sipariş'],['CON2','Fiili fiyattan yeniden değerleme','Sipariş'],
+    ['CK11N','Maliyet tahmini yarat','Ürün maliyeti'],['CK13N','Maliyet tahmini görüntüle','Ürün maliyeti'],['CK40N','Maliyetlendirme koşusu','Ürün maliyeti'],['CK24','Standart fiyatı işaretle ve serbest bırak','Ürün maliyeti'],['KZS2','Maliyetlendirme şeması','Ürün maliyeti'],['S_ALR_87099930','Genel gider oranları (bakım)','Ürün maliyeti'],['MR21','Fiyat değişikliği','Ürün maliyeti'],['CKMLCP','Malzeme defteri maliyetlendirme kokpiti','Ürün maliyeti'],['CKM3N','Malzeme fiyat analizi','Ürün maliyeti'],
+    ['KEDR','CO-PA türetme kuralları','CO-PA'],['KE21N','CO-PA kalem girişi','CO-PA'],['KE24','CO-PA kalemlerini görüntüle','CO-PA'],['KE30','CO-PA raporu çalıştır','CO-PA'],['KEU1','CO-PA kuşatma döngüsü yarat','CO-PA'],['KEU5','CO-PA kuşatma çalıştır','CO-PA'],['KE5Z','Kâr merkezi kalemleri','CO-PA'],
+    ['KSB1','Masraf yeri fiili kalemleri','Rapor'],['KSBP','Masraf yeri plan kalemleri','Rapor'],['S_ALR_87013611','Masraf yerleri: fiili / plan / varyans','Rapor'],['KOB1','İç sipariş fiili kalemleri','Rapor'],['S_ALR_87012993','İç sipariş: bütçe / fiili / taahhüt','Rapor'],['KSB5','CO belgeleri görüntüle','Rapor']
+  ];
+  var areas = ['Tümü'].concat(TC.map(function (t) { return t[2]; }).filter(function (a, i, arr) { return arr.indexOf(a) === i; }));
+  var active = 'Tümü';
+  $('tc-chips').innerHTML = areas.map(function (a) {
+    return '<button type="button" class="chip" aria-pressed="' + (a === active) + '" data-a="' + esc(a) + '">' + esc(a) + '</button>';
+  }).join('');
+  function norm(s) { return s.toLocaleLowerCase('tr-TR'); }
+  function renderTc() {
+    var q = norm($('tc-q').value.trim());
+    var list = TC.filter(function (t) {
+      return (active === 'Tümü' || t[2] === active) && (!q || norm(t[0]).indexOf(q) > -1 || norm(t[1]).indexOf(q) > -1);
+    });
+    $('tc-body').innerHTML = list.length ? list.map(function (t) {
+      return '<tr><td><span class="tc">' + t[0] + '</span></td><td>' + esc(t[1]) + '</td><td>' + esc(t[2]) + '</td></tr>';
+    }).join('') : '<tr><td colspan="3">Eşleşen işlem kodu yok. Aramayı kısaltmayı veya "Tümü" filtresini deneyin.</td></tr>';
+    $('tc-count').textContent = list.length + ' / ' + TC.length + ' kod';
+  }
+  $('tc-q').addEventListener('input', renderTc);
+  $('tc-chips').addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-a]'); if (!b) return;
+    active = b.getAttribute('data-a');
+    Array.prototype.forEach.call(this.querySelectorAll('button'), function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+    renderTc();
+  });
+  renderTc();
+
+  /* ---- İçindekiler vurgusu ---- */
+  var links = Array.prototype.slice.call(document.querySelectorAll('#toc a'));
+  if ('IntersectionObserver' in window) {
+    var map = {};
+    links.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          links.forEach(function (a) { a.classList.remove('on'); });
+          var a = map[en.target.id]; if (a) a.classList.add('on');
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    document.querySelectorAll('section.chapter').forEach(function (s) { io.observe(s); });
+  }
+})();
+</script>
+</body>
+</html>
